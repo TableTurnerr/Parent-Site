@@ -1,22 +1,20 @@
 import type { Metadata } from "next";
-import { Playfair_Display, DM_Sans, Geist } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
-import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
-const playfairDisplay = Playfair_Display({
-  variable: "--font-display",
-  subsets: ["latin"],
+const satoshi = localFont({
+  src: [
+    {
+      path: "../public/fonts/Satoshi-Variable.woff2",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Satoshi-VariableItalic.woff2",
+      style: "italic",
+    },
+  ],
+  variable: "--font-satoshi",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const dmSans = DM_Sans({
-  variable: "--font-body",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -47,10 +45,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
-      <body
-        className={`${playfairDisplay.variable} ${dmSans.variable} font-body antialiased bg-cream text-charcoal`}
-      >
+    <html lang="en" className={satoshi.variable}>
+      <body className="font-body antialiased">
         {children}
       </body>
     </html>
