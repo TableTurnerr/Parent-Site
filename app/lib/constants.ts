@@ -42,8 +42,8 @@ export const CLIENTS = [
 ] as const;
 
 export const HERO_IMAGE = {
-  src: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1200&q=80",
-  alt: "Chef preparing a gourmet dish in a restaurant kitchen",
+  src: "/images/hero/hero-bg.png",
+  alt: "Chef cooking with flames in a professional restaurant kitchen",
 };
 
 export const SOCIAL_LINKS = [
