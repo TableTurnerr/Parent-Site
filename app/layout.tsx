@@ -21,22 +21,47 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://tableturnerr.com"),
   title: {
     default:
-      "TableTurnerr - Restaurant Website Design, SEO & Marketing Agency",
+      "TableTurnerr | Restaurant Website Design, SEO & Marketing Agency",
     template: "%s | TableTurnerr",
   },
   description:
-    "We build SEO-optimized websites and drive traffic for independent restaurants. Custom design, Google Ads, and commission-free ordering setup.",
+    "We design SEO-optimized restaurant websites and drive traffic for independent restaurants. Custom website design, local SEO, Google Ads management, and commission-free ordering setup. Get a free quote.",
+  keywords: [
+    "restaurant website design",
+    "restaurant SEO",
+    "restaurant marketing agency",
+    "restaurant branding",
+    "Google Ads for restaurants",
+    "Google Business Profile optimization",
+    "restaurant digital marketing",
+    "independent restaurant marketing",
+    "commission-free online ordering",
+    "restaurant menu design",
+    "local SEO for restaurants",
+    "restaurant website builder",
+  ],
   openGraph: {
     siteName: "TableTurnerr",
+    locale: "en_US",
+    type: "website",
     images: [{ url: "/images/og/default.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
+    creator: "@tableturnerr",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
+  category: "Restaurant Marketing",
 };
 
 export default function RootLayout({
