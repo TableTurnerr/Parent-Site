@@ -63,12 +63,12 @@ export const FAQ_DATA = [
   {
     question: "How long does it take to design and build a restaurant website?",
     answer:
-      "Most custom restaurant websites are completed within 3\u20134 weeks from kickoff. This includes design, development, content creation, and full SEO optimization. Rush projects can be delivered in as little as 2 weeks depending on scope.",
+      "Most custom restaurant websites are completed within 2\u20134 weeks from kickoff. This includes design, development, content creation, and full SEO optimization. Timelines vary depending on scope and complexity.",
   },
   {
     question: "How much does a restaurant website cost?",
     answer:
-      "Our restaurant website packages start at $2,500 for a standard site with mobile-responsive design and on-page SEO. Custom websites with advanced features like online ordering integration, reservation systems, and multi-location support are quoted based on your specific needs.",
+      "Because every restaurant's needs, size, and existing branding differ, the price of our services varies completely per project. We provide custom quotes based on your specific requirements after an initial consultation.",
   },
   {
     question: "What does your restaurant SEO service include?",
