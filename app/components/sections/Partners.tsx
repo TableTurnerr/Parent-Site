@@ -59,17 +59,17 @@ function CheckIcon() {
 
 export default function Partners() {
   return (
-    <section className="bg-charcoal py-20 md:py-28">
+    <section className="bg-white py-20 md:py-28">
       <Container>
         {/* Section header */}
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
-          <SectionLabel className="text-warm-gray-light">
+          <SectionLabel>
             Our Partners
           </SectionLabel>
-          <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-cream mt-3 max-w-2xl">
+          <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl">
             <BlurText text="Scale With Industry-Leading Restaurant Tech" />
           </h2>
-          <p className="text-warm-gray-light text-lg leading-relaxed mt-4 max-w-2xl">
+          <p className="text-warm-gray text-lg leading-relaxed mt-4 max-w-2xl">
             As an official strategic partner of Owner.com and ChowNow, we get
             you exclusive benefits you won't find signing up on your own —
             commission-free ordering that puts revenue back in your pocket. We
@@ -88,17 +88,17 @@ export default function Partners() {
             <AnimatedElement
               key={partner.name}
               variants={fadeInUp}
-              className="rounded-[1.25rem] border border-warm-gray/20 p-8 md:p-10 flex flex-col"
+              className="rounded-[1.25rem] border border-charcoal/10 bg-cream/50 p-8 md:p-10 flex flex-col"
             >
               {/* Partner header */}
               <div className="mb-6">
                 <span className="text-accent text-sm font-semibold tracking-wide uppercase">
                   {partner.tier}
                 </span>
-                <h3 className="font-display font-bold text-2xl md:text-3xl text-cream mt-1">
+                <h3 className="font-display font-bold text-2xl md:text-3xl text-charcoal mt-1">
                   {partner.name}
                 </h3>
-                <p className="text-warm-gray-light text-base mt-1">
+                <p className="text-warm-gray text-base mt-1">
                   {partner.tagline}
                 </p>
               </div>
@@ -108,7 +108,7 @@ export default function Partners() {
                 {partner.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-start gap-3 text-warm-gray-light text-[0.95rem] leading-relaxed"
+                    className="flex items-start gap-3 text-warm-gray text-[0.95rem] leading-relaxed"
                   >
                     <CheckIcon />
                     {feature}
@@ -117,9 +117,9 @@ export default function Partners() {
               </ul>
 
               {/* Exclusive perk */}
-              <div className="rounded-xl bg-white/[0.04] border border-warm-gray/15 px-5 py-4 mb-6">
-                <p className="text-sm text-warm-gray-light">
-                  <span className="text-cream font-semibold">
+              <div className="rounded-xl bg-charcoal/[0.04] border border-charcoal/10 px-5 py-4 mb-6">
+                <p className="text-sm text-warm-gray">
+                  <span className="text-charcoal font-semibold">
                     TableTurnerr Exclusive:
                   </span>{" "}
                   <span className="text-accent font-bold">{partner.perk}</span>{" "}
@@ -129,16 +129,16 @@ export default function Partners() {
 
               {/* Stat */}
               <div>
-                <p className="font-display font-bold text-[clamp(2rem,4vw,2.75rem)] leading-none tracking-tight text-cream">
+                <p className="font-display font-bold text-[clamp(2rem,4vw,2.75rem)] leading-none tracking-tight text-charcoal">
                   {partner.stat.prefix && <span>{partner.stat.prefix}</span>}
                   <NumberTicker
                     value={partner.stat.value}
                     decimalPlaces={partner.stat.decimalPlaces}
-                    className="text-cream"
+                    className="text-charcoal"
                   />
                   {partner.stat.suffix && <span>{partner.stat.suffix}</span>}
                 </p>
-                <p className="text-warm-gray-light text-sm leading-relaxed mt-1">
+                <p className="text-warm-gray text-sm leading-relaxed mt-1">
                   {partner.statLabel}
                 </p>
               </div>
@@ -148,9 +148,9 @@ export default function Partners() {
 
         {/* 3rd-party pivot strategy */}
         <AnimatedElement variants={fadeInUp} className="mt-4 md:mt-5">
-          <div className="rounded-[1.25rem] border border-warm-gray/10 px-8 py-7 md:px-10 md:py-8">
-            <p className="text-warm-gray-light text-base md:text-lg leading-relaxed max-w-3xl">
-              <span className="text-cream font-semibold">
+          <div className="rounded-[1.25rem] border border-charcoal/10 bg-cream/50 px-8 py-7 md:px-10 md:py-8">
+            <p className="text-warm-gray text-base md:text-lg leading-relaxed max-w-3xl">
+              <span className="text-charcoal font-semibold">
                 The smart play:
               </span>{" "}
               We don't ask you to ditch DoorDash or UberEats. Instead, we flip
