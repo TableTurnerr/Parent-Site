@@ -85,3 +85,259 @@
     font-family: var(--font-satoshi), system-ui, sans-serif;
   }
 }
+
+
+/* ─── FlowButton ─── */
+.flow-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  border-radius: 100px;
+  border: 1.5px solid;
+  padding: 0.75rem 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  cursor: pointer;
+  transition: background 600ms cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 600ms cubic-bezier(0.23, 1, 0.32, 1),
+              border-radius 600ms cubic-bezier(0.23, 1, 0.32, 1),
+              color 600ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.flow-btn:active {
+  transform: scale(0.95);
+}
+
+/* ── Secondary variant (outlined → dark fill) ── */
+.flow-btn--secondary {
+  border-color: rgba(26, 26, 26, 0.4);
+  background: transparent;
+  color: #1A1A1A;
+}
+
+.flow-btn--secondary:hover {
+  border-color: transparent;
+  border-radius: 12px;
+  color: #FAFAF8;
+}
+
+.flow-btn--secondary .flow-btn__arrow-left,
+.flow-btn--secondary .flow-btn__arrow-right {
+  stroke: #1A1A1A;
+}
+
+.flow-btn--secondary:hover .flow-btn__arrow-left,
+.flow-btn--secondary:hover .flow-btn__arrow-right {
+  stroke: #FAFAF8;
+}
+
+.flow-btn--secondary .flow-btn__circle {
+  background: #1A1A1A;
+}
+
+/* ── Primary variant (dark → cream fill) ── */
+.flow-btn--primary {
+  border-color: #1A1A1A;
+  background: #1A1A1A;
+  color: #FAFAF8;
+}
+
+.flow-btn--primary:hover {
+  background: rgba(26, 26, 26, 0);
+  border-color: #1A1A1A;
+  border-radius: 12px;
+  color: #1A1A1A;
+}
+
+.flow-btn--primary .flow-btn__arrow-left,
+.flow-btn--primary .flow-btn__arrow-right {
+  stroke: #FAFAF8;
+}
+
+.flow-btn--primary:hover .flow-btn__arrow-left,
+.flow-btn--primary:hover .flow-btn__arrow-right {
+  stroke: #1A1A1A;
+}
+
+.flow-btn--primary .flow-btn__circle {
+  display: none;
+}
+
+/* ── Primary-light variant (cream button on dark bg → outlined on hover) ── */
+.flow-btn--primary-light {
+  border-color: #FAFAF8;
+  background: #FAFAF8;
+  color: #1A1A1A;
+}
+
+.flow-btn--primary-light:hover {
+  background: rgba(250, 250, 248, 0);
+  border-color: #FAFAF8;
+  border-radius: 12px;
+  color: #FAFAF8;
+}
+
+.flow-btn--primary-light .flow-btn__arrow-left,
+.flow-btn--primary-light .flow-btn__arrow-right {
+  stroke: #1A1A1A;
+}
+
+.flow-btn--primary-light:hover .flow-btn__arrow-left,
+.flow-btn--primary-light:hover .flow-btn__arrow-right {
+  stroke: #FAFAF8;
+}
+
+.flow-btn--primary-light .flow-btn__circle {
+  display: none;
+}
+
+/* ── Secondary-light variant (cream outlined on dark bg → cream fill on hover) ── */
+.flow-btn--secondary-light {
+  border-color: rgba(250, 250, 248, 0.4);
+  background: transparent;
+  color: #FAFAF8;
+}
+
+.flow-btn--secondary-light:hover {
+  border-color: transparent;
+  border-radius: 12px;
+  color: #1A1A1A;
+}
+
+.flow-btn--secondary-light .flow-btn__arrow-left,
+.flow-btn--secondary-light .flow-btn__arrow-right {
+  stroke: #FAFAF8;
+}
+
+.flow-btn--secondary-light:hover .flow-btn__arrow-left,
+.flow-btn--secondary-light:hover .flow-btn__arrow-right {
+  stroke: #1A1A1A;
+}
+
+.flow-btn--secondary-light .flow-btn__circle {
+  background: #FAFAF8;
+}
+
+/* ── Text ── */
+.flow-btn__text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: transform 800ms ease-out;
+}
+
+.flow-btn:hover .flow-btn__text {
+  transform: translateX(12px);
+}
+
+/* Nav button: no text offset since arrow is hidden */
+.flow-btn--nav .flow-btn__text {
+  transform: translateX(0);
+}
+
+.flow-btn--nav:hover .flow-btn__text {
+  transform: translateX(8px);
+}
+
+.flow-btn--nav:hover {
+  border-radius: 100px;
+}
+
+/* ── Circle expand ── */
+.flow-btn__circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: width 800ms cubic-bezier(0.19, 1, 0.22, 1),
+              height 800ms cubic-bezier(0.19, 1, 0.22, 1),
+              opacity 800ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.flow-btn:hover .flow-btn__circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+}
+
+/* ── Arrows ── */
+.flow-btn__arrow-left,
+.flow-btn__arrow-right {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  z-index: 9;
+  transition: all 800ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.flow-btn__arrow-left {
+  left: -25%;
+}
+
+.flow-btn:hover .flow-btn__arrow-left {
+  left: 16px;
+}
+
+.flow-btn__arrow-right {
+  right: 16px;
+}
+
+.flow-btn:hover .flow-btn__arrow-right {
+  right: -25%;
+}
+
+/* Header button: hide right arrow, only left arrow slides in on hover */
+.flow-btn--nav .flow-btn__arrow-right {
+  display: none !important;
+}
+
+.flow-btn--nav:hover .flow-btn__arrow-right {
+  display: none !important;
+}
+
+/* Service card hover effects */
+.service-card:hover .service-card-btn {
+  background-color: var(--color-charcoal);
+  color: #fff;
+  border-color: var(--color-charcoal);
+}
+
+.service-card:hover .service-card-arrow {
+  transform: translate(2px, -2px);
+}
+
+.service-card:hover .service-card-img {
+  transform: scale(1.05);
+}
+
+/* ─── Footer Flip Text ─── */
+.flip-text {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.5;
+  height: 1.5em;
+}
+
+.flip-text__inner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.flip-text__inner > span {
+  display: block;
+  height: 1.5em;
+  line-height: 1.5;
+}
+
+.flip-text:hover .flip-text__inner {
+  transform: translateY(-50%);
+}
