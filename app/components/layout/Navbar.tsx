@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Container from "@/app/components/ui/Container";
 import MobileMenu from "./MobileMenu";
+import Button from "@/app/components/ui/Button";
 import { NAV_LINKS } from "@/app/lib/constants";
 
 export default function Navbar() {
@@ -18,45 +18,54 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-cream/90 backdrop-blur-md border-b border-border" : "bg-transparent"
+      className={`fixed left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
+        scrolled ? "top-4 px-4 md:px-6" : "top-0 px-0"
       }`}
     >
-      <nav className="w-full">
-        <Container>
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
-            <Link
-              href="/"
-              className="font-display text-xl md:text-2xl font-bold text-charcoal"
-            >
-              TableTurnerr
-            </Link>
+      <nav
+        className={`mx-auto transition-all duration-500 ease-in-out ${
+          scrolled
+            ? "max-w-5xl bg-cream/90 backdrop-blur-md border border-border rounded-full shadow-sm"
+            : "max-w-7xl bg-transparent"
+        }`}
+      >
+        <div
+          className={`flex items-center justify-between transition-all duration-500 ease-in-out ${
+            scrolled
+              ? "h-14 md:h-16 pl-6 md:pl-8 pr-1.5"
+              : "h-16 md:h-20 px-6 md:px-8"
+          }`}
+        >
+          {/* Logo */}
+          <Link
+            href="/"
+            className="font-display text-xl md:text-2xl font-bold text-charcoal"
+          >
+            TableTurnerr
+          </Link>
 
-            {/* Center: Plain nav links */}
-            <div className="hidden md:flex items-center gap-8 lg:gap-10">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm font-medium text-warm-gray hover:text-charcoal transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-
-            {/* Right: CTA */}
-            <Link
-              href="/contact"
-              className="hidden md:inline-flex items-center justify-center rounded-full bg-charcoal text-cream px-6 py-2.5 text-sm font-medium hover:bg-charcoal-light transition-colors"
-            >
-              Get a Quote
-            </Link>
-
-            <MobileMenu />
+          {/* Center: Plain nav links */}
+          <div className="hidden md:flex items-center gap-8 lg:gap-10">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-warm-gray hover:text-charcoal transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
-        </Container>
+
+          {/* Right: CTA */}
+          <div className="hidden md:block">
+            <Button href="/contact" variant="primary" className="flow-btn--nav py-2.5 px-6 text-xs">
+              Get a Quote
+            </Button>
+          </div>
+
+          <MobileMenu />
+        </div>
       </nav>
     </header>
   );
