@@ -39,11 +39,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Column 1 — Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-2.5">
+            <Link href="/" className="inline-block">
               <Logo className="w-auto h-8 text-white" />
-              <span className="text-white text-2xl font-bold tracking-tight">
-                TableTurnerr
-              </span>
             </Link>
             <p className="mt-3 text-neutral-400 text-sm leading-relaxed max-w-xs">
               {SITE_CONFIG.tagline}
@@ -124,7 +121,7 @@ export default function Footer() {
 
         {/* ─── Large Watermark Text ─── */}
         <div className="mt-16 overflow-hidden select-none pointer-events-none" aria-hidden="true">
-          <p className="text-neutral-800 text-[8rem] md:text-[10rem] lg:text-[12rem] font-bold uppercase tracking-tighter leading-none whitespace-nowrap">
+          <p className="text-neutral-800/30 text-[8rem] md:text-[10rem] lg:text-[12rem] font-bold uppercase tracking-tighter leading-none whitespace-nowrap" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.08)' }}>
             TABLETURNERR
           </p>
         </div>
