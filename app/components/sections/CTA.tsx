@@ -13,7 +13,7 @@ export default function CTA() {
           <div className="relative bg-charcoal rounded-[1.5rem] p-12 md:p-16 lg:p-20 text-center overflow-hidden">
             {/* Background image with overlay */}
             <Image
-              src="/images/usage/fire-charcoal.jpg"
+              src="/images/usage/fire-charcoal.webp"
               alt=""
               fill
               className="object-cover opacity-20"
@@ -22,13 +22,13 @@ export default function CTA() {
             />
             <div className="relative z-10">
             <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-cream mb-6">
-              <BlurText text="Ready to Fill More Tables?" />
+              <BlurText text="Ready to Grow Your Restaurant Online?" />
             </h2>
 
             <p className="text-warm-gray-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-              Let&apos;s build a digital presence that brings diners to your
-              door. Get a free consultation and see how we can grow your
-              restaurant.
+              Get a free consultation and discover how our restaurant website
+              design, SEO, and marketing services can drive more online orders
+              and fill more tables at your restaurant.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

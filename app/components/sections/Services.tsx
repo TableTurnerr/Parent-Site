@@ -9,11 +9,11 @@ import { SERVICES } from "@/app/lib/constants";
 
 const SERVICE_IMAGES: Record<string, { src: string; alt: string }> = {
   "restaurant-website-design": {
-    src: "/images/usage/chef-flames.png",
+    src: "/images/usage/chef-flames.webp",
     alt: "Chef cooking with dramatic flames in a professional kitchen",
   },
   "restaurant-seo": {
-    src: "/images/usage/busy-restaurant.jpg",
+    src: "/images/usage/busy-restaurant.webp",
     alt: "Busy restaurant staff working behind the counter",
   },
 };

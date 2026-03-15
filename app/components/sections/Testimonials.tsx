@@ -8,30 +8,31 @@ import { UniqueTestimonials, type TestimonialItem } from "@/components/ui/unique
 const TESTIMONIALS: TestimonialItem[] = [
   {
     id: 1,
-    quote:
-      "TableTurnerr completely transformed our online presence. We went from invisible on Google to ranking #1 in our area within 4 months.",
-    author: "Ahmad R.",
-    role: "Owner at Grill Shack",
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=256&auto=format&fit=crop",
+    quote: "Amazing work amazing people!! Definitely my go to",
+    author: "Grill Shack",
+    role: "Restaurant owner",
+    avatar: "/Client_Logos/GrillShack.webp",
   },
   {
     id: 2,
-    quote:
-      "The website they built is stunning and actually brings in customers. We've seen a 60% increase in online orders since launching.",
-    author: "Sarah M.",
-    role: "Owner at Miss Mat Cafe",
-    avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=256&auto=format&fit=crop",
+    quote: "Amazing team",
+    author: "Miss Mat Cafe",
+    role: "Restaurant owner",
+    avatar: "/Client_Logos/MissMatCafe.webp",
   },
   {
     id: 3,
-    quote:
-      "Their Google Ads management has been a game-changer. Every dollar we spend comes back tenfold. Best marketing investment we've made.",
-    author: "James T.",
-    role: "Owner at Texbbq",
-    avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=256&auto=format&fit=crop",
+    quote: "Great communication and work from the team",
+    author: "Texbbq",
+    role: "Restaurant owner",
+    avatar: "/Client_Logos/TexBBQ.webp",
+  },
+  {
+    id: 4,
+    quote: "Very professional team!! Great working with you",
+    author: "Qadeer Coffee",
+    role: "Restaurant owner",
+    avatar: "/Client_Logos/QadeerCoffee.webp",
   },
 ];
 
@@ -42,7 +43,7 @@ export default function Testimonials() {
         <AnimatedElement variants={fadeInUp} className="mb-4 md:mb-6 text-center">
           <SectionLabel>Testimonials</SectionLabel>
           <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl mx-auto">
-            <BlurText text="What Our Restaurant Partners Say" />
+            <BlurText text="Trusted by Independent Restaurants Nationwide" />
           </h2>
         </AnimatedElement>
 

@@ -37,9 +37,9 @@ export default function FAQ() {
 
             <AnimatedElement variants={fadeInUp}>
               <p className="text-warm-gray text-lg leading-relaxed">
-                Everything you need to know about working with us. Can&apos;t
-                find what you&apos;re looking for? Reach out and we&apos;ll be
-                happy to help.
+                Everything you need to know about our restaurant website design,
+                SEO, and marketing services. Can&apos;t find what you&apos;re
+                looking for? Reach out and we&apos;ll be happy to help.
               </p>
             </AnimatedElement>
           </AnimatedElement>

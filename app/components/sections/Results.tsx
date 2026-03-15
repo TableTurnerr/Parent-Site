@@ -11,28 +11,28 @@ const STATS = [
     value: 377,
     suffix: "%",
     decimalPlaces: 0,
-    description: "Average organic traffic growth for our clients",
+    description: "Average organic traffic growth for restaurant clients using our SEO services",
   },
   {
     prefix: "$",
     value: 4.5,
     suffix: "M",
     decimalPlaces: 1,
-    description: "In additional revenue generated for restaurants",
+    description: "In additional online ordering revenue generated for independent restaurants",
   },
   {
     prefix: "",
     value: 50,
     suffix: "+",
     decimalPlaces: 0,
-    description: "Restaurant brands transformed",
+    description: "Independent restaurant brands launched and transformed nationwide",
   },
   {
     prefix: "",
     value: 90,
     suffix: "%",
     decimalPlaces: 0,
-    description: "Of diners research online before visiting",
+    description: "Of diners research a restaurant online before their first visit",
   },
 ] as const;
 
@@ -44,7 +44,7 @@ export default function Results() {
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
           <SectionLabel className="text-warm-gray-light">Results</SectionLabel>
           <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-cream mt-3 max-w-2xl">
-            <BlurText text="Numbers That Speak for Themselves" />
+            <BlurText text="Proven Restaurant Marketing Results" />
           </h2>
         </AnimatedElement>
 

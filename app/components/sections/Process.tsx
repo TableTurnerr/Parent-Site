@@ -9,34 +9,34 @@ const STEPS = [
   {
     number: "01",
     title: "Foundation",
-    subtitle: "Website & Brand Setup",
+    subtitle: "Custom Website & Brand Design",
     description:
-      "We audit your current presence, design a stunning restaurant website, and establish your brand identity across all digital touchpoints.",
+      "We audit your current online presence, design a custom restaurant website optimized for search engines, and build a brand identity that stands out across every digital touchpoint.",
     image: {
-      src: "/images/usage/chef-prep.jpg",
-      alt: "Chef preparing ingredients in a warm kitchen setting",
+      src: "/images/usage/chef-prep.webp",
+      alt: "Chef preparing ingredients in a warm restaurant kitchen",
     },
   },
   {
     number: "02",
     title: "Transition",
-    subtitle: "SEO & Visibility",
+    subtitle: "Restaurant SEO & Local Visibility",
     description:
-      "We optimize your site for search engines, set up your Google Business Profile, and build a local SEO strategy that gets you found by hungry diners.",
+      "We optimize your restaurant for Google Search and Maps, set up your Google Business Profile, and implement a local SEO strategy so nearby diners find you before your competitors.",
     image: {
-      src: "/images/usage/chef-working.jpg",
-      alt: "Kitchen staff preparing food with focus and precision",
+      src: "/images/usage/chef-working.webp",
+      alt: "Restaurant kitchen staff preparing food with focus and precision",
     },
   },
   {
     number: "03",
     title: "Scale",
-    subtitle: "Ads & Growth",
+    subtitle: "Google Ads & Revenue Growth",
     description:
-      "With your foundation set, we launch targeted Google Ads campaigns and refine your strategy to maximize bookings and orders month over month.",
+      "With your digital foundation in place, we launch targeted Google Ads campaigns, help set up commission-free online ordering, and refine your strategy to maximize direct orders month over month.",
     image: {
-      src: "/images/usage/kitchen-counter.jpg",
-      alt: "Busy restaurant kitchen counter with staff serving customers",
+      src: "/images/usage/kitchen-counter.webp",
+      alt: "Busy restaurant counter with staff serving local customers",
     },
   },
 ];
@@ -49,14 +49,14 @@ export default function Process() {
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
           <SectionLabel>How It Works</SectionLabel>
           <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl">
-            <BlurText text="Your Growth Path in Three Steps" />
+            <BlurText text="How We Grow Your Restaurant in Three Steps" />
           </h2>
         </AnimatedElement>
 
         {/* Steps grid */}
         <AnimatedElement
           variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-0"
+          className="grid grid-cols-1 md:grid-cols-3 gap-5"
         >
           {STEPS.map((step, index) => (
             <AnimatedElement
@@ -73,7 +73,7 @@ export default function Process() {
               )}
 
               {/* Card */}
-              <div className="bg-cream-dark rounded-[1.25rem] overflow-hidden flex flex-col w-full md:mx-2.5 first:md:ml-0 last:md:mr-0">
+              <div className="bg-cream-dark rounded-[1.25rem] overflow-hidden flex flex-col w-full">
                 {/* Step image */}
                 <div className="relative h-[160px] md:h-[140px] lg:h-[160px]">
                   <Image
