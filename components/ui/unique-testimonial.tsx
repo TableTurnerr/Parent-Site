@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { cn } from "@/lib/utils"
 
 export interface TestimonialItem {
@@ -23,17 +23,43 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
   const [displayedRole, setDisplayedRole] = useState(testimonials[0].role)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
-  const handleSelect = (index: number) => {
-    if (index === activeIndex || isAnimating) return
-    setIsAnimating(true)
+  const goTo = useCallback(
+    (index: number) => {
+      if (index === activeIndex || isAnimating) return
+      setIsAnimating(true)
+      setTimeout(() => {
+        setDisplayedQuote(testimonials[index].quote)
+        setDisplayedRole(testimonials[index].role)
+        setActiveIndex(index)
+        setTimeout(() => setIsAnimating(false), 400)
+      }, 200)
+    },
+    [activeIndex, isAnimating, testimonials],
+  )
 
-    setTimeout(() => {
-      setDisplayedQuote(testimonials[index].quote)
-      setDisplayedRole(testimonials[index].role)
-      setActiveIndex(index)
-      setTimeout(() => setIsAnimating(false), 400)
-    }, 200)
+  const handleSelect = (index: number) => {
+    setPaused(true)
+    goTo(index)
   }
+
+  // Auto-scroll every 5 seconds, pause on hover or manual selection
+  const [paused, setPaused] = useState(false)
+
+  useEffect(() => {
+    if (paused || isAnimating) return
+    const timer = setTimeout(() => {
+      const next = (activeIndex + 1) % testimonials.length
+      goTo(next)
+    }, 5000)
+    return () => clearTimeout(timer)
+  }, [activeIndex, paused, isAnimating, testimonials.length, goTo])
+
+  // Resume auto-scroll 8s after manual selection
+  useEffect(() => {
+    if (!paused) return
+    const resume = setTimeout(() => setPaused(false), 8000)
+    return () => clearTimeout(resume)
+  }, [paused])
 
   return (
     <div className={cn("flex flex-col items-center gap-10 py-16", className)}>
