@@ -1,5 +1,6 @@
 import Image from "next/image";
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
+import BlurText from "@/app/components/ui/BlurText";
 import Button from "@/app/components/ui/Button";
 import { fadeInUp, fadeIn } from "@/app/lib/animations";
 import { HERO_IMAGE } from "@/app/lib/constants";
@@ -17,11 +18,11 @@ export default function Hero() {
               </p>
 
               <h1 className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mb-6 md:mb-8">
-                The Growth Engine
+                <BlurText text="The Growth Engine" />
                 <br />
-                for Modern
+                <BlurText text="for Modern" delay={150} />
                 <br />
-                Restaurants
+                <BlurText text="Restaurants" delay={300} />
               </h1>
 
               <p className="text-warm-gray text-base md:text-lg leading-relaxed max-w-md mb-8 md:mb-10">
