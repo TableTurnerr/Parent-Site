@@ -49,7 +49,7 @@ export function generateServiceSchema(service: {
   };
 }
 
-export function generateFAQSchema(faqs: Array<{ question: string; answer: string }>) {
+export function generateFAQSchema(faqs: ReadonlyArray<{ readonly question: string; readonly answer: string }>) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",

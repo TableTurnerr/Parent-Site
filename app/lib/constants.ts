@@ -59,3 +59,36 @@ export const SITE_CONFIG = {
   email: "hello@tableturnerr.com",
   phone: "+1 (555) 000-0000",
 } as const;
+
+export const FAQ_DATA = [
+  {
+    question: "How long does it take to build a restaurant website?",
+    answer:
+      "Most restaurant websites are completed within 3-4 weeks from kickoff. This includes design, development, content creation, and SEO optimization. Rush projects can be delivered in as little as 2 weeks.",
+  },
+  {
+    question: "Do you work with restaurants outside of the US?",
+    answer:
+      "Yes! While many of our clients are US-based, we work with restaurants globally. Our SEO and marketing strategies are adapted for your local market and search landscape.",
+  },
+  {
+    question: "What makes your approach different from other agencies?",
+    answer:
+      "We specialize exclusively in the restaurant industry. This means every strategy, design decision, and campaign is informed by years of F&B experience \u2014 not generic templates repurposed for food businesses.",
+  },
+  {
+    question: "How much does a restaurant website cost?",
+    answer:
+      "Our website packages start at $2,500 for a standard restaurant site. Custom designs with advanced features like online ordering integration, reservation systems, and multi-location support are quoted based on scope.",
+  },
+  {
+    question: "Do you offer ongoing SEO and marketing services?",
+    answer:
+      "Absolutely. Most of our clients work with us on a monthly retainer basis for SEO, Google Ads management, and ongoing website maintenance. We also offer one-time optimization packages.",
+  },
+  {
+    question: "Can you help with our existing website or do we need a new one?",
+    answer:
+      "Both! We can optimize and redesign your existing website, or build a completely new one from scratch. We\u2019ll assess your current site and recommend the best path forward during our free consultation.",
+  },
+] as const;
