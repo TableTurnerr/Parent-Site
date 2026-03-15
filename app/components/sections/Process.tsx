@@ -22,7 +22,7 @@ const STEPS = [
     title: "Transition",
     subtitle: "Restaurant SEO & Local Visibility",
     description:
-      "We optimize your restaurant for Google Search and Maps, set up your Google Business Profile, and implement a local SEO strategy so nearby diners find you before your competitors.",
+      "We optimize your restaurant for Google Search and Maps, set up your Google Business Profile, and implement a local SEO strategy so nearby diners find you before your competitors. In some cases, we also connect qualified clients to our strategic partners for commission-free online ordering solutions.",
     image: {
       src: "/images/usage/chef-working.webp",
       alt: "Restaurant kitchen staff preparing food with focus and precision",
