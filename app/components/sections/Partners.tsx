@@ -72,7 +72,10 @@ export default function Partners() {
           <p className="text-warm-gray-light text-lg leading-relaxed mt-4 max-w-2xl">
             As an official strategic partner of Owner.com and ChowNow, we get
             you exclusive benefits you won't find signing up on your own —
-            commission-free ordering that puts revenue back in your pocket.
+            commission-free ordering that puts revenue back in your pocket. We
+            audit your restaurant's operations and digital presence to ensure
+            you meet the qualification standards required by these platforms
+            before onboarding.
           </p>
         </AnimatedElement>
 
