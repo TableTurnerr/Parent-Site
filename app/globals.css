@@ -20,6 +20,7 @@
   --font-display: var(--font-satoshi);
   --font-body: var(--font-satoshi);
   --font-sans: var(--font-satoshi);
+  --font-handwriting: var(--font-caveat);
   --text-display: clamp(3rem, 5vw + 1rem, 5.5rem);
   --text-heading-1: clamp(2.25rem, 3vw + 0.5rem, 3.5rem);
   --text-body: 1.125rem;

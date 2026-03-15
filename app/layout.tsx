@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Caveat } from "next/font/google";
 import "./globals.css";
 
 const satoshi = localFont({
@@ -14,6 +15,12 @@ const satoshi = localFont({
     },
   ],
   variable: "--font-satoshi",
+  display: "swap",
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
   display: "swap",
 });
 
@@ -70,7 +77,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={satoshi.variable}>
+    <html lang="en" className={`${satoshi.variable} ${caveat.variable}`}>
       <body className="font-body antialiased">
         {children}
       </body>
