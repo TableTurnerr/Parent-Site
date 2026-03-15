@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Container from "@/app/components/ui/Container";
 import { Logo } from "@/app/components/ui/Logo";
+import { InteractiveHoverButton } from "@/app/components/ui/InteractiveHoverButton";
 import {
   NAV_LINKS,
   SOCIAL_LINKS,
@@ -25,7 +26,10 @@ function FlipLink({
     <Link href={href} className="flip-text text-sm" {...props}>
       <span className="flip-text__inner">
         <span className={baseColor}>{children}</span>
-        <span className={hoverColor}>{children}</span>
+        <span className={hoverColor}>
+          {children}
+          <span className="ml-1 inline-block text-xs">&#x2197;</span>
+        </span>
       </span>
     </Link>
   );
@@ -107,21 +111,21 @@ export default function Footer() {
                 </FlipLink>
               </li>
               <li>
-                <FlipLink
-                  href="/contact"
-                  baseColor="text-white"
-                  hoverColor="text-neutral-300"
-                >
-                  Get a Quote &rarr;
-                </FlipLink>
+                <Link href="/contact">
+                  <InteractiveHoverButton
+                    text="Get a Quote"
+                    dark
+                    className="border-0 text-sm"
+                  />
+                </Link>
               </li>
             </ul>
           </div>
         </div>
 
         {/* ─── Large Watermark Text ─── */}
-        <div className="mt-16 overflow-hidden select-none pointer-events-none" aria-hidden="true">
-          <p className="text-neutral-800/30 text-[8rem] md:text-[10rem] lg:text-[12rem] font-bold uppercase tracking-tighter leading-none whitespace-nowrap" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.08)' }}>
+        <div className="mt-16 overflow-visible select-none pointer-events-none flex justify-center" aria-hidden="true">
+          <p className="text-neutral-800 text-[8rem] md:text-[10rem] lg:text-[12rem] font-bold uppercase tracking-tighter leading-none whitespace-nowrap text-center">
             TABLETURNERR
           </p>
         </div>
