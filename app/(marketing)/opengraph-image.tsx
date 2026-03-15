@@ -9,9 +9,9 @@ export const contentType = "image/png";
 
 export default async function Image() {
   const bgImage = await readFile(
-    join(process.cwd(), "public/images/usage/restaurant-interior.webp")
+    join(process.cwd(), "public/images/usage/restaurant-kitchen-2.jpg")
   );
-  const bgSrc = `data:image/webp;base64,${bgImage.toString("base64")}`;
+  const bgSrc = `data:image/jpeg;base64,${bgImage.toString("base64")}`;
 
   return new ImageResponse(
     (
