@@ -87,6 +87,27 @@
 }
 
 
+/* ─── Nav Link Underline ─── */
+.nav-link {
+  position: relative;
+}
+
+.nav-link > .nav-link__line {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: #1A1A1A;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease-out;
+}
+
+.nav-link:hover > .nav-link__line {
+  transform: scaleX(1);
+}
+
 /* ─── FlowButton ─── */
 .flow-btn {
   position: relative;

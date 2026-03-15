@@ -53,6 +53,7 @@ export default function Navbar() {
                 className="nav-link text-sm font-medium text-warm-gray hover:text-charcoal transition-colors"
               >
                 {link.label}
+                <span className="nav-link__line" />
               </Link>
             ))}
           </div>
