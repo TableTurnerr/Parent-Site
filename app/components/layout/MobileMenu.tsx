@@ -67,7 +67,7 @@ export default function MobileMenu() {
                   className="mt-4 inline-flex items-center justify-center bg-charcoal text-cream rounded-full px-8 py-3.5 font-medium hover:bg-charcoal-light transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
-                  Get a Quote
+                  Talk to Us
                 </Link>
               </motion.div>
             </motion.nav>

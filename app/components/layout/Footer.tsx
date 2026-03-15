@@ -113,7 +113,7 @@ export default function Footer() {
               <li>
                 <Link href="/contact">
                   <InteractiveHoverButton
-                    text="Get a Quote"
+                    text="Talk to Us"
                     dark
                     className="border-0 text-sm"
                   />

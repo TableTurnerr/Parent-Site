@@ -60,7 +60,7 @@ export default function Navbar() {
           {/* Right: CTA */}
           <div className="hidden md:block">
             <Button href="/contact" variant="primary" className="flow-btn--nav py-2.5 px-6 text-xs">
-              Get a Quote
+              Talk to Us
             </Button>
           </div>
 

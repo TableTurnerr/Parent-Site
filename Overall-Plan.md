@@ -118,7 +118,7 @@ Visual (from DesignProfile-1):
 - Sticky top bar, transparent over hero → `bg-cream/80 backdrop-blur` on scroll
 - Layout: **Logo (left)** | **Pill nav (center)** | **CTA (right)**
 - Center pill: `bg-white rounded-full shadow-sm border` containing links: About | Services | Case Studies | Blog | Contact
-- CTA: "Get a Quote" pill button (`bg-charcoal text-cream`)
+- CTA: "Talk to Us" pill button (`bg-charcoal text-cream`)
 - Logo: "TableTurnerr" in Playfair Display
 - Mobile: Logo + hamburger → full-screen overlay menu with Framer Motion
 - All links are `<Link href>` (crawlable)
