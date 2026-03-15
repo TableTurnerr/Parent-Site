@@ -348,7 +348,7 @@
   width: 0.5rem;
   scale: 1;
   border-radius: 0.5rem;
-  opacity: 0;
+  opacity: 1;
   transition: all 300ms ease;
 }
 
