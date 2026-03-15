@@ -9,7 +9,7 @@ export default function Hero() {
   return (
     <section className="px-4 md:px-8 pt-28 md:pt-32 pb-12 md:pb-16">
       <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 min-h-[500px] md:min-h-[560px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 md:min-h-[560px]">
           {/* Left panel — content card */}
           <AnimatedElement variants={fadeIn}>
             <div className="bg-cream-dark rounded-[1.5rem] p-8 md:p-12 lg:p-14 flex flex-col justify-center h-full">
@@ -32,7 +32,7 @@ export default function Hero() {
                 customers, every single day.
               </p>
 
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
                 <Button href="/contact" variant="primary">
                   Get a Free Report
                 </Button>

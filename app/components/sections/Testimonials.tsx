@@ -38,7 +38,7 @@ const TESTIMONIALS: TestimonialItem[] = [
 
 export default function Testimonials() {
   return (
-    <section className="bg-cream-dark py-20 md:py-28">
+    <section className="bg-cream-dark py-16 md:py-28">
       <Container>
         <AnimatedElement variants={fadeInUp} className="mb-4 md:mb-6 text-center">
           <SectionLabel>Testimonials</SectionLabel>

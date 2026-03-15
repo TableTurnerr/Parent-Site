@@ -125,7 +125,7 @@ export default function Footer() {
 
         {/* ─── Large Watermark Text ─── */}
         <div className="mt-16 overflow-visible select-none pointer-events-none flex justify-center" aria-hidden="true">
-          <p className="text-neutral-800 text-[8rem] md:text-[10rem] lg:text-[12rem] font-bold uppercase tracking-tighter leading-none whitespace-nowrap text-center">
+          <p className="text-neutral-800 text-[2.75rem] sm:text-[8rem] md:text-[10rem] lg:text-[12rem] font-bold uppercase tracking-tighter leading-none whitespace-nowrap text-center">
             TABLETURNERR
           </p>
         </div>

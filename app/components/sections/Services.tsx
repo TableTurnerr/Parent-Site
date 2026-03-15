@@ -44,7 +44,7 @@ export default function Services() {
   const bottomRow = SERVICES.slice(2, 5);
 
   return (
-    <section className="py-20 md:py-28">
+    <section className="py-16 md:py-28">
       <Container>
         {/* Section header */}
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">

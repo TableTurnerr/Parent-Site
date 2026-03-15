@@ -32,7 +32,7 @@ export default function Navbar() {
         <div
           className={`flex items-center justify-between transition-all duration-500 ease-in-out ${
             scrolled
-              ? "h-14 md:h-16 pl-6 md:pl-8 pr-2 md:pr-3"
+              ? "h-14 md:h-16 pl-6 md:pl-8 pr-4 md:pr-3"
               : "h-16 md:h-20 px-6 md:px-8"
           }`}
         >

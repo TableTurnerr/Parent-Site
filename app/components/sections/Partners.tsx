@@ -59,7 +59,7 @@ function CheckIcon() {
 
 export default function Partners() {
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section className="bg-white py-16 md:py-28">
       <Container>
         {/* Section header */}
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">

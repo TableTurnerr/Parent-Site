@@ -7,10 +7,10 @@ import { scaleIn } from "@/app/lib/animations";
 
 export default function CTA() {
   return (
-    <section className="bg-cream py-20 md:py-28">
+    <section className="bg-cream py-16 md:py-28">
       <Container>
         <AnimatedElement variants={scaleIn}>
-          <div className="relative bg-charcoal rounded-[1.5rem] p-12 md:p-16 lg:p-20 text-center overflow-hidden">
+          <div className="relative bg-charcoal rounded-[1.5rem] p-8 sm:p-12 md:p-16 lg:p-20 text-center overflow-hidden">
             {/* Background image with overlay */}
             <Image
               src="/images/usage/fire-charcoal.webp"
@@ -31,11 +31,11 @@ export default function CTA() {
               and fill more tables at your restaurant.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button href="/contact" variant="primary-light">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+              <Button href="/contact" variant="primary-light" className="w-full sm:w-auto">
                 Get a Free Consultation
               </Button>
-              <Button href="/services" variant="secondary-light">
+              <Button href="/services" variant="secondary-light" className="w-full sm:w-auto">
                 View Our Services
               </Button>
             </div>

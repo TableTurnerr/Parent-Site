@@ -28,7 +28,7 @@ const VALUES = [
 
 export default function Mission() {
   return (
-    <section className="bg-cream-dark py-20 md:py-28">
+    <section className="bg-cream-dark py-16 md:py-28">
       <Container>
         {/* Section label */}
         <AnimatedElement variants={fadeInUp}>

@@ -43,7 +43,7 @@ const STEPS = [
 
 export default function Process() {
   return (
-    <section className="bg-cream py-20 md:py-28">
+    <section className="bg-cream py-16 md:py-28">
       <Container>
         {/* Section header */}
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">

@@ -76,7 +76,7 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
   }, [paused])
 
   return (
-    <div ref={sectionRef} className={cn("flex flex-col items-center gap-10 py-16", className)}>
+    <div ref={sectionRef} className={cn("flex flex-col items-center gap-8 sm:gap-10 py-10 sm:py-16", className)}>
       {/* Quote Container — fixed height prevents layout shift on text swap */}
       <div className="relative px-8 min-h-[5rem] md:min-h-[4.5rem] flex items-center justify-center">
         <span className="absolute -left-2 -top-6 text-7xl font-serif text-charcoal/[0.06] select-none pointer-events-none">
