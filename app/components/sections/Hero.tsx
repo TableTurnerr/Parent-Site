@@ -34,7 +34,7 @@ export default function Hero() {
 
               <div className="flex flex-wrap items-center gap-3">
                 <Button href="/contact" variant="primary">
-                  Get a Free Quote
+                  Get a Free Report
                 </Button>
                 <Button href="/services" variant="secondary">
                   View Services
