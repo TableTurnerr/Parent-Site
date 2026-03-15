@@ -11,28 +11,32 @@ const STATS = [
     value: 377,
     suffix: "%",
     decimalPlaces: 0,
-    description: "Average organic traffic growth for restaurant clients using our SEO services",
+    description: "Online growth achieved by Samos Oaxaca after switching to Owner.com",
+    source: "Owner.com",
   },
   {
     prefix: "$",
     value: 4.5,
     suffix: "M",
     decimalPlaces: 1,
-    description: "In additional online ordering revenue generated for independent restaurants",
+    description: "In online sales generated for Saffron Indian Kitchen through Owner.com",
+    source: "Owner.com",
   },
   {
-    prefix: "",
-    value: 50,
-    suffix: "+",
+    prefix: "$",
+    value: 2,
+    suffix: "M+",
     decimalPlaces: 0,
-    description: "Independent restaurant brands launched and transformed nationwide",
+    description: "Saved in commissions by Ollie's in New York after moving to ChowNow",
+    source: "ChowNow",
   },
   {
-    prefix: "",
-    value: 90,
-    suffix: "%",
+    prefix: "$",
+    value: 288,
+    suffix: "K",
     decimalPlaces: 0,
-    description: "Of diners research a restaurant online before their first visit",
+    description: "Saved annually by 4Top Hospitality after eliminating third-party fees via ChowNow",
+    source: "ChowNow",
   },
 ] as const;
 
@@ -42,10 +46,13 @@ export default function Results() {
       <Container>
         {/* Section header */}
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
-          <SectionLabel className="text-warm-gray-light">Results</SectionLabel>
+          <SectionLabel className="text-warm-gray-light">Partner Results</SectionLabel>
           <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-cream mt-3 max-w-2xl">
-            <BlurText text="Proven Restaurant Marketing Results" />
+            <BlurText text="Real Results From Our Partner Ecosystem" />
           </h2>
+          <p className="text-warm-gray-light text-lg leading-relaxed mt-4 max-w-2xl">
+            Restaurants using our recommended platforms are seeing massive, verified ROI. Here is what the ecosystem delivers.
+          </p>
         </AnimatedElement>
 
         {/* Stats grid */}
@@ -74,6 +81,9 @@ export default function Results() {
               </p>
               <p className="text-warm-gray-light text-base md:text-lg leading-relaxed mt-3">
                 {stat.description}
+              </p>
+              <p className="text-accent text-sm font-medium mt-2">
+                via {stat.source}
               </p>
             </AnimatedElement>
           ))}
