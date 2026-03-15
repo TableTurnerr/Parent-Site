@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { cn } from "@/lib/utils"
 
 export interface TestimonialItem {
@@ -22,6 +22,20 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
   const [displayedQuote, setDisplayedQuote] = useState(testimonials[0].quote)
   const [displayedRole, setDisplayedRole] = useState(testimonials[0].role)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  // Pause auto-scroll when section is not visible
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.3 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const goTo = useCallback(
     (index: number) => {
@@ -42,17 +56,17 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
     goTo(index)
   }
 
-  // Auto-scroll every 5 seconds, pause on hover or manual selection
+  // Auto-scroll every 5 seconds, pause on hover, manual selection, or not visible
   const [paused, setPaused] = useState(false)
 
   useEffect(() => {
-    if (paused || isAnimating) return
+    if (paused || isAnimating || !isVisible) return
     const timer = setTimeout(() => {
       const next = (activeIndex + 1) % testimonials.length
       goTo(next)
     }, 5000)
     return () => clearTimeout(timer)
-  }, [activeIndex, paused, isAnimating, testimonials.length, goTo])
+  }, [activeIndex, paused, isAnimating, isVisible, testimonials.length, goTo])
 
   // Resume auto-scroll 8s after manual selection
   useEffect(() => {
@@ -62,17 +76,17 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
   }, [paused])
 
   return (
-    <div className={cn("flex flex-col items-center gap-10 py-16", className)}>
-      {/* Quote Container */}
-      <div className="relative px-8">
+    <div ref={sectionRef} className={cn("flex flex-col items-center gap-10 py-16", className)}>
+      {/* Quote Container — fixed height prevents layout shift on text swap */}
+      <div className="relative px-8 min-h-[5rem] md:min-h-[4.5rem] flex items-center justify-center">
         <span className="absolute -left-2 -top-6 text-7xl font-serif text-charcoal/[0.06] select-none pointer-events-none">
           &ldquo;
         </span>
 
         <p
           className={cn(
-            "text-2xl md:text-3xl font-light text-charcoal text-center max-w-lg leading-relaxed transition-all duration-400 ease-out",
-            isAnimating ? "opacity-0 blur-sm scale-[0.98]" : "opacity-100 blur-0 scale-100",
+            "text-2xl md:text-3xl font-light text-charcoal text-center max-w-lg leading-relaxed transition-[opacity,filter] duration-400 ease-out",
+            isAnimating ? "opacity-0 blur-sm" : "opacity-100 blur-0",
           )}
         >
           {displayedQuote}
