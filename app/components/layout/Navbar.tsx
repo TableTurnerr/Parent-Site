@@ -19,7 +19,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
-        scrolled ? "top-4 px-4 md:px-6" : "top-0 px-0"
+        scrolled ? "top-3 sm:top-4 px-3 sm:px-4 md:px-6" : "top-0 px-0"
       }`}
     >
       <nav
@@ -32,8 +32,8 @@ export default function Navbar() {
         <div
           className={`flex items-center justify-between transition-all duration-500 ease-in-out ${
             scrolled
-              ? "h-14 md:h-16 pl-6 md:pl-8 pr-4 md:pr-3"
-              : "h-16 md:h-20 px-6 md:px-8"
+              ? "h-14 md:h-16 pl-4 sm:pl-6 md:pl-8 pr-3 sm:pr-4 md:pr-3"
+              : "h-16 md:h-20 px-4 sm:px-6 md:px-8"
           }`}
         >
           {/* Logo */}

@@ -124,14 +124,14 @@ export default function Footer() {
         </div>
 
         {/* ─── Large Watermark Text ─── */}
-        <div className="mt-16 overflow-visible select-none pointer-events-none flex justify-center" aria-hidden="true">
-          <p className="text-neutral-800 text-[2.75rem] sm:text-[8rem] md:text-[10rem] lg:text-[12rem] font-bold uppercase tracking-tighter leading-none whitespace-nowrap text-center">
+        <div className="mt-12 sm:mt-16 overflow-visible select-none pointer-events-none flex justify-center" aria-hidden="true">
+          <p className="text-neutral-800 text-[2.5rem] sm:text-[5rem] md:text-[8rem] lg:text-[10rem] xl:text-[12rem] font-bold uppercase tracking-tighter leading-none whitespace-nowrap text-center">
             TABLETURNERR
           </p>
         </div>
 
         {/* ─── Bottom Bar ─── */}
-        <div className="mt-8 border-t border-neutral-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-6 sm:mt-8 border-t border-neutral-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
           <p className="text-neutral-400 text-sm">
             &copy; {new Date().getFullYear()} TableTurnerr. All rights reserved.
           </p>
