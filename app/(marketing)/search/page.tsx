@@ -144,7 +144,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       />
 
       {/* Breadcrumb */}
-      <section className="bg-cream pt-28 md:pt-32 pb-4">
+      <section className="bg-cream pt-24 sm:pt-28 md:pt-32 pb-4">
         <Container>
           <nav aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-sm text-warm-gray">
@@ -180,7 +180,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             {/* Search form */}
             <AnimatedElement variants={fadeInUp}>
               <form action="/search" method="GET" className="max-w-2xl mb-12">
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <input
                     type="search"
                     name="q"
@@ -191,7 +191,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   />
                   <button
                     type="submit"
-                    className="bg-charcoal text-cream px-6 py-3 rounded-xl font-medium hover:bg-charcoal/90 transition-colors"
+                    className="w-full sm:w-auto bg-charcoal text-cream px-6 py-3 rounded-xl font-medium hover:bg-charcoal/90 transition-colors"
                   >
                     Search
                   </button>

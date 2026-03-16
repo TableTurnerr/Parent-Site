@@ -30,7 +30,7 @@ export default function TermsOfServicePage() {
       />
 
       {/* Breadcrumb */}
-      <div className="bg-cream pt-32 md:pt-36">
+      <div className="bg-cream pt-24 sm:pt-28 md:pt-36">
         <Container>
           <nav aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-sm text-warm-gray">

@@ -136,7 +136,7 @@ export default function CaseStudiesPage() {
       />
 
       {/* ── Breadcrumb ──────────────────────────────────────────── */}
-      <div className="bg-cream pt-32 md:pt-36">
+      <div className="bg-cream pt-24 sm:pt-28 md:pt-36">
         <Container>
           <nav aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-sm text-warm-gray">
@@ -187,7 +187,7 @@ export default function CaseStudiesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
               {CLIENTS.map((client) => (
                 <AnimatedElement key={client.name} variants={fadeInUp}>
-                  <div className="rounded-[1.25rem] bg-cream-dark border border-border/50 p-8 md:p-10 flex flex-col h-full">
+                  <div className="rounded-[1.25rem] bg-cream-dark border border-border/50 p-6 sm:p-8 md:p-10 flex flex-col h-full">
                     {/* Logo + badge */}
                     <div className="flex items-center justify-between mb-8">
                       <div className="relative h-12 w-12 rounded-full bg-white border border-border/60 overflow-hidden flex-shrink-0">
@@ -244,10 +244,10 @@ export default function CaseStudiesPage() {
           </AnimatedElement>
 
           <AnimatedElement variants={staggerContainer}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
               {PARTNER_STATS.map((stat) => (
                 <AnimatedElement key={stat.restaurant + stat.label} variants={fadeInUp}>
-                  <div className="rounded-[1.25rem] border border-warm-gray/20 p-8 md:p-10 flex flex-col h-full">
+                  <div className="rounded-[1.25rem] border border-warm-gray/20 p-6 sm:p-8 md:p-10 flex flex-col h-full">
                     {/* Stat number */}
                     {stat.display ? (
                       <p className="font-display font-bold text-[clamp(2.5rem,5vw,3.5rem)] leading-none tracking-tight text-cream">

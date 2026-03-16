@@ -147,7 +147,7 @@ export default function AboutPage() {
       />
 
       {/* Breadcrumb */}
-      <div className="bg-cream pt-32 md:pt-36">
+      <div className="bg-cream pt-24 sm:pt-28 md:pt-36">
         <Container>
           <nav aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-sm text-warm-gray">
@@ -196,7 +196,7 @@ export default function AboutPage() {
               variants={scaleIn}
               className="lg:col-span-5"
             >
-              <div className="relative aspect-[4/5] rounded-[1.25rem] overflow-hidden">
+              <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-[1.25rem] overflow-hidden">
                 <Image
                   src="/images/usage/about-open-kitchen.jpg"
                   alt="Chefs working in an open restaurant kitchen with pendant lighting"
@@ -308,12 +308,12 @@ export default function AboutPage() {
           </AnimatedElement>
 
           <AnimatedElement variants={staggerContainer}>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
               {CLIENTS.map((client) => {
                 const logo = CLIENT_LOGOS[client.name];
                 return (
                   <AnimatedElement key={client.name} variants={fadeInUp}>
-                    <div className="bg-cream rounded-[1.25rem] p-6 md:p-8 flex flex-col items-center justify-center border border-border">
+                    <div className="bg-cream rounded-[1.25rem] p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center border border-border">
                       {logo && (
                         <div className="relative w-full h-20 md:h-24 mb-4 grayscale hover:grayscale-0 transition-all duration-300">
                           <Image
@@ -347,10 +347,10 @@ export default function AboutPage() {
           </AnimatedElement>
 
           <AnimatedElement variants={scaleIn}>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
               {PARTNER_STATS.map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <p className="font-display font-bold text-[clamp(2rem,4vw,3rem)] leading-none text-cream mb-2">
+                  <p className="font-display font-bold text-[clamp(1.75rem,4vw,3rem)] leading-none text-cream mb-2">
                     {stat.prefix}
                     <NumberTicker
                       value={stat.value}

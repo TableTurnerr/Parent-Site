@@ -202,7 +202,7 @@ export default function ContactPage() {
       />
 
       {/* Breadcrumb */}
-      <div className="bg-cream pt-32 md:pt-36">
+      <div className="bg-cream pt-24 sm:pt-28 md:pt-36">
         <Container>
           <nav aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-sm text-warm-gray">
@@ -257,7 +257,7 @@ export default function ContactPage() {
               variants={fadeInUp}
               className="lg:col-span-5"
             >
-              <div className="rounded-[1.25rem] bg-cream-dark p-8 md:p-10 border border-border/50 sticky top-32">
+              <div className="rounded-[1.25rem] bg-cream-dark p-6 sm:p-8 md:p-10 border border-border/50 lg:sticky lg:top-32">
                 {/* Get in Touch */}
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-6">
                   Get in Touch

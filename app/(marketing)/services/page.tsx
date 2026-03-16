@@ -111,7 +111,7 @@ export default function ServicesPage() {
       />
 
       {/* Breadcrumb */}
-      <div className="bg-cream pt-32 md:pt-36">
+      <div className="bg-cream pt-24 sm:pt-28 md:pt-36">
         <Container>
           <nav aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-sm text-warm-gray">
@@ -163,7 +163,7 @@ export default function ServicesPage() {
                       className="service-card group block bg-cream-dark rounded-[1.25rem] overflow-hidden h-full border border-transparent hover:border-border hover:shadow-[0_2px_20px_rgba(0,0,0,0.04)] transition-all duration-300"
                     >
                       {image && (
-                        <div className="relative h-[220px] md:h-[240px] overflow-hidden">
+                        <div className="relative h-[200px] sm:h-[220px] md:h-[240px] overflow-hidden">
                           <Image
                             src={image.src}
                             alt={image.alt}
@@ -204,10 +204,10 @@ export default function ServicesPage() {
       <section className="bg-charcoal py-16 md:py-20">
         <Container>
           <AnimatedElement variants={scaleIn}>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
               {STATS.map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <p className="font-display font-bold text-[clamp(2rem,4vw,3rem)] leading-none text-cream mb-2">
+                  <p className="font-display font-bold text-[clamp(1.75rem,4vw,3rem)] leading-none text-cream mb-2">
                     {stat.prefix}
                     <NumberTicker
                       value={stat.value}
