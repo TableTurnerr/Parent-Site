@@ -136,8 +136,8 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} TableTurnerr. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <FlipLink href="#">Privacy Policy</FlipLink>
-            <FlipLink href="#">Terms of Service</FlipLink>
+            <FlipLink href="/privacy">Privacy Policy</FlipLink>
+            <FlipLink href="/terms">Terms of Service</FlipLink>
           </div>
         </div>
       </Container>
