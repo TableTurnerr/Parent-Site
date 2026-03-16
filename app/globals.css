@@ -115,8 +115,9 @@
       min-height: 44px;
       min-width: 44px;
     }
-    /* Exempt inline links and tiny UI elements from touch target sizing */
-    p a, li a, span a, .flip-text, .nav-link {
+    /* Exempt inline links, nav elements, and tiny UI elements from touch target sizing */
+    p a, li a, span a, .flip-text, .nav-link,
+    header a, header button, nav a, nav button {
       min-height: auto;
       min-width: auto;
     }
