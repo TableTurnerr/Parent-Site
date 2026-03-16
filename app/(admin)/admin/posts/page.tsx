@@ -55,9 +55,14 @@ export default async function PostsPage({
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-[var(--color-charcoal)]">
-          Posts
-        </h1>
+        <div>
+          <h1 className="text-2xl font-bold text-[var(--color-charcoal)]">
+            Posts
+          </h1>
+          <p className="mt-1 text-sm text-[var(--color-warm-gray)]">
+            Manage and organize your blog content.
+          </p>
+        </div>
         <Link
           href="/admin/posts/new"
           className="inline-flex items-center gap-2 rounded-full bg-[var(--color-charcoal)] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-charcoal-light)]"

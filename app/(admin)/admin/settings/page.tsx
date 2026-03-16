@@ -17,7 +17,8 @@ async function updateUserStatus(formData: FormData) {
     .eq("id", user.id)
     .single();
 
-  if (requester?.role !== "admin") throw new Error("Admin only");
+  if (requester?.role !== "admin" && requester?.role !== "manager")
+    throw new Error("Manager or Admin only");
 
   const userId = formData.get("user_id") as string;
   const newStatus = formData.get("status") as "pending" | "approved" | "denied";
@@ -44,10 +45,11 @@ async function updateUserRole(formData: FormData) {
     .eq("id", user.id)
     .single();
 
-  if (requester?.role !== "admin") throw new Error("Admin only");
+  if (requester?.role !== "admin" && requester?.role !== "manager")
+    throw new Error("Manager or Admin only");
 
   const userId = formData.get("user_id") as string;
-  const newRole = formData.get("role") as "admin" | "author";
+  const newRole = formData.get("role") as "viewer" | "commenter" | "editor" | "manager" | "admin";
 
   await supabase
     .from("profiles")
@@ -86,9 +88,14 @@ export default async function SettingsPage() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold text-[var(--color-charcoal)]">
-        Settings
-      </h1>
+      <div>
+        <h1 className="text-2xl font-bold text-[var(--color-charcoal)]">
+          Settings
+        </h1>
+        <p className="mt-1 text-sm text-[var(--color-warm-gray)]">
+          Manage team access and roles.
+        </p>
+      </div>
 
       {/* Current user */}
       <div className="rounded-xl border border-[var(--color-border)] bg-white p-6">

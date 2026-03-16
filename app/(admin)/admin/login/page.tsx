@@ -28,7 +28,7 @@ function LoginForm() {
         {/* Logo */}
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight text-[var(--color-charcoal)]">
-            Table<span className="text-[var(--color-accent)]">Turnerr</span>
+            Table<span className="font-extrabold">Turnerr</span>
           </h1>
           <p className="mt-2 text-sm text-[var(--color-warm-gray)]">
             Team Dashboard

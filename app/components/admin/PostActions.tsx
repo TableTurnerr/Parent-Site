@@ -50,7 +50,7 @@ export default function PostActions({
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        className="rounded-lg p-1.5 text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
+        className="rounded-lg p-2 text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
       >
         <MoreVertical className="h-4 w-4" />
       </button>

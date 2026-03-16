@@ -68,6 +68,7 @@ export async function updatePost(postId: string, formData: FormData) {
   const metaDescription = formData.get("meta_description") as string;
   const metaKeywordsStr = formData.get("meta_keywords") as string;
   const ogImage = formData.get("og_image") as string;
+  const visibilityStr = formData.get("visibility") as string;
   const categoriesStr = formData.get("categories") as string;
 
   const metaKeywords = metaKeywordsStr
@@ -87,6 +88,7 @@ export async function updatePost(postId: string, formData: FormData) {
       meta_description: metaDescription || null,
       meta_keywords: metaKeywords,
       og_image: ogImage || null,
+      visibility: (visibilityStr as "public" | "unlisted" | "private") || "public",
       reading_time: contentHtml ? estimateReadingTime(contentHtml) : null,
       word_count: contentHtml ? countWords(contentHtml) : null,
     })

@@ -1,6 +1,7 @@
 import { createClient } from "@/app/lib/supabase/server";
 import { notFound } from "next/navigation";
 import PostEditor from "@/app/components/admin/PostEditor";
+import type { UserRole } from "@/app/lib/supabase/types";
 
 export default async function EditPostPage({
   params,
@@ -28,6 +29,16 @@ export default async function EditPostPage({
     .select("*")
     .order("name");
 
+  // Get current user's role
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user!.id)
+    .single();
+
   const selectedCategoryIds = (post.categories as { category_id: string }[])?.map(
     (c) => c.category_id
   ) ?? [];
@@ -43,6 +54,7 @@ export default async function EditPostPage({
         featuredImage: post.featured_image ?? "",
         featuredImageAlt: post.featured_image_alt ?? "",
         status: post.status,
+        visibility: post.visibility,
         metaTitle: post.meta_title ?? "",
         metaDescription: post.meta_description ?? "",
         metaKeywords: post.meta_keywords?.join(", ") ?? "",
@@ -50,6 +62,7 @@ export default async function EditPostPage({
         selectedCategoryIds,
       }}
       categories={allCategories ?? []}
+      userRole={(profile?.role as UserRole) ?? "viewer"}
     />
   );
 }
