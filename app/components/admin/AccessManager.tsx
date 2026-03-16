@@ -1,6 +1,8 @@
 "use client";
 
-import { Check, X, Shield, ShieldOff } from "lucide-react";
+import { Check, X } from "lucide-react";
+import { ROLE_LABELS, ROLE_DESCRIPTIONS } from "@/app/lib/supabase/types";
+import type { UserRole } from "@/app/lib/supabase/types";
 
 interface Member {
   id: string;
@@ -11,6 +13,16 @@ interface Member {
   status: string;
   created_at: string;
 }
+
+const ALL_ROLES: UserRole[] = ["viewer", "commenter", "editor", "manager", "admin"];
+
+const ROLE_COLORS: Record<UserRole, string> = {
+  viewer: "bg-gray-100 text-gray-600",
+  commenter: "bg-blue-50 text-blue-600",
+  editor: "bg-emerald-50 text-emerald-600",
+  manager: "bg-purple-50 text-purple-600",
+  admin: "bg-amber-50 text-amber-700",
+};
 
 export default function AccessManager({
   members,
@@ -32,22 +44,22 @@ export default function AccessManager({
       {members.map((member) => (
         <li
           key={member.id}
-          className="flex items-center justify-between px-6 py-4"
+          className="flex items-center justify-between gap-4 px-6 py-4"
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 min-w-0">
             {member.avatar_url ? (
               <img
                 src={member.avatar_url}
                 alt={member.full_name ?? ""}
-                className="h-10 w-10 rounded-full object-cover"
+                className="h-10 w-10 shrink-0 rounded-full object-cover"
               />
             ) : (
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-warm-gray-light)] text-sm font-medium text-white">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-warm-gray-light)] text-sm font-medium text-white">
                 {(member.full_name ?? "?").charAt(0).toUpperCase()}
               </div>
             )}
-            <div>
-              <p className="text-sm font-medium text-[var(--color-charcoal)]">
+            <div className="min-w-0">
+              <p className="truncate text-sm font-medium text-[var(--color-charcoal)]">
                 {member.full_name ?? "Unknown"}
                 {member.id === currentUserId && (
                   <span className="ml-1.5 text-xs text-[var(--color-warm-gray-light)]">
@@ -55,7 +67,7 @@ export default function AccessManager({
                   </span>
                 )}
               </p>
-              <p className="text-xs text-[var(--color-warm-gray-light)]">
+              <p className="truncate text-xs text-[var(--color-warm-gray-light)]">
                 {member.email}
               </p>
               <p className="text-xs text-[var(--color-warm-gray-light)]">
@@ -69,43 +81,40 @@ export default function AccessManager({
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            {/* Role toggle (for approved members) */}
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Role selector (for approved members, not self) */}
             {member.status === "approved" && member.id !== currentUserId && (
               <form action={updateRoleAction}>
                 <input type="hidden" name="user_id" value={member.id} />
-                <input
-                  type="hidden"
+                <select
                   name="role"
-                  value={member.role === "admin" ? "author" : "admin"}
-                />
-                <button
-                  type="submit"
-                  className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
-                    member.role === "admin"
-                      ? "bg-purple-100 text-purple-700 hover:bg-purple-200"
-                      : "bg-[var(--color-cream-dark)] text-[var(--color-warm-gray)] hover:bg-[var(--color-border)]"
-                  }`}
-                  title={
-                    member.role === "admin"
-                      ? "Demote to Author"
-                      : "Promote to Admin"
-                  }
+                  defaultValue={member.role}
+                  onChange={(e) => {
+                    const form = e.target.closest("form");
+                    if (form) form.requestSubmit();
+                  }}
+                  className={`cursor-pointer appearance-none rounded-full px-3 py-1.5 pr-7 text-xs font-medium ${
+                    ROLE_COLORS[(member.role as UserRole) ?? "viewer"]
+                  } border-0 bg-none focus:outline-none`}
+                  title={ROLE_DESCRIPTIONS[(member.role as UserRole) ?? "viewer"]}
                 >
-                  {member.role === "admin" ? (
-                    <Shield className="h-3 w-3" />
-                  ) : (
-                    <ShieldOff className="h-3 w-3" />
-                  )}
-                  {member.role === "admin" ? "Admin" : "Author"}
-                </button>
+                  {ALL_ROLES.map((role) => (
+                    <option key={role} value={role}>
+                      {ROLE_LABELS[role]}
+                    </option>
+                  ))}
+                </select>
               </form>
             )}
 
             {/* Self badge */}
             {member.id === currentUserId && (
-              <span className="rounded-full bg-purple-100 px-3 py-1.5 text-xs font-medium text-purple-700">
-                Admin
+              <span
+                className={`rounded-full px-3 py-1.5 text-xs font-medium ${
+                  ROLE_COLORS[(member.role as UserRole) ?? "viewer"]
+                }`}
+              >
+                {ROLE_LABELS[(member.role as UserRole) ?? "viewer"]}
               </span>
             )}
 
@@ -117,7 +126,7 @@ export default function AccessManager({
                   <input type="hidden" name="status" value="approved" />
                   <button
                     type="submit"
-                    className="flex items-center gap-1 rounded-full bg-green-100 px-3 py-1.5 text-xs font-medium text-green-700 transition-colors hover:bg-green-200"
+                    className="flex cursor-pointer items-center gap-1 rounded-full bg-green-100 px-3 py-1.5 text-xs font-medium text-green-700 transition-colors hover:bg-green-200"
                   >
                     <Check className="h-3 w-3" />
                     Approve
@@ -128,7 +137,7 @@ export default function AccessManager({
                   <input type="hidden" name="status" value="denied" />
                   <button
                     type="submit"
-                    className="flex items-center gap-1 rounded-full bg-red-100 px-3 py-1.5 text-xs font-medium text-red-700 transition-colors hover:bg-red-200"
+                    className="flex cursor-pointer items-center gap-1 rounded-full bg-red-100 px-3 py-1.5 text-xs font-medium text-red-700 transition-colors hover:bg-red-200"
                   >
                     <X className="h-3 w-3" />
                     Deny
@@ -144,7 +153,7 @@ export default function AccessManager({
                 <input type="hidden" name="status" value="approved" />
                 <button
                   type="submit"
-                  className="flex items-center gap-1 rounded-full bg-green-100 px-3 py-1.5 text-xs font-medium text-green-700 transition-colors hover:bg-green-200"
+                  className="flex cursor-pointer items-center gap-1 rounded-full bg-green-100 px-3 py-1.5 text-xs font-medium text-green-700 transition-colors hover:bg-green-200"
                 >
                   <Check className="h-3 w-3" />
                   Re-approve
@@ -159,7 +168,7 @@ export default function AccessManager({
                 <input type="hidden" name="status" value="denied" />
                 <button
                   type="submit"
-                  className="rounded-full bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-100"
+                  className="cursor-pointer rounded-full bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-100"
                 >
                   Revoke
                 </button>
