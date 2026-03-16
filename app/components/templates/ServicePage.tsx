@@ -173,7 +173,7 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
                 variants={fadeInUp}
                 className="rounded-[1.25rem] border border-warm-gray/20 p-6 sm:p-8 md:p-10"
               >
-                <p className="font-display font-bold text-[clamp(2.5rem,5vw,3.5rem)] leading-none tracking-tight text-cream">
+                <p className="font-display font-bold text-4xl sm:text-5xl lg:text-[1.75rem] xl:text-[2.75rem] 2xl:text-5xl leading-none tracking-tight text-cream whitespace-nowrap">
                   {stat.prefix && <span>{stat.prefix}</span>}
                   <NumberTicker
                     value={stat.value}
