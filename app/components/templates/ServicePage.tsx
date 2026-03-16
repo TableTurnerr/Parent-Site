@@ -39,10 +39,10 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
   return (
     <>
       {/* Breadcrumb */}
-      <section className="bg-cream pt-28 md:pt-32 pb-4">
+      <section className="bg-cream pt-24 sm:pt-28 md:pt-32 pb-4">
         <Container>
           <nav aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-warm-gray">
+            <ol className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-sm text-warm-gray">
               <li>
                 <Link href="/" className="hover:text-charcoal transition-colors">
                   Home
@@ -101,7 +101,7 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
 
             {/* Right column — hero image */}
             <AnimatedElement variants={scaleIn} className="lg:col-span-5">
-              <div className="relative aspect-[4/5] rounded-[1.25rem] overflow-hidden">
+              <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-[1.25rem] overflow-hidden">
                 <Image
                   src={service.heroImage.src}
                   alt={service.heroImage.alt}
@@ -134,7 +134,7 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
               <AnimatedElement
                 key={feature.title}
                 variants={fadeInUp}
-                className={`bg-cream rounded-[1.25rem] p-8 md:p-10 border border-border/50 ${
+                className={`bg-cream rounded-[1.25rem] p-6 sm:p-8 md:p-10 border border-border/50 ${
                   index < 2 ? "lg:col-span-1" : ""
                 }`}
               >
@@ -171,7 +171,7 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
               <AnimatedElement
                 key={stat.label}
                 variants={fadeInUp}
-                className="rounded-[1.25rem] border border-warm-gray/20 p-8 md:p-10"
+                className="rounded-[1.25rem] border border-warm-gray/20 p-6 sm:p-8 md:p-10"
               >
                 <p className="font-display font-bold text-[clamp(2.5rem,5vw,3.5rem)] leading-none tracking-tight text-cream">
                   {stat.prefix && <span>{stat.prefix}</span>}
