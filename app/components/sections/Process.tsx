@@ -56,7 +56,7 @@ export default function Process() {
         {/* Steps grid */}
         <AnimatedElement
           variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-3 gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5"
         >
           {STEPS.map((step, index) => (
             <AnimatedElement
@@ -75,7 +75,7 @@ export default function Process() {
               {/* Card */}
               <div className="bg-cream-dark rounded-[1.25rem] overflow-hidden flex flex-col w-full">
                 {/* Step image */}
-                <div className="relative h-[160px] md:h-[140px] lg:h-[160px]">
+                <div className="relative h-[180px] sm:h-[160px] md:h-[140px] lg:h-[160px]">
                   <Image
                     src={step.image.src}
                     alt={step.image.alt}

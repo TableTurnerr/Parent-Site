@@ -64,7 +64,7 @@ export default function Results() {
             <AnimatedElement
               key={stat.description}
               variants={fadeInUp}
-              className="rounded-[1.25rem] border border-warm-gray/20 p-8 md:p-10"
+              className="rounded-[1.25rem] border border-warm-gray/20 p-6 sm:p-8 md:p-10"
             >
               <p className="font-display font-bold text-[clamp(2.5rem,5vw,3.5rem)] leading-none tracking-tight text-cream">
                 {stat.prefix && (

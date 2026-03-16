@@ -21,11 +21,11 @@ export default function CTA() {
               aria-hidden="true"
             />
             <div className="relative z-10">
-            <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-cream mb-6">
+            <h2 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-cream mb-6">
               <BlurText text="Ready to Grow Your Restaurant Online?" />
             </h2>
 
-            <p className="text-warm-gray-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-warm-gray-light text-base sm:text-lg max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
               Get a free consultation and discover how our restaurant website
               design, SEO, and marketing services can drive more online orders
               and fill more tables at your restaurant.

@@ -88,7 +88,7 @@ export default function Partners() {
             <AnimatedElement
               key={partner.name}
               variants={fadeInUp}
-              className="rounded-[1.25rem] border border-charcoal/10 bg-cream/50 p-8 md:p-10 flex flex-col"
+              className="rounded-[1.25rem] border border-charcoal/10 bg-cream/50 p-6 sm:p-8 md:p-10 flex flex-col"
             >
               {/* Partner header */}
               <div className="mb-6">
@@ -148,7 +148,7 @@ export default function Partners() {
 
         {/* 3rd-party pivot strategy */}
         <AnimatedElement variants={fadeInUp} className="mt-4 md:mt-5">
-          <div className="rounded-[1.25rem] border border-charcoal/10 bg-cream/50 px-8 py-7 md:px-10 md:py-8">
+          <div className="rounded-[1.25rem] border border-charcoal/10 bg-cream/50 px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8">
             <p className="text-warm-gray text-base md:text-lg leading-relaxed max-w-3xl">
               <span className="text-charcoal font-semibold">
                 The smart play:

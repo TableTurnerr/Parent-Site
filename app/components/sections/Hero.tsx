@@ -7,13 +7,13 @@ import { HERO_IMAGE } from "@/app/lib/constants";
 
 export default function Hero() {
   return (
-    <section className="px-4 md:px-8 pt-28 md:pt-32 pb-12 md:pb-16">
+    <section className="px-4 sm:px-6 md:px-8 pt-24 sm:pt-28 md:pt-32 pb-10 md:pb-16">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 md:min-h-[560px]">
           {/* Left panel — content card */}
           <AnimatedElement variants={fadeIn}>
-            <div className="bg-cream-dark rounded-[1.5rem] p-8 md:p-12 lg:p-14 flex flex-col justify-center h-full">
-              <p className="text-warm-gray text-xs md:text-sm uppercase tracking-[0.2em] font-medium mb-6 md:mb-8">
+            <div className="bg-cream-dark rounded-[1.25rem] sm:rounded-[1.5rem] p-6 sm:p-8 md:p-12 lg:p-14 flex flex-col justify-center h-full">
+              <p className="text-warm-gray text-xs md:text-sm uppercase tracking-[0.2em] font-medium mb-5 md:mb-8">
                 Restaurant Marketing Agency &raquo;
               </p>
 
@@ -45,7 +45,7 @@ export default function Hero() {
 
           {/* Right panel — hero image */}
           <AnimatedElement variants={fadeInUp}>
-            <div className="relative rounded-[1.5rem] overflow-hidden h-full min-h-[320px] md:min-h-0">
+            <div className="relative rounded-[1.25rem] sm:rounded-[1.5rem] overflow-hidden h-full min-h-[280px] sm:min-h-[320px] md:min-h-0">
               <Image
                 src={HERO_IMAGE.src}
                 alt={HERO_IMAGE.alt}

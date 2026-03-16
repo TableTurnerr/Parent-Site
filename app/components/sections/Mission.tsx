@@ -55,7 +55,7 @@ export default function Mission() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Left — large image */}
           <AnimatedElement variants={fadeIn} className="lg:col-span-5">
-            <div className="relative rounded-[1.25rem] overflow-hidden h-[360px] md:h-[440px]">
+            <div className="relative rounded-[1.25rem] overflow-hidden h-[280px] sm:h-[360px] md:h-[440px]">
               <Image
                 src="/images/usage/happy-diners.webp"
                 alt="Diners enjoying a meal at a vibrant restaurant"
@@ -85,7 +85,7 @@ export default function Mission() {
             {/* Values grid */}
             <AnimatedElement
               variants={staggerContainer}
-              className="grid grid-cols-1 sm:grid-cols-3 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
             >
               {VALUES.map((value) => (
                 <AnimatedElement key={value.number} variants={fadeInUp}>
