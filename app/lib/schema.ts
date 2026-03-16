@@ -23,6 +23,7 @@ export function generateOrganizationSchema() {
       "Restaurant Branding",
       "Google Ads Management",
       "Google Business Profile Optimization",
+      "Commission-Free Delivery Setup",
     ],
     knowsAbout: [
       "Restaurant Marketing",

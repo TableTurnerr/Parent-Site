@@ -46,6 +46,7 @@ export default async function LocationPagesPage({
     Branding: "bg-purple-100 text-purple-700",
     "Paid Ads": "bg-amber-100 text-amber-700",
     "Local Search": "bg-teal-100 text-teal-700",
+    "Online Ordering": "bg-rose-100 text-rose-700",
   };
 
   return (

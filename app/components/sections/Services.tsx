@@ -41,7 +41,7 @@ function ArrowIcon() {
 
 export default function Services() {
   const topRow = SERVICES.slice(0, 2);
-  const bottomRow = SERVICES.slice(2, 5);
+  const bottomRow = SERVICES.slice(2);
 
   return (
     <section className="py-16 md:py-28">
@@ -102,7 +102,7 @@ export default function Services() {
           </div>
 
           {/* Bottom row — 3 smaller cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
             {bottomRow.map((service) => (
               <AnimatedElement key={service.slug} variants={fadeInUp}>
                 <Link

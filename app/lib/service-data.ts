@@ -589,6 +589,119 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     metaDescription:
       "Google Business Profile optimization for restaurants. Dominate local search, Google Maps, and nearby searches. Profile setup, review management, and local pack ranking strategies.",
   },
+
+  "commission-free-deliveries": {
+    title: "Commission-Free Deliveries for Restaurants",
+    slug: "commission-free-deliveries",
+    category: "Online Ordering",
+    headline: "Commission-Free Deliveries for Restaurants",
+    description:
+      "Stop losing 15-30% of every order to DoorDash and UberEats. We set up commission-free direct ordering through Owner.com and ChowNow so your restaurant keeps more profit from every delivery and takeout order.",
+    heroImage: {
+      src: "/images/usage/order-counter.jpg",
+      alt: "Restaurant worker preparing food orders at the counter for delivery",
+    },
+    features: [
+      {
+        title: "Direct Ordering Setup",
+        description:
+          "We integrate commission-free ordering platforms like Owner.com and ChowNow directly into your restaurant's website. Customers order from you, not a third-party app, and you keep the revenue.",
+      },
+      {
+        title: "Third-Party Fee Elimination",
+        description:
+          "DoorDash and UberEats take 15-30% of every order, with hidden fees that can push costs above 40%. We transition your delivery and takeout orders to platforms that charge flat monthly rates instead of per-order commissions.",
+      },
+      {
+        title: "Branded Ordering Experience",
+        description:
+          "Your customers order through your own branded website and mobile app, not a marketplace where you compete with every other restaurant. You control the experience, the branding, and the customer relationship.",
+      },
+      {
+        title: "Automated Marketing & Loyalty",
+        description:
+          "Commission-free platforms include built-in tools for email marketing, loyalty programs, and AI-powered upselling. Turn first-time delivery customers into repeat direct orders without lifting a finger.",
+      },
+      {
+        title: "Third-Party App Pivot Strategy",
+        description:
+          "We don't tell you to abandon DoorDash and UberEats entirely. Instead, we help you use them as acquisition channels to find new customers, then convert those customers to direct, commission-free orders for all repeat business.",
+      },
+      {
+        title: "Revenue Analytics & Savings Tracking",
+        description:
+          "Track exactly how much you're saving compared to third-party commissions. See real-time data on direct orders, repeat customers, and the revenue you're keeping instead of handing to delivery apps.",
+      },
+    ],
+    stats: [
+      {
+        prefix: "$",
+        value: 16000,
+        suffix: "",
+        decimalPlaces: 0,
+        label: "average annual savings when restaurants switch from delivery apps to commission-free ordering",
+        source: "Industry Data",
+      },
+      {
+        value: 67,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "of consumers prefer ordering directly from a restaurant's own website or app",
+        source: "Industry Data",
+      },
+      {
+        value: 30,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "commission fees charged by DoorDash and UberEats on every order",
+        source: "Industry Data",
+      },
+      {
+        prefix: "$",
+        value: 970,
+        suffix: "",
+        decimalPlaces: 0,
+        label: "in Owner.com setup fees waived when you work with TableTurnerr",
+        source: "Owner.com",
+      },
+    ],
+    faqs: [
+      {
+        question: "How much can my restaurant save by switching to commission-free ordering?",
+        answer:
+          "Restaurants save an average of $16,000 per year by switching from third-party delivery apps to commission-free platforms. The exact savings depend on your order volume and average order value. A restaurant doing $50,000/month in delivery orders on DoorDash at 25% commission is losing $12,500/month to fees alone.",
+      },
+      {
+        question: "Will I lose customers if I stop using DoorDash and UberEats?",
+        answer:
+          "We don't recommend stopping entirely. Our strategy is to keep DoorDash and UberEats as customer acquisition channels while moving repeat customers to your direct ordering platform. 67% of consumers already prefer ordering directly from restaurants when the option is available.",
+      },
+      {
+        question: "What's the difference between Owner.com and ChowNow?",
+        answer:
+          "Owner.com is the premium option at $500/month flat plus a small 5% fee paid by the guest, with an all-in-one platform including website, mobile app, and automated marketing. ChowNow starts at $119/month with tiered pricing and transaction fees. Both eliminate commission-based delivery fees. We help you choose the right fit based on your budget and goals.",
+      },
+      {
+        question: "How long does it take to set up commission-free ordering?",
+        answer:
+          "Most restaurants are fully transitioned within 2-4 weeks. This includes platform setup, menu migration, website integration, and staff training. We handle the technical work so your team can focus on running the restaurant.",
+      },
+      {
+        question: "Do I need a new website to use commission-free ordering?",
+        answer:
+          "No. Commission-free ordering platforms can be integrated into your existing website. If your current site needs updates to support direct ordering, we handle that as part of the setup. If you don't have a website yet, we build one as part of our restaurant website design service.",
+      },
+    ],
+    keywords: [
+      "commission free delivery for restaurants",
+      "commission free online ordering",
+      "reduce DoorDash commission fees",
+      "restaurant direct ordering",
+      "commission free restaurant ordering system",
+    ],
+    metaDescription:
+      "Commission-free delivery and online ordering for restaurants. Stop paying 15-30% to DoorDash and UberEats. We set up direct ordering through Owner.com and ChowNow so you keep more profit.",
+  },
 };
 
 export function getServiceBySlug(slug: string): ServicePageData | undefined {

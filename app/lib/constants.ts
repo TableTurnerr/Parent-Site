@@ -32,6 +32,11 @@ export const SERVICES = [
     slug: "google-business-profile-optimization",
     description: "Google Business Profile setup and optimization so your restaurant dominates local search results, Google Maps, and nearby searches.",
   },
+  {
+    title: "Commission-Free Deliveries",
+    slug: "commission-free-deliveries",
+    description: "Stop losing 15-30% of every order to delivery apps. We set up commission-free direct ordering through Owner.com and ChowNow so your restaurant keeps more profit.",
+  },
 ] as const;
 
 export const CLIENTS = [

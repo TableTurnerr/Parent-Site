@@ -49,10 +49,14 @@ const SERVICE_PAGE_IMAGES: Record<string, { src: string; alt: string }> = {
     src: "/images/usage/restaurant-interior.webp",
     alt: "Warm, inviting restaurant interior with ambient lighting",
   },
+  "commission-free-deliveries": {
+    src: "/images/usage/order-counter.jpg",
+    alt: "Restaurant worker preparing food orders at the counter for delivery",
+  },
 };
 
 const STATS: readonly { value: number; suffix: string; prefix?: string; decimalPlaces?: number; label: string; source?: string }[] = [
-  { value: 5, suffix: "", label: "Core marketing services for restaurants" },
+  { value: 6, suffix: "", label: "Core marketing services for restaurants" },
   {
     value: 90,
     suffix: "%",
