@@ -76,23 +76,23 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
   }, [paused])
 
   return (
-    <div ref={sectionRef} className={cn("flex flex-col items-center gap-8 sm:gap-10 py-10 sm:py-16", className)}>
+    <div ref={sectionRef} className={cn("flex flex-col items-center gap-6 sm:gap-8 md:gap-10 py-8 sm:py-12 md:py-16", className)}>
       {/* Quote Container — fixed height prevents layout shift on text swap */}
-      <div className="relative px-8 min-h-[5rem] md:min-h-[4.5rem] flex items-center justify-center">
-        <span className="absolute -left-2 -top-6 text-7xl font-serif text-charcoal/[0.06] select-none pointer-events-none">
+      <div className="relative px-4 sm:px-8 min-h-[4rem] sm:min-h-[5rem] md:min-h-[4.5rem] flex items-center justify-center">
+        <span className="absolute -left-1 sm:-left-2 -top-4 sm:-top-6 text-5xl sm:text-7xl font-serif text-charcoal/[0.06] select-none pointer-events-none">
           &ldquo;
         </span>
 
         <p
           className={cn(
-            "text-2xl md:text-3xl font-light text-charcoal text-center max-w-lg leading-relaxed transition-[opacity,filter] duration-400 ease-out",
+            "text-xl sm:text-2xl md:text-3xl font-light text-charcoal text-center max-w-lg leading-relaxed transition-[opacity,filter] duration-400 ease-out",
             isAnimating ? "opacity-0 blur-sm" : "opacity-100 blur-0",
           )}
         >
           {displayedQuote}
         </p>
 
-        <span className="absolute -right-2 -bottom-8 text-7xl font-serif text-charcoal/[0.06] select-none pointer-events-none">
+        <span className="absolute -right-1 sm:-right-2 -bottom-6 sm:-bottom-8 text-5xl sm:text-7xl font-serif text-charcoal/[0.06] select-none pointer-events-none">
           &rdquo;
         </span>
       </div>
@@ -133,7 +133,7 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
                     src={testimonial.avatar}
                     alt={testimonial.author}
                     className={cn(
-                      "w-8 h-8 rounded-full object-cover",
+                      "w-9 h-9 sm:w-8 sm:h-8 rounded-full object-cover",
                       "transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
                       isActive ? "ring-2 ring-cream/30" : "ring-0",
                       !isActive && "hover:scale-105",
