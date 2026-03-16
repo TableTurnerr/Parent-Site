@@ -25,12 +25,12 @@ export default function BlurText({
 
     return splitWords.map((word, index) => {
       const progress = index / totalWords;
-      const exponentialDelay = Math.pow(progress, 0.8) * 0.5;
-      const baseDelay = index * 0.06;
+      const exponentialDelay = Math.pow(progress, 0.8) * 0.35;
+      const baseDelay = index * 0.045;
 
       return {
         text: word,
-        duration: 2.2 + Math.cos(index * 0.3) * 0.3,
+        duration: 1.6 + Math.cos(index * 0.3) * 0.25,
         delay: baseDelay + exponentialDelay,
         blur: 12 + ((index * 3) % 8),
         scale: 0.9 + Math.sin(index * 0.2) * 0.05,
