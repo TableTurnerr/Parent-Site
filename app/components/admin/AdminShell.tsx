@@ -17,6 +17,7 @@ import {
   ExternalLink,
   PanelLeftClose,
   PanelLeft,
+  MapPin,
 } from "lucide-react";
 
 import type { UserRole } from "@/app/lib/supabase/types";
@@ -34,6 +35,7 @@ interface AdminUser {
 const NAV_ITEMS: { href: string; label: string; icon: typeof LayoutDashboard; minRole: UserRole }[] = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, minRole: "viewer" },
   { href: "/admin/posts", label: "Posts", icon: FileText, minRole: "viewer" },
+  { href: "/admin/location-pages", label: "Location Pages", icon: MapPin, minRole: "viewer" },
   { href: "/admin/categories", label: "Categories", icon: FolderOpen, minRole: "manager" },
   { href: "/admin/settings", label: "Settings", icon: Settings, minRole: "manager" },
 ];
@@ -104,7 +106,7 @@ export default function AdminShell({
         } ${collapsed ? "lg:w-[68px]" : "w-64"}`}
       >
         {/* Logo */}
-        <div className={`flex h-16 items-center justify-between ${collapsed ? "px-3" : "px-6"}`}>
+        <div className={`flex h-16 items-center ${collapsed ? "justify-between lg:justify-center px-3" : "justify-between px-6"}`}>
           <Link href="/admin" className={`flex items-center gap-2 text-white transition-opacity ${collapsed ? "lg:hidden" : ""}`}>
             <Logo className="w-auto h-6 text-white shrink-0" />
             <span className="text-lg font-bold">Table<span className="font-extrabold">Turnerr</span></span>
