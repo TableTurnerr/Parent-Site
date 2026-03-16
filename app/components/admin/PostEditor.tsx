@@ -97,6 +97,7 @@ export default function PostEditor({
       formData.set("meta_description", metaDescription);
       formData.set("meta_keywords", metaKeywords);
       formData.set("og_image", ogImage);
+      formData.set("visibility", visibility);
       formData.set("categories", selectedCategories.join(","));
 
       await updatePost(post.id, formData);
@@ -119,6 +120,7 @@ export default function PostEditor({
       formData.set("meta_description", metaDescription);
       formData.set("meta_keywords", metaKeywords);
       formData.set("og_image", ogImage);
+      formData.set("visibility", visibility);
       formData.set("categories", selectedCategories.join(","));
 
       await updatePost(post.id, formData);
