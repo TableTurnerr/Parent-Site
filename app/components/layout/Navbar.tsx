@@ -36,10 +36,13 @@ export default function Navbar() {
               : "h-16 md:h-20 px-4 sm:px-6 md:px-8"
           }`}
         >
+          {/* Invisible spacer to balance hamburger width on mobile — centers the logo */}
+          <div className="w-10 md:hidden" aria-hidden="true" />
+
           {/* Logo */}
           <Link
             href="/"
-            className="font-display text-xl md:text-2xl font-bold text-charcoal"
+            className="font-display text-xl md:text-2xl font-bold text-charcoal md:flex-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0"
           >
             TableTurnerr
           </Link>
