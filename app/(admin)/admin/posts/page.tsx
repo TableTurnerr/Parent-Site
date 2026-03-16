@@ -54,9 +54,9 @@ export default async function PostsPage({
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[var(--color-charcoal)]">
+          <h1 className="text-xl sm:text-2xl font-bold text-[var(--color-charcoal)]">
             Posts
           </h1>
           <p className="mt-1 text-sm text-[var(--color-warm-gray)]">
@@ -65,7 +65,7 @@ export default async function PostsPage({
         </div>
         <Link
           href="/admin/posts/new"
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-charcoal)] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-charcoal-light)]"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-charcoal)] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-charcoal-light)] w-full sm:w-auto"
         >
           <FilePlus className="h-4 w-4" />
           New Post
@@ -74,7 +74,7 @@ export default async function PostsPage({
 
       {/* Filters */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex gap-1 rounded-lg bg-[var(--color-cream-dark)] p-1">
+        <div className="flex gap-1 rounded-lg bg-[var(--color-cream-dark)] p-1 overflow-x-auto">
           {statusTabs.map((tab) => (
             <Link
               key={tab.key}
@@ -103,7 +103,7 @@ export default async function PostsPage({
       </div>
 
       {/* Posts table */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-white">
+      <div className="rounded-xl border border-[var(--color-border)] bg-white overflow-x-auto">
         {posts && posts.length > 0 ? (
           <table className="w-full">
             <thead>

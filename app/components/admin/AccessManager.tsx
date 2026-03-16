@@ -44,7 +44,7 @@ export default function AccessManager({
       {members.map((member) => (
         <li
           key={member.id}
-          className="flex items-center justify-between gap-4 px-6 py-4"
+          className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-6"
         >
           <div className="flex items-center gap-3 min-w-0">
             {member.avatar_url ? (
@@ -81,7 +81,7 @@ export default function AccessManager({
             </div>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex flex-wrap items-center gap-2 shrink-0 sm:justify-end">
             {/* Role selector (for approved members, not self) */}
             {member.status === "approved" && member.id !== currentUserId && (
               <form action={updateRoleAction}>

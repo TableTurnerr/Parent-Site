@@ -51,7 +51,7 @@ export default async function CategoriesPage() {
       {/* Add category form */}
       <form
         action={createCategory}
-        className="flex gap-3"
+        className="flex flex-col sm:flex-row gap-3"
       >
         <input
           type="text"
@@ -62,7 +62,7 @@ export default async function CategoriesPage() {
         />
         <button
           type="submit"
-          className="rounded-full bg-[var(--color-charcoal)] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-charcoal-light)]"
+          className="w-full sm:w-auto rounded-full bg-[var(--color-charcoal)] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-charcoal-light)]"
         >
           Add
         </button>

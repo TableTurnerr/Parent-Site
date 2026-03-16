@@ -73,9 +73,9 @@ export default async function AdminDashboard() {
   return (
     <div className="space-y-8">
       {/* Page header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[var(--color-charcoal)]">
+          <h1 className="text-xl sm:text-2xl font-bold text-[var(--color-charcoal)]">
             Dashboard
           </h1>
           <p className="mt-1 text-sm text-[var(--color-warm-gray)]">
@@ -84,7 +84,7 @@ export default async function AdminDashboard() {
         </div>
         <Link
           href="/admin/posts/new"
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-charcoal)] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-charcoal-light)]"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-charcoal)] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-charcoal-light)] w-full sm:w-auto"
         >
           <FilePlus className="h-4 w-4" />
           New Post
@@ -92,13 +92,13 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Stats grid */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {stats.map((stat) => {
           const Icon = stat.icon;
           return (
             <div
               key={stat.label}
-              className="rounded-xl border border-[var(--color-border)] bg-white p-5"
+              className="rounded-xl border border-[var(--color-border)] bg-white p-4 sm:p-5"
             >
               <div className="flex items-center gap-3">
                 <div className={`rounded-lg p-2 ${stat.color}`}>
@@ -108,7 +108,7 @@ export default async function AdminDashboard() {
                   {stat.label}
                 </span>
               </div>
-              <p className="mt-3 text-3xl font-bold text-[var(--color-charcoal)]">
+              <p className="mt-2 sm:mt-3 text-2xl sm:text-3xl font-bold text-[var(--color-charcoal)]">
                 {stat.value}
               </p>
             </div>
@@ -118,7 +118,7 @@ export default async function AdminDashboard() {
 
       {/* Recent posts */}
       <div className="rounded-xl border border-[var(--color-border)] bg-white">
-        <div className="flex items-center justify-between border-b border-[var(--color-border)] px-6 py-4">
+        <div className="flex items-center justify-between border-b border-[var(--color-border)] px-4 sm:px-6 py-4">
           <h2 className="text-lg font-semibold text-[var(--color-charcoal)]">
             Recent Posts
           </h2>
@@ -135,7 +135,7 @@ export default async function AdminDashboard() {
               <li key={post.id}>
                 <Link
                   href={`/admin/posts/${post.id}/edit`}
-                  className="flex items-center justify-between px-6 py-4 transition-colors hover:bg-[var(--color-cream)]"
+                  className="flex items-center justify-between px-4 sm:px-6 py-4 transition-colors hover:bg-[var(--color-cream)]"
                 >
                   <div className="flex-1">
                     <p className="font-medium text-[var(--color-charcoal)]">
