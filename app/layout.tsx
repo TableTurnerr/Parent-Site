@@ -24,6 +24,7 @@ const caveat = Caveat({
   display: "swap",
 });
 
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://tableturnerr.com"),
   title: {
