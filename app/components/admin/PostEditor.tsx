@@ -409,6 +409,7 @@ export default function PostEditor({
 <script>
 window.addEventListener("message",function(e){
   if(!e.data||e.data.type!=="post-preview-update")return;
+  if(e.origin!==window.location.origin)return;
   var d=e.data;
   document.title=d.title||"Preview";
   document.getElementById("p-title").textContent=d.title||"Untitled";
@@ -435,7 +436,7 @@ window.addEventListener("message",function(e){
       contentHtml,
       featuredImage,
       featuredImageAlt,
-    }, "*");
+    }, window.location.origin);
   }, [title, excerpt, contentHtml, featuredImage, featuredImageAlt]);
 
   // Push live updates to preview window
@@ -962,7 +963,16 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
                           onClick={() => {
                             const url = prompt("Enter image URL:");
                             if (url?.trim()) {
-                              insertImageAtCursor(url.trim());
+                              try {
+                                const parsed = new URL(url.trim());
+                                if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+                                  alert("Only http and https URLs are allowed.");
+                                  return;
+                                }
+                                insertImageAtCursor(parsed.href);
+                              } catch {
+                                alert("Please enter a valid URL.");
+                              }
                             }
                           }}
                           className="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-[var(--color-charcoal)] transition-colors hover:bg-[var(--color-cream)]"
