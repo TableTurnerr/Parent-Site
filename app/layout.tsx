@@ -79,6 +79,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${satoshi.variable} ${caveat.variable}`}>
+      <head>
+        <link rel="dns-prefetch" href="//psdb.tableturnerr.com" />
+        <link rel="preconnect" href="http://psdb.tableturnerr.com:8000" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body className="font-body antialiased">
         {children}
       </body>

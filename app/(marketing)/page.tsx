@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Hero from "@/app/components/sections/Hero";
 import Services from "@/app/components/sections/Services";
-import Mission from "@/app/components/sections/Mission";
-import Partners from "@/app/components/sections/Partners";
-import Process from "@/app/components/sections/Process";
-import Testimonials from "@/app/components/sections/Testimonials";
-import FAQ from "@/app/components/sections/FAQ";
 import { FAQ_DATA } from "@/app/lib/constants";
-import CTA from "@/app/components/sections/CTA";
+
+const Mission = dynamic(() => import("@/app/components/sections/Mission"));
+const Partners = dynamic(() => import("@/app/components/sections/Partners"));
+const Process = dynamic(() => import("@/app/components/sections/Process"));
+const Testimonials = dynamic(() => import("@/app/components/sections/Testimonials"));
+const FAQ = dynamic(() => import("@/app/components/sections/FAQ"));
+const CTA = dynamic(() => import("@/app/components/sections/CTA"));
 import {
   generateOrganizationSchema,
   generateWebSiteSchema,
