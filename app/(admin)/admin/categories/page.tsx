@@ -41,7 +41,7 @@ export default async function CategoriesPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-[var(--color-charcoal)]">
-          Categories
+          Blog Categories
         </h1>
         <p className="mt-1 text-sm text-[var(--color-warm-gray)]">
           Organize your blog posts by topic.
