@@ -12,18 +12,18 @@ const container = {
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 
 const scalePop = {
   hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.34, 1.56, 0.64, 1] } },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.34, 1.56, 0.64, 1] as const } },
 };
 
 /* Gentle floating for the plate */
 const float = {
   y: [0, -8, 0],
-  transition: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+  transition: { duration: 3, repeat: Infinity, ease: "easeInOut" as const },
 };
 
 /* Steam wisps rising from the plate */
