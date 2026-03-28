@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Caveat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const satoshi = localFont({
@@ -91,6 +92,7 @@ export default function RootLayout({
         {children}
         <SpeedInsights />
         <Analytics />
+        <GoogleAnalytics gaId="G-35W3QYXVMG" />
       </body>
     </html>
   );
