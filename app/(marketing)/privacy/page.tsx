@@ -365,13 +365,26 @@ export default function PrivacyPolicyPage() {
                     </Link>
                   </p>
                   <p>
-                    Phone:{" "}
+                    Phone (primary):{" "}
                     <Link
                       href={`tel:${SITE_CONFIG.phone.replace(/\s/g, "")}`}
                       className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
                     >
                       {SITE_CONFIG.phone}
                     </Link>
+                  </p>
+                  <p>
+                    Phone (secondary):{" "}
+                    <Link
+                      href="tel:+923281193038"
+                      className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
+                    >
+                      +92 328 1193038
+                    </Link>
+                  </p>
+                  <p>
+                    Address: Plot 118, Block E2, Johar Town, Lahore, Pakistan,
+                    54782
                   </p>
                 </div>
               </section>
