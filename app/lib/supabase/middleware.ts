@@ -41,12 +41,17 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
+  const isAdminRoute = request.nextUrl.pathname.startsWith("/admin");
+
+  // Only call Supabase auth for admin routes — public pages don't need it
+  if (!isAdminRoute) {
+    return applySecurityHeaders(supabaseResponse);
+  }
+
   // Refresh the session
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  const isAdminRoute = request.nextUrl.pathname.startsWith("/admin");
   const isLoginPage = request.nextUrl.pathname.startsWith("/admin/login");
   const isPendingPage = request.nextUrl.pathname.startsWith("/admin/pending");
   const isDeniedPage = request.nextUrl.pathname.startsWith("/admin/denied");
