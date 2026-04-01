@@ -12,7 +12,7 @@ export const metadata: Metadata = createPageMetadata({
   path: "/terms",
 });
 
-const LAST_UPDATED = "March 16, 2026";
+const LAST_UPDATED = "April 1, 2026";
 
 export default function TermsOfServicePage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -187,14 +187,44 @@ export default function TermsOfServicePage() {
                   are specified in each client&apos;s service agreement or
                   invoice. Unless otherwise stated, invoices are due upon
                   receipt. Late payments may be subject to service suspension or
-                  additional fees as outlined in your agreement. All fees are
-                  non-refundable unless explicitly stated otherwise.
+                  additional fees as outlined in your agreement.
                 </p>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  7. Third-Party Platforms
+                  7. Refund Policy
+                </h2>
+                <p className="mb-3">
+                  All payments made to TableTurnerr are final and
+                  non-refundable. We do not offer refunds on services that have
+                  been purchased or payments that have been processed.
+                </p>
+                <p className="mb-3">
+                  In rare exceptions, TableTurnerr may, at its sole discretion,
+                  issue a one-time courtesy refund. Such exceptions may include
+                  situations where a client has accidentally paid for the wrong
+                  service and has not yet used or received any deliverables for
+                  that service, or other circumstances that TableTurnerr deems
+                  appropriate on a case-by-case basis.
+                </p>
+                <p>
+                  Courtesy refunds are not guaranteed, are limited to one per
+                  client, and are granted entirely at TableTurnerr&apos;s
+                  discretion. To request a refund, please contact us at{" "}
+                  <Link
+                    href={`mailto:${SITE_CONFIG.email}`}
+                    className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
+                  >
+                    {SITE_CONFIG.email}
+                  </Link>{" "}
+                  with details of your payment and the reason for your request.
+                </p>
+              </section>
+
+              <section>
+                <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
+                  8. Third-Party Platforms
                 </h2>
                 <p>
                   Our services may involve the use of third-party platforms and
@@ -209,7 +239,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  8. Disclaimers
+                  9. Disclaimers
                 </h2>
                 <p className="mb-3">
                   The Site and services are provided on an &quot;as is&quot; and
@@ -236,7 +266,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  9. Limitation of Liability
+                  10. Limitation of Liability
                 </h2>
                 <p>
                   To the maximum extent permitted by applicable law, TableTurnerr
@@ -253,7 +283,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  10. Indemnification
+                  11. Indemnification
                 </h2>
                 <p>
                   You agree to indemnify and hold harmless TableTurnerr, its
@@ -267,7 +297,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  11. Termination
+                  12. Termination
                 </h2>
                 <p>
                   We reserve the right to suspend or terminate your access to the
@@ -280,7 +310,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  12. Governing Law
+                  13. Governing Law
                 </h2>
                 <p>
                   These Terms are governed by and construed in accordance with
@@ -293,7 +323,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  13. Changes to These Terms
+                  14. Changes to These Terms
                 </h2>
                 <p>
                   We may revise these Terms at any time by updating this page.
@@ -306,7 +336,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  14. Contact Us
+                  15. Contact Us
                 </h2>
                 <p>
                   If you have any questions about these Terms of Service, contact
@@ -326,13 +356,26 @@ export default function TermsOfServicePage() {
                     </Link>
                   </p>
                   <p>
-                    Phone:{" "}
+                    Phone (primary):{" "}
                     <Link
                       href={`tel:${SITE_CONFIG.phone.replace(/\s/g, "")}`}
                       className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
                     >
                       {SITE_CONFIG.phone}
                     </Link>
+                  </p>
+                  <p>
+                    Phone (secondary):{" "}
+                    <Link
+                      href="tel:+923281193038"
+                      className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
+                    >
+                      +92 328 1193038
+                    </Link>
+                  </p>
+                  <p>
+                    Address: Plot 118, Block E2, Johar Town, Lahore, Pakistan,
+                    54782
                   </p>
                 </div>
               </section>
