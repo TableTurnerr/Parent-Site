@@ -116,6 +116,58 @@ export type Database = {
           },
         ]
       }
+      client_reports: {
+        Row: {
+          id: string
+          client_name: string
+          client_slug: string
+          client_url: string
+          report_content_md: string
+          report_content_html: string | null
+          grader_data: Json | null
+          status: "draft" | "published" | "archived"
+          created_at: string
+          updated_at: string
+          published_at: string | null
+          created_by: string | null
+        }
+        Insert: {
+          id?: string
+          client_name: string
+          client_slug: string
+          client_url: string
+          report_content_md: string
+          report_content_html?: string | null
+          grader_data?: Json | null
+          status?: "draft" | "published" | "archived"
+          created_at?: string
+          updated_at?: string
+          published_at?: string | null
+          created_by?: string | null
+        }
+        Update: {
+          id?: string
+          client_name?: string
+          client_slug?: string
+          client_url?: string
+          report_content_md?: string
+          report_content_html?: string | null
+          grader_data?: Json | null
+          status?: "draft" | "published" | "archived"
+          created_at?: string
+          updated_at?: string
+          published_at?: string | null
+          created_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_reports_created_by_fkey"
+            columns: ["created_by"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       categories: {
         Row: {
           created_at: string
