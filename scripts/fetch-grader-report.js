@@ -1,13 +1,11 @@
 #!/usr/bin/env node
 /**
  * fetch-grader-report.js
- * Scrapes grader.owner.com for a given website URL and saves structured JSON.
+ * Scrapes grader.owner.com and saves structured JSON.
+ * Runs with a VISIBLE browser — if a CAPTCHA appears, solve it in the window and the script continues automatically.
  *
  * Usage:
  *   node scripts/fetch-grader-report.js <website-url> <output-json-path>
- *
- * Example:
- *   node scripts/fetch-grader-report.js grumpys-burgers.com .grader-cache/grumpys-burgers.json
  */
 
 const { chromium } = require("playwright");
@@ -23,50 +21,100 @@ if (!websiteUrl || !outputPath) {
 
 const normalizedUrl = websiteUrl.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
+async function hasCaptcha(page) {
+  return page.evaluate(() => {
+    const text = document.body.innerText.toLowerCase();
+    return (
+      text.includes("i'm not a robot") ||
+      text.includes("i am not a robot") ||
+      text.includes("captcha") ||
+      text.includes("verify you're human") ||
+      text.includes("verify you are human") ||
+      text.includes("human verification") ||
+      !!document.querySelector('iframe[src*="recaptcha"]') ||
+      !!document.querySelector('iframe[src*="hcaptcha"]') ||
+      !!document.querySelector('iframe[src*="captcha"]') ||
+      !!document.querySelector(".g-recaptcha") ||
+      !!document.querySelector(".h-captcha") ||
+      !!document.querySelector('[class*="captcha"]') ||
+      !!document.querySelector('[id*="captcha"]')
+    );
+  });
+}
+
+async function waitForCaptcha(page) {
+  console.log("\n🔒 CAPTCHA DETECTED");
+  console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+  console.log("   Solve the CAPTCHA in the browser window.");
+  console.log("   This script will continue automatically once it's done.");
+  console.log("   (Timeout: 3 minutes)");
+  console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+
+  await page.waitForFunction(
+    () => {
+      const text = document.body.innerText.toLowerCase();
+      return (
+        !text.includes("i'm not a robot") &&
+        !text.includes("captcha") &&
+        !text.includes("verify you're human") &&
+        !document.querySelector('iframe[src*="recaptcha"]') &&
+        !document.querySelector('iframe[src*="hcaptcha"]') &&
+        !document.querySelector(".g-recaptcha") &&
+        !document.querySelector('[class*="captcha"]')
+      );
+    },
+    { timeout: 180000, polling: 2000 }
+  );
+
+  console.log("  ✓ CAPTCHA resolved — continuing...\n");
+}
+
 async function run() {
   console.log(`\n📊 Fetching grader report for: ${normalizedUrl}`);
+  console.log("   (A browser window will open — do not close it)\n");
 
-  const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
+  const browser = await chromium.launch({
+    headless: false,
+    args: ["--start-maximized"],
+  });
+  const context = await browser.newContext({ viewport: null });
+  const page = await context.newPage();
 
   try {
     await page.goto("https://grader.owner.com/", { waitUntil: "networkidle", timeout: 30000 });
 
-    // Fill the URL input — try common selectors
+    if (await hasCaptcha(page)) await waitForCaptcha(page);
+
+    // Fill URL input
     const inputSelectors = [
       'input[type="text"]',
       'input[type="url"]',
       'input[name="url"]',
-      'input[placeholder*="website"]',
-      'input[placeholder*="URL"]',
-      'input[placeholder*="url"]',
-      'input[placeholder*="Enter"]',
+      'input[placeholder*="website" i]',
+      'input[placeholder*="url" i]',
+      'input[placeholder*="enter" i]',
     ];
 
-    let inputFilled = false;
+    let filled = false;
     for (const sel of inputSelectors) {
       try {
         await page.waitForSelector(sel, { timeout: 3000 });
         await page.fill(sel, normalizedUrl);
-        inputFilled = true;
-        console.log(`  ✓ Filled input with selector: ${sel}`);
+        filled = true;
+        console.log(`  ✓ Filled input (${sel})`);
         break;
-      } catch {
-        // try next selector
-      }
+      } catch { /* try next */ }
     }
 
-    if (!inputFilled) {
-      // Fallback: type into the first visible input
+    if (!filled) {
       await page.locator("input").first().fill(normalizedUrl);
-      console.log("  ✓ Filled first input (fallback)");
+      console.log("  ✓ Filled input (fallback: first input)");
     }
 
-    // Submit — try button click first, then Enter key
+    // Submit
     const submitSelectors = [
       'button[type="submit"]',
       'button:has-text("Grade")',
-      'button:has-text("grade")',
       'button:has-text("Check")',
       'button:has-text("Analyze")',
       'button:has-text("Get")',
@@ -78,19 +126,21 @@ async function run() {
       try {
         await page.click(sel, { timeout: 2000 });
         submitted = true;
-        console.log(`  ✓ Clicked submit: ${sel}`);
+        console.log(`  ✓ Clicked submit (${sel})`);
         break;
-      } catch {
-        // try next
-      }
+      } catch { /* try next */ }
     }
 
     if (!submitted) {
       await page.keyboard.press("Enter");
-      console.log("  ✓ Submitted via Enter key");
+      console.log("  ✓ Submitted via Enter");
     }
 
-    // Wait for results to load — look for score elements
+    // Check CAPTCHA after submission
+    await page.waitForTimeout(2000);
+    if (await hasCaptcha(page)) await waitForCaptcha(page);
+
+    // Wait for results
     console.log("  ⏳ Waiting for report to load...");
     await page.waitForFunction(
       () => {
@@ -99,85 +149,78 @@ async function run() {
           text.includes("Overall") ||
           text.includes("Score") ||
           text.includes("score") ||
-          document.querySelector('[class*="score"]') ||
-          document.querySelector('[class*="grade"]') ||
-          document.querySelector('[class*="result"]')
+          !!document.querySelector('[class*="score"]') ||
+          !!document.querySelector('[class*="grade"]') ||
+          !!document.querySelector('[class*="result"]')
         );
       },
       { timeout: 60000, polling: 1000 }
     );
 
-    // Extra wait for all scores to render
+    // Extra settle time + final CAPTCHA check (some sites inject it after results load)
     await page.waitForTimeout(3000);
+    if (await hasCaptcha(page)) {
+      await waitForCaptcha(page);
+      await page.waitForTimeout(3000);
+    }
 
     console.log("  ✓ Report loaded — extracting data...");
 
-    // Extract all data from the page
     const graderData = await page.evaluate((url) => {
       const getText = (el) => (el ? el.innerText.trim() : null);
       const getNum = (str) => {
         if (!str) return null;
-        const match = str.match(/(\d+)/);
-        return match ? parseInt(match[1], 10) : null;
+        const m = str.match(/(\d+)/);
+        return m ? parseInt(m[1], 10) : null;
       };
 
-      // Try to find overall score
+      // Overall score
       const scoreSelectors = [
         '[class*="overall"] [class*="score"]',
         '[class*="overall-score"]',
         '[class*="total-score"]',
         '[class*="grade-score"]',
-        'h1 [class*="score"]',
         ".score-value",
         ".overall-score",
       ];
-
       let overallScore = null;
       for (const sel of scoreSelectors) {
         const el = document.querySelector(sel);
-        if (el) {
-          overallScore = getNum(getText(el));
-          if (overallScore !== null) break;
-        }
+        if (el) { overallScore = getNum(getText(el)); if (overallScore !== null) break; }
       }
-
-      // Fallback: find the largest number on the page that looks like a score
       if (overallScore === null) {
-        const allText = document.body.innerText;
-        const scoreMatches = allText.match(/(\d{1,3})\s*\/\s*100/g) || [];
-        if (scoreMatches.length) {
-          overallScore = getNum(scoreMatches[0]);
-        }
+        const matches = document.body.innerText.match(/(\d{1,3})\s*\/\s*100/g) || [];
+        if (matches.length) overallScore = getNum(matches[0]);
       }
 
-      // Extract category scores — look for common patterns
+      // Categories
       const categories = {};
       const categoryNames = ["seo", "mobile", "social", "local", "reviews", "performance", "content"];
 
-      // Method 1: Look for elements with category names in class or text
-      const allElements = Array.from(document.querySelectorAll("*"));
+      // Method 1: class/attribute matching
+      const allEls = Array.from(document.querySelectorAll("*"));
       for (const cat of categoryNames) {
-        const catElements = allElements.filter(
+        const matches = allEls.filter(
           (el) =>
             el.children.length === 0 &&
             (el.className?.toLowerCase?.().includes(cat) ||
               el.getAttribute?.("data-category")?.toLowerCase() === cat)
         );
-        for (const el of catElements) {
+        for (const el of matches) {
           const score = getNum(getText(el));
           if (score !== null && score >= 0 && score <= 100) {
-            categories[cat] = categories[cat] || { score, issues: [] };
+            categories[cat] = { score, issues: [] };
             break;
           }
         }
       }
 
-      // Method 2: Parse structured sections
+      // Method 2: sections parsing
       const sections = document.querySelectorAll(
         '[class*="category"], [class*="section"], [class*="factor"], [class*="metric"]'
       );
       for (const section of sections) {
-        const text = getText(section).toLowerCase();
+        const text = getText(section)?.toLowerCase() ?? "";
         for (const cat of categoryNames) {
           if (text.includes(cat) && !categories[cat]) {
             const scoreEl =
@@ -187,17 +230,16 @@ async function run() {
               section.querySelector("b");
             const score = getNum(getText(scoreEl));
             if (score !== null && score >= 0 && score <= 100) {
-              // Extract issues/recommendations from the section
-              const listItems = Array.from(
+              const issues = Array.from(
                 section.querySelectorAll("li, [class*='issue'], [class*='recommend'], [class*='tip']")
               ).map((li) => getText(li)).filter(Boolean).slice(0, 5);
-              categories[cat] = { score, issues: listItems };
+              categories[cat] = { score, issues };
             }
           }
         }
       }
 
-      // Extract top recommendations
+      // Recommendations
       const recSelectors = [
         '[class*="recommendation"] li',
         '[class*="suggest"] li',
@@ -212,48 +254,30 @@ async function run() {
           .map((el) => getText(el))
           .filter((t) => t && t.length > 10)
           .slice(0, 8);
-        if (items.length) {
-          topRecommendations = items;
-          break;
-        }
+        if (items.length) { topRecommendations = items; break; }
       }
-
-      // Extract page title / report heading
-      const heading =
-        getText(document.querySelector("h1")) ||
-        getText(document.querySelector("h2")) ||
-        `Website Grade Report for ${url}`;
-
-      // Capture full page text for Claude to analyze if structured extraction is sparse
-      const fullText = document.body.innerText.slice(0, 8000);
 
       return {
         url,
         gradedAt: new Date().toISOString(),
-        heading,
         overallScore,
         categories,
         topRecommendations,
-        fullPageText: fullText,
+        fullPageText: document.body.innerText.slice(0, 8000),
       };
     }, normalizedUrl);
 
-    // Ensure output directory exists
     const dir = path.dirname(outputPath);
-    if (dir && !fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-
+    if (dir && !fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(outputPath, JSON.stringify(graderData, null, 2), "utf-8");
 
-    console.log(`\n✅ Grader report saved to: ${outputPath}`);
-    console.log(`   Overall score: ${graderData.overallScore ?? "not extracted (check fullPageText)"}`);
-    console.log(`   Categories found: ${Object.keys(graderData.categories).join(", ") || "none (check fullPageText)"}`);
+    console.log(`\n✅ Grader report saved → ${outputPath}`);
+    console.log(`   Overall score : ${graderData.overallScore ?? "not extracted (read fullPageText)"}`);
+    console.log(`   Categories    : ${Object.keys(graderData.categories).join(", ") || "none (read fullPageText)"}`);
     console.log(`   Recommendations: ${graderData.topRecommendations.length}`);
 
   } catch (err) {
-    console.error("\n❌ Failed to fetch grader report:", err.message);
-    // Save error state so Claude knows what happened
+    console.error("\n❌ Failed:", err.message);
     const dir = path.dirname(outputPath);
     if (dir && !fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(outputPath, JSON.stringify({
