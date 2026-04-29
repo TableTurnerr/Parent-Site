@@ -1,14 +1,20 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const SECURITY_HEADERS = {
+const SECURITY_HEADERS: Record<string, string> = {
   "X-Frame-Options": "DENY",
   "X-Content-Type-Options": "nosniff",
   "X-XSS-Protection": "1; mode=block",
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
-  "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
 };
+
+// HSTS must not be set in development — browsers will cache it and force https://localhost,
+// breaking the HTTP dev server for the entire browser profile.
+if (process.env.NODE_ENV !== "development") {
+  SECURITY_HEADERS["Strict-Transport-Security"] =
+    "max-age=63072000; includeSubDomains; preload";
+}
 
 function applySecurityHeaders(response: NextResponse): NextResponse {
   for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
