@@ -61,7 +61,7 @@ export const SITE_CONFIG = {
   url: "https://tableturnerr.com",
   tagline: "Restaurant Website Design, SEO & Marketing Agency",
   email: "contact@tableturnerr.com",
-  phone: "+1 808 559006",
+  phone: "+1 (808) 559-9006",
 } as const;
 
 export const FAQ_DATA = [
