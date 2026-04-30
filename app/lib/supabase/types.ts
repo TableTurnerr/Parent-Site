@@ -122,10 +122,13 @@ export type Database = {
           client_name: string
           client_slug: string
           client_url: string
-          report_content_md: string
-          report_content_html: string | null
+          client_content_md: string
+          client_content_html: string | null
+          internal_content_md: string | null
+          internal_content_html: string | null
           grader_data: Json | null
           status: "draft" | "published" | "archived"
+          visibility: "public" | "unlisted" | "private"
           created_at: string
           updated_at: string
           published_at: string | null
@@ -136,10 +139,13 @@ export type Database = {
           client_name: string
           client_slug: string
           client_url: string
-          report_content_md: string
-          report_content_html?: string | null
+          client_content_md: string
+          client_content_html?: string | null
+          internal_content_md?: string | null
+          internal_content_html?: string | null
           grader_data?: Json | null
           status?: "draft" | "published" | "archived"
+          visibility?: "public" | "unlisted" | "private"
           created_at?: string
           updated_at?: string
           published_at?: string | null
@@ -150,10 +156,13 @@ export type Database = {
           client_name?: string
           client_slug?: string
           client_url?: string
-          report_content_md?: string
-          report_content_html?: string | null
+          client_content_md?: string
+          client_content_html?: string | null
+          internal_content_md?: string | null
+          internal_content_html?: string | null
           grader_data?: Json | null
           status?: "draft" | "published" | "archived"
+          visibility?: "public" | "unlisted" | "private"
           created_at?: string
           updated_at?: string
           published_at?: string | null
