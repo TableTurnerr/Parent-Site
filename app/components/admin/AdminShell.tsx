@@ -44,9 +44,11 @@ const NAV_ITEMS: { href: string; label: string; icon: typeof LayoutDashboard; mi
 
 export default function AdminShell({
   user,
+  version,
   children,
 }: {
   user: AdminUser;
+  version: string;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
@@ -248,6 +250,9 @@ export default function AdminShell({
             </button>
           )}
           <div className="flex-1" />
+          <span className="text-xs font-medium text-[var(--color-warm-gray-light)]">
+            v{version}
+          </span>
           <span className="text-xs tabular-nums text-[var(--color-warm-gray-light)]">
             {currentTime}
           </span>
