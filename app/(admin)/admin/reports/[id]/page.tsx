@@ -1,0 +1,640 @@
+"use client";
+
+import { useEffect, useState, useCallback, useMemo } from "react";
+import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import {
+  ArrowLeft,
+  ExternalLink,
+  Copy,
+  Check,
+  Globe,
+  ChevronDown,
+  Eye,
+  EyeOff,
+  Sparkles,
+  ChevronUp,
+  Save,
+  Pencil,
+  Lock,
+  RefreshCw,
+} from "lucide-react";
+import { createClient } from "@/app/lib/supabase/client";
+
+type GraderData = {
+  overallScore?: number;
+  gradedAt?: string;
+  categories?: Record<string, { score?: number; issues?: string[] }>;
+  topRecommendations?: string[];
+};
+
+type ReportStatus = "draft" | "published" | "archived";
+type ReportVisibility = "public" | "unlisted" | "private";
+
+type Report = {
+  id: string;
+  client_name: string;
+  client_slug: string;
+  client_url: string;
+  client_content_md: string;
+  client_content_html: string | null;
+  internal_content_md: string | null;
+  internal_content_html: string | null;
+  grader_data: GraderData | null;
+  status: ReportStatus;
+  visibility: ReportVisibility;
+  created_at: string;
+  updated_at: string;
+  published_at: string | null;
+};
+
+type Variant = "client" | "internal";
+
+const categoryLabels: Record<string, string> = {
+  seo: "SEO",
+  mobile: "Mobile",
+  social: "Social",
+  local: "Local SEO",
+  reviews: "Reviews",
+  performance: "Performance",
+  content: "Content",
+};
+
+const statusColors: Record<ReportStatus, string> = {
+  draft: "bg-amber-100 text-amber-700",
+  published: "bg-green-100 text-green-700",
+  archived: "bg-gray-100 text-gray-600",
+};
+
+const visibilityColors: Record<ReportVisibility, string> = {
+  public: "bg-blue-100 text-blue-700",
+  unlisted: "bg-slate-100 text-slate-700",
+  private: "bg-rose-100 text-rose-700",
+};
+
+const visibilityDescriptions: Record<ReportVisibility, string> = {
+  public: "Anyone with the link can view, and it's discoverable internally",
+  unlisted: "Anyone with the direct link can view, but it isn't surfaced anywhere",
+  private: "Hidden from the public — only team members can view it via /admin",
+};
+
+const STATUSES: ReportStatus[] = ["draft", "published", "archived"];
+const VISIBILITIES: ReportVisibility[] = ["public", "unlisted", "private"];
+
+export default function ReportDetailPage() {
+  const { id } = useParams<{ id: string }>();
+  const router = useRouter();
+  const supabase = useMemo(() => createClient(), []);
+
+  const [report, setReport] = useState<Report | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [statusOpen, setStatusOpen] = useState(false);
+  const [visOpen, setVisOpen] = useState(false);
+
+  const [variant, setVariant] = useState<Variant>("client");
+  const [editing, setEditing] = useState(false);
+  const [draftMd, setDraftMd] = useState("");
+  const [previewHtml, setPreviewHtml] = useState<string>("");
+
+  // ── Talk to AI ──
+  const [aiOpen, setAiOpen] = useState(false);
+  const [aiInstruction, setAiInstruction] = useState("");
+  const [aiCopied, setAiCopied] = useState(false);
+
+  const fetchReport = useCallback(async () => {
+    const { data } = await supabase
+      .from("client_reports")
+      .select("id, client_name, client_slug, client_url, client_content_md, client_content_html, internal_content_md, internal_content_html, grader_data, status, visibility, created_at, updated_at, published_at")
+      .eq("id", id)
+      .single();
+
+    if (!data) {
+      router.push("/admin/reports");
+      return;
+    }
+    setReport(data as Report);
+    setLoading(false);
+  }, [id, router, supabase]);
+
+  useEffect(() => {
+    fetchReport();
+  }, [fetchReport]);
+
+  const currentMd = report
+    ? variant === "client"
+      ? report.client_content_md
+      : report.internal_content_md ?? ""
+    : "";
+  const currentHtml = report
+    ? variant === "client"
+      ? report.client_content_html ?? ""
+      : report.internal_content_html ?? ""
+    : "";
+
+  function startEdit() {
+    setDraftMd(currentMd);
+    setPreviewHtml(currentHtml);
+    setEditing(true);
+  }
+
+  function cancelEdit() {
+    setEditing(false);
+    setDraftMd("");
+  }
+
+  async function patch(body: Record<string, unknown>) {
+    setSaving(true);
+    const res = await fetch(`/api/reports/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    setSaving(false);
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      alert(err.error ?? "Save failed");
+      return null;
+    }
+    return res.json();
+  }
+
+  async function saveContent() {
+    const result = await patch({ variant, content_md: draftMd });
+    if (!result) return;
+    await fetchReport();
+    setEditing(false);
+  }
+
+  async function updateStatus(s: ReportStatus) {
+    setStatusOpen(false);
+    const result = await patch({ status: s });
+    if (!result) return;
+    setReport((prev) =>
+      prev ? { ...prev, status: result.status, published_at: result.published_at } : prev
+    );
+  }
+
+  async function updateVisibility(v: ReportVisibility) {
+    setVisOpen(false);
+    const result = await patch({ visibility: v });
+    if (!result) return;
+    setReport((prev) => (prev ? { ...prev, visibility: result.visibility } : prev));
+  }
+
+  async function copyShare() {
+    if (!report) return;
+    const url = `https://tableturnerr.com/report/${report.client_slug}`;
+    await navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  function buildAiCommand(): string {
+    if (!report) return "";
+    const target = variant === "client" ? "client" : "internal";
+    return [
+      `/edit-client-report ${report.client_slug}`,
+      ``,
+      `Variant: ${target}`,
+      `Instruction: ${aiInstruction.trim() || "(describe the change you want)"}`,
+    ].join("\n");
+  }
+
+  async function copyAiCommand() {
+    await navigator.clipboard.writeText(buildAiCommand());
+    setAiCopied(true);
+    setTimeout(() => setAiCopied(false), 2000);
+  }
+
+  if (loading) {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[var(--color-charcoal)] border-t-transparent" />
+      </div>
+    );
+  }
+
+  if (!report) return null;
+
+  const grader = report.grader_data;
+  const score = grader?.overallScore ?? null;
+  const scoreColor =
+    score === null
+      ? "text-[var(--color-warm-gray)]"
+      : score >= 70
+      ? "text-green-600"
+      : score >= 40
+      ? "text-amber-600"
+      : "text-red-600";
+  const shareUrl = `https://tableturnerr.com/report/${report.client_slug}`;
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex items-start gap-3">
+          <Link
+            href="/admin/reports"
+            className="mt-0.5 rounded-lg p-1.5 text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+          <div>
+            <h1 className="text-xl font-bold text-[var(--color-charcoal)] sm:text-2xl">
+              {report.client_name}
+            </h1>
+            <a
+              href={`https://${report.client_url}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-0.5 inline-flex items-center gap-1 text-sm text-[var(--color-warm-gray)] hover:text-[var(--color-charcoal)]"
+            >
+              <Globe className="h-3.5 w-3.5" />
+              {report.client_url}
+              <ExternalLink className="h-3 w-3" />
+            </a>
+          </div>
+        </div>
+
+        <div className="flex shrink-0 flex-wrap items-center gap-2">
+          {/* Status */}
+          <div className="relative">
+            <button
+              onClick={() => { setStatusOpen((o) => !o); setVisOpen(false); }}
+              disabled={saving}
+              className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium capitalize transition-opacity ${
+                statusColors[report.status]
+              } ${saving ? "opacity-50" : ""}`}
+            >
+              {report.status}
+              <ChevronDown className="h-3.5 w-3.5" />
+            </button>
+            {statusOpen && (
+              <div className="absolute right-0 top-full z-20 mt-1 min-w-[140px] rounded-lg border border-[var(--color-border)] bg-white py-1 shadow-lg">
+                {STATUSES.filter((s) => s !== report.status).map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => updateStatus(s)}
+                    className="flex w-full items-center px-3 py-2 text-sm capitalize text-[var(--color-charcoal)] hover:bg-[var(--color-cream)]"
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Visibility (controls the *client* report's reach) */}
+          <div className="relative">
+            <button
+              onClick={() => { setVisOpen((o) => !o); setStatusOpen(false); }}
+              disabled={saving}
+              title={`Visibility (client report): ${visibilityDescriptions[report.visibility]}`}
+              className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium capitalize transition-opacity ${
+                visibilityColors[report.visibility]
+              } ${saving ? "opacity-50" : ""}`}
+            >
+              {report.visibility === "private" ? (
+                <Lock className="h-3.5 w-3.5" />
+              ) : report.visibility === "unlisted" ? (
+                <EyeOff className="h-3.5 w-3.5" />
+              ) : (
+                <Eye className="h-3.5 w-3.5" />
+              )}
+              {report.visibility}
+              <ChevronDown className="h-3.5 w-3.5" />
+            </button>
+            {visOpen && (
+              <div className="absolute right-0 top-full z-20 mt-1 w-72 rounded-lg border border-[var(--color-border)] bg-white py-1 shadow-lg">
+                {VISIBILITIES.map((v) => (
+                  <button
+                    key={v}
+                    onClick={() => updateVisibility(v)}
+                    disabled={v === report.visibility}
+                    className="flex w-full flex-col items-start gap-0.5 px-3 py-2 text-left text-sm capitalize text-[var(--color-charcoal)] hover:bg-[var(--color-cream)] disabled:cursor-default disabled:opacity-50"
+                  >
+                    <span className="font-medium">
+                      {v} {v === report.visibility && "(current)"}
+                    </span>
+                    <span className="text-xs font-normal normal-case text-[var(--color-warm-gray)]">
+                      {visibilityDescriptions[v]}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {report.status === "published" && report.visibility !== "private" && (
+            <>
+              <button
+                onClick={copyShare}
+                className="inline-flex items-center gap-2 rounded-full bg-[var(--color-charcoal)] px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-charcoal-light)]"
+              >
+                {copied ? (
+                  <><Check className="h-3.5 w-3.5" />Copied!</>
+                ) : (
+                  <><Copy className="h-3.5 w-3.5" />Copy link</>
+                )}
+              </button>
+              <a
+                href={`/report/${report.client_slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-white px-4 py-1.5 text-sm font-medium text-[var(--color-charcoal)] transition-colors hover:bg-[var(--color-cream)]"
+              >
+                <ExternalLink className="h-3.5 w-3.5" />
+                Preview
+              </a>
+            </>
+          )}
+
+          <button
+            onClick={() => fetchReport()}
+            disabled={saving}
+            title="Refresh from database"
+            className="rounded-full border border-[var(--color-border)] bg-white p-2 text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream)] hover:text-[var(--color-charcoal)]"
+          >
+            <RefreshCw className={`h-3.5 w-3.5 ${saving ? "animate-spin" : ""}`} />
+          </button>
+        </div>
+      </div>
+
+      {/* Live banner (only when actually reachable publicly) */}
+      {report.status === "published" && report.visibility !== "private" && (
+        <div className="flex items-center gap-3 rounded-xl border border-green-200 bg-green-50 px-4 py-3">
+          <Check className="h-4 w-4 shrink-0 text-green-600" />
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-medium text-green-800">
+              Client report is live{report.visibility === "unlisted" && " (unlisted — link only)"}
+            </p>
+            <p className="mt-0.5 truncate text-xs text-green-700">{shareUrl}</p>
+          </div>
+          <button
+            onClick={copyShare}
+            className="shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium text-green-700 transition-colors hover:bg-green-100"
+          >
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        </div>
+      )}
+
+      {/* Grader summary */}
+      {grader && (
+        <div className="rounded-xl border border-[var(--color-border)] bg-white p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-sm font-semibold text-[var(--color-charcoal)]">
+                Owner.com Website Grade
+              </h2>
+              {grader.gradedAt && (
+                <p className="mt-0.5 text-xs text-[var(--color-warm-gray)]">
+                  Graded{" "}
+                  {new Date(grader.gradedAt).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </p>
+              )}
+            </div>
+            {score !== null && (
+              <div className="text-center">
+                <span className={`text-4xl font-bold tabular-nums ${scoreColor}`}>
+                  {score}
+                </span>
+                <span className="text-sm text-[var(--color-warm-gray)]">/100</span>
+              </div>
+            )}
+          </div>
+
+          {grader.categories && Object.keys(grader.categories).length > 0 && (
+            <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+              {Object.entries(grader.categories).map(([key, cat]) => {
+                const catScore = cat.score ?? null;
+                const catColor =
+                  catScore === null
+                    ? "text-[var(--color-warm-gray)]"
+                    : catScore >= 70
+                    ? "text-green-600"
+                    : catScore >= 40
+                    ? "text-amber-600"
+                    : "text-red-600";
+                return (
+                  <div
+                    key={key}
+                    className="flex flex-col items-center rounded-lg bg-[var(--color-cream)] px-3 py-4 text-center"
+                  >
+                    <span className="text-xs font-medium text-[var(--color-warm-gray)]">
+                      {categoryLabels[key] ?? key}
+                    </span>
+                    <span className={`mt-1 text-xl font-bold tabular-nums ${catColor}`}>
+                      {catScore ?? "—"}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Variant tabs */}
+      <div className="flex items-center gap-1 rounded-lg bg-[var(--color-cream-dark)] p-1 w-fit">
+        {(["client", "internal"] as Variant[]).map((v) => (
+          <button
+            key={v}
+            onClick={() => {
+              if (editing) {
+                if (!confirm("Discard unsaved edits?")) return;
+                setEditing(false);
+              }
+              setVariant(v);
+            }}
+            className={`rounded-md px-4 py-1.5 text-sm font-medium capitalize transition-colors ${
+              variant === v
+                ? "bg-white text-[var(--color-charcoal)] shadow-sm"
+                : "text-[var(--color-warm-gray)] hover:text-[var(--color-charcoal)]"
+            }`}
+          >
+            {v} report
+            {v === "internal" && (
+              <span className="ml-1.5 inline-flex items-center gap-0.5 text-[10px] font-normal text-[var(--color-warm-gray-light)]">
+                <Lock className="h-2.5 w-2.5" />
+                team only
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* Content card */}
+      <div className="rounded-xl border border-[var(--color-border)] bg-white">
+        <div className="flex items-center justify-between border-b border-[var(--color-border)] px-6 py-4">
+          <h2 className="text-sm font-semibold text-[var(--color-charcoal)]">
+            {variant === "client" ? "Client Report" : "Internal Report"}{editing && " — Editing"}
+          </h2>
+          <div className="flex gap-2">
+            {editing ? (
+              <>
+                <button
+                  onClick={cancelEdit}
+                  className="rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs font-medium text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream)]"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={saveContent}
+                  disabled={saving || draftMd === currentMd}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[var(--color-charcoal)] px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-[var(--color-charcoal-light)] disabled:opacity-40"
+                >
+                  <Save className="h-3 w-3" />
+                  {saving ? "Saving…" : "Save"}
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={startEdit}
+                disabled={!currentMd && variant === "internal"}
+                className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs font-medium text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream)] hover:text-[var(--color-charcoal)] disabled:opacity-40"
+              >
+                <Pencil className="h-3 w-3" />
+                Edit markdown
+              </button>
+            )}
+          </div>
+        </div>
+
+        {editing ? (
+          <div className="grid gap-0 lg:grid-cols-2">
+            <textarea
+              value={draftMd}
+              onChange={(e) => setDraftMd(e.target.value)}
+              className="min-h-[600px] resize-none border-r border-[var(--color-border)] bg-[var(--color-cream)] p-4 font-mono text-xs leading-relaxed text-[var(--color-charcoal)] focus:outline-none"
+              spellCheck={false}
+            />
+            <div className="overflow-x-auto px-4 py-4">
+              <p className="mb-2 text-xs text-[var(--color-warm-gray-light)]">
+                Live preview from saved HTML — re-renders on save.
+              </p>
+              <article
+                className="prose prose-sm prose-neutral max-w-none"
+                dangerouslySetInnerHTML={{ __html: previewHtml }}
+              />
+            </div>
+          </div>
+        ) : currentMd ? (
+          <div className="overflow-x-auto px-6 py-8">
+            <article
+              className="prose prose-neutral max-w-none
+                prose-headings:font-bold prose-headings:text-[var(--color-charcoal)]
+                prose-h1:text-xl prose-h2:text-lg prose-h2:mt-8 prose-h2:mb-3
+                prose-h3:text-base prose-h3:mt-5
+                prose-p:text-[var(--color-warm-gray)] prose-p:leading-relaxed
+                prose-table:text-sm
+                prose-th:bg-[var(--color-cream-dark)] prose-th:font-semibold
+                prose-li:text-[var(--color-warm-gray)]"
+              dangerouslySetInnerHTML={{ __html: currentHtml }}
+            />
+          </div>
+        ) : (
+          <div className="px-6 py-12 text-center text-sm text-[var(--color-warm-gray)]">
+            No internal report yet. Generate one with{" "}
+            <code className="rounded bg-[var(--color-cream-dark)] px-1 py-0.5 font-mono text-xs">
+              /generate-client-report
+            </code>{" "}
+            in Claude Code, or use Talk to AI below to draft one.
+          </div>
+        )}
+      </div>
+
+      {/* Talk to AI */}
+      <div className="rounded-xl border border-[var(--color-border)] bg-white">
+        <button
+          onClick={() => setAiOpen((o) => !o)}
+          className="flex w-full items-center justify-between p-4 transition-colors hover:bg-[var(--color-cream)]"
+        >
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-4 w-4 text-[var(--color-warm-gray)]" />
+            <span className="text-sm font-medium text-[var(--color-charcoal)]">
+              Talk to AI
+            </span>
+            <span className="text-xs text-[var(--color-warm-gray-light)]">
+              — edit this {variant} report through Claude Code
+            </span>
+          </div>
+          {aiOpen ? (
+            <ChevronUp className="h-4 w-4 text-[var(--color-warm-gray)]" />
+          ) : (
+            <ChevronDown className="h-4 w-4 text-[var(--color-warm-gray)]" />
+          )}
+        </button>
+
+        {aiOpen && (
+          <div className="space-y-4 border-t border-[var(--color-border)] p-4">
+            <p className="text-xs text-[var(--color-warm-gray)]">
+              Describe the change you want, copy the generated command, and paste it into a Claude Code session
+              opened in this repo. The <code className="rounded bg-[var(--color-cream-dark)] px-1 font-mono">edit-client-report</code> skill
+              will fetch this report, apply your edits, and push the updated version back. Refresh this page when it&apos;s done.
+            </p>
+
+            <div>
+              <label className="mb-1.5 flex items-center gap-2 text-xs font-medium text-[var(--color-charcoal)]">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-charcoal)] text-[10px] font-bold text-white">1</span>
+                Your instruction
+              </label>
+              <textarea
+                value={aiInstruction}
+                onChange={(e) => setAiInstruction(e.target.value)}
+                placeholder="e.g. Tighten the executive summary, drop the speculative revenue figures, and add a section on TikTok strategy."
+                rows={3}
+                className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm text-[var(--color-charcoal)] placeholder:text-[var(--color-warm-gray-light)] focus:border-[var(--color-charcoal)] focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="mb-1.5 flex items-center gap-2 text-xs font-medium text-[var(--color-charcoal)]">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-charcoal)] text-[10px] font-bold text-white">2</span>
+                Copy & paste this into Claude Code
+              </label>
+              <pre className="overflow-x-auto whitespace-pre-wrap break-words rounded-lg bg-[var(--color-cream)] p-3 font-mono text-xs text-[var(--color-charcoal)]">
+{buildAiCommand()}
+              </pre>
+              <button
+                onClick={copyAiCommand}
+                disabled={!aiInstruction.trim()}
+                className="mt-2 inline-flex items-center gap-2 rounded-full bg-[var(--color-charcoal)] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-charcoal-light)] disabled:opacity-30"
+              >
+                {aiCopied ? (
+                  <><Check className="h-3.5 w-3.5" />Copied!</>
+                ) : (
+                  <><Copy className="h-3.5 w-3.5" />Copy command</>
+                )}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Metadata */}
+      <div className="flex flex-wrap gap-4 text-xs text-[var(--color-warm-gray)]">
+        <span>
+          Created:{" "}
+          {new Date(report.created_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+        </span>
+        <span>
+          Updated:{" "}
+          {new Date(report.updated_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+        </span>
+        {report.published_at && (
+          <span>
+            Published:{" "}
+            {new Date(report.published_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}

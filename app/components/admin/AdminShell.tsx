@@ -18,6 +18,7 @@ import {
   PanelLeftClose,
   PanelLeft,
   MapPin,
+  FileBarChart2,
 } from "lucide-react";
 
 import type { UserRole } from "@/app/lib/supabase/types";
@@ -36,15 +37,18 @@ const NAV_ITEMS: { href: string; label: string; icon: typeof LayoutDashboard; mi
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, minRole: "viewer" },
   { href: "/admin/posts", label: "Posts", icon: FileText, minRole: "viewer" },
   { href: "/admin/location-pages", label: "Location Pages", icon: MapPin, minRole: "viewer" },
+  { href: "/admin/reports", label: "Reports", icon: FileBarChart2, minRole: "viewer" },
   { href: "/admin/categories", label: "Blog Categories", icon: FolderOpen, minRole: "manager" },
   { href: "/admin/settings", label: "Settings", icon: Settings, minRole: "manager" },
 ];
 
 export default function AdminShell({
   user,
+  version,
   children,
 }: {
   user: AdminUser;
+  version: string;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
@@ -246,6 +250,9 @@ export default function AdminShell({
             </button>
           )}
           <div className="flex-1" />
+          <span className="text-xs font-medium text-[var(--color-warm-gray-light)]">
+            v{version}
+          </span>
           <span className="text-xs tabular-nums text-[var(--color-warm-gray-light)]">
             {currentTime}
           </span>

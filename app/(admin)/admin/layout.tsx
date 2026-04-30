@@ -1,6 +1,7 @@
 import { createClient } from "@/app/lib/supabase/server";
 import type { UserRole } from "@/app/lib/supabase/types";
 import AdminShell from "@/app/components/admin/AdminShell";
+import pkg from "@/package.json";
 
 export const metadata = {
   title: "Admin | TableTurnerr",
@@ -33,6 +34,7 @@ export default async function AdminLayout({
 
   return (
     <AdminShell
+      version={pkg.version}
       user={{
         id: user.id,
         email: user.email ?? "",
