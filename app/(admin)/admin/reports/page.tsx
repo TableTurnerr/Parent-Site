@@ -14,7 +14,7 @@ export default async function ReportsPage({
 
   let query = supabase
     .from("client_reports")
-    .select("id, client_name, client_slug, client_url, status, created_at, published_at, grader_data")
+    .select("id, client_name, client_slug, client_url, status, visibility, created_at, published_at, grader_data")
     .order("created_at", { ascending: false });
 
   if (statusFilter !== "all") {
@@ -38,6 +38,12 @@ export default async function ReportsPage({
     draft: "bg-amber-100 text-amber-700",
     published: "bg-green-100 text-green-700",
     archived: "bg-gray-100 text-gray-600",
+  };
+
+  const visibilityColors: Record<string, string> = {
+    public: "bg-blue-100 text-blue-700",
+    unlisted: "bg-slate-100 text-slate-700",
+    private: "bg-rose-100 text-rose-700",
   };
 
   return (
@@ -106,6 +112,9 @@ export default async function ReportsPage({
                 <th className="hidden px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] sm:table-cell">
                   Status
                 </th>
+                <th className="hidden px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] md:table-cell">
+                  Visibility
+                </th>
                 <th className="hidden px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] lg:table-cell">
                   Date
                 </th>
@@ -163,6 +172,15 @@ export default async function ReportsPage({
                         }`}
                       >
                         {report.status}
+                      </span>
+                    </td>
+                    <td className="hidden px-6 py-4 md:table-cell">
+                      <span
+                        className={`inline-block rounded-full px-2.5 py-1 text-xs font-medium capitalize ${
+                          visibilityColors[report.visibility] ?? visibilityColors.public
+                        }`}
+                      >
+                        {report.visibility}
                       </span>
                     </td>
                     <td className="hidden px-6 py-4 lg:table-cell">
