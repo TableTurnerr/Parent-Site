@@ -30,15 +30,23 @@ C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr\reports-archive\<slug>\
 ```
 Create it if it doesn't exist. Output two reports here.
 
+**Create the archive directory in its own command** — do not chain it with the Python capture. If anything in a chained `&&` command fails, the whole chain reports exit code 1 even when the directory was successfully created, which makes failure mode opaque.
+
+```bash
+mkdir -p "C:/Users/Hashaam/Desktop/MyCode/ParentSite-Tableturnerr/reports-archive/<slug>"
+```
+
 ---
 
 ## Step 1 — Capture grader report (run the Python CLI, watch for sentinel)
 
+**Windows encoding (MANDATORY):** The script uses the `rich` library which prints emoji and Unicode box-drawing characters. The default Windows code page is cp1252 and will throw `UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4ca'` mid-banner, killing the script before it can capture anything. **Always prefix the Python command with `PYTHONIOENCODING=utf-8 PYTHONUTF8=1`**:
+
 ```bash
-python scripts/grader_cli.py capture --company "<Client Name>" --url "<website-url>"
+PYTHONIOENCODING=utf-8 PYTHONUTF8=1 python scripts/grader_cli.py capture --company "<Client Name>" --url "<website-url>"
 ```
 
-Run from: `C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr`
+Run from: `C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr`. Use a long Bash timeout (e.g. `timeout: 600000`) — the user must solve a CAPTCHA in Chrome, which can take a minute or two.
 
 **How it works:** The script launches the user's **real Google Chrome** via remote debugging (port 9222) with an isolated `--user-data-dir`. It connects via CDP, pre-fills the URL, and **polls the page every 2s** until it auto-detects the report. It then auto-saves the HTML and extracts JSON — no Ctrl+S, no ENTER, no manual save. The user only solves the CAPTCHA and clicks Submit.
 
@@ -121,20 +129,35 @@ The **full deep-dive for the TableTurnerr team**. Mirror the proven structure of
 
 ---
 
-## Step 4 — Hand off to the share menu (interactive)
+## Step 4 — Launch the Reports Archive Manager
+
+There is **one permanent launcher** for all clients: `scripts/manage-reports.bat`. It opens a cmd window running `scripts/manage_reports.py`, which scans `reports-archive/` and lets the user pick any client, render either report as a temporary HTML preview, or push to Supabase. **Do not write per-client `.bat` files.** If you find legacy `share.bat` files in archive folders, delete them.
+
+**Launch from Bash:**
 
 ```bash
-python scripts/grader_cli.py share \
-  --slug "<slug>" \
-  --client "<Client Name>" \
-  --url "<website-url>" \
-  --client-report "C:/Users/Hashaam/Desktop/MyCode/ParentSite-Tableturnerr/reports-archive/<slug>/<slug>-client-report.md" \
-  --internal-report "C:/Users/Hashaam/Desktop/MyCode/ParentSite-Tableturnerr/reports-archive/<slug>/<slug>-internal-report.md" \
-  --status draft \
-  --visibility public
+cmd //c start "" "C:/Users/Hashaam/Desktop/MyCode/ParentSite-Tableturnerr/scripts/manage-reports.bat"
 ```
 
-Run from: `C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr`
+Notes:
+- `cmd //c start "" "<bat>"` opens the manager in a new cmd window with its own stdin (the harness can't pipe stdin into the interactive Rich prompts, so `start` is mandatory).
+- The empty `""` after `start` is the window-title placeholder — `start` needs it whenever the next argument is a quoted path, otherwise it treats the path as the title and never launches.
+- The `.bat` sets `PYTHONIOENCODING=utf-8 PYTHONUTF8=1` before invoking Python, so rich's emoji/box-drawing glyphs render cleanly on cp1252 Windows. The window stays open after the manager exits via a trailing `pause >nul`.
+
+**What the manager does:**
+
+1. Lists every client in `reports-archive/` with checkmarks for which reports exist.
+2. After picking a client, offers:
+   - View client report as rendered HTML (temp file, deleted on exit)
+   - View internal report as rendered HTML (temp file, deleted on exit)
+   - Push both to Supabase as **draft + public**
+   - Push both as **published + public**
+   - Open the archive folder in Explorer
+   - Back / Quit
+3. The HTML renderer is built into `manage_reports.py` (no external markdown package needed). It strips the YAML frontmatter and Tableturnerr branding/watermark divs and renders the rest with a clean GitHub-style stylesheet.
+4. Push uses `subprocess` to feed `"3"` into `grader_cli.py share` automatically, so the user doesn't see the legacy share menu — the manager is the single entry point.
+
+Confirm the new cmd window opens, then stop and wait for the user.
 
 The share menu lets the user view either MD locally, push both to Supabase, or push + view. The push uploads:
 - `client_content_md/html` → powers the public `/report/<slug>` page (only visible when `status='published'` AND `visibility != 'private'`)
@@ -164,6 +187,9 @@ The internal report is admin-only and will never appear on the public URL.
 ## Error handling
 | Problem | Action |
 |---------|--------|
+| `UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4ca'` | Missing UTF-8 prefix — re-run with `PYTHONIOENCODING=utf-8 PYTHONUTF8=1` (mandatory on Windows for both `capture` and `share`) |
+| `EOFError: EOF when reading a line` from share menu | Trying to run the interactive menu inside Bash. Re-launch via `start "Tableturnerr Share Menu" cmd /k "..."` so it gets its own terminal |
+| Chained `mkdir && cd && python ...` returns exit code 1 | Don't chain. Run `mkdir -p ...` in a separate Bash call before the Python step so a Python failure doesn't mask directory creation success |
 | Capture script doesn't print `READY:` line | Capture failed — continue with null grader data, note it in both reports |
 | CAPTCHA in browser | User solves it in real Chrome; script auto-detects completion (no terminal interaction needed) |
 | Chrome not found | Script will error — ask user to install Chrome or check PATH |
