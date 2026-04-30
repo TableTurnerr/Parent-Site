@@ -20,16 +20,20 @@ export async function generateMetadata({
 
   const { data } = await supabase
     .from("client_reports")
-    .select("client_name")
+    .select("client_name, visibility")
     .eq("client_slug", slug)
     .eq("status", "published")
+    .in("visibility", ["public", "unlisted"])
     .single();
 
   if (!data) return { title: "Report | TableTurnerr" };
 
   return {
     title: `${data.client_name} — SEO Report | TableTurnerr`,
-    robots: { index: false, follow: false },
+    robots:
+      data.visibility === "public"
+        ? { index: false, follow: false }
+        : { index: false, follow: false, nocache: true },
   };
 }
 
@@ -43,9 +47,10 @@ export default async function PublicReportPage({
 
   const { data: report } = await supabase
     .from("client_reports")
-    .select("client_name, client_url, report_content_html, grader_data, published_at, created_at")
+    .select("client_name, client_url, client_content_html, grader_data, published_at, created_at, visibility")
     .eq("client_slug", slug)
     .eq("status", "published")
+    .in("visibility", ["public", "unlisted"])
     .single();
 
   if (!report) notFound();
@@ -172,7 +177,7 @@ export default async function PublicReportPage({
             prose-th:bg-[#f0ede8] prose-th:font-semibold prose-th:text-[#1a1a1a]
             prose-td:text-[#444]
             prose-li:text-[#444]"
-          dangerouslySetInnerHTML={{ __html: report.report_content_html ?? "" }}
+          dangerouslySetInnerHTML={{ __html: report.client_content_html ?? "" }}
         />
       </main>
 
