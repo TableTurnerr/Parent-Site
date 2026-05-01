@@ -322,8 +322,9 @@ def discover_clients() -> list[dict]:
             continue
         slug = d.name
         client_md = d / f"{slug}-client-report.md"
+        client_json = d / f"{slug}-client-report.json"
         internal_md = d / f"{slug}-internal-report.md"
-        if not (client_md.exists() or internal_md.exists()):
+        if not (client_md.exists() or internal_md.exists() or client_json.exists()):
             continue
         # try to recover client name + url from grader cache
         name = slug.replace("-", " ").title()
@@ -340,6 +341,7 @@ def discover_clients() -> list[dict]:
             "name": name,
             "url": url,
             "client": client_md if client_md.exists() else None,
+            "client_json": client_json if client_json.exists() else None,
             "internal": internal_md if internal_md.exists() else None,
         })
     return clients
@@ -354,13 +356,15 @@ def pick_client(clients: list[dict]) -> Optional[dict]:
     table = Table(show_header=True, header_style="bold cyan", box=None, padding=(0, 2))
     table.add_column("Client")
     table.add_column("Slug", style="dim")
-    table.add_column("Client", justify="center")
+    table.add_column("MD", justify="center")
+    table.add_column("JSON", justify="center")
     table.add_column("Internal", justify="center")
 
     for c in clients:
         table.add_row(
             c["name"], c["slug"],
             "[green]✓[/green]" if c["client"] else "[dim]—[/dim]",
+            "[green]✓[/green]" if c.get("client_json") else "[dim]—[/dim]",
             "[green]✓[/green]" if c["internal"] else "[dim]—[/dim]",
         )
     console.print(Panel(table, title="[bold]Reports Archive[/bold]",
@@ -401,8 +405,9 @@ def push_to_supabase(c: dict, status: str = "draft", visibility: str = "public")
     summary.add_row("[dim]Client[/dim]",          c["name"])
     summary.add_row("[dim]Slug[/dim]",            c["slug"])
     summary.add_row("[dim]URL[/dim]",             url or "[dim](none)[/dim]")
-    summary.add_row("[dim]Client report[/dim]",   str(c["client"])   if c["client"]   else "[dim](skip)[/dim]")
-    summary.add_row("[dim]Internal report[/dim]", str(c["internal"]) if c["internal"] else "[dim](skip)[/dim]")
+    summary.add_row("[dim]Client report (md)[/dim]",   str(c["client"])      if c["client"]            else "[dim](skip)[/dim]")
+    summary.add_row("[dim]Client report (json)[/dim]", str(c.get("client_json")) if c.get("client_json") else "[dim](skip)[/dim]")
+    summary.add_row("[dim]Internal report[/dim]",      str(c["internal"])    if c["internal"]          else "[dim](skip)[/dim]")
     summary.add_row("[dim]Status[/dim]",          f"[yellow]{status}[/yellow]")
     summary.add_row("[dim]Visibility[/dim]",      f"[yellow]{visibility}[/yellow]")
     console.print(Panel(summary, title="[bold]Pushing to Supabase[/bold]",
@@ -418,6 +423,8 @@ def push_to_supabase(c: dict, status: str = "draft", visibility: str = "public")
     ]
     if c["client"]:
         cmd.append(f"--client-report={c['client']}")
+    if c.get("client_json"):
+        cmd.append(f"--client-report-json={c['client_json']}")
     if c["internal"]:
         cmd.append(f"--internal-report={c['internal']}")
     grader_json = CACHE_DIR / f"{c['slug']}.json"
