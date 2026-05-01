@@ -58,3 +58,6 @@ reports-archive/
 
 # mcp config (contains secrets)
 .mcp.json
+
+# python
+__pycache__/
