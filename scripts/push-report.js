@@ -10,11 +10,15 @@
  *     --slug="grumpys-burgers" \
  *     --url="grumpys-burgers.com" \
  *     --client-report="C:/path/Grumpys-Client-Report.md" \
+ *     --client-report-json="C:/path/Grumpys-Client-Report.json" \
  *     --internal-report="C:/path/Grumpys-Internal-Full-Report.md" \
  *     [--grader=".grader-cache/grumpys-burgers.json"] \
  *     [--status=draft] [--visibility=public]
  *
- * Either report can be omitted on update (we won't overwrite an existing column with null).
+ * Any report variant can be omitted on update (we won't overwrite an existing column with null).
+ * --client-report-json is what the new beautified /report/[slug] page renders.
+ * If both .md and .json sit next to each other (same stem), the script auto-detects
+ * the .json based on the .md path (replace -client-report.md → -client-report.json).
  */
 
 const fs = require("fs");
@@ -37,6 +41,7 @@ const {
   slug,
   url: clientUrl,
   "client-report": clientReportPath,
+  "client-report-json": clientReportJsonPathArg,
   "internal-report": internalReportPath,
   report: legacyReportPath,
   grader: graderPath,
@@ -45,6 +50,15 @@ const {
 } = args;
 
 const resolvedClientReport = clientReportPath || legacyReportPath;
+
+// Auto-detect a sibling JSON file if --client-report-json wasn't passed.
+let resolvedClientReportJson = clientReportJsonPathArg || null;
+if (!resolvedClientReportJson && resolvedClientReport) {
+  const guess = resolvedClientReport.replace(/\.md$/i, ".json");
+  if (guess !== resolvedClientReport && fs.existsSync(guess)) {
+    resolvedClientReportJson = guess;
+  }
+}
 
 if (!clientName || !slug || !clientUrl || (!resolvedClientReport && !internalReportPath)) {
   console.error(`
@@ -80,10 +94,30 @@ function readReport(p) {
   return { md, html: marked.parse(body) };
 }
 
+function readJsonReport(p) {
+  if (!p) return null;
+  if (!fs.existsSync(p)) {
+    console.error(`Client report JSON not found: ${p}`);
+    process.exit(1);
+  }
+  try {
+    const text = fs.readFileSync(p, "utf-8");
+    const parsed = JSON.parse(text);
+    if (parsed.version !== 1) {
+      console.warn(`Warning: client-report JSON has unexpected version: ${parsed.version}`);
+    }
+    return parsed;
+  } catch (e) {
+    console.error(`Could not parse client-report JSON: ${e.message}`);
+    process.exit(1);
+  }
+}
+
 async function run() {
   console.log(`\nPushing report for: ${clientName}`);
 
   const clientReport = readReport(resolvedClientReport);
+  const clientReportJson = readJsonReport(resolvedClientReportJson);
   const internalReport = readReport(internalReportPath);
 
   let graderData = null;
@@ -108,6 +142,9 @@ async function run() {
     ...(clientReport ? {
       client_content_md: clientReport.md,
       client_content_html: clientReport.html,
+    } : {}),
+    ...(clientReportJson ? {
+      client_content_json: clientReportJson,
     } : {}),
     ...(internalReport ? {
       internal_content_md: internalReport.md,
@@ -150,7 +187,7 @@ async function run() {
   console.log(`   Slug:       ${data.client_slug}`);
   console.log(`   Status:     ${data.status}`);
   console.log(`   Visibility: ${data.visibility}`);
-  console.log(`   Variants:   client=${clientReport ? "yes" : "unchanged"}, internal=${internalReport ? "yes" : "unchanged"}`);
+  console.log(`   Variants:   client-md=${clientReport ? "yes" : "unchanged"}, client-json=${clientReportJson ? "yes" : "unchanged"}, internal=${internalReport ? "yes" : "unchanged"}`);
   console.log(`\nClient share link (local): ${localUrl}`);
   console.log(`Client share link (prod):  ${prodUrl}`);
   console.log(`Admin panel:               http://localhost:3000/admin/reports/${data.id}`);

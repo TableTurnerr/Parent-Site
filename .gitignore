@@ -54,6 +54,10 @@ next-env.d.ts
 
 # grader report cache (local temp, not for version control)
 .grader-cache/
+reports-archive/
 
 # mcp config (contains secrets)
 .mcp.json
+
+# python
+__pycache__/

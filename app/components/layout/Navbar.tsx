@@ -6,32 +6,40 @@ import MobileMenu from "./MobileMenu";
 import Button from "@/app/components/ui/Button";
 import { NAV_LINKS } from "@/app/lib/constants";
 
-export default function Navbar() {
+export default function Navbar({
+  variant = "default",
+}: {
+  variant?: "default" | "static";
+}) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    if (variant === "static") return;
     const handleScroll = () => setScrolled(window.scrollY > 50);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [variant]);
+
+  const isStatic = variant === "static";
+  const isShrunk = !isStatic && scrolled;
 
   return (
     <header
       className={`fixed left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
-        scrolled ? "top-3 sm:top-4 px-3 sm:px-4 md:px-6" : "top-0 px-0"
-      }`}
+        isShrunk ? "top-3 sm:top-4 px-3 sm:px-4 md:px-6" : "top-0 px-0"
+      } ${isStatic ? "bg-[#F7F3ED] border-b border-border" : ""}`}
     >
       <nav
-        className={`mx-auto transition-all duration-500 ease-in-out ${
-          scrolled
+        className={`mx-auto ${isStatic ? "" : "transition-all duration-500 ease-in-out"} ${
+          isShrunk
             ? "max-w-5xl bg-cream/90 backdrop-blur-md border border-border rounded-full shadow-sm"
             : "max-w-7xl bg-transparent"
         }`}
       >
         <div
-          className={`flex items-center justify-between transition-all duration-500 ease-in-out ${
-            scrolled
+          className={`flex items-center justify-between ${isStatic ? "" : "transition-all duration-500 ease-in-out"} ${
+            isShrunk
               ? "h-14 md:h-16 pl-4 sm:pl-6 md:pl-8 pr-3 sm:pr-4 md:pr-3"
               : "h-16 md:h-20 px-4 sm:px-6 md:px-8"
           }`}

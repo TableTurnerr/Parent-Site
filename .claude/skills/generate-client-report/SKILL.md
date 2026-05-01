@@ -30,15 +30,23 @@ C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr\reports-archive\<slug>\
 ```
 Create it if it doesn't exist. Output two reports here.
 
+**Create the archive directory in its own command** — do not chain it with the Python capture. If anything in a chained `&&` command fails, the whole chain reports exit code 1 even when the directory was successfully created, which makes failure mode opaque.
+
+```bash
+mkdir -p "C:/Users/Hashaam/Desktop/MyCode/ParentSite-Tableturnerr/reports-archive/<slug>"
+```
+
 ---
 
 ## Step 1 — Capture grader report (run the Python CLI, watch for sentinel)
 
+**Windows encoding (MANDATORY):** The script uses the `rich` library which prints emoji and Unicode box-drawing characters. The default Windows code page is cp1252 and will throw `UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4ca'` mid-banner, killing the script before it can capture anything. **Always prefix the Python command with `PYTHONIOENCODING=utf-8 PYTHONUTF8=1`**:
+
 ```bash
-python scripts/grader_cli.py capture --company "<Client Name>" --url "<website-url>"
+PYTHONIOENCODING=utf-8 PYTHONUTF8=1 python scripts/grader_cli.py capture --company "<Client Name>" --url "<website-url>"
 ```
 
-Run from: `C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr`
+Run from: `C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr`. Use a long Bash timeout (e.g. `timeout: 600000`) — the user must solve a CAPTCHA in Chrome, which can take a minute or two.
 
 **How it works:** The script launches the user's **real Google Chrome** via remote debugging (port 9222) with an isolated `--user-data-dir`. It connects via CDP, pre-fills the URL, and **polls the page every 2s** until it auto-detects the report. It then auto-saves the HTML and extracts JSON — no Ctrl+S, no ENTER, no manual save. The user only solves the CAPTCHA and clicks Submit.
 
@@ -62,32 +70,85 @@ If the folder does not exist, skip silently. Generate the reports from grader da
 
 ---
 
-## Step 3 — Generate **two** markdown reports
+## Step 3 — Generate **three** report artifacts
 
-Output both into `reports-archive\<slug>\`:
+Output all three into `reports-archive\<slug>\`:
 
-### 3a. Client report — `<slug>-client-report.md`
-The polished, **client-facing** deliverable. Mirror:
-- `C:\Users\Hashaam\Desktop\MyCode\Grumpy's-Website\reports\Grumpys-Client-Report.md`
-- `C:\Users\Hashaam\Desktop\MyCode\PureOnThePlaza-Website\reports\PureOnThePlaza-Client-Report.md`
+- `<slug>-client-report.md`   — markdown copy (PDF / archive / fallback render)
+- `<slug>-client-report.json` — **structured JSON that powers the public `/report/<slug>` page**
+- `<slug>-internal-report.md` — internal team deep-dive
 
-**Required sections:**
-1. YAML frontmatter (PDF metadata — same structure, update title/date/filename)
-2. Watermark layer div
-3. Branding banner
-4. Executive Summary
-5. Website Performance & Technical Analysis ← embed grader score here if available
-6. Local SEO & Google Business Profile
-7. Social Media & Online Presence
-8. Online Reviews & Reputation
-9. Competitive Analysis
-10. Priority Action Plan (table: Priority / Action / Impact / Timeline)
-11. Investment & Next Steps
-12. Footer branding
+### 3a. Client report (JSON) — `<slug>-client-report.json`
 
-**Tone:** Professional, direct, actionable, client-facing. **No** internal pricing strategy, no speculative numbers, no commentary the client shouldn't see.
+This is the **primary client deliverable**. The website renders this JSON directly via `components/report/report-renderer.tsx` (sticky sidebar with grades, hero card, scorecard cards, collapsible keyword research, etc.). Tokens spent generating polished HTML/markdown for the live page are wasted — the renderer handles all visual styling.
 
-### 3b. Internal report — `<slug>-internal-report.md`
+**Schema source of truth:** `lib/report-schema.ts` (`ClientReport` type, version 1).
+
+**Required top-level shape:**
+```json
+{
+  "version": 1,
+  "client": { "name", "slug", "url", "preparedDate": "Month D, YYYY" },
+  "hero": {
+    "title": "<Client> — Website & Online Presence Report",
+    "subtitle": "<one-line hook>",
+    "narrative": ["paragraph 1", "paragraph 2", "..."],
+    "overallGrade": "C-",            // letter grade A+..F
+    "graderScore": 65,                // TableTurnerr presence score 0..100 (omit if unavailable)
+    "monthlyRevenueLoss": 2361,       // USD/month estimate (omit if unavailable)
+    "verdict": "<one-line summary>"
+  },
+  "ratings": [                         // sidebar score breakdown — 4..7 categories
+    { "key": "reviews",     "label": "Reviews & Reputation",  "score": 78 },
+    { "key": "social",      "label": "Social Media",          "score": 50 },
+    { "key": "content",     "label": "Website Content",       "score": 28 },
+    { "key": "search",      "label": "Google Search",         "score": 25 }
+  ],
+  "sections": [ /* see below */ ]
+}
+```
+
+**Don't repeat boilerplate in the JSON.** The renderer supplies these defaults — omit them from the output:
+- `client.preparedBy` (defaults to "Tableturnerr")
+- CTA `primary.href` / `secondary.href` (default to the TableTurnerr contact + homepage)
+- Anything that would put TableTurnerr's phone, email, or address into the body of a section — those live in the site Footer, not the report content.
+
+**Credit the report to TableTurnerr only.** Never mention "owner.com," "grader," or any third-party tool inside any string the client will read. Numbers we got from external tools should be presented as our analysis. Internal infrastructure names (`grader_cli.py`, `.grader-cache/`) are fine — they never reach the client.
+
+**Section types** (use `type` discriminator — pick the right one for each piece of analysis):
+
+| `type` | Use for |
+|--------|---------|
+| `narrative` | Pure prose ("What This Report Covers", "The Big Picture") |
+| `scorecard` | Online scorecard with letter grades per area (renders as grade-badge cards) |
+| `table` | Generic table (traffic sources, social, success metrics, etc.) |
+| `reviews` | Reviews section with platforms table + loved/complaints lists |
+| `problems` | Numbered cards for "What's Holding You Back" / weaknesses |
+| `competition` | Competitors + search position + rival callouts + win/lose + opportunity |
+| `keywords` | Collapsible keyword groups (the SEO keyword tables — collapsed by default with a summary, expanded on click) |
+| `actionPlan` | Priority Action Plan (priority # / category badge / action / impact / timeline) |
+| `successMetrics` | "Where you are now" → "Where you could be" rows |
+| `cta` | Final dark "Investment & Next Steps" card with primary/secondary buttons |
+
+**Inline formatting** allowed inside any string field: `**bold**`, `*italic*`, `[label](url)`, `` `code` ``. The renderer parses this minimal subset — do NOT emit raw HTML.
+
+**Reference example** — read `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.json` before writing a new one. It demonstrates every section type.
+
+**Keyword groups (the collapsible accordion):** each group must have:
+- `label` — short title ("The Money Keywords")
+- `summary` — what shows when collapsed (1–2 sentences explaining what's in the group)
+- `highlight` — small badge with the volume range ("7,500–12,000 searches/mo")
+- `intro` (optional) — shown above the table when expanded
+- `table` — the actual keyword data
+- `takeaway` (optional) — pull-quote shown below the table
+
+**Tone:** Professional, direct, actionable, client-facing. **No** internal pricing strategy, no speculative numbers, no commentary the client shouldn't see. Keep all financial estimates referenced in `monthlyRevenueLoss` or section text.
+
+### 3b. Client report (markdown) — `<slug>-client-report.md`
+
+A markdown rendering of the same content for PDF export and archive purposes. Mirror the structure of `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.md` (YAML frontmatter for PDF, watermark/branding divs, headings + tables). This is the fallback the public page renders if `client_content_json` is missing — and the source for printable PDFs.
+
+### 3c. Internal report — `<slug>-internal-report.md`
 The **full deep-dive for the TableTurnerr team**. Mirror the proven structure of:
 - `C:\Users\Hashaam\Desktop\MyCode\Grumpy's-Website\reports\Grumpys-Internal-Full-Report.md`
 
@@ -117,28 +178,46 @@ The **full deep-dive for the TableTurnerr team**. Mirror the proven structure of
 
 **Tone:** Internal-team voice. Be candid about pricing strategy, competitor weaknesses we can exploit, and any speculative numbers — clearly label estimates as estimates.
 
-**Grader integration:** When `graderData` is available, embed the overall score + category breakdown in **both** reports. Internal report goes deeper (issues, recommendations from grader); client report keeps it summarized.
+**Grader data integration:** When `graderData` is available, embed the overall score + category breakdown in **both** reports — but in the client-facing JSON, present everything as TableTurnerr's analysis. Never name the upstream tool. The internal report can reference the source freely; the client report cannot.
 
 ---
 
-## Step 4 — Hand off to the share menu (interactive)
+## Step 4 — Launch the Reports Archive Manager
+
+There is **one permanent launcher** for all clients: `scripts/manage-reports.bat`. It opens a cmd window running `scripts/manage_reports.py`, which scans `reports-archive/` and lets the user pick any client, render either report as a temporary HTML preview, or push to Supabase. **Do not write per-client `.bat` files.** If you find legacy `share.bat` files in archive folders, delete them.
+
+**Launch from Bash:**
 
 ```bash
-python scripts/grader_cli.py share \
-  --slug "<slug>" \
-  --client "<Client Name>" \
-  --url "<website-url>" \
-  --client-report "C:/Users/Hashaam/Desktop/MyCode/ParentSite-Tableturnerr/reports-archive/<slug>/<slug>-client-report.md" \
-  --internal-report "C:/Users/Hashaam/Desktop/MyCode/ParentSite-Tableturnerr/reports-archive/<slug>/<slug>-internal-report.md" \
-  --status draft \
-  --visibility public
+cmd //c start "" "C:/Users/Hashaam/Desktop/MyCode/ParentSite-Tableturnerr/scripts/manage-reports.bat"
 ```
 
-Run from: `C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr`
+Notes:
+- `cmd //c start "" "<bat>"` opens the manager in a new cmd window with its own stdin (the harness can't pipe stdin into the interactive Rich prompts, so `start` is mandatory).
+- The empty `""` after `start` is the window-title placeholder — `start` needs it whenever the next argument is a quoted path, otherwise it treats the path as the title and never launches.
+- The `.bat` sets `PYTHONIOENCODING=utf-8 PYTHONUTF8=1` before invoking Python, so rich's emoji/box-drawing glyphs render cleanly on cp1252 Windows. The window stays open after the manager exits via a trailing `pause >nul`.
 
-The share menu lets the user view either MD locally, push both to Supabase, or push + view. The push uploads:
-- `client_content_md/html` → powers the public `/report/<slug>` page (only visible when `status='published'` AND `visibility != 'private'`)
+**What the manager does:**
+
+1. Lists every client in `reports-archive/` with checkmarks for which reports exist.
+2. After picking a client, offers:
+   - View client report as rendered HTML (temp file, deleted on exit)
+   - View internal report as rendered HTML (temp file, deleted on exit)
+   - Push both to Supabase as **draft + public**
+   - Push both as **published + public**
+   - Open the archive folder in Explorer
+   - Back / Quit
+3. The HTML renderer is built into `manage_reports.py` (no external markdown package needed). It strips the YAML frontmatter and Tableturnerr branding/watermark divs and renders the rest with a clean GitHub-style stylesheet.
+4. Push uses `subprocess` to feed `"3"` into `grader_cli.py share` automatically, so the user doesn't see the legacy share menu — the manager is the single entry point.
+
+Confirm the new cmd window opens, then stop and wait for the user.
+
+The share menu lets the user view either MD locally, push to Supabase, or push + view. The push uploads:
+- `client_content_json` → **primary** payload for the public `/report/<slug>` page (rendered by `components/report/report-renderer.tsx`)
+- `client_content_md/html` → fallback when JSON is absent + source for PDF export
 - `internal_content_md/html` → admin-only via `/admin/reports/<id>` (column-level RLS prevents anon access)
+
+The push script auto-discovers the sibling `<slug>-client-report.json` next to the `.md` file, so no extra flag is needed.
 
 Reports default to `status=draft, visibility=public`. The team finalises status/visibility from `/admin/reports`.
 
@@ -150,8 +229,9 @@ Reports default to `status=draft, visibility=public`. The team finalises status/
 ✅ Reports generated for <Client Name>
 
 📁 Archive:        <repo>/reports-archive/<slug>/
-   • <slug>-client-report.md
-   • <slug>-internal-report.md
+   • <slug>-client-report.json   (powers /report/<slug>)
+   • <slug>-client-report.md     (PDF + archive)
+   • <slug>-internal-report.md   (team-only)
 🔗 Admin:          http://localhost:3000/admin/reports
 🌐 Client share:   https://tableturnerr.com/report/<slug>  (after publishing)
 
@@ -164,6 +244,9 @@ The internal report is admin-only and will never appear on the public URL.
 ## Error handling
 | Problem | Action |
 |---------|--------|
+| `UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4ca'` | Missing UTF-8 prefix — re-run with `PYTHONIOENCODING=utf-8 PYTHONUTF8=1` (mandatory on Windows for both `capture` and `share`) |
+| `EOFError: EOF when reading a line` from share menu | Trying to run the interactive menu inside Bash. Re-launch via `start "Tableturnerr Share Menu" cmd /k "..."` so it gets its own terminal |
+| Chained `mkdir && cd && python ...` returns exit code 1 | Don't chain. Run `mkdir -p ...` in a separate Bash call before the Python step so a Python failure doesn't mask directory creation success |
 | Capture script doesn't print `READY:` line | Capture failed — continue with null grader data, note it in both reports |
 | CAPTCHA in browser | User solves it in real Chrome; script auto-detects completion (no terminal interaction needed) |
 | Chrome not found | Script will error — ask user to install Chrome or check PATH |
