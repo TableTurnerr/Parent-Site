@@ -124,6 +124,7 @@ export type Database = {
           client_url: string
           client_content_md: string
           client_content_html: string | null
+          client_content_json: Json | null
           internal_content_md: string | null
           internal_content_html: string | null
           grader_data: Json | null
@@ -141,6 +142,7 @@ export type Database = {
           client_url: string
           client_content_md: string
           client_content_html?: string | null
+          client_content_json?: Json | null
           internal_content_md?: string | null
           internal_content_html?: string | null
           grader_data?: Json | null
@@ -158,6 +160,7 @@ export type Database = {
           client_url?: string
           client_content_md?: string
           client_content_html?: string | null
+          client_content_json?: Json | null
           internal_content_md?: string | null
           internal_content_html?: string | null
           grader_data?: Json | null
