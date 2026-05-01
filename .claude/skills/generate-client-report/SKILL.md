@@ -70,32 +70,85 @@ If the folder does not exist, skip silently. Generate the reports from grader da
 
 ---
 
-## Step 3 — Generate **two** markdown reports
+## Step 3 — Generate **three** report artifacts
 
-Output both into `reports-archive\<slug>\`:
+Output all three into `reports-archive\<slug>\`:
 
-### 3a. Client report — `<slug>-client-report.md`
-The polished, **client-facing** deliverable. Mirror:
-- `C:\Users\Hashaam\Desktop\MyCode\Grumpy's-Website\reports\Grumpys-Client-Report.md`
-- `C:\Users\Hashaam\Desktop\MyCode\PureOnThePlaza-Website\reports\PureOnThePlaza-Client-Report.md`
+- `<slug>-client-report.md`   — markdown copy (PDF / archive / fallback render)
+- `<slug>-client-report.json` — **structured JSON that powers the public `/report/<slug>` page**
+- `<slug>-internal-report.md` — internal team deep-dive
 
-**Required sections:**
-1. YAML frontmatter (PDF metadata — same structure, update title/date/filename)
-2. Watermark layer div
-3. Branding banner
-4. Executive Summary
-5. Website Performance & Technical Analysis ← embed grader score here if available
-6. Local SEO & Google Business Profile
-7. Social Media & Online Presence
-8. Online Reviews & Reputation
-9. Competitive Analysis
-10. Priority Action Plan (table: Priority / Action / Impact / Timeline)
-11. Investment & Next Steps
-12. Footer branding
+### 3a. Client report (JSON) — `<slug>-client-report.json`
 
-**Tone:** Professional, direct, actionable, client-facing. **No** internal pricing strategy, no speculative numbers, no commentary the client shouldn't see.
+This is the **primary client deliverable**. The website renders this JSON directly via `components/report/report-renderer.tsx` (sticky sidebar with grades, hero card, scorecard cards, collapsible keyword research, etc.). Tokens spent generating polished HTML/markdown for the live page are wasted — the renderer handles all visual styling.
 
-### 3b. Internal report — `<slug>-internal-report.md`
+**Schema source of truth:** `lib/report-schema.ts` (`ClientReport` type, version 1).
+
+**Required top-level shape:**
+```json
+{
+  "version": 1,
+  "client": { "name", "slug", "url", "preparedDate": "Month D, YYYY" },
+  "hero": {
+    "title": "<Client> — Website & Online Presence Report",
+    "subtitle": "<one-line hook>",
+    "narrative": ["paragraph 1", "paragraph 2", "..."],
+    "overallGrade": "C-",            // letter grade A+..F
+    "graderScore": 65,                // TableTurnerr presence score 0..100 (omit if unavailable)
+    "monthlyRevenueLoss": 2361,       // USD/month estimate (omit if unavailable)
+    "verdict": "<one-line summary>"
+  },
+  "ratings": [                         // sidebar score breakdown — 4..7 categories
+    { "key": "reviews",     "label": "Reviews & Reputation",  "score": 78 },
+    { "key": "social",      "label": "Social Media",          "score": 50 },
+    { "key": "content",     "label": "Website Content",       "score": 28 },
+    { "key": "search",      "label": "Google Search",         "score": 25 }
+  ],
+  "sections": [ /* see below */ ]
+}
+```
+
+**Don't repeat boilerplate in the JSON.** The renderer supplies these defaults — omit them from the output:
+- `client.preparedBy` (defaults to "Tableturnerr")
+- CTA `primary.href` / `secondary.href` (default to the TableTurnerr contact + homepage)
+- Anything that would put TableTurnerr's phone, email, or address into the body of a section — those live in the site Footer, not the report content.
+
+**Credit the report to TableTurnerr only.** Never mention "owner.com," "grader," or any third-party tool inside any string the client will read. Numbers we got from external tools should be presented as our analysis. Internal infrastructure names (`grader_cli.py`, `.grader-cache/`) are fine — they never reach the client.
+
+**Section types** (use `type` discriminator — pick the right one for each piece of analysis):
+
+| `type` | Use for |
+|--------|---------|
+| `narrative` | Pure prose ("What This Report Covers", "The Big Picture") |
+| `scorecard` | Online scorecard with letter grades per area (renders as grade-badge cards) |
+| `table` | Generic table (traffic sources, social, success metrics, etc.) |
+| `reviews` | Reviews section with platforms table + loved/complaints lists |
+| `problems` | Numbered cards for "What's Holding You Back" / weaknesses |
+| `competition` | Competitors + search position + rival callouts + win/lose + opportunity |
+| `keywords` | Collapsible keyword groups (the SEO keyword tables — collapsed by default with a summary, expanded on click) |
+| `actionPlan` | Priority Action Plan (priority # / category badge / action / impact / timeline) |
+| `successMetrics` | "Where you are now" → "Where you could be" rows |
+| `cta` | Final dark "Investment & Next Steps" card with primary/secondary buttons |
+
+**Inline formatting** allowed inside any string field: `**bold**`, `*italic*`, `[label](url)`, `` `code` ``. The renderer parses this minimal subset — do NOT emit raw HTML.
+
+**Reference example** — read `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.json` before writing a new one. It demonstrates every section type.
+
+**Keyword groups (the collapsible accordion):** each group must have:
+- `label` — short title ("The Money Keywords")
+- `summary` — what shows when collapsed (1–2 sentences explaining what's in the group)
+- `highlight` — small badge with the volume range ("7,500–12,000 searches/mo")
+- `intro` (optional) — shown above the table when expanded
+- `table` — the actual keyword data
+- `takeaway` (optional) — pull-quote shown below the table
+
+**Tone:** Professional, direct, actionable, client-facing. **No** internal pricing strategy, no speculative numbers, no commentary the client shouldn't see. Keep all financial estimates referenced in `monthlyRevenueLoss` or section text.
+
+### 3b. Client report (markdown) — `<slug>-client-report.md`
+
+A markdown rendering of the same content for PDF export and archive purposes. Mirror the structure of `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.md` (YAML frontmatter for PDF, watermark/branding divs, headings + tables). This is the fallback the public page renders if `client_content_json` is missing — and the source for printable PDFs.
+
+### 3c. Internal report — `<slug>-internal-report.md`
 The **full deep-dive for the TableTurnerr team**. Mirror the proven structure of:
 - `C:\Users\Hashaam\Desktop\MyCode\Grumpy's-Website\reports\Grumpys-Internal-Full-Report.md`
 
@@ -125,7 +178,7 @@ The **full deep-dive for the TableTurnerr team**. Mirror the proven structure of
 
 **Tone:** Internal-team voice. Be candid about pricing strategy, competitor weaknesses we can exploit, and any speculative numbers — clearly label estimates as estimates.
 
-**Grader integration:** When `graderData` is available, embed the overall score + category breakdown in **both** reports. Internal report goes deeper (issues, recommendations from grader); client report keeps it summarized.
+**Grader data integration:** When `graderData` is available, embed the overall score + category breakdown in **both** reports — but in the client-facing JSON, present everything as TableTurnerr's analysis. Never name the upstream tool. The internal report can reference the source freely; the client report cannot.
 
 ---
 
@@ -159,9 +212,12 @@ Notes:
 
 Confirm the new cmd window opens, then stop and wait for the user.
 
-The share menu lets the user view either MD locally, push both to Supabase, or push + view. The push uploads:
-- `client_content_md/html` → powers the public `/report/<slug>` page (only visible when `status='published'` AND `visibility != 'private'`)
+The share menu lets the user view either MD locally, push to Supabase, or push + view. The push uploads:
+- `client_content_json` → **primary** payload for the public `/report/<slug>` page (rendered by `components/report/report-renderer.tsx`)
+- `client_content_md/html` → fallback when JSON is absent + source for PDF export
 - `internal_content_md/html` → admin-only via `/admin/reports/<id>` (column-level RLS prevents anon access)
+
+The push script auto-discovers the sibling `<slug>-client-report.json` next to the `.md` file, so no extra flag is needed.
 
 Reports default to `status=draft, visibility=public`. The team finalises status/visibility from `/admin/reports`.
 
@@ -173,8 +229,9 @@ Reports default to `status=draft, visibility=public`. The team finalises status/
 ✅ Reports generated for <Client Name>
 
 📁 Archive:        <repo>/reports-archive/<slug>/
-   • <slug>-client-report.md
-   • <slug>-internal-report.md
+   • <slug>-client-report.json   (powers /report/<slug>)
+   • <slug>-client-report.md     (PDF + archive)
+   • <slug>-internal-report.md   (team-only)
 🔗 Admin:          http://localhost:3000/admin/reports
 🌐 Client share:   https://tableturnerr.com/report/<slug>  (after publishing)
 

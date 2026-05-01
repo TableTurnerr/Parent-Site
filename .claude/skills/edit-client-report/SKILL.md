@@ -44,6 +44,7 @@ FETCHED:<slug>:<absolute-path-to-archive-dir>
 
 The script writes:
 - `reports-archive/<slug>/<slug>-client-report.md`
+- `reports-archive/<slug>/<slug>-client-report.json` (if exists — this is what powers the live page)
 - `reports-archive/<slug>/<slug>-internal-report.md` (if exists)
 - `reports-archive/<slug>/<slug>-grader.json` (if grader data exists)
 - `reports-archive/<slug>/<slug>-meta.json` — current `client_name`, `client_url`, `status`, `visibility`. Use these for Step 3.
@@ -54,14 +55,20 @@ If the fetch fails (`Report not found for slug ...`), tell the user the slug doe
 
 ## Step 2 — Apply the requested edits
 
-Read the relevant variant file from `reports-archive/<slug>/`. Apply the user's instruction:
-- Preserve YAML frontmatter, branding banner, watermark div, and footer.
+For **client variant**, edit BOTH `<slug>-client-report.json` (primary — what the live page renders) AND `<slug>-client-report.md` (markdown copy used for PDF export and as fallback). Keep the two in sync. Schema for the JSON is `lib/report-schema.ts` (`ClientReport` v1) — read `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.json` if you need a reference.
+
+For **internal variant**, edit only `<slug>-internal-report.md`.
+
+General rules:
+- Preserve YAML frontmatter, branding banner, watermark div, and footer in markdown files.
 - Preserve section structure unless the instruction explicitly asks to add/remove a section.
+- In the JSON, preserve section `id`s where possible — they are used as anchor links (`#problems`, `#keywords`, etc.).
+- Inline formatting in JSON strings is the small markdown subset only: `**bold**`, `*italic*`, `[label](url)`, `` `code` ``. Never emit raw HTML.
 - For factual changes (numbers, names, dates), only edit if the instruction supplies the new value or it's clearly derivable from `grader.json`.
 - For tone/style changes, rewrite only the affected sections — leave the rest intact.
 - If you're unsure about a vague instruction, ask **one** clarifying question before editing.
 
-Save in place — overwrite the file in `reports-archive/<slug>/`.
+Save in place — overwrite the files in `reports-archive/<slug>/`.
 
 If both variants need updating (e.g., "fix the company name everywhere"), edit both. Otherwise only touch the variant the user specified.
 
@@ -69,20 +76,20 @@ If both variants need updating (e.g., "fix the company name everywhere"), edit b
 
 ## Step 3 — Push back to Supabase
 
-Use the metadata from `<slug>-meta.json` for `client_name` / `client_url` (don't re-prompt). Push both variants — even the unchanged one is harmless because of the upsert + matching content.
+Use the metadata from `<slug>-meta.json` for `client_name` / `client_url` (don't re-prompt). Push directly via `scripts/push-report.js` — it auto-discovers a sibling `.json` next to the `.md` so a single `--client-report` flag covers both. Add `--client-report-json=...` explicitly if you renamed the JSON, otherwise omit it.
 
 ```bash
-python scripts/grader_cli.py share \
-  --slug "<slug>" \
-  --client "<client_name from meta>" \
-  --url "<client_url from meta>" \
-  --client-report   "<repo>/reports-archive/<slug>/<slug>-client-report.md" \
-  --internal-report "<repo>/reports-archive/<slug>/<slug>-internal-report.md" \
-  --status     "<status from meta>" \
-  --visibility "<visibility from meta>"
+node scripts/push-report.js \
+  --client="<client_name from meta>" \
+  --slug="<slug>" \
+  --url="<client_url from meta>" \
+  --client-report="<repo>/reports-archive/<slug>/<slug>-client-report.md" \
+  --internal-report="<repo>/reports-archive/<slug>/<slug>-internal-report.md" \
+  --status=<status from meta> \
+  --visibility=<visibility from meta>
 ```
 
-In the share menu choose option **3** (push). Skip viewing — the user is editing remotely from the admin panel.
+The `client_content_json` column drives the live page; `client_content_md/html` are the fallback + PDF source.
 
 **Do not change** `status` or `visibility` unless the user explicitly asked to. Preserve the existing values from `<slug>-meta.json`.
 
