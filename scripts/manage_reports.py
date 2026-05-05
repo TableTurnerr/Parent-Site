@@ -299,6 +299,41 @@ def md_to_html(md: str, title: str) -> str:
 """
 
 
+def open_live_renderer(c: dict, variant: str) -> None:
+    """Render the JSON variant via scripts/render-report.js into a self-contained HTML
+    file (CSS + JS inlined) and open it in the default browser. No dev server required."""
+    slug = c["slug"]
+    json_path: Optional[Path] = c.get(f"{variant}_json")  # type: ignore[assignment]
+    if not json_path or not Path(json_path).exists():
+        console.print(f"[red]No {variant} JSON found for {slug}[/red]")
+        return
+
+    archive_dir = ARCHIVE / slug
+    out_path = archive_dir / f"{slug}-{variant}-report.html"
+    title = f"{c['name']} — {'Internal' if variant == 'internal' else 'Client'} Report"
+
+    renderer = Path(__file__).parent / "render-report.js"
+    cmd = [
+        "node",
+        str(renderer),
+        f"--input={json_path}",
+        f"--output={out_path}",
+        f"--title={title}",
+    ]
+    console.print(f"[dim]Rendering[/dim] [cyan]{out_path.name}[/cyan]")
+    try:
+        subprocess.run(cmd, check=True, shell=False)
+    except subprocess.CalledProcessError as e:
+        console.print(f"[red]render-report.js failed:[/red] {e}")
+        return
+    except FileNotFoundError:
+        console.print("[red]Node.js not found on PATH. Install Node to render previews.[/red]")
+        return
+
+    webbrowser.open(out_path.as_uri())
+    console.print(f"[green]✓[/green] Opened [dim]{out_path.name}[/dim] in browser")
+
+
 def open_as_html(md_path: Path, title: str) -> None:
     html = md_to_html(md_path.read_text(encoding="utf-8"), title)
     fd, tmp = tempfile.mkstemp(prefix=f"tt-report-{md_path.stem}-", suffix=".html")
@@ -324,18 +359,31 @@ def discover_clients() -> list[dict]:
         client_md = d / f"{slug}-client-report.md"
         client_json = d / f"{slug}-client-report.json"
         internal_md = d / f"{slug}-internal-report.md"
-        if not (client_md.exists() or internal_md.exists() or client_json.exists()):
+        internal_json = d / f"{slug}-internal-report.json"
+        meta_file = d / f"{slug}-meta.json"
+        if not (
+            client_md.exists() or internal_md.exists()
+            or client_json.exists() or internal_json.exists()
+        ):
             continue
-        # try to recover client name + url from grader cache
+        # try to recover client name + url from meta or grader cache
         name = slug.replace("-", " ").title()
         url = ""
-        cache_file = CACHE_DIR / f"{slug}.json"
-        if cache_file.exists():
+        if meta_file.exists():
             try:
-                data = json.loads(cache_file.read_text(encoding="utf-8"))
-                url = data.get("url", "")
+                meta = json.loads(meta_file.read_text(encoding="utf-8"))
+                name = meta.get("client_name", name)
+                url = meta.get("client_url", "")
             except Exception:
                 pass
+        if not url:
+            cache_file = CACHE_DIR / f"{slug}.json"
+            if cache_file.exists():
+                try:
+                    data = json.loads(cache_file.read_text(encoding="utf-8"))
+                    url = data.get("url", "")
+                except Exception:
+                    pass
         clients.append({
             "slug": slug,
             "name": name,
@@ -343,6 +391,7 @@ def discover_clients() -> list[dict]:
             "client": client_md if client_md.exists() else None,
             "client_json": client_json if client_json.exists() else None,
             "internal": internal_md if internal_md.exists() else None,
+            "internal_json": internal_json if internal_json.exists() else None,
         })
     return clients
 
@@ -356,16 +405,17 @@ def pick_client(clients: list[dict]) -> Optional[dict]:
     table = Table(show_header=True, header_style="bold cyan", box=None, padding=(0, 2))
     table.add_column("Client")
     table.add_column("Slug", style="dim")
-    table.add_column("MD", justify="center")
-    table.add_column("JSON", justify="center")
-    table.add_column("Internal", justify="center")
+    table.add_column("Client JSON", justify="center")
+    table.add_column("Internal JSON", justify="center")
+    table.add_column("Legacy MD", justify="center")
 
     for c in clients:
+        legacy = "[green]✓[/green]" if (c["client"] or c["internal"]) else "[dim]—[/dim]"
         table.add_row(
             c["name"], c["slug"],
-            "[green]✓[/green]" if c["client"] else "[dim]—[/dim]",
             "[green]✓[/green]" if c.get("client_json") else "[dim]—[/dim]",
-            "[green]✓[/green]" if c["internal"] else "[dim]—[/dim]",
+            "[green]✓[/green]" if c.get("internal_json") else "[dim]—[/dim]",
+            legacy,
         )
     console.print(Panel(table, title="[bold]Reports Archive[/bold]",
                         border_style="cyan", padding=(1, 1)))
@@ -402,14 +452,15 @@ def push_to_supabase(c: dict, status: str = "draft", visibility: str = "public")
     ).ask() or ""
 
     summary = Table.grid(padding=(0, 2))
-    summary.add_row("[dim]Client[/dim]",          c["name"])
-    summary.add_row("[dim]Slug[/dim]",            c["slug"])
-    summary.add_row("[dim]URL[/dim]",             url or "[dim](none)[/dim]")
-    summary.add_row("[dim]Client report (md)[/dim]",   str(c["client"])      if c["client"]            else "[dim](skip)[/dim]")
-    summary.add_row("[dim]Client report (json)[/dim]", str(c.get("client_json")) if c.get("client_json") else "[dim](skip)[/dim]")
-    summary.add_row("[dim]Internal report[/dim]",      str(c["internal"])    if c["internal"]          else "[dim](skip)[/dim]")
-    summary.add_row("[dim]Status[/dim]",          f"[yellow]{status}[/yellow]")
-    summary.add_row("[dim]Visibility[/dim]",      f"[yellow]{visibility}[/yellow]")
+    summary.add_row("[dim]Client[/dim]",                 c["name"])
+    summary.add_row("[dim]Slug[/dim]",                   c["slug"])
+    summary.add_row("[dim]URL[/dim]",                    url or "[dim](none)[/dim]")
+    summary.add_row("[dim]Client report (json)[/dim]",   str(c.get("client_json"))   if c.get("client_json")   else "[dim](skip)[/dim]")
+    summary.add_row("[dim]Internal report (json)[/dim]", str(c.get("internal_json")) if c.get("internal_json") else "[dim](skip)[/dim]")
+    summary.add_row("[dim]Client report (md)[/dim]",     str(c["client"])            if c["client"]            else "[dim](skip)[/dim]")
+    summary.add_row("[dim]Internal report (md)[/dim]",   str(c["internal"])          if c["internal"]          else "[dim](skip)[/dim]")
+    summary.add_row("[dim]Status[/dim]",                 f"[yellow]{status}[/yellow]")
+    summary.add_row("[dim]Visibility[/dim]",             f"[yellow]{visibility}[/yellow]")
     console.print(Panel(summary, title="[bold]Pushing to Supabase[/bold]",
                         border_style="cyan", padding=(1, 2)))
 
@@ -421,10 +472,12 @@ def push_to_supabase(c: dict, status: str = "draft", visibility: str = "public")
         f"--status={status}",
         f"--visibility={visibility}",
     ]
-    if c["client"]:
-        cmd.append(f"--client-report={c['client']}")
     if c.get("client_json"):
         cmd.append(f"--client-report-json={c['client_json']}")
+    if c.get("internal_json"):
+        cmd.append(f"--internal-report-json={c['internal_json']}")
+    if c["client"]:
+        cmd.append(f"--client-report={c['client']}")
     if c["internal"]:
         cmd.append(f"--internal-report={c['internal']}")
     grader_json = CACHE_DIR / f"{c['slug']}.json"
@@ -459,12 +512,25 @@ def action_menu(c: dict) -> bool:
             border_style="green", padding=(1, 2),
         ))
 
+        has_client_json = bool(c.get("client_json"))
+        has_internal_json = bool(c.get("internal_json"))
+        has_client_md = bool(c["client"])
+        has_internal_md = bool(c["internal"])
+
         choices = [
-            Choice(title="View client report (rendered HTML)", value="view-client",
-                   disabled=None if c["client"] else "missing"),
-            Choice(title="View internal report (rendered HTML)", value="view-internal",
-                   disabled=None if c["internal"] else "missing"),
-            Choice(title="Push both to Supabase  ·  draft / public", value="push-draft"),
+            Choice(title="Preview client report (static HTML · no dev server needed)",
+                   value="view-client-json",
+                   disabled=None if has_client_json else "no client JSON yet"),
+            Choice(title="Preview internal report (static HTML · no dev server needed)",
+                   value="view-internal-json",
+                   disabled=None if has_internal_json else "no internal JSON yet"),
+            Choice(title="View legacy client MD as HTML",
+                   value="view-client",
+                   disabled=None if has_client_md else "no MD"),
+            Choice(title="View legacy internal MD as HTML",
+                   value="view-internal",
+                   disabled=None if has_internal_md else "no MD"),
+            Choice(title="Push to Supabase  ·  draft / public", value="push-draft"),
             Choice(title="Push as published  ·  published / public", value="push-pub"),
             Choice(title="Open archive folder in Explorer", value="explorer"),
             Choice(title="Back to client list", value="back", shortcut_key="b"),
@@ -486,7 +552,13 @@ def action_menu(c: dict) -> bool:
             return False
         if pick == "back":
             return True
-        if pick == "view-client":
+        if pick == "view-client-json":
+            open_live_renderer(c, variant="client")
+            pause()
+        elif pick == "view-internal-json":
+            open_live_renderer(c, variant="internal")
+            pause()
+        elif pick == "view-client":
             open_as_html(c["client"], f"{c['name']} — Client Report")
             pause()
         elif pick == "view-internal":
