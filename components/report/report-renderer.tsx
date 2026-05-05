@@ -3,6 +3,7 @@ import Footer from "@/app/components/layout/Footer";
 import type { ClientReport } from "@/lib/report-schema";
 import { HeroBlock, SectionRenderer } from "./sections";
 import { ReportSidebar, ReportRail } from "./report-sidebar";
+import { ReportActions } from "./report-actions";
 import "./report.css";
 
 export function ReportRenderer({ report }: { report: ClientReport }) {
@@ -20,14 +21,19 @@ export function ReportRenderer({ report }: { report: ClientReport }) {
       <div className="report-page">
         <div className="meta-strip">
           <div className="meta-strip-inner">
-            <div>
+            <div className="meta-strip-text">
               Digital Presence Report
               <span className="dot" />
               Prepared for {report.client.name}
               <span className="dot" />
               {report.client.preparedDate}
             </div>
-            <div>By {report.client.preparedBy ?? "Tableturnerr"}</div>
+            <div className="meta-strip-right">
+              <span className="meta-strip-by">
+                By {report.client.preparedBy ?? "Tableturnerr"}
+              </span>
+              <ReportActions title={report.client.name} />
+            </div>
           </div>
         </div>
 
