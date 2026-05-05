@@ -9,8 +9,13 @@
 
 ---
 
-## CRITICAL — Playwright Rule
-**NEVER use MCP playwright browser tools** (browser_navigate, browser_snapshot, browser_screenshot, etc.) for this skill. The Playwright step is handled entirely by `scripts/grader_cli.py`. Claude's only role is to run that script and read its output.
+## CRITICAL RULES
+
+1. **JSON ONLY — never generate `.md` files.** Both the client report and the internal report ship as `.json` files. The website renderer (`components/report/report-renderer.tsx`) consumes JSON via the `ClientReport` schema (`lib/report-schema.ts`). The `manage-reports` script previews JSON locally. Markdown is fully retired for new reports.
+
+2. **NEVER use MCP playwright browser tools** (browser_navigate, browser_snapshot, browser_screenshot, etc.) for this skill. The Playwright step is handled entirely by `scripts/grader_cli.py`. Claude's only role is to run that script and read its output.
+
+3. **The client JSON MUST mirror `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.json`.** Same headings, same section IDs, same section types, same order, same tone. Only the *content* changes per client. Read the Pure Pizza JSON before writing any new client report — it is the canonical template.
 
 ---
 
@@ -28,7 +33,7 @@ The canonical local archive for every client is:
 ```
 C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr\reports-archive\<slug>\
 ```
-Create it if it doesn't exist. Output two reports here.
+Create it if it doesn't exist. Output two JSON files here.
 
 **Create the archive directory in its own command** — do not chain it with the Python capture. If anything in a chained `&&` command fails, the whole chain reports exit code 1 even when the directory was successfully created, which makes failure mode opaque.
 
@@ -48,143 +53,144 @@ PYTHONIOENCODING=utf-8 PYTHONUTF8=1 python scripts/grader_cli.py capture --compa
 
 Run from: `C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr`. Use a long Bash timeout (e.g. `timeout: 600000`) — the user must solve a CAPTCHA in Chrome, which can take a minute or two.
 
-**How it works:** The script launches the user's **real Google Chrome** via remote debugging (port 9222) with an isolated `--user-data-dir`. It connects via CDP, pre-fills the URL, and **polls the page every 2s** until it auto-detects the report. It then auto-saves the HTML and extracts JSON — no Ctrl+S, no ENTER, no manual save. The user only solves the CAPTCHA and clicks Submit.
+**How it works:** The script launches the user's **real Google Chrome** via remote debugging (port 9222) with an isolated `--user-data-dir`. It connects via CDP, pre-fills the URL, and **polls the page every 2s** until it auto-detects the report. It then auto-saves the HTML and extracts JSON — no Ctrl+S, no ENTER, no manual save.
 
 **Detect completion:** the script prints a sentinel line on its own row when finished:
 ```
 READY:<slug>:<absolute-path-to-json>
 ```
-Claude must scan the script's stdout for a line matching `^READY:` to confirm success and pick up the JSON path. If the script exits without that line, capture failed — continue with `graderData = null` and note it in the report.
-
-The HTML snapshot is saved alongside as `.grader-cache/<slug>.html`.
+If the script exits without that line, capture failed — continue with `graderData = null` and note it in the internal report only (the client report should never reference upstream tools).
 
 ---
 
 ## Step 2 — Read context (optional)
-Check whether `C:\Users\Hashaam\Desktop\MyCode\<Client>-Website\` exists. If yes, read:
-- `dev-kit/` folder contents (Business Overview, Overall-Plan, SEO Report)
-- Any existing files in `reports/`
-- Root README or markdown files
-
-If the folder does not exist, skip silently. Generate the reports from grader data + URL alone, optionally augmenting with quick web research on the business (Google search, social profiles, review sites).
+Check whether `C:\Users\Hashaam\Desktop\MyCode\<Client>-Website\` exists. If yes, read its `dev-kit/`, prior reports, and root markdown. If not, skip silently and generate from grader data + URL alone, augmenting with quick web research (Google, social profiles, review sites).
 
 ---
 
-## Step 3 — Generate **three** report artifacts
+## Step 3 — Generate **two** JSON artifacts
 
-Output all three into `reports-archive\<slug>\`:
+Output exactly two files into `reports-archive\<slug>\`:
 
-- `<slug>-client-report.md`   — markdown copy (PDF / archive / fallback render)
-- `<slug>-client-report.json` — **structured JSON that powers the public `/report/<slug>` page**
-- `<slug>-internal-report.md` — internal team deep-dive
+- `<slug>-client-report.json` — **client-facing report** (mirrors Pure Pizza on the Plaza structure exactly)
+- `<slug>-internal-report.json` — **internal team deep-dive** (same `ClientReport` schema, much more detail)
 
-### 3a. Client report (JSON) — `<slug>-client-report.json`
+**Do not write any `.md` files.** The retired markdown flow is dead — the website renders JSON, and the local preview tooling renders JSON. Markdown adds work, drifts out of sync, and contributes nothing.
 
-This is the **primary client deliverable**. The website renders this JSON directly via `components/report/report-renderer.tsx` (sticky sidebar with grades, hero card, scorecard cards, collapsible keyword research, etc.). Tokens spent generating polished HTML/markdown for the live page are wasted — the renderer handles all visual styling.
+### 3a. Client report — `<slug>-client-report.json`
 
-**Schema source of truth:** `lib/report-schema.ts` (`ClientReport` type, version 1).
+**This file MUST mirror `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.json`.**
 
-**Required top-level shape:**
+Open Pure Pizza's JSON and copy its top-level shape, section order, section IDs, section types, and prose pattern verbatim. Replace only the *business-specific content*. Do not invent new sections, drop required ones, or rename IDs.
+
+**Required top-level shape** (same as Pure Pizza):
 ```json
 {
   "version": 1,
-  "client": { "name", "slug", "url", "preparedDate": "Month D, YYYY" },
-  "hero": {
-    "title": "<Client> — Website & Online Presence Report",
-    "subtitle": "<one-line hook>",
-    "narrative": ["paragraph 1", "paragraph 2", "..."],
-    "overallGrade": "C-",            // letter grade A+..F
-    "graderScore": 65,                // TableTurnerr presence score 0..100 (omit if unavailable)
-    "monthlyRevenueLoss": 2361,       // USD/month estimate (omit if unavailable)
-    "verdict": "<one-line summary>"
+  "client": {
+    "name": "<Client Name>",
+    "slug": "<slug>",
+    "url": "https://<client-website>",
+    "preparedBy": "Tableturnerr",
+    "preparedDate": "<Month D, YYYY>"
   },
-  "ratings": [                         // sidebar score breakdown — 4..7 categories
-    { "key": "reviews",     "label": "Reviews & Reputation",  "score": 78 },
-    { "key": "social",      "label": "Social Media",          "score": 50 },
-    { "key": "content",     "label": "Website Content",       "score": 28 },
-    { "key": "search",      "label": "Google Search",         "score": 25 }
+  "hero": {
+    "title": "<Client Name> — Website & Online Presence Report",
+    "subtitle": "<one-line hook tailored to the client>",
+    "narrative": [ "para 1", "para 2", "para 3" ],
+    "overallGrade": "C-",
+    "graderScore": 65,
+    "monthlyRevenueLoss": 2361,
+    "verdict": "<one-line summary, e.g. 'Beloved local brand, weak digital footprint.'>"
+  },
+  "ratings": [
+    { "key": "reviews",     "label": "Reviews & Reputation",   "score": 78 },
+    { "key": "gbp",         "label": "Google Business Profile","score": 58 },
+    { "key": "social",      "label": "Social Media",           "score": 50 },
+    { "key": "content",     "label": "Website Content",        "score": 28 },
+    { "key": "search",      "label": "Google Search",          "score": 25 },
+    { "key": "performance", "label": "Speed & Setup",          "score": 55 }
   ],
-  "sections": [ /* see below */ ]
+  "sections": [
+    { "type": "competition", "id": "competition",  "title": "The Competition", ... },
+    { "type": "problems",    "id": "problems",     "title": "What's Holding Your Website Back", ... },
+    { "type": "keywords",    "id": "keywords",     "title": "The Search Terms That Should Be Bringing You Customers", ... },
+    { "type": "actionPlan",  "id": "action-plan",  "title": "Priority Action Plan", ... },
+    { "type": "cta",         "id": "next-steps",   "title": "Investment & Next Steps", ... }
+  ]
 }
 ```
 
-**Don't repeat boilerplate in the JSON.** The renderer supplies these defaults — omit them from the output:
-- `client.preparedBy` (defaults to "Tableturnerr")
-- CTA `primary.href` / `secondary.href` (default to the TableTurnerr contact + homepage)
-- Anything that would put TableTurnerr's phone, email, or address into the body of a section — those live in the site Footer, not the report content.
+**Required section order, IDs, and titles (LOCKED — do not change):**
 
-**Credit the report to TableTurnerr only.** Never mention "owner.com," "grader," or any third-party tool inside any string the client will read. Numbers we got from external tools should be presented as our analysis. Internal infrastructure names (`grader_cli.py`, `.grader-cache/`) are fine — they never reach the client.
+| Order | `type` | `id` | `title` |
+|-------|--------|------|---------|
+| 1 | `competition` | `competition` | `The Competition` |
+| 2 | `problems` | `problems` | `What's Holding Your Website Back` |
+| 3 | `keywords` | `keywords` | `The Search Terms That Should Be Bringing You Customers` |
+| 4 | `actionPlan` | `action-plan` | `Priority Action Plan` |
+| 5 | `cta` | `next-steps` | `Investment & Next Steps` |
 
-**Section types** (use `type` discriminator — pick the right one for each piece of analysis):
+**Section content rules:**
 
-| `type` | Use for |
-|--------|---------|
-| `narrative` | Pure prose ("What This Report Covers", "The Big Picture") |
-| `scorecard` | Online scorecard with letter grades per area (renders as grade-badge cards) |
-| `table` | Generic table (traffic sources, social, success metrics, etc.) |
-| `reviews` | Reviews section with platforms table + loved/complaints lists |
-| `problems` | Numbered cards for "What's Holding You Back" / weaknesses |
-| `competition` | Competitors + search position + rival callouts + win/lose + opportunity |
-| `keywords` | Collapsible keyword groups (the SEO keyword tables — collapsed by default with a summary, expanded on click) |
-| `actionPlan` | Priority Action Plan (priority # / category badge / action / impact / timeline) |
-| `successMetrics` | "Where you are now" → "Where you could be" rows |
-| `cta` | Final dark "Investment & Next Steps" card with primary/secondary buttons |
+- **`competition`** — competitor table (rank, name, style, rating, knownFor; mark the client with `"isYou": true`); `searchPosition` rows; `rivalCallouts` (2 rivals — closest neighborhood rival + biggest threat); `winLose` array; and the `opportunity` block with intro + rows + bottomLine. Match Pure Pizza's structure 1:1.
+- **`problems`** — exactly **5** numbered problem cards. Each has `number`, `title`, `body[]` (1–2 paragraphs), and optional `bullets[]`. Tone: direct, specific, actionable. Identify problems that are real for this business — never copy-paste Pure Pizza's exact problems.
+- **`keywords`** — **4** keyword groups in this order, with these exact `id`/`label` patterns:
+  1. `money-keywords` — "The Money Keywords — People Ready to Order"
+  2. `secret-weapons` — "Your Secret Weapons — Keywords Only You Can Own"
+  3. `neighborhoods` — "Reaching Nearby [City] Neighborhoods" (or analogous geographic hub for non-restaurant clients)
+  4. `catering` — "Catering — A Search Almost No One Is Going After" (or analogous high-margin offering: "Events," "Private Hire," "B2B," etc.)
+  Each group needs `summary`, `highlight` (volume badge), `intro`, `table` (headers + rows), and `takeaway`. Plus the `totals` block at the end.
+- **`actionPlan`** — exactly **4** items in this order. Do not add a 5th, do not drop one. Categories use the badges from Pure Pizza: `Research`, `Build`, `Polish`, `Ongoing`.
+  1. `priority: 1`, `category: "Research"` — **Keyword Research**
+  2. `priority: 2`, `category: "Build"` — **Site Content + Google Business Profile × Keywords**
+  3. `priority: 3`, `category: "Polish"` — **Review + Small Design-Related Changes**
+  4. `priority: 4`, `category: "Ongoing"` — **Monitor Performance**
+  Adjust the wording inside each item to fit the client, but the four steps and their order are fixed.
+- **`cta`** — title `Investment & Next Steps`, 3 paragraphs in `body[]`, omit `primary.href` and `secondary.href` (the renderer fills those with the TableTurnerr defaults).
 
-**Inline formatting** allowed inside any string field: `**bold**`, `*italic*`, `[label](url)`, `` `code` ``. The renderer parses this minimal subset — do NOT emit raw HTML.
+**Schema reference:** `lib/report-schema.ts` (`ClientReport` v1). Inline formatting allowed in any string: `**bold**`, `*italic*`, `[label](url)`, `` `code` ``. Never emit raw HTML.
 
-**Reference example** — read `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.json` before writing a new one. It demonstrates every section type.
+**Tone:** Professional, direct, actionable, client-facing. Never name upstream tools (no "owner.com," no "grader," no "API"). Numbers from external tools become *our* analysis. Internal pricing strategy and speculative growth math belong in the internal report only.
 
-**Keyword groups (the collapsible accordion):** each group must have:
-- `label` — short title ("The Money Keywords")
-- `summary` — what shows when collapsed (1–2 sentences explaining what's in the group)
-- `highlight` — small badge with the volume range ("7,500–12,000 searches/mo")
-- `intro` (optional) — shown above the table when expanded
-- `table` — the actual keyword data
-- `takeaway` (optional) — pull-quote shown below the table
+**Renderer defaults — omit from output to keep the JSON tight:**
+- `client.preparedBy` (defaults to `"Tableturnerr"`)
+- CTA `primary.href` / `secondary.href`
+- TableTurnerr's phone, email, and address — those live in the site Footer.
 
-**Tone:** Professional, direct, actionable, client-facing. **No** internal pricing strategy, no speculative numbers, no commentary the client shouldn't see. Keep all financial estimates referenced in `monthlyRevenueLoss` or section text.
+### 3b. Internal report — `<slug>-internal-report.json`
 
-### 3b. Client report (markdown) — `<slug>-client-report.md`
+Same `ClientReport` schema, but **a much deeper, longer report for the TableTurnerr team**. Use the schema's flexibility to fit the full deep-dive: more sections, more problem items, more keyword groups, more callouts, more competitor analysis.
 
-A markdown rendering of the same content for PDF export and archive purposes. Mirror the structure of `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.md` (YAML frontmatter for PDF, watermark/branding divs, headings + tables). This is the fallback the public page renders if `client_content_json` is missing — and the source for printable PDFs.
+**Recommended internal section sequence** (use `narrative`, `table`, `problems`, `competition`, `keywords`, `actionPlan`, and `successMetrics` types liberally — the schema supports all of them):
 
-### 3c. Internal report — `<slug>-internal-report.md`
-The **full deep-dive for the TableTurnerr team**. Mirror the proven structure of:
-- `C:\Users\Hashaam\Desktop\MyCode\Grumpy's-Website\reports\Grumpys-Internal-Full-Report.md`
+1. `narrative` `id: "executive-summary"` — Executive Summary, top 5 critical findings, health scorecard at a glance
+2. `narrative` `id: "business-overview"` — Company Profile, Service Channels, USPs, **Pitch Angle** (the hook for the sales call)
+3. `problems` `id: "technical-seo"` — Technical SEO findings (hosting, security headers, indexation, DNS) as numbered problems
+4. `problems` `id: "on-page-seo"` — On-page issues (titles, meta, headings, images, OG tags, internal linking)
+5. `table` `id: "performance"` — Site performance & speed metrics
+6. `narrative` `id: "ux"` — UI/UX evaluation
+7. `narrative` `id: "content-strategy"` — Content strategy assessment
+8. `problems` `id: "local-seo-gbp"` — Local SEO + Google Business Profile issues
+9. `reviews` `id: "reputation"` — Review platforms, loved/complaints, recommendation
+10. `narrative` `id: "social"` — Social media + online presence
+11. `competition` `id: "competition"` — Full competitive landscape (more competitors, longer winLose, larger opportunity table)
+12. `table` `id: "traffic"` — Traffic & visibility estimates
+13. `keywords` `id: "keywords"` — Larger keyword strategy (5+ groups acceptable internally)
+14. `scorecard` `id: "health"` — Overall Health Scorecard (letter grades per area)
+15. `actionPlan` `id: "internal-action-plan"` — Same 4 steps as the client plan, but each `action` rewritten with internal context: which agency tier handles it, effort estimate, internal cost, suggested quote, margin estimate. Use richer `impact` strings.
+16. `narrative` `id: "risks-and-caveats"` — Anything we couldn't verify (Cloudflare blocks, missing data, capture failures)
+17. `narrative` `id: "sources"` — Sources & references
 
-**Required sections:**
-1. YAML frontmatter (mark `Classification: Internal Use Only` in the cover)
-2. Executive Summary + Health Scorecard at a Glance + Top 5 Critical Findings
-3. Business Overview (Company Profile, Service Channels, Unique Selling Points)
-4. Technical SEO Audit (hosting, security headers, indexation, DNS)
-5. On-Page SEO Analysis (titles, meta, headings, images, OG tags, internal linking)
-6. Site Performance & Speed
-7. UI/UX Evaluation
-8. Content Strategy Assessment
-9. Local SEO & Google Business Profile
-10. Review & Reputation Analysis
-11. Social Media & Online Presence
-12. Competitive Landscape
-13. Traffic & Visibility Estimates
-14. Target Keywords & SEO Keyword Strategy
-15. Overall Health Scorecard
-16. Prioritized Action Items (with internal pricing/effort/lead-time guidance)
-17. Sources & References
+**Tone:** Internal-team voice. Pricing strategy, margin math, speculative numbers, and pitch hooks all belong here. Reference `grader_cli.py`, `.grader-cache/`, and upstream tools freely — this report never reaches the client.
 
-**Improvements over Grumpy's template:**
-- Add a "Pitch Angle" subsection inside Section 2 — what hook to lead the sales call with
-- Add an "Internal Action Plan" sub-table inside Section 16 with columns: Action / Effort / Internal Cost / Suggested Quote / Margin Estimate
-- Add a "Risks & Caveats" section before Sources flagging anything we couldn't verify (Cloudflare blocks, missing data, etc.)
-
-**Tone:** Internal-team voice. Be candid about pricing strategy, competitor weaknesses we can exploit, and any speculative numbers — clearly label estimates as estimates.
-
-**Grader data integration:** When `graderData` is available, embed the overall score + category breakdown in **both** reports — but in the client-facing JSON, present everything as TableTurnerr's analysis. Never name the upstream tool. The internal report can reference the source freely; the client report cannot.
+**Grader data integration:** When grader data is available, embed the overall score + category breakdown in the **internal** report's hero/scorecard. The **client** report's hero numbers should be presented as TableTurnerr's analysis with no provenance.
 
 ---
 
 ## Step 4 — Launch the Reports Archive Manager
 
-There is **one permanent launcher** for all clients: `scripts/manage-reports.bat`. It opens a cmd window running `scripts/manage_reports.py`, which scans `reports-archive/` and lets the user pick any client, render either report as a temporary HTML preview, or push to Supabase. **Do not write per-client `.bat` files.** If you find legacy `share.bat` files in archive folders, delete them.
+There is **one permanent launcher** for all clients: `scripts/manage-reports.bat`. It opens a cmd window running `scripts/manage_reports.py`, which scans `reports-archive/` and lets the user pick any client, preview either JSON report locally, or push to Supabase. **Do not write per-client `.bat` files.** If you find legacy `share.bat` files in archive folders, delete them.
 
 **Launch from Bash:**
 
@@ -194,32 +200,22 @@ cmd //c start "" "C:/Users/Hashaam/Desktop/MyCode/ParentSite-Tableturnerr/script
 
 Notes:
 - `cmd //c start "" "<bat>"` opens the manager in a new cmd window with its own stdin (the harness can't pipe stdin into the interactive Rich prompts, so `start` is mandatory).
-- The empty `""` after `start` is the window-title placeholder — `start` needs it whenever the next argument is a quoted path, otherwise it treats the path as the title and never launches.
-- The `.bat` sets `PYTHONIOENCODING=utf-8 PYTHONUTF8=1` before invoking Python, so rich's emoji/box-drawing glyphs render cleanly on cp1252 Windows. The window stays open after the manager exits via a trailing `pause >nul`.
+- The empty `""` after `start` is the window-title placeholder.
+- The `.bat` sets `PYTHONIOENCODING=utf-8 PYTHONUTF8=1` before invoking Python. The window stays open after the manager exits via a trailing `pause >nul`.
 
 **What the manager does:**
 
-1. Lists every client in `reports-archive/` with checkmarks for which reports exist.
+1. Lists every client in `reports-archive/` with checkmarks for which JSON variants exist.
 2. After picking a client, offers:
-   - View client report as rendered HTML (temp file, deleted on exit)
-   - View internal report as rendered HTML (temp file, deleted on exit)
-   - Push both to Supabase as **draft + public**
+   - Preview the client JSON via the local dev server (`http://localhost:3000/report/<slug>`)
+   - Preview the internal JSON via the local dev server (`http://localhost:3000/admin/reports/<id>`)
+   - Push both JSONs to Supabase as **draft + public**
    - Push both as **published + public**
    - Open the archive folder in Explorer
    - Back / Quit
-3. The HTML renderer is built into `manage_reports.py` (no external markdown package needed). It strips the YAML frontmatter and Tableturnerr branding/watermark divs and renders the rest with a clean GitHub-style stylesheet.
-4. Push uses `subprocess` to feed `"3"` into `grader_cli.py share` automatically, so the user doesn't see the legacy share menu — the manager is the single entry point.
+3. Push uses `scripts/push-report.js` with `--client-report-json` and `--internal-report-json` flags.
 
 Confirm the new cmd window opens, then stop and wait for the user.
-
-The share menu lets the user view either MD locally, push to Supabase, or push + view. The push uploads:
-- `client_content_json` → **primary** payload for the public `/report/<slug>` page (rendered by `components/report/report-renderer.tsx`)
-- `client_content_md/html` → fallback when JSON is absent + source for PDF export
-- `internal_content_md/html` → admin-only via `/admin/reports/<id>` (column-level RLS prevents anon access)
-
-The push script auto-discovers the sibling `<slug>-client-report.json` next to the `.md` file, so no extra flag is needed.
-
-Reports default to `status=draft, visibility=public`. The team finalises status/visibility from `/admin/reports`.
 
 ---
 
@@ -230,8 +226,7 @@ Reports default to `status=draft, visibility=public`. The team finalises status/
 
 📁 Archive:        <repo>/reports-archive/<slug>/
    • <slug>-client-report.json   (powers /report/<slug>)
-   • <slug>-client-report.md     (PDF + archive)
-   • <slug>-internal-report.md   (team-only)
+   • <slug>-internal-report.json (admin-only deep-dive)
 🔗 Admin:          http://localhost:3000/admin/reports
 🌐 Client share:   https://tableturnerr.com/report/<slug>  (after publishing)
 
@@ -244,13 +239,22 @@ The internal report is admin-only and will never appear on the public URL.
 ## Error handling
 | Problem | Action |
 |---------|--------|
-| `UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4ca'` | Missing UTF-8 prefix — re-run with `PYTHONIOENCODING=utf-8 PYTHONUTF8=1` (mandatory on Windows for both `capture` and `share`) |
-| `EOFError: EOF when reading a line` from share menu | Trying to run the interactive menu inside Bash. Re-launch via `start "Tableturnerr Share Menu" cmd /k "..."` so it gets its own terminal |
-| Chained `mkdir && cd && python ...` returns exit code 1 | Don't chain. Run `mkdir -p ...` in a separate Bash call before the Python step so a Python failure doesn't mask directory creation success |
-| Capture script doesn't print `READY:` line | Capture failed — continue with null grader data, note it in both reports |
-| CAPTCHA in browser | User solves it in real Chrome; script auto-detects completion (no terminal interaction needed) |
-| Chrome not found | Script will error — ask user to install Chrome or check PATH |
-| CDP connection refused | Another Chrome is using port 9222 without debug — close all Chrome windows and re-run |
+| `UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4ca'` | Missing UTF-8 prefix — re-run with `PYTHONIOENCODING=utf-8 PYTHONUTF8=1` |
+| `EOFError: EOF when reading a line` from share menu | Trying to run the interactive menu inside Bash. Re-launch via `cmd //c start "" "scripts/manage-reports.bat"` so it gets its own terminal |
+| Chained `mkdir && cd && python ...` returns exit code 1 | Don't chain. Run `mkdir -p ...` separately |
+| Capture script doesn't print `READY:` line | Capture failed — continue with `graderData = null`. Note it in the internal report only. The client report still ships with TableTurnerr's analysis numbers. |
+| CAPTCHA in browser | User solves it in real Chrome; script auto-detects completion |
+| Chrome not found | Ask user to install Chrome or check PATH |
+| CDP connection refused | Close all Chrome windows and re-run |
 | Push script fails | Check `.env.local` has `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` |
-| Client folder missing | Skip — generate from grader + URL only |
-| Python deps missing | `pip install -r scripts/requirements.txt` |
+| Migration `internal_content_json` column missing | Apply `scripts/migrations/add-internal-content-json.sql` once before the first push |
+| Tempted to write a `.md` file | Stop. JSON only. Re-read the rules at the top of this skill. |
+
+---
+
+## Anti-patterns
+- ❌ Do **not** generate `<slug>-client-report.md` or `<slug>-internal-report.md`. Markdown is retired.
+- ❌ Do not invent new client-report sections, rename IDs, or change the section order. Match Pure Pizza exactly.
+- ❌ Do not put more or fewer than 4 items in the client `actionPlan`.
+- ❌ Do not name upstream tools ("owner.com", "grader", etc.) in the client JSON.
+- ❌ Do not run `scripts/grader_cli.py share` directly — use `scripts/push-report.js` (the manager calls it for you).

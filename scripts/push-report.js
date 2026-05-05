@@ -1,24 +1,25 @@
 #!/usr/bin/env node
 /**
  * push-report.js
- * Upserts a client_reports row with both the internal and client report bodies.
+ * Upserts a client_reports row with both the client and internal report bodies.
  * Uses SUPABASE_SERVICE_ROLE_KEY (bypasses RLS) — local-only.
  *
- * Usage:
+ * JSON-only flow (current):
  *   node scripts/push-report.js \
  *     --client="Grumpy's Burgers" \
  *     --slug="grumpys-burgers" \
  *     --url="grumpys-burgers.com" \
- *     --client-report="C:/path/Grumpys-Client-Report.md" \
- *     --client-report-json="C:/path/Grumpys-Client-Report.json" \
- *     --internal-report="C:/path/Grumpys-Internal-Full-Report.md" \
+ *     --client-report-json="reports-archive/grumpys-burgers/grumpys-burgers-client-report.json" \
+ *     --internal-report-json="reports-archive/grumpys-burgers/grumpys-burgers-internal-report.json" \
  *     [--grader=".grader-cache/grumpys-burgers.json"] \
  *     [--status=draft] [--visibility=public]
  *
- * Any report variant can be omitted on update (we won't overwrite an existing column with null).
- * --client-report-json is what the new beautified /report/[slug] page renders.
- * If both .md and .json sit next to each other (same stem), the script auto-detects
- * the .json based on the .md path (replace -client-report.md → -client-report.json).
+ * Legacy markdown flow (still supported for archive rows):
+ *   --client-report=<file.md> --internal-report=<file.md>
+ *
+ * Any variant can be omitted on update — we won't overwrite an existing column with null.
+ * If `--client-report` is provided and a sibling `.json` sits next to it (same stem),
+ * the script auto-detects the JSON.
  */
 
 const fs = require("fs");
@@ -43,6 +44,7 @@ const {
   "client-report": clientReportPath,
   "client-report-json": clientReportJsonPathArg,
   "internal-report": internalReportPath,
+  "internal-report-json": internalReportJsonPathArg,
   report: legacyReportPath,
   grader: graderPath,
   status = "draft",
@@ -59,15 +61,30 @@ if (!resolvedClientReportJson && resolvedClientReport) {
     resolvedClientReportJson = guess;
   }
 }
+let resolvedInternalReportJson = internalReportJsonPathArg || null;
+if (!resolvedInternalReportJson && internalReportPath) {
+  const guess = internalReportPath.replace(/\.md$/i, ".json");
+  if (guess !== internalReportPath && fs.existsSync(guess)) {
+    resolvedInternalReportJson = guess;
+  }
+}
 
-if (!clientName || !slug || !clientUrl || (!resolvedClientReport && !internalReportPath)) {
+const hasAnyVariant =
+  resolvedClientReport ||
+  resolvedClientReportJson ||
+  internalReportPath ||
+  resolvedInternalReportJson;
+
+if (!clientName || !slug || !clientUrl || !hasAnyVariant) {
   console.error(`
 Usage: node scripts/push-report.js \\
   --client="Client Name" \\
   --slug="client-slug" \\
   --url="client-website.com" \\
-  --client-report="/path/to/client-report.md" \\
-  --internal-report="/path/to/internal-report.md" \\
+  [--client-report-json="/path/to/client-report.json"] \\
+  [--internal-report-json="/path/to/internal-report.json"] \\
+  [--client-report="/path/to/client-report.md"]      # legacy MD \\
+  [--internal-report="/path/to/internal-report.md"]  # legacy MD \\
   [--grader="/path/to/grader.json"] \\
   [--status=draft|published|archived] \\
   [--visibility=public|unlisted|private]
@@ -83,7 +100,7 @@ if (!supabaseUrl || !serviceRoleKey) {
   process.exit(1);
 }
 
-function readReport(p) {
+function readMarkdown(p) {
   if (!p) return null;
   if (!fs.existsSync(p)) {
     console.error(`Report file not found: ${p}`);
@@ -94,21 +111,21 @@ function readReport(p) {
   return { md, html: marked.parse(body) };
 }
 
-function readJsonReport(p) {
+function readJsonReport(p, label) {
   if (!p) return null;
   if (!fs.existsSync(p)) {
-    console.error(`Client report JSON not found: ${p}`);
+    console.error(`${label} JSON not found: ${p}`);
     process.exit(1);
   }
   try {
     const text = fs.readFileSync(p, "utf-8");
     const parsed = JSON.parse(text);
     if (parsed.version !== 1) {
-      console.warn(`Warning: client-report JSON has unexpected version: ${parsed.version}`);
+      console.warn(`Warning: ${label} JSON has unexpected version: ${parsed.version}`);
     }
     return parsed;
   } catch (e) {
-    console.error(`Could not parse client-report JSON: ${e.message}`);
+    console.error(`Could not parse ${label} JSON: ${e.message}`);
     process.exit(1);
   }
 }
@@ -116,9 +133,10 @@ function readJsonReport(p) {
 async function run() {
   console.log(`\nPushing report for: ${clientName}`);
 
-  const clientReport = readReport(resolvedClientReport);
-  const clientReportJson = readJsonReport(resolvedClientReportJson);
-  const internalReport = readReport(internalReportPath);
+  const clientReport = readMarkdown(resolvedClientReport);
+  const clientReportJson = readJsonReport(resolvedClientReportJson, "client-report");
+  const internalReport = readMarkdown(internalReportPath);
+  const internalReportJson = readJsonReport(resolvedInternalReportJson, "internal-report");
 
   let graderData = null;
   if (graderPath && fs.existsSync(graderPath)) {
@@ -150,20 +168,24 @@ async function run() {
       internal_content_md: internalReport.md,
       internal_content_html: internalReport.html,
     } : {}),
+    ...(internalReportJson ? {
+      internal_content_json: internalReportJson,
+    } : {}),
     ...(graderData ? { grader_data: graderData } : {}),
     ...(status === "published" ? { published_at: new Date().toISOString() } : {}),
   };
 
-  // For new rows we still need client_content_md (NOT NULL). On upsert with no existing
-  // row + no client report supplied, that's a bug — let it surface.
-  if (!clientReport) {
+  // For new rows, we need at least the client variant in some form (JSON preferred).
+  // If neither client MD nor client JSON was supplied, ensure the row exists already.
+  const hasClientPayload = !!(clientReport || clientReportJson);
+  if (!hasClientPayload) {
     const { data: existing } = await supabase
       .from("client_reports")
-      .select("client_content_md")
+      .select("client_content_md, client_content_json")
       .eq("client_slug", slug)
       .maybeSingle();
     if (!existing) {
-      console.error("New client_reports rows require --client-report. Aborting.");
+      console.error("New client_reports rows require --client-report-json (or legacy --client-report). Aborting.");
       process.exit(1);
     }
   }
@@ -187,7 +209,7 @@ async function run() {
   console.log(`   Slug:       ${data.client_slug}`);
   console.log(`   Status:     ${data.status}`);
   console.log(`   Visibility: ${data.visibility}`);
-  console.log(`   Variants:   client-md=${clientReport ? "yes" : "unchanged"}, client-json=${clientReportJson ? "yes" : "unchanged"}, internal=${internalReport ? "yes" : "unchanged"}`);
+  console.log(`   Variants:   client-md=${clientReport ? "yes" : "unchanged"}, client-json=${clientReportJson ? "yes" : "unchanged"}, internal-md=${internalReport ? "yes" : "unchanged"}, internal-json=${internalReportJson ? "yes" : "unchanged"}`);
   console.log(`\nClient share link (local): ${localUrl}`);
   console.log(`Client share link (prod):  ${prodUrl}`);
   console.log(`Admin panel:               http://localhost:3000/admin/reports/${data.id}`);

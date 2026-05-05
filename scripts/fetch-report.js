@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 /**
  * fetch-report.js
- * Pulls an existing client_reports row from Supabase and writes both markdown bodies
+ * Pulls an existing client_reports row from Supabase and writes both JSON bodies
  * (and the grader JSON, if any) into reports-archive/<slug>/ for local editing.
  *
  * Usage:
  *   node scripts/fetch-report.js --slug="grumpys-burgers" [--archive="/custom/dir"]
  *
  * Output files (under --archive or default reports-archive/<slug>/):
- *   <slug>-client-report.md
- *   <slug>-internal-report.md
- *   <slug>-grader.json (only if grader_data is present)
- *   <slug>-meta.json   (snapshot of name/url/status/visibility for the skill)
+ *   <slug>-client-report.json    (primary — what the live page renders)
+ *   <slug>-internal-report.json  (admin-only deep-dive)
+ *   <slug>-client-report.md      (legacy markdown — written only if the row still has it)
+ *   <slug>-internal-report.md    (legacy markdown — written only if the row still has it)
+ *   <slug>-grader.json           (only if grader_data is present)
+ *   <slug>-meta.json             (snapshot of name/url/status/visibility for the skill)
  */
 
 const fs = require("fs");
@@ -55,7 +57,12 @@ async function run() {
 
   const { data, error } = await supabase
     .from("client_reports")
-    .select("id, client_name, client_slug, client_url, client_content_md, internal_content_md, grader_data, status, visibility, created_at, updated_at, published_at")
+    .select(
+      "id, client_name, client_slug, client_url, " +
+      "client_content_md, client_content_json, " +
+      "internal_content_md, internal_content_json, " +
+      "grader_data, status, visibility, created_at, updated_at, published_at"
+    )
     .eq("client_slug", slug)
     .single();
 
@@ -66,16 +73,25 @@ async function run() {
 
   fs.mkdirSync(archiveDir, { recursive: true });
 
-  const clientPath = path.join(archiveDir, `${slug}-client-report.md`);
-  const internalPath = path.join(archiveDir, `${slug}-internal-report.md`);
+  const clientJsonPath = path.join(archiveDir, `${slug}-client-report.json`);
+  const internalJsonPath = path.join(archiveDir, `${slug}-internal-report.json`);
+  const clientMdPath = path.join(archiveDir, `${slug}-client-report.md`);
+  const internalMdPath = path.join(archiveDir, `${slug}-internal-report.md`);
   const graderPath = path.join(archiveDir, `${slug}-grader.json`);
   const metaPath = path.join(archiveDir, `${slug}-meta.json`);
 
+  if (data.client_content_json) {
+    fs.writeFileSync(clientJsonPath, JSON.stringify(data.client_content_json, null, 2), "utf-8");
+  }
+  if (data.internal_content_json) {
+    fs.writeFileSync(internalJsonPath, JSON.stringify(data.internal_content_json, null, 2), "utf-8");
+  }
+  // Legacy markdown — only write when the row still carries it.
   if (data.client_content_md) {
-    fs.writeFileSync(clientPath, data.client_content_md, "utf-8");
+    fs.writeFileSync(clientMdPath, data.client_content_md, "utf-8");
   }
   if (data.internal_content_md) {
-    fs.writeFileSync(internalPath, data.internal_content_md, "utf-8");
+    fs.writeFileSync(internalMdPath, data.internal_content_md, "utf-8");
   }
   if (data.grader_data) {
     fs.writeFileSync(graderPath, JSON.stringify(data.grader_data, null, 2), "utf-8");
@@ -97,8 +113,10 @@ async function run() {
 
   console.log(`\nReport fetched for: ${data.client_name}`);
   console.log(`   Archive: ${archiveDir}`);
-  console.log(`   Client report:   ${data.client_content_md ? clientPath : "(empty)"}`);
-  console.log(`   Internal report: ${data.internal_content_md ? internalPath : "(empty)"}`);
+  console.log(`   Client JSON:     ${data.client_content_json ? clientJsonPath : "(none)"}`);
+  console.log(`   Internal JSON:   ${data.internal_content_json ? internalJsonPath : "(none)"}`);
+  console.log(`   Client MD:       ${data.client_content_md ? clientMdPath : "(none, JSON-only)"}`);
+  console.log(`   Internal MD:     ${data.internal_content_md ? internalMdPath : "(none, JSON-only)"}`);
   console.log(`   Grader JSON:     ${data.grader_data ? graderPath : "(none)"}`);
   console.log(`   Meta:            ${metaPath}`);
   console.log(`\nFETCHED:${slug}:${archiveDir}`);
