@@ -5,6 +5,10 @@ import {
 } from "@/lib/report-schema";
 import { InlineMarkdown } from "./inline";
 import { KeywordGroupsList } from "./keyword-accordion";
+import {
+  CollapsibleSection,
+  CollapsibleProblem,
+} from "./collapsible-section";
 
 const num2 = (i: number) => String(i).padStart(2, "0");
 
@@ -15,32 +19,6 @@ function toneForGrade(grade: LetterGrade | string): string {
   if (c === "C") return "amber";
   if (c === "D") return "orange";
   return "rose";
-}
-
-// ─── Section heading ─────────────────────────────────────────────────────
-
-function SectionHeader({
-  index,
-  title,
-  intro,
-}: {
-  index: number;
-  title: string;
-  intro?: string;
-}) {
-  return (
-    <>
-      <div className="section-num">
-        <span>{`Section ${num2(index)}`}</span>
-      </div>
-      <h2>{title}</h2>
-      {intro && (
-        <p className="section-intro">
-          <InlineMarkdown text={intro} />
-        </p>
-      )}
-    </>
-  );
 }
 
 // ─── Hero ────────────────────────────────────────────────────────────────
@@ -119,16 +97,13 @@ export function HeroBlock({
 
 // ─── Scorecard ───────────────────────────────────────────────────────────
 
-function ScorecardSectionBlock({
+function ScorecardSectionBody({
   section,
-  index,
 }: {
   section: Extract<ReportSection, { type: "scorecard" }>;
-  index: number;
 }) {
   return (
-    <section className="section" id={section.id}>
-      <SectionHeader index={index} title={section.title} intro={section.intro} />
+    <>
       <div className="scorecard-grid">
         {section.items.map((it, i) => (
           <div key={i} className="scorecard-tile">
@@ -149,22 +124,19 @@ function ScorecardSectionBlock({
           <InlineMarkdown text={section.footnote} />
         </div>
       )}
-    </section>
+    </>
   );
 }
 
 // ─── Narrative ───────────────────────────────────────────────────────────
 
-function NarrativeSectionBlock({
+function NarrativeSectionBody({
   section,
-  index,
 }: {
   section: Extract<ReportSection, { type: "narrative" }>;
-  index: number;
 }) {
   return (
-    <section className="section" id={section.id}>
-      <SectionHeader index={index} title={section.title} />
+    <>
       <div style={{ maxWidth: "65ch" }}>
         {section.body.map((p, i) => (
           <p
@@ -185,22 +157,19 @@ function NarrativeSectionBlock({
           <InlineMarkdown text={section.callout} />
         </div>
       )}
-    </section>
+    </>
   );
 }
 
 // ─── Generic table ───────────────────────────────────────────────────────
 
-function TableSectionBlock({
+function TableSectionBody({
   section,
-  index,
 }: {
   section: Extract<ReportSection, { type: "table" }>;
-  index: number;
 }) {
   return (
-    <section className="section" id={section.id}>
-      <SectionHeader index={index} title={section.title} intro={section.intro} />
+    <>
       <div className="report-table-wrap">
         <table className="report-table">
           <thead>
@@ -238,22 +207,19 @@ function TableSectionBlock({
           <InlineMarkdown text={section.callout} />
         </div>
       )}
-    </section>
+    </>
   );
 }
 
 // ─── Reviews ─────────────────────────────────────────────────────────────
 
-function ReviewsSectionBlock({
+function ReviewsSectionBody({
   section,
-  index,
 }: {
   section: Extract<ReportSection, { type: "reviews" }>;
-  index: number;
 }) {
   return (
-    <section className="section" id={section.id}>
-      <SectionHeader index={index} title={section.title} intro={section.intro} />
+    <>
       <div className="reviews-grid">
         {section.platforms.map((p, i) => (
           <div key={i} className="review-tile">
@@ -302,66 +268,55 @@ function ReviewsSectionBlock({
           <InlineMarkdown text={section.recommendation} />
         </div>
       )}
-    </section>
+    </>
   );
 }
 
 // ─── Problems ────────────────────────────────────────────────────────────
 
-function ProblemListSectionBlock({
+function ProblemListSectionBody({
   section,
-  index,
 }: {
   section: Extract<ReportSection, { type: "problems" }>;
-  index: number;
 }) {
   return (
-    <section className="section" id={section.id}>
-      <SectionHeader index={index} title={section.title} intro={section.intro} />
-      <div>
-        {section.items.map((it, i) => (
-          <div key={i} className="problem">
-            <div className="problem-num">
-              <span>{num2(it.number ?? i + 1)}</span>
-              Problem
-            </div>
-            <div>
-              <h3>{it.title}</h3>
-              {(it.body || []).map((p, pi) => (
-                <p key={pi}>
-                  <InlineMarkdown text={p} />
-                </p>
+    <div>
+      {section.items.map((it, i) => (
+        <CollapsibleProblem
+          key={i}
+          number={it.number ?? i + 1}
+          title={it.title}
+          defaultOpen={false}
+        >
+          {(it.body || []).map((p, pi) => (
+            <p key={pi}>
+              <InlineMarkdown text={p} />
+            </p>
+          ))}
+          {it.bullets && it.bullets.length > 0 && (
+            <ul>
+              {it.bullets.map((b, bi) => (
+                <li key={bi}>
+                  <InlineMarkdown text={b} />
+                </li>
               ))}
-              {it.bullets && it.bullets.length > 0 && (
-                <ul>
-                  {it.bullets.map((b, bi) => (
-                    <li key={bi}>
-                      <InlineMarkdown text={b} />
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
+            </ul>
+          )}
+        </CollapsibleProblem>
+      ))}
+    </div>
   );
 }
 
 // ─── Competition ─────────────────────────────────────────────────────────
 
-function CompetitionSectionBlock({
+function CompetitionSectionBody({
   section,
-  index,
 }: {
   section: Extract<ReportSection, { type: "competition" }>;
-  index: number;
 }) {
   return (
-    <section className="section" id={section.id}>
-      <SectionHeader index={index} title={section.title} intro={section.intro} />
-
+    <>
       <div className="competitor-list">
         {section.competitors.map((c, i) => (
           <div
@@ -506,22 +461,19 @@ function CompetitionSectionBlock({
           )}
         </>
       )}
-    </section>
+    </>
   );
 }
 
 // ─── Keywords ────────────────────────────────────────────────────────────
 
-function KeywordsSectionBlock({
+function KeywordsSectionBody({
   section,
-  index,
 }: {
   section: Extract<ReportSection, { type: "keywords" }>;
-  index: number;
 }) {
   return (
-    <section className="section" id={section.id}>
-      <SectionHeader index={index} title={section.title} intro={section.intro} />
+    <>
       <KeywordGroupsList groups={section.groups} />
 
       {section.totals && (
@@ -559,22 +511,19 @@ function KeywordsSectionBlock({
           )}
         </>
       )}
-    </section>
+    </>
   );
 }
 
 // ─── Action plan ─────────────────────────────────────────────────────────
 
-function ActionPlanSectionBlock({
+function ActionPlanSectionBody({
   section,
-  index,
 }: {
   section: Extract<ReportSection, { type: "actionPlan" }>;
-  index: number;
 }) {
   return (
-    <section className="section" id={section.id}>
-      <SectionHeader index={index} title={section.title} intro={section.intro} />
+    <>
       <table className="ap-table">
         <thead>
           <tr>
@@ -605,22 +554,19 @@ function ActionPlanSectionBlock({
           ))}
         </tbody>
       </table>
-    </section>
+    </>
   );
 }
 
 // ─── Success metrics ─────────────────────────────────────────────────────
 
-function SuccessMetricsSectionBlock({
+function SuccessMetricsSectionBody({
   section,
-  index,
 }: {
   section: Extract<ReportSection, { type: "successMetrics" }>;
-  index: number;
 }) {
   return (
-    <section className="section" id={section.id}>
-      <SectionHeader index={index} title={section.title} intro={section.intro} />
+    <>
       <div className="metrics-list">
         {section.items.map((m, i) => (
           <div key={i} className="metric-row">
@@ -635,7 +581,7 @@ function SuccessMetricsSectionBlock({
           <InlineMarkdown text={section.callout} />
         </div>
       )}
-    </section>
+    </>
   );
 }
 
@@ -691,6 +637,38 @@ function CtaSectionBlock({
 
 // ─── Dispatcher ─────────────────────────────────────────────────────────
 
+function SectionBody({ section }: { section: ReportSection }) {
+  switch (section.type) {
+    case "narrative":
+      return <NarrativeSectionBody section={section} />;
+    case "scorecard":
+      return <ScorecardSectionBody section={section} />;
+    case "table":
+      return <TableSectionBody section={section} />;
+    case "reviews":
+      return <ReviewsSectionBody section={section} />;
+    case "problems":
+      return <ProblemListSectionBody section={section} />;
+    case "competition":
+      return <CompetitionSectionBody section={section} />;
+    case "keywords":
+      return <KeywordsSectionBody section={section} />;
+    case "actionPlan":
+      return <ActionPlanSectionBody section={section} />;
+    case "successMetrics":
+      return <SuccessMetricsSectionBody section={section} />;
+    default:
+      return null;
+  }
+}
+
+function getSectionIntro(section: ReportSection): string | undefined {
+  if ("intro" in section && typeof section.intro === "string") {
+    return section.intro;
+  }
+  return undefined;
+}
+
 export function SectionRenderer({
   section,
   index,
@@ -698,30 +676,22 @@ export function SectionRenderer({
   section: ReportSection;
   index: number;
 }) {
-  switch (section.type) {
-    case "narrative":
-      return <NarrativeSectionBlock section={section} index={index} />;
-    case "scorecard":
-      return <ScorecardSectionBlock section={section} index={index} />;
-    case "table":
-      return <TableSectionBlock section={section} index={index} />;
-    case "reviews":
-      return <ReviewsSectionBlock section={section} index={index} />;
-    case "problems":
-      return <ProblemListSectionBlock section={section} index={index} />;
-    case "competition":
-      return <CompetitionSectionBlock section={section} index={index} />;
-    case "keywords":
-      return <KeywordsSectionBlock section={section} index={index} />;
-    case "actionPlan":
-      return <ActionPlanSectionBlock section={section} index={index} />;
-    case "successMetrics":
-      return <SuccessMetricsSectionBlock section={section} index={index} />;
-    case "cta":
-      return <CtaSectionBlock section={section} index={index} />;
-    default: {
-      const _exhaustive: never = section;
-      return null;
-    }
+  if (section.type === "cta") {
+    return <CtaSectionBlock section={section} index={index} />;
   }
+
+  // Problems section is expanded by default; everything else is collapsed.
+  const defaultOpen = section.type === "problems";
+
+  return (
+    <CollapsibleSection
+      id={section.id}
+      index={index}
+      title={section.title}
+      intro={getSectionIntro(section)}
+      defaultOpen={defaultOpen}
+    >
+      <SectionBody section={section} />
+    </CollapsibleSection>
+  );
 }
