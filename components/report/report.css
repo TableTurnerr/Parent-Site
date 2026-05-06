@@ -518,7 +518,11 @@
 .report-page .rp-collapsible-toggle:hover .rp-expand-indicator {
   background: var(--rp-accent);
 }
-.report-page .rp-collapsible.is-open .rp-expand-indicator {
+.report-page .rp-collapsible.is-open .rp-expand-indicator,
+.report-page .rp-collapsible-problem.is-open .rp-expand-indicator {
+  background: var(--rp-accent);
+}
+.report-page .rp-problem-toggle:hover .rp-expand-indicator {
   background: var(--rp-accent);
 }
 .report-page .rp-expand-indicator-sm {
@@ -534,28 +538,21 @@
 }
 .report-page .rp-chev {
   position: absolute;
-  width: 8px;
-  height: 1.5px;
   background: currentColor;
-  top: 6px;
-  border-radius: 2px;
-  transition: transform 0.3s cubic-bezier(.2,.8,.2,1);
+  border-radius: 0;
+  transition: opacity 0.3s, transform 0.3s cubic-bezier(.2,.8,.2,1);
 }
 .report-page .rp-chev-1 {
-  left: 0;
-  transform: rotate(45deg) translateY(0);
-  transform-origin: right center;
+  top: 6.25px; left: 0;
+  width: 14px; height: 1.5px;
 }
 .report-page .rp-chev-2 {
-  right: 0;
-  transform: rotate(-45deg) translateY(0);
-  transform-origin: left center;
+  top: 0; left: 6.25px;
+  width: 1.5px; height: 14px;
 }
-.report-page .rp-collapsible.is-open .rp-chev-1 {
-  transform: rotate(-45deg);
-}
-.report-page .rp-collapsible.is-open .rp-chev-2 {
-  transform: rotate(45deg);
+.report-page .rp-collapsible.is-open > .rp-collapsible-toggle .rp-chev-2,
+.report-page .rp-collapsible-problem.is-open > .rp-problem-toggle .rp-chev-2 {
+  opacity: 0;
 }
 
 .report-page .rp-collapsible-body {
@@ -873,6 +870,13 @@
 .report-page .problem ul li::before {
   content: ""; position: absolute; left: 0; top: 10px;
   width: 10px; height: 1px; background: var(--rp-accent);
+}
+/* When .problem is also the collapsible variant, undo the legacy grid layout */
+.report-page .problem.rp-collapsible-problem {
+  display: block;
+  grid-template-columns: none;
+  gap: 0;
+  padding: 0;
 }
 
 /* ---------- Competition ---------- */
