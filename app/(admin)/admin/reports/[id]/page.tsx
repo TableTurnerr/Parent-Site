@@ -14,12 +14,13 @@ import {
   EyeOff,
   Sparkles,
   ChevronUp,
-  Save,
-  Pencil,
   Lock,
   RefreshCw,
+  AlertTriangle,
 } from "lucide-react";
 import { createClient } from "@/app/lib/supabase/client";
+import { isClientReport, type ClientReport } from "@/lib/report-schema";
+import { ReportEditor } from "@/app/components/admin/ReportEditor";
 
 type GraderData = {
   overallScore?: number;
@@ -36,10 +37,12 @@ type Report = {
   client_name: string;
   client_slug: string;
   client_url: string;
-  client_content_md: string;
+  client_content_md: string | null;
   client_content_html: string | null;
+  client_content_json: ClientReport | null;
   internal_content_md: string | null;
   internal_content_html: string | null;
+  internal_content_json: ClientReport | null;
   grader_data: GraderData | null;
   status: ReportStatus;
   visibility: ReportVisibility;
@@ -94,9 +97,6 @@ export default function ReportDetailPage() {
   const [visOpen, setVisOpen] = useState(false);
 
   const [variant, setVariant] = useState<Variant>("client");
-  const [editing, setEditing] = useState(false);
-  const [draftMd, setDraftMd] = useState("");
-  const [previewHtml, setPreviewHtml] = useState<string>("");
 
   // ── Talk to AI ──
   const [aiOpen, setAiOpen] = useState(false);
@@ -106,7 +106,9 @@ export default function ReportDetailPage() {
   const fetchReport = useCallback(async () => {
     const { data } = await supabase
       .from("client_reports")
-      .select("id, client_name, client_slug, client_url, client_content_md, client_content_html, internal_content_md, internal_content_html, grader_data, status, visibility, created_at, updated_at, published_at")
+      .select(
+        "id, client_name, client_slug, client_url, client_content_md, client_content_html, client_content_json, internal_content_md, internal_content_html, internal_content_json, grader_data, status, visibility, created_at, updated_at, published_at"
+      )
       .eq("id", id)
       .single();
 
@@ -114,35 +116,14 @@ export default function ReportDetailPage() {
       router.push("/admin/reports");
       return;
     }
-    setReport(data as Report);
+    setReport(data as unknown as Report);
     setLoading(false);
   }, [id, router, supabase]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchReport();
   }, [fetchReport]);
-
-  const currentMd = report
-    ? variant === "client"
-      ? report.client_content_md
-      : report.internal_content_md ?? ""
-    : "";
-  const currentHtml = report
-    ? variant === "client"
-      ? report.client_content_html ?? ""
-      : report.internal_content_html ?? ""
-    : "";
-
-  function startEdit() {
-    setDraftMd(currentMd);
-    setPreviewHtml(currentHtml);
-    setEditing(true);
-  }
-
-  function cancelEdit() {
-    setEditing(false);
-    setDraftMd("");
-  }
 
   async function patch(body: Record<string, unknown>) {
     setSaving(true);
@@ -158,13 +139,6 @@ export default function ReportDetailPage() {
       return null;
     }
     return res.json();
-  }
-
-  async function saveContent() {
-    const result = await patch({ variant, content_md: draftMd });
-    if (!result) return;
-    await fetchReport();
-    setEditing(false);
   }
 
   async function updateStatus(s: ReportStatus) {
@@ -219,7 +193,13 @@ export default function ReportDetailPage() {
   if (!report) return null;
 
   const grader = report.grader_data;
-  const score = grader?.overallScore ?? null;
+  const currentJson =
+    variant === "client" ? report.client_content_json : report.internal_content_json;
+  const hasJson = !!currentJson && isClientReport(currentJson);
+
+  // ── Score: prefer grader_data, fall back to hero.graderScore ──
+  const heroScore = hasJson ? currentJson?.hero.graderScore : undefined;
+  const score = grader?.overallScore ?? heroScore ?? null;
   const scoreColor =
     score === null
       ? "text-[var(--color-warm-gray)]"
@@ -228,6 +208,21 @@ export default function ReportDetailPage() {
       : score >= 40
       ? "text-amber-600"
       : "text-red-600";
+
+  // ── Categories: prefer grader_data, fall back to ratings[] ──
+  const categoriesFromGrader = grader?.categories
+    ? Object.entries(grader.categories).map(([key, c]) => ({
+        key,
+        label: categoryLabels[key] ?? key,
+        score: c.score ?? null,
+      }))
+    : null;
+  const categoriesFromRatings =
+    hasJson && currentJson?.ratings.length
+      ? currentJson.ratings.map((r) => ({ key: r.key, label: r.label, score: r.score }))
+      : null;
+  const categories = categoriesFromGrader ?? categoriesFromRatings;
+
   const shareUrl = `https://tableturnerr.com/report/${report.client_slug}`;
 
   return (
@@ -286,7 +281,7 @@ export default function ReportDetailPage() {
             )}
           </div>
 
-          {/* Visibility (controls the *client* report's reach) */}
+          {/* Visibility */}
           <div className="relative">
             <button
               onClick={() => { setVisOpen((o) => !o); setStatusOpen(false); }}
@@ -381,15 +376,15 @@ export default function ReportDetailPage() {
         </div>
       )}
 
-      {/* Grader summary */}
-      {grader && (
+      {/* Score summary (header card) */}
+      {(score !== null || categories) && (
         <div className="rounded-xl border border-[var(--color-border)] bg-white p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-sm font-semibold text-[var(--color-charcoal)]">
-                Owner.com Website Grade
+                {grader ? "Owner.com Website Grade" : "Report scorecard"}
               </h2>
-              {grader.gradedAt && (
+              {grader?.gradedAt && (
                 <p className="mt-0.5 text-xs text-[var(--color-warm-gray)]">
                   Graded{" "}
                   {new Date(grader.gradedAt).toLocaleDateString("en-US", {
@@ -397,6 +392,11 @@ export default function ReportDetailPage() {
                     day: "numeric",
                     year: "numeric",
                   })}
+                </p>
+              )}
+              {!grader && hasJson && (
+                <p className="mt-0.5 text-xs text-[var(--color-warm-gray-light)]">
+                  Pulled from <code className="font-mono">hero.graderScore</code> + <code className="font-mono">ratings[]</code>
                 </p>
               )}
             </div>
@@ -410,28 +410,27 @@ export default function ReportDetailPage() {
             )}
           </div>
 
-          {grader.categories && Object.keys(grader.categories).length > 0 && (
+          {categories && categories.length > 0 && (
             <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-              {Object.entries(grader.categories).map(([key, cat]) => {
-                const catScore = cat.score ?? null;
+              {categories.map((cat) => {
                 const catColor =
-                  catScore === null
+                  cat.score === null
                     ? "text-[var(--color-warm-gray)]"
-                    : catScore >= 70
+                    : cat.score >= 70
                     ? "text-green-600"
-                    : catScore >= 40
+                    : cat.score >= 40
                     ? "text-amber-600"
                     : "text-red-600";
                 return (
                   <div
-                    key={key}
+                    key={cat.key}
                     className="flex flex-col items-center rounded-lg bg-[var(--color-cream)] px-3 py-4 text-center"
                   >
                     <span className="text-xs font-medium text-[var(--color-warm-gray)]">
-                      {categoryLabels[key] ?? key}
+                      {cat.label}
                     </span>
                     <span className={`mt-1 text-xl font-bold tabular-nums ${catColor}`}>
-                      {catScore ?? "—"}
+                      {cat.score ?? "—"}
                     </span>
                   </div>
                 );
@@ -446,13 +445,7 @@ export default function ReportDetailPage() {
         {(["client", "internal"] as Variant[]).map((v) => (
           <button
             key={v}
-            onClick={() => {
-              if (editing) {
-                if (!confirm("Discard unsaved edits?")) return;
-                setEditing(false);
-              }
-              setVariant(v);
-            }}
+            onClick={() => setVariant(v)}
             className={`rounded-md px-4 py-1.5 text-sm font-medium capitalize transition-colors ${
               variant === v
                 ? "bg-white text-[var(--color-charcoal)] shadow-sm"
@@ -470,85 +463,22 @@ export default function ReportDetailPage() {
         ))}
       </div>
 
-      {/* Content card */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-white">
-        <div className="flex items-center justify-between border-b border-[var(--color-border)] px-6 py-4">
-          <h2 className="text-sm font-semibold text-[var(--color-charcoal)]">
-            {variant === "client" ? "Client Report" : "Internal Report"}{editing && " — Editing"}
-          </h2>
-          <div className="flex gap-2">
-            {editing ? (
-              <>
-                <button
-                  onClick={cancelEdit}
-                  className="rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs font-medium text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream)]"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={saveContent}
-                  disabled={saving || draftMd === currentMd}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[var(--color-charcoal)] px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-[var(--color-charcoal-light)] disabled:opacity-40"
-                >
-                  <Save className="h-3 w-3" />
-                  {saving ? "Saving…" : "Save"}
-                </button>
-              </>
-            ) : (
-              <button
-                onClick={startEdit}
-                disabled={!currentMd && variant === "internal"}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs font-medium text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream)] hover:text-[var(--color-charcoal)] disabled:opacity-40"
-              >
-                <Pencil className="h-3 w-3" />
-                Edit markdown
-              </button>
-            )}
-          </div>
-        </div>
-
-        {editing ? (
-          <div className="grid gap-0 lg:grid-cols-2">
-            <textarea
-              value={draftMd}
-              onChange={(e) => setDraftMd(e.target.value)}
-              className="min-h-[600px] resize-none border-r border-[var(--color-border)] bg-[var(--color-cream)] p-4 font-mono text-xs leading-relaxed text-[var(--color-charcoal)] focus:outline-none"
-              spellCheck={false}
-            />
-            <div className="overflow-x-auto px-4 py-4">
-              <p className="mb-2 text-xs text-[var(--color-warm-gray-light)]">
-                Live preview from saved HTML — re-renders on save.
-              </p>
-              <article
-                className="prose prose-sm prose-neutral max-w-none"
-                dangerouslySetInnerHTML={{ __html: previewHtml }}
-              />
-            </div>
-          </div>
-        ) : currentMd ? (
-          <div className="overflow-x-auto px-6 py-8">
-            <article
-              className="prose prose-neutral max-w-none
-                prose-headings:font-bold prose-headings:text-[var(--color-charcoal)]
-                prose-h1:text-xl prose-h2:text-lg prose-h2:mt-8 prose-h2:mb-3
-                prose-h3:text-base prose-h3:mt-5
-                prose-p:text-[var(--color-warm-gray)] prose-p:leading-relaxed
-                prose-table:text-sm
-                prose-th:bg-[var(--color-cream-dark)] prose-th:font-semibold
-                prose-li:text-[var(--color-warm-gray)]"
-              dangerouslySetInnerHTML={{ __html: currentHtml }}
-            />
-          </div>
-        ) : (
-          <div className="px-6 py-12 text-center text-sm text-[var(--color-warm-gray)]">
-            No internal report yet. Generate one with{" "}
-            <code className="rounded bg-[var(--color-cream-dark)] px-1 py-0.5 font-mono text-xs">
-              /generate-client-report
-            </code>{" "}
-            in Claude Code, or use Talk to AI below to draft one.
-          </div>
-        )}
-      </div>
+      {/* Editor */}
+      {hasJson && currentJson ? (
+        <ReportEditor
+          key={`${id}-${variant}`}
+          reportId={id}
+          variant={variant}
+          initial={currentJson}
+          slugLocked={true}
+          onSaved={() => fetchReport()}
+        />
+      ) : (
+        <LegacyOrEmptyState
+          variant={variant}
+          report={report}
+        />
+      )}
 
       {/* Talk to AI */}
       <div className="rounded-xl border border-[var(--color-border)] bg-white">
@@ -635,6 +565,48 @@ export default function ReportDetailPage() {
           </span>
         )}
       </div>
+    </div>
+  );
+}
+
+function LegacyOrEmptyState({
+  variant,
+  report,
+}: {
+  variant: Variant;
+  report: Report;
+}) {
+  const md = variant === "client" ? report.client_content_md : report.internal_content_md;
+  const html = variant === "client" ? report.client_content_html : report.internal_content_html;
+
+  if (md && html) {
+    return (
+      <div className="rounded-xl border border-amber-200 bg-amber-50">
+        <div className="flex items-start gap-2 border-b border-amber-200 px-4 py-3">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
+          <div className="text-sm text-amber-800">
+            <strong>Legacy markdown report.</strong> This report has not been migrated to the
+            JSON-first format used by the live <code className="rounded bg-white px-1 font-mono text-xs">/report/{report.client_slug}</code> page.
+            Re-run <code className="rounded bg-white px-1 font-mono text-xs">/generate-client-report</code> in Claude Code to convert it.
+          </div>
+        </div>
+        <div className="overflow-x-auto p-6">
+          <article
+            className="prose prose-neutral max-w-none prose-headings:text-[var(--color-charcoal)] prose-p:text-[var(--color-warm-gray)]"
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-xl border border-[var(--color-border)] bg-white px-6 py-12 text-center text-sm text-[var(--color-warm-gray)]">
+      No {variant} report yet. Generate one with{" "}
+      <code className="rounded bg-[var(--color-cream-dark)] px-1 py-0.5 font-mono text-xs">
+        /generate-client-report
+      </code>{" "}
+      in Claude Code, or use Talk to AI below.
     </div>
   );
 }

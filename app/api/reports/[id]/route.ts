@@ -1,6 +1,7 @@
 import { createClient } from "@/app/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { marked } from "marked";
+import { isClientReport } from "@/lib/report-schema";
 
 type Variant = "client" | "internal";
 
@@ -9,6 +10,7 @@ type PatchBody = {
   visibility?: "public" | "unlisted" | "private";
   variant?: Variant;
   content_md?: string;
+  content_json?: unknown;
   client_name?: string;
   client_url?: string;
 };
@@ -54,6 +56,20 @@ export async function PATCH(
 
   if (body.client_name !== undefined) update.client_name = body.client_name;
   if (body.client_url !== undefined) update.client_url = body.client_url;
+
+  if (body.content_json !== undefined) {
+    if (body.variant !== "client" && body.variant !== "internal") {
+      return NextResponse.json({ error: "variant must be 'client' or 'internal' when sending content_json" }, { status: 400 });
+    }
+    if (!isClientReport(body.content_json)) {
+      return NextResponse.json({ error: "content_json failed schema validation (expected ClientReport v1)" }, { status: 400 });
+    }
+    if (body.variant === "client") {
+      update.client_content_json = body.content_json;
+    } else {
+      update.internal_content_json = body.content_json;
+    }
+  }
 
   if (body.content_md !== undefined) {
     if (body.variant !== "client" && body.variant !== "internal") {
