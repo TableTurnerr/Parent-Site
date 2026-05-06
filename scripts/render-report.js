@@ -669,64 +669,6 @@ ${css}
 /* Belt-and-suspenders: hidden body should never display, even if a stylesheet
    tries to override the [hidden] UA rule. */
 .report-page [hidden] { display: none !important; }
-
-/* Problems section: report.css defines the legacy non-collapsible .problem grid
-   AFTER .rp-collapsible-problem at equal specificity, so the legacy rules win
-   and break expansion. Force the collapsible variant to win. */
-.report-page .problem.rp-collapsible-problem {
-  display: block !important;
-  grid-template-columns: none !important;
-  gap: 0 !important;
-  padding: 0 !important;
-}
-.report-page .rp-collapsible-problem .rp-problem-body {
-  display: block;
-  padding: 0 0 28px 80px;
-  max-width: none;
-}
-.report-page .rp-collapsible-problem .rp-problem-body[hidden] {
-  display: none !important;
-}
-@media (max-width: 768px) {
-  .report-page .rp-collapsible-problem .rp-problem-body { padding: 0 0 20px 54px; }
-}
-
-/* Replace the arrowhead chevrons with the same + / − icon used in the
-   keywords area. chev-1 = horizontal bar, chev-2 = vertical bar; on is-open
-   we fade chev-2 so the icon collapses from "+" to "−". */
-.report-page .rp-expand-icon { width: 14px; height: 14px; }
-.report-page .rp-chev {
-  position: absolute;
-  background: currentColor;
-  border-radius: 0;
-  transition: opacity 0.3s, transform 0.3s cubic-bezier(.2,.8,.2,1);
-}
-.report-page .rp-chev-1 {
-  top: 6.25px; left: 0;
-  width: 14px; height: 1.5px;
-  transform: none !important;
-  transform-origin: center !important;
-}
-.report-page .rp-chev-2 {
-  top: 0; left: 6.25px;
-  width: 1.5px; height: 14px;
-  transform: none !important;
-  transform-origin: center !important;
-}
-/* Scope to the toggle button that BELONGS to this container, so opening a
-   parent section doesn't flip every nested problem's chevron. */
-.report-page .rp-collapsible.is-open > .rp-collapsible-toggle .rp-chev-1,
-.report-page .rp-collapsible-problem.is-open > .rp-problem-toggle .rp-chev-1 {
-  transform: none !important;
-}
-.report-page .rp-collapsible.is-open > .rp-collapsible-toggle .rp-chev-2,
-.report-page .rp-collapsible-problem.is-open > .rp-problem-toggle .rp-chev-2 {
-  transform: none !important;
-  opacity: 0;
-}
-.report-page .rp-collapsible-problem.is-open .rp-expand-indicator {
-  background: var(--rp-accent);
-}
 </style>
 </head>
 <body>
