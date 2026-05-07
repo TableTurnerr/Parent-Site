@@ -78,6 +78,52 @@
   --radius: 0.625rem;
 }
 
+/* ─── Admin Dashboard Dark Mode ─── */
+/* Scoped via .dark class on AdminShell root — public site unaffected. */
+.dark {
+  /* TableTurnerr brand tokens flipped */
+  --color-cream: #0F0F11;
+  --color-cream-dark: #1A1A1D;
+  --color-charcoal: #050507;
+  --color-charcoal-light: #1F1F22;
+  --color-warm-gray: #B5B0AB;
+  --color-warm-gray-light: #75716B;
+  --color-border: #2A2A2E;
+
+  /* shadcn/ui tokens */
+  --background: #0F0F11;
+  --foreground: #FAFAF8;
+  --card: #1A1A1D;
+  --card-foreground: #FAFAF8;
+  --popover: #1A1A1D;
+  --popover-foreground: #FAFAF8;
+  --primary: #FAFAF8;
+  --primary-foreground: #1A1A1A;
+  --secondary: #1F1F22;
+  --secondary-foreground: #FAFAF8;
+  --muted: #1F1F22;
+  --muted-foreground: #B5B0AB;
+  --accent-foreground: #1A1A1A;
+  --border: #2A2A2E;
+  --input: #2A2A2E;
+}
+
+/* Translate hardcoded surface utilities used across admin pages so they
+   participate in the dark theme without touching every component. */
+.dark .bg-white {
+  background-color: var(--card);
+}
+.dark .hover\:bg-white:hover {
+  background-color: var(--card);
+}
+/* Status pills: tone down the bright light-mode tints on dark surfaces. */
+.dark .bg-gray-100 {
+  background-color: #2A2A2E;
+}
+.dark .text-gray-600 {
+  color: #B5B0AB;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

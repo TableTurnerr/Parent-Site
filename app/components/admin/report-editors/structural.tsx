@@ -166,7 +166,7 @@ export function StructuralEditor({
 
 function SectionShell({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <details open className="group rounded-xl border border-[var(--color-border)] bg-white">
+    <details className="group rounded-xl border border-[var(--color-border)] bg-white">
       <summary className="flex cursor-pointer items-center justify-between border-b border-[var(--color-border)] px-4 py-3 text-sm font-semibold text-[var(--color-charcoal)] group-open:border-b">
         <span>{label}</span>
         <span className="text-xs font-normal text-[var(--color-warm-gray-light)] group-open:hidden">click to expand</span>

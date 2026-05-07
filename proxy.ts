@@ -1,7 +1,25 @@
 import { updateSession } from "@/app/lib/supabase/middleware";
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 export async function proxy(request: NextRequest) {
+  // Recover stray Supabase OAuth callbacks: if Supabase falls back to the Site URL
+  // (because the redirectTo isn't in the Redirect URLs allowlist), the user lands
+  // somewhere like "/?code=..." instead of "/api/auth/callback?code=...". Forward
+  // those to the real callback so the session can be exchanged.
+  const code = request.nextUrl.searchParams.get("code");
+  if (
+    code &&
+    !request.nextUrl.pathname.startsWith("/api/auth/callback") &&
+    !request.nextUrl.pathname.startsWith("/api/")
+  ) {
+    const callbackUrl = request.nextUrl.clone();
+    callbackUrl.pathname = "/api/auth/callback";
+    if (!callbackUrl.searchParams.has("next")) {
+      callbackUrl.searchParams.set("next", "/admin");
+    }
+    return NextResponse.redirect(callbackUrl);
+  }
+
   return await updateSession(request);
 }
 
