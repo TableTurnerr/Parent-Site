@@ -81,6 +81,8 @@
 /* ─── Admin Dashboard Dark Mode ─── */
 /* Scoped via .dark class on AdminShell root — public site unaffected. */
 .dark {
+  color: #FAFAF8;
+
   /* TableTurnerr brand tokens flipped */
   --color-cream: #0F0F11;
   --color-cream-dark: #1A1A1D;
@@ -122,6 +124,30 @@
 }
 .dark .text-gray-600 {
   color: #B5B0AB;
+}
+.dark .bg-slate-100 {
+  background-color: #2A2A2E;
+}
+.dark .text-slate-700 {
+  color: #C4C0BB;
+}
+
+/* `--color-charcoal` doubles as a dark surface (sidebar, primary buttons) AND
+   as the primary text color on cream surfaces. In dark mode the variable is
+   intentionally left near-black so surface utilities still read correctly,
+   but text utilities that consume it must flip to a light foreground here. */
+.dark .text-\[var\(--color-charcoal\)\],
+.dark .text-charcoal {
+  color: #FAFAF8;
+}
+.dark .text-\[var\(--color-charcoal-light\)\] {
+  color: #E5E2DD;
+}
+.dark .hover\:text-\[var\(--color-charcoal\)\]:hover {
+  color: #FAFAF8;
+}
+.dark .placeholder\:text-\[var\(--color-warm-gray-light\)\]::placeholder {
+  color: #75716B;
 }
 
 @layer base {
