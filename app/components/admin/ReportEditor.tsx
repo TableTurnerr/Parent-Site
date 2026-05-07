@@ -372,7 +372,7 @@ function SectionCard({
   onMoveUp: () => void;
   onMoveDown: () => void;
 }) {
-  const [open, setOpen] = useState(index === 0);
+  const [open, setOpen] = useState(false);
   return (
     <div className="rounded-xl border border-[var(--color-border)] bg-white">
       <div className="flex items-center gap-2 border-b border-[var(--color-border)] px-4 py-2.5">
