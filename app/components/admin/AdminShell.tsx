@@ -23,6 +23,7 @@ import {
 
 import type { UserRole } from "@/app/lib/supabase/types";
 import { hasRole, ROLE_LABELS } from "@/app/lib/supabase/types";
+import ThemeToggle, { type AdminTheme } from "./ThemeToggle";
 
 interface AdminUser {
   id: string;
@@ -31,6 +32,9 @@ interface AdminUser {
   avatarUrl: string | null;
   role: UserRole;
 }
+
+const THEME_COOKIE = "admin-theme";
+const THEME_COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
 
 // minRole: minimum role required to see this nav item
 const NAV_ITEMS: { href: string; label: string; icon: typeof LayoutDashboard; minRole: UserRole }[] = [
@@ -45,16 +49,19 @@ const NAV_ITEMS: { href: string; label: string; icon: typeof LayoutDashboard; mi
 export default function AdminShell({
   user,
   version,
+  initialTheme = "light",
   children,
 }: {
   user: AdminUser;
   version: string;
+  initialTheme?: AdminTheme;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [theme, setTheme] = useState<AdminTheme>(initialTheme);
 
   useEffect(() => {
     try {
@@ -62,6 +69,11 @@ export default function AdminShell({
       if (stored === "true") setCollapsed(true);
     } catch { /* ignore */ }
   }, []);
+
+  const handleThemeChange = (next: AdminTheme) => {
+    setTheme(next);
+    document.cookie = `${THEME_COOKIE}=${next}; path=/; max-age=${THEME_COOKIE_MAX_AGE}; samesite=lax`;
+  };
 
   const toggleCollapsed = () => {
     setCollapsed((prev) => {
@@ -94,7 +106,7 @@ export default function AdminShell({
   };
 
   return (
-    <div className="flex h-screen bg-[var(--color-cream)]">
+    <div className={`${theme === "dark" ? "dark " : ""}flex h-screen bg-[var(--color-cream)]`}>
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -233,7 +245,7 @@ export default function AdminShell({
       {/* Main content area */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Top bar (mobile) */}
-        <header className="flex h-16 items-center gap-4 border-b border-[var(--color-border)] bg-white px-4 lg:px-8">
+        <header className="flex h-16 items-center gap-4 border-b border-[var(--color-border)] bg-[var(--card)] px-4 lg:px-8">
           <button
             onClick={() => setSidebarOpen(true)}
             className="rounded-lg p-1.5 text-[var(--color-charcoal)] transition-colors hover:bg-[var(--color-cream-dark)] lg:hidden"
@@ -250,6 +262,7 @@ export default function AdminShell({
             </button>
           )}
           <div className="flex-1" />
+          <ThemeToggle theme={theme} onChange={handleThemeChange} />
           <span className="text-xs font-medium text-[var(--color-warm-gray-light)]">
             v{version}
           </span>
