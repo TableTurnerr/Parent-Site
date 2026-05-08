@@ -14,9 +14,7 @@ export async function proxy(request: NextRequest) {
   ) {
     const callbackUrl = request.nextUrl.clone();
     callbackUrl.pathname = "/api/auth/callback";
-    if (!callbackUrl.searchParams.has("next")) {
-      callbackUrl.searchParams.set("next", "/admin");
-    }
+    // No `next` here — the callback resolves the role and redirects accordingly.
     return NextResponse.redirect(callbackUrl);
   }
 
