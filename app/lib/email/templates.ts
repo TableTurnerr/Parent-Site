@@ -6,6 +6,8 @@ interface ShareOpts {
   invitedByName?: string | null;
   reportMonth?: string | null;
   hasExistingAccount: boolean;
+  /** One-click magic-login URL. Falls back to /login if omitted. */
+  loginUrl?: string | null;
 }
 
 interface PublishedOpts {
@@ -25,14 +27,18 @@ const monthLabel = (month: string | null | undefined) => {
 /** "TableTurnerr shared a report with you" — sent on access grant. */
 export function renderShareEmail(opts: ShareOpts) {
   const site = getSiteUrl();
-  const loginUrl = `${site}/login`;
+  const loginUrl = opts.loginUrl ?? `${site}/login`;
+  const isOneClick = Boolean(opts.loginUrl);
+  const ctaLabel = isOneClick ? "View your report" : "Sign in to TableTurnerr";
   const monthStr = monthLabel(opts.reportMonth);
 
   const subject = `${opts.invitedByName ?? "TableTurnerr"} shared ${opts.clientName}'s report with you`;
 
-  const ctaCopy = opts.hasExistingAccount
-    ? "Sign in to view your report"
-    : "Click the link below to sign in. We'll email you a one-time login link — no password required.";
+  const ctaCopy = isOneClick
+    ? "Click the button below to open your report — you'll be signed in automatically. No password required."
+    : opts.hasExistingAccount
+      ? "Sign in to view your report"
+      : "Click the link below to sign in. We'll email you a one-time login link — no password required.";
 
   const html = `<!doctype html>
 <html><body style="margin:0;padding:0;background:#f5f1eb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1a1a1a;">
@@ -47,7 +53,7 @@ export function renderShareEmail(opts: ShareOpts) {
       </p>
       <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#444;">${ctaCopy}</p>
       <p style="text-align:center;margin:24px 0;">
-        <a href="${loginUrl}" style="display:inline-block;background:#1a1a1a;color:#fff;text-decoration:none;padding:14px 32px;border-radius:999px;font-size:15px;font-weight:500;">Sign in to TableTurnerr</a>
+        <a href="${loginUrl}" style="display:inline-block;background:#1a1a1a;color:#fff;text-decoration:none;padding:14px 32px;border-radius:999px;font-size:15px;font-weight:500;">${ctaLabel}</a>
       </p>
       <p style="margin:24px 0 0;font-size:13px;line-height:1.6;color:#888;">
         Once signed in, you'll see all monthly reports for ${opts.clientName} on your dashboard.
@@ -60,8 +66,9 @@ export function renderShareEmail(opts: ShareOpts) {
   </div>
 </body></html>`;
 
-  const text =
-    `${opts.invitedByName ?? "TableTurnerr"} has given you access to the digital presence report${monthStr ? ` for ${monthStr}` : ""} for ${opts.clientName}.\n\nSign in here: ${loginUrl}\n\nOnce signed in, you'll see all monthly reports for ${opts.clientName} on your dashboard.`;
+  const text = isOneClick
+    ? `${opts.invitedByName ?? "TableTurnerr"} has given you access to the digital presence report${monthStr ? ` for ${monthStr}` : ""} for ${opts.clientName}.\n\nOpen your report (one-click sign-in): ${loginUrl}\n\nOnce signed in, you'll see all monthly reports for ${opts.clientName}.`
+    : `${opts.invitedByName ?? "TableTurnerr"} has given you access to the digital presence report${monthStr ? ` for ${monthStr}` : ""} for ${opts.clientName}.\n\nSign in here: ${loginUrl}\n\nOnce signed in, you'll see all monthly reports for ${opts.clientName} on your dashboard.`;
 
   return { subject, html, text };
 }
