@@ -23,22 +23,23 @@
 Extract (or ask if missing):
 - **Client name** (e.g., "Grumpy's Burgers")
 - **Website URL** (e.g., `grumpys-burgers.com`)
+- **Report month** — the month this report covers, in `YYYY-MM` form. **Default to the current calendar month** in the user's timezone if not specified. Confirm with the user only if they mention a specific past month or "this is for last month."
 
 We do **not** require the client to have a `<Client>-Website\` project folder. If one exists at `C:\Users\Hashaam\Desktop\MyCode\<Client>-Website\`, treat its `dev-kit/` and prior reports as **bonus context**. Otherwise generate purely from grader data + URL + (optional) light web research.
 
 Derive slug: lowercase, spaces/apostrophes/special chars → hyphens, collapse doubles.
 `"Grumpy's Burgers"` → `grumpys-burgers`
 
-The canonical local archive for every client is:
+The canonical local archive for every (client, month) is:
 ```
-C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr\reports-archive\<slug>\
+C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr\reports-archive\<slug>\<YYYY-MM>\
 ```
-Create it if it doesn't exist. Output two JSON files here.
+Create it if it doesn't exist. Output two JSON files there.
 
 **Create the archive directory in its own command** — do not chain it with the Python capture. If anything in a chained `&&` command fails, the whole chain reports exit code 1 even when the directory was successfully created, which makes failure mode opaque.
 
 ```bash
-mkdir -p "C:/Users/Hashaam/Desktop/MyCode/ParentSite-Tableturnerr/reports-archive/<slug>"
+mkdir -p "C:/Users/Hashaam/Desktop/MyCode/ParentSite-Tableturnerr/reports-archive/<slug>/<YYYY-MM>"
 ```
 
 ---
@@ -70,7 +71,7 @@ Check whether `C:\Users\Hashaam\Desktop\MyCode\<Client>-Website\` exists. If yes
 
 ## Step 3 — Generate **two** JSON artifacts
 
-Output exactly two files into `reports-archive\<slug>\`:
+Output exactly two files into `reports-archive\<slug>\<YYYY-MM>\`:
 
 - `<slug>-client-report.json` — **client-facing report** (mirrors Pure Pizza on the Plaza structure exactly)
 - `<slug>-internal-report.json` — **internal team deep-dive** (same `ClientReport` schema, much more detail)
@@ -213,7 +214,7 @@ Notes:
    - Push both as **published + public**
    - Open the archive folder in Explorer
    - Back / Quit
-3. Push uses `scripts/push-report.js` with `--client-report-json` and `--internal-report-json` flags.
+3. Push uses `scripts/push-report.js` with `--month`, `--client-report-json`, and `--internal-report-json` flags. Always pass `--month=<YYYY-MM>` matching the archive subdirectory; without it the script defaults to the current month.
 
 Confirm the new cmd window opens, then stop and wait for the user.
 

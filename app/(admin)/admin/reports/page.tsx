@@ -14,8 +14,9 @@ export default async function ReportsPage({
 
   let query = supabase
     .from("client_reports")
-    .select("id, client_name, client_slug, client_url, status, visibility, created_at, published_at, grader_data")
-    .order("created_at", { ascending: false });
+    .select("id, client_name, client_slug, client_url, report_month, status, visibility, created_at, published_at, grader_data")
+    .order("report_month", { ascending: false })
+    .order("client_name");
 
   if (statusFilter !== "all") {
     query = query.eq("status", statusFilter as "draft" | "published" | "archived");
@@ -103,7 +104,10 @@ export default async function ReportsPage({
                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
                   Client
                 </th>
-                <th className="hidden px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] md:table-cell">
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
+                  Month
+                </th>
+                <th className="hidden px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] lg:table-cell">
                   Website
                 </th>
                 <th className="hidden px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] sm:table-cell">
@@ -149,7 +153,13 @@ export default async function ReportsPage({
                         {report.client_name}
                       </Link>
                     </td>
-                    <td className="hidden px-6 py-4 md:table-cell">
+                    <td className="px-6 py-4 text-sm text-[var(--color-charcoal)]">
+                      {new Date(report.report_month).toLocaleDateString("en-US", {
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </td>
+                    <td className="hidden px-6 py-4 lg:table-cell">
                       <a
                         href={`https://${report.client_url}`}
                         target="_blank"
@@ -196,7 +206,7 @@ export default async function ReportsPage({
                       <div className="flex items-center justify-end gap-2">
                         {report.status === "published" && (
                           <a
-                            href={`/report/${report.client_slug}`}
+                            href={`/report/${report.client_slug}/${report.report_month.slice(0, 7)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="rounded-lg p-1.5 text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
