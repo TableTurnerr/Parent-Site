@@ -44,7 +44,20 @@ export async function GET(request: Request) {
     role = (profile?.role as UserRole) ?? null;
   }
 
-  const fallback = defaultPathForRole(role);
+  let fallback = defaultPathForRole(role);
+
+  // If a client has access to exactly one company, deep-link them straight
+  // into that company's reports page instead of the multi-company dashboard.
+  if (user && role === "client") {
+    const { data: accessibleClients } = await supabase
+      .from("clients")
+      .select("slug")
+      .limit(2);
+    if (accessibleClients?.length === 1 && accessibleClients[0]?.slug) {
+      fallback = `/portal/clients/${accessibleClients[0].slug}`;
+    }
+  }
+
   const next = sanitizeRedirectPath(rawNext, fallback);
 
   const forwardedHost = request.headers.get("x-forwarded-host");
