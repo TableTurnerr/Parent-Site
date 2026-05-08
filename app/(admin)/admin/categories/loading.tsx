@@ -1,12 +1,15 @@
 export default function CategoriesLoading() {
   return (
     <div className="space-y-6 animate-pulse">
-      <div className="h-7 w-28 rounded-lg bg-[var(--color-border)]" />
+      <div>
+        <div className="h-7 w-40 rounded-lg bg-[var(--color-border)]" />
+        <div className="mt-2 h-4 w-56 rounded bg-[var(--color-border)]" />
+      </div>
 
       {/* Add category form skeleton */}
-      <div className="flex gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row">
         <div className="h-11 flex-1 rounded-lg bg-[var(--color-border)]" />
-        <div className="h-11 w-16 rounded-full bg-[var(--color-border)]" />
+        <div className="h-11 w-full sm:w-16 rounded-full bg-[var(--color-border)]" />
       </div>
 
       {/* Category list */}

@@ -26,11 +26,11 @@ export default function EditPostLoading() {
             </div>
             <div className="p-4">
               <div className="space-y-2">
-                {Array.from({ length: 12 }).map((_, i) => (
+                {[95, 80, 88, 70, 92, 65, 85, 78, 90, 72, 86, 68].map((w, i) => (
                   <div
                     key={i}
                     className="h-4 rounded bg-[var(--color-border)]"
-                    style={{ width: `${60 + Math.random() * 40}%` }}
+                    style={{ width: `${w}%` }}
                   />
                 ))}
               </div>

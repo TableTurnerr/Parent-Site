@@ -34,7 +34,8 @@ export default async function AdminLayout({
     .single();
 
   const themeCookie = (await cookies()).get("admin-theme")?.value;
-  const initialTheme = themeCookie === "dark" ? "dark" : "light";
+  const initialTheme =
+    themeCookie === "dark" ? "dark" : themeCookie === "light" ? "light" : null;
 
   return (
     <AdminShell
