@@ -51,14 +51,18 @@ export default async function PortalReportPage({
     );
   }
 
+  const backLink = (
+    <Link
+      href={`/portal/clients/${slug}`}
+      className="report-back-link"
+    >
+      ← All months for {client.name}
+    </Link>
+  );
+
   return (
     <div className="report-portal-embed">
-      <div className="mx-auto max-w-[1080px] px-4 pt-6 lg:px-8 lg:pt-8">
-        <Link href={`/portal/clients/${slug}`} className="text-xs text-[var(--color-warm-gray)] hover:text-[var(--color-charcoal)]">
-          ← All months for {client.name}
-        </Link>
-      </div>
-      <ReportRendererBody report={json} />
+      <ReportRendererBody report={json} leftSlot={backLink} />
     </div>
   );
 }
