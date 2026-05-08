@@ -19,6 +19,8 @@ import {
   PanelLeft,
   MapPin,
   FileBarChart2,
+  Building2,
+  Users,
 } from "lucide-react";
 
 import type { UserRole } from "@/app/lib/supabase/types";
@@ -42,6 +44,8 @@ const NAV_ITEMS: { href: string; label: string; icon: typeof LayoutDashboard; mi
   { href: "/admin/posts", label: "Posts", icon: FileText, minRole: "viewer" },
   { href: "/admin/location-pages", label: "Location Pages", icon: MapPin, minRole: "viewer" },
   { href: "/admin/reports", label: "Reports", icon: FileBarChart2, minRole: "viewer" },
+  { href: "/admin/companies", label: "Companies", icon: Building2, minRole: "viewer" },
+  { href: "/admin/owners", label: "Owners", icon: Users, minRole: "viewer" },
   { href: "/admin/categories", label: "Blog Categories", icon: FolderOpen, minRole: "manager" },
   { href: "/admin/settings", label: "Settings", icon: Settings, minRole: "manager" },
 ];
@@ -97,7 +101,7 @@ export default function AdminShell({
   const handleSignOut = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push("/admin/login");
+    router.push("/login");
   };
 
   const isActive = (href: string) => {
