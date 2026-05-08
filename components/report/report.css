@@ -50,6 +50,10 @@
 @media (min-width: 768px) {
   .report-page .meta-strip { top: 80px; } /* md:h-20 */
 }
+.report-preview-scope .report-page .meta-strip { top: 0; }
+@media (min-width: 768px) {
+  .report-preview-scope .report-page .meta-strip { top: 0; }
+}
 
 /* When embedded in the client portal */
 .report-portal-embed {

@@ -9,7 +9,7 @@ type Variant = "client" | "internal";
 
 type PatchBody = {
   status?: "draft" | "published" | "archived";
-  visibility?: "public" | "unlisted" | "private";
+  visibility?: "public" | "unlisted" | "private" | "client_only";
   variant?: Variant;
   content_md?: string;
   content_json?: unknown;
@@ -27,7 +27,7 @@ function normalizeMonth(input: string): string | null {
 }
 
 const STATUS = ["draft", "published", "archived"] as const;
-const VISIBILITY = ["public", "unlisted", "private"] as const;
+const VISIBILITY = ["public", "unlisted", "private", "client_only"] as const;
 
 function stripFrontmatter(md: string): string {
   return md.replace(/^---[\s\S]*?---\n/, "");

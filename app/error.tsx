@@ -1,10 +1,15 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { RotateCw, Home, ChefHat } from "lucide-react";
+import { RotateCw, Home, Unplug } from "lucide-react";
 import Logo from "@/app/components/ui/Logo";
+import ThemeToggleButton from "@/app/components/ui/ThemeToggleButton";
+import {
+  NO_FLASH_THEME_SCRIPT,
+  useThemeMode,
+} from "@/app/components/ui/themeMode";
 
 const container = {
   hidden: {},
@@ -27,13 +32,23 @@ export default function Error({
     console.error("Application error:", error);
   }, [error]);
 
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const { theme, toggle } = useThemeMode(wrapperRef);
+
   return (
-    <div className="min-h-screen bg-cream flex flex-col">
+    <>
+    <script dangerouslySetInnerHTML={{ __html: NO_FLASH_THEME_SCRIPT }} />
+    <div
+      ref={wrapperRef}
+      suppressHydrationWarning
+      className="min-h-screen bg-[var(--color-cream)] flex flex-col"
+    >
       {/* Minimal header */}
-      <header className="w-full px-6 md:px-10 py-6">
+      <header className="w-full px-6 md:px-10 py-6 flex items-center justify-between">
         <Link href="/" aria-label="Back to home">
           <Logo className="h-7 w-auto text-charcoal hover:text-charcoal-light transition-colors" />
         </Link>
+        <ThemeToggleButton theme={theme} onToggle={toggle} />
       </header>
 
       {/* Main content */}
@@ -48,8 +63,8 @@ export default function Error({
           variants={fadeUp}
           className="mb-8 relative"
         >
-          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-cream-dark border-2 border-border flex items-center justify-center">
-            <ChefHat className="w-10 h-10 sm:w-12 sm:h-12 text-charcoal/40" strokeWidth={1.5} />
+          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[var(--color-cream-dark)] border-2 border-border flex items-center justify-center">
+            <Unplug className="w-10 h-10 sm:w-12 sm:h-12 text-charcoal/40" strokeWidth={1.5} />
           </div>
           {/* Exclamation badge */}
           <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-charcoal text-cream flex items-center justify-center text-sm font-bold">
@@ -62,15 +77,15 @@ export default function Error({
           variants={fadeUp}
           className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-charcoal text-center mb-3"
         >
-          Something went wrong in the kitchen
+          Well, this is awkward
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
           className="text-warm-gray text-base sm:text-lg text-center max-w-lg mb-10"
         >
-          Our chefs hit an unexpected snag. Give it another try, or head back to
-          the main menu.
+          Something tripped over a wire on our end. Give it another go,
+          or head home while we quietly tidy up.
         </motion.p>
 
         {/* Actions */}
@@ -106,5 +121,6 @@ export default function Error({
         )}
       </motion.div>
     </div>
+    </>
   );
 }

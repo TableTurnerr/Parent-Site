@@ -29,20 +29,10 @@ export default async function PortalLayout({
     supabase.from("clients").select("name").limit(2),
   ]);
 
-  const providers: string[] = Array.isArray(user.app_metadata?.providers)
-    ? user.app_metadata.providers
-    : user.app_metadata?.provider
-      ? [user.app_metadata.provider]
-      : [];
-  const isGoogle = providers.includes("google");
-  const googleRealName = isGoogle
-    ? (user.user_metadata?.full_name ?? user.user_metadata?.name ?? null)
-    : null;
-
-  let displayName = profile?.full_name ?? user.user_metadata?.full_name ?? "Owner";
-  if (sharedClients && sharedClients.length === 1) {
-    displayName = googleRealName ?? sharedClients[0].name;
-  }
+  const displayName =
+    sharedClients && sharedClients.length === 1
+      ? sharedClients[0].name
+      : (profile?.full_name ?? user.user_metadata?.full_name ?? "User");
 
   return (
     <ClientShell

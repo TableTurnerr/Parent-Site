@@ -132,7 +132,7 @@ export type Database = {
           internal_content_json: Json | null
           grader_data: Json | null
           status: "draft" | "published" | "archived"
-          visibility: "public" | "unlisted" | "private"
+          visibility: "public" | "unlisted" | "private" | "client_only"
           created_at: string
           updated_at: string
           published_at: string | null
@@ -153,7 +153,7 @@ export type Database = {
           internal_content_json?: Json | null
           grader_data?: Json | null
           status?: "draft" | "published" | "archived"
-          visibility?: "public" | "unlisted" | "private"
+          visibility?: "public" | "unlisted" | "private" | "client_only"
           created_at?: string
           updated_at?: string
           published_at?: string | null
@@ -174,7 +174,7 @@ export type Database = {
           internal_content_json?: Json | null
           grader_data?: Json | null
           status?: "draft" | "published" | "archived"
-          visibility?: "public" | "unlisted" | "private"
+          visibility?: "public" | "unlisted" | "private" | "client_only"
           created_at?: string
           updated_at?: string
           published_at?: string | null
@@ -402,7 +402,7 @@ export type Database = {
     }
     Enums: {
       post_status: "draft" | "published" | "scheduled" | "archived"
-      post_visibility: "public" | "unlisted" | "private"
+      post_visibility: "public" | "unlisted" | "private" | "client_only"
       profile_status: "pending" | "approved" | "denied"
       user_role: "viewer" | "commenter" | "editor" | "manager" | "admin" | "author" | "client"
     }
@@ -492,10 +492,12 @@ export const VISIBILITY_LABELS: Record<Enums<"post_visibility">, string> = {
   public: "Public",
   unlisted: "Unlisted",
   private: "Private",
+  client_only: "Client Only",
 };
 
 export const VISIBILITY_DESCRIPTIONS: Record<Enums<"post_visibility">, string> = {
   public: "Visible to everyone, indexed by search engines",
   unlisted: "Accessible via direct link only, not listed or indexed",
   private: "Only visible to approved team members",
+  client_only: "Only team members and clients with email-granted access can view",
 };

@@ -73,6 +73,72 @@ export function renderShareEmail(opts: ShareOpts) {
   return { subject, html, text };
 }
 
+interface MultiShareOpts {
+  recipientEmail: string;
+  clientNames: string[];
+  invitedByName?: string | null;
+  hasExistingAccount: boolean;
+  loginUrl?: string | null;
+}
+
+/** "TableTurnerr shared multiple reports with you" — sent on bulk access grant. */
+export function renderMultiShareEmail(opts: MultiShareOpts) {
+  const site = getSiteUrl();
+  const loginUrl = opts.loginUrl ?? `${site}/login`;
+  const isOneClick = Boolean(opts.loginUrl);
+  const ctaLabel = isOneClick ? "View your reports" : "Sign in to TableTurnerr";
+  const count = opts.clientNames.length;
+
+  const subject = `${opts.invitedByName ?? "TableTurnerr"} shared ${count} reports with you`;
+
+  const ctaCopy = isOneClick
+    ? "Click the button below to open your reports — you'll be signed in automatically. No password required."
+    : opts.hasExistingAccount
+      ? "Sign in to view your reports"
+      : "Click the link below to sign in. We'll email you a one-time login link — no password required.";
+
+  const listHtml = opts.clientNames
+    .map(
+      (n) =>
+        `<li style="margin:0 0 6px;font-size:15px;line-height:1.6;color:#1a1a1a;"><strong>${n}</strong></li>`,
+    )
+    .join("");
+
+  const html = `<!doctype html>
+<html><body style="margin:0;padding:0;background:#f5f1eb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1a1a1a;">
+  <div style="max-width:560px;margin:0 auto;padding:48px 24px;">
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;">Table<span style="font-weight:900">Turnerr</span></div>
+    </div>
+    <div style="background:#fff;border-radius:16px;padding:32px;border:1px solid #e8e3d8;">
+      <h1 style="margin:0 0 16px;font-size:22px;line-height:1.3;font-weight:700;">${count} reports have been shared with you</h1>
+      <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#444;">
+        ${opts.invitedByName ? `<strong>${opts.invitedByName}</strong> at TableTurnerr` : "TableTurnerr"} has given you access to digital presence reports for the following companies:
+      </p>
+      <ul style="margin:0 0 20px;padding-left:20px;">${listHtml}</ul>
+      <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#444;">${ctaCopy}</p>
+      <p style="text-align:center;margin:24px 0;">
+        <a href="${loginUrl}" style="display:inline-block;background:#1a1a1a;color:#fff;text-decoration:none;padding:14px 32px;border-radius:999px;font-size:15px;font-weight:500;">${ctaLabel}</a>
+      </p>
+      <p style="margin:24px 0 0;font-size:13px;line-height:1.6;color:#888;">
+        Once signed in, you'll see all monthly reports for each company on your dashboard.
+        New reports are added each month as we update your digital presence analysis.
+      </p>
+    </div>
+    <p style="margin:24px 0 0;font-size:12px;line-height:1.6;color:#999;text-align:center;">
+      You're receiving this because someone at TableTurnerr granted you access to these reports. If this looks wrong, just ignore this email.
+    </p>
+  </div>
+</body></html>`;
+
+  const list = opts.clientNames.map((n) => `  • ${n}`).join("\n");
+  const text = isOneClick
+    ? `${opts.invitedByName ?? "TableTurnerr"} has given you access to ${count} digital presence reports:\n\n${list}\n\nOpen your reports (one-click sign-in): ${loginUrl}`
+    : `${opts.invitedByName ?? "TableTurnerr"} has given you access to ${count} digital presence reports:\n\n${list}\n\nSign in here: ${loginUrl}`;
+
+  return { subject, html, text };
+}
+
 /** "Your new monthly report is ready" — sent when a new month publishes. */
 export function renderPublishedEmail(opts: PublishedOpts) {
   const site = getSiteUrl();

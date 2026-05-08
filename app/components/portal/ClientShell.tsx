@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import Navbar from "@/app/components/layout/Navbar";
 import Footer from "@/app/components/layout/Footer";
+import UserAvatar from "@/app/components/ui/UserAvatar";
 import { createClient } from "@/app/lib/supabase/client";
 import { LogOut } from "lucide-react";
 import type { UserRole } from "@/app/lib/supabase/types";
@@ -18,14 +19,13 @@ interface PortalUser {
 function ProfileChip({ user, onSignOut }: { user: PortalUser; onSignOut: () => void }) {
   return (
     <div className="flex items-center gap-2 rounded-full border border-border/60 bg-white/70 backdrop-blur-sm pl-1.5 pr-2 py-1">
-      {user.avatarUrl ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={user.avatarUrl} alt={user.fullName} className="h-7 w-7 rounded-full object-cover" />
-      ) : (
-        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-charcoal text-[11px] font-medium text-white">
-          {user.fullName.charAt(0).toUpperCase()}
-        </div>
-      )}
+      <UserAvatar
+        src={user.avatarUrl}
+        name={user.fullName}
+        seed={user.id}
+        size={28}
+        className="shrink-0"
+      />
       <span className="hidden lg:block max-w-[120px] truncate text-xs font-medium text-charcoal">
         {user.fullName}
       </span>

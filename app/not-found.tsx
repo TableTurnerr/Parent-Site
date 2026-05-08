@@ -2,8 +2,14 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, Home, Utensils, MessageCircle } from "lucide-react";
+import { ArrowLeft, Home, Compass, MessageCircle } from "lucide-react";
+import { useRef } from "react";
 import Logo from "@/app/components/ui/Logo";
+import ThemeToggleButton from "@/app/components/ui/ThemeToggleButton";
+import {
+  NO_FLASH_THEME_SCRIPT,
+  useThemeMode,
+} from "@/app/components/ui/themeMode";
 
 const container = {
   hidden: {},
@@ -20,41 +26,29 @@ const scalePop = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.34, 1.56, 0.64, 1] as const } },
 };
 
-/* Gentle floating for the plate */
+/* Gentle floating for the dial */
 const float = {
   y: [0, -8, 0],
   transition: { duration: 3, repeat: Infinity, ease: "easeInOut" as const },
 };
 
-/* Steam wisps rising from the plate */
-function Steam({ delay = 0, x = 0 }: { delay?: number; x?: number }) {
-  return (
-    <motion.div
-      className="absolute -top-6 w-[2px] h-5 rounded-full bg-warm-gray-light/40"
-      style={{ left: `calc(50% + ${x}px)` }}
-      animate={{
-        y: [0, -18, -30],
-        opacity: [0, 0.6, 0],
-        scaleX: [1, 1.5, 0.5],
-      }}
-      transition={{
-        duration: 2.2,
-        repeat: Infinity,
-        delay,
-        ease: "easeOut",
-      }}
-    />
-  );
-}
-
 export default function NotFound() {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const { theme, toggle } = useThemeMode(wrapperRef);
   return (
-    <div className="min-h-screen bg-cream flex flex-col">
+    <>
+    <script dangerouslySetInnerHTML={{ __html: NO_FLASH_THEME_SCRIPT }} />
+    <div
+      ref={wrapperRef}
+      suppressHydrationWarning
+      className="min-h-screen bg-[var(--color-cream)] flex flex-col"
+    >
       {/* Minimal header */}
-      <header className="w-full px-6 md:px-10 py-6">
+      <header className="w-full px-6 md:px-10 py-6 flex items-center justify-between">
         <Link href="/" aria-label="Back to home">
           <Logo className="h-7 w-auto text-charcoal hover:text-charcoal-light transition-colors" />
         </Link>
+        <ThemeToggleButton theme={theme} onToggle={toggle} />
       </header>
 
       {/* Main content */}
@@ -69,58 +63,49 @@ export default function NotFound() {
           {/* First 4 */}
           <motion.span
             variants={scalePop}
-            className="font-display text-[5.5rem] sm:text-[8rem] md:text-[11rem] font-bold text-charcoal leading-none select-none"
+            style={{ fontSize: "clamp(5rem, 14vw, 11rem)" }}
+            className="font-display font-bold text-charcoal leading-none select-none"
           >
             4
           </motion.span>
 
-          {/* Plate as the "0" */}
+          {/* Compass dial as the "0" */}
           <motion.div variants={scalePop} className="relative" animate={float}>
             <div className="relative w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36">
-              {/* Steam */}
-              <Steam delay={0} x={-8} />
-              <Steam delay={0.7} x={4} />
-              <Steam delay={1.4} x={12} />
+              {/* Outer ring */}
+              <div className="absolute inset-0 rounded-full border-[3px] md:border-4 border-charcoal/15 bg-[var(--color-cream-dark)]" />
 
-              {/* Plate outer ring */}
-              <div className="absolute inset-0 rounded-full border-[3px] md:border-4 border-charcoal/15 bg-cream-dark" />
+              {/* Inner ring */}
+              <div className="absolute inset-3 sm:inset-4 md:inset-5 rounded-full border-[2px] md:border-[3px] border-charcoal/10 bg-[var(--color-cream)]" />
 
-              {/* Plate inner ring */}
-              <div className="absolute inset-3 sm:inset-4 md:inset-5 rounded-full border-[2px] md:border-[3px] border-charcoal/10 bg-cream" />
-
-              {/* Fork & knife crossed */}
-              <div className="absolute inset-0 flex items-center justify-center">
+              {/* Spinning compass needle */}
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center"
+                animate={{ rotate: [0, 220, 140, 360] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              >
                 <svg
                   viewBox="0 0 48 48"
-                  className="w-8 h-8 sm:w-11 sm:h-11 md:w-14 md:h-14 text-charcoal/30"
+                  className="w-9 h-9 sm:w-12 sm:h-12 md:w-16 md:h-16 text-charcoal/40"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
-                  {/* Fork — tilted left */}
-                  <g transform="rotate(-25 24 24)">
-                    <line x1="20" y1="8" x2="20" y2="40" />
-                    <line x1="16" y1="8" x2="16" y2="18" />
-                    <line x1="20" y1="8" x2="20" y2="18" />
-                    <line x1="24" y1="8" x2="24" y2="18" />
-                    <line x1="16" y1="18" x2="24" y2="18" />
-                  </g>
-                  {/* Knife — tilted right */}
-                  <g transform="rotate(25 24 24)">
-                    <line x1="28" y1="8" x2="28" y2="40" />
-                    <path d="M28 8 C34 10 34 18 28 20" />
-                  </g>
+                  <path d="M24 6 L28 24 L24 22 L20 24 Z" fill="currentColor" />
+                  <path d="M24 42 L28 24 L24 26 L20 24 Z" className="opacity-50" />
+                  <circle cx="24" cy="24" r="1.5" fill="currentColor" />
                 </svg>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
 
           {/* Second 4 */}
           <motion.span
             variants={scalePop}
-            className="font-display text-[5.5rem] sm:text-[8rem] md:text-[11rem] font-bold text-charcoal leading-none select-none"
+            style={{ fontSize: "clamp(5rem, 14vw, 11rem)" }}
+            className="font-display font-bold text-charcoal leading-none select-none"
           >
             4
           </motion.span>
@@ -131,15 +116,15 @@ export default function NotFound() {
           variants={fadeUp}
           className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-charcoal text-center mb-3"
         >
-          This table doesn&rsquo;t exist
+          This page wandered off
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
           className="text-warm-gray text-base sm:text-lg text-center max-w-md mb-10"
         >
-          The page you&rsquo;re looking for has left the restaurant.
-          Let&rsquo;s get you back to a seat.
+          We checked the couch cushions and behind the curtains.
+          No luck. Let&rsquo;s get you somewhere that actually exists.
         </motion.p>
 
         {/* Navigation links */}
@@ -159,7 +144,7 @@ export default function NotFound() {
             href="/services"
             className="group flex items-center gap-2.5 border border-charcoal/20 text-charcoal rounded-full px-7 py-3.5 font-medium text-sm hover:border-charcoal/50 transition-colors"
           >
-            <Utensils className="w-4 h-4" />
+            <Compass className="w-4 h-4" />
             Our Services
           </Link>
 
@@ -183,5 +168,6 @@ export default function NotFound() {
         </motion.button>
       </motion.div>
     </div>
+    </>
   );
 }

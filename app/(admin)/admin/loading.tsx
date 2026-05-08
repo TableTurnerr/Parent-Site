@@ -2,26 +2,26 @@ export default function AdminDashboardLoading() {
   return (
     <div className="space-y-8 animate-pulse">
       {/* Page header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="h-7 w-32 rounded-lg bg-[var(--color-border)]" />
-          <div className="mt-2 h-4 w-64 rounded-lg bg-[var(--color-border)]" />
+          <div className="mt-2 h-4 w-72 rounded-lg bg-[var(--color-border)]" />
         </div>
-        <div className="h-10 w-28 rounded-full bg-[var(--color-border)]" />
+        <div className="h-10 w-full sm:w-28 rounded-full bg-[var(--color-border)]" />
       </div>
 
       {/* Stats grid */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <div
             key={i}
-            className="rounded-xl border border-[var(--color-border)] bg-white p-5"
+            className="rounded-xl border border-[var(--color-border)] bg-white p-4 sm:p-5"
           >
             <div className="flex items-center gap-3">
               <div className="h-8 w-8 rounded-lg bg-[var(--color-border)]" />
               <div className="h-4 w-20 rounded bg-[var(--color-border)]" />
             </div>
-            <div className="mt-3 h-9 w-12 rounded bg-[var(--color-border)]" />
+            <div className="mt-2 sm:mt-3 h-8 sm:h-9 w-12 rounded bg-[var(--color-border)]" />
           </div>
         ))}
       </div>
