@@ -24,8 +24,16 @@ export async function PATCH(
   const supabase = await createClient();
   const body = await request.json().catch(() => ({}));
 
+  const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
   const update: Record<string, unknown> = {};
   if (typeof body.name === "string") update.name = body.name.trim();
+  if (typeof body.slug === "string") {
+    const slug = body.slug.trim().toLowerCase();
+    if (!SLUG_RE.test(slug)) {
+      return NextResponse.json({ error: "Invalid slug (lowercase letters, numbers, hyphens)" }, { status: 400 });
+    }
+    update.slug = slug;
+  }
   if (typeof body.url === "string") update.url = body.url.trim();
   if (typeof body.primary_contact_email === "string" || body.primary_contact_email === null) {
     update.primary_contact_email = body.primary_contact_email
