@@ -1,5 +1,6 @@
 import { createClient } from "@/app/lib/supabase/server";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Building2, FileBarChart2, ArrowRight } from "lucide-react";
 
 export default async function PortalDashboard() {
@@ -10,6 +11,10 @@ export default async function PortalDashboard() {
     .from("clients")
     .select("id, name, slug, url")
     .order("name");
+
+  if (clients && clients.length === 1) {
+    redirect(`/portal/clients/${clients[0].slug}`);
+  }
 
   const ids = (clients ?? []).map((c) => c.id);
   type ReportRow = { id: string; client_id: string; report_month: string; published_at: string | null; status: string };

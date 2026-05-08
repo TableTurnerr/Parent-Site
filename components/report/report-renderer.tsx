@@ -6,7 +6,13 @@ import { ReportSidebar, ReportRail } from "./report-sidebar";
 import { ReportActions } from "./report-actions";
 import "./report.css";
 
-export function ReportRendererBody({ report }: { report: ClientReport }) {
+export function ReportRendererBody({
+  report,
+  leftSlot,
+}: {
+  report: ClientReport;
+  leftSlot?: React.ReactNode;
+}) {
   const navSections = report.sections.map((s) => ({
     id: s.id,
     label: s.title,
@@ -16,6 +22,7 @@ export function ReportRendererBody({ report }: { report: ClientReport }) {
     <div className="report-page">
       <div className="meta-strip">
         <div className="meta-strip-inner">
+          {leftSlot}
           <div className="meta-strip-text">
             Digital Presence Report
             <span className="dot" />

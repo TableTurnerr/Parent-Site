@@ -81,6 +81,32 @@
   align-items: center;
   gap: 18px;
 }
+.report-page .meta-strip .report-back-link {
+  position: absolute;
+  right: calc(50% + (var(--rp-content-max) / 2) + 16px);
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: right;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rp-warm-700);
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.report-page .meta-strip .report-back-link:hover {
+  color: var(--rp-ink);
+}
+@media (max-width: 1180px) {
+  .report-page .meta-strip .report-back-link {
+    position: static;
+    transform: none;
+    display: inline-block;
+    padding: 8px 24px 0;
+  }
+}
 .report-page .report-actions {
   display: inline-flex;
   gap: 6px;
