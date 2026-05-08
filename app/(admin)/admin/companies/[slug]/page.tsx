@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExternalLink } from "lucide-react";
 import ShareAccessPanel from "@/app/components/admin/ShareAccessPanel";
+import { ReportStatusChip } from "@/app/components/admin/ReportStatusChip";
+import EditableCompanyName from "@/app/components/admin/EditableCompanyName";
 
 export default async function CompanyDetailPage({
   params,
@@ -32,12 +34,6 @@ export default async function CompanyDetailPage({
     .eq("client_id", client.id)
     .order("invited_at", { ascending: false });
 
-  const statusColors: Record<string, string> = {
-    draft: "bg-amber-100 text-amber-700",
-    published: "bg-green-100 text-green-700",
-    archived: "bg-gray-100 text-gray-600",
-  };
-
   return (
     <div className="space-y-6">
       <div>
@@ -45,7 +41,7 @@ export default async function CompanyDetailPage({
           ← Companies
         </Link>
         <div className="mt-2 flex flex-wrap items-center gap-3">
-          <h1 className="text-xl sm:text-2xl font-bold text-[var(--color-charcoal)]">{client.name}</h1>
+          <EditableCompanyName clientId={client.id} name={client.name} slug={client.slug} />
           <a
             href={client.url.startsWith("http") ? client.url : `https://${client.url}`}
             target="_blank"
@@ -90,9 +86,10 @@ export default async function CompanyDetailPage({
                           Updated {new Date(r.updated_at).toLocaleDateString()}
                         </p>
                       </div>
-                      <span className={`inline-block rounded-full px-2.5 py-1 text-xs font-medium capitalize ${statusColors[r.status] ?? "bg-gray-100 text-gray-600"}`}>
-                        {r.status}
-                      </span>
+                      <ReportStatusChip
+                        reportId={r.id}
+                        status={r.status as "draft" | "published" | "archived"}
+                      />
                     </li>
                   );
                 })}
