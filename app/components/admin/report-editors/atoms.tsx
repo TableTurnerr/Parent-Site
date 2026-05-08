@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Plus, Trash2, ChevronUp, ChevronDown } from "lucide-react";
+import { SelectDropdown } from "@/app/components/ui/Dropdown";
 
 export function FieldLabel({ children, hint }: { children: React.ReactNode; hint?: string }) {
   return (
@@ -114,17 +115,12 @@ export function SelectField<T extends string>({
   onChange: (v: T) => void;
 }) {
   return (
-    <select
+    <SelectDropdown
       value={value}
-      onChange={(e) => onChange(e.target.value as T)}
-      className="rounded-lg border border-[var(--color-border)] bg-white px-3 py-2 text-sm text-[var(--color-charcoal)] focus:border-[var(--color-charcoal)] focus:outline-none"
-    >
-      {options.map((opt) => (
-        <option key={opt} value={opt}>
-          {opt}
-        </option>
-      ))}
-    </select>
+      options={options}
+      onChange={onChange}
+      menuWidth={160}
+    />
   );
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   Save,
   Code,
@@ -37,12 +37,14 @@ export function ReportEditor({
   initial,
   slugLocked = true,
   onSaved,
+  bottomSlot,
 }: {
   reportId: string;
   variant: Variant;
   initial: ClientReport;
   slugLocked?: boolean;
   onSaved?: () => void;
+  bottomSlot?: ReactNode;
 }) {
   const [tab, setTab] = useState<EditorTab>("visual");
   const [draft, setDraft] = useState<ClientReport>(initial);
@@ -167,7 +169,13 @@ export function ReportEditor({
         saveStatus={saveStatus}
         isDirty={isDirty}
         showPreviewPane={showPreviewPane}
-        togglePreviewPane={() => setShowPreviewPane((s) => !s)}
+        togglePreviewPane={() => {
+          const next = !showPreviewPane;
+          setShowPreviewPane(next);
+          if (next && typeof window !== "undefined") {
+            window.dispatchEvent(new CustomEvent("admin-sidebar-auto-collapse"));
+          }
+        }}
       />
 
       <div className={`grid gap-4 ${showPreviewPane && tab !== "rendered" ? "lg:grid-cols-[1fr_1fr]" : "grid-cols-1"}`}>
@@ -198,6 +206,8 @@ export function ReportEditor({
           {tab === "rendered" && (
             <RenderedView draft={draft} />
           )}
+
+          {bottomSlot}
         </div>
 
         {showPreviewPane && tab !== "rendered" && (
@@ -434,17 +444,17 @@ function SectionCard({
 function AddSectionMenu({ onAdd }: { onAdd: (type: ReportSection["type"]) => void }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-[var(--color-border)] px-4 py-2 text-xs font-medium text-[var(--color-warm-gray)] transition-colors hover:border-[var(--color-charcoal)] hover:text-[var(--color-charcoal)]"
+        className="flex w-full items-center justify-center gap-1.5 rounded-full border border-dashed border-[var(--color-border)] px-4 py-2 text-xs font-medium text-[var(--color-warm-gray)] transition-colors hover:border-[var(--color-charcoal)] hover:text-[var(--color-charcoal)]"
       >
         <Plus className="h-3.5 w-3.5" />
         Add section
       </button>
       {open && (
-        <div className="absolute z-20 mt-1 grid min-w-[200px] gap-0.5 rounded-lg border border-[var(--color-border)] bg-white p-1 shadow-lg">
+        <div className="absolute left-0 right-0 z-20 mt-1 grid gap-0.5 rounded-lg border border-[var(--color-border)] bg-white p-1 shadow-lg">
           {(Object.keys(SECTION_TYPE_LABELS) as Array<ReportSection["type"]>).map((type) => (
             <button
               key={type}
@@ -547,7 +557,7 @@ function PreviewPane({
           Live preview
           <span className="text-[var(--color-warm-gray-light)]">— updates as you type</span>
         </div>
-        <div className="report-iframe-wrap max-h-[calc(100vh-8rem)] overflow-y-auto">
+        <div className="report-iframe-wrap report-preview-scope max-h-[calc(100vh-8rem)] overflow-y-auto">
           <ReportRendererBody report={previewReport} />
         </div>
       </div>
