@@ -17,8 +17,10 @@ interface Member {
 const ALL_ROLES: UserRole[] = ["viewer", "commenter", "editor", "manager", "admin"];
 
 const ROLE_COLORS: Record<UserRole, string> = {
+  client: "bg-sky-50 text-sky-700",
   viewer: "bg-gray-100 text-gray-600",
   commenter: "bg-blue-50 text-blue-600",
+  author: "bg-teal-50 text-teal-700",
   editor: "bg-emerald-50 text-emerald-600",
   manager: "bg-purple-50 text-purple-600",
   admin: "bg-amber-50 text-amber-700",

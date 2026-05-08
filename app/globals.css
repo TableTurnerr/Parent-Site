@@ -118,19 +118,94 @@
 .dark .hover\:bg-white:hover {
   background-color: var(--card);
 }
-/* Status pills: tone down the bright light-mode tints on dark surfaces. */
-.dark .bg-gray-100 {
-  background-color: #2A2A2E;
-}
-.dark .text-gray-600 {
-  color: #B5B0AB;
-}
-.dark .bg-slate-100 {
-  background-color: #2A2A2E;
-}
-.dark .text-slate-700 {
-  color: #C4C0BB;
-}
+
+/* Neutral grays/slates used for cards, hover states and muted text. */
+.dark .bg-gray-50 { background-color: #1F1F22; }
+.dark .bg-gray-100 { background-color: #2A2A2E; }
+.dark .bg-gray-200 { background-color: #2F2F33; }
+.dark .hover\:bg-gray-50:hover { background-color: #1F1F22; }
+.dark .hover\:bg-gray-100:hover { background-color: #2A2A2E; }
+.dark .text-gray-400 { color: #75716B; }
+.dark .text-gray-500 { color: #9E9890; }
+.dark .text-gray-600 { color: #B5B0AB; }
+.dark .text-gray-700 { color: #C4C0BB; }
+.dark .text-gray-800 { color: #E5E2DD; }
+.dark .text-gray-900 { color: #FAFAF8; }
+.dark .border-gray-100 { border-color: #2A2A2E; }
+.dark .border-gray-200 { border-color: #2F2F33; }
+.dark .border-gray-300 { border-color: #3A3A3E; }
+
+.dark .bg-slate-50 { background-color: #1F1F22; }
+.dark .bg-slate-100 { background-color: #2A2A2E; }
+.dark .hover\:bg-slate-100:hover { background-color: #2A2A2E; }
+.dark .text-slate-500 { color: #9E9890; }
+.dark .text-slate-600 { color: #B5B0AB; }
+.dark .text-slate-700 { color: #C4C0BB; }
+.dark .border-slate-200 { border-color: #2F2F33; }
+
+/* Status pills / badges / alerts: tone tints down on dark surfaces and
+   lift the foreground text into a more readable range. */
+.dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.12); }
+.dark .bg-amber-100 { background-color: rgba(245, 158, 11, 0.18); }
+.dark .hover\:bg-amber-100:hover { background-color: rgba(245, 158, 11, 0.22); }
+.dark .border-amber-200 { border-color: rgba(245, 158, 11, 0.35); }
+.dark .text-amber-500 { color: #FCD34D; }
+.dark .text-amber-600 { color: #FCD34D; }
+.dark .text-amber-700 { color: #FCD34D; }
+
+.dark .bg-yellow-50 { background-color: rgba(234, 179, 8, 0.12); }
+.dark .bg-yellow-100 { background-color: rgba(234, 179, 8, 0.18); }
+.dark .text-yellow-700 { color: #FDE68A; }
+
+.dark .bg-green-50 { background-color: rgba(34, 197, 94, 0.12); }
+.dark .bg-green-100 { background-color: rgba(34, 197, 94, 0.18); }
+.dark .hover\:bg-green-100:hover { background-color: rgba(34, 197, 94, 0.22); }
+.dark .hover\:bg-green-200:hover { background-color: rgba(34, 197, 94, 0.28); }
+.dark .border-green-200 { border-color: rgba(34, 197, 94, 0.35); }
+.dark .text-green-500 { color: #6EE7B7; }
+.dark .text-green-600 { color: #6EE7B7; }
+.dark .text-green-700 { color: #6EE7B7; }
+
+.dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.12); }
+.dark .bg-emerald-100 { background-color: rgba(16, 185, 129, 0.18); }
+.dark .text-emerald-600 { color: #6EE7B7; }
+.dark .text-emerald-700 { color: #6EE7B7; }
+
+.dark .bg-red-50 { background-color: rgba(239, 68, 68, 0.12); }
+.dark .bg-red-100 { background-color: rgba(239, 68, 68, 0.18); }
+.dark .hover\:bg-red-50:hover { background-color: rgba(239, 68, 68, 0.12); }
+.dark .hover\:bg-red-100:hover { background-color: rgba(239, 68, 68, 0.20); }
+.dark .border-red-200 { border-color: rgba(239, 68, 68, 0.35); }
+.dark .text-red-500 { color: #FCA5A5; }
+.dark .text-red-600 { color: #FCA5A5; }
+.dark .text-red-700 { color: #FCA5A5; }
+.dark .hover\:text-red-600:hover { color: #FCA5A5; }
+.dark .hover\:text-red-700:hover { color: #FCA5A5; }
+
+.dark .bg-rose-50 { background-color: rgba(244, 63, 94, 0.12); }
+.dark .bg-rose-100 { background-color: rgba(244, 63, 94, 0.18); }
+.dark .text-rose-600 { color: #FDA4AF; }
+.dark .text-rose-700 { color: #FDA4AF; }
+
+.dark .bg-blue-50 { background-color: rgba(59, 130, 246, 0.12); }
+.dark .bg-blue-100 { background-color: rgba(59, 130, 246, 0.18); }
+.dark .text-blue-600 { color: #93C5FD; }
+.dark .text-blue-700 { color: #93C5FD; }
+
+.dark .bg-sky-50 { background-color: rgba(14, 165, 233, 0.12); }
+.dark .bg-sky-100 { background-color: rgba(14, 165, 233, 0.18); }
+.dark .text-sky-600 { color: #7DD3FC; }
+.dark .text-sky-700 { color: #7DD3FC; }
+
+.dark .bg-purple-50 { background-color: rgba(168, 85, 247, 0.12); }
+.dark .bg-purple-100 { background-color: rgba(168, 85, 247, 0.18); }
+.dark .text-purple-600 { color: #D8B4FE; }
+.dark .text-purple-700 { color: #D8B4FE; }
+
+.dark .bg-teal-50 { background-color: rgba(20, 184, 166, 0.12); }
+.dark .bg-teal-100 { background-color: rgba(20, 184, 166, 0.18); }
+.dark .text-teal-600 { color: #5EEAD4; }
+.dark .text-teal-700 { color: #5EEAD4; }
 
 /* `--color-charcoal` doubles as a dark surface (sidebar, primary buttons) AND
    as the primary text color on cream surfaces. In dark mode the variable is

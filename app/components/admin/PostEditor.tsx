@@ -899,7 +899,7 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
               <div className="flex-1" />
               <button
                 onClick={openPreviewTab}
-                className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-[#9E9890] transition-colors hover:bg-[#F2F0EB] hover:text-[#1A1A1A]"
+                className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-[var(--color-warm-gray-light)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
               >
                 Live Preview
                 <SquareArrowOutUpRight className="h-3 w-3" />
