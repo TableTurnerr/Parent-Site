@@ -1,7 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { createClient } from "@/app/lib/supabase/server";
+import { createClient, createAdminClient } from "@/app/lib/supabase/server";
 import { sendEmail } from "@/app/lib/email/send";
 import { renderShareEmail } from "@/app/lib/email/templates";
+import { getSiteUrl } from "@/app/lib/email/client";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -81,8 +82,30 @@ export async function POST(
     .eq("id", user.id)
     .single();
 
-  // Has the recipient ever signed up? Determines email copy.
+  // Has the recipient ever signed up? Determines email copy + magic-link type.
   const hasExistingAccount = Boolean(existing?.profile_id);
+
+  // Generate a one-click magic-login URL so the recipient lands in the portal
+  // without having to request a separate login email. For existing users we
+  // issue a `magiclink`; for new emails we issue an `invite` (creates the
+  // auth.users row on click and lets the handle_new_user trigger backfill the
+  // client_access grant).
+  const adminSupabase = await createAdminClient();
+  const site = getSiteUrl();
+  const redirectTo = `${site}/api/auth/callback`;
+  let oneClickLoginUrl: string | null = null;
+  try {
+    const { data: linkData, error: linkError } = await adminSupabase.auth.admin.generateLink({
+      type: hasExistingAccount ? "magiclink" : "invite",
+      email,
+      options: { redirectTo },
+    });
+    if (!linkError) {
+      oneClickLoginUrl = linkData?.properties?.action_link ?? null;
+    }
+  } catch {
+    oneClickLoginUrl = null;
+  }
 
   const tpl = renderShareEmail({
     recipientEmail: email,
@@ -90,6 +113,7 @@ export async function POST(
     invitedByName: inviter?.full_name ?? null,
     reportMonth: null,
     hasExistingAccount,
+    loginUrl: oneClickLoginUrl,
   });
 
   const sendResult = await sendEmail({
