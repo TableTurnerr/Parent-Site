@@ -1,7 +1,7 @@
 import { createClient } from "@/app/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ReportRenderer } from "@/components/report/report-renderer";
+import { ReportRendererBody } from "@/components/report/report-renderer";
 import { isClientReport, type ClientReport } from "@/lib/report-schema";
 
 const MONTH_RE = /^\d{4}-\d{2}$/;
@@ -38,25 +38,27 @@ export default async function PortalReportPage({
   const json = report.client_content_json as ClientReport | null;
   if (!json || !isClientReport(json)) {
     return (
-      <div className="rounded-2xl border border-[var(--color-border)] bg-white p-10 text-center">
-        <p className="text-sm text-[var(--color-warm-gray)]">
-          This report's content is being finalized. Please check back soon.
-        </p>
-        <Link href={`/portal/clients/${slug}`} className="mt-4 inline-block text-xs underline">
-          Back to {client.name}
-        </Link>
+      <div className="mx-auto max-w-6xl px-4 py-8 lg:px-8 lg:py-12">
+        <div className="rounded-2xl border border-[var(--color-border)] bg-white p-10 text-center">
+          <p className="text-sm text-[var(--color-warm-gray)]">
+            This report's content is being finalized. Please check back soon.
+          </p>
+          <Link href={`/portal/clients/${slug}`} className="mt-4 inline-block text-xs underline">
+            Back to {client.name}
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="-mx-4 -mt-8 lg:-mx-8 lg:-mt-12">
-      <div className="mx-auto max-w-6xl px-4 pt-4 lg:px-8 lg:pt-8">
+    <div className="report-portal-embed">
+      <div className="mx-auto max-w-[1080px] px-4 pt-6 lg:px-8 lg:pt-8">
         <Link href={`/portal/clients/${slug}`} className="text-xs text-[var(--color-warm-gray)] hover:text-[var(--color-charcoal)]">
           ← All months for {client.name}
         </Link>
       </div>
-      <ReportRenderer report={json} />
+      <ReportRendererBody report={json} />
     </div>
   );
 }

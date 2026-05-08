@@ -50,6 +50,11 @@
 @media (min-width: 768px) {
   .report-page .meta-strip { top: 80px; } /* md:h-20 */
 }
+
+/* When embedded in the client portal */
+.report-portal-embed {
+  background: #F7F3ED;
+}
 .report-page .meta-strip-inner {
   max-width: var(--rp-content-max);
   margin: 0 auto;

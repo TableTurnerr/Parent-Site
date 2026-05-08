@@ -31,6 +31,7 @@ export default async function PortalDashboard() {
 
   if (!clients || clients.length === 0) {
     return (
+      <div className="mx-auto max-w-6xl px-4 py-8 lg:px-8 lg:py-12">
       <div className="rounded-2xl border border-[var(--color-border)] bg-white p-10 text-center">
         <Building2 className="mx-auto h-10 w-10 text-[var(--color-warm-gray-light)]" />
         <h1 className="mt-4 text-lg font-semibold text-[var(--color-charcoal)]">No reports yet</h1>
@@ -38,11 +39,12 @@ export default async function PortalDashboard() {
           You don't have access to any reports yet. Once your TableTurnerr account manager grants you access, your reports will appear here.
         </p>
       </div>
+      </div>
     );
   }
 
   return (
-    <div className="space-y-8">
+    <div className="mx-auto max-w-6xl space-y-8 px-4 py-8 lg:px-8 lg:py-12">
       <div>
         <h1 className="text-2xl font-bold text-[var(--color-charcoal)]">Your reports</h1>
         <p className="mt-1 text-sm text-[var(--color-warm-gray)]">

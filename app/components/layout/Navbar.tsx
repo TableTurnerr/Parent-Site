@@ -8,8 +8,10 @@ import { NAV_LINKS } from "@/app/lib/constants";
 
 export default function Navbar({
   variant = "default",
+  rightSlot,
 }: {
   variant?: "default" | "static";
+  rightSlot?: React.ReactNode;
 }) {
   const [scrolled, setScrolled] = useState(false);
 
@@ -70,10 +72,11 @@ export default function Navbar({
           </div>
 
           {/* Right: CTA */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-3">
             <Button href="/contact" variant="primary" className="flow-btn--nav py-2.5 px-6 text-xs">
               Talk to Us
             </Button>
+            {rightSlot}
           </div>
 
           <MobileMenu />
