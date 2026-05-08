@@ -31,7 +31,7 @@ export default async function ClientCompanyPage({
     .order("report_month", { ascending: false });
 
   return (
-    <div className="space-y-8">
+    <div className="mx-auto max-w-6xl space-y-8 px-4 py-8 lg:px-8 lg:py-12">
       <div>
         <Link href="/portal" className="text-xs text-[var(--color-warm-gray)] hover:text-[var(--color-charcoal)]">
           ← All companies
