@@ -58,12 +58,12 @@ export default function ClientShell({
   };
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <Navbar variant="static" rightSlot={<ProfileChip user={user} onSignOut={signOut} />} />
       {/* Spacer for the fixed Navbar (h-16 mobile, h-20 desktop) */}
-      <div className="h-16 md:h-20" aria-hidden="true" />
-      <main className="min-h-[60vh] bg-[var(--color-cream)]">{children}</main>
-      <Footer />
-    </>
+      <div className="h-16 md:h-20 flex-shrink-0" aria-hidden="true" />
+      <main className="flex-1 bg-[var(--color-cream)]">{children}</main>
+      <Footer hideWatermark />
+    </div>
   );
 }
