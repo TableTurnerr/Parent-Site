@@ -119,14 +119,17 @@ export type Database = {
       client_reports: {
         Row: {
           id: string
+          client_id: string
+          report_month: string
           client_name: string
           client_slug: string
           client_url: string
-          client_content_md: string
+          client_content_md: string | null
           client_content_html: string | null
           client_content_json: Json | null
           internal_content_md: string | null
           internal_content_html: string | null
+          internal_content_json: Json | null
           grader_data: Json | null
           status: "draft" | "published" | "archived"
           visibility: "public" | "unlisted" | "private"
@@ -137,14 +140,17 @@ export type Database = {
         }
         Insert: {
           id?: string
+          client_id: string
+          report_month: string
           client_name: string
           client_slug: string
           client_url: string
-          client_content_md: string
+          client_content_md?: string | null
           client_content_html?: string | null
           client_content_json?: Json | null
           internal_content_md?: string | null
           internal_content_html?: string | null
+          internal_content_json?: Json | null
           grader_data?: Json | null
           status?: "draft" | "published" | "archived"
           visibility?: "public" | "unlisted" | "private"
@@ -155,14 +161,17 @@ export type Database = {
         }
         Update: {
           id?: string
+          client_id?: string
+          report_month?: string
           client_name?: string
           client_slug?: string
           client_url?: string
-          client_content_md?: string
+          client_content_md?: string | null
           client_content_html?: string | null
           client_content_json?: Json | null
           internal_content_md?: string | null
           internal_content_html?: string | null
+          internal_content_json?: Json | null
           grader_data?: Json | null
           status?: "draft" | "published" | "archived"
           visibility?: "public" | "unlisted" | "private"
@@ -173,9 +182,159 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "client_reports_client_id_fkey"
+            columns: ["client_id"]
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "client_reports_created_by_fkey"
             columns: ["created_by"]
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clients: {
+        Row: {
+          id: string
+          name: string
+          slug: string
+          url: string
+          primary_contact_email: string | null
+          notes: string | null
+          created_at: string
+          updated_at: string
+          created_by: string | null
+        }
+        Insert: {
+          id?: string
+          name: string
+          slug: string
+          url: string
+          primary_contact_email?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+          created_by?: string | null
+        }
+        Update: {
+          id?: string
+          name?: string
+          slug?: string
+          url?: string
+          primary_contact_email?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+          created_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clients_created_by_fkey"
+            columns: ["created_by"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      client_access: {
+        Row: {
+          id: string
+          client_id: string
+          email: string
+          profile_id: string | null
+          invited_by: string | null
+          invited_at: string
+          accepted_at: string | null
+          revoked_at: string | null
+        }
+        Insert: {
+          id?: string
+          client_id: string
+          email: string
+          profile_id?: string | null
+          invited_by?: string | null
+          invited_at?: string
+          accepted_at?: string | null
+          revoked_at?: string | null
+        }
+        Update: {
+          id?: string
+          client_id?: string
+          email?: string
+          profile_id?: string | null
+          invited_by?: string | null
+          invited_at?: string
+          accepted_at?: string | null
+          revoked_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_access_client_id_fkey"
+            columns: ["client_id"]
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_access_profile_id_fkey"
+            columns: ["profile_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_access_invited_by_fkey"
+            columns: ["invited_by"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      report_notifications: {
+        Row: {
+          id: string
+          report_id: string | null
+          client_access_id: string
+          notification_type: "share" | "published"
+          email: string
+          delivery_id: string | null
+          delivery_status: "sent" | "failed" | "pending"
+          error_message: string | null
+          sent_at: string
+        }
+        Insert: {
+          id?: string
+          report_id?: string | null
+          client_access_id: string
+          notification_type: "share" | "published"
+          email: string
+          delivery_id?: string | null
+          delivery_status?: "sent" | "failed" | "pending"
+          error_message?: string | null
+          sent_at?: string
+        }
+        Update: {
+          id?: string
+          report_id?: string | null
+          client_access_id?: string
+          notification_type?: "share" | "published"
+          email?: string
+          delivery_id?: string | null
+          delivery_status?: "sent" | "failed" | "pending"
+          error_message?: string | null
+          sent_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "report_notifications_report_id_fkey"
+            columns: ["report_id"]
+            referencedRelation: "client_reports"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "report_notifications_client_access_id_fkey"
+            columns: ["client_access_id"]
+            referencedRelation: "client_access"
             referencedColumns: ["id"]
           },
         ]
@@ -245,7 +404,7 @@ export type Database = {
       post_status: "draft" | "published" | "scheduled" | "archived"
       post_visibility: "public" | "unlisted" | "private"
       profile_status: "pending" | "approved" | "denied"
-      user_role: "viewer" | "commenter" | "editor" | "manager" | "admin"
+      user_role: "viewer" | "commenter" | "editor" | "manager" | "admin" | "author" | "client"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -271,32 +430,59 @@ export type Enums<
   EnumName extends keyof DefaultSchema["Enums"],
 > = DefaultSchema["Enums"][EnumName]
 
-// Role hierarchy helpers
-export const ROLE_LEVELS = {
+// Role hierarchy helpers.
+// `client` is a separate plane (restaurant owners). It is NOT part of the team
+// hierarchy and must be checked explicitly via isClientRole / isTeamRole.
+export const ROLE_LEVELS: Record<Enums<"user_role">, number> = {
+  client: -1,
   viewer: 0,
   commenter: 1,
-  editor: 2,
-  manager: 3,
-  admin: 4,
+  author: 2,
+  editor: 3,
+  manager: 4,
+  admin: 5,
 } as const;
 
 export type UserRole = Enums<"user_role">;
 
+export const TEAM_ROLES: readonly UserRole[] = [
+  "viewer", "commenter", "author", "editor", "manager", "admin",
+] as const;
+
+export function isTeamRole(role: UserRole): boolean {
+  return role !== "client";
+}
+
+export function isClientRole(role: UserRole): boolean {
+  return role === "client";
+}
+
+export function isTeamWriter(role: UserRole): boolean {
+  return role === "author" || role === "editor" || role === "manager" || role === "admin";
+}
+
 export function hasRole(userRole: UserRole, minRole: UserRole): boolean {
+  if (userRole === "client" || minRole === "client") {
+    return userRole === minRole;
+  }
   return ROLE_LEVELS[userRole] >= ROLE_LEVELS[minRole];
 }
 
 export const ROLE_LABELS: Record<UserRole, string> = {
+  client: "Client",
   viewer: "Viewer",
   commenter: "Commenter",
+  author: "Author",
   editor: "Editor",
   manager: "Manager",
   admin: "Admin",
 };
 
 export const ROLE_DESCRIPTIONS: Record<UserRole, string> = {
+  client: "Restaurant owner — sees only published reports for their company",
   viewer: "Can view private posts only",
   commenter: "Can view and comment on posts",
+  author: "Can create and edit own posts and reports",
   editor: "Can create and edit own posts",
   manager: "Can manage all posts, categories, and users",
   admin: "Full access to everything",
