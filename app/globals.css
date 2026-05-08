@@ -202,6 +202,11 @@
 .dark .text-purple-600 { color: #D8B4FE; }
 .dark .text-purple-700 { color: #D8B4FE; }
 
+.dark .bg-violet-50 { background-color: rgba(139, 92, 246, 0.12); }
+.dark .bg-violet-100 { background-color: rgba(139, 92, 246, 0.20); }
+.dark .text-violet-600 { color: #C4B5FD; }
+.dark .text-violet-700 { color: #C4B5FD; }
+
 .dark .bg-teal-50 { background-color: rgba(20, 184, 166, 0.12); }
 .dark .bg-teal-100 { background-color: rgba(20, 184, 166, 0.18); }
 .dark .text-teal-600 { color: #5EEAD4; }
@@ -224,6 +229,39 @@
 .dark .placeholder\:text-\[var\(--color-warm-gray-light\)\]::placeholder {
   color: #75716B;
 }
+
+/* Auth + error/not-found pages use the named TableTurnerr utilities
+   (bg-cream, text-warm-gray, etc.). Tailwind v4's `@theme inline` inlines
+   the literal token value into the generated utility, so redefining the
+   CSS variables under `.dark` doesn't reach them — each one needs an
+   explicit override here. AdminShell uses `bg-[var(--color-cream)]`-style
+   arbitrary syntax, which IS dynamic, so it doesn't need these overrides. */
+
+/* Surfaces */
+.dark .bg-cream { background-color: #0F0F11; }
+.dark .bg-cream-dark { background-color: #1A1A1D; }
+
+/* Borders */
+.dark .border-border { border-color: #2A2A2E; }
+
+/* Foreground text on cream surfaces */
+.dark .text-warm-gray { color: #B5B0AB; }
+.dark .text-warm-gray-light { color: #75716B; }
+.dark .hover\:text-warm-gray:hover { color: #B5B0AB; }
+
+/* Primary button: invert to light surface + dark text in dark mode. */
+.dark .bg-charcoal { background-color: #FAFAF8; }
+.dark .hover\:bg-charcoal-light:hover { background-color: #E5E2DD; }
+.dark .text-cream { color: #1A1A1A; }
+.dark .hover\:text-charcoal-light:hover { color: #E5E2DD; }
+
+/* Charcoal-on-cream tints used for icons, dividers, secondary borders. */
+.dark .text-charcoal\/30 { color: rgba(250, 250, 248, 0.3); }
+.dark .text-charcoal\/40 { color: rgba(250, 250, 248, 0.4); }
+.dark .border-charcoal\/10 { border-color: rgba(250, 250, 248, 0.10); }
+.dark .border-charcoal\/15 { border-color: rgba(250, 250, 248, 0.15); }
+.dark .border-charcoal\/20 { border-color: rgba(250, 250, 248, 0.20); }
+.dark .hover\:border-charcoal\/50:hover { border-color: rgba(250, 250, 248, 0.50); }
 
 @layer base {
   * {
