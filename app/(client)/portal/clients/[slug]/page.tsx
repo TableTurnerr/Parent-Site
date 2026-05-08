@@ -30,12 +30,19 @@ export default async function ClientCompanyPage({
     .eq("status", "published")
     .order("report_month", { ascending: false });
 
+  const { count: clientCount } = await supabase
+    .from("clients")
+    .select("id", { count: "exact", head: true });
+  const showAllCompanies = (clientCount ?? 0) > 1;
+
   return (
     <div className="mx-auto max-w-6xl space-y-8 px-4 py-8 lg:px-8 lg:py-12">
       <div>
-        <Link href="/portal" className="text-xs text-[var(--color-warm-gray)] hover:text-[var(--color-charcoal)]">
-          ← All companies
-        </Link>
+        {showAllCompanies && (
+          <Link href="/portal" className="text-xs text-[var(--color-warm-gray)] hover:text-[var(--color-charcoal)]">
+            ← All companies
+          </Link>
+        )}
         <div className="mt-2 flex flex-wrap items-baseline gap-3">
           <h1 className="text-2xl font-bold text-[var(--color-charcoal)]">{client.name}</h1>
           <a
@@ -54,7 +61,7 @@ export default async function ClientCompanyPage({
           Monthly reports
         </h2>
         {reports && reports.length > 0 ? (
-          <ul className="divide-y divide-[var(--color-border)] rounded-2xl border border-[var(--color-border)] bg-white">
+          <ul className="divide-y divide-[var(--color-border)] overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white">
             {reports.map((r) => {
               const month = new Date(r.report_month).toLocaleDateString("en-US", {
                 month: "long",
