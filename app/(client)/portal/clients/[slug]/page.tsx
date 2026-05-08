@@ -1,0 +1,99 @@
+import { createClient } from "@/app/lib/supabase/server";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { ChevronRight, ExternalLink } from "lucide-react";
+
+function monthSegment(month: string): string {
+  return month.slice(0, 7); // "YYYY-MM-DD" → "YYYY-MM"
+}
+
+export default async function ClientCompanyPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const supabase = await createClient();
+
+  const { data: client } = await supabase
+    .from("clients")
+    .select("id, name, slug, url")
+    .eq("slug", slug)
+    .single();
+
+  if (!client) notFound();
+
+  const { data: reports } = await supabase
+    .from("client_reports")
+    .select("id, report_month, published_at, grader_data")
+    .eq("client_id", client.id)
+    .eq("status", "published")
+    .order("report_month", { ascending: false });
+
+  return (
+    <div className="space-y-8">
+      <div>
+        <Link href="/portal" className="text-xs text-[var(--color-warm-gray)] hover:text-[var(--color-charcoal)]">
+          ← All companies
+        </Link>
+        <div className="mt-2 flex flex-wrap items-baseline gap-3">
+          <h1 className="text-2xl font-bold text-[var(--color-charcoal)]">{client.name}</h1>
+          <a
+            href={client.url.startsWith("http") ? client.url : `https://${client.url}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-sm text-[var(--color-warm-gray)] hover:text-[var(--color-charcoal)]"
+          >
+            {client.url} <ExternalLink className="h-3 w-3" />
+          </a>
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-warm-gray)]">
+          Monthly reports
+        </h2>
+        {reports && reports.length > 0 ? (
+          <ul className="divide-y divide-[var(--color-border)] rounded-2xl border border-[var(--color-border)] bg-white">
+            {reports.map((r) => {
+              const month = new Date(r.report_month).toLocaleDateString("en-US", {
+                month: "long",
+                year: "numeric",
+              });
+              const score = (r.grader_data as { overallScore?: number } | null)?.overallScore;
+              return (
+                <li key={r.id}>
+                  <Link
+                    href={`/portal/clients/${client.slug}/${monthSegment(r.report_month)}`}
+                    className="group flex items-center justify-between gap-4 px-6 py-4 transition-colors hover:bg-[var(--color-cream)]"
+                  >
+                    <div>
+                      <p className="font-medium text-[var(--color-charcoal)]">{month}</p>
+                      <p className="text-xs text-[var(--color-warm-gray-light)]">
+                        Published {r.published_at ? new Date(r.published_at).toLocaleDateString() : "—"}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      {typeof score === "number" && (
+                        <span className="text-sm font-semibold tabular-nums text-[var(--color-charcoal)]">
+                          {score}/100
+                        </span>
+                      )}
+                      <ChevronRight className="h-4 w-4 text-[var(--color-warm-gray)] transition-transform group-hover:translate-x-0.5" />
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <div className="rounded-2xl border border-[var(--color-border)] bg-white p-10 text-center">
+            <p className="text-sm text-[var(--color-warm-gray)]">
+              Your first report is being prepared. We'll email you when it's ready.
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
