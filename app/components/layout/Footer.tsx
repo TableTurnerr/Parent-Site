@@ -35,7 +35,10 @@ function FlipLink({
   );
 }
 
-export default function Footer() {
+export default function Footer({
+  hideWatermark = false,
+}: { hideWatermark?: boolean } = {}) {
+  const pageLinks = [{ label: "Home", href: "/" }, ...NAV_LINKS];
   return (
     <footer className="bg-black pt-16 md:pt-20 pb-8">
       <Container>
@@ -70,7 +73,7 @@ export default function Footer() {
               Pages
             </h3>
             <ul className="space-y-3">
-              {NAV_LINKS.map((link) => (
+              {pageLinks.map((link) => (
                 <li key={link.href}>
                   <FlipLink href={link.href}>{link.label}</FlipLink>
                 </li>
@@ -124,14 +127,16 @@ export default function Footer() {
         </div>
 
         {/* ─── Large Watermark Text ─── */}
-        <div className="mt-12 sm:mt-16 overflow-visible select-none pointer-events-none flex justify-center" aria-hidden="true">
-          <p className="text-neutral-800 text-[2.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[8rem] xl:text-[12rem] font-bold uppercase tracking-tighter leading-none whitespace-nowrap text-center">
-            TABLETURNERR
-          </p>
-        </div>
+        {!hideWatermark && (
+          <div className="mt-12 sm:mt-16 overflow-visible select-none pointer-events-none flex justify-center" aria-hidden="true">
+            <p className="text-neutral-800 text-[2.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[8rem] xl:text-[12rem] font-bold uppercase tracking-tighter leading-none whitespace-nowrap text-center">
+              TABLETURNERR
+            </p>
+          </div>
+        )}
 
         {/* ─── Bottom Bar ─── */}
-        <div className="mt-6 sm:mt-8 border-t border-neutral-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+        <div className={`${hideWatermark ? "mt-12 sm:mt-16" : "mt-6 sm:mt-8"} border-t border-neutral-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4`}>
           <p className="text-neutral-400 text-sm">
             &copy; {new Date().getFullYear()} TableTurnerr. All rights reserved.
           </p>
