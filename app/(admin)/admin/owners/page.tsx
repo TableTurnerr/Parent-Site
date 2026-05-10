@@ -2,6 +2,7 @@ import { createClient } from "@/app/lib/supabase/server";
 import Link from "next/link";
 import AssignCompanyForm from "@/app/components/admin/AssignCompanyForm";
 import AddOwnerForm from "@/app/components/admin/AddOwnerForm";
+import AddOwnerLauncher from "@/app/components/admin/AddOwnerLauncher";
 
 interface OwnerRow {
   email: string;
@@ -88,11 +89,16 @@ export default async function OwnersPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-xl sm:text-2xl font-bold text-[var(--color-charcoal)]">Owners</h1>
-        <p className="mt-1 text-sm text-[var(--color-warm-gray)]">
-          People with portal access — including clients not yet assigned to a company.
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-xl sm:text-2xl font-bold text-[var(--color-charcoal)]">Owners</h1>
+          <p className="mt-1 text-sm text-[var(--color-warm-gray)]">
+            People with portal access — including clients not yet assigned to a company.
+          </p>
+        </div>
+        {owners.length > 0 && companyList.length > 0 && (
+          <AddOwnerLauncher companies={companyList} />
+        )}
       </div>
 
       <div className="rounded-xl border border-[var(--color-border)] bg-white">
