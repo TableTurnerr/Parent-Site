@@ -15,7 +15,11 @@ export default async function ReportsPage({
 
   let query = supabase
     .from("client_reports")
-    .select("id, client_name, client_slug, client_url, report_month, status, visibility, created_at, published_at, grader_data")
+    .select(
+      "id, client_id, location_id, client_name, client_slug, client_url, report_month, " +
+      "status, visibility, created_at, published_at, grader_data, " +
+      "clients ( name, slug ), locations ( name, slug, is_primary )"
+    )
     .order("report_month", { ascending: false })
     .order("client_name");
 
@@ -85,7 +89,26 @@ export default async function ReportsPage({
       </div>
 
       <ReportsBulkTable
-        reports={(reports ?? []) as unknown as ReportRow[]}
+        reports={(((reports ?? []) as unknown) as Array<Record<string, unknown> & {
+          clients?: { name: string; slug: string } | null;
+          locations?: { name: string; slug: string; is_primary: boolean } | null;
+        }>).map((r) => ({
+          id: r.id as string,
+          client_name: r.client_name as string,
+          client_slug: r.client_slug as string,
+          client_url: r.client_url as string,
+          report_month: r.report_month as string,
+          status: r.status as ReportRow["status"],
+          visibility: r.visibility as ReportRow["visibility"],
+          created_at: r.created_at as string,
+          published_at: (r.published_at as string | null) ?? null,
+          grader_data: (r.grader_data as ReportRow["grader_data"]) ?? null,
+          company_name: r.clients?.name ?? null,
+          company_slug: r.clients?.slug ?? null,
+          location_name: r.locations?.name ?? null,
+          location_slug: r.locations?.slug ?? null,
+          is_primary_location: r.locations?.is_primary ?? null,
+        }))}
         searchQuery={searchQuery}
       />
     </div>

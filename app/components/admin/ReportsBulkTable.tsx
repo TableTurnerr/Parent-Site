@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ExternalLink, FileBarChart2, X, Loader2, ChevronDown } from "lucide-react";
+import { ExternalLink, FileBarChart2, X, Loader2, ChevronDown, Trash2 } from "lucide-react";
 
 type ReportStatus = "draft" | "published" | "archived";
 type ReportVisibility = "public" | "unlisted" | "private" | "client_only";
@@ -19,6 +19,11 @@ export type ReportRow = {
   created_at: string;
   published_at: string | null;
   grader_data: { overallScore?: number } | null;
+  company_name?: string | null;
+  company_slug?: string | null;
+  location_name?: string | null;
+  location_slug?: string | null;
+  is_primary_location?: boolean | null;
 };
 
 const statusColors: Record<ReportStatus, string> = {
@@ -138,6 +143,36 @@ export function ReportsBulkTable({
     router.refresh();
   }
 
+  async function applyBulkDelete() {
+    if (selected.size === 0) return;
+    const count = selected.size;
+    if (
+      !confirm(
+        `Permanently delete ${count} report${count === 1 ? "" : "s"}? This cannot be undone.`
+      )
+    ) {
+      return;
+    }
+    setWorking(true);
+    const ids = Array.from(selected);
+    const results = await Promise.allSettled(
+      ids.map((id) =>
+        fetch(`/api/reports/${id}`, { method: "DELETE" }).then((r) => {
+          if (!r.ok) throw new Error(`${id}: ${r.status}`);
+          return r.json();
+        })
+      )
+    );
+    setWorking(false);
+    const failures = results.filter((r) => r.status === "rejected");
+    if (failures.length > 0) {
+      alert(`${failures.length} delete(s) failed. Check console for details.`);
+      console.error("Bulk delete failures:", failures);
+    }
+    clearSelection();
+    router.refresh();
+  }
+
   if (reports.length === 0) {
     return (
       <div className="rounded-xl border border-[var(--color-border)] bg-white">
@@ -193,6 +228,14 @@ export function ReportsBulkTable({
                 onClick: () => applyBulk({ status: s }, `status "${s}"`),
               }))}
             />
+            <button
+              onClick={applyBulkDelete}
+              disabled={working}
+              className="inline-flex items-center gap-1.5 rounded-md bg-red-500/90 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-red-500 disabled:opacity-50"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+              Delete
+            </button>
             {working && <Loader2 className="h-4 w-4 animate-spin text-white/80" />}
           </div>
         </div>
@@ -202,32 +245,35 @@ export function ReportsBulkTable({
         <table className="w-full min-w-full">
           <thead>
             <tr className="border-b border-[var(--color-border)]">
-              <th className="w-12 px-4 py-3">
+              <th className="w-12 px-4 py-2">
                 <SelectAllCell
                   allSelected={allSelected}
                   someSelected={someSelected}
                   onToggle={toggleAll}
                 />
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
-                Client
+              <th className="px-6 py-2 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
+                Company
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
+              <th className="hidden px-6 py-2 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] sm:table-cell">
+                Location
+              </th>
+              <th className="px-6 py-2 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
                 Month
               </th>
-              <th className="hidden px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] lg:table-cell">
+              <th className="hidden px-6 py-2 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] lg:table-cell">
                 Website
               </th>
-              <th className="hidden px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] sm:table-cell">
+              <th className="hidden px-6 py-2 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] sm:table-cell">
                 Grade
               </th>
-              <th className="hidden px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] sm:table-cell">
+              <th className="hidden px-6 py-2 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] sm:table-cell">
                 Status
               </th>
-              <th className="hidden px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] md:table-cell">
+              <th className="hidden px-6 py-2 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] md:table-cell">
                 Visibility
               </th>
-              <th className="hidden px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] lg:table-cell">
+              <th className="hidden px-6 py-2 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] lg:table-cell">
                 Date
               </th>
               <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
@@ -251,11 +297,11 @@ export function ReportsBulkTable({
               return (
                 <tr
                   key={report.id}
-                  className={`transition-colors ${
+                  className={`group/row transition-colors ${
                     isSelected ? "bg-[var(--color-cream)]" : "hover:bg-[var(--color-cream)]"
                   }`}
                 >
-                  <td className="px-4 py-4">
+                  <td className="px-4 py-1.5">
                     <IndexCheckboxCell
                       index={index + 1}
                       checked={isSelected}
@@ -263,21 +309,35 @@ export function ReportsBulkTable({
                       label={report.client_name}
                     />
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-1.5">
                     <Link
                       href={`/admin/reports/${report.id}`}
                       className="font-medium text-[var(--color-charcoal)] hover:text-[var(--color-accent)]"
                     >
-                      {report.client_name}
+                      {report.company_name ?? report.client_name}
                     </Link>
                   </td>
-                  <td className="px-6 py-4 text-sm text-[var(--color-charcoal)]">
+                  <td className="hidden px-6 py-1.5 sm:table-cell">
+                    {report.location_name ? (
+                      <span className="inline-flex items-center gap-1 text-sm text-[var(--color-charcoal)]">
+                        {report.location_name}
+                        {report.is_primary_location && (
+                          <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wider text-amber-700">
+                            Primary
+                          </span>
+                        )}
+                      </span>
+                    ) : (
+                      <span className="text-sm text-[var(--color-warm-gray-light)]">—</span>
+                    )}
+                  </td>
+                  <td className="px-6 py-1.5 text-sm text-[var(--color-charcoal)]">
                     {new Date(report.report_month).toLocaleDateString("en-US", {
                       month: "short",
                       year: "numeric",
                     })}
                   </td>
-                  <td className="hidden px-6 py-4 lg:table-cell">
+                  <td className="hidden px-6 py-1.5 lg:table-cell">
                     <a
                       href={`https://${report.client_url}`}
                       target="_blank"
@@ -288,12 +348,12 @@ export function ReportsBulkTable({
                       <ExternalLink className="h-3 w-3" />
                     </a>
                   </td>
-                  <td className="hidden px-6 py-4 sm:table-cell">
+                  <td className="hidden px-6 py-1.5 sm:table-cell">
                     <span className={`text-sm font-semibold tabular-nums ${scoreColor}`}>
                       {score !== null ? `${score}/100` : "—"}
                     </span>
                   </td>
-                  <td className="hidden px-6 py-4 sm:table-cell">
+                  <td className="hidden px-6 py-1.5 sm:table-cell">
                     <ChipDropdown
                       open={openMenu === `${report.id}:status`}
                       onOpenChange={(o) =>
@@ -313,7 +373,7 @@ export function ReportsBulkTable({
                       }))}
                     />
                   </td>
-                  <td className="hidden px-6 py-4 md:table-cell">
+                  <td className="hidden px-6 py-1.5 md:table-cell">
                     <ChipDropdown
                       open={openMenu === `${report.id}:visibility`}
                       onOpenChange={(o) =>
@@ -337,7 +397,7 @@ export function ReportsBulkTable({
                       }))}
                     />
                   </td>
-                  <td className="hidden px-6 py-4 lg:table-cell">
+                  <td className="hidden px-6 py-1.5 lg:table-cell">
                     <span className="text-sm text-[var(--color-warm-gray-light)]">
                       {new Date(report.published_at ?? report.created_at).toLocaleDateString(
                         "en-US",
@@ -345,7 +405,7 @@ export function ReportsBulkTable({
                       )}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-right">
+                  <td className="px-6 py-1.5 text-right">
                     <div className="flex items-center justify-end gap-2">
                       {report.status === "published" &&
                         (report.visibility === "public" || report.visibility === "unlisted") && (
@@ -353,7 +413,7 @@ export function ReportsBulkTable({
                             href={`/report/${report.client_slug}/${report.report_month.slice(0, 7)}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="rounded-lg p-1.5 text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
+                            className="rounded-lg p-1 text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
                             title="View public report"
                           >
                             <ExternalLink className="h-4 w-4" />
@@ -361,7 +421,7 @@ export function ReportsBulkTable({
                         )}
                       <Link
                         href={`/admin/reports/${report.id}`}
-                        className="rounded-lg px-3 py-1.5 text-xs font-medium text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
+                        className="rounded-lg px-2.5 py-1 text-xs font-medium text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
                       >
                         Manage
                       </Link>
@@ -389,11 +449,11 @@ function IndexCheckboxCell({
   label: string;
 }) {
   // When checked, always show the checkbox.
-  // When unchecked, show the index number; on hover, swap to a checkbox.
+  // When the row is hovered, swap the index for a checkbox.
   return (
-    <div className="group relative flex h-5 w-5 items-center justify-center">
+    <div className="group/cell relative flex h-5 w-5 items-center justify-center">
       {!checked && (
-        <span className="text-xs font-medium tabular-nums text-[var(--color-warm-gray-light)] transition-opacity group-hover:opacity-0">
+        <span className="text-xs font-medium tabular-nums text-[var(--color-warm-gray-light)] transition-opacity group-hover/row:opacity-0 group-hover/cell:opacity-0">
           {index}
         </span>
       )}
@@ -403,7 +463,9 @@ function IndexCheckboxCell({
         onChange={onToggle}
         aria-label={`Select ${label}`}
         className={`absolute inset-0 m-auto h-4 w-4 cursor-pointer rounded border-[var(--color-border)] accent-[var(--color-charcoal)] transition-opacity ${
-          checked ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+          checked
+            ? "opacity-100"
+            : "opacity-0 group-hover/row:opacity-100 group-hover/cell:opacity-100"
         }`}
       />
     </div>
@@ -421,9 +483,9 @@ function SelectAllCell({
 }) {
   const checked = allSelected || someSelected;
   return (
-    <div className="group relative flex h-5 w-5 items-center justify-center">
+    <div className="group/head relative flex h-5 w-5 items-center justify-center">
       {!checked && (
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-warm-gray-light)] transition-opacity group-hover:opacity-0">
+        <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-warm-gray-light)] transition-opacity group-hover/head:opacity-0">
           #
         </span>
       )}
@@ -436,7 +498,7 @@ function SelectAllCell({
         onChange={onToggle}
         aria-label="Select all reports"
         className={`absolute inset-0 m-auto h-4 w-4 cursor-pointer rounded border-[var(--color-border)] accent-[var(--color-charcoal)] transition-opacity ${
-          checked ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+          checked ? "opacity-100" : "opacity-0 group-hover/head:opacity-100"
         }`}
       />
     </div>
@@ -479,7 +541,7 @@ function ChipDropdown({
         onClick={() => onOpenChange(!open)}
         disabled={busy}
         title={title}
-        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium transition-opacity hover:opacity-80 disabled:opacity-50 ${chipClassName}`}
+        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium leading-tight transition-opacity hover:opacity-80 disabled:opacity-50 ${chipClassName}`}
       >
         {busy ? <Loader2 className="h-3 w-3 animate-spin" /> : null}
         {label}
