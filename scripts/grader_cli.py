@@ -28,6 +28,7 @@ import argparse
 import json
 import os
 import re
+import socket
 import subprocess
 import sys
 import tempfile
@@ -81,6 +82,14 @@ def find_chrome() -> str | None:
         if p and Path(p).exists():
             return p
     return None
+
+
+def is_cdp_running(port: int = CDP_PORT) -> bool:
+    try:
+        with socket.create_connection(("127.0.0.1", port), timeout=0.5):
+            return True
+    except OSError:
+        return False
 
 
 def banner(title: str, subtitle: str = "") -> None:
@@ -378,6 +387,11 @@ def cmd_capture(args: argparse.Namespace) -> int:
 
     slug = slugify(company)
     normalized = normalize_url(raw_url)
+    # The grader's input accepts a website URL OR a business name (Google Places
+    # autocomplete). When the user is graded a multi-location brand, --query lets
+    # us type the brand name and let the user pick the specific location from
+    # the dropdown. Falls back to the URL for legacy single-location runs.
+    search_query = (args.query or normalized).strip()
 
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     json_path = CACHE_DIR / f"{slug}.json"
@@ -387,6 +401,7 @@ def cmd_capture(args: argparse.Namespace) -> int:
     info.add_row("[dim]Company[/dim]", f"[bold]{company}[/bold]")
     info.add_row("[dim]Slug[/dim]", slug)
     info.add_row("[dim]URL[/dim]", normalized)
+    info.add_row("[dim]Search query[/dim]", search_query)
     info.add_row("[dim]Output[/dim]", str(json_path))
     console.print(info)
     console.print()
@@ -400,22 +415,32 @@ def cmd_capture(args: argparse.Namespace) -> int:
     profile_dir = Path(tempfile.gettempdir()) / "chrome-grader-profile"
     profile_dir.mkdir(parents=True, exist_ok=True)
 
-    chrome_proc = subprocess.Popen(
-        [
-            chrome_path,
-            f"--remote-debugging-port={CDP_PORT}",
-            f"--user-data-dir={profile_dir}",
-            "--no-first-run",
-            "--no-default-browser-check",
-            "--start-maximized",
-            GRADER_URL,
-        ],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
-    console.print(f"[green]✓[/green] Launched Chrome → {GRADER_URL}")
+    # Attach to an existing CDP-enabled Chrome if one is already running. Each
+    # capture is responsible only for its OWN tab — never killing the shared
+    # Chrome instance — so consecutive captures don't terminate each other.
+    we_launched_chrome = False
+    chrome_proc = None
+    if is_cdp_running(CDP_PORT):
+        console.print(f"[green]✓[/green] Existing Chrome on port {CDP_PORT} — attaching, no relaunch")
+    else:
+        chrome_proc = subprocess.Popen(
+            [
+                chrome_path,
+                f"--remote-debugging-port={CDP_PORT}",
+                f"--user-data-dir={profile_dir}",
+                "--no-first-run",
+                "--no-default-browser-check",
+                "--start-maximized",
+                GRADER_URL,
+            ],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        we_launched_chrome = True
+        console.print(f"[green]✓[/green] Launched Chrome → {GRADER_URL}")
     console.print()
 
+    page = None
     try:
         with sync_playwright() as pw:
             browser = None
@@ -440,34 +465,39 @@ def cmd_capture(args: argparse.Namespace) -> int:
                     "[red]✗ Could not connect to Chrome on port 9222.[/red]\n"
                     "  Close ALL Chrome windows (incl. system tray) and try again."
                 )
-                chrome_proc.terminate()
+                if chrome_proc is not None:
+                    try:
+                        chrome_proc.terminate()
+                    except Exception:
+                        pass
                 return 1
             console.print("[green]✓[/green] CDP connected")
 
             context = browser.contexts[0] if browser.contexts else browser.new_context()
-            pages = context.pages
-            page = next((p for p in pages if "grader.owner.com" in p.url), pages[0] if pages else None)
-            if not page:
-                console.print("[red]✗ No page found in the Chrome instance.[/red]")
-                return 1
-
+            # Always create our OWN dedicated tab. Never reuse an existing
+            # grader.owner.com tab — another concurrent capture might own it,
+            # and we'd end up reading their results instead of ours.
+            page = context.new_page()
             try:
-                page.wait_for_load_state("load", timeout=30000)
+                page.goto(GRADER_URL, wait_until="load", timeout=30000)
             except PWTimeout:
                 pass
             page.wait_for_timeout(1500)
 
-            if try_prefill_url(page, normalized):
-                console.print(f"[green]✓[/green] Pre-filled URL field with [cyan]{normalized}[/cyan]")
+            if try_prefill_url(page, search_query):
+                console.print(f"[green]✓[/green] Pre-filled search field with [cyan]{search_query}[/cyan]")
             else:
-                console.print(f"[yellow]ℹ[/yellow]  Could not pre-fill — type the URL manually: [cyan]{normalized}[/cyan]")
+                console.print(f"[yellow]ℹ[/yellow]  Could not pre-fill — type manually: [cyan]{search_query}[/cyan]")
 
             console.print()
             console.print(Panel(
-                "[bold yellow]Action required in Chrome:[/bold yellow]\n"
-                "  1. Submit the URL ([dim]click 'Grade my website' / press Enter[/dim])\n"
-                "  2. Solve any CAPTCHA / verification\n"
-                "  3. Wait — this script will [bold green]auto-detect[/bold green] when the report is ready",
+                "[bold yellow]Action required in Chrome (the new tab this script just opened):[/bold yellow]\n"
+                "  1. If a Google Places dropdown appears with multiple locations,\n"
+                "     [bold]click the location you want graded[/bold] (not the brand-only entry)\n"
+                "  2. Submit ([dim]click 'Grade my website' / press Enter[/dim])\n"
+                "  3. Solve any CAPTCHA / verification\n"
+                "  4. Wait — this script will [bold green]auto-detect[/bold green] when the report is ready\n\n"
+                "[dim]Tip: Chrome stays open after capture so you can run more reports without relaunching.[/dim]",
                 border_style="yellow",
                 padding=(1, 2),
             ))
@@ -483,8 +513,11 @@ def cmd_capture(args: argparse.Namespace) -> int:
                 ready = False
                 while time.time() < deadline:
                     try:
-                        active = context.pages
-                        page = next((p for p in active if "grader.owner.com" in p.url), page)
+                        # Poll only OUR tab. Do not rebind to other grader.owner.com
+                        # pages — those may belong to a parallel capture run.
+                        if page.is_closed():
+                            console.print("[red]✗ Our tab was closed before the report loaded.[/red]")
+                            break
                         if page.evaluate(REPORT_READY_JS):
                             ready = True
                             break
@@ -494,7 +527,7 @@ def cmd_capture(args: argparse.Namespace) -> int:
 
             if not ready:
                 console.print("[red]✗ Timed out waiting for the report (5 min).[/red]")
-                console.print("  If the report IS visible, re-run capture and submit faster.")
+                console.print("  If the report IS visible in this script's tab, re-run capture and submit faster.")
                 return 1
 
             console.print(f"[green]✓[/green] Report detected at [dim]{page.url}[/dim]")
@@ -513,6 +546,9 @@ def cmd_capture(args: argparse.Namespace) -> int:
             console.print(f"[green]✓[/green] HTML saved → [dim]{html_path}[/dim]")
 
             data = page.evaluate(EXTRACT_JS, normalized)
+            # Stamp the captured location's actual URL too — useful when --query
+            # was a brand name and the resolved URL differs from --url.
+            data["resolvedUrl"] = page.url
             json_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
             console.print(f"[green]✓[/green] JSON saved → [dim]{json_path}[/dim]")
 
@@ -543,16 +579,27 @@ def cmd_capture(args: argparse.Namespace) -> int:
             console.print()
             console.print(Panel(summary, title="[bold green]Captured[/bold green]", border_style="green"))
 
+            # Close ONLY our own tab. Leave Chrome and any other tabs alone so a
+            # parallel/subsequent capture keeps its own session intact.
+            try:
+                if page and not page.is_closed():
+                    page.close()
+                    console.print("[green]✓[/green] Closed our capture tab (Chrome stays open)")
+            except Exception:
+                pass
+
+            # browser.close() over a CDP connection just disconnects — it does
+            # NOT terminate the underlying Chrome process. Safe to call.
             try:
                 browser.close()
             except Exception:
                 pass
 
     finally:
-        try:
-            chrome_proc.terminate()
-        except Exception:
-            pass
+        # Intentionally do NOT terminate chrome_proc here, even when we launched
+        # it. Killing the process would sever any other capture's CDP session.
+        # The user closes Chrome manually when done with the session.
+        pass
 
     # Sentinel line for the parent process (Claude) to detect completion.
     # Must be on its own line, machine-readable, last meaningful output.
@@ -687,7 +734,13 @@ def main() -> int:
 
     cap = sub.add_parser("capture", help="Capture a grader.owner.com report")
     cap.add_argument("--company", help="Company / restaurant name (prompted if omitted)")
-    cap.add_argument("--url", help="Website URL (prompted if omitted)")
+    cap.add_argument("--url", help="Website URL (prompted if omitted; used for slug + JSON metadata)")
+    cap.add_argument(
+        "--query",
+        help="What to type into the grader's search field. Defaults to --url. "
+             "For multi-location brands, pass the BRAND NAME so Google Places autocomplete "
+             "shows every location and the user can pick the one to grade.",
+    )
 
     sh = sub.add_parser("share", help="Post-report share menu (view / push / both)")
     sh.add_argument("--slug", required=True)

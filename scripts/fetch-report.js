@@ -60,28 +60,42 @@ const repoRoot = path.resolve(__dirname, "..");
 async function run() {
   const supabase = createClient(supabaseUrl, serviceRoleKey, { auth: { persistSession: false } });
 
-  // Resolve client_id from slug
-  const { data: clientRow, error: clientErr } = await supabase
-    .from("clients")
-    .select("id, name, url")
-    .eq("slug", slug)
-    .maybeSingle();
+  // The slug can refer to either a company-level slug (e.g. "taco-delphia")
+  // or a per-report slug (e.g. "taco-delphia-south-broad"). Try report slug
+  // first since it uniquely identifies one (company, location) combo.
+  let { data: rowsByReportSlug } = await supabase
+    .from("client_reports")
+    .select("id, client_id, location_id")
+    .eq("client_slug", slug)
+    .order("report_month", { ascending: false })
+    .limit(1);
 
-  if (clientErr || !clientRow) {
-    console.error(`No client found for slug "${slug}".`);
-    process.exit(1);
+  let clientRow;
+  let locationFilter = null;
+  if (rowsByReportSlug && rowsByReportSlug[0]) {
+    locationFilter = rowsByReportSlug[0].location_id;
+    const { data: c } = await supabase
+      .from("clients").select("id, name, slug, url").eq("id", rowsByReportSlug[0].client_id).maybeSingle();
+    clientRow = c;
+  } else {
+    const { data: c, error: clientErr } = await supabase
+      .from("clients").select("id, name, slug, url").eq("slug", slug).maybeSingle();
+    if (clientErr || !c) { console.error(`No client or report found for slug "${slug}".`); process.exit(1); }
+    clientRow = c;
   }
 
   // Pick the row: requested month, or latest if not specified
   let query = supabase
     .from("client_reports")
     .select(
-      "id, client_name, client_slug, client_url, report_month, " +
+      "id, client_id, location_id, client_name, client_slug, client_url, report_month, " +
       "client_content_md, client_content_json, " +
       "internal_content_md, internal_content_json, " +
       "grader_data, status, visibility, created_at, updated_at, published_at"
     )
     .eq("client_id", clientRow.id);
+
+  if (locationFilter) query = query.eq("location_id", locationFilter);
 
   if (requestedMonth) {
     query = query.eq("report_month", requestedMonth);
@@ -117,8 +131,23 @@ async function run() {
   if (data.internal_content_md) fs.writeFileSync(internalMdPath, data.internal_content_md, "utf-8");
   if (data.grader_data) fs.writeFileSync(graderPath, JSON.stringify(data.grader_data, null, 2), "utf-8");
 
+  // Look up the location row so the meta snapshot includes it.
+  let location = null;
+  if (data.location_id) {
+    const { data: loc } = await supabase
+      .from("locations").select("id, name, slug, address, is_primary").eq("id", data.location_id).maybeSingle();
+    location = loc;
+  }
+
   const meta = {
     id: data.id,
+    report_id: data.id,
+    company_id: clientRow.id,
+    company_name: clientRow.name,
+    company_slug: clientRow.slug,
+    location_id: location?.id ?? data.location_id ?? null,
+    location_name: location?.name ?? null,
+    location_slug: location?.slug ?? null,
     client_name: data.client_name,
     client_slug: data.client_slug,
     client_url: data.client_url,
