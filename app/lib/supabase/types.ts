@@ -120,6 +120,7 @@ export type Database = {
         Row: {
           id: string
           client_id: string
+          location_id: string
           report_month: string
           client_name: string
           client_slug: string
@@ -141,6 +142,7 @@ export type Database = {
         Insert: {
           id?: string
           client_id: string
+          location_id: string
           report_month: string
           client_name: string
           client_slug: string
@@ -162,6 +164,7 @@ export type Database = {
         Update: {
           id?: string
           client_id?: string
+          location_id?: string
           report_month?: string
           client_name?: string
           client_slug?: string
@@ -188,9 +191,55 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "client_reports_location_id_fkey"
+            columns: ["location_id"]
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "client_reports_created_by_fkey"
             columns: ["created_by"]
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      locations: {
+        Row: {
+          id: string
+          client_id: string
+          name: string
+          slug: string
+          address: string | null
+          is_primary: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          client_id: string
+          name: string
+          slug: string
+          address?: string | null
+          is_primary?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          client_id?: string
+          name?: string
+          slug?: string
+          address?: string | null
+          is_primary?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "locations_client_id_fkey"
+            columns: ["client_id"]
+            referencedRelation: "clients"
             referencedColumns: ["id"]
           },
         ]
