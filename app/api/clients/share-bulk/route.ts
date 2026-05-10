@@ -3,6 +3,9 @@ import { createClient, createAdminClient } from "@/app/lib/supabase/server";
 import { sendEmail } from "@/app/lib/email/send";
 import { renderShareEmail, renderMultiShareEmail } from "@/app/lib/email/templates";
 import { getSiteUrl } from "@/app/lib/email/client";
+import type { Database } from "@/app/lib/supabase/types";
+
+type NotificationInsert = Database["public"]["Tables"]["report_notifications"]["Insert"];
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -137,17 +140,16 @@ export async function POST(request: NextRequest) {
 
   // One notification row per newly created/reactivated grant
   if (grantIds.length > 0) {
-    await supabase.from("report_notifications").insert(
-      grantIds.map((gid) => ({
-        report_id: null,
-        client_access_id: gid,
-        notification_type: "share",
-        email,
-        delivery_id: sendResult.id ?? null,
-        delivery_status: sendResult.ok ? "sent" : "failed",
-        error_message: sendResult.error ?? null,
-      })),
-    );
+    const rows: NotificationInsert[] = grantIds.map((gid) => ({
+      report_id: null,
+      client_access_id: gid,
+      notification_type: "share",
+      email,
+      delivery_id: sendResult.id ?? null,
+      delivery_status: sendResult.ok ? "sent" : "failed",
+      error_message: sendResult.error ?? null,
+    }));
+    await supabase.from("report_notifications").insert(rows);
   }
 
   return NextResponse.json({

@@ -1,10 +1,28 @@
 import { createClient } from "@/app/lib/supabase/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, MapPin, Star } from "lucide-react";
 import ShareAccessPanel from "@/app/components/admin/ShareAccessPanel";
 import { ReportStatusChip } from "@/app/components/admin/ReportStatusChip";
 import EditableCompanyName from "@/app/components/admin/EditableCompanyName";
+
+type ReportRow = {
+  id: string;
+  location_id: string;
+  report_month: string;
+  status: "draft" | "published" | "archived";
+  visibility: string;
+  published_at: string | null;
+  updated_at: string;
+};
+
+type LocationRow = {
+  id: string;
+  name: string;
+  slug: string;
+  address: string | null;
+  is_primary: boolean;
+};
 
 export default async function CompanyDetailPage({
   params,
@@ -22,17 +40,32 @@ export default async function CompanyDetailPage({
 
   if (!client) notFound();
 
-  const { data: reports } = await supabase
-    .from("client_reports")
-    .select("id, report_month, status, visibility, published_at, updated_at")
-    .eq("client_id", client.id)
-    .order("report_month", { ascending: false });
+  const [{ data: locations }, { data: reports }, { data: grants }] = await Promise.all([
+    supabase
+      .from("locations")
+      .select("id, name, slug, address, is_primary")
+      .eq("client_id", client.id)
+      .order("is_primary", { ascending: false })
+      .order("name"),
+    supabase
+      .from("client_reports")
+      .select("id, location_id, report_month, status, visibility, published_at, updated_at")
+      .eq("client_id", client.id)
+      .order("report_month", { ascending: false }),
+    supabase
+      .from("client_access")
+      .select("id, email, invited_at, accepted_at, revoked_at")
+      .eq("client_id", client.id)
+      .order("invited_at", { ascending: false }),
+  ]);
 
-  const { data: grants } = await supabase
-    .from("client_access")
-    .select("id, email, invited_at, accepted_at, revoked_at")
-    .eq("client_id", client.id)
-    .order("invited_at", { ascending: false });
+  const locationList = (locations ?? []) as LocationRow[];
+  const reportsByLocation = new Map<string, ReportRow[]>();
+  for (const r of (reports ?? []) as ReportRow[]) {
+    const arr = reportsByLocation.get(r.location_id) ?? [];
+    arr.push(r);
+    reportsByLocation.set(r.location_id, arr);
+  }
 
   return (
     <div className="space-y-6">
@@ -51,15 +84,17 @@ export default async function CompanyDetailPage({
             {client.url} <ExternalLink className="h-3 w-3" />
           </a>
         </div>
-        <p className="mt-1 text-xs text-[var(--color-warm-gray-light)]">slug: <code>{client.slug}</code></p>
+        <p className="mt-1 text-xs text-[var(--color-warm-gray-light)]">
+          slug: <code>{client.slug}</code>  ·  id: <code>{client.id}</code>
+        </p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
-        {/* Reports — 2 columns */}
+        {/* Locations + reports — 2 columns */}
         <section className="lg:col-span-2 space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-warm-gray)]">
-              Monthly Reports
+              Locations &amp; Monthly Reports
             </h2>
             <Link
               href={`/admin/reports?client=${client.slug}`}
@@ -68,38 +103,81 @@ export default async function CompanyDetailPage({
               All reports view →
             </Link>
           </div>
-          <div className="rounded-xl border border-[var(--color-border)] bg-white">
-            {reports && reports.length > 0 ? (
-              <ul className="divide-y divide-[var(--color-border)]">
-                {reports.map((r) => {
-                  const month = new Date(r.report_month).toLocaleDateString("en-US", {
-                    month: "long",
-                    year: "numeric",
-                  });
-                  return (
-                    <li key={r.id} className="flex items-center justify-between gap-3 px-5 py-4">
+
+          {locationList.length === 0 ? (
+            <div className="rounded-xl border border-[var(--color-border)] bg-white px-5 py-10 text-center text-sm text-[var(--color-warm-gray)]">
+              No locations yet. Locations are created automatically the first time you push a report.
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {locationList.map((loc) => {
+                const locReports = reportsByLocation.get(loc.id) ?? [];
+                return (
+                  <div
+                    key={loc.id}
+                    className="rounded-xl border border-[var(--color-border)] bg-white"
+                  >
+                    <div className="flex items-start justify-between gap-3 border-b border-[var(--color-border)] px-5 py-3">
                       <div className="min-w-0">
-                        <Link href={`/admin/reports/${r.id}`} className="font-medium text-[var(--color-charcoal)] hover:text-[var(--color-accent)]">
-                          {month}
-                        </Link>
-                        <p className="text-xs text-[var(--color-warm-gray-light)]">
-                          Updated {new Date(r.updated_at).toLocaleDateString()}
+                        <div className="flex items-center gap-2">
+                          <MapPin className="h-3.5 w-3.5 text-[var(--color-warm-gray)]" />
+                          <span className="font-medium text-[var(--color-charcoal)]">{loc.name}</span>
+                          {loc.is_primary && (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-amber-700">
+                              <Star className="h-2.5 w-2.5" /> Primary
+                            </span>
+                          )}
+                        </div>
+                        {loc.address && (
+                          <p className="mt-0.5 text-xs text-[var(--color-warm-gray)]">{loc.address}</p>
+                        )}
+                        <p className="mt-0.5 text-[10px] text-[var(--color-warm-gray-light)]">
+                          slug: <code>{loc.slug}</code>  ·  id: <code>{loc.id}</code>
                         </p>
                       </div>
-                      <ReportStatusChip
-                        reportId={r.id}
-                        status={r.status as "draft" | "published" | "archived"}
-                      />
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : (
-              <p className="px-5 py-10 text-center text-sm text-[var(--color-warm-gray)]">
-                No reports yet. Run <code className="rounded bg-[var(--color-cream-dark)] px-1 py-0.5 font-mono">/generate-client-report</code>.
-              </p>
-            )}
-          </div>
+                      <div className="text-right text-xs text-[var(--color-warm-gray)]">
+                        {locReports.length} report{locReports.length === 1 ? "" : "s"}
+                      </div>
+                    </div>
+
+                    {locReports.length > 0 ? (
+                      <ul className="divide-y divide-[var(--color-border)]">
+                        {locReports.map((r) => {
+                          const month = new Date(r.report_month).toLocaleDateString("en-US", {
+                            month: "long",
+                            year: "numeric",
+                          });
+                          return (
+                            <li
+                              key={r.id}
+                              className="flex items-center justify-between gap-3 px-5 py-3"
+                            >
+                              <div className="min-w-0">
+                                <Link
+                                  href={`/admin/reports/${r.id}`}
+                                  className="font-medium text-[var(--color-charcoal)] hover:text-[var(--color-accent)]"
+                                >
+                                  {month}
+                                </Link>
+                                <p className="text-xs text-[var(--color-warm-gray-light)]">
+                                  Updated {new Date(r.updated_at).toLocaleDateString()}
+                                </p>
+                              </div>
+                              <ReportStatusChip reportId={r.id} status={r.status} />
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    ) : (
+                      <p className="px-5 py-6 text-center text-xs text-[var(--color-warm-gray)]">
+                        No reports for this location yet.
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </section>
 
         {/* Access panel — 1 column */}
