@@ -81,7 +81,7 @@ Trigger with any of:
 
 What happens:
 
-1. **Capture** — `python scripts/grader_cli.py capture --company "<Client>" --url "<site>"` opens Chrome, you solve any CAPTCHA + submit, the script auto-detects completion via CDP and saves `.grader-cache/<slug>.{html,json}`.
+1. **Capture** — `python scripts/grader_cli.py capture --company "<Client>" --url "<site>" --query "<Brand Name>"` opens Chrome to grader.owner.com, types the brand name, you pick the location from the Google Places autocomplete, solve any CAPTCHA, submit. The script polls only its own tab and auto-saves `.grader-cache/<slug>.{html,json}`. Chrome stays open between consecutive captures.
 2. **Optional context** — if `C:\Users\Hashaam\Desktop\MyCode\<Client>-Website\` exists, Claude reads the dev-kit / prior reports for extra context. Otherwise it generates from grader data + URL alone.
 3. **Generate two reports** in `reports-archive/<slug>/`:
    - `<slug>-client-report.md` — polished, client-facing
