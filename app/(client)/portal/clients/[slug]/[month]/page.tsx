@@ -8,10 +8,13 @@ const MONTH_RE = /^\d{4}-\d{2}$/;
 
 export default async function PortalReportPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string; month: string }>;
+  searchParams: Promise<{ loc?: string }>;
 }) {
   const { slug, month } = await params;
+  const { loc } = await searchParams;
   if (!MONTH_RE.test(month)) notFound();
 
   const monthDate = `${month}-01`;
@@ -25,14 +28,39 @@ export default async function PortalReportPage({
 
   if (!client) notFound();
 
-  const { data: report } = await supabase
+  let locationId: string | null = null;
+  if (loc) {
+    const { data: location } = await supabase
+      .from("locations")
+      .select("id")
+      .eq("client_id", client.id)
+      .eq("slug", loc)
+      .single();
+    if (!location) notFound();
+    locationId = location.id;
+  }
+
+  let reportQuery = supabase
     .from("client_reports")
-    .select("client_content_json, grader_data, status, report_month")
+    .select("client_content_json, grader_data, status, report_month, locations ( is_primary )")
     .eq("client_id", client.id)
     .eq("report_month", monthDate)
-    .eq("status", "published")
-    .single();
+    .eq("status", "published");
 
+  if (locationId) {
+    reportQuery = reportQuery.eq("location_id", locationId);
+  }
+
+  const { data: matches } = await reportQuery;
+  const matchList = (matches ?? []) as Array<{
+    client_content_json: unknown;
+    grader_data: unknown;
+    status: string;
+    report_month: string;
+    locations: { is_primary: boolean } | null;
+  }>;
+  const report =
+    matchList.find((m) => m.locations?.is_primary === true) ?? matchList[0];
   if (!report) notFound();
 
   const json = report.client_content_json as ClientReport | null;

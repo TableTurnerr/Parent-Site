@@ -23,12 +23,26 @@ export default async function ClientCompanyPage({
 
   if (!client) notFound();
 
-  const { data: reports } = await supabase
+  const { data: reportsRaw } = await supabase
     .from("client_reports")
-    .select("id, report_month, published_at, grader_data")
+    .select("id, report_month, published_at, grader_data, locations ( name, slug, is_primary )")
     .eq("client_id", client.id)
     .eq("status", "published")
     .order("report_month", { ascending: false });
+
+  const reports = (reportsRaw ?? []) as Array<{
+    id: string;
+    report_month: string;
+    published_at: string | null;
+    grader_data: { overallScore?: number } | null;
+    locations: { name: string; slug: string; is_primary: boolean } | null;
+  }>;
+
+  const { count: locationCount } = await supabase
+    .from("locations")
+    .select("id", { count: "exact", head: true })
+    .eq("client_id", client.id);
+  const showLocationName = (locationCount ?? 0) > 1;
 
   const { count: clientCount } = await supabase
     .from("clients")
@@ -67,15 +81,27 @@ export default async function ClientCompanyPage({
                 month: "long",
                 year: "numeric",
               });
-              const score = (r.grader_data as { overallScore?: number } | null)?.overallScore;
+              const score = r.grader_data?.overallScore;
+              const locationName = r.locations?.name ?? null;
+              const locationSlug = r.locations?.slug ?? null;
+              const href = locationSlug
+                ? `/portal/clients/${client.slug}/${monthSegment(r.report_month)}?loc=${locationSlug}`
+                : `/portal/clients/${client.slug}/${monthSegment(r.report_month)}`;
               return (
                 <li key={r.id}>
                   <Link
-                    href={`/portal/clients/${client.slug}/${monthSegment(r.report_month)}`}
+                    href={href}
                     className="group flex items-center justify-between gap-4 px-6 py-4 transition-colors hover:bg-[var(--color-cream)]"
                   >
                     <div>
-                      <p className="font-medium text-[var(--color-charcoal)]">{month}</p>
+                      <p className="font-medium text-[var(--color-charcoal)]">
+                        {month}
+                        {showLocationName && locationName && (
+                          <span className="ml-2 text-sm font-normal text-[var(--color-warm-gray)]">
+                            · {locationName}
+                          </span>
+                        )}
+                      </p>
                       <p className="text-xs text-[var(--color-warm-gray-light)]">
                         Published {r.published_at ? new Date(r.published_at).toLocaleDateString() : "—"}
                       </p>
