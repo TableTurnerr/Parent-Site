@@ -40,7 +40,14 @@ export default async function CompanyDetailPage({
 
   if (!client) notFound();
 
-  const [{ data: locations }, { data: reports }, { data: grants }] = await Promise.all([
+  const [
+    { data: locations },
+    { data: reports },
+    { data: grants },
+    { count: newReviewsCount },
+    { count: newSubmissionsCount },
+    { count: activeKeysCount },
+  ] = await Promise.all([
     supabase
       .from("locations")
       .select("id, name, slug, address, is_primary")
@@ -57,6 +64,21 @@ export default async function CompanyDetailPage({
       .select("id, email, invited_at, accepted_at, revoked_at")
       .eq("client_id", client.id)
       .order("invited_at", { ascending: false }),
+    supabase
+      .from("site_reviews")
+      .select("id", { count: "exact", head: true })
+      .eq("client_id", client.id)
+      .eq("status", "new"),
+    supabase
+      .from("site_form_submissions")
+      .select("id", { count: "exact", head: true })
+      .eq("client_id", client.id)
+      .eq("status", "new"),
+    supabase
+      .from("client_api_keys")
+      .select("id", { count: "exact", head: true })
+      .eq("client_id", client.id)
+      .is("revoked_at", null),
   ]);
 
   const locationList = (locations ?? []) as LocationRow[];
@@ -88,6 +110,43 @@ export default async function CompanyDetailPage({
           slug: <code>{client.slug}</code>  ·  id: <code>{client.id}</code>
         </p>
       </div>
+
+      <nav className="flex flex-wrap items-center gap-1 border-b border-[var(--color-border)] pb-3">
+        <span className="rounded-md bg-[var(--color-charcoal)] px-3 py-1.5 text-xs font-medium text-white">
+          Overview
+        </span>
+        <Link
+          href={`/admin/companies/${client.slug}/reviews`}
+          className="inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs font-medium text-[var(--color-warm-gray)] hover:bg-[var(--color-cream)] hover:text-[var(--color-charcoal)]"
+        >
+          Reviews
+          {(newReviewsCount ?? 0) > 0 && (
+            <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--color-accent)] px-1 text-[10px] font-semibold text-white">
+              {newReviewsCount}
+            </span>
+          )}
+        </Link>
+        <Link
+          href={`/admin/companies/${client.slug}/submissions`}
+          className="inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs font-medium text-[var(--color-warm-gray)] hover:bg-[var(--color-cream)] hover:text-[var(--color-charcoal)]"
+        >
+          Submissions
+          {(newSubmissionsCount ?? 0) > 0 && (
+            <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--color-accent)] px-1 text-[10px] font-semibold text-white">
+              {newSubmissionsCount}
+            </span>
+          )}
+        </Link>
+        <Link
+          href={`/admin/companies/${client.slug}/integration`}
+          className="inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs font-medium text-[var(--color-warm-gray)] hover:bg-[var(--color-cream)] hover:text-[var(--color-charcoal)]"
+        >
+          Integration
+          <span className="text-[10px] text-[var(--color-warm-gray-light)]">
+            {activeKeysCount ?? 0} {activeKeysCount === 1 ? "key" : "keys"}
+          </span>
+        </Link>
+      </nav>
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Locations + reports — 2 columns */}
