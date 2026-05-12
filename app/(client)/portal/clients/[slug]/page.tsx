@@ -2,6 +2,7 @@ import { createClient } from "@/app/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight, ExternalLink } from "lucide-react";
+import CompanyTabs from "@/app/components/portal/CompanyTabs";
 
 function monthSegment(month: string): string {
   return month.slice(0, 7); // "YYYY-MM-DD" → "YYYY-MM"
@@ -23,12 +24,37 @@ export default async function ClientCompanyPage({
 
   if (!client) notFound();
 
-  const { data: reportsRaw } = await supabase
-    .from("client_reports")
-    .select("id, report_month, published_at, grader_data, locations ( name, slug, is_primary )")
-    .eq("client_id", client.id)
-    .eq("status", "published")
-    .order("report_month", { ascending: false });
+  const [
+    { data: reportsRaw },
+    { count: locationCount },
+    { count: clientCount },
+    { count: newReviewsCount },
+    { count: newSubmissionsCount },
+  ] = await Promise.all([
+    supabase
+      .from("client_reports")
+      .select("id, report_month, published_at, grader_data, locations ( name, slug, is_primary )")
+      .eq("client_id", client.id)
+      .eq("status", "published")
+      .order("report_month", { ascending: false }),
+    supabase
+      .from("locations")
+      .select("id", { count: "exact", head: true })
+      .eq("client_id", client.id),
+    supabase
+      .from("clients")
+      .select("id", { count: "exact", head: true }),
+    supabase
+      .from("site_reviews")
+      .select("id", { count: "exact", head: true })
+      .eq("client_id", client.id)
+      .eq("status", "new"),
+    supabase
+      .from("site_form_submissions")
+      .select("id", { count: "exact", head: true })
+      .eq("client_id", client.id)
+      .eq("status", "new"),
+  ]);
 
   const reports = (reportsRaw ?? []) as Array<{
     id: string;
@@ -38,15 +64,7 @@ export default async function ClientCompanyPage({
     locations: { name: string; slug: string; is_primary: boolean } | null;
   }>;
 
-  const { count: locationCount } = await supabase
-    .from("locations")
-    .select("id", { count: "exact", head: true })
-    .eq("client_id", client.id);
   const showLocationName = (locationCount ?? 0) > 1;
-
-  const { count: clientCount } = await supabase
-    .from("clients")
-    .select("id", { count: "exact", head: true });
   const showAllCompanies = (clientCount ?? 0) > 1;
 
   return (
@@ -69,6 +87,13 @@ export default async function ClientCompanyPage({
           </a>
         </div>
       </div>
+
+      <CompanyTabs
+        slug={client.slug}
+        current="reports"
+        newReviewsCount={newReviewsCount ?? 0}
+        newSubmissionsCount={newSubmissionsCount ?? 0}
+      />
 
       <div className="space-y-3">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-warm-gray)]">
