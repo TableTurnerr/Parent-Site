@@ -347,6 +347,28 @@ Open Pure Pizza's JSON and copy its top-level shape, section order, section IDs,
   3. `neighborhoods` — "Reaching Nearby [City] Neighborhoods" (or analogous geographic hub for non-restaurant clients)
   4. `catering` — "Catering — A Search Almost No One Is Going After" (or analogous high-margin offering: "Events," "Private Hire," "B2B," etc.)
   Each group needs `summary`, `highlight` (volume badge), `intro`, `table` (headers + rows), and `takeaway`. Plus the `totals` block at the end.
+
+  **`keywords.totals.summary` MUST close with a traffic-performance paragraph** that frames current monthly traffic vs. a 3-month target. Required shape (separated from the rest of the summary by a blank line):
+
+  ```
+  **Where you stand today vs. where you can be in 3 months:** <domain> is currently pulling roughly **<X–Y> visitors a month** — <one phrase on where that traffic comes from, e.g. "almost all branded searches"/"a mix of branded and Maps clicks"/etc.>. With the keyword set live across the site and GBP <+ any client-specific levers>, a realistic **3-month target is <N>+ monthly visitors**, growing toward <larger N>+ by month six — roughly a **<multiplier>× lift**. On a <low-high keyword opportunity range> monthly-search opportunity, that's <comfortably within reach|well within reach|comfortably hit at a 5–8% capture rate>.
+  ```
+
+  How to size the numbers:
+  - **Current monthly visitors** — estimate from this report's signals only. Heuristics:
+    - `ratings.search ≤ 20` and `ratings.content < 30` → ~30–150 visitors/mo (essentially invisible; brand-name searches only).
+    - `ratings.search` 21–40 → ~150–300/mo.
+    - `ratings.search` 41–65 → ~250–500/mo.
+    - `ratings.search` > 65 (already ranks) → ~400–1,000+/mo.
+    - Strong GBP (`ratings.gbp` ≥ 70) and high review count bump the range up; a "broken Google listing"-style verdict pulls it down.
+  - **3-month target** — size to ~5–8% of the **low end** of `keywords.totals.rows`' total search opportunity. Round to a clean number (600+, 800+, 1,000+, 1,500+).
+  - **Month-six stretch target** — ~1.5–2× the 3-month number. Just enough to show a glide path, not a hard promise.
+
+  **Sister locations on the same domain share the site-wide baseline.** If `client.location.siblings` is non-empty and the brand serves all locations from one website (which is the common case — verify against the URL), both location reports must cite the **same site-wide current-traffic range** and explicitly say "across both locations" / "as a whole." Then differentiate the per-location framing: one location may already capture most of that traffic ("most of it is already coming through Hempstead"); the other may capture almost none ("almost none of that is reaching the Elmont pages because the listing is broken"). The per-location **target** still scales to that location's own keyword opportunity. Never publish two sister-location reports with conflicting current-traffic numbers.
+
+  For multi-domain brands (one location per domain — e.g. Al-Baghdadi runs three separate sites), phrase the baseline as "the three sites combined are pulling roughly X visitors a month" instead.
+
+  See `reports-archive/pure-on-the-plaza/2026-05/pure-on-the-plaza-client-report.json` (the canonical template) for the exact closing-paragraph format.
 - **`actionPlan`** — exactly **4** items in this order. Do not add a 5th, do not drop one. Categories use the badges from Pure Pizza: `Research`, `Build`, `Polish`, `Ongoing`.
   1. `priority: 1`, `category: "Research"` — **Keyword Research**
   2. `priority: 2`, `category: "Build"` — **Site Content + Google Business Profile × Keywords**

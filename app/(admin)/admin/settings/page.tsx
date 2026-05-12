@@ -34,6 +34,45 @@ async function updateUserStatus(formData: FormData) {
   revalidatePath("/admin/settings");
 }
 
+async function updateUserProfile(formData: FormData) {
+  "use server";
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("Unauthorized");
+
+  const { data: requester } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (requester?.role !== "admin" && requester?.role !== "manager")
+    throw new Error("Manager or Admin only");
+
+  const userId = formData.get("user_id") as string;
+  const fullNameRaw = formData.get("full_name");
+  const avatarUrlRaw = formData.get("avatar_url");
+
+  const updates: { full_name?: string | null; avatar_url?: string | null } = {};
+  if (typeof fullNameRaw === "string") {
+    const trimmed = fullNameRaw.trim();
+    updates.full_name = trimmed.length > 0 ? trimmed : null;
+  }
+  if (typeof avatarUrlRaw === "string") {
+    const trimmed = avatarUrlRaw.trim();
+    updates.avatar_url = trimmed.length > 0 ? trimmed : null;
+  }
+
+  if (Object.keys(updates).length === 0) return;
+
+  const admin = await createAdminClient();
+  await admin.from("profiles").update(updates).eq("id", userId);
+
+  revalidatePath("/admin/settings");
+}
+
 async function updateUserRole(formData: FormData) {
   "use server";
   const supabase = await createClient();
@@ -190,6 +229,7 @@ export default async function SettingsPage() {
             members={pendingRequests}
             updateStatusAction={updateUserStatus}
             updateRoleAction={updateUserRole}
+            updateProfileAction={updateUserProfile}
             showApproveActions
           />
         </div>
@@ -261,6 +301,7 @@ export default async function SettingsPage() {
             members={deniedMembers}
             updateStatusAction={updateUserStatus}
             updateRoleAction={updateUserRole}
+            updateProfileAction={updateUserProfile}
             showReapproveAction
           />
         </div>

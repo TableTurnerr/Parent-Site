@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Check, X } from "lucide-react";
 import UserAvatar from "@/app/components/ui/UserAvatar";
 import { ChipDropdown } from "@/app/components/ui/Dropdown";
+import EditMemberDialog from "@/app/components/admin/EditMemberDialog";
 import { ROLE_LABELS, ROLE_DESCRIPTIONS } from "@/app/lib/supabase/types";
 import type { UserRole } from "@/app/lib/supabase/types";
 
@@ -33,6 +34,7 @@ export default function AccessManager({
   members,
   updateStatusAction,
   updateRoleAction,
+  updateProfileAction,
   showApproveActions,
   showReapproveAction,
   currentUserId,
@@ -40,6 +42,7 @@ export default function AccessManager({
   members: Member[];
   updateStatusAction: (formData: FormData) => Promise<void>;
   updateRoleAction: (formData: FormData) => Promise<void>;
+  updateProfileAction?: (formData: FormData) => Promise<void>;
   showApproveActions?: boolean;
   showReapproveAction?: boolean;
   currentUserId?: string;
@@ -84,6 +87,17 @@ export default function AccessManager({
           </div>
 
           <div className="flex flex-wrap items-center gap-2 shrink-0 sm:justify-end">
+            {/* Edit profile (admin/manager only, for non-self members) */}
+            {updateProfileAction && member.id !== currentUserId && (
+              <EditMemberDialog
+                userId={member.id}
+                email={member.email}
+                currentName={member.full_name}
+                currentAvatarUrl={member.avatar_url}
+                updateAction={updateProfileAction}
+              />
+            )}
+
             {/* Role selector (for approved members, not self) */}
             {member.status === "approved" && member.id !== currentUserId && (
               <ChipDropdown
