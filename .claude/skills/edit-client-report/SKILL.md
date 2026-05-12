@@ -72,12 +72,14 @@ For **internal variant**: edit `<slug>-internal-report.json` in place.
 **Never write or modify a `.md` file.** If you find any in the archive folder, ignore them — they are legacy and will be removed.
 
 General rules:
-- Schema: `lib/report-schema.ts` (`ClientReport` v1). Read `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.json` if you need a reference.
+- Schema: `lib/report-schema.ts` (`ClientReport` v1). Read `reports-archive/pure-on-the-plaza/2026-05/pure-on-the-plaza-client-report.json` if you need a reference.
 - Preserve section `id`s — they are the anchor links (`#problems`, `#keywords`, `#action-plan`, `#next-steps`, etc.).
 - Preserve section order unless the instruction explicitly asks to add/remove a section.
 - Inline formatting in JSON strings is the small markdown subset only: `**bold**`, `*italic*`, `[label](url)`, `` `code` ``. Never emit raw HTML.
 - For factual changes (numbers, names, dates), only edit if the instruction supplies the new value or it's clearly derivable from `grader.json`.
 - For tone/style changes, rewrite only the affected sections — leave the rest intact.
+- **Preserve `keywords.totals.summary`'s closing traffic-performance paragraph** (the `**Where you stand today vs. where you can be in 3 months:**` block). It's a required part of every client report — see the `keywords` section rules in `generate-client-report/SKILL.md` for the format. If the edit instruction touches keyword opportunity totals, current traffic, the target, or sister-location framing, rewrite this paragraph to stay consistent; otherwise leave it intact.
+- **Sister-location consistency:** when editing a report whose `client.location.siblings` is non-empty and the brand serves all locations from one domain, the current-traffic baseline ("X visitors a month across both locations") must match across all sibling reports. If you edit one, check whether the others need a matching update.
 - Re-validate the JSON parses cleanly before saving.
 - If you're unsure about a vague instruction, ask **one** clarifying question before editing.
 
