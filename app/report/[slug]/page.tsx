@@ -13,18 +13,10 @@ export default async function PublicReportLatestRedirect({
   const { slug } = await params;
   const supabase = await createClient();
 
-  const { data: client } = await supabase
-    .from("clients")
-    .select("id")
-    .eq("slug", slug)
-    .single();
-
-  if (!client) notFound();
-
   const { data: latest } = await supabase
     .from("client_reports")
     .select("report_month")
-    .eq("client_id", client.id)
+    .eq("client_slug", slug)
     .eq("status", "published")
     .in("visibility", ["public", "unlisted"])
     .order("report_month", { ascending: false })
