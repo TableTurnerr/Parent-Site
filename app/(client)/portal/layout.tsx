@@ -1,6 +1,8 @@
 import { createClient } from "@/app/lib/supabase/server";
 import { redirect } from "next/navigation";
 import ClientShell from "@/app/components/portal/ClientShell";
+import ImpersonationBanner from "@/app/components/portal/ImpersonationBanner";
+import { getCurrentImpersonation } from "@/app/lib/supabase/impersonation";
 import pkg from "@/package.json";
 
 export const metadata = {
@@ -20,17 +22,22 @@ export default async function PortalLayout({
 
   if (!user) redirect("/login?next=/portal");
 
+  const impersonation = await getCurrentImpersonation();
+
   const [{ data: profile }, { data: sharedClients }] = await Promise.all([
     supabase
       .from("profiles")
       .select("full_name, avatar_url, role, email")
       .eq("id", user.id)
       .single(),
-    supabase.from("clients").select("name").limit(2),
+    impersonation
+      ? Promise.resolve({ data: [{ name: impersonation.clientName }] })
+      : supabase.from("clients").select("name").limit(2),
   ]);
 
-  const displayName =
-    sharedClients && sharedClients.length === 1
+  const displayName = impersonation
+    ? impersonation.clientName
+    : sharedClients && sharedClients.length === 1
       ? sharedClients[0].name
       : (profile?.full_name ?? user.user_metadata?.full_name ?? "User");
 
@@ -45,6 +52,12 @@ export default async function PortalLayout({
         role: profile?.role ?? "client",
       }}
     >
+      {impersonation && (
+        <ImpersonationBanner
+          clientName={impersonation.clientName}
+          clientSlug={impersonation.clientSlug}
+        />
+      )}
       {children}
     </ClientShell>
   );
