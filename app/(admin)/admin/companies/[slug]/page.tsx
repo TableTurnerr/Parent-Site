@@ -1,7 +1,8 @@
 import { createClient } from "@/app/lib/supabase/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ExternalLink, MapPin, Star } from "lucide-react";
+import { ExternalLink, Eye, MapPin, Star } from "lucide-react";
+import ImpersonateButton from "@/app/components/admin/ImpersonateButton";
 import ShareAccessPanel from "@/app/components/admin/ShareAccessPanel";
 import { ReportStatusChip } from "@/app/components/admin/ReportStatusChip";
 import EditableCompanyName from "@/app/components/admin/EditableCompanyName";
@@ -9,6 +10,7 @@ import EditableCompanyName from "@/app/components/admin/EditableCompanyName";
 type ReportRow = {
   id: string;
   location_id: string;
+  client_slug: string;
   report_month: string;
   status: "draft" | "published" | "archived";
   visibility: string;
@@ -56,7 +58,7 @@ export default async function CompanyDetailPage({
       .order("name"),
     supabase
       .from("client_reports")
-      .select("id, location_id, report_month, status, visibility, published_at, updated_at")
+      .select("id, location_id, client_slug, report_month, status, visibility, published_at, updated_at")
       .eq("client_id", client.id)
       .order("report_month", { ascending: false }),
     supabase
@@ -109,6 +111,17 @@ export default async function CompanyDetailPage({
         <p className="mt-1 text-xs text-[var(--color-warm-gray-light)]">
           slug: <code>{client.slug}</code>  ·  id: <code>{client.id}</code>
         </p>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <a
+            href={`/report/${client.slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-border)] px-2.5 py-1 text-xs font-medium text-[var(--color-warm-gray)] hover:border-[var(--color-charcoal)] hover:text-[var(--color-charcoal)]"
+          >
+            <Eye className="h-3 w-3" /> Brand page
+          </a>
+          <ImpersonateButton clientId={client.id} clientName={client.name} clientSlug={client.slug} />
+        </div>
       </div>
 
       <nav className="flex flex-wrap items-center gap-1 border-b border-[var(--color-border)] pb-3">
@@ -206,6 +219,9 @@ export default async function CompanyDetailPage({
                             month: "long",
                             year: "numeric",
                           });
+                          const monthSegment = r.report_month.slice(0, 7);
+                          const previewHref = `/report/${r.client_slug}/${monthSegment}`;
+                          const canPreview = r.status === "published";
                           return (
                             <li
                               key={r.id}
@@ -222,7 +238,28 @@ export default async function CompanyDetailPage({
                                   Updated {new Date(r.updated_at).toLocaleDateString()}
                                 </p>
                               </div>
-                              <ReportStatusChip reportId={r.id} status={r.status} />
+                              <div className="flex items-center gap-2">
+                                <ReportStatusChip reportId={r.id} status={r.status} />
+                                {canPreview ? (
+                                  <a
+                                    href={previewHref}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    title="Preview public report"
+                                    aria-label="Preview public report"
+                                    className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-[var(--color-border)] text-[var(--color-warm-gray)] hover:border-[var(--color-charcoal)] hover:text-[var(--color-charcoal)]"
+                                  >
+                                    <Eye className="h-3.5 w-3.5" />
+                                  </a>
+                                ) : (
+                                  <span
+                                    title="Preview available once published"
+                                    className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-[var(--color-border)] text-[var(--color-warm-gray-light)] opacity-60"
+                                  >
+                                    <Eye className="h-3.5 w-3.5" />
+                                  </span>
+                                )}
+                              </div>
                             </li>
                           );
                         })}

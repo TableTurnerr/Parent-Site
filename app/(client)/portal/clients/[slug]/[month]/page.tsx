@@ -1,8 +1,8 @@
-import { createClient } from "@/app/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ReportRendererBody } from "@/components/report/report-renderer";
 import { isClientReport, type ClientReport } from "@/lib/report-schema";
+import { getPortalContext } from "@/app/lib/supabase/impersonation";
 
 const MONTH_RE = /^\d{4}-\d{2}$/;
 
@@ -18,13 +18,13 @@ export default async function PortalReportPage({
   if (!MONTH_RE.test(month)) notFound();
 
   const monthDate = `${month}-01`;
-  const supabase = await createClient();
+  const { supabase, filterClientId } = await getPortalContext();
 
-  const { data: client } = await supabase
-    .from("clients")
-    .select("id, name, slug")
-    .eq("slug", slug)
-    .single();
+  let clientQuery = supabase.from("clients").select("id, name, slug").eq("slug", slug);
+  if (filterClientId) {
+    clientQuery = clientQuery.eq("id", filterClientId);
+  }
+  const { data: client } = await clientQuery.single();
 
   if (!client) notFound();
 

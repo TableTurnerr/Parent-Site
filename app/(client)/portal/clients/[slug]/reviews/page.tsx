@@ -1,8 +1,8 @@
-import { createClient } from "@/app/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ExternalLink, MapPin, Star } from "lucide-react";
 import CompanyTabs from "@/app/components/portal/CompanyTabs";
+import { getPortalContext } from "@/app/lib/supabase/impersonation";
 
 type ReviewStatus = "new" | "read" | "archived";
 
@@ -31,13 +31,16 @@ export default async function ClientReviewsPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const supabase = await createClient();
+  const { supabase, filterClientId } = await getPortalContext();
 
-  const { data: client } = await supabase
+  let clientQuery = supabase
     .from("clients")
     .select("id, name, slug, url")
-    .eq("slug", slug)
-    .single();
+    .eq("slug", slug);
+  if (filterClientId) {
+    clientQuery = clientQuery.eq("id", filterClientId);
+  }
+  const { data: client } = await clientQuery.single();
 
   if (!client) notFound();
 
@@ -55,7 +58,9 @@ export default async function ClientReviewsPage({
         .select("id", { count: "exact", head: true })
         .eq("client_id", client.id)
         .eq("status", "new"),
-      supabase.from("clients").select("id", { count: "exact", head: true }),
+      filterClientId
+        ? Promise.resolve({ count: 1 })
+        : supabase.from("clients").select("id", { count: "exact", head: true }),
     ]);
 
   const reviews = (rawReviews ?? []) as ReviewRow[];

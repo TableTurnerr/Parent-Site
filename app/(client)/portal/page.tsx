@@ -1,16 +1,16 @@
-import { createClient } from "@/app/lib/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Building2, FileBarChart2, ArrowRight } from "lucide-react";
+import { getPortalContext } from "@/app/lib/supabase/impersonation";
 
 export default async function PortalDashboard() {
-  const supabase = await createClient();
+  const { supabase, filterClientId } = await getPortalContext();
 
-  // RLS naturally restricts to clients the user has access to
-  const { data: clients } = await supabase
-    .from("clients")
-    .select("id, name, slug, url")
-    .order("name");
+  let clientsQuery = supabase.from("clients").select("id, name, slug, url").order("name");
+  if (filterClientId) {
+    clientsQuery = clientsQuery.eq("id", filterClientId);
+  }
+  const { data: clients } = await clientsQuery;
 
   if (clients && clients.length === 1) {
     redirect(`/portal/clients/${clients[0].slug}`);
