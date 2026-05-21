@@ -15,22 +15,14 @@ export async function generateMetadata({
   if (!MONTH_RE.test(month)) return { title: "Report | TableTurnerr" };
 
   const supabase = await createClient();
-  const { data: client } = await supabase
-    .from("clients")
-    .select("id, name")
-    .eq("slug", slug)
-    .single();
-
-  if (!client) return { title: "Report | TableTurnerr" };
-
   const { data } = await supabase
     .from("client_reports")
-    .select("visibility")
-    .eq("client_id", client.id)
+    .select("client_name, visibility")
+    .eq("client_slug", slug)
     .eq("report_month", `${month}-01`)
     .eq("status", "published")
     .in("visibility", ["public", "unlisted"])
-    .single();
+    .maybeSingle();
 
   if (!data) return { title: "Report | TableTurnerr" };
 
@@ -40,7 +32,7 @@ export async function generateMetadata({
   });
 
   return {
-    title: `${client.name} — ${monthLabel} Digital Presence Report | TableTurnerr`,
+    title: `${data.client_name} — ${monthLabel} Digital Presence Report | TableTurnerr`,
     robots: { index: false, follow: false },
   };
 }
@@ -54,22 +46,14 @@ export default async function PublicReportPage({
   if (!MONTH_RE.test(month)) notFound();
 
   const supabase = await createClient();
-  const { data: client } = await supabase
-    .from("clients")
-    .select("id")
-    .eq("slug", slug)
-    .single();
-
-  if (!client) notFound();
-
   const { data: report } = await supabase
     .from("client_reports")
     .select("client_content_json, grader_data, published_at, created_at, visibility")
-    .eq("client_id", client.id)
+    .eq("client_slug", slug)
     .eq("report_month", `${month}-01`)
     .eq("status", "published")
     .in("visibility", ["public", "unlisted"])
-    .single();
+    .maybeSingle();
 
   if (!report) notFound();
 
