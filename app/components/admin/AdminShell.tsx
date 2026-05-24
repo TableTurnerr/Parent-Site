@@ -22,6 +22,7 @@ import {
   FileBarChart2,
   Building2,
   Users,
+  LayoutTemplate,
 } from "lucide-react";
 
 import type { UserRole } from "@/app/lib/supabase/types";
@@ -274,6 +275,21 @@ export default function AdminShell({
             <ExternalLink className="h-4 w-4 shrink-0" />
             {!collapsed && <span>View Site</span>}
           </a>
+
+          {process.env.NEXT_PUBLIC_WIREFRAMES_URL && (
+            <a
+              href={process.env.NEXT_PUBLIC_WIREFRAMES_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={collapsed ? "Wireframes" : undefined}
+              className={`mt-0.5 flex items-center rounded-lg text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white ${
+                collapsed ? "justify-center px-0 py-2.5" : "gap-3 px-3 py-2.5"
+              }`}
+            >
+              <LayoutTemplate className="h-4 w-4 shrink-0" />
+              {!collapsed && <span>Wireframes</span>}
+            </a>
+          )}
         </nav>
 
         {/* Collapse toggle (desktop only) */}
