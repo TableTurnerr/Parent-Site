@@ -322,6 +322,7 @@ Open Pure Pizza's JSON and copy its top-level shape, section order, section IDs,
     { "type": "problems",    "id": "problems",     "title": "What's Holding Your Website Back", ... },
     { "type": "keywords",    "id": "keywords",     "title": "The Search Terms That Should Be Bringing You Customers", ... },
     { "type": "actionPlan",  "id": "action-plan",  "title": "Priority Action Plan", ... },
+    { "type": "table",       "id": "ad-spend",     "title": "Ad Spend & Estimated Returns", ... },
     { "type": "cta",         "id": "next-steps",   "title": "Investment & Next Steps", ... }
   ]
 }
@@ -335,7 +336,8 @@ Open Pure Pizza's JSON and copy its top-level shape, section order, section IDs,
 | 2 | `problems` | `problems` | `What's Holding Your Website Back` |
 | 3 | `keywords` | `keywords` | `The Search Terms That Should Be Bringing You Customers` |
 | 4 | `actionPlan` | `action-plan` | `Priority Action Plan` |
-| 5 | `cta` | `next-steps` | `Investment & Next Steps` |
+| 5 | `table` | `ad-spend` | `Ad Spend & Estimated Returns` |
+| 6 | `cta` | `next-steps` | `Investment & Next Steps` |
 
 **Section content rules:**
 
@@ -375,6 +377,24 @@ Open Pure Pizza's JSON and copy its top-level shape, section order, section IDs,
   3. `priority: 3`, `category: "Polish"` — **Review + Small Design-Related Changes**
   4. `priority: 4`, `category: "Ongoing"` — **Monitor Performance**
   Adjust the wording inside each item to fit the client, but the four steps and their order are fixed.
+- **`ad-spend`** — `type: "table"`, `id: "ad-spend"`, `title: "Ad Spend & Estimated Returns"`. Three-tier paid-ads forecast that pairs with the keyword opportunity sized in the `keywords` section. Required shape:
+  - `intro` — 1 short paragraph: "Once the site fixes above are live, a small monthly Google Ads budget compounds the lift…" Tailor a sentence to *this* location's market dynamics (low-CPC small town vs. competitive city, college market, border traffic, etc.). Never name upstream tools.
+  - `emphasizeFirstColumn: true`.
+  - `headers`: **exactly** `["Tier", "Monthly Spend", "Est. Clicks", "Est. Calls / Direct Orders", "Est. Monthly Revenue", "Approx. ROAS"]`.
+  - `rows`: **exactly 3 rows** — `Starter` ($300/mo), `**Growth — Recommended**` ($750/mo) with the bolded recommended badge in column 1, and `Aggressive` ($1,500/mo). Keep the spend column at `$300/mo`/`$750/mo`/`$1,500/mo` across all reports; only the click/order/revenue/ROAS ranges change per location.
+  - `callout` — a "How to read this" paragraph stating: (a) what queries the ads target (use this location's actual money-keywords + secret-weapon terms), (b) assumed conversion rate (~10–12% clicks → calls/orders), (c) assumed average ticket (location-specific, typically $30–45), (d) that ROAS is conservative because direct orders avoid the 20–30% delivery-app commission, and (e) which tier you recommend starting with.
+
+  **How to size the per-location numbers** (don't copy verbatim across locations — tune them):
+  - **Cost-per-click bands** to anchor the click counts:
+    - Low-competition / small town: $1.80–$3.20 avg CPC → ~94–167 clicks/$300, ~234–417 clicks/$750, ~469–833 clicks/$1,500.
+    - Mid-competition / mid-size city: $2.40–$4.50 avg CPC → ~67–125 clicks/$300, ~167–313 clicks/$750, ~333–625 clicks/$1,500.
+    - High-competition / large metro: $3.50–$7 avg CPC → ~43–86 clicks/$300, ~107–214 clicks/$750, ~214–429 clicks/$1,500.
+  - **Calls / direct orders** = clicks × ~10–12% conversion. Round to a tight range.
+  - **Est. revenue** = calls/orders × this location's typical average ticket (Indian/Mexican/Mediterranean restaurants ~$30–40; pizza ~$25–35; high-end dinner ~$60+).
+  - **ROAS** = revenue ÷ spend, reported as a range (low/high of revenue ÷ spend).
+  - Sanity check: revenue range must be ≥ spend at the low end of at least the Growth tier — if it isn't, the assumptions are off and the section becomes a *negative* sales argument. Re-check CPC band, conversion rate, or AOV.
+
+  **Sister locations on the same brand** can use the same tier amounts but should have *different* click/order/revenue ranges where the markets differ (e.g. a small-town location vs. a college-city location). Mention any seasonal levers (university calendar, holiday catering, tourist season) in the callout when relevant.
 - **`cta`** — title `Investment & Next Steps`, 3 paragraphs in `body[]`, omit `primary.href` and `secondary.href` (the renderer fills those with the TableTurnerr defaults).
 
 **Multi-location:** see Step 0.5f. Each per-location client report is fully independent — its hero numbers and section content reflect only that location, not a brand average.
@@ -478,6 +498,10 @@ The internal report is admin-only and will never appear on the public URL.
 - ❌ Do **not** generate `<slug>-client-report.md` or `<slug>-internal-report.md`. Markdown is retired.
 - ❌ Do not invent new client-report sections, rename IDs, or change the section order. Match Pure Pizza exactly.
 - ❌ Do not put more or fewer than 4 items in the client `actionPlan`.
+- ❌ Do not omit the `ad-spend` section, change its position (it sits between `action-plan` and `next-steps`), or rename it. It is locked.
+- ❌ Do not put more or fewer than 3 rows in the `ad-spend` table — Starter / Growth (Recommended) / Aggressive only. Keep the monthly spend values at $300 / $750 / $1,500 across all reports; tune only the click/order/revenue/ROAS ranges per location.
+- ❌ Do not copy the Namaste Blaine / Bellingham ad-spend numbers into a new client's report — re-derive them from the location's CPC band, conversion rate, and average ticket. Verbatim copying is a tell.
+- ❌ Do not let the Growth tier's low-end revenue come in below spend. If it does, your CPC, conversion-rate, or AOV assumption is wrong — fix it before shipping.
 - ❌ Do not name upstream tools ("owner.com", "grader", etc.) in the client JSON.
 - ❌ Do not run `scripts/grader_cli.py share` directly — use `scripts/push-report.js` (the manager calls it for you).
 - ❌ Do not produce one report covering many locations. Each graded location gets its own slug, folder, and JSON pair.
