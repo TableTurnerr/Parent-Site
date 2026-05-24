@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import type { Database } from "./types";
+import { withSharedDomain } from "./cookie-options";
 
 export async function createClient() {
   const cookieStore = await cookies();
@@ -17,7 +18,7 @@ export async function createClient() {
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
+              cookieStore.set(name, value, withSharedDomain(options))
             );
           } catch {
             // setAll called from a Server Component — safe to ignore
