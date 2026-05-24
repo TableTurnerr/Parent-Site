@@ -60,13 +60,26 @@ export async function GET(request: Request) {
 
   const next = sanitizeRedirectPath(rawNext, fallback);
 
+  // Cross-subdomain handoff: sanitize already validated this against the
+  // allowlist, so an absolute URL here is safe to redirect to as-is.
+  if (/^https?:\/\//i.test(next)) {
+    return NextResponse.redirect(next);
+  }
+
+  // Internal redirect: bounce back to the main app host (configured via
+  // NEXT_PUBLIC_APP_URL) rather than `origin` — when this callback runs on
+  // auth.tableturnerr.com, origin is the auth host and we want the user to
+  // end up on the actual app.
   const forwardedHost = request.headers.get("x-forwarded-host");
   const isLocalEnv = process.env.NODE_ENV === "development";
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL;
   const base = isLocalEnv
     ? origin
-    : forwardedHost
-      ? `https://${forwardedHost}`
-      : origin;
+    : appUrl
+      ? appUrl.replace(/\/$/, "")
+      : forwardedHost
+        ? `https://${forwardedHost}`
+        : origin;
 
   return NextResponse.redirect(`${base}${next}`);
 }
