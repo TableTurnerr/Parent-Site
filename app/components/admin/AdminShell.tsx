@@ -56,7 +56,7 @@ const NAV_GROUPS: NavGroup[] = [
     label: "Reports",
     items: [
       { href: "/admin/reports", label: "Reports", icon: FileBarChart2, minRole: "viewer" },
-      { href: "/admin/companies", label: "Companies", icon: Building2, minRole: "viewer" },
+      { href: "/admin/companies", label: "Prospects & Clients", icon: Building2, minRole: "viewer" },
       { href: "/admin/owners", label: "Owners", icon: Users, minRole: "viewer" },
     ],
   },
