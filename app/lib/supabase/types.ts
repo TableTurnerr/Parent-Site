@@ -401,6 +401,7 @@ export type Database = {
           notes: string | null
           primary_contact_email: string | null
           slug: string
+          status: Database["public"]["Enums"]["client_status"]
           updated_at: string
           url: string
         }
@@ -412,6 +413,7 @@ export type Database = {
           notes?: string | null
           primary_contact_email?: string | null
           slug: string
+          status?: Database["public"]["Enums"]["client_status"]
           updated_at?: string
           url: string
         }
@@ -423,6 +425,7 @@ export type Database = {
           notes?: string | null
           primary_contact_email?: string | null
           slug?: string
+          status?: Database["public"]["Enums"]["client_status"]
           updated_at?: string
           url?: string
         }
@@ -768,6 +771,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      client_status: "prospect" | "client" | "template"
       post_status: "draft" | "published" | "scheduled" | "archived"
       post_visibility: "public" | "unlisted" | "private" | "client_only"
       profile_status: "pending" | "approved" | "denied"
@@ -908,6 +912,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      client_status: ["prospect", "client", "template"],
       post_status: ["draft", "published", "scheduled", "archived"],
       post_visibility: ["public", "unlisted", "private", "client_only"],
       profile_status: ["pending", "approved", "denied"],
