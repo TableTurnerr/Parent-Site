@@ -1,12 +1,14 @@
 import { createClient } from "@/app/lib/supabase/server";
 import { CompaniesBulkTable, type CompanyRow } from "@/app/components/admin/CompaniesBulkTable";
 
+type ClientStatus = "prospect" | "client" | "template";
+
 export default async function CompaniesPage() {
   const supabase = await createClient();
 
   const { data: clients } = await supabase
     .from("clients")
-    .select("id, name, slug, url, primary_contact_email, created_at")
+    .select("id, name, slug, url, primary_contact_email, status, created_at")
     .order("name");
 
   // Counts: reports + active grants + locations per client
@@ -44,6 +46,7 @@ export default async function CompaniesPage() {
     name: c.name,
     slug: c.slug,
     url: c.url,
+    status: (c.status as ClientStatus) ?? "prospect",
     reportCount: reportCounts.get(c.id) ?? 0,
     ownerCount: grantCounts.get(c.id) ?? 0,
     locationCount: locationCounts.get(c.id) ?? 0,
@@ -53,9 +56,9 @@ export default async function CompaniesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-[var(--color-charcoal)]">Companies</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[var(--color-charcoal)]">Prospects &amp; Clients</h1>
           <p className="mt-1 text-sm text-[var(--color-warm-gray)]">
-            Restaurants under management. Each company has monthly reports and a list of owners with portal access. Select rows for bulk actions.
+            Every restaurant we work with starts as a <strong>prospect</strong>. Promote a prospect to <strong>client</strong> once they sign on, and only clients show up in the wireframe tool. Use the tabs below to filter.
           </p>
         </div>
       </div>

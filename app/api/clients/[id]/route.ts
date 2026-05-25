@@ -41,6 +41,13 @@ export async function PATCH(
       : null;
   }
   if (typeof body.notes === "string" || body.notes === null) update.notes = body.notes;
+  if (typeof body.status === "string") {
+    const status = body.status.trim().toLowerCase();
+    if (status !== "prospect" && status !== "client" && status !== "template") {
+      return NextResponse.json({ error: "Invalid status (prospect, client, template)" }, { status: 400 });
+    }
+    update.status = status;
+  }
 
   if (Object.keys(update).length === 0) {
     return NextResponse.json({ error: "No updatable fields" }, { status: 400 });

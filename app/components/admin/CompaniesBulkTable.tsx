@@ -9,27 +9,115 @@ import {
   ExternalLink,
   Loader2,
   Mail,
+  Sparkles,
   Trash2,
+  Undo2,
   UserPlus,
   X,
 } from "lucide-react";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+export type ClientStatus = "prospect" | "client" | "template";
+
 export type CompanyRow = {
   id: string;
   name: string;
   slug: string;
   url: string;
+  status: ClientStatus;
   reportCount: number;
   ownerCount: number;
   locationCount: number;
+};
+
+type StatusFilter = "all" | ClientStatus;
+
+const STATUS_LABEL: Record<ClientStatus, string> = {
+  prospect: "Prospect",
+  client: "Client",
+  template: "Template",
+};
+
+const STATUS_BADGE: Record<ClientStatus, string> = {
+  prospect: "bg-amber-50 text-amber-800 ring-amber-200",
+  client: "bg-emerald-50 text-emerald-800 ring-emerald-200",
+  template: "bg-sky-50 text-sky-800 ring-sky-200",
 };
 
 export function CompaniesBulkTable({ companies }: { companies: CompanyRow[] }) {
   const router = useRouter();
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [working, setWorking] = useState(false);
+  const [filter, setFilter] = useState<StatusFilter>("all");
+  const [convertingId, setConvertingId] = useState<string | null>(null);
+
+  const counts = useMemo(() => {
+    const c = { all: companies.length, prospect: 0, client: 0, template: 0 };
+    for (const co of companies) c[co.status]++;
+    return c;
+  }, [companies]);
+
+  const visible = useMemo(
+    () => (filter === "all" ? companies : companies.filter((c) => c.status === filter)),
+    [companies, filter],
+  );
+
+  async function setStatusBulk(targetStatus: ClientStatus) {
+    if (selected.size === 0) return;
+    const ids = Array.from(selected).filter((id) => {
+      const row = companies.find((c) => c.id === id);
+      return row && row.status !== targetStatus;
+    });
+    if (ids.length === 0) {
+      alert(`All selected entries are already ${STATUS_LABEL[targetStatus].toLowerCase()}s.`);
+      return;
+    }
+    const verb = targetStatus === "client" ? "promote to client" : "move back to prospect";
+    if (!confirm(`${ids.length === 1 ? "1 entry" : `${ids.length} entries`} will ${verb}. Continue?`)) {
+      return;
+    }
+    setWorking(true);
+    const results = await Promise.allSettled(
+      ids.map((id) =>
+        fetch(`/api/clients/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: targetStatus }),
+        }).then((r) => {
+          if (!r.ok) throw new Error(`${id}: ${r.status}`);
+          return r.json();
+        }),
+      ),
+    );
+    setWorking(false);
+    const failures = results.filter((r) => r.status === "rejected");
+    if (failures.length > 0) {
+      alert(`${failures.length} update(s) failed. Check console for details.`);
+      console.error("Bulk status change failures:", failures);
+    }
+    clearSelection();
+    router.refresh();
+  }
+
+  async function convertOne(id: string, targetStatus: ClientStatus) {
+    setConvertingId(id);
+    try {
+      const res = await fetch(`/api/clients/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: targetStatus }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        alert(data.error ?? "Failed to update status.");
+        return;
+      }
+      router.refresh();
+    } finally {
+      setConvertingId(null);
+    }
+  }
   const [shareOpen, setShareOpen] = useState(false);
   const [shareEmail, setShareEmail] = useState("");
   const [shareStep, setShareStep] = useState<"form" | "confirm" | "success">("form");
@@ -55,11 +143,13 @@ export function CompaniesBulkTable({ companies }: { companies: CompanyRow[] }) {
     return () => document.removeEventListener("mousedown", onClick);
   }, [shareOpen]);
 
-  const allSelected = useMemo(
-    () => companies.length > 0 && selected.size === companies.length,
-    [companies.length, selected.size]
+  const visibleIds = useMemo(() => visible.map((c) => c.id), [visible]);
+  const visibleSelectedCount = useMemo(
+    () => visibleIds.reduce((acc, id) => acc + (selected.has(id) ? 1 : 0), 0),
+    [visibleIds, selected],
   );
-  const someSelected = selected.size > 0 && !allSelected;
+  const allSelected = visible.length > 0 && visibleSelectedCount === visible.length;
+  const someSelected = visibleSelectedCount > 0 && !allSelected;
 
   function toggleOne(id: string) {
     setSelected((prev) => {
@@ -71,10 +161,24 @@ export function CompaniesBulkTable({ companies }: { companies: CompanyRow[] }) {
   }
 
   function toggleAll() {
-    setSelected((prev) =>
-      prev.size === companies.length ? new Set() : new Set(companies.map((c) => c.id))
-    );
+    setSelected((prev) => {
+      if (visibleSelectedCount === visible.length) {
+        const next = new Set(prev);
+        for (const id of visibleIds) next.delete(id);
+        return next;
+      }
+      const next = new Set(prev);
+      for (const id of visibleIds) next.add(id);
+      return next;
+    });
   }
+
+  const selectedRows = useMemo(
+    () => companies.filter((c) => selected.has(c.id)),
+    [companies, selected],
+  );
+  const selectedHasProspect = selectedRows.some((r) => r.status === "prospect");
+  const selectedHasClient = selectedRows.some((r) => r.status === "client");
 
   function clearSelection() {
     setSelected(new Set());
@@ -97,7 +201,7 @@ export function CompaniesBulkTable({ companies }: { companies: CompanyRow[] }) {
         : "";
     if (
       !confirm(
-        `Permanently delete ${count} compan${count === 1 ? "y" : "ies"}? This cannot be undone.${tail}`
+        `Permanently delete ${count} ${count === 1 ? "entry" : "entries"}? This cannot be undone.${tail}`
       )
     ) {
       return;
@@ -182,7 +286,7 @@ export function CompaniesBulkTable({ companies }: { companies: CompanyRow[] }) {
       <div className="rounded-xl border border-[var(--color-border)] bg-white">
         <div className="px-6 py-16 text-center">
           <Building2 className="mx-auto h-10 w-10 text-[var(--color-warm-gray-light)]" />
-          <p className="mt-4 text-sm font-medium text-[var(--color-charcoal)]">No companies yet</p>
+          <p className="mt-4 text-sm font-medium text-[var(--color-charcoal)]">No prospects or clients yet</p>
           <p className="mt-1 text-xs text-[var(--color-warm-gray)]">
             Run{" "}
             <code className="rounded bg-[var(--color-cream-dark)] px-1 py-0.5 font-mono">
@@ -195,8 +299,42 @@ export function CompaniesBulkTable({ companies }: { companies: CompanyRow[] }) {
     );
   }
 
+  const TABS: { value: StatusFilter; label: string; count: number }[] = [
+    { value: "all", label: "All", count: counts.all },
+    { value: "prospect", label: "Prospects", count: counts.prospect },
+    { value: "client", label: "Clients", count: counts.client },
+    { value: "template", label: "Templates", count: counts.template },
+  ];
+
   return (
     <>
+      <div className="flex flex-wrap items-center gap-1 rounded-xl border border-[var(--color-border)] bg-white p-1">
+        {TABS.map((t) => {
+          const active = filter === t.value;
+          return (
+            <button
+              key={t.value}
+              type="button"
+              onClick={() => setFilter(t.value)}
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+                active
+                  ? "bg-[var(--color-charcoal)] text-white"
+                  : "text-[var(--color-warm-gray)] hover:bg-[var(--color-cream)] hover:text-[var(--color-charcoal)]"
+              }`}
+            >
+              {t.label}
+              <span
+                className={`rounded-full px-1.5 text-[10px] tabular-nums ${
+                  active ? "bg-white/20 text-white" : "bg-[var(--color-cream-dark)] text-[var(--color-warm-gray)]"
+                }`}
+              >
+                {t.count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
       {selected.size > 0 && (
         <div className="sticky top-0 z-10 flex flex-wrap items-center gap-3 rounded-xl border border-[var(--color-charcoal)] bg-[var(--color-charcoal)] px-4 py-3 text-white shadow-lg">
           <button
@@ -208,6 +346,28 @@ export function CompaniesBulkTable({ companies }: { companies: CompanyRow[] }) {
           </button>
           <span className="text-sm font-medium">{selected.size} selected</span>
           <div className="ml-auto flex flex-wrap items-center gap-2">
+            {selectedHasProspect && (
+              <button
+                onClick={() => setStatusBulk("client")}
+                disabled={working}
+                className="inline-flex items-center gap-1.5 rounded-md bg-emerald-500/90 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-emerald-500 disabled:opacity-50"
+                title="Promote selected prospects to clients"
+              >
+                <Sparkles className="h-3.5 w-3.5" />
+                Promote to client
+              </button>
+            )}
+            {selectedHasClient && (
+              <button
+                onClick={() => setStatusBulk("prospect")}
+                disabled={working}
+                className="inline-flex items-center gap-1.5 rounded-md bg-white/10 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-white/20 disabled:opacity-50"
+                title="Move selected clients back to prospect"
+              >
+                <Undo2 className="h-3.5 w-3.5" />
+                Move to prospect
+              </button>
+            )}
             <div className="relative" ref={shareRef}>
               <button
                 onClick={() => {
@@ -379,7 +539,10 @@ export function CompaniesBulkTable({ companies }: { companies: CompanyRow[] }) {
                 />
               </th>
               <th className="px-6 py-2 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
-                Company
+                Name
+              </th>
+              <th className="px-6 py-2 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
+                Status
               </th>
               <th className="hidden px-6 py-2 text-left text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)] md:table-cell">
                 Website
@@ -399,8 +562,16 @@ export function CompaniesBulkTable({ companies }: { companies: CompanyRow[] }) {
             </tr>
           </thead>
           <tbody className="divide-y divide-[var(--color-border)]">
-            {companies.map((c, index) => {
+            {visible.length === 0 && (
+              <tr>
+                <td colSpan={8} className="px-6 py-10 text-center text-xs text-[var(--color-warm-gray)]">
+                  No {filter === "all" ? "entries" : `${STATUS_LABEL[filter as ClientStatus].toLowerCase()}s`} match this filter.
+                </td>
+              </tr>
+            )}
+            {visible.map((c, index) => {
               const isSelected = selected.has(c.id);
+              const isConverting = convertingId === c.id;
               return (
                 <tr
                   key={c.id}
@@ -424,6 +595,13 @@ export function CompaniesBulkTable({ companies }: { companies: CompanyRow[] }) {
                       {c.name}
                     </Link>
                   </td>
+                  <td className="px-6 py-1.5">
+                    <span
+                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ring-1 ring-inset ${STATUS_BADGE[c.status]}`}
+                    >
+                      {STATUS_LABEL[c.status]}
+                    </span>
+                  </td>
                   <td className="hidden px-6 py-1.5 md:table-cell">
                     <a
                       href={c.url.startsWith("http") ? c.url : `https://${c.url}`}
@@ -444,12 +622,46 @@ export function CompaniesBulkTable({ companies }: { companies: CompanyRow[] }) {
                     {c.ownerCount}
                   </td>
                   <td className="px-6 py-1.5 text-right">
-                    <Link
-                      href={`/admin/companies/${c.slug}`}
-                      className="rounded-lg px-2.5 py-1 text-xs font-medium text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
-                    >
-                      Manage
-                    </Link>
+                    <div className="inline-flex items-center gap-1">
+                      {c.status === "prospect" && (
+                        <button
+                          type="button"
+                          onClick={() => convertOne(c.id, "client")}
+                          disabled={isConverting || working}
+                          className="inline-flex items-center gap-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-800 transition-colors hover:bg-emerald-100 disabled:opacity-50"
+                          title="Promote this prospect to a client"
+                        >
+                          {isConverting ? (
+                            <Loader2 className="h-3 w-3 animate-spin" />
+                          ) : (
+                            <Sparkles className="h-3 w-3" />
+                          )}
+                          Convert to client
+                        </button>
+                      )}
+                      {c.status === "client" && (
+                        <button
+                          type="button"
+                          onClick={() => convertOne(c.id, "prospect")}
+                          disabled={isConverting || working}
+                          className="inline-flex items-center gap-1 rounded-lg border border-[var(--color-border)] bg-white px-2.5 py-1 text-xs font-medium text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream)] hover:text-[var(--color-charcoal)] disabled:opacity-50"
+                          title="Move this client back to prospect"
+                        >
+                          {isConverting ? (
+                            <Loader2 className="h-3 w-3 animate-spin" />
+                          ) : (
+                            <Undo2 className="h-3 w-3" />
+                          )}
+                          Demote
+                        </button>
+                      )}
+                      <Link
+                        href={`/admin/companies/${c.slug}`}
+                        className="rounded-lg px-2.5 py-1 text-xs font-medium text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
+                      >
+                        Manage
+                      </Link>
+                    </div>
                   </td>
                 </tr>
               );
@@ -518,7 +730,7 @@ function SelectAllCell({
           if (el) el.indeterminate = someSelected;
         }}
         onChange={onToggle}
-        aria-label="Select all companies"
+        aria-label="Select all visible entries"
         className={`absolute inset-0 m-auto h-4 w-4 cursor-pointer rounded border-[var(--color-border)] accent-[var(--color-charcoal)] transition-opacity ${
           checked ? "opacity-100" : "opacity-0 group-hover/head:opacity-100"
         }`}
