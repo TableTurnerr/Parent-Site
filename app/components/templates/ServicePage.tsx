@@ -11,6 +11,7 @@ import CTA from "@/app/components/sections/CTA";
 import { fadeInUp, staggerContainer, scaleIn } from "@/app/lib/animations";
 import type { ServicePageData } from "@/app/lib/service-data";
 import { getRelatedServices } from "@/app/lib/service-data";
+import { TARGET_CITIES } from "@/app/lib/location-data";
 
 function ArrowIcon() {
   return (
@@ -199,6 +200,33 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
       {/* FAQ */}
       <ServiceFAQ faqs={service.faqs} serviceName={service.title} />
 
+      {/* Serving Texas cities — internal links to per-city variants */}
+      <section className="bg-cream py-16 md:py-24">
+        <Container>
+          <AnimatedElement variants={fadeInUp} className="mb-8 md:mb-10">
+            <SectionLabel>Serving Texas</SectionLabel>
+            <h2 className="font-display font-bold text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl">
+              {service.title} in Your City
+            </h2>
+          </AnimatedElement>
+          <AnimatedElement
+            variants={staggerContainer}
+            className="flex flex-wrap gap-2.5"
+          >
+            {TARGET_CITIES.map((city) => (
+              <AnimatedElement key={city.slug} variants={fadeInUp}>
+                <Link
+                  href={`/services/${service.slug}/${city.slug}`}
+                  className="inline-block rounded-full border border-border bg-cream-dark px-4 py-2 text-sm text-charcoal hover:border-charcoal/30 hover:text-accent transition-colors"
+                >
+                  {service.title.replace(/^Restaurant /, "")} in {city.name}
+                </Link>
+              </AnimatedElement>
+            ))}
+          </AnimatedElement>
+        </Container>
+      </section>
+
       {/* CTA */}
       <CTA />
 
@@ -220,6 +248,7 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
               <AnimatedElement key={related.slug} variants={fadeInUp}>
                 <Link
                   href={`/services/${related.slug}`}
+                  aria-label={`Learn more about ${related.title}`}
                   className="service-card block bg-cream rounded-[1.25rem] p-7 md:p-8 h-full border border-transparent hover:border-border hover:shadow-[0_2px_20px_rgba(0,0,0,0.04)] transition-all duration-300"
                 >
                   <div className="flex flex-col justify-between h-full min-h-[200px]">

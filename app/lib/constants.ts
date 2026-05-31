@@ -1,6 +1,7 @@
 export const NAV_LINKS = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
+  { label: "Locations", href: "/locations" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
@@ -59,7 +60,7 @@ export const SOCIAL_LINKS = [
 export const SITE_CONFIG = {
   name: "TableTurnerr",
   url: "https://tableturnerr.com",
-  tagline: "Restaurant Website Design, SEO & Marketing Agency",
+  tagline: "Texas Restaurant Website Design, SEO & Marketing Agency",
   email: "contact@tableturnerr.com",
   phone: "+1 (808) 559-9006",
 } as const;
