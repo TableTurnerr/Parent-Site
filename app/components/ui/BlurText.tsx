@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useMemo } from "react";
+import { useReducedMotion } from "framer-motion";
 
 interface BlurTextProps {
   /** The text string to animate word by word */
@@ -16,6 +17,7 @@ export default function BlurText({
   className = "",
   delay = 0,
 }: BlurTextProps) {
+  const prefersReducedMotion = useReducedMotion();
   const [isAnimating, setIsAnimating] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
 
@@ -39,6 +41,11 @@ export default function BlurText({
   }, [text]);
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setIsAnimating(true);
+      return;
+    }
+
     const el = ref.current;
     if (!el) return;
 
@@ -57,7 +64,7 @@ export default function BlurText({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [delay]);
+  }, [delay, prefersReducedMotion]);
 
   return (
     <span ref={ref} className={className}>

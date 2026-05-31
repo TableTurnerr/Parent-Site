@@ -147,6 +147,15 @@
   transform: scaleX(1);
 }
 
+/* ─── Keyboard focus visibility (custom interactive elements) ─── */
+.flow-btn:focus-visible,
+.nav-link:focus-visible,
+.service-card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
 /* ─── FlowButton ─── */
 .flow-btn {
   position: relative;
@@ -383,6 +392,18 @@
 
 .service-card:hover .service-card-img {
   transform: scale(1.05);
+}
+
+/* ─── Respect reduced-motion preference (a11y / WCAG 2.3.3) ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ─── Interactive Hover Button ─── */

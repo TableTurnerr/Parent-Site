@@ -1,6 +1,11 @@
 "use client";
 
-import { motion, type Variants, type HTMLMotionProps } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  type Variants,
+  type HTMLMotionProps,
+} from "framer-motion";
 
 interface AnimatedElementProps extends HTMLMotionProps<"div"> {
   variants?: Variants;
@@ -14,6 +19,14 @@ export default function AnimatedElement({
   className,
   ...props
 }: AnimatedElementProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  // Honor the user's reduced-motion preference: render content statically
+  // (already visible) instead of running scroll-reveal transforms.
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       initial="hidden"
