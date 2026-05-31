@@ -14,7 +14,7 @@ export default function Hero() {
           <AnimatedElement variants={fadeIn}>
             <div className="bg-cream-dark rounded-[1.25rem] sm:rounded-[1.5rem] p-6 sm:p-8 md:p-12 lg:p-14 flex flex-col justify-center h-full">
               <p className="text-warm-gray text-xs md:text-sm uppercase tracking-[0.2em] font-medium mb-5 md:mb-8">
-                Restaurant Marketing Agency &raquo;
+                Texas Restaurant Marketing Agency &raquo;
               </p>
 
               <h1 className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mb-6 md:mb-8">
@@ -28,13 +28,13 @@ export default function Hero() {
               <p className="text-warm-gray text-base md:text-lg leading-relaxed max-w-md mb-8 md:mb-10">
                 We design high-converting restaurant websites, run local
                 SEO campaigns, and manage Google Ads for independent
-                restaurants — turning online searches into paying
-                customers, every single day.
+                restaurants across Texas, turning online searches into paying
+                customers every single day.
               </p>
 
               <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
                 <Button href="/contact" variant="primary">
-                  Get a Free Report
+                  Get a Free Consultation
                 </Button>
                 <Button href="/services" variant="secondary">
                   View Services

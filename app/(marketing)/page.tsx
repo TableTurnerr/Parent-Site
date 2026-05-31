@@ -19,16 +19,16 @@ import {
 } from "@/app/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Restaurant Website Design, SEO & Marketing Agency",
+  title: "Texas Restaurant Website Design, SEO & Marketing",
   description:
-    "We design SEO-optimized restaurant websites and drive traffic for independent restaurants. Custom website design, local SEO, Google Ads management, and commission-free ordering setup. Get a free quote.",
+    "TableTurnerr helps Texas restaurants grow with SEO-optimized websites, local SEO, and Google Ads. Serving Houston, San Antonio, Dallas, Austin, and restaurants statewide. Get a free consultation.",
   alternates: {
     canonical: "https://tableturnerr.com",
   },
   openGraph: {
-    title: "TableTurnerr | Restaurant Website Design, SEO & Marketing Agency",
+    title: "TableTurnerr | Texas Restaurant Marketing, Web Design & SEO",
     description:
-      "We design SEO-optimized restaurant websites and drive traffic for independent restaurants. Custom website design, local SEO, Google Ads, and commission-free ordering setup.",
+      "We help Texas restaurants grow with SEO-optimized websites, local SEO, Google Ads, and commission-free ordering. Serving Houston, Dallas, Austin, and statewide.",
     url: "https://tableturnerr.com",
     siteName: "TableTurnerr",
     type: "website",
@@ -36,9 +36,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TableTurnerr | Restaurant Website Design, SEO & Marketing Agency",
+    title: "TableTurnerr | Texas Restaurant Marketing, Web Design & SEO",
     description:
-      "Custom restaurant websites, local SEO, Google Ads, and commission-free ordering for independent restaurants.",
+      "SEO-optimized websites, local SEO, Google Ads, and commission-free ordering for Texas restaurants.",
   },
 };
 

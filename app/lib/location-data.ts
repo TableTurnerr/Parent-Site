@@ -5,16 +5,19 @@ export interface CityData {
   stateCode: string;
 }
 
-// Target cities from SEO Report section 4.4 (Local/Geo Keywords)
+// Texas-first local SEO targeting: top Texas metros by population.
+// Start with the 10 largest TX markets; expand as client coverage grows.
 export const TARGET_CITIES: CityData[] = [
-  { slug: "new-york", name: "New York", state: "New York", stateCode: "NY" },
-  { slug: "los-angeles", name: "Los Angeles", state: "California", stateCode: "CA" },
-  { slug: "chicago", name: "Chicago", state: "Illinois", stateCode: "IL" },
   { slug: "houston", name: "Houston", state: "Texas", stateCode: "TX" },
+  { slug: "san-antonio", name: "San Antonio", state: "Texas", stateCode: "TX" },
   { slug: "dallas", name: "Dallas", state: "Texas", stateCode: "TX" },
-  { slug: "miami", name: "Miami", state: "Florida", stateCode: "FL" },
-  { slug: "atlanta", name: "Atlanta", state: "Georgia", stateCode: "GA" },
-  { slug: "san-francisco", name: "San Francisco", state: "California", stateCode: "CA" },
+  { slug: "austin", name: "Austin", state: "Texas", stateCode: "TX" },
+  { slug: "fort-worth", name: "Fort Worth", state: "Texas", stateCode: "TX" },
+  { slug: "el-paso", name: "El Paso", state: "Texas", stateCode: "TX" },
+  { slug: "arlington", name: "Arlington", state: "Texas", stateCode: "TX" },
+  { slug: "corpus-christi", name: "Corpus Christi", state: "Texas", stateCode: "TX" },
+  { slug: "plano", name: "Plano", state: "Texas", stateCode: "TX" },
+  { slug: "laredo", name: "Laredo", state: "Texas", stateCode: "TX" },
 ];
 
 export function getCityBySlug(slug: string): CityData | undefined {

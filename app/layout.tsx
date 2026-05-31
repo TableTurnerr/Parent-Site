@@ -32,30 +32,30 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://tableturnerr.com"),
   title: {
     default:
-      "TableTurnerr | Restaurant Website Design, SEO & Marketing Agency",
+      "TableTurnerr | Texas Restaurant Marketing, Web Design & SEO",
     template: "%s | TableTurnerr",
   },
   description:
-    "We design SEO-optimized restaurant websites and drive traffic for independent restaurants. Custom website design, local SEO, Google Ads management, and commission-free ordering setup. Get a free quote.",
+    "TableTurnerr helps Texas restaurants grow with SEO-optimized websites, local SEO, and Google Ads. Serving Houston, San Antonio, Dallas, Austin, and restaurants across Texas. Get a free consultation.",
   keywords: [
+    "restaurant marketing Texas",
+    "Texas restaurant SEO",
+    "restaurant marketing agency Texas",
+    "restaurant website design Texas",
     "restaurant website design",
     "restaurant SEO",
     "restaurant marketing agency",
     "restaurant branding",
     "Google Ads for restaurants",
     "Google Business Profile optimization",
-    "restaurant digital marketing",
-    "independent restaurant marketing",
-    "commission-free online ordering",
-    "restaurant menu design",
     "local SEO for restaurants",
-    "restaurant website builder",
+    "commission-free online ordering",
   ],
   openGraph: {
     siteName: "TableTurnerr",
     locale: "en_US",
     type: "website",
-    images: [{ url: "/images/og/default.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/images/usage/restaurant-kitchen-2.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",

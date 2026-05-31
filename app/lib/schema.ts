@@ -6,16 +6,16 @@ export function generateOrganizationSchema() {
     "@type": ["ProfessionalService", "MarketingAgency"],
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
-    logo: `${SITE_CONFIG.url}/images/og/default.jpg`,
-    image: `${SITE_CONFIG.url}/images/og/default.jpg`,
+    logo: `${SITE_CONFIG.url}/images/usage/restaurant-kitchen-2.jpg`,
+    image: `${SITE_CONFIG.url}/images/usage/restaurant-kitchen-2.jpg`,
     description:
       "TableTurnerr is a restaurant marketing agency specializing in custom website design, SEO, Google Ads, and branding for independent restaurants.",
     email: SITE_CONFIG.email,
     telephone: SITE_CONFIG.phone,
     priceRange: "$$",
     areaServed: {
-      "@type": "Country",
-      name: "United States",
+      "@type": "State",
+      name: "Texas",
     },
     serviceType: [
       "Restaurant Website Design",
@@ -73,6 +73,7 @@ export function generateServiceSchema(service: {
   name: string;
   description: string;
   url: string;
+  areaServed?: { type: "State" | "City"; name: string };
 }) {
   return {
     "@context": "https://schema.org",
@@ -85,10 +86,9 @@ export function generateServiceSchema(service: {
       name: SITE_CONFIG.name,
       url: SITE_CONFIG.url,
     },
-    areaServed: {
-      "@type": "Country",
-      name: "United States",
-    },
+    areaServed: service.areaServed
+      ? { "@type": service.areaServed.type, name: service.areaServed.name }
+      : { "@type": "State", name: "Texas" },
     serviceType: service.name,
   };
 }
