@@ -101,6 +101,9 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
+                <FlipLink href="/savings-calculator">Commission Calculator</FlipLink>
+              </li>
+              <li>
                 <FlipLink href={`mailto:${SITE_CONFIG.email}`}>
                   {SITE_CONFIG.email}
                 </FlipLink>

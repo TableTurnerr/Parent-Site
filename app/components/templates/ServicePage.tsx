@@ -34,7 +34,13 @@ function ArrowIcon() {
   );
 }
 
-export default function ServicePage({ service }: { service: ServicePageData }) {
+export default function ServicePage({
+  service,
+  children,
+}: {
+  service: ServicePageData;
+  children?: React.ReactNode;
+}) {
   const relatedServices = getRelatedServices(service.slug);
 
   return (
@@ -196,6 +202,9 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
           </AnimatedElement>
         </Container>
       </section>
+
+      {/* Optional page-specific section (e.g. savings calculator) */}
+      {children}
 
       {/* FAQ */}
       <ServiceFAQ faqs={service.faqs} serviceName={service.title} />
