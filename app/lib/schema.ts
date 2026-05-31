@@ -14,8 +14,8 @@ export function generateOrganizationSchema() {
     telephone: SITE_CONFIG.phone,
     priceRange: "$$",
     areaServed: {
-      "@type": "State",
-      name: "Texas",
+      "@type": "Country",
+      name: "United States",
     },
     serviceType: [
       "Restaurant Website Design",
@@ -88,7 +88,7 @@ export function generateServiceSchema(service: {
     },
     areaServed: service.areaServed
       ? { "@type": service.areaServed.type, name: service.areaServed.name }
-      : { "@type": "State", name: "Texas" },
+      : { "@type": "Country", name: "United States" },
     serviceType: service.name,
   };
 }

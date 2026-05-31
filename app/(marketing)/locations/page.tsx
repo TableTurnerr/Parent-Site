@@ -12,14 +12,14 @@ import {
 import { createPageMetadata } from "@/app/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Restaurant Marketing Across Texas",
+  title: "Areas We Serve",
   description:
-    "TableTurnerr serves restaurants across Texas — Houston, San Antonio, Dallas, Austin, Fort Worth, and more. Find restaurant website design, SEO, and Google Ads in your city.",
+    "TableTurnerr works with independent restaurants across the U.S. Browse our city pages for restaurant website design, SEO, and Google Ads in your market.",
   path: "/locations",
   keywords: [
-    "restaurant marketing Texas",
-    "Texas restaurant SEO",
-    "restaurant marketing agency Texas cities",
+    "restaurant marketing by city",
+    "local restaurant marketing",
+    "restaurant SEO near me",
   ],
 });
 
@@ -44,12 +44,13 @@ export default function LocationsPage() {
           <div className="max-w-2xl">
             <SectionLabel>Service Areas</SectionLabel>
             <h1 className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mt-3 mb-6">
-              Restaurant Marketing Across Texas
+              Areas We Serve
             </h1>
             <p className="text-warm-gray text-lg leading-relaxed">
-              We help independent restaurants grow in cities across Texas. Pick
-              your city to see how our website design, local SEO, and Google Ads
-              services work for restaurants near you.
+              We help independent restaurants grow across the U.S. These city
+              pages dig into restaurant marketing in specific markets, with more
+              added over time. Pick a city to see how our website design, local
+              SEO, and Google Ads services work for restaurants near you.
             </p>
           </div>
         </Container>

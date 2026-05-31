@@ -200,11 +200,11 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
       {/* FAQ */}
       <ServiceFAQ faqs={service.faqs} serviceName={service.title} />
 
-      {/* Serving Texas cities — internal links to per-city variants */}
+      {/* Areas we serve — internal links to per-city variants */}
       <section className="bg-cream py-16 md:py-24">
         <Container>
           <AnimatedElement variants={fadeInUp} className="mb-8 md:mb-10">
-            <SectionLabel>Serving Texas</SectionLabel>
+            <SectionLabel>Areas We Serve</SectionLabel>
             <h2 className="font-display font-bold text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl">
               {service.title} in Your City
             </h2>

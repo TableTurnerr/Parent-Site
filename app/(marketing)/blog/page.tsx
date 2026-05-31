@@ -11,7 +11,7 @@ import { SERVICES } from "@/app/lib/constants";
 export const metadata: Metadata = {
   title: "Restaurant Marketing Blog",
   description:
-    "Restaurant marketing, local SEO, and Google Ads insights for independent restaurants in Texas. New articles coming soon.",
+    "Restaurant marketing, local SEO, and Google Ads insights for independent restaurants. New articles coming soon.",
   alternates: { canonical: "/blog" },
   robots: { index: false, follow: true },
 };
@@ -27,9 +27,9 @@ export default function BlogPage() {
           </h1>
           <p className="text-warm-gray text-lg leading-relaxed mb-8">
             We&apos;re putting together practical guides on restaurant SEO, Google
-            Ads, and local marketing for independent restaurants across Texas.
-            The first articles land shortly. In the meantime, explore what we do
-            or get a free consultation.
+            Ads, and local marketing for independent restaurants. The first
+            articles land shortly. In the meantime, explore what we do or get a
+            free consultation.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Button href="/contact" variant="primary">

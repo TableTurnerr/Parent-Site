@@ -60,7 +60,7 @@ export const SOCIAL_LINKS = [
 export const SITE_CONFIG = {
   name: "TableTurnerr",
   url: "https://tableturnerr.com",
-  tagline: "Texas Restaurant Website Design, SEO & Marketing Agency",
+  tagline: "Restaurant Website Design, SEO & Marketing Agency",
   email: "contact@tableturnerr.com",
   phone: "+1 (808) 559-9006",
 } as const;
