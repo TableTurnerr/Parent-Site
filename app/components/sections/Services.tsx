@@ -64,6 +64,7 @@ export default function Services() {
                 <AnimatedElement key={service.slug} variants={fadeInUp}>
                   <Link
                     href={`/services/${service.slug}`}
+                    aria-label={`Learn more about ${service.title}`}
                     className="service-card block bg-cream-dark rounded-[1.25rem] overflow-hidden h-full border border-transparent hover:border-border hover:shadow-[0_2px_20px_rgba(0,0,0,0.04)] transition-all duration-300"
                   >
                     {image && (
@@ -107,6 +108,7 @@ export default function Services() {
               <AnimatedElement key={service.slug} variants={fadeInUp}>
                 <Link
                   href={`/services/${service.slug}`}
+                  aria-label={`Learn more about ${service.title}`}
                   className="service-card block bg-cream-dark rounded-[1.25rem] p-7 md:p-8 lg:p-9 h-full border border-transparent hover:border-border hover:shadow-[0_2px_20px_rgba(0,0,0,0.04)] transition-all duration-300"
                 >
                   <div className="flex flex-col justify-between h-full min-h-[200px] md:min-h-[220px]">

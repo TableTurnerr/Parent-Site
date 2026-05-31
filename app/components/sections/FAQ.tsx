@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
 import BlurText from "@/app/components/ui/BlurText";
 import Container from "@/app/components/ui/Container";
@@ -63,6 +64,20 @@ export default function FAQ() {
                 </AnimatedElement>
               ))}
             </Accordion>
+
+            <AnimatedElement variants={fadeInUp}>
+              <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-[1.25rem] bg-cream-dark border border-border p-6">
+                <p className="text-charcoal font-medium">
+                  Still have questions about growing your restaurant?
+                </p>
+                <Link
+                  href="/contact"
+                  className="shrink-0 inline-flex items-center justify-center rounded-full bg-charcoal text-cream px-6 py-3 text-sm font-medium hover:bg-charcoal-light transition-colors"
+                >
+                  Get in touch
+                </Link>
+              </div>
+            </AnimatedElement>
           </AnimatedElement>
         </div>
       </Container>

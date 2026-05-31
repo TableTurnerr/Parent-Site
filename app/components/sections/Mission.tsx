@@ -53,8 +53,8 @@ export default function Mission() {
 
         {/* Two column layout: image + values */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* Left — large image */}
-          <AnimatedElement variants={fadeIn} className="lg:col-span-5">
+          {/* Image (right on desktop for layout rhythm vs hero) */}
+          <AnimatedElement variants={fadeIn} className="lg:col-span-5 lg:order-2">
             <div className="relative rounded-[1.25rem] overflow-hidden h-[280px] sm:h-[360px] md:h-[440px]">
               <Image
                 src="/images/usage/happy-diners.webp"
@@ -69,7 +69,7 @@ export default function Mission() {
           {/* Right — body text + value pillars */}
           <AnimatedElement
             variants={staggerContainer}
-            className="lg:col-span-7 flex flex-col justify-center"
+            className="lg:col-span-7 lg:order-1 flex flex-col justify-center"
           >
             <AnimatedElement variants={fadeInUp}>
               <p className="text-warm-gray text-lg leading-relaxed max-w-xl mb-10">

@@ -88,7 +88,7 @@ export default function Partners() {
             <AnimatedElement
               key={partner.name}
               variants={fadeInUp}
-              className="rounded-[1.25rem] border border-charcoal/10 bg-cream/50 p-6 sm:p-8 md:p-10 flex flex-col"
+              className="rounded-[1.25rem] border border-charcoal/10 bg-cream/50 p-6 sm:p-8 md:p-10 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:border-charcoal/20"
             >
               {/* Partner header */}
               <div className="mb-6">
