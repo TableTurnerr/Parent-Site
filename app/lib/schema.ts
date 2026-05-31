@@ -120,6 +120,42 @@ export function generateFAQSchema(
   };
 }
 
+export function generateArticleSchema(article: {
+  title: string;
+  description: string;
+  url: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+  authorName?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: article.title,
+    description: article.description,
+    url: article.url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": article.url },
+    ...(article.image && { image: article.image }),
+    ...(article.datePublished && { datePublished: article.datePublished }),
+    ...(article.dateModified && { dateModified: article.dateModified }),
+    author: {
+      "@type": "Organization",
+      name: article.authorName ?? SITE_CONFIG.name,
+      url: SITE_CONFIG.url,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_CONFIG.name,
+      url: SITE_CONFIG.url,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_CONFIG.url}/images/usage/restaurant-kitchen-2.jpg`,
+      },
+    },
+  };
+}
+
 export function generateBreadcrumbSchema(
   items: { name: string; url: string }[]
 ) {

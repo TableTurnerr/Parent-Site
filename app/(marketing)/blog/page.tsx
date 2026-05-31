@@ -1,65 +1,147 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import Container from "@/app/components/ui/Container";
 import Button from "@/app/components/ui/Button";
 import SectionLabel from "@/app/components/ui/SectionLabel";
-import { SERVICES } from "@/app/lib/constants";
+import { SERVICES, SITE_CONFIG } from "@/app/lib/constants";
+import { createPageMetadata } from "@/app/lib/metadata";
+import { generateBreadcrumbSchema } from "@/app/lib/schema";
+import { getPublishedPosts, formatPostDate } from "@/app/lib/blog";
 
-// TODO(blog): real posts ship in ~2-3 days via the Supabase blog_posts backend
-// (admin editor at /admin/posts). When the public reader is wired, REMOVE the
-// `robots: noindex` below so posts can be indexed.
-export const metadata: Metadata = {
+// Revalidate hourly so newly published posts appear without a redeploy.
+export const revalidate = 3600;
+
+export const metadata: Metadata = createPageMetadata({
   title: "Restaurant Marketing Blog",
   description:
-    "Restaurant marketing, local SEO, and Google Ads insights for independent restaurants. New articles coming soon.",
-  alternates: { canonical: "/blog" },
-  robots: { index: false, follow: true },
-};
+    "Restaurant marketing, local SEO, and Google Ads insights for independent restaurants. Practical guides, tips, and strategies to fill more tables.",
+  path: "/blog",
+  keywords: [
+    "restaurant marketing blog",
+    "restaurant SEO tips",
+    "restaurant marketing ideas",
+    "how to market a restaurant",
+  ],
+});
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getPublishedPosts();
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: SITE_CONFIG.url },
+    { name: "Blog", url: `${SITE_CONFIG.url}/blog` },
+  ]);
+
   return (
-    <section className="bg-cream pt-28 sm:pt-32 md:pt-36 pb-16 md:pb-28">
-      <Container>
-        <div className="max-w-2xl">
-          <SectionLabel>Blog</SectionLabel>
-          <h1 className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mt-3 mb-6">
-            Restaurant marketing insights, coming soon
-          </h1>
-          <p className="text-warm-gray text-lg leading-relaxed mb-8">
-            We&apos;re putting together practical guides on restaurant SEO, Google
-            Ads, and local marketing for independent restaurants. The first
-            articles land shortly. In the meantime, explore what we do or get a
-            free consultation.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button href="/contact" variant="primary">
-              Get a Free Consultation
-            </Button>
-            <Button href="/services" variant="secondary">
-              View Our Services
-            </Button>
-          </div>
-        </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
-        {/* Keep crawlers and visitors moving into real content */}
-        <div className="mt-14 md:mt-20">
-          <h2 className="font-display font-semibold text-lg text-charcoal mb-5">
-            Explore our services
-          </h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {SERVICES.map((service) => (
-              <li key={service.slug}>
+      <section className="bg-cream pt-28 sm:pt-32 md:pt-36 pb-12 md:pb-16">
+        <Container>
+          <div className="max-w-2xl">
+            <SectionLabel>Blog</SectionLabel>
+            <h1 className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mt-3 mb-6">
+              Restaurant Marketing Insights
+            </h1>
+            <p className="text-warm-gray text-lg leading-relaxed">
+              Practical guides on restaurant SEO, Google Ads, and local
+              marketing, written to help independent restaurants grow online and
+              fill more tables.
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-cream pb-20 md:pb-28">
+        <Container>
+          {posts.length === 0 ? (
+            <EmptyState />
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {posts.map((post) => (
                 <Link
-                  href={`/services/${service.slug}`}
-                  className="block rounded-xl border border-border bg-cream-dark px-5 py-4 text-charcoal hover:border-charcoal/30 transition-colors"
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group block rounded-[1.25rem] border border-border bg-cream-dark overflow-hidden hover:border-charcoal/30 hover:shadow-[0_2px_20px_rgba(0,0,0,0.04)] transition-all duration-300"
                 >
-                  {service.title}
+                  {post.featured_image && (
+                    <div className="relative aspect-[16/10] overflow-hidden">
+                      <Image
+                        src={post.featured_image}
+                        alt={post.featured_image_alt ?? post.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 text-xs text-warm-gray-light mb-3">
+                      <time dateTime={post.published_at ?? undefined}>
+                        {formatPostDate(post.published_at)}
+                      </time>
+                      {post.reading_time ? (
+                        <>
+                          <span aria-hidden="true">·</span>
+                          <span>{post.reading_time} min read</span>
+                        </>
+                      ) : null}
+                    </div>
+                    <h2 className="font-display font-semibold text-xl leading-snug text-charcoal mb-2 group-hover:text-accent transition-colors">
+                      {post.title}
+                    </h2>
+                    {post.excerpt && (
+                      <p className="text-warm-gray text-sm leading-relaxed line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                    )}
+                  </div>
                 </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Container>
-    </section>
+              ))}
+            </div>
+          )}
+        </Container>
+      </section>
+    </>
+  );
+}
+
+function EmptyState() {
+  return (
+    <div className="max-w-2xl">
+      <p className="text-warm-gray text-lg leading-relaxed mb-8">
+        New articles are on the way. In the meantime, explore what we do or get a
+        free consultation.
+      </p>
+      <div className="flex flex-col sm:flex-row gap-3">
+        <Button href="/contact" variant="primary">
+          Get a Free Consultation
+        </Button>
+        <Button href="/services" variant="secondary">
+          View Our Services
+        </Button>
+      </div>
+      <div className="mt-14">
+        <h2 className="font-display font-semibold text-lg text-charcoal mb-5">
+          Explore our services
+        </h2>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {SERVICES.map((service) => (
+            <li key={service.slug}>
+              <Link
+                href={`/services/${service.slug}`}
+                className="block rounded-xl border border-border bg-cream-dark px-5 py-4 text-charcoal hover:border-charcoal/30 transition-colors"
+              >
+                {service.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
