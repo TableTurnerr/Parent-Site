@@ -1,8 +1,6 @@
 import Image from "next/image";
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
-import BlurText from "@/app/components/ui/BlurText";
 import Container from "@/app/components/ui/Container";
-import SectionLabel from "@/app/components/ui/SectionLabel";
 import { fadeInUp, fadeIn, staggerContainer } from "@/app/lib/animations";
 
 const VALUES = [
@@ -28,22 +26,21 @@ const VALUES = [
 
 export default function Mission() {
   return (
-    <section className="bg-cream-dark py-16 md:py-28">
+    <section className="bg-cream-dark py-20 md:py-32">
       <Container>
         {/* Section label */}
         <AnimatedElement variants={fadeInUp}>
-          <SectionLabel>Our Mission</SectionLabel>
+          <p className="eyebrow mb-8">Our Mission</p>
         </AnimatedElement>
 
         {/* Big editorial headline */}
         <AnimatedElement variants={fadeInUp}>
-          <h2 className="font-display font-bold text-[clamp(2.25rem,4.5vw,4rem)] leading-[1.08] tracking-tight text-charcoal mt-5 max-w-5xl">
-            <BlurText text="Independent restaurants pour their heart into every plate" />
+          <h2 className="display-lg text-charcoal max-w-5xl">
+            Independent restaurants pour their heart into every plate.{" "}
             <span className="text-warm-gray-light">
-              {" "}
-              <BlurText text="we build the digital marketing that brings " delay={300} />
+              We build the digital marketing that brings{" "}
             </span>
-            <BlurText text="diners through the door." delay={450} gradient />
+            <span className="text-accent">diners through the door.</span>
           </h2>
         </AnimatedElement>
 

@@ -1,7 +1,5 @@
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
-import BlurText from "@/app/components/ui/BlurText";
 import Container from "@/app/components/ui/Container";
-import SectionLabel from "@/app/components/ui/SectionLabel";
 import { fadeInUp } from "@/app/lib/animations";
 import { UniqueTestimonials, type TestimonialItem } from "@/components/ui/unique-testimonial";
 
@@ -40,11 +38,10 @@ export default function Testimonials() {
   return (
     <section className="bg-cream-dark py-16 md:py-28">
       <Container>
-        <AnimatedElement variants={fadeInUp} className="mb-4 md:mb-6 text-center">
-          <SectionLabel>Testimonials</SectionLabel>
-          <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl mx-auto">
-            <BlurText text="Trusted by Independent Restaurants" />{" "}
-            <BlurText text="Nationwide" delay={150} gradient />
+        <AnimatedElement variants={fadeInUp} className="mb-10 md:mb-14 text-center">
+          <p className="eyebrow mb-6 justify-center">Testimonials</p>
+          <h2 className="display-lg text-charcoal max-w-3xl mx-auto">
+            Trusted by independent restaurants nationwide
           </h2>
         </AnimatedElement>
 

@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
-import BlurText from "@/app/components/ui/BlurText";
 import Container from "@/app/components/ui/Container";
-import SectionLabel from "@/app/components/ui/SectionLabel";
 import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 import {
   Accordion,
@@ -25,14 +23,12 @@ export default function FAQ() {
             className="lg:col-span-5"
           >
             <AnimatedElement variants={fadeInUp}>
-              <SectionLabel>FAQ</SectionLabel>
+              <p className="eyebrow mb-6">FAQ</p>
             </AnimatedElement>
 
             <AnimatedElement variants={fadeInUp}>
-              <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-4 mb-6">
-                <BlurText text="Frequently Asked" />
-                <br />
-                <BlurText text="Questions" delay={200} gradient />
+              <h2 className="display-lg text-charcoal mb-6">
+                Frequently asked questions
               </h2>
             </AnimatedElement>
 
