@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import ImageUploader from "./ImageUploader";
+import ContentChecklist from "./ContentChecklist";
 
 import { VISIBILITY_LABELS, VISIBILITY_DESCRIPTIONS, hasRole } from "@/app/lib/supabase/types";
 import type { UserRole } from "@/app/lib/supabase/types";
@@ -1175,6 +1176,18 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
 
         {/* Sidebar */}
         <div className="space-y-4">
+          {/* Content quality + SEO checklist */}
+          <ContentChecklist
+            title={title}
+            contentHtml={contentHtml}
+            excerpt={excerpt}
+            metaTitle={metaTitle}
+            metaDescription={metaDescription}
+            featuredImageAlt={featuredImageAlt}
+            featuredImage={featuredImage}
+            metaKeywords={metaKeywords}
+          />
+
           {/* Slug */}
           <div className="rounded-xl border border-[var(--color-border)] bg-white p-4">
             <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
