@@ -15,7 +15,7 @@
 
 2. **NEVER use MCP playwright browser tools** (browser_navigate, browser_snapshot, browser_screenshot, etc.) for this skill. The Playwright step is handled entirely by `scripts/grader_cli.py`. Claude's only role is to run that script and read its output.
 
-3. **The client JSON MUST mirror `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.json`.** Same headings, same section IDs, same section types, same order, same tone. Only the *content* changes per client. Read the Pure Pizza JSON before writing any new client report — it is the canonical template.
+3. **The client JSON MUST mirror the bundled sample report.** Same headings, same section IDs, same section types, same order, same tone — only the *content* changes per client. The canonical template is `sample-client-report.json` in this skill's folder. **Read it in full before writing any new report.** Do not look at previously-generated reports in `reports-archive/` for structural reference — the sample in this skill is authoritative and self-contained. Section IDs, types, and order are still locked (see the table in Step 3a); the sample also shows you the current prose patterns, callout phrasing, and section structure.
 
 4. **Data model: companies → locations → reports.** Supabase has three tables:
    - `clients` — one row per **company** (e.g. "Taco Delphia"). Slug is brand-level (`taco-delphia`).
@@ -208,7 +208,25 @@ Each location gets its **own fully independent** client + internal report. No av
 - **Competition** section must use **that location's** local pack and neighborhood — competitors three miles from the Westside store are not competitors to the Downtown store.
 - **Keywords** section's `neighborhoods` group must reflect the actual neighborhoods around **that location**.
 - **Hero subtitle/narrative** should briefly acknowledge the wider brand ("One of 5 Grumpy's locations — this report focuses on Downtown") so the client knows the report is location-specific. Light sibling references in the body are fine where they add useful context (e.g. "your Westside team is doing X better — apply the same here") but the report stays focused on this location.
-- The **action plan** stays the standard 4 steps, but the wording inside each item should reflect this location's specific gaps.
+- The **progression-bar roadmap** stays the standard 4 locked steps; only the `info` 1-liner under each step should be tailored to this location's specific gaps.
+
+---
+
+## Step 0a — Read the bundled sample report
+
+Before doing anything else, **read the sample report bundled with this skill**:
+
+```
+.claude/skills/generate-client-report/sample-client-report.json
+```
+
+That file — not any archived report — is the structural template for the client-facing JSON. It shows the locked section order, IDs, types, group structure, progression-bar steps, ad-spend table shape, and the current prose conventions (hero narrative tone, competition callout phrasing, keyword `totals.summary` closing paragraph, ad-spend callout, CTA voice).
+
+You do **not** need to inspect previously-generated reports in `reports-archive/` to decide structure. The sample is self-contained and authoritative. The structure is also enforced by the locked table in Step 3a — if anything ever drifts between the sample and the table, the table wins.
+
+**Multi-location sibling consistency:** if you're generating multiple per-location reports for the same brand in one session, write location #1 against the sample first, then write locations #2/#3 against location #1 so the sibling reports stay consistent in voice and sized-baseline numbers (see Step 3a's `keywords.totals.summary` rules).
+
+State the reference once, briefly, at the start of generation (e.g. "Using the bundled sample as the structural reference."). Don't paste the file or narrate the read — just name it and move on.
 
 ---
 
@@ -253,7 +271,7 @@ PYTHONIOENCODING=utf-8 PYTHONUTF8=1 python scripts/grader_cli.py capture \
 
 Tell the user up-front: "I'll run the grader N times — once each for `<location list>`. Each run pre-fills `<Brand> <Area>` so the right location is the top autocomplete result; just click it and solve the CAPTCHA." After each `READY:` sentinel, stash the JSON path before starting the next capture.
 
-Each location's grader score is used **only in that location's reports** — there is no brand-wide aggregation. Every per-location report stands alone with its own hero numbers, its own category breakdown, and its own action plan.
+Each location's grader score is used **only in that location's reports** — there is no brand-wide aggregation. Every per-location report stands alone with its own hero numbers, its own category breakdown, and its own progression-bar roadmap tooltips.
 
 **How it works:**
 - The script launches the user's **real Google Chrome** via remote debugging (port 9222) with an isolated `--user-data-dir`. If Chrome is already running on that port (from a prior capture this session), the script **attaches without relaunching** — the existing browser is reused.
@@ -285,65 +303,59 @@ Output exactly two files into `reports-archive\<slug>\<YYYY-MM>\`:
 
 ### 3a. Client report — `<slug>-client-report.json`
 
-**This file MUST mirror `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.json`.**
+**This file MUST mirror the bundled sample** (`.claude/skills/generate-client-report/sample-client-report.json`).
 
-Open Pure Pizza's JSON and copy its top-level shape, section order, section IDs, section types, and prose pattern verbatim. Replace only the *business-specific content*. Do not invent new sections, drop required ones, or rename IDs.
+Open the sample JSON and copy its top-level shape, section order, group structure, child IDs, section types, and prose pattern verbatim. Replace only the *business-specific content*. Do not invent new sections, drop required ones, or rename IDs. Section IDs/types/order/counts in the locked table below override the sample if they ever drift.
 
-**Required top-level shape** (same as Pure Pizza). For multi-location brands, also include the `client.location` block described in Step 0.5:
+**Top-level section structure (3 group sections + 1 progression bar + 1 CTA = 5 entries).** Hero/narrative/ratings stay at the top level outside of any group — they're the "Business overview" that sits before Section 1.
+
+**Required top-level shape** (consistent across every report). For multi-location brands, also include the `client.location` block described in Step 0.5:
 ```json
 {
   "version": 1,
-  "client": {
-    "name": "<Client Name>",
-    "slug": "<slug>",
-    "url": "https://<client-website>",
-    "preparedBy": "Tableturnerr",
-    "preparedDate": "<Month D, YYYY>"
-  },
-  "hero": {
-    "title": "<Client Name> — Website & Online Presence Report",
-    "subtitle": "<one-line hook tailored to the client>",
-    "narrative": [ "para 1", "para 2", "para 3" ],
-    "overallGrade": "C-",
-    "graderScore": 65,
-    "monthlyRevenueLoss": 2361,
-    "verdict": "<one-line summary, e.g. 'Beloved local brand, weak digital footprint.'>"
-  },
-  "ratings": [
-    { "key": "reviews",     "label": "Reviews & Reputation",   "score": 78 },
-    { "key": "gbp",         "label": "Google Business Profile","score": 58 },
-    { "key": "social",      "label": "Social Media",           "score": 50 },
-    { "key": "content",     "label": "Website Content",        "score": 28 },
-    { "key": "search",      "label": "Google Search",          "score": 25 },
-    { "key": "performance", "label": "Speed & Setup",          "score": 55 }
-  ],
+  "client": { "name": "...", "slug": "...", "url": "...", "preparedDate": "..." },
+  "hero": { ... },
+  "ratings": [ ... ],
   "sections": [
-    { "type": "competition", "id": "competition",  "title": "The Competition", ... },
-    { "type": "problems",    "id": "problems",     "title": "What's Holding Your Website Back", ... },
-    { "type": "keywords",    "id": "keywords",     "title": "The Search Terms That Should Be Bringing You Customers", ... },
-    { "type": "actionPlan",  "id": "action-plan",  "title": "Priority Action Plan", ... },
-    { "type": "table",       "id": "ad-spend",     "title": "Ad Spend & Estimated Returns", ... },
-    { "type": "cta",         "id": "next-steps",   "title": "Investment & Next Steps", ... }
+    { "type": "group",          "id": "gbp",         "title": "Google Business Profile", "sections": [ /* competition */ ] },
+    { "type": "group",          "id": "website",     "title": "Website",                 "sections": [ /* problems, keywords */ ] },
+    { "type": "group",          "id": "google-ads",  "title": "Google Ads",              "sections": [ /* ad-spend table */ ] },
+    { "type": "progressionBar", "id": "roadmap",     "title": "The path from here",      "steps": [ /* 4 steps */ ] },
+    { "type": "cta",            "id": "next-steps",  "title": "Investment & Next Steps", "body": [ ... ] }
   ]
 }
 ```
 
 **Required section order, IDs, and titles (LOCKED — do not change):**
 
-| Order | `type` | `id` | `title` |
-|-------|--------|------|---------|
-| 1 | `competition` | `competition` | `The Competition` |
-| 2 | `problems` | `problems` | `What's Holding Your Website Back` |
-| 3 | `keywords` | `keywords` | `The Search Terms That Should Be Bringing You Customers` |
-| 4 | `actionPlan` | `action-plan` | `Priority Action Plan` |
-| 5 | `table` | `ad-spend` | `Ad Spend & Estimated Returns` |
-| 6 | `cta` | `next-steps` | `Investment & Next Steps` |
+| Order | `type` | `id` | `title` | Children |
+|-------|--------|------|---------|----------|
+| 1 | `group` | `gbp` | `Google Business Profile` | competition |
+| 2 | `group` | `website` | `Website` | problems, keywords |
+| 3 | `group` | `google-ads` | `Google Ads` | ad-spend table |
+| 4 | `progressionBar` | `roadmap` | `The path from here` | 4 steps (locked) |
+| 5 | `cta` | `next-steps` | `Investment & Next Steps` | — |
+
+**Required child IDs/types (LOCKED) inside each group:**
+
+| Group | Child `type` | Child `id` | Child `title` |
+|-------|--------------|------------|---------------|
+| `gbp` | `competition` | `gbp-competition` | `The Competition` |
+| `website` | `problems` | `website-problems` | `What's Holding Your Website Back` |
+| `website` | `keywords` | `website-keywords` | `Search Terms That Should Be Bringing You Customers` |
+| `google-ads` | `table` | `ad-spend` | `Ad Spend & Estimated Returns` |
+
+**Group section rules:**
+
+- Each group has a short 1–2 sentence `intro` introducing the group, written client-facing.
+- Each group's `sections` array contains the children listed above in the order shown.
+- Do not nest a group inside another group. Groups are top-level only.
 
 **Section content rules:**
 
-- **`competition`** — competitor table (rank, name, style, rating, knownFor; mark the client with `"isYou": true`); `searchPosition` rows; `rivalCallouts` (2 rivals — closest neighborhood rival + biggest threat); `winLose` array; and the `opportunity` block with intro + rows + bottomLine. Match Pure Pizza's structure 1:1.
-- **`problems`** — exactly **5** numbered problem cards. Each has `number`, `title`, `body[]` (1–2 paragraphs), and optional `bullets[]`. Tone: direct, specific, actionable. Identify problems that are real for this business — never copy-paste Pure Pizza's exact problems.
-- **`keywords`** — **4** keyword groups in this order, with these exact `id`/`label` patterns:
+- **`gbp-competition`** — competitor table (rank, name, style, rating, knownFor; mark the client with `"isYou": true`); `searchPosition` rows; `rivalCallouts` (2 rivals — closest neighborhood rival + biggest threat); `winLose` array; and the `opportunity` block with intro + rows + bottomLine. Match the sample's structure 1:1.
+- **`website-problems`** — exactly **5** numbered problem cards. Each has `number`, `title`, `body[]` (1–2 paragraphs), and optional `bullets[]`. Tone: direct, specific, actionable. Identify problems that are real for *this* business — never copy-paste the sample's exact problems.
+- **`website-keywords`** — **4** keyword groups in this order, with these exact `id`/`label` patterns:
   1. `money-keywords` — "The Money Keywords — People Ready to Order"
   2. `secret-weapons` — "Your Secret Weapons — Keywords Only You Can Own"
   3. `neighborhoods` — "Reaching Nearby [City] Neighborhoods" (or analogous geographic hub for non-restaurant clients)
@@ -370,14 +382,15 @@ Open Pure Pizza's JSON and copy its top-level shape, section order, section IDs,
 
   For multi-domain brands (one location per domain — e.g. Al-Baghdadi runs three separate sites), phrase the baseline as "the three sites combined are pulling roughly X visitors a month" instead.
 
-  See `reports-archive/pure-on-the-plaza/2026-05/pure-on-the-plaza-client-report.json` (the canonical template) for the exact closing-paragraph format.
-- **`actionPlan`** — exactly **4** items in this order. Do not add a 5th, do not drop one. Categories use the badges from Pure Pizza: `Research`, `Build`, `Polish`, `Ongoing`.
-  1. `priority: 1`, `category: "Research"` — **Keyword Research**
-  2. `priority: 2`, `category: "Build"` — **Site Content + Google Business Profile × Keywords**
-  3. `priority: 3`, `category: "Polish"` — **Review + Small Design-Related Changes**
-  4. `priority: 4`, `category: "Ongoing"` — **Monitor Performance**
-  Adjust the wording inside each item to fit the client, but the four steps and their order are fixed.
-- **`ad-spend`** — `type: "table"`, `id: "ad-spend"`, `title: "Ad Spend & Estimated Returns"`. Three-tier paid-ads forecast that pairs with the keyword opportunity sized in the `keywords` section. Required shape:
+  See the bundled sample for the exact closing-paragraph format.
+- **`roadmap` (progressionBar)** — exactly **4** steps in this order. The step labels are LOCKED — do not rename, reorder, or add/drop a step. Each step has a `label`, an `info` string (a 1-liner shown in the tooltip on hover/click of the info icon), and the 4th step gets `"recommended": true`.
+  1. `label: "Research Competition & Keywords"` — info: 1-liner tailored to the client describing the keyword/competition research move.
+  2. `label: "Optimize Google Business Profile"` — info: 1-liner about the GBP fixes most relevant to this client.
+  3. `label: "SEO Optimized Website"` — info: 1-liner about the website rebuild this client specifically needs.
+  4. `label: "Google Ads"`, `recommended: true` — info: 1-liner explaining ads compound the lift once steps 1–3 ship.
+
+  Keep each `info` to ~12–22 words. They render as small popovers, not paragraphs. The "recommended" flag on step 4 renders as a subtle badge — do not add the word "recommended" to the label.
+- **`ad-spend` (inside the `google-ads` group)** — `type: "table"`, `id: "ad-spend"`, `title: "Ad Spend & Estimated Returns"`. Three-tier paid-ads forecast that pairs with the keyword opportunity sized in the `keywords` section. Required shape:
   - `intro` — 1 short paragraph: "Once the site fixes above are live, a small monthly Google Ads budget compounds the lift…" Tailor a sentence to *this* location's market dynamics (low-CPC small town vs. competitive city, college market, border traffic, etc.). Never name upstream tools.
   - `emphasizeFirstColumn: true`.
   - `headers`: **exactly** `["Tier", "Monthly Spend", "Est. Clicks", "Est. Calls / Direct Orders", "Est. Monthly Revenue", "Approx. ROAS"]`.
@@ -412,7 +425,7 @@ Open Pure Pizza's JSON and copy its top-level shape, section order, section IDs,
 
 Same `ClientReport` schema, but **a much deeper, longer report for the TableTurnerr team**. Use the schema's flexibility to fit the full deep-dive: more sections, more problem items, more keyword groups, more callouts, more competitor analysis.
 
-**Recommended internal section sequence** (use `narrative`, `table`, `problems`, `competition`, `keywords`, `actionPlan`, and `successMetrics` types liberally — the schema supports all of them):
+**Recommended internal section sequence** (use `narrative`, `table`, `problems`, `competition`, `keywords`, `actionPlan`, and `successMetrics` types liberally — the schema supports all of them; the internal report still uses the old `actionPlan` section type, not the client report's new progression bar):
 
 1. `narrative` `id: "executive-summary"` — Executive Summary, top 5 critical findings, health scorecard at a glance
 2. `narrative` `id: "business-overview"` — Company Profile, Service Channels, USPs, **Pitch Angle** (the hook for the sales call)
@@ -428,7 +441,7 @@ Same `ClientReport` schema, but **a much deeper, longer report for the TableTurn
 12. `table` `id: "traffic"` — Traffic & visibility estimates
 13. `keywords` `id: "keywords"` — Larger keyword strategy (5+ groups acceptable internally)
 14. `scorecard` `id: "health"` — Overall Health Scorecard (letter grades per area)
-15. `actionPlan` `id: "internal-action-plan"` — Same 4 steps as the client plan, but each `action` rewritten with internal context: which agency tier handles it, effort estimate, internal cost, suggested quote, margin estimate. Use richer `impact` strings.
+15. `actionPlan` `id: "internal-action-plan"` — Same 4 steps as the client roadmap, but rendered as a full `actionPlan` table for the team: each `action` rewritten with internal context — which agency tier handles it, effort estimate, internal cost, suggested quote, margin estimate. Use richer `impact` strings.
 16. `narrative` `id: "risks-and-caveats"` — Anything we couldn't verify (Cloudflare blocks, missing data, capture failures)
 17. `narrative` `id: "sources"` — Sources & references
 
@@ -496,9 +509,15 @@ The internal report is admin-only and will never appear on the public URL.
 
 ## Anti-patterns
 - ❌ Do **not** generate `<slug>-client-report.md` or `<slug>-internal-report.md`. Markdown is retired.
-- ❌ Do not invent new client-report sections, rename IDs, or change the section order. Match Pure Pizza exactly.
-- ❌ Do not put more or fewer than 4 items in the client `actionPlan`.
-- ❌ Do not omit the `ad-spend` section, change its position (it sits between `action-plan` and `next-steps`), or rename it. It is locked.
+- ❌ Do not invent new client-report sections, rename IDs, or change the section order. Match `sample-client-report.json` and the locked tables in Step 3a exactly.
+- ❌ Do not skip Step 0a. The bundled `sample-client-report.json` is the structural source of truth — read it before writing.
+- ❌ Do not read reports from `reports-archive/` as your structural reference. The sample bundled with this skill is authoritative; archived reports may be in the older 6-section structure (competition / problems / keywords / actionPlan / ad-spend / cta) which is now retired for new reports.
+- ❌ Do not put more or fewer than 4 steps in the client `progressionBar.steps`. The four labels and their order are locked: Research Competition & Keywords, Optimize Google Business Profile, SEO Optimized Website, Google Ads (recommended).
+- ❌ Do not rename, reorder, or substitute the four progression-bar step labels. Only the `info` 1-liners are client-tunable.
+- ❌ Do not add a `priority: "Action Plan"` table to the client report. The progression bar replaces the old Priority Action Plan section — the `actionPlan` section type is internal-only now.
+- ❌ Do not omit the `ad-spend` table from inside the `google-ads` group, change its child ID (`ad-spend`), or rename it. The group and its child are locked.
+- ❌ Do not flatten the 3 groups (`gbp`, `website`, `google-ads`) into top-level sections like before. The 3-group nested structure is required.
+- ❌ Do not nest a group inside another group. Groups are top-level only.
 - ❌ Do not put more or fewer than 3 rows in the `ad-spend` table — Starter / Growth (Recommended) / Aggressive only. Keep the monthly spend values at $300 / $750 / $1,500 across all reports; tune only the click/order/revenue/ROAS ranges per location.
 - ❌ Do not copy the Namaste Blaine / Bellingham ad-spend numbers into a new client's report — re-derive them from the location's CPC band, conversion rate, and average ticket. Verbatim copying is a tell.
 - ❌ Do not let the Growth tier's low-end revenue come in below spend. If it does, your CPC, conversion-rate, or AOV assumption is wrong — fix it before shipping.
