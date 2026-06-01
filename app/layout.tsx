@@ -88,7 +88,10 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="font-body antialiased">
+      {/* suppressHydrationWarning: browser extensions (e.g. Bitdefender) inject
+          attributes like bis_register onto <body> before React hydrates. This
+          suppresses warnings for body's OWN attributes only, not its children. */}
+      <body className="font-body antialiased" suppressHydrationWarning>
         {children}
         <SpeedInsights />
         <Analytics />
