@@ -16,7 +16,7 @@ import { generateBreadcrumbSchema } from "@/app/lib/schema";
 export const metadata: Metadata = createPageMetadata({
   title: "Restaurant Success Stories & Case Studies",
   description:
-    "See how independent restaurants are growing with TableTurnerr and our partner ecosystem. Real results from real restaurants — including +377% online growth, $4.5M in online sales, and millions saved in third-party commission fees.",
+    "See how independent restaurants are growing with TableTurnerr and our partner ecosystem. Real, verified results: +377% online growth, $4.5M in online sales, and millions saved in third-party commission fees.",
   path: "/case-studies",
   keywords: [
     "restaurant success stories",
@@ -240,9 +240,9 @@ export default function CaseStudiesPage() {
               <BlurText text="The Numbers Behind Our Partner Platforms" />
             </h2>
             <p className="text-warm-gray-light text-lg md:text-xl leading-relaxed max-w-2xl mt-6">
-              Restaurants using our recommended platforms&nbsp;&mdash; Owner.com
-              and ChowNow&nbsp;&mdash; are seeing massive, verified ROI. These
-              are real results from real restaurants in the ecosystem.
+              Restaurants using our recommended platforms (Owner.com and
+              ChowNow) are seeing massive, verified ROI. These are real results
+              from real restaurants in the ecosystem.
             </p>
           </AnimatedElement>
 

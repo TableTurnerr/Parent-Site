@@ -69,7 +69,7 @@ export default function Partners() {
           </h2>
           <p className="text-cream/70 text-lg leading-relaxed mt-5 max-w-2xl">
             As an official strategic partner of Owner.com and ChowNow, we get
-            you exclusive benefits you won't find signing up on your own —
+            you exclusive benefits you won't find signing up on your own,
             commission-free ordering that puts revenue back in your pocket. We
             audit your restaurant's operations and digital presence to ensure
             you meet the qualification standards required by these platforms
@@ -152,7 +152,7 @@ export default function Partners() {
                 The smart play:
               </span>{" "}
               We don't ask you to ditch DoorDash or UberEats. Instead, we flip
-              the script — use those platforms as marketing channels to find new
+              the script, use those platforms as marketing channels to find new
               customers, then convert repeat orders to your own commission-free
               system.
             </p>

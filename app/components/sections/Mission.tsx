@@ -8,7 +8,7 @@ const VALUES = [
     number: "01",
     title: "Restaurant-First",
     description:
-      "Every strategy, website, and campaign is built specifically for the food and beverage industry — not repurposed from generic marketing playbooks.",
+      "Every strategy, website, and campaign is built specifically for the food and beverage industry, not repurposed from generic marketing playbooks.",
   },
   {
     number: "02",
@@ -76,7 +76,7 @@ export default function Mission() {
               <p className="text-warm-gray text-lg leading-relaxed max-w-xl mb-10">
                 TableTurnerr is a restaurant marketing agency built for one
                 purpose: giving independent restaurants the same digital
-                advantage as major chains — without the enterprise budget. We
+                advantage as major chains, without the enterprise budget. We
                 combine deep food and beverage industry expertise with custom
                 website design, proven SEO strategy, and performance marketing
                 that drives real revenue.

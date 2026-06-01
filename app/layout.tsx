@@ -32,11 +32,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://tableturnerr.com"),
   title: {
     default:
-      "TableTurnerr | Restaurant Website Design, SEO & Marketing Agency",
+      "TableTurnerr | Restaurant Marketing, Web Design & SEO",
     template: "%s | TableTurnerr",
   },
   description:
-    "TableTurnerr helps independent restaurants across the U.S. grow with SEO-optimized websites, local SEO, and Google Ads. Custom website design, branding, and commission-free ordering setup. Get a free consultation.",
+    "TableTurnerr helps independent restaurants get found, get booked, and keep more profit. Websites that convert, local SEO, Google Ads, branding, and commission-free ordering. Book a free consultation.",
   keywords: [
     "restaurant website design",
     "restaurant SEO",

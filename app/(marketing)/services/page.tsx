@@ -16,7 +16,7 @@ import {
 export const metadata: Metadata = createPageMetadata({
   title: "Restaurant Marketing Services",
   description:
-    "Full-service restaurant marketing — custom website design, local SEO, Google Ads, branding, and Google Business Profile optimization. See how TableTurnerr helps restaurants grow online.",
+    "Full-service restaurant marketing: custom website design, local SEO, Google Ads, branding, and Google Business Profile optimization. See how TableTurnerr helps restaurants grow online.",
   path: "/services",
   keywords: [
     "restaurant marketing services",

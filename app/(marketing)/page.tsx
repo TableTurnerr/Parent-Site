@@ -21,16 +21,16 @@ import {
 } from "@/app/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Restaurant Website Design, SEO & Marketing Agency",
+  title: "Restaurant Marketing Agency That Fills More Tables",
   description:
-    "We design SEO-optimized restaurant websites and drive traffic for independent restaurants across the U.S. Custom website design, local SEO, Google Ads management, and commission-free ordering setup. Get a free consultation.",
+    "TableTurnerr helps independent restaurants get found, get booked, and keep more profit. Websites that convert, local SEO, Google Ads, and commission-free ordering. Book a free consultation.",
   alternates: {
     canonical: "https://tableturnerr.com",
   },
   openGraph: {
-    title: "TableTurnerr | Restaurant Website Design, SEO & Marketing Agency",
+    title: "TableTurnerr | Restaurant Marketing That Fills More Tables",
     description:
-      "SEO-optimized restaurant websites, local SEO, Google Ads, and commission-free ordering for independent restaurants nationwide.",
+      "Websites that convert, local SEO, Google Ads, and commission-free ordering for independent restaurants nationwide. Book a free consultation.",
     url: "https://tableturnerr.com",
     siteName: "TableTurnerr",
     type: "website",
@@ -38,9 +38,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TableTurnerr | Restaurant Website Design, SEO & Marketing Agency",
+    title: "TableTurnerr | Restaurant Marketing That Fills More Tables",
     description:
-      "Custom restaurant websites, local SEO, Google Ads, and commission-free ordering for independent restaurants nationwide.",
+      "Websites that convert, local SEO, Google Ads, and commission-free ordering for independent restaurants nationwide.",
   },
 };
 

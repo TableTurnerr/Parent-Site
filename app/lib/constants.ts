@@ -21,7 +21,7 @@ export const SERVICES = [
   {
     title: "Restaurant Branding",
     slug: "restaurant-branding",
-    description: "Full-service restaurant branding — logo design, menu design, and a visual identity that sets your restaurant apart from the chains.",
+    description: "Full-service restaurant branding: logo design, menu design, and a visual identity that sets your restaurant apart from the chains.",
   },
   {
     title: "Google Ads for Restaurants",

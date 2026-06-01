@@ -15,9 +15,9 @@ import { createPageMetadata } from "@/app/lib/metadata";
 import { generateOrganizationSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "About TableTurnerr — Restaurant Marketing Agency",
+  title: "About TableTurnerr, the Restaurant Growth Agency",
   description:
-    "TableTurnerr is a restaurant marketing agency built exclusively for independent restaurants. We design custom websites, run local SEO campaigns, and manage Google Ads to help restaurants grow online and compete with major chains.",
+    "TableTurnerr is a marketing agency built exclusively for independent restaurants. We design websites, run local SEO, and manage Google Ads so independent restaurants can compete with the major chains and win.",
   path: "/about",
   keywords: [
     "restaurant marketing agency",
@@ -51,7 +51,7 @@ const VALUE_CARDS = [
   {
     title: "Restaurant-First",
     description:
-      "Every strategy, website, and campaign is built specifically for the food and beverage industry — not repurposed from generic marketing playbooks.",
+      "Every strategy, website, and campaign is built specifically for the food and beverage industry, not repurposed from generic marketing playbooks.",
   },
   {
     title: "Traffic-First Approach",
@@ -66,7 +66,7 @@ const VALUE_CARDS = [
   {
     title: "Commission-Free Future",
     description:
-      "We help restaurants flip the script on third-party apps — using DoorDash and UberEats as marketing channels while converting repeat orders to their own direct platform.",
+      "We help restaurants flip the script on third-party apps, using DoorDash and UberEats as marketing channels while converting repeat orders to their own direct platform.",
   },
 ] as const;
 
@@ -87,7 +87,7 @@ const GROWTH_STEPS = [
     step: 3,
     title: "The Scale",
     description:
-      "With the foundation and ordering system in place, we help you aggressively invest in revenue-driving marketing channels — scaling Google Ads, deploying branding strategies, and implementing smart systems for capturing 5-star reviews and driving repeat direct orders.",
+      "With the foundation and ordering system in place, we help you aggressively invest in revenue-driving marketing channels: scaling Google Ads, deploying branding strategies, and implementing smart systems for capturing 5-star reviews and driving repeat direct orders.",
   },
 ] as const;
 
@@ -186,7 +186,7 @@ export default function AboutPage() {
                 TableTurnerr is a specialized SEO website development and
                 traffic generation agency built exclusively for independent
                 restaurants. We bridge the gap between independent restaurants
-                and major chains by acting as an outsourced digital team —
+                and major chains by acting as an outsourced digital team,
                 driving massive organic and paid traffic so restaurants can scale
                 their brand and compete.
               </p>
@@ -223,7 +223,7 @@ export default function AboutPage() {
               <BlurText text="The restaurant industry is skewed" delay={100} />
               {" "}
               <BlurText
-                text="— large chains have the capital to build powerful digital infrastructures, while"
+                text="Large chains have the capital to build powerful digital infrastructures, while"
                 className="text-warm-gray-light"
                 delay={500}
               />

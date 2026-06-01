@@ -12,9 +12,9 @@ import {
 } from "@/app/lib/schema";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Contact Us — Free Restaurant Consultation",
+  title: "Contact Us for a Free Restaurant Consultation",
   description:
-    "Get a free consultation for your restaurant. Contact TableTurnerr for custom website design, local SEO, Google Ads, branding, and commission-free ordering setup for independent restaurants.",
+    "Tell us about your restaurant and get a free, no-obligation consultation. We reply within 24 hours with a plan for your website, local SEO, Google Ads, and commission-free ordering.",
   path: "/contact",
   keywords: [
     "contact restaurant marketing agency",
