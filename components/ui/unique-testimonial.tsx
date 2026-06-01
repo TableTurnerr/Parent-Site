@@ -23,6 +23,12 @@ function shot(siteUrl: string): string {
   return `https://image.thum.io/get/width/1000/crop/720/wait/2/https://${clean}`
 }
 
+/** Google's favicon service for a site (no files to manage, always current). */
+function favicon(siteUrl: string): string {
+  const clean = siteUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")
+  return `https://www.google.com/s2/favicons?domain=${clean}&sz=64`
+}
+
 interface TestimonialsProps {
   testimonials: TestimonialItem[]
   className?: string
@@ -188,13 +194,32 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
                 key={testimonial.id}
                 onClick={() => handleSelect(index)}
                 className={cn(
-                  "rounded-full px-4 py-2 text-sm font-medium cursor-pointer whitespace-nowrap",
+                  "inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-medium cursor-pointer whitespace-nowrap",
                   "transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
                   isActive
                     ? "bg-charcoal text-cream shadow-lg"
                     : "bg-transparent text-warm-gray hover:bg-charcoal/5 hover:text-charcoal",
                 )}
               >
+                {testimonial.siteUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={favicon(testimonial.siteUrl)}
+                    alt=""
+                    width={16}
+                    height={16}
+                    className="h-4 w-4 rounded-sm shrink-0"
+                    aria-hidden="true"
+                  />
+                ) : testimonial.avatar ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={testimonial.avatar}
+                    alt=""
+                    className="h-4 w-4 rounded-full object-cover shrink-0"
+                    aria-hidden="true"
+                  />
+                ) : null}
                 {testimonial.author}
               </button>
             )
