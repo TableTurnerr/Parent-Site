@@ -3,7 +3,7 @@ export interface PortfolioClient {
   name: string;
   /** Live site URL (no protocol needed; https assumed). e.g. "grillshack.com" */
   url: string;
-  /** One-line descriptor: cuisine / city / what we did. */
+  /** One-line descriptor: cuisine / what we did. */
   blurb: string;
 }
 
@@ -11,32 +11,39 @@ export interface PortfolioClient {
  * Rented client restaurant sites built by TableTurnerr. These are TT-owned
  * properties (clients rent them), so featuring them + linking out is fully
  * legitimate, and each one carries a reciprocal "Marketing by TableTurnerr"
- * backlink.
+ * backlink on the client site.
  *
- * ⚠️ ACTION (Aleee): replace the placeholder `url` values with the real live
- * domains. The screenshots auto-generate from these URLs via thum.io, so once
- * the URL is correct the preview is correct, no manual image work.
+ * Screenshots auto-generate from these URLs via thum.io, so the preview stays
+ * current with no manual image work.
+ *
+ * Note (Aleee): blurbs are descriptive guesses from the brand names. Tweak any
+ * that are off.
  */
 export const PORTFOLIO_CLIENTS: PortfolioClient[] = [
   {
     name: "Grill Shack",
-    url: "example.com", // TODO(Aleee): real live URL
-    blurb: "Website design and local SEO for a neighborhood grill.",
+    url: "grillshackuk.com",
+    blurb: "Website design and local SEO for a grill and burger spot.",
   },
   {
-    name: "Miss Mat Cafe",
-    url: "example.com", // TODO(Aleee): real live URL
-    blurb: "Brand-forward cafe site built to convert browsers into guests.",
+    name: "Suntea Mix",
+    url: "sunteamix.co",
+    blurb: "Custom site for a bubble tea and specialty drinks brand.",
   },
   {
-    name: "Texbbq",
-    url: "example.com", // TODO(Aleee): real live URL
-    blurb: "BBQ joint site tuned for online orders and Google visibility.",
+    name: "Waikiki Chicken in Paradise",
+    url: "waikikichickeninparadise.com",
+    blurb: "Website built for a Hawaiian-style chicken restaurant.",
   },
   {
-    name: "Qadeer Coffee",
-    url: "example.com", // TODO(Aleee): real live URL
-    blurb: "Coffee shop website with a clean, mobile-first ordering flow.",
+    name: "Waffle Pop Dallas",
+    url: "wafflepopdallas.com",
+    blurb: "Site and local SEO for a Dallas waffle and dessert shop.",
+  },
+  {
+    name: "The Battle Brand",
+    url: "thebattlebrand.com",
+    blurb: "Brand-forward website for a specialty cheesecake maker.",
   },
 ];
 
@@ -47,7 +54,7 @@ export function screenshotUrl(siteUrl: string): string {
   return `https://image.thum.io/get/width/1200/crop/900/wait/2/https://${clean}`;
 }
 
-/** True once Aleee has filled in at least one real (non-placeholder) URL. */
+/** True once at least one real (non-placeholder) URL is set. */
 export function hasRealPortfolio(): boolean {
   return PORTFOLIO_CLIENTS.some((c) => c.url && c.url !== "example.com");
 }
