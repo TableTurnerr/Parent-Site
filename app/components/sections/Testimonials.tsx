@@ -10,6 +10,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     author: "Grill Shack",
     role: "Restaurant owner",
     avatar: "/Client_Logos/GrillShack.webp",
+    siteUrl: "grillshackuk.com",
   },
   {
     id: 2,
