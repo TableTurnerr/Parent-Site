@@ -5,12 +5,15 @@ import { cn } from "@/lib/utils"
 
 export interface TestimonialItem {
   id: number
-  quote: string
   author: string
-  role: string
-  avatar: string
+  /** Real review quote. Only set when a genuine review exists (never faked). */
+  quote?: string
+  /** Factual one-line descriptor, shown when there is no real quote. */
+  blurb?: string
+  role?: string
+  avatar?: string
   /** Live site URL (no protocol). When set, the active client's homepage
-   *  screenshot is shown above the quote, swapping as the carousel rotates. */
+   *  screenshot is shown above, swapping as the carousel rotates. */
   siteUrl?: string
 }
 
@@ -25,12 +28,17 @@ interface TestimonialsProps {
   className?: string
 }
 
+/** What to show as the main line: a real quote (in quotes) or the descriptor. */
+function lineFor(t: TestimonialItem): string {
+  return t.quote ? t.quote : (t.blurb ?? "")
+}
+
 export function UniqueTestimonials({ testimonials, className }: TestimonialsProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
-  const [displayedQuote, setDisplayedQuote] = useState(testimonials[0].quote)
-  const [displayedRole, setDisplayedRole] = useState(testimonials[0].role)
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [displayedQuote, setDisplayedQuote] = useState(lineFor(testimonials[0]))
+  const [displayedRole, setDisplayedRole] = useState(testimonials[0].author)
+  const [displayedIsQuote, setDisplayedIsQuote] = useState(!!testimonials[0].quote)
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
 
@@ -51,8 +59,9 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
       if (index === activeIndex || isAnimating) return
       setIsAnimating(true)
       setTimeout(() => {
-        setDisplayedQuote(testimonials[index].quote)
-        setDisplayedRole(testimonials[index].role)
+        setDisplayedQuote(lineFor(testimonials[index]))
+        setDisplayedRole(testimonials[index].author)
+        setDisplayedIsQuote(!!testimonials[index].quote)
         setActiveIndex(index)
         setTimeout(() => setIsAnimating(false), 400)
       }, 200)
@@ -135,11 +144,13 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
         )}
       </a>
 
-      {/* Quote Container — fixed height prevents layout shift on text swap */}
+      {/* Line container — real quote (with quotation marks) or factual descriptor */}
       <div className="relative px-4 sm:px-8 min-h-[4rem] sm:min-h-[5rem] md:min-h-[4.5rem] flex items-center justify-center">
-        <span className="absolute -left-1 sm:-left-2 -top-4 sm:-top-6 text-5xl sm:text-7xl font-serif text-charcoal/[0.06] select-none pointer-events-none">
-          &ldquo;
-        </span>
+        {displayedIsQuote && (
+          <span className="absolute -left-1 sm:-left-2 -top-4 sm:-top-6 text-5xl sm:text-7xl font-serif text-charcoal/[0.06] select-none pointer-events-none">
+            &ldquo;
+          </span>
+        )}
 
         <p
           className={cn(
@@ -150,73 +161,41 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
           {displayedQuote}
         </p>
 
-        <span className="absolute -right-1 sm:-right-2 -bottom-6 sm:-bottom-8 text-5xl sm:text-7xl font-serif text-charcoal/[0.06] select-none pointer-events-none">
-          &rdquo;
-        </span>
+        {displayedIsQuote && (
+          <span className="absolute -right-1 sm:-right-2 -bottom-6 sm:-bottom-8 text-5xl sm:text-7xl font-serif text-charcoal/[0.06] select-none pointer-events-none">
+            &rdquo;
+          </span>
+        )}
       </div>
 
       <div className="flex flex-col items-center gap-6 mt-2">
-        {/* Role text */}
+        {/* Active client name */}
         <p
           className={cn(
-            "text-xs text-warm-gray tracking-[0.2em] uppercase transition-all duration-500 ease-out",
+            "font-display text-lg font-semibold text-charcoal transition-all duration-500 ease-out",
             isAnimating ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0",
           )}
         >
           {displayedRole}
         </p>
 
-        <div className="flex items-center justify-center gap-2">
+        {/* Client name pills — click to jump to that site */}
+        <div className="flex flex-wrap items-center justify-center gap-2">
           {testimonials.map((testimonial, index) => {
             const isActive = activeIndex === index
-            const isHovered = hoveredIndex === index && !isActive
-            const showName = isActive || isHovered
-
             return (
               <button
                 key={testimonial.id}
                 onClick={() => handleSelect(index)}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
                 className={cn(
-                  "relative flex items-center gap-0 rounded-full cursor-pointer",
-                  "transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
-                  isActive ? "bg-charcoal shadow-lg" : "bg-transparent hover:bg-charcoal/5",
-                  showName ? "pr-4 pl-2 py-2" : "p-0.5",
+                  "rounded-full px-4 py-2 text-sm font-medium cursor-pointer whitespace-nowrap",
+                  "transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
+                  isActive
+                    ? "bg-charcoal text-cream shadow-lg"
+                    : "bg-transparent text-warm-gray hover:bg-charcoal/5 hover:text-charcoal",
                 )}
               >
-                {/* Avatar */}
-                <div className="relative flex-shrink-0">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.author}
-                    className={cn(
-                      "w-9 h-9 sm:w-8 sm:h-8 rounded-full object-cover",
-                      "transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
-                      isActive ? "ring-2 ring-cream/30" : "ring-0",
-                      !isActive && "hover:scale-105",
-                    )}
-                  />
-                </div>
-
-                <div
-                  className={cn(
-                    "grid transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
-                    showName ? "grid-cols-[1fr] opacity-100 ml-2" : "grid-cols-[0fr] opacity-0 ml-0",
-                  )}
-                >
-                  <div className="overflow-hidden">
-                    <span
-                      className={cn(
-                        "text-sm font-medium whitespace-nowrap block",
-                        "transition-colors duration-300",
-                        isActive ? "text-cream" : "text-charcoal",
-                      )}
-                    >
-                      {testimonial.author}
-                    </span>
-                  </div>
-                </div>
+                {testimonial.author}
               </button>
             )
           })}
