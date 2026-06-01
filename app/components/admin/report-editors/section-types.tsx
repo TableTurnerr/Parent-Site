@@ -829,6 +829,8 @@ export const SECTION_TYPE_LABELS: Record<ReportSection["type"], string> = {
   actionPlan: "Action plan",
   successMetrics: "Success metrics",
   cta: "Call to action",
+  progressionBar: "Progression bar",
+  group: "Group (nested sections)",
 };
 
 export function newSection(type: ReportSection["type"]): ReportSection {
@@ -854,5 +856,9 @@ export function newSection(type: ReportSection["type"]): ReportSection {
       return { type, id, title: "Success metrics", items: [] };
     case "cta":
       return { type, id, title: "Next steps", body: [""] };
+    case "progressionBar":
+      return { type, id, title: "Roadmap", steps: [] };
+    case "group":
+      return { type, id, title: "New group", sections: [] };
   }
 }
