@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { InlineMarkdown } from "./inline";
 
 const num2 = (i: number) => String(i).padStart(2, "0");
@@ -11,6 +11,7 @@ export function CollapsibleSection({
   title,
   intro,
   defaultOpen = false,
+  depth = 0,
   children,
 }: {
   id: string;
@@ -18,13 +19,14 @@ export function CollapsibleSection({
   title: string;
   intro?: string;
   defaultOpen?: boolean;
+  depth?: number;
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(defaultOpen);
 
   return (
     <section
-      className={`section rp-collapsible ${open ? "is-open" : ""}`}
+      className={`section rp-collapsible ${open ? "is-open" : ""} ${depth > 0 ? "is-child" : ""}`}
       id={id}
     >
       <button
@@ -35,9 +37,11 @@ export function CollapsibleSection({
         onClick={() => setOpen((v) => !v)}
       >
         <div className="rp-collapsible-head">
-          <div className="section-num">
-            <span>{`Section ${num2(index)}`}</span>
-          </div>
+          {depth === 0 && (
+            <div className="section-num">
+              <span>{`Section ${num2(index)}`}</span>
+            </div>
+          )}
           <h2>{title}</h2>
           {intro && (
             <p className="section-intro">
@@ -109,5 +113,52 @@ export function CollapsibleProblem({
         {children}
       </div>
     </div>
+  );
+}
+
+export function StepInfoTooltip({ info }: { info: string }) {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLSpanElement | null>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDocClick = (e: MouseEvent) => {
+      if (!wrapRef.current) return;
+      if (!wrapRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDocClick);
+    document.addEventListener("keydown", onEsc);
+    return () => {
+      document.removeEventListener("mousedown", onDocClick);
+      document.removeEventListener("keydown", onEsc);
+    };
+  }, [open]);
+
+  return (
+    <span
+      ref={wrapRef}
+      className={`rp-step-info ${open ? "is-open" : ""}`}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        type="button"
+        className="rp-step-info-btn"
+        aria-label="More info"
+        aria-expanded={open}
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen((v) => !v);
+        }}
+      >
+        i
+      </button>
+      <span className="rp-step-info-pop" role="tooltip" hidden={!open}>
+        <InlineMarkdown text={info} />
+      </span>
+    </span>
   );
 }

@@ -15,7 +15,7 @@ export function ReportRendererBody({
 }) {
   const navSections = report.sections.map((s) => ({
     id: s.id,
-    label: s.title,
+    label: s.type === "progressionBar" ? (s.title ?? "Roadmap") : s.title,
   }));
 
   return (

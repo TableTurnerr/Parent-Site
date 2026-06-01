@@ -1308,6 +1308,207 @@
   .report-page .report-table tbody td { padding: 14px; }
 }
 
+/* ---------- Group sections ---------- */
+.report-page .group-section {
+  margin-bottom: 96px;
+}
+.report-page .group-section-title {
+  font-family: var(--rp-display, var(--font-satoshi, inherit));
+  font-size: clamp(32px, 4vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 8px 0 14px;
+  color: var(--rp-ink);
+}
+.report-page .group-section > .section-intro {
+  font-size: 16px;
+  margin: 0 0 32px;
+  max-width: 70ch;
+  color: var(--rp-warm-700, var(--rp-ink));
+}
+.report-page .group-section-children {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 0;
+  border-left: 2px solid color-mix(in oklab, var(--rp-ink) 8%, transparent);
+  padding-left: 18px;
+  margin-top: 8px;
+}
+.report-page .rp-collapsible.is-child {
+  margin-bottom: 0;
+}
+.report-page .rp-collapsible.is-child .rp-collapsible-head h2 {
+  font-size: clamp(20px, 2vw, 24px);
+}
+
+/* ---------- Progression bar ---------- */
+.report-page .progression-section {
+  margin-bottom: 72px;
+}
+.report-page .progression-title {
+  font-family: var(--rp-display, var(--font-satoshi, inherit));
+  font-size: clamp(24px, 2.4vw, 30px);
+  line-height: 1.15;
+  margin: 6px 0 14px;
+  color: var(--rp-ink);
+}
+.report-page .progression-bar {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+.report-page .progression-bar::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background: color-mix(in oklab, var(--rp-ink) 12%, transparent);
+  z-index: 0;
+}
+.report-page .progression-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 8px;
+  z-index: 1;
+}
+.report-page .progression-step-marker {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--rp-bg, #fff);
+  border: 2px solid color-mix(in oklab, var(--rp-ink) 20%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-feature-settings: "tnum";
+  color: var(--rp-ink);
+}
+.report-page .progression-step.is-recommended .progression-step-marker {
+  background: var(--rp-ink, #111);
+  color: var(--rp-bg, #fff);
+  border-color: var(--rp-ink, #111);
+}
+.report-page .progression-step-num {
+  font-size: 14px;
+}
+.report-page .progression-step-body {
+  margin-top: 12px;
+}
+.report-page .progression-step-label {
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--rp-ink);
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.report-page .progression-step-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--rp-ink) 8%, transparent);
+  color: var(--rp-ink);
+}
+.report-page .progression-step.is-recommended .progression-step-badge {
+  background: var(--rp-ink, #111);
+  color: var(--rp-bg, #fff);
+}
+
+/* Info tooltip */
+.report-page .rp-step-info {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.report-page .rp-step-info-btn {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, var(--rp-ink) 30%, transparent);
+  background: transparent;
+  color: var(--rp-ink);
+  font-size: 10px;
+  font-weight: 600;
+  font-family: var(--font-satoshi, inherit);
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.report-page .rp-step-info-btn:hover,
+.report-page .rp-step-info.is-open .rp-step-info-btn {
+  background: var(--rp-ink, #111);
+  color: var(--rp-bg, #fff);
+  border-color: var(--rp-ink, #111);
+}
+.report-page .rp-step-info-pop {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--rp-ink, #111);
+  color: var(--rp-bg, #fff);
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: max-content;
+  max-width: 240px;
+  text-align: center;
+  z-index: 20;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  pointer-events: none;
+}
+.report-page .rp-step-info-pop::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--rp-ink, #111);
+}
+
+@media (max-width: 760px) {
+  .report-page .progression-bar {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .report-page .progression-bar::before { display: none; }
+  .report-page .progression-step {
+    flex-direction: row;
+    text-align: left;
+    gap: 14px;
+    align-items: center;
+  }
+  .report-page .progression-step-marker { flex: 0 0 36px; width: 36px; height: 36px; }
+  .report-page .progression-step-body { margin-top: 0; flex: 1; }
+  .report-page .progression-step-label { justify-content: flex-start; }
+  .report-page .group-section-children { padding-left: 0; border-left: 0; }
+}
+
 /* ---------- Print ---------- */
 @media print {
   .report-page .report-actions,
