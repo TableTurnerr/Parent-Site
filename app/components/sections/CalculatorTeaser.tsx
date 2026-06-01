@@ -1,34 +1,48 @@
 import Link from "next/link";
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
 import Container from "@/app/components/ui/Container";
-import SectionLabel from "@/app/components/ui/SectionLabel";
 import { fadeInUp } from "@/app/lib/animations";
 
 /**
- * Homepage teaser for the delivery-commission calculator. Drives traffic to
- * the interactive tool at /savings-calculator without duplicating its logic.
+ * Homepage teaser for the delivery-commission calculator. Bold terracotta
+ * band that drives traffic to the interactive tool at /savings-calculator.
  */
 export default function CalculatorTeaser() {
   return (
-    <section className="bg-cream-dark py-16 md:py-24">
+    <section className="py-6 md:py-10">
       <Container>
         <AnimatedElement variants={fadeInUp}>
-          <div className="rounded-[1.5rem] border border-border bg-cream p-8 sm:p-10 md:p-14 flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
-            <div className="lg:flex-1">
-              <SectionLabel>Free Tool</SectionLabel>
-              <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-3 mb-4">
+          <div
+            className="relative overflow-hidden rounded-[1.75rem] p-8 sm:p-12 md:p-16 flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12"
+            style={{ background: "linear-gradient(120deg, #C8553D 0%, #A8412E 100%)" }}
+          >
+            {/* Decorative oversized glyph */}
+            <span
+              className="pointer-events-none absolute -right-6 -bottom-16 font-display font-bold text-cream/10 leading-none select-none"
+              style={{ fontSize: "16rem" }}
+              aria-hidden="true"
+            >
+              %
+            </span>
+
+            <div className="relative lg:flex-1">
+              <p className="inline-flex items-center gap-2.5 text-cream/80 text-xs uppercase tracking-[0.22em] font-medium mb-5">
+                <span className="h-1.5 w-1.5 rounded-full bg-cream" aria-hidden="true" />
+                Free Tool
+              </p>
+              <h2 className="display-lg text-cream mb-4">
                 See what delivery apps are really costing you
               </h2>
-              <p className="text-warm-gray text-lg leading-relaxed max-w-xl">
+              <p className="text-cream/85 text-lg leading-relaxed max-w-xl">
                 DoorDash, Uber Eats, and Grubhub take 15 to 30 percent of every
-                order. Use our free calculator to see your yearly commission bill,
-                then find out how much you could keep.
+                order. See your yearly commission bill, then find out how much
+                you could keep.
               </p>
             </div>
-            <div className="shrink-0">
+            <div className="relative shrink-0">
               <Link
                 href="/savings-calculator"
-                className="inline-flex items-center justify-center rounded-full bg-charcoal text-cream px-8 py-4 font-medium hover:bg-charcoal-light transition-colors"
+                className="inline-flex items-center justify-center rounded-full bg-cream text-charcoal px-8 py-4 font-semibold hover:bg-white transition-colors"
               >
                 Try the commission calculator
               </Link>
