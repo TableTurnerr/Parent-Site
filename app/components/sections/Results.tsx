@@ -42,7 +42,7 @@ const STATS = [
 
 export default function Results() {
   return (
-    <section className="bg-charcoal py-20 md:py-28">
+    <section className="dark-sheen py-20 md:py-28">
       <Container>
         {/* Section header */}
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">

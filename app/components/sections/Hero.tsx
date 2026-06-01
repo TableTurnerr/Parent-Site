@@ -13,8 +13,8 @@ export default function Hero() {
           {/* Left panel — content card */}
           <AnimatedElement variants={fadeIn}>
             <div className="bg-cream-dark rounded-[1.25rem] sm:rounded-[1.5rem] p-6 sm:p-8 md:p-12 lg:p-14 flex flex-col justify-center h-full">
-              <p className="text-warm-gray text-xs md:text-sm uppercase tracking-[0.2em] font-medium mb-5 md:mb-8">
-                Restaurant Marketing Agency &raquo;
+              <p className="eyebrow-accent text-warm-gray text-xs md:text-sm uppercase tracking-[0.2em] font-medium mb-5 md:mb-8">
+                Restaurant Marketing Agency
               </p>
 
               <h1 className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mb-6 md:mb-8">
@@ -22,10 +22,12 @@ export default function Hero() {
                 <br />
                 <BlurText text="Design & SEO That" delay={150} />
                 <br />
-                <BlurText text="Fills More Tables" delay={300} />
+                <span className="text-accent-gradient">
+                  <BlurText text="Fills More Tables" delay={300} />
+                </span>
               </h1>
 
-              <p className="text-warm-gray text-base md:text-lg leading-relaxed max-w-md mb-8 md:mb-10">
+              <p className="text-warm-gray text-base md:text-lg leading-relaxed max-w-md mb-7 md:mb-8">
                 We design high-converting restaurant websites, run local
                 SEO campaigns, and manage Google Ads for independent
                 restaurants, turning online searches into paying
@@ -39,6 +41,20 @@ export default function Hero() {
                 <Button href="/services" variant="secondary">
                   View Services
                 </Button>
+              </div>
+
+              {/* Social proof row */}
+              <div className="mt-8 md:mt-10 flex items-center gap-3">
+                <div className="flex text-accent" aria-hidden="true">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <svg key={i} width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9 4.7 17.6l1-5.8L1.5 7.7l5.9-.9L10 1.5z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-warm-gray text-sm">
+                  Trusted by independent restaurants nationwide
+                </p>
               </div>
             </div>
           </AnimatedElement>

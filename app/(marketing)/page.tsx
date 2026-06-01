@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Hero from "@/app/components/sections/Hero";
+import TrustBar from "@/app/components/sections/TrustBar";
 import Services from "@/app/components/sections/Services";
 import { FAQ_DATA } from "@/app/lib/constants";
 
@@ -67,6 +68,7 @@ export default function HomePage() {
         }}
       />
       <Hero />
+      <TrustBar />
       <Services />
       <Mission />
       <Partners />

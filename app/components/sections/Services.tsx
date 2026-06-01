@@ -50,7 +50,10 @@ export default function Services() {
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
           <SectionLabel>What We Do</SectionLabel>
           <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl">
-            <BlurText text="Restaurant Marketing Services That Drive Real Growth" />
+            <BlurText text="Restaurant Marketing Services That Drive" />{" "}
+            <span className="text-accent-gradient">
+              <BlurText text="Real Growth" delay={150} />
+            </span>
           </h2>
         </AnimatedElement>
 
@@ -65,7 +68,7 @@ export default function Services() {
                   <Link
                     href={`/services/${service.slug}`}
                     aria-label={`Learn more about ${service.title}`}
-                    className="service-card block bg-cream-dark rounded-[1.25rem] overflow-hidden h-full border border-transparent hover:border-border hover:shadow-[0_2px_20px_rgba(0,0,0,0.04)] transition-all duration-300"
+                    className="service-card elevate-hover block bg-cream-dark rounded-[1.25rem] overflow-hidden h-full border border-transparent hover:border-border"
                   >
                     {image && (
                       <div className="relative h-[200px] md:h-[220px] overflow-hidden">
@@ -109,7 +112,7 @@ export default function Services() {
                 <Link
                   href={`/services/${service.slug}`}
                   aria-label={`Learn more about ${service.title}`}
-                  className="service-card block bg-cream-dark rounded-[1.25rem] p-7 md:p-8 lg:p-9 h-full border border-transparent hover:border-border hover:shadow-[0_2px_20px_rgba(0,0,0,0.04)] transition-all duration-300"
+                  className="service-card elevate-hover block bg-cream-dark rounded-[1.25rem] p-7 md:p-8 lg:p-9 h-full border border-transparent hover:border-border"
                 >
                   <div className="flex flex-col justify-between h-full min-h-[200px] md:min-h-[220px]">
                     <div>
