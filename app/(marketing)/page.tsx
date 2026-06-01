@@ -6,7 +6,6 @@ import Services from "@/app/components/sections/Services";
 import { FAQ_DATA } from "@/app/lib/constants";
 
 const Mission = dynamic(() => import("@/app/components/sections/Mission"));
-const OurWork = dynamic(() => import("@/app/components/sections/OurWork"));
 const Partners = dynamic(() => import("@/app/components/sections/Partners"));
 const CalculatorTeaser = dynamic(() => import("@/app/components/sections/CalculatorTeaser"));
 const Process = dynamic(() => import("@/app/components/sections/Process"));
@@ -71,7 +70,6 @@ export default function HomePage() {
       <Hero />
       <TrustBar />
       <Services />
-      <OurWork />
       <Mission />
       <Partners />
       <CalculatorTeaser />
