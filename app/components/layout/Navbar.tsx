@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import Button from "@/app/components/ui/Button";
@@ -12,6 +13,7 @@ export default function Navbar({
   variant?: "default" | "static";
 }) {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (variant === "static") return;
@@ -23,6 +25,9 @@ export default function Navbar({
 
   const isStatic = variant === "static";
   const isShrunk = !isStatic && scrolled;
+  // The homepage has a full-screen dark hero; while at the top (not scrolled
+  // into the cream pill) the nav sits over it and must render light.
+  const overDark = !isStatic && pathname === "/" && !scrolled;
 
   return (
     <header
@@ -50,7 +55,9 @@ export default function Navbar({
           {/* Logo */}
           <Link
             href="/"
-            className="font-display text-xl md:text-2xl font-bold text-charcoal md:flex-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0"
+            className={`font-display text-xl md:text-2xl font-bold transition-colors duration-300 md:flex-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0 ${
+              overDark ? "text-cream" : "text-charcoal"
+            }`}
           >
             TableTurnerr
           </Link>
@@ -61,7 +68,11 @@ export default function Navbar({
               <Link
                 key={link.href}
                 href={link.href}
-                className="nav-link text-sm font-medium text-warm-gray hover:text-charcoal transition-colors"
+                className={`nav-link text-sm font-medium transition-colors ${
+                  overDark
+                    ? "text-cream/75 hover:text-cream"
+                    : "text-warm-gray hover:text-charcoal"
+                }`}
               >
                 {link.label}
                 <span className="nav-link__line" />
@@ -71,12 +82,16 @@ export default function Navbar({
 
           {/* Right: CTA */}
           <div className="hidden md:block">
-            <Button href="/contact" variant="primary" className="flow-btn--nav py-2.5 px-6 text-xs">
+            <Button
+              href="/contact"
+              variant={overDark ? "primary-light" : "primary"}
+              className="flow-btn--nav py-2.5 px-6 text-xs"
+            >
               Talk to Us
             </Button>
           </div>
 
-          <MobileMenu />
+          <MobileMenu overDark={overDark} />
         </div>
       </nav>
     </header>
