@@ -66,7 +66,10 @@ function Slider({
 
   function commit(raw: string) {
     const parsed = Number(raw.replace(/,/g, ""));
-    const next = clamp(Math.round(parsed / step) * step, min, max);
+    // Typed values are exact (rounded only to a whole number) and clamped to
+    // range. We do NOT snap to the slider's step here, so a typed 1847 stays
+    // 1847 instead of jumping to 1850. The slider keeps its step for dragging.
+    const next = clamp(Math.round(parsed), min, max);
     onChange(next);
     setDraft(String(next));
   }
