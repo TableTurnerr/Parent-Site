@@ -6,6 +6,7 @@ meta_description: "Searched for your own restaurant and could not find it? Here 
 meta_keywords: ["restaurant not showing up on google", "restaurant not on google maps", "why cant i find my restaurant on google", "restaurant google visibility", "restaurant local SEO"]
 excerpt: "Searched for your own restaurant and barely found it? Here are the real reasons restaurants stay invisible on Google, and how to fix each one."
 pillar: "Educational"
+categories: ["Restaurant SEO"]
 primary_service_link: "/services/google-business-profile-optimization"
 status: draft
 reading_time: 7

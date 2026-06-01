@@ -6,6 +6,7 @@ meta_description: "Want your restaurant in the Google Maps top three? Here is a 
 meta_keywords: ["how to rank restaurant on google maps", "restaurant google maps ranking", "google maps SEO restaurant", "local pack restaurant", "restaurant local SEO"]
 excerpt: "The Google Maps top three drives most of the calls and visits in local search. Here is a practical, step by step guide to ranking your restaurant higher."
 pillar: "Educational"
+categories: ["Restaurant SEO"]
 primary_service_link: "/services/restaurant-seo"
 status: draft
 reading_time: 7

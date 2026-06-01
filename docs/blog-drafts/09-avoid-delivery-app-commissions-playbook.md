@@ -6,6 +6,7 @@ meta_description: "Delivery apps take 15 to 30 percent of every order. This play
 meta_keywords: ["how to avoid doordash commission", "reduce delivery app fees", "commission free ordering", "restaurant direct ordering", "stop paying doordash fees"]
 excerpt: "Delivery apps take 15 to 30 percent of every order. This is the full playbook for shifting your customers, and your revenue, to channels you actually control."
 pillar: "Pain to solution"
+categories: ["Direct Ordering", "Restaurant Marketing"]
 primary_service_link: "/services/commission-free-deliveries"
 status: draft
 reading_time: 11

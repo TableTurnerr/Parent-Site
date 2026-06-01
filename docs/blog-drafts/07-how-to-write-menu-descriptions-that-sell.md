@@ -6,6 +6,7 @@ meta_description: "Your menu is your most powerful sales tool. Here is how to wr
 meta_keywords: ["how to write menu descriptions", "menu descriptions that sell", "restaurant menu writing", "menu design", "restaurant menu copywriting"]
 excerpt: "Your menu is the most-read sales document you own. Here is how to write descriptions that make dishes irresistible and steer diners toward your best plates."
 pillar: "Educational"
+categories: ["Restaurant Branding"]
 primary_service_link: "/services/restaurant-branding"
 status: draft
 reading_time: 6

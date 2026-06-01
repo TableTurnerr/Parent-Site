@@ -29,6 +29,24 @@ Each post links to a different service page so every node in the service mesh ha
 ### Note on #01 vs #09
 Both are about delivery commissions but from different angles, so they complement rather than duplicate: **#01** is awareness ("here is what it costs you"), **#09** is the solution playbook ("here is how to escape it"). Publish #09 as the cornerstone/pillar and #01 as a shorter supporting post that links up to it. #09 is a cleaned-up version of an existing draft that was already in the admin dashboard (em-dashes removed; Square/Toast competitor mentions removed in favor of Owner.com + ChowNow).
 
+## Category mapping (existing categories only)
+
+Your blog categories: Direct Ordering, Industry Insights, Platform Reviews, Restaurant Branding, Restaurant Marketing, Restaurant SEO, Restaurant Website Design. Each draft's frontmatter now has a `categories:` line to click when publishing.
+
+| # | Title | Categories |
+|---|-------|-----------|
+| 01 | DoorDash/Uber Eats/Grubhub real cost | Direct Ordering, Platform Reviews |
+| 02 | Rank on Google Maps | Restaurant SEO |
+| 03 | Restaurant SEO checklist | Restaurant SEO |
+| 04 | Get more Google reviews | Restaurant SEO, Restaurant Marketing |
+| 05 | Website design that converts | Restaurant Website Design |
+| 06 | Google Ads cost | Restaurant Marketing |
+| 07 | Menu descriptions that sell | Restaurant Branding |
+| 08 | Not showing up on Google | Restaurant SEO |
+| 09 | Commission playbook (pillar) | Direct Ordering, Restaurant Marketing |
+
+**No new categories needed for this batch.** Two optional adds for the future: a dedicated **"Local SEO"** category (GBP/Maps/reviews posts are piling into Restaurant SEO) and **"Google Ads"** (currently folded into Restaurant Marketing). Only worth adding once you have 3+ posts that would live there. **Industry Insights** is unused so far; the planned "restaurant marketing trends 2026" / "AI tools for restaurants" posts will fill it.
+
 ## House rules applied
 - One primary keyword per post (title, slug, meta, first 100 words).
 - Internal links to the relevant service page + the savings calculator.

@@ -6,6 +6,7 @@ meta_description: "A pretty restaurant website is not enough. Here is what actua
 meta_keywords: ["restaurant website design", "restaurant website that converts", "restaurant web design", "best restaurant websites", "restaurant website builder"]
 excerpt: "A pretty website is not the goal. Turning visitors into diners is. Here is what separates a restaurant site that converts from one that just looks nice."
 pillar: "Educational"
+categories: ["Restaurant Website Design"]
 primary_service_link: "/services/restaurant-website-design"
 status: draft
 reading_time: 8

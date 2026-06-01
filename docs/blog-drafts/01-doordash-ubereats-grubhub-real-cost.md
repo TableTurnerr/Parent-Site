@@ -6,6 +6,7 @@ meta_description: "Third-party delivery apps take 15 to 30 percent of every orde
 meta_keywords: ["how much does doordash charge restaurants", "doordash commission", "uber eats fees restaurants", "grubhub commission", "third party delivery fees"]
 excerpt: "Delivery apps quietly take 15 to 30 percent of every order. Here is the real math on what they cost your restaurant, and how to keep more of it."
 pillar: "Pain to solution"
+categories: ["Direct Ordering", "Platform Reviews"]
 primary_service_link: "/services/commission-free-deliveries"
 status: draft
 reading_time: 6

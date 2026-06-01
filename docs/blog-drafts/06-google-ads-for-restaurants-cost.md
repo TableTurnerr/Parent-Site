@@ -6,6 +6,7 @@ meta_description: "Thinking about Google Ads for your restaurant? Here is what i
 meta_keywords: ["google ads for restaurants", "google ads restaurant cost", "restaurant ppc", "restaurant advertising on google", "are google ads worth it restaurant"]
 excerpt: "Thinking about running Google Ads for your restaurant? Here is a straight answer on what it costs, how the budget works, and what results to actually expect."
 pillar: "Educational"
+categories: ["Restaurant Marketing"]
 primary_service_link: "/services/google-ads"
 status: draft
 reading_time: 7

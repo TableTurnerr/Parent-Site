@@ -6,6 +6,7 @@ meta_description: "Reviews decide who eats at your restaurant and who scrolls pa
 meta_keywords: ["how to get more google reviews", "restaurant reviews", "google reviews for restaurants", "ask customers for reviews", "respond to restaurant reviews"]
 excerpt: "Reviews quietly decide who eats at your restaurant and who scrolls past. Here is a practical system for getting more of them, the right way."
 pillar: "Educational"
+categories: ["Restaurant SEO", "Restaurant Marketing"]
 primary_service_link: "/services/google-business-profile-optimization"
 status: draft
 reading_time: 7
