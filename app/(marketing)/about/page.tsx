@@ -176,8 +176,11 @@ export default function AboutPage() {
               variants={fadeInUp}
               className="lg:col-span-7"
             >
-              <h1 className="font-display font-bold text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mb-6">
-                <BlurText text="The Restaurant Growth Agency" />
+              <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
+                who we are
+              </p>
+              <h1 className="display-lg text-charcoal mb-6">
+                The restaurant growth agency
               </h1>
               <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl mb-8">
                 TableTurnerr is a specialized SEO website development and

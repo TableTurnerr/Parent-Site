@@ -161,13 +161,16 @@ export default function CaseStudiesPage() {
       <section className="bg-cream pt-10 pb-16 md:pt-14 md:pb-24">
         <Container>
           <AnimatedElement variants={fadeInUp} className="max-w-3xl">
-            <h1 className="font-display font-bold text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mb-6">
-              <BlurText text="Restaurant Success Stories" />
+            <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
+              the proof
+            </p>
+            <h1 className="display-xl text-charcoal mb-6">
+              Restaurant success stories
             </h1>
             <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl">
               Real results from independent restaurants using TableTurnerr
               services and our partner ecosystem. Every number below is
-              verified&nbsp;&mdash; no made-up stats, no vanity metrics.
+              verified, no made-up stats, no vanity metrics.
             </p>
           </AnimatedElement>
         </Container>

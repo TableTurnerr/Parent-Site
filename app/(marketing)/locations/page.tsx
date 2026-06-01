@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Container from "@/app/components/ui/Container";
-import SectionLabel from "@/app/components/ui/SectionLabel";
 import Button from "@/app/components/ui/Button";
 import { SERVICES, SITE_CONFIG } from "@/app/lib/constants";
 import { TARGET_CITIES } from "@/app/lib/location-data";
@@ -39,13 +38,13 @@ export default function LocationsPage() {
         }}
       />
 
-      <section className="bg-cream pt-28 sm:pt-32 md:pt-36 pb-12 md:pb-16">
+      <section className="bg-cream pt-32 sm:pt-36 md:pt-44 pb-12 md:pb-16">
         <Container>
-          <div className="max-w-2xl">
-            <SectionLabel>Service Areas</SectionLabel>
-            <h1 className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mt-3 mb-6">
-              Areas We Serve
-            </h1>
+          <div className="max-w-3xl">
+            <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
+              find your city
+            </p>
+            <h1 className="display-xl text-charcoal mb-6">Areas we serve</h1>
             <p className="text-warm-gray text-lg leading-relaxed">
               We help independent restaurants grow across the U.S. These city
               pages dig into restaurant marketing in specific markets, with more
@@ -62,7 +61,7 @@ export default function LocationsPage() {
             {TARGET_CITIES.map((city) => (
               <div
                 key={city.slug}
-                className="rounded-[1.25rem] border border-border bg-cream-dark p-6 sm:p-8"
+                className="elevate-hover rounded-[1.25rem] border border-border bg-cream-dark p-6 sm:p-8"
               >
                 <h2 className="font-display font-semibold text-xl md:text-2xl text-charcoal mb-1">
                   {city.name}, {city.stateCode}

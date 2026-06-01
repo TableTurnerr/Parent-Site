@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
-import BlurText from "@/app/components/ui/BlurText";
 import Container from "@/app/components/ui/Container";
-import SectionLabel from "@/app/components/ui/SectionLabel";
 import ContactForm from "@/app/components/sections/ContactForm";
 import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 import { SITE_CONFIG, SOCIAL_LINKS } from "@/app/lib/constants";
@@ -227,9 +225,11 @@ export default function ContactPage() {
       <section className="bg-cream pt-10 pb-10 md:pt-14 md:pb-14">
         <Container>
           <AnimatedElement variants={fadeInUp} className="max-w-3xl">
-            <SectionLabel className="mb-4">Contact Us</SectionLabel>
-            <h1 className="font-display font-bold text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mb-6">
-              <BlurText text="Let's Grow Your Restaurant" />
+            <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
+              let&apos;s talk
+            </p>
+            <h1 className="display-xl text-charcoal mb-6">
+              Let&apos;s grow your restaurant
             </h1>
             <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl">
               Get a free consultation and discover how our restaurant website

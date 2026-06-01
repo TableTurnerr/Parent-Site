@@ -83,8 +83,8 @@ export default function ServicePage({
               </AnimatedElement>
 
               <AnimatedElement variants={fadeInUp}>
-                <h1 className="font-display font-bold text-[clamp(2rem,4vw+0.5rem,3.75rem)] leading-[1.1] tracking-tight text-charcoal mb-6">
-                  <BlurText text={service.headline} />
+                <h1 className="display-lg text-charcoal mb-6">
+                  {service.headline}
                 </h1>
               </AnimatedElement>
 

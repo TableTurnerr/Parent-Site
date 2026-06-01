@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import Container from "@/app/components/ui/Container";
 import Button from "@/app/components/ui/Button";
-import SectionLabel from "@/app/components/ui/SectionLabel";
 import { SERVICES, SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
@@ -43,9 +42,11 @@ export default async function BlogPage() {
       <section className="bg-cream pt-28 sm:pt-32 md:pt-36 pb-12 md:pb-16">
         <Container>
           <div className="max-w-2xl">
-            <SectionLabel>Blog</SectionLabel>
-            <h1 className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mt-3 mb-6">
-              Restaurant Marketing Insights
+            <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
+              fresh from the pass
+            </p>
+            <h1 className="display-xl text-charcoal mb-6">
+              Restaurant marketing insights
             </h1>
             <p className="text-warm-gray text-lg leading-relaxed">
               Practical guides on restaurant SEO, Google Ads, and local
