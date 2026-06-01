@@ -205,6 +205,49 @@ export async function unpublishPost(postId: string) {
   revalidatePath("/blog");
 }
 
+/**
+ * Schedule a post to go live at a future time. Stores the target time and sets
+ * status to "scheduled". A cron job (see app/api/cron/publish-scheduled) flips
+ * scheduled posts to published once their time arrives.
+ */
+export async function schedulePost(postId: string, scheduledAtIso: string) {
+  const { supabase } = await verifyPostOwnership(postId);
+
+  const when = new Date(scheduledAtIso);
+  if (Number.isNaN(when.getTime())) throw new Error("Invalid schedule time");
+  if (when.getTime() <= Date.now()) {
+    throw new Error("Schedule time must be in the future");
+  }
+
+  const { error } = await supabase
+    .from("blog_posts")
+    .update({
+      status: "scheduled",
+      scheduled_at: when.toISOString(),
+    })
+    .eq("id", postId);
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/admin/posts");
+  revalidatePath(`/admin/posts/${postId}/edit`);
+}
+
+/** Cancel a pending schedule and return the post to draft. */
+export async function unschedulePost(postId: string) {
+  const { supabase } = await verifyPostOwnership(postId);
+
+  const { error } = await supabase
+    .from("blog_posts")
+    .update({ status: "draft", scheduled_at: null })
+    .eq("id", postId);
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/admin/posts");
+  revalidatePath(`/admin/posts/${postId}/edit`);
+}
+
 export async function deletePost(postId: string) {
   const { supabase } = await verifyPostOwnership(postId);
 

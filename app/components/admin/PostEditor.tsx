@@ -7,6 +7,8 @@ import {
   publishPost,
   unpublishPost,
   deletePost,
+  schedulePost,
+  unschedulePost,
 } from "@/app/(admin)/admin/posts/actions";
 import {
   Save,
@@ -29,6 +31,8 @@ import {
   SquareArrowOutUpRight,
   ImageIcon,
   Upload,
+  Clock,
+  CalendarClock,
 } from "lucide-react";
 import Link from "next/link";
 import ImageUploader from "./ImageUploader";
@@ -51,6 +55,7 @@ interface PostData {
   metaDescription: string;
   metaKeywords: string;
   ogImage: string;
+  scheduledAt: string;
   selectedCategoryIds: string[];
 }
 
@@ -87,6 +92,8 @@ export default function PostEditor({
   const [metaKeywords, setMetaKeywords] = useState(post.metaKeywords);
   const [ogImage, setOgImage] = useState(post.ogImage);
   const [visibility, setVisibility] = useState(post.visibility);
+  const [scheduleAt, setScheduleAt] = useState(post.scheduledAt);
+  const [scheduleError, setScheduleError] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     post.selectedCategoryIds
   );
@@ -345,6 +352,47 @@ export default function PostEditor({
     if (!confirm("Are you sure you want to delete this post? This cannot be undone.")) return;
     startTransition(async () => {
       await deletePost(post.id);
+    });
+  };
+
+  const handleSchedule = () => {
+    setScheduleError("");
+    if (!scheduleAt) {
+      setScheduleError("Pick a date and time first.");
+      return;
+    }
+    // datetime-local has no timezone; treat it as the user's local time.
+    const iso = new Date(scheduleAt).toISOString();
+    if (new Date(iso).getTime() <= Date.now()) {
+      setScheduleError("Schedule time must be in the future.");
+      return;
+    }
+    startTransition(async () => {
+      // Save current fields first so the scheduled post is up to date.
+      const formData = new FormData();
+      formData.set("title", title);
+      formData.set("slug", slug);
+      formData.set("content_html", contentHtml);
+      formData.set("excerpt", excerpt);
+      formData.set("featured_image", featuredImage);
+      formData.set("featured_image_alt", featuredImageAlt);
+      formData.set("meta_title", metaTitle);
+      formData.set("meta_description", metaDescription);
+      formData.set("meta_keywords", metaKeywords);
+      formData.set("og_image", ogImage);
+      formData.set("visibility", visibility);
+      formData.set("categories", selectedCategories.join(","));
+      await updatePost(post.id, formData);
+      await schedulePost(post.id, iso);
+      clearDraft();
+      router.refresh();
+    });
+  };
+
+  const handleUnschedule = () => {
+    startTransition(async () => {
+      await unschedulePost(post.id);
+      router.refresh();
     });
   };
 
@@ -1374,6 +1422,63 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
               ))}
             </div>
           </div>
+
+          {/* Schedule */}
+          {canPublish && post.status !== "published" && (
+            <div className="rounded-xl border border-[var(--color-border)] bg-white p-4">
+              <label className="mb-2 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
+                <CalendarClock className="h-3.5 w-3.5" />
+                Schedule
+              </label>
+              {post.status === "scheduled" ? (
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2 rounded-lg border border-purple-200 bg-purple-50 p-3">
+                    <Clock className="mt-0.5 h-4 w-4 shrink-0 text-purple-600" />
+                    <p className="text-xs text-purple-700">
+                      Scheduled to publish on{" "}
+                      <span className="font-semibold">
+                        {scheduleAt ? new Date(scheduleAt).toLocaleString() : "a set time"}
+                      </span>
+                      .
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleUnschedule}
+                    disabled={isPending}
+                    className="w-full rounded-full border border-[var(--color-border)] bg-white px-4 py-2 text-sm font-medium text-[var(--color-charcoal)] transition-colors hover:bg-[var(--color-cream-dark)] disabled:opacity-50"
+                  >
+                    Cancel schedule
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <input
+                    type="datetime-local"
+                    value={scheduleAt}
+                    onChange={(e) => {
+                      setScheduleAt(e.target.value);
+                      setScheduleError("");
+                    }}
+                    className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm text-[var(--color-charcoal)] focus:border-[var(--color-charcoal)] focus:outline-none"
+                  />
+                  {scheduleError && (
+                    <p className="text-xs text-red-600">{scheduleError}</p>
+                  )}
+                  <button
+                    onClick={handleSchedule}
+                    disabled={isPending || !scheduleAt}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:opacity-40"
+                  >
+                    <CalendarClock className="h-3.5 w-3.5" />
+                    Schedule post
+                  </button>
+                  <p className="text-xs text-[var(--color-warm-gray-light)]">
+                    Publishes automatically at the time you set.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* SEO Settings */}
           <div className="rounded-xl border border-[var(--color-border)] bg-white">
