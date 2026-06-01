@@ -11,7 +11,10 @@ export default function Services() {
         {/* Section header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12 md:mb-16">
           <AnimatedElement variants={fadeInUp} className="lg:col-span-7">
-            <p className="eyebrow mb-6">What We Do</p>
+            <p className="eyebrow mb-3">What We Do</p>
+            <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-4">
+              today&apos;s specials
+            </p>
             <h2 className="display-lg text-charcoal">
               Marketing services that drive real growth
             </h2>

@@ -30,7 +30,10 @@ export default function Mission() {
       <Container>
         {/* Section label */}
         <AnimatedElement variants={fadeInUp}>
-          <p className="eyebrow mb-8">Our Mission</p>
+          <p className="eyebrow mb-3">Our Mission</p>
+          <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-7">
+            from our kitchen to yours
+          </p>
         </AnimatedElement>
 
         {/* Big editorial headline */}

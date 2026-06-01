@@ -26,9 +26,12 @@ export default function CalculatorTeaser() {
             </span>
 
             <div className="relative lg:flex-1">
-              <p className="inline-flex items-center gap-2.5 text-cream/80 text-xs uppercase tracking-[0.22em] font-medium mb-5">
+              <p className="inline-flex items-center gap-2.5 text-cream/80 text-xs uppercase tracking-[0.22em] font-medium mb-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-cream" aria-hidden="true" />
                 Free Tool
+              </p>
+              <p className="font-handwriting text-cream/90 text-3xl md:text-4xl rotate-[-3deg] mb-3">
+                check, please
               </p>
               <h2 className="display-lg text-cream mb-4">
                 See what delivery apps are really costing you

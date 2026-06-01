@@ -41,7 +41,17 @@ export default function Hero() {
                 className="font-display font-bold text-cream tracking-tight"
                 style={{ fontSize: "clamp(3rem, 9vw, 8rem)", lineHeight: 0.92, letterSpacing: "-0.035em" }}
               >
-                We fill
+                <span className="relative inline-block">
+                  We fill
+                  {/* handwritten chef's note */}
+                  <span
+                    className="font-handwriting text-accent absolute -top-8 -right-10 md:-top-10 md:-right-16 rotate-[-8deg]"
+                    style={{ fontSize: "clamp(1.5rem, 3vw, 2.75rem)", lineHeight: 1 }}
+                    aria-hidden="true"
+                  >
+                    every seat,
+                  </span>
+                </span>
                 <br />
                 <span className="text-accent">more tables.</span>
               </h1>
