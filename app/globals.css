@@ -221,15 +221,6 @@
   background: var(--color-accent);
 }
 
-/* Premium footer wordmark — embossed gradient that reads on black */
-.footer-wordmark {
-  background: linear-gradient(180deg, #43403c 0%, #2a2724 55%, #1c1a18 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
 /* ─── FlowButton ─── */
 .flow-btn {
   position: relative;
