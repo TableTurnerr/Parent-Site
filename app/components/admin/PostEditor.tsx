@@ -948,7 +948,7 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
               <div className="flex-1" />
               <button
                 onClick={openPreviewTab}
-                className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-[#9E9890] transition-colors hover:bg-[#F2F0EB] hover:text-[#1A1A1A]"
+                className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-[var(--color-warm-gray-light)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
               >
                 Live Preview
                 <SquareArrowOutUpRight className="h-3 w-3" />
@@ -1337,7 +1337,7 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
                       <ChevronDown className={`h-3 w-3 transition-transform ${imageMoreOpen ? "rotate-180" : ""}`} />
                     </button>
                     {imageMoreOpen && (
-                      <div className="absolute right-0 top-full z-10 mt-1 w-36 rounded-lg border border-[var(--color-border)] bg-white py-1 shadow-lg">
+                      <div className="absolute right-0 top-full z-10 mt-1 w-40 rounded-lg border border-[var(--color-border)] bg-white py-1 shadow-xl">
                         {[
                           { label: "Pexels", url: `https://www.pexels.com/search/${encodeURIComponent(imageSearchQuery)}/` },
                           { label: "Freepik", url: `https://www.freepik.com/search?format=search&query=${encodeURIComponent(imageSearchQuery)}` },
@@ -1351,10 +1351,10 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => setImageMoreOpen(false)}
-                            className="flex items-center justify-between px-3 py-2 text-xs text-[var(--color-charcoal)] transition-colors hover:bg-[var(--color-cream)]"
+                            className="group flex items-center justify-between border-l-4 border-transparent px-3 py-2 text-xs font-medium text-[var(--color-charcoal)] transition-colors hover:border-[#43403D] hover:bg-[#43403D] hover:text-[#FAFAF8]"
                           >
                             {site.label}
-                            <ExternalLink className="h-2.5 w-2.5 text-[var(--color-warm-gray-light)]" />
+                            <ExternalLink className="h-2.5 w-2.5 text-[var(--color-warm-gray-light)] group-hover:text-[#D4D0CB]" />
                           </a>
                         ))}
                       </div>
@@ -1393,7 +1393,9 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
               Visibility
             </label>
             <div className="space-y-2">
-              {(Object.keys(VISIBILITY_LABELS) as Array<keyof typeof VISIBILITY_LABELS>).map((key) => (
+              {(Object.keys(VISIBILITY_LABELS) as Array<keyof typeof VISIBILITY_LABELS>)
+                .filter((key) => key !== "client_only")
+                .map((key) => (
                 <label
                   key={key}
                   className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-colors ${

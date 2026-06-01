@@ -35,7 +35,10 @@ function FlipLink({
   );
 }
 
-export default function Footer() {
+export default function Footer({
+  hideWatermark = false,
+}: { hideWatermark?: boolean } = {}) {
+  const pageLinks = [{ label: "Home", href: "/" }, ...NAV_LINKS];
   return (
     <footer className="bg-black pt-16 md:pt-20 pb-8">
       <Container>
@@ -70,7 +73,7 @@ export default function Footer() {
               Pages
             </h3>
             <ul className="space-y-3">
-              {NAV_LINKS.map((link) => (
+              {pageLinks.map((link) => (
                 <li key={link.href}>
                   <FlipLink href={link.href}>{link.label}</FlipLink>
                 </li>
@@ -126,12 +129,13 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ─── Bottom Bar ─── */}
+        {/* ─── Bottom Bar ─── (watermark removed per design) */}
         <div className="mt-12 sm:mt-16 border-t border-neutral-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
           <p className="text-neutral-400 text-sm">
             &copy; {new Date().getFullYear()} TableTurnerr. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
+            <FlipLink href="/login">Client Login</FlipLink>
             <FlipLink href="/privacy">Privacy Policy</FlipLink>
             <FlipLink href="/terms">Terms of Service</FlipLink>
           </div>

@@ -1,15 +1,16 @@
 import { createClient } from "@/app/lib/supabase/server";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ReportRenderer } from "@/components/report/report-renderer";
-import { isClientReport, type ClientReport } from "@/lib/report-schema";
+import { MapPin, ArrowRight } from "lucide-react";
 
-type GraderData = {
-  overallScore?: number;
-  categories?: Record<string, { score?: number; issues?: string[] }>;
-  topRecommendations?: string[];
-  gradedAt?: string;
+type LocationCard = {
+  reportSlug: string;
+  reportMonth: string;
+  locationName: string | null;
+  locationAddress: string | null;
+  publishedAt: string | null;
+  overallScore: number | null;
 };
 
 export async function generateMetadata({
@@ -19,27 +20,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const supabase = await createClient();
-
-  const { data } = await supabase
-    .from("client_reports")
-    .select("client_name, visibility")
-    .eq("client_slug", slug)
-    .eq("status", "published")
-    .in("visibility", ["public", "unlisted"])
-    .single();
-
-  if (!data) return { title: "Report | TableTurnerr" };
-
+  const { data: client } = await supabase
+    .from("clients")
+    .select("name")
+    .eq("slug", slug)
+    .maybeSingle();
+  if (!client) return { title: "Report | TableTurnerr", robots: { index: false, follow: false } };
   return {
-    title: `${data.client_name} — Digital Presence Report | TableTurnerr`,
-    robots:
-      data.visibility === "public"
-        ? { index: false, follow: false }
-        : { index: false, follow: false, nocache: true },
+    title: `${client.name} — Digital Presence Reports | TableTurnerr`,
+    robots: { index: false, follow: false },
   };
 }
 
-export default async function PublicReportPage({
+export default async function PublicReportLandingPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -47,175 +40,152 @@ export default async function PublicReportPage({
   const { slug } = await params;
   const supabase = await createClient();
 
-  const { data: report } = await supabase
+  const { data: client } = await supabase
+    .from("clients")
+    .select("id, name, slug, url")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (client) {
+    const { data: locReports } = await supabase
+      .from("client_reports")
+      .select(
+        "client_slug, report_month, published_at, grader_data, locations ( name, address, is_primary )",
+      )
+      .eq("client_id", client.id)
+      .eq("status", "published")
+      .in("visibility", ["public", "unlisted"])
+      .order("report_month", { ascending: false });
+
+    const rows = (locReports ?? []) as Array<{
+      client_slug: string;
+      report_month: string;
+      published_at: string | null;
+      grader_data: { overallScore?: number } | null;
+      locations: { name: string; address: string | null; is_primary: boolean } | null;
+    }>;
+
+    const latestBySlug = new Map<string, LocationCard>();
+    for (const r of rows) {
+      if (latestBySlug.has(r.client_slug)) continue;
+      latestBySlug.set(r.client_slug, {
+        reportSlug: r.client_slug,
+        reportMonth: r.report_month,
+        locationName: r.locations?.name ?? null,
+        locationAddress: r.locations?.address ?? null,
+        publishedAt: r.published_at,
+        overallScore:
+          typeof r.grader_data?.overallScore === "number"
+            ? r.grader_data.overallScore
+            : null,
+      });
+    }
+
+    const cards = Array.from(latestBySlug.values());
+
+    if (cards.length === 1) {
+      const only = cards[0];
+      redirect(`/report/${only.reportSlug}/${only.reportMonth.slice(0, 7)}`);
+    }
+
+    if (cards.length > 1) {
+      return <BrandLanding client={client} cards={cards} />;
+    }
+    // No published reports — fall through to legacy lookup
+  }
+
+  // Legacy: per-location client_slug like "taco-delphia-22nd-walnut"
+  const { data: latest } = await supabase
     .from("client_reports")
-    .select(
-      "client_name, client_url, client_content_html, client_content_json, grader_data, published_at, created_at, visibility",
-    )
+    .select("report_month")
     .eq("client_slug", slug)
     .eq("status", "published")
     .in("visibility", ["public", "unlisted"])
-    .single();
+    .order("report_month", { ascending: false })
+    .limit(1)
+    .maybeSingle();
 
-  if (!report) notFound();
+  if (!latest) notFound();
 
-  // Prefer the structured JSON renderer when available.
-  const json = report.client_content_json as ClientReport | null;
-  if (json && isClientReport(json)) {
-    return <ReportRenderer report={json} />;
-  }
+  redirect(`/report/${slug}/${latest.report_month.slice(0, 7)}`);
+}
 
-  // ─── Fallback: legacy HTML render path ───────────────────────────────
-  const grader = report.grader_data as GraderData | null;
-  const reportDate = report.published_at ?? report.created_at;
-  const score = grader?.overallScore ?? null;
-
-  const scoreColor =
-    score === null
-      ? "#888"
-      : score >= 70
-      ? "#16a34a"
-      : score >= 40
-      ? "#d97706"
-      : "#dc2626";
-
-  const categoryLabels: Record<string, string> = {
-    seo: "SEO",
-    mobile: "Mobile",
-    social: "Social Media",
-    local: "Local SEO",
-    reviews: "Reviews",
-    performance: "Performance",
-    content: "Content",
-  };
-
+function BrandLanding({
+  client,
+  cards,
+}: {
+  client: { name: string; url: string };
+  cards: LocationCard[];
+}) {
   return (
-    <div className="min-h-screen bg-[#f9f7f4]">
-      <header className="bg-[#1a1a1a] text-white">
-        <div className="mx-auto max-w-4xl px-6 py-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <Link
-                href="https://tableturnerr.com"
-                target="_blank"
-                className="text-sm font-semibold tracking-widest text-white/60 uppercase hover:text-white/80 transition-colors"
-              >
-                TableTurnerr
-              </Link>
-              <h1 className="mt-2 text-2xl font-bold sm:text-3xl">
-                {report.client_name}
-              </h1>
-              <p className="mt-1 text-sm text-white/60">
-                Digital Presence Report &middot;{" "}
-                {new Date(reportDate).toLocaleDateString("en-US", {
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </p>
-            </div>
+    <div className="min-h-screen bg-[var(--color-cream)]">
+      <div className="mx-auto max-w-5xl px-4 py-12 lg:px-8 lg:py-20">
+        <header className="mb-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-warm-gray)]">
+            TableTurnerr · Digital Presence Reports
+          </p>
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-charcoal)] sm:text-4xl">
+            {client.name}
+          </h1>
+          {client.url && (
+            <p className="mt-2 text-sm text-[var(--color-warm-gray)]">{client.url}</p>
+          )}
+          <p className="mt-4 max-w-xl text-sm text-[var(--color-warm-gray)]">
+            Choose a location to view its latest monthly report.
+          </p>
+        </header>
 
-            {score !== null && (
-              <div className="flex shrink-0 flex-col items-center rounded-xl bg-white/10 px-6 py-4 text-center">
-                <span className="text-xs font-medium uppercase tracking-wider text-white/50">
-                  Website Grade
-                </span>
-                <span
-                  className="mt-1 text-4xl font-bold tabular-nums"
-                  style={{ color: scoreColor }}
+        <ul className="grid gap-4 sm:grid-cols-2">
+          {cards.map((c) => {
+            const monthLabel = new Date(c.reportMonth).toLocaleDateString("en-US", {
+              month: "long",
+              year: "numeric",
+            });
+            return (
+              <li key={c.reportSlug}>
+                <Link
+                  href={`/report/${c.reportSlug}/${c.reportMonth.slice(0, 7)}`}
+                  className="group flex h-full flex-col justify-between gap-4 rounded-2xl border border-[var(--color-border)] bg-white p-6 transition-all hover:border-[var(--color-charcoal)] hover:shadow-sm"
                 >
-                  {score}
-                </span>
-                <span className="text-xs text-white/50">out of 100</span>
-              </div>
-            )}
-          </div>
-        </div>
-      </header>
-
-      {grader?.categories && Object.keys(grader.categories).length > 0 && (
-        <div className="border-b border-[#e5e1da] bg-white">
-          <div className="mx-auto max-w-4xl px-6 py-6">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-[#888]">
-              Score Breakdown
-            </p>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-              {Object.entries(grader.categories).map(([key, cat]) => {
-                const catScore = cat.score ?? null;
-                const catColor =
-                  catScore === null
-                    ? "#ccc"
-                    : catScore >= 70
-                    ? "#16a34a"
-                    : catScore >= 40
-                    ? "#d97706"
-                    : "#dc2626";
-                return (
-                  <div
-                    key={key}
-                    className="flex flex-col items-center rounded-lg border border-[#e5e1da] bg-[#f9f7f4] px-3 py-4 text-center"
-                  >
-                    <span className="text-xs font-medium text-[#888]">
-                      {categoryLabels[key] ?? key}
-                    </span>
-                    <span
-                      className="mt-1 text-2xl font-bold tabular-nums"
-                      style={{ color: catColor }}
-                    >
-                      {catScore ?? "—"}
-                    </span>
+                  <div>
+                    <div className="flex items-start gap-2 text-[var(--color-charcoal)]">
+                      <MapPin className="mt-1 h-4 w-4 shrink-0 text-[var(--color-warm-gray)]" />
+                      <div className="min-w-0">
+                        <h2 className="text-lg font-semibold leading-tight">
+                          {c.locationName ?? "Location"}
+                        </h2>
+                        {c.locationAddress && (
+                          <p className="mt-0.5 text-xs text-[var(--color-warm-gray)]">
+                            {c.locationAddress}
+                          </p>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      )}
-
-      <main className="mx-auto max-w-4xl px-6 py-10">
-        <article
-          className="prose prose-neutral max-w-none
-            prose-headings:font-bold prose-headings:text-[#1a1a1a]
-            prose-h1:text-2xl prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4
-            prose-h3:text-base prose-h3:mt-6
-            prose-p:text-[#444] prose-p:leading-relaxed
-            prose-a:text-[#1a1a1a] prose-a:underline
-            prose-strong:text-[#1a1a1a]
-            prose-table:text-sm
-            prose-th:bg-[#f0ede8] prose-th:font-semibold prose-th:text-[#1a1a1a]
-            prose-td:text-[#444]
-            prose-li:text-[#444]"
-          dangerouslySetInnerHTML={{ __html: report.client_content_html ?? "" }}
-        />
-      </main>
-
-      <footer className="border-t border-[#e5e1da] bg-[#1a1a1a] text-white">
-        <div className="mx-auto max-w-4xl px-6 py-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="font-semibold">TableTurnerr</p>
-              <p className="mt-0.5 text-sm text-white/60">
-                Digital marketing for local restaurants
-              </p>
-            </div>
-            <div className="flex flex-col gap-1 text-sm text-white/60 sm:text-right">
-              <a
-                href="https://tableturnerr.com"
-                target="_blank"
-                className="hover:text-white transition-colors"
-              >
-                tableturnerr.com
-              </a>
-              <a
-                href="tel:+18085599006"
-                className="hover:text-white transition-colors"
-              >
-                +1 (808) 559-9006
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+                  <div className="flex items-end justify-between gap-3 border-t border-[var(--color-border)] pt-4">
+                    <div>
+                      <p className="text-[10px] uppercase tracking-wider text-[var(--color-warm-gray-light)]">
+                        Latest report
+                      </p>
+                      <p className="text-sm font-medium text-[var(--color-charcoal)]">
+                        {monthLabel}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      {c.overallScore !== null && (
+                        <span className="text-sm font-semibold tabular-nums text-[var(--color-charcoal)]">
+                          {c.overallScore}/100
+                        </span>
+                      )}
+                      <ArrowRight className="h-4 w-4 text-[var(--color-warm-gray)] transition-transform group-hover:translate-x-1 group-hover:text-[var(--color-charcoal)]" />
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 }

@@ -16,12 +16,32 @@ export type GradeTone = "excellent" | "good" | "ok" | "weak" | "poor";
 
 export type InlineText = string; // markdown subset: **bold**, *italic*, [text](url), `code`
 
+export interface ReportLocation {
+  id?: string;               // Supabase locations.id — present after first push
+  name: string;              // "Downtown", "Westside", etc.
+  slug?: string;             // url-safe variant of name; auto-derived if omitted
+  address?: string;          // optional street address
+  siblings?: string[];       // names of other locations under the same brand
+  totalLocations?: number;   // total count across the brand
+  graderRunFor?: string[];   // location names that received a fresh grader run this cycle
+  skippedLocations?: string[]; // location names not graded this cycle (capacity limit)
+}
+
+export interface ReportCompany {
+  id?: string;               // Supabase clients.id — present after first push
+  name: string;              // brand-level name (e.g. "Taco Delphia")
+  slug: string;              // brand-level slug (e.g. "taco-delphia")
+}
+
 export interface ReportClient {
-  name: string;
-  slug: string;
+  id?: string;               // mirror of company.id — convenience accessor
+  name: string;              // display name; multi-location uses "<Brand> — <Location>"
+  slug: string;              // per-report slug used in /report/<slug>/<month>
   url: string;
   preparedBy?: string;
-  preparedDate: string; // ISO date or human-readable
+  preparedDate: string;      // ISO date or human-readable
+  company?: ReportCompany;   // canonical company info; populated after first push
+  location?: ReportLocation; // present whenever the report belongs to a named location
 }
 
 export interface ReportHero {
@@ -183,6 +203,40 @@ export interface CtaSection {
   secondary?: { label: string; href?: string };
 }
 
+export interface ProgressionStep {
+  label: string;
+  info: InlineText;        // 1-liner shown in the tooltip
+  recommended?: boolean;   // marks the "*recommended" step
+}
+
+export interface ProgressionBarSection {
+  type: "progressionBar";
+  id: string;
+  title?: string;
+  intro?: InlineText;
+  steps: ProgressionStep[];
+}
+
+export interface GroupSection {
+  type: "group";
+  id: string;
+  title: string;
+  intro?: InlineText;
+  sections: ChildSection[];
+}
+
+export type ChildSection =
+  | NarrativeSection
+  | ScorecardSection
+  | TableSection
+  | ReviewsSection
+  | ProblemListSection
+  | CompetitionSection
+  | KeywordResearchSection
+  | ActionPlanSection
+  | SuccessMetricsSection
+  | ProgressionBarSection;
+
 export type ReportSection =
   | NarrativeSection
   | ScorecardSection
@@ -193,10 +247,24 @@ export type ReportSection =
   | KeywordResearchSection
   | ActionPlanSection
   | SuccessMetricsSection
+  | ProgressionBarSection
+  | GroupSection
   | CtaSection;
+
+export interface ReportMeta {
+  reportId?: string;       // client_reports.id — set after first push
+  companyId?: string;      // clients.id
+  companyName?: string;
+  companySlug?: string;
+  locationId?: string;     // locations.id
+  locationName?: string;
+  locationSlug?: string;
+  reportMonth?: string;    // "YYYY-MM"
+}
 
 export interface ClientReport {
   version: ReportSchemaVersion;
+  meta?: ReportMeta;             // canonical IDs + lookup keys; populated post-push
   client: ReportClient;
   hero: ReportHero;
   ratings: RatingCategory[];     // sidebar score breakdown

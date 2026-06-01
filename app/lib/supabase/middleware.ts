@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { withSharedDomain } from "./cookie-options";
 
 const SECURITY_HEADERS: Record<string, string> = {
   "X-Frame-Options": "DENY",
@@ -9,7 +10,7 @@ const SECURITY_HEADERS: Record<string, string> = {
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
 };
 
-// HSTS must not be set in development — browsers will cache it and force https://localhost,
+// HSTS must not be set in development — browsers cache it and force https://localhost,
 // breaking the HTTP dev server for the entire browser profile.
 if (process.env.NODE_ENV !== "development") {
   SECURITY_HEADERS["Strict-Transport-Security"] =
@@ -36,47 +37,98 @@ export async function updateSession(request: NextRequest) {
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
+            request.cookies.set(name, value),
           );
           supabaseResponse = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, withSharedDomain(options)),
           );
         },
       },
-    }
+    },
   );
 
-  const isAdminRoute = request.nextUrl.pathname.startsWith("/admin");
+  const path = request.nextUrl.pathname;
+  const isAdminRoute = path.startsWith("/admin");
+  const isPortalRoute = path.startsWith("/portal");
+  const isLoginPage = path === "/login";
+  const isPendingPage = path.startsWith("/admin/pending");
+  const isDeniedPage = path.startsWith("/admin/denied");
+  const isAuthRoute = isAdminRoute || isPortalRoute || isLoginPage;
 
-  // Only call Supabase auth for admin routes — public pages don't need it
-  if (!isAdminRoute) {
+  // Public pages don't need session refresh
+  if (!isAuthRoute) {
     return applySecurityHeaders(supabaseResponse);
   }
 
-  // Refresh the session
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const isLoginPage = request.nextUrl.pathname.startsWith("/admin/login");
-  const isPendingPage = request.nextUrl.pathname.startsWith("/admin/pending");
-  const isDeniedPage = request.nextUrl.pathname.startsWith("/admin/denied");
-  const isPublicAdminPage = isLoginPage || isPendingPage || isDeniedPage;
 
-  // Protect /admin routes (except login, pending, denied pages)
-  if (isAdminRoute && !isPublicAdminPage) {
+  // Login page: if already signed in, send to role's home
+  if (isLoginPage) {
+    if (user) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role, status")
+        .eq("id", user.id)
+        .single();
+      const url = request.nextUrl.clone();
+      if (profile?.role === "client") {
+        url.pathname = "/portal";
+      } else if (profile?.status === "approved") {
+        url.pathname = "/admin";
+      } else {
+        url.pathname = "/admin/pending";
+      }
+      url.search = "";
+      return NextResponse.redirect(url);
+    }
+    return applySecurityHeaders(supabaseResponse);
+  }
+
+  // Pending / denied pages — allow signed-in user to view, redirect anon to login
+  if (isPendingPage || isDeniedPage) {
     if (!user) {
       const url = request.nextUrl.clone();
-      url.pathname = "/admin/login";
+      url.pathname = "/login";
+      return NextResponse.redirect(url);
+    }
+    return applySecurityHeaders(supabaseResponse);
+  }
+
+  // /portal — requires auth
+  if (isPortalRoute) {
+    if (!user) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      url.searchParams.set("next", path);
+      return NextResponse.redirect(url);
+    }
+    return applySecurityHeaders(supabaseResponse);
+  }
+
+  // /admin/* (non-public) — auth required, role/status gated
+  if (isAdminRoute) {
+    if (!user) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      url.searchParams.set("next", path);
       return NextResponse.redirect(url);
     }
 
-    // Check profile approval status
     const { data: profile } = await supabase
       .from("profiles")
-      .select("status")
+      .select("role, status")
       .eq("id", user.id)
       .single();
+
+    // Clients must not see /admin
+    if (profile?.role === "client") {
+      const url = request.nextUrl.clone();
+      url.pathname = "/portal";
+      return NextResponse.redirect(url);
+    }
 
     if (!profile || profile.status === "pending") {
       const url = request.nextUrl.clone();
@@ -87,21 +139,6 @@ export async function updateSession(request: NextRequest) {
     if (profile.status === "denied") {
       const url = request.nextUrl.clone();
       url.pathname = "/admin/denied";
-      return NextResponse.redirect(url);
-    }
-  }
-
-  // If approved user visits login/pending/denied, redirect to dashboard
-  if (isPublicAdminPage && user) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("status")
-      .eq("id", user.id)
-      .single();
-
-    if (profile?.status === "approved") {
-      const url = request.nextUrl.clone();
-      url.pathname = "/admin";
       return NextResponse.redirect(url);
     }
   }

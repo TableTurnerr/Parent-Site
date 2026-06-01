@@ -24,6 +24,7 @@ Do **not** trigger this skill on a generic "make a report" request — that's `g
 ## Step 0 — Parse the request
 Extract:
 - **Slug** — required. If not given, ask. Slug must already exist in Supabase.
+- **Month** — optional, format `YYYY-MM`. Defaults to the latest month for the client. Ask if the user mentions multiple months or "the September report".
 - **Variant** — `client` or `internal`. Default to `client` if not specified. The "Talk to AI" panel always supplies it explicitly.
 - **Instruction** — the change(s) to apply, in plain English.
 
@@ -31,6 +32,7 @@ If the request comes from the admin panel's copy-paste it will look like:
 ```
 /edit-client-report grumpys-burgers
 
+Month: 2026-05
 Variant: client
 Instruction: Tighten the executive summary, drop the speculative revenue figures, and add a section on TikTok strategy.
 ```
@@ -40,21 +42,21 @@ Instruction: Tighten the executive summary, drop the speculative revenue figures
 ## Step 1 — Fetch the existing report
 
 ```bash
-node scripts/fetch-report.js --slug="<slug>"
+node scripts/fetch-report.js --slug="<slug>" [--month="YYYY-MM"]
 ```
 
 Run from: `C:\Users\Hashaam\Desktop\MyCode\ParentSite-Tableturnerr`
 
 Watch stdout for the sentinel line:
 ```
-FETCHED:<slug>:<absolute-path-to-archive-dir>
+FETCHED:<slug>:<YYYY-MM>:<absolute-path-to-archive-dir>
 ```
 
-The script writes:
-- `reports-archive/<slug>/<slug>-client-report.json`   (the client JSON — what powers the live page)
-- `reports-archive/<slug>/<slug>-internal-report.json` (the internal JSON — admin-only)
-- `reports-archive/<slug>/<slug>-grader.json` (raw grader data, if cached)
-- `reports-archive/<slug>/<slug>-meta.json` (current `client_name`, `client_url`, `status`, `visibility` — use these for Step 3)
+The script writes (under `reports-archive/<slug>/<YYYY-MM>/`):
+- `<slug>-client-report.json`   (the client JSON — what powers the live page)
+- `<slug>-internal-report.json` (the internal JSON — admin-only)
+- `<slug>-grader.json` (raw grader data, if cached)
+- `<slug>-meta.json` (current `client_name`, `client_url`, `report_month`, `status`, `visibility` — use these for Step 3)
 
 If the fetch fails (`Report not found for slug ...`), tell the user the slug doesn't exist and stop — do not silently fall through to `generate-client-report`.
 
@@ -70,12 +72,14 @@ For **internal variant**: edit `<slug>-internal-report.json` in place.
 **Never write or modify a `.md` file.** If you find any in the archive folder, ignore them — they are legacy and will be removed.
 
 General rules:
-- Schema: `lib/report-schema.ts` (`ClientReport` v1). Read `reports-archive/pure-on-the-plaza/pure-on-the-plaza-client-report.json` if you need a reference.
+- Schema: `lib/report-schema.ts` (`ClientReport` v1). Read `reports-archive/pure-on-the-plaza/2026-05/pure-on-the-plaza-client-report.json` if you need a reference.
 - Preserve section `id`s — they are the anchor links (`#problems`, `#keywords`, `#action-plan`, `#next-steps`, etc.).
 - Preserve section order unless the instruction explicitly asks to add/remove a section.
 - Inline formatting in JSON strings is the small markdown subset only: `**bold**`, `*italic*`, `[label](url)`, `` `code` ``. Never emit raw HTML.
 - For factual changes (numbers, names, dates), only edit if the instruction supplies the new value or it's clearly derivable from `grader.json`.
 - For tone/style changes, rewrite only the affected sections — leave the rest intact.
+- **Preserve `keywords.totals.summary`'s closing traffic-performance paragraph** (the `**Where you stand today vs. where you can be in 3 months:**` block). It's a required part of every client report — see the `keywords` section rules in `generate-client-report/SKILL.md` for the format. If the edit instruction touches keyword opportunity totals, current traffic, the target, or sister-location framing, rewrite this paragraph to stay consistent; otherwise leave it intact.
+- **Sister-location consistency:** when editing a report whose `client.location.siblings` is non-empty and the brand serves all locations from one domain, the current-traffic baseline ("X visitors a month across both locations") must match across all sibling reports. If you edit one, check whether the others need a matching update.
 - Re-validate the JSON parses cleanly before saving.
 - If you're unsure about a vague instruction, ask **one** clarifying question before editing.
 
@@ -92,11 +96,14 @@ node scripts/push-report.js \
   --client="<client_name from meta>" \
   --slug="<slug>" \
   --url="<client_url from meta>" \
-  --client-report-json="<repo>/reports-archive/<slug>/<slug>-client-report.json" \
-  --internal-report-json="<repo>/reports-archive/<slug>/<slug>-internal-report.json" \
+  --month="<YYYY-MM from meta.report_month>" \
+  --client-report-json="<repo>/reports-archive/<slug>/<YYYY-MM>/<slug>-client-report.json" \
+  --internal-report-json="<repo>/reports-archive/<slug>/<YYYY-MM>/<slug>-internal-report.json" \
   --status=<status from meta> \
   --visibility=<visibility from meta>
 ```
+
+Always pass `--month` so the upsert hits the right (client, month) row instead of accidentally creating a new month.
 
 Only pass the JSON flags for variants that actually changed — the script preserves the other variant's column when its flag is omitted.
 

@@ -1,6 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { Check, X } from "lucide-react";
+import UserAvatar from "@/app/components/ui/UserAvatar";
+import { ChipDropdown } from "@/app/components/ui/Dropdown";
+import EditMemberDialog from "@/app/components/admin/EditMemberDialog";
 import { ROLE_LABELS, ROLE_DESCRIPTIONS } from "@/app/lib/supabase/types";
 import type { UserRole } from "@/app/lib/supabase/types";
 
@@ -14,11 +18,13 @@ interface Member {
   created_at: string;
 }
 
-const ALL_ROLES: UserRole[] = ["viewer", "commenter", "editor", "manager", "admin"];
+const ALL_ROLES: UserRole[] = ["client", "viewer", "commenter", "author", "editor", "manager", "admin"];
 
 const ROLE_COLORS: Record<UserRole, string> = {
+  client: "bg-sky-50 text-sky-700",
   viewer: "bg-gray-100 text-gray-600",
   commenter: "bg-blue-50 text-blue-600",
+  author: "bg-teal-50 text-teal-700",
   editor: "bg-emerald-50 text-emerald-600",
   manager: "bg-purple-50 text-purple-600",
   admin: "bg-amber-50 text-amber-700",
@@ -28,6 +34,7 @@ export default function AccessManager({
   members,
   updateStatusAction,
   updateRoleAction,
+  updateProfileAction,
   showApproveActions,
   showReapproveAction,
   currentUserId,
@@ -35,10 +42,12 @@ export default function AccessManager({
   members: Member[];
   updateStatusAction: (formData: FormData) => Promise<void>;
   updateRoleAction: (formData: FormData) => Promise<void>;
+  updateProfileAction?: (formData: FormData) => Promise<void>;
   showApproveActions?: boolean;
   showReapproveAction?: boolean;
   currentUserId?: string;
 }) {
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
   return (
     <ul className="divide-y divide-[var(--color-border)]">
       {members.map((member) => (
@@ -47,20 +56,16 @@ export default function AccessManager({
           className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-6"
         >
           <div className="flex items-center gap-3 min-w-0">
-            {member.avatar_url ? (
-              <img
-                src={member.avatar_url}
-                alt={member.full_name ?? ""}
-                className="h-10 w-10 shrink-0 rounded-full object-cover"
-              />
-            ) : (
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-warm-gray-light)] text-sm font-medium text-white">
-                {(member.full_name ?? "?").charAt(0).toUpperCase()}
-              </div>
-            )}
+            <UserAvatar
+              src={member.avatar_url}
+              name={member.full_name ?? member.email ?? "User"}
+              seed={member.id}
+              size={40}
+              className="shrink-0"
+            />
             <div className="min-w-0">
               <p className="truncate text-sm font-medium text-[var(--color-charcoal)]">
-                {member.full_name ?? "Unknown"}
+                {member.full_name ?? "User"}
                 {member.id === currentUserId && (
                   <span className="ml-1.5 text-xs text-[var(--color-warm-gray-light)]">
                     (you)
@@ -82,29 +87,40 @@ export default function AccessManager({
           </div>
 
           <div className="flex flex-wrap items-center gap-2 shrink-0 sm:justify-end">
+            {/* Edit profile (admin/manager only, for non-self members) */}
+            {updateProfileAction && member.id !== currentUserId && (
+              <EditMemberDialog
+                userId={member.id}
+                email={member.email}
+                currentName={member.full_name}
+                currentAvatarUrl={member.avatar_url}
+                updateAction={updateProfileAction}
+              />
+            )}
+
             {/* Role selector (for approved members, not self) */}
             {member.status === "approved" && member.id !== currentUserId && (
-              <form action={updateRoleAction}>
-                <input type="hidden" name="user_id" value={member.id} />
-                <select
-                  name="role"
-                  defaultValue={member.role}
-                  onChange={(e) => {
-                    const form = e.target.closest("form");
-                    if (form) form.requestSubmit();
-                  }}
-                  className={`cursor-pointer appearance-none rounded-full px-3 py-1.5 pr-7 text-xs font-medium ${
-                    ROLE_COLORS[(member.role as UserRole) ?? "viewer"]
-                  } border-0 bg-none focus:outline-none`}
-                  title={ROLE_DESCRIPTIONS[(member.role as UserRole) ?? "viewer"]}
-                >
-                  {ALL_ROLES.map((role) => (
-                    <option key={role} value={role}>
-                      {ROLE_LABELS[role]}
-                    </option>
-                  ))}
-                </select>
-              </form>
+              <ChipDropdown
+                open={openMenu === member.id}
+                onOpenChange={(o) => setOpenMenu(o ? member.id : null)}
+                chipClassName={ROLE_COLORS[(member.role as UserRole) ?? "viewer"]}
+                label={ROLE_LABELS[(member.role as UserRole) ?? "viewer"]}
+                title={ROLE_DESCRIPTIONS[(member.role as UserRole) ?? "viewer"]}
+                menuWidth={240}
+                align="right"
+                options={ALL_ROLES.map((role) => ({
+                  key: role,
+                  label: ROLE_LABELS[role],
+                  description: ROLE_DESCRIPTIONS[role],
+                  active: role === member.role,
+                  onClick: () => {
+                    const fd = new FormData();
+                    fd.set("user_id", member.id);
+                    fd.set("role", role);
+                    updateRoleAction(fd);
+                  },
+                }))}
+              />
             )}
 
             {/* Self badge */}

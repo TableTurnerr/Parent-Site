@@ -7,6 +7,9 @@ export type Json =
   | Json[]
 
 export type Database = {
+  __InternalSupabase: {
+    PostgrestVersion: "14.5"
+  }
   public: {
     Tables: {
       blog_post_categories: {
@@ -26,12 +29,14 @@ export type Database = {
           {
             foreignKeyName: "blog_post_categories_category_id_fkey"
             columns: ["category_id"]
+            isOneToOne: false
             referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "blog_post_categories_post_id_fkey"
             columns: ["post_id"]
+            isOneToOne: false
             referencedRelation: "blog_posts"
             referencedColumns: ["id"]
           },
@@ -156,70 +161,7 @@ export type Database = {
           {
             foreignKeyName: "blog_posts_author_id_fkey"
             columns: ["author_id"]
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      client_reports: {
-        Row: {
-          id: string
-          client_name: string
-          client_slug: string
-          client_url: string
-          client_content_md: string
-          client_content_html: string | null
-          client_content_json: Json | null
-          internal_content_md: string | null
-          internal_content_html: string | null
-          grader_data: Json | null
-          status: "draft" | "published" | "archived"
-          visibility: "public" | "unlisted" | "private"
-          created_at: string
-          updated_at: string
-          published_at: string | null
-          created_by: string | null
-        }
-        Insert: {
-          id?: string
-          client_name: string
-          client_slug: string
-          client_url: string
-          client_content_md: string
-          client_content_html?: string | null
-          client_content_json?: Json | null
-          internal_content_md?: string | null
-          internal_content_html?: string | null
-          grader_data?: Json | null
-          status?: "draft" | "published" | "archived"
-          visibility?: "public" | "unlisted" | "private"
-          created_at?: string
-          updated_at?: string
-          published_at?: string | null
-          created_by?: string | null
-        }
-        Update: {
-          id?: string
-          client_name?: string
-          client_slug?: string
-          client_url?: string
-          client_content_md?: string
-          client_content_html?: string | null
-          client_content_json?: Json | null
-          internal_content_md?: string | null
-          internal_content_html?: string | null
-          grader_data?: Json | null
-          status?: "draft" | "published" | "archived"
-          visibility?: "public" | "unlisted" | "private"
-          created_at?: string
-          updated_at?: string
-          published_at?: string | null
-          created_by?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "client_reports_created_by_fkey"
-            columns: ["created_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -245,6 +187,364 @@ export type Database = {
           slug?: string
         }
         Relationships: []
+      }
+      client_access: {
+        Row: {
+          accepted_at: string | null
+          client_id: string
+          email: string
+          id: string
+          invited_at: string
+          invited_by: string | null
+          profile_id: string | null
+          revoked_at: string | null
+        }
+        Insert: {
+          accepted_at?: string | null
+          client_id: string
+          email: string
+          id?: string
+          invited_at?: string
+          invited_by?: string | null
+          profile_id?: string | null
+          revoked_at?: string | null
+        }
+        Update: {
+          accepted_at?: string | null
+          client_id?: string
+          email?: string
+          id?: string
+          invited_at?: string
+          invited_by?: string | null
+          profile_id?: string | null
+          revoked_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_access_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_access_invited_by_fkey"
+            columns: ["invited_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_access_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      client_api_keys: {
+        Row: {
+          client_id: string
+          created_at: string
+          created_by: string | null
+          id: string
+          key_hash: string
+          key_prefix: string
+          label: string
+          last_used_at: string | null
+          revoked_at: string | null
+          revoked_by: string | null
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          key_hash: string
+          key_prefix: string
+          label: string
+          last_used_at?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          key_hash?: string
+          key_prefix?: string
+          label?: string
+          last_used_at?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_api_keys_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_api_keys_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_api_keys_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      client_reports: {
+        Row: {
+          client_content_html: string | null
+          client_content_json: Json | null
+          client_content_md: string | null
+          client_id: string
+          client_name: string
+          client_slug: string
+          client_url: string
+          created_at: string
+          created_by: string | null
+          grader_data: Json | null
+          id: string
+          internal_content_html: string | null
+          internal_content_json: Json | null
+          internal_content_md: string | null
+          location_id: string
+          published_at: string | null
+          report_month: string
+          status: string
+          updated_at: string
+          visibility: string
+        }
+        Insert: {
+          client_content_html?: string | null
+          client_content_json?: Json | null
+          client_content_md?: string | null
+          client_id: string
+          client_name: string
+          client_slug: string
+          client_url: string
+          created_at?: string
+          created_by?: string | null
+          grader_data?: Json | null
+          id?: string
+          internal_content_html?: string | null
+          internal_content_json?: Json | null
+          internal_content_md?: string | null
+          location_id: string
+          published_at?: string | null
+          report_month: string
+          status?: string
+          updated_at?: string
+          visibility?: string
+        }
+        Update: {
+          client_content_html?: string | null
+          client_content_json?: Json | null
+          client_content_md?: string | null
+          client_id?: string
+          client_name?: string
+          client_slug?: string
+          client_url?: string
+          created_at?: string
+          created_by?: string | null
+          grader_data?: Json | null
+          id?: string
+          internal_content_html?: string | null
+          internal_content_json?: Json | null
+          internal_content_md?: string | null
+          location_id?: string
+          published_at?: string | null
+          report_month?: string
+          status?: string
+          updated_at?: string
+          visibility?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_reports_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_reports_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_reports_location_id_fkey"
+            columns: ["location_id"]
+            isOneToOne: false
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      client_site_origins: {
+        Row: {
+          client_id: string
+          created_at: string
+          created_by: string | null
+          id: string
+          label: string | null
+          origin: string
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          label?: string | null
+          origin: string
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          label?: string | null
+          origin?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_site_origins_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_site_origins_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clients: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          name: string
+          notes: string | null
+          primary_contact_email: string | null
+          slug: string
+          status: Database["public"]["Enums"]["client_status"]
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          primary_contact_email?: string | null
+          slug: string
+          status?: Database["public"]["Enums"]["client_status"]
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          primary_contact_email?: string | null
+          slug?: string
+          status?: Database["public"]["Enums"]["client_status"]
+          updated_at?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clients_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ingest_rate_events: {
+        Row: {
+          created_at: string
+          id: number
+          ip: string
+          route: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          ip: string
+          route: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          ip?: string
+          route?: string
+        }
+        Relationships: []
+      }
+      locations: {
+        Row: {
+          address: string | null
+          client_id: string
+          created_at: string
+          id: string
+          is_primary: boolean
+          name: string
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          client_id: string
+          created_at?: string
+          id?: string
+          is_primary?: boolean
+          name: string
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          client_id?: string
+          created_at?: string
+          id?: string
+          is_primary?: boolean
+          name?: string
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "locations_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -279,6 +579,235 @@ export type Database = {
         }
         Relationships: []
       }
+      report_notifications: {
+        Row: {
+          client_access_id: string
+          delivery_id: string | null
+          delivery_status: string
+          email: string
+          error_message: string | null
+          id: string
+          notification_type: string
+          report_id: string | null
+          sent_at: string
+        }
+        Insert: {
+          client_access_id: string
+          delivery_id?: string | null
+          delivery_status?: string
+          email: string
+          error_message?: string | null
+          id?: string
+          notification_type: string
+          report_id?: string | null
+          sent_at?: string
+        }
+        Update: {
+          client_access_id?: string
+          delivery_id?: string | null
+          delivery_status?: string
+          email?: string
+          error_message?: string | null
+          id?: string
+          notification_type?: string
+          report_id?: string | null
+          sent_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "report_notifications_client_access_id_fkey"
+            columns: ["client_access_id"]
+            isOneToOne: false
+            referencedRelation: "client_access"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "report_notifications_report_id_fkey"
+            columns: ["report_id"]
+            isOneToOne: false
+            referencedRelation: "client_reports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      site_form_submissions: {
+        Row: {
+          api_key_id: string | null
+          client_id: string
+          contact_email: string | null
+          contact_name: string | null
+          contact_phone: string | null
+          created_at: string
+          form_type: string
+          id: string
+          ip: unknown | null
+          location_id: string | null
+          payload: Json
+          read_at: string | null
+          read_by: string | null
+          source: string
+          status: Database["public"]["Enums"]["site_submission_status"]
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          api_key_id?: string | null
+          client_id: string
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          form_type: string
+          id?: string
+          ip?: unknown | null
+          location_id?: string | null
+          payload: Json
+          read_at?: string | null
+          read_by?: string | null
+          source: string
+          status?: Database["public"]["Enums"]["site_submission_status"]
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          api_key_id?: string | null
+          client_id?: string
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          form_type?: string
+          id?: string
+          ip?: unknown | null
+          location_id?: string | null
+          payload?: Json
+          read_at?: string | null
+          read_by?: string | null
+          source?: string
+          status?: Database["public"]["Enums"]["site_submission_status"]
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "site_form_submissions_api_key_id_fkey"
+            columns: ["api_key_id"]
+            isOneToOne: false
+            referencedRelation: "client_api_keys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "site_form_submissions_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "site_form_submissions_location_id_fkey"
+            columns: ["location_id"]
+            isOneToOne: false
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "site_form_submissions_read_by_fkey"
+            columns: ["read_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      site_reviews: {
+        Row: {
+          api_key_id: string | null
+          client_id: string
+          created_at: string
+          feedback: string
+          id: string
+          ip: unknown | null
+          location_id: string | null
+          rating: number
+          read_at: string | null
+          read_by: string | null
+          reviewer_email: string | null
+          reviewer_name: string
+          reviewer_phone: string | null
+          source: string
+          status: Database["public"]["Enums"]["site_review_status"]
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          api_key_id?: string | null
+          client_id: string
+          created_at?: string
+          feedback: string
+          id?: string
+          ip?: unknown | null
+          location_id?: string | null
+          rating: number
+          read_at?: string | null
+          read_by?: string | null
+          reviewer_email?: string | null
+          reviewer_name: string
+          reviewer_phone?: string | null
+          source: string
+          status?: Database["public"]["Enums"]["site_review_status"]
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          api_key_id?: string | null
+          client_id?: string
+          created_at?: string
+          feedback?: string
+          id?: string
+          ip?: unknown | null
+          location_id?: string | null
+          rating?: number
+          read_at?: string | null
+          read_by?: string | null
+          reviewer_email?: string | null
+          reviewer_name?: string
+          reviewer_phone?: string | null
+          source?: string
+          status?: Database["public"]["Enums"]["site_review_status"]
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "site_reviews_api_key_id_fkey"
+            columns: ["api_key_id"]
+            isOneToOne: false
+            referencedRelation: "client_api_keys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "site_reviews_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "site_reviews_location_id_fkey"
+            columns: ["location_id"]
+            isOneToOne: false
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "site_reviews_read_by_fkey"
+            columns: ["read_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -287,10 +816,20 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      client_status: "prospect" | "client" | "template"
       post_status: "draft" | "published" | "scheduled" | "archived"
-      post_visibility: "public" | "unlisted" | "private"
+      post_visibility: "public" | "unlisted" | "private" | "client_only"
       profile_status: "pending" | "approved" | "denied"
-      user_role: "viewer" | "commenter" | "editor" | "manager" | "admin"
+      site_review_status: "new" | "read" | "archived"
+      site_submission_status: "new" | "read" | "archived"
+      user_role:
+        | "admin"
+        | "author"
+        | "viewer"
+        | "commenter"
+        | "editor"
+        | "manager"
+        | "client"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -298,50 +837,198 @@ export type Database = {
   }
 }
 
-type DefaultSchema = Database[Extract<keyof Database, "public">]
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
-  TableName extends keyof DefaultSchema["Tables"],
-> = DefaultSchema["Tables"][TableName]["Row"]
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
+    : never
 
 export type TablesInsert<
-  TableName extends keyof DefaultSchema["Tables"],
-> = DefaultSchema["Tables"][TableName]["Insert"]
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
+    : never
 
 export type TablesUpdate<
-  TableName extends keyof DefaultSchema["Tables"],
-> = DefaultSchema["Tables"][TableName]["Update"]
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
+    : never
 
 export type Enums<
-  EnumName extends keyof DefaultSchema["Enums"],
-> = DefaultSchema["Enums"][EnumName]
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema["Enums"]
+    | { schema: keyof DatabaseWithoutInternals },
+  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    : never = never,
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+    : never
 
-// Role hierarchy helpers
-export const ROLE_LEVELS = {
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof DefaultSchema["CompositeTypes"]
+    | { schema: keyof DatabaseWithoutInternals },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    : never
+
+export const Constants = {
+  public: {
+    Enums: {
+      client_status: ["prospect", "client", "template"],
+      post_status: ["draft", "published", "scheduled", "archived"],
+      post_visibility: ["public", "unlisted", "private", "client_only"],
+      profile_status: ["pending", "approved", "denied"],
+      site_review_status: ["new", "read", "archived"],
+      site_submission_status: ["new", "read", "archived"],
+      user_role: [
+        "admin",
+        "author",
+        "viewer",
+        "commenter",
+        "editor",
+        "manager",
+        "client",
+      ],
+    },
+  },
+} as const
+
+// Role hierarchy helpers.
+// `client` is a separate plane (restaurant owners). It is NOT part of the team
+// hierarchy and must be checked explicitly via isClientRole / isTeamRole.
+export const ROLE_LEVELS: Record<Enums<"user_role">, number> = {
+  client: -1,
   viewer: 0,
   commenter: 1,
-  editor: 2,
-  manager: 3,
-  admin: 4,
+  author: 2,
+  editor: 3,
+  manager: 4,
+  admin: 5,
 } as const;
 
 export type UserRole = Enums<"user_role">;
 
+export const TEAM_ROLES: readonly UserRole[] = [
+  "viewer", "commenter", "author", "editor", "manager", "admin",
+] as const;
+
+export function isTeamRole(role: UserRole): boolean {
+  return role !== "client";
+}
+
+export function isClientRole(role: UserRole): boolean {
+  return role === "client";
+}
+
+export function isTeamWriter(role: UserRole): boolean {
+  return role === "author" || role === "editor" || role === "manager" || role === "admin";
+}
+
 export function hasRole(userRole: UserRole, minRole: UserRole): boolean {
+  if (userRole === "client" || minRole === "client") {
+    return userRole === minRole;
+  }
   return ROLE_LEVELS[userRole] >= ROLE_LEVELS[minRole];
 }
 
 export const ROLE_LABELS: Record<UserRole, string> = {
+  client: "Client",
   viewer: "Viewer",
   commenter: "Commenter",
+  author: "Author",
   editor: "Editor",
   manager: "Manager",
   admin: "Admin",
 };
 
 export const ROLE_DESCRIPTIONS: Record<UserRole, string> = {
+  client: "Restaurant owner — sees only published reports for their company",
   viewer: "Can view private posts only",
   commenter: "Can view and comment on posts",
+  author: "Can create and edit own posts and reports",
   editor: "Can create and edit own posts",
   manager: "Can manage all posts, categories, and users",
   admin: "Full access to everything",
@@ -351,10 +1038,12 @@ export const VISIBILITY_LABELS: Record<Enums<"post_visibility">, string> = {
   public: "Public",
   unlisted: "Unlisted",
   private: "Private",
+  client_only: "Client Only",
 };
 
 export const VISIBILITY_DESCRIPTIONS: Record<Enums<"post_visibility">, string> = {
   public: "Visible to everyone, indexed by search engines",
   unlisted: "Accessible via direct link only, not listed or indexed",
   private: "Only visible to approved team members",
+  client_only: "Only team members and clients with email-granted access can view",
 };

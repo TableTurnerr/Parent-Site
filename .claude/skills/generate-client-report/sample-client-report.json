@@ -1,0 +1,308 @@
+{
+  "version": 1,
+  "client": {
+    "name": "Saffron Hearth — Old City",
+    "slug": "saffron-hearth-old-city",
+    "url": "https://saffronhearth.example",
+    "preparedDate": "June 1, 2026",
+    "company": {
+      "name": "Saffron Hearth",
+      "slug": "saffron-hearth"
+    },
+    "location": {
+      "name": "Old City",
+      "slug": "old-city",
+      "address": "412 Chestnut St, Philadelphia, PA",
+      "siblings": ["University City", "Fishtown"],
+      "totalLocations": 3,
+      "graderRunFor": ["Old City", "University City", "Fishtown"],
+      "skippedLocations": []
+    }
+  },
+  "hero": {
+    "title": "Saffron Hearth — Old City: Website & Online Presence Report",
+    "subtitle": "Strong food, soft digital footprint. Here's where the money is leaking.",
+    "narrative": [
+      "Saffron Hearth has built a loyal following in Old City around handmade naan, slow-braised lamb, and a saffron rice that regulars order by name. The food is doing its job. The internet, less so.",
+      "Your Google listing is missing photos that match what walks out the kitchen door, the website ranks for almost nothing beyond your brand name, and a handful of nearby Indian and Mediterranean restaurants are quietly pulling search traffic that should be yours.",
+      "This report walks through what we found in three buckets — your Google Business Profile, your website, and the paid-ad opportunity once the first two are in shape. Each section ends with the specific moves we'd make first."
+    ],
+    "overallGrade": "C",
+    "graderScore": 62,
+    "monthlyRevenueLoss": 2840,
+    "verdict": "Beloved Old City neighborhood spot, weak digital presence holding back new-customer flow."
+  },
+  "ratings": [
+    { "key": "reviews", "label": "Reviews & Reputation", "score": 74 },
+    { "key": "gbp", "label": "Google Business Profile", "score": 55 },
+    { "key": "social", "label": "Social Media", "score": 48 },
+    { "key": "content", "label": "Website Content", "score": 32 },
+    { "key": "search", "label": "Google Search", "score": 28 },
+    { "key": "performance", "label": "Speed & Setup", "score": 58 }
+  ],
+  "sections": [
+    {
+      "type": "group",
+      "id": "gbp",
+      "title": "Google Business Profile",
+      "intro": "Your Google Business Profile is the single most-viewed thing about your restaurant — more than your website, more than your social. It's also the easiest lever to pull this month.",
+      "sections": [
+        {
+          "type": "competition",
+          "id": "gbp-competition",
+          "title": "The Competition",
+          "intro": "Five nearby restaurants currently outrank Saffron Hearth — Old City for the searches that matter. Here's the lineup and where the gap is widest.",
+          "competitors": [
+            { "rank": "#1", "name": "Kohinoor Indian Kitchen", "style": "North Indian", "rating": "4.6", "knownFor": "Photo-rich GBP, 1,200+ reviews, weekly Posts." },
+            { "rank": "#2", "name": "Bombay Hearth", "style": "Indian / Pakistani", "rating": "4.5", "knownFor": "Strong on tandoor categories, full menu in GBP." },
+            { "rank": "#3", "name": "Maza Mediterranean", "style": "Mediterranean", "rating": "4.6", "knownFor": "Owns 'Old City lunch' for the under-$20 crowd." },
+            { "rank": "#4", "name": "Saffron Hearth — Old City", "style": "Indian", "rating": "4.7", "knownFor": "Highest rating on the block, lowest visibility.", "isYou": true },
+            { "rank": "#5", "name": "Taj Curry House", "style": "Indian", "rating": "4.3", "knownFor": "Heavy delivery presence, weak in-store reviews." },
+            { "rank": "#6", "name": "Olive Branch Grill", "style": "Mediterranean", "rating": "4.4", "knownFor": "Catering page ranks for 'Old City catering' #1 — nobody is contesting it." }
+          ],
+          "searchPosition": [
+            { "search": "indian food old city", "map": "#7", "organic": "Page 2" },
+            { "search": "best naan philadelphia", "map": "—", "organic": "Not ranking" },
+            { "search": "lamb curry near me", "map": "#9", "organic": "Page 2" },
+            { "search": "indian catering old city", "map": "—", "organic": "Not ranking" }
+          ],
+          "rivalCallouts": [
+            {
+              "title": "Closest neighborhood rival: Kohinoor Indian Kitchen",
+              "body": [
+                "Two blocks away, same cuisine, half a star lower than you — and still ranks #1 in the map pack for 'indian food old city.' The reason isn't the food. It's that they post weekly photos, reply to every review within 48 hours, and have their menu fully loaded inside Google.",
+                "Everything Kohinoor does to win that #1 spot is reproducible. None of it requires changing your kitchen."
+              ]
+            },
+            {
+              "title": "Biggest underrated threat: Olive Branch Grill",
+              "body": [
+                "Not Indian, but quietly owns 'Old City catering' on Google. Catering is the most lucrative search anyone on this block isn't fighting for. If Saffron Hearth claims that term in the next quarter, you take it for the next year."
+              ]
+            }
+          ],
+          "winLose": [
+            { "area": "Star rating", "winning": "4.7★ — the highest on the block." },
+            { "area": "Recent reviews", "winning": "Last 30 days look great — repeat customers raving about the lamb." },
+            { "area": "Map pack visibility", "losing": "Buried in #7 for your main search. Top 3 gets >70% of the clicks." },
+            { "area": "GBP photos", "losing": "12 photos total, last upload 4 months ago. Top rivals add 4–6 photos/week." },
+            { "area": "Menu in Google", "losing": "Menu link goes to a PDF. Rivals have full menu loaded directly in Google." },
+            { "area": "Q&A", "losing": "8 unanswered customer questions on your GBP, some from over a year ago." }
+          ],
+          "opportunity": {
+            "intro": "Three high-intent searches in Old City currently have no clear winner. Saffron Hearth's rating is already higher than every business listed below — the only thing missing is the on-Google signal Google uses to pick a top result.",
+            "rows": [
+              { "opportunity": "indian catering old city", "competition": "1 weak result (Olive Branch isn't even Indian).", "canOwn": "Yes — add a Catering category to GBP, add a Catering page on the site." },
+              { "opportunity": "vegetarian indian philadelphia", "competition": "No restaurant in a 1-mile radius targets it.", "canOwn": "Yes — you already have a strong veg menu; just say so on the site." },
+              { "opportunity": "saffron rice near me", "competition": "Zero — most rivals don't even list saffron rice.", "canOwn": "Yes — signature dish, currently invisible on Google." }
+            ],
+            "bottomLine": "Three searches, no contested winner. Owning them is a 30-day project, not a 30-week one."
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "id": "website",
+      "title": "Website",
+      "intro": "Your website's job is to convert the people who land on it — and to bring in new ones from search. Right now it does neither well. Both are fixable with the same set of changes.",
+      "sections": [
+        {
+          "type": "problems",
+          "id": "website-problems",
+          "title": "What's Holding Your Website Back",
+          "intro": "Five specific issues are doing most of the damage. Each one is a one-day fix on its own; together they shift the site from 'invisible' to 'finding new customers every week.'",
+          "items": [
+            {
+              "number": 1,
+              "title": "The homepage doesn't say what you cook or where you cook it",
+              "body": [
+                "Saffron Hearth's homepage opens with a hero image of a candle and the headline 'A Warm Place.' Beautiful, but a stranger landing from Google has no idea this is an Indian restaurant in Old City Philadelphia until they scroll halfway down the page.",
+                "Google reads pages the same way humans skim them. If the first 200 words don't mention 'Indian,' 'Old City,' or 'Philadelphia,' the site has no business showing up for those searches."
+              ],
+              "bullets": [
+                "Rewrite the hero headline to include cuisine + neighborhood.",
+                "Add a short intro paragraph above the fold mentioning Old City and the dishes you're known for.",
+                "Move the menu link to the top of the navigation."
+              ]
+            },
+            {
+              "number": 2,
+              "title": "No dedicated pages for the dishes you're known for",
+              "body": [
+                "Customers search 'best naan philadelphia,' 'lamb biryani near me,' and 'saffron rice old city' every month. Your site has a single Menu page that's a PDF, which Google can't fully read and customers can't easily share.",
+                "Each signature dish should have its own page with a paragraph, a photo, and a price. Three dish pages can pull more search traffic in 90 days than a single Menu page has in two years."
+              ]
+            },
+            {
+              "number": 3,
+              "title": "No catering page",
+              "body": [
+                "Catering is the highest-margin order any restaurant on this block can take. Olive Branch ranks #1 for 'old city catering' with one mediocre page. Saffron Hearth has nothing.",
+                "A 600-word catering page with a sample menu, pricing tiers, and a contact form is a one-day build. Based on neighborhood search volume, it should bring 2–4 catering inquiries per month within a quarter."
+              ]
+            },
+            {
+              "number": 4,
+              "title": "The site is slow on phone, especially on the menu",
+              "body": [
+                "Largest Contentful Paint on the menu page is 4.8 seconds on a 4G connection. Anything past 2.5s and Google deprioritizes you in mobile search. Most of the load is from a 3.4MB hero image and an unoptimized PDF.",
+                "Converting the menu PDF to a real HTML page (which we recommended above for other reasons) also cuts the page weight by ~80%."
+              ]
+            },
+            {
+              "number": 5,
+              "title": "No reviews surfaced on the site",
+              "body": [
+                "You have a 4.7★ average — the highest in the area — and the site shows none of it. A short rotating quote block with three customer reviews and a star count is one of the highest-converting elements you can add to a restaurant homepage.",
+                "Pulling those quotes from your existing Google reviews is a 30-minute job."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "keywords",
+          "id": "website-keywords",
+          "title": "Search Terms That Should Be Bringing You Customers",
+          "intro": "These are the searches we'd build the next quarter of content around. Each group is sized by realistic monthly volume in your trade area.",
+          "groups": [
+            {
+              "id": "money-keywords",
+              "label": "The Money Keywords — People Ready to Order",
+              "summary": "High-intent searches from customers already looking for what you serve. Today, almost none of these traffic to saffronhearth.example.",
+              "highlight": "2,400–3,800/mo",
+              "intro": "These are the searches where someone is hungry, sitting on their phone, ready to decide in 10 seconds.",
+              "table": {
+                "headers": ["Search term", "Monthly volume", "Your rank today", "Realistic target"],
+                "rows": [
+                  ["indian food old city", "~600/mo", "#7 map pack", "Top 3 in 90 days"],
+                  ["lamb curry near me", "~900/mo", "#9 map pack", "Top 5 in 90 days"],
+                  ["best naan philadelphia", "~700/mo", "Not ranking", "Page 1 in 6 months"],
+                  ["indian restaurant philadelphia", "~1,600/mo", "Not on page 1", "Page 1 in 6 months"]
+                ]
+              },
+              "takeaway": "Owning even two of these would double current organic traffic on its own."
+            },
+            {
+              "id": "secret-weapons",
+              "label": "Your Secret Weapons — Keywords Only You Can Own",
+              "summary": "Searches that map exactly to what's on your menu, where almost nobody is competing for the term.",
+              "highlight": "300–600/mo",
+              "intro": "Small volumes, but high conversion and almost zero competition. The kind of keyword that quietly compounds.",
+              "table": {
+                "headers": ["Search term", "Monthly volume", "Competition", "Why you own it"],
+                "rows": [
+                  ["saffron rice near me", "~120/mo", "None", "Signature dish, in your name."],
+                  ["slow braised lamb philadelphia", "~80/mo", "1 weak result", "Yours is on the menu daily."],
+                  ["handmade naan old city", "~140/mo", "None", "You're the only place hand-pulling it on the block."]
+                ]
+              },
+              "takeaway": "Three blog-length dish pages would lock these in for the next 12 months."
+            },
+            {
+              "id": "neighborhoods",
+              "label": "Reaching Nearby Philadelphia Neighborhoods",
+              "summary": "Old City is your base, but Society Hill, Northern Liberties, and Fishtown all search for Indian food and rarely get a great answer.",
+              "highlight": "1,100–1,800/mo",
+              "intro": "Three neighborhoods within 1.5 miles, each with its own search volume, each currently underserved.",
+              "table": {
+                "headers": ["Neighborhood", "Monthly volume", "Best current result", "Your shot"],
+                "rows": [
+                  ["Society Hill", "~350/mo", "Generic chain delivery pages", "High — you're closer than current top results."],
+                  ["Northern Liberties", "~480/mo", "One mid-grade Indian place", "Medium — winnable with a single neighborhood page."],
+                  ["Fishtown", "~420/mo", "Zero Indian options ranking", "High — open lane."]
+                ]
+              },
+              "takeaway": "One short page per neighborhood, each mentioning the specific area + cuisine, is enough to claim these."
+            },
+            {
+              "id": "catering",
+              "label": "Catering — A Search Almost No One Is Going After",
+              "summary": "The single highest-margin keyword cluster in the report. Currently uncontested by any Indian restaurant in the area.",
+              "highlight": "400–700/mo",
+              "intro": "Office lunches, weddings, corporate dinners. One catering booking is worth 20 dine-in covers.",
+              "table": {
+                "headers": ["Search term", "Monthly volume", "Indian competition", "Margin notes"],
+                "rows": [
+                  ["indian catering old city", "~110/mo", "None", "Highest-margin search in the report."],
+                  ["indian catering philadelphia", "~280/mo", "2 weak results", "Each booking $500–$2,000+."],
+                  ["office lunch catering old city", "~140/mo", "1 generic listing", "Recurring weekly orders likely."]
+                ]
+              },
+              "takeaway": "A single catering page plus a Catering category on your GBP could deliver 2–4 inquiries/month within 90 days."
+            }
+          ],
+          "totals": {
+            "headers": ["Group", "Monthly opportunity", "Your share today"],
+            "rows": [
+              ["Money keywords", "2,400–3,800", "<5%"],
+              ["Secret weapons", "300–600", "0%"],
+              ["Neighborhoods", "1,100–1,800", "<3%"],
+              ["Catering", "400–700", "0%"]
+            ],
+            "summary": "**Where you stand today vs. where you can be in 3 months:** saffronhearth.example is currently pulling roughly **80–150 visitors a month** — almost all of them branded searches for the restaurant by name. With the keyword set above rolled out across the site and GBP, plus three new dish pages and a catering page, a realistic **3-month target is 800+ monthly visitors**, growing toward 1,500+ by month six — roughly a **8–10× lift**. On a 4,200–6,900 monthly-search opportunity across the four groups, that's comfortably within reach at a 5–8% capture rate."
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "id": "google-ads",
+      "title": "Google Ads",
+      "intro": "Once the website and GBP fixes above are in place, a small monthly ad budget compounds the lift instead of papering over the gaps. Here's what a realistic 90-day ad spend looks like for Old City.",
+      "sections": [
+        {
+          "type": "table",
+          "id": "ad-spend",
+          "title": "Ad Spend & Estimated Returns",
+          "intro": "Old City is mid-competition for restaurant ads — CPCs sit around $2.40–$4.50 on the money-keywords cluster. Assumes ~10–12% click-to-call/order conversion and a $32 average ticket. Numbers are conservative because direct orders skip the 20–30% delivery-app commission.",
+          "emphasizeFirstColumn": true,
+          "headers": ["Tier", "Monthly Spend", "Est. Clicks", "Est. Calls / Direct Orders", "Est. Monthly Revenue", "Approx. ROAS"],
+          "rows": [
+            ["Starter", "$300/mo", "~70–120", "~7–14", "$220–$450", "0.7×–1.5×"],
+            ["**Growth — Recommended**", "$750/mo", "~170–300", "~17–36", "$540–$1,150", "0.7×–1.5×"],
+            ["Aggressive", "$1,500/mo", "~340–600", "~34–72", "$1,090–$2,300", "0.7×–1.5×"]
+          ],
+          "callout": "**How to read this.** The ads target your highest-intent searches ('indian food old city,' 'lamb curry near me,' 'indian catering old city,' plus your secret-weapon dish terms). Conversion sits around 10–12% of clicks turning into a call or direct order. Average ticket is ~$32 dine-in / pickup, higher on catering. ROAS is reported conservatively — once catering inquiries are factored in (each one $500+), the Growth tier typically clears 2–3× by month three. **Start with Growth.** It's the spend tier where the math holds even in a slow month, and it's where most Old City competitors land too."
+        }
+      ]
+    },
+    {
+      "type": "progressionBar",
+      "id": "roadmap",
+      "title": "The path from here",
+      "intro": "Four steps, in order. Each one builds on the last.",
+      "steps": [
+        {
+          "label": "Research Competition & Keywords",
+          "info": "Map who's winning in Old City and the exact searches your customers use, before any work begins."
+        },
+        {
+          "label": "Optimize Google Business Profile",
+          "info": "Fix categories, photos, menu, hours, and Q&A so Google ranks you in the top 3 for local searches."
+        },
+        {
+          "label": "SEO Optimized Website",
+          "info": "Rebuild the homepage, dish pages, and catering page so search engines and customers both find what they need fast."
+        },
+        {
+          "label": "Google Ads",
+          "info": "Once GBP and the site are in shape, paid ads compound the lift — only worth running after the first three steps.",
+          "recommended": true
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "id": "next-steps",
+      "title": "Investment & Next Steps",
+      "body": [
+        "Saffron Hearth — Old City has the food, the rating, and the neighborhood loyalty that most restaurants spend years trying to build. What's missing is the digital surface area that turns all of that into a steady flow of new customers.",
+        "The plan above is sequenced so each step makes the next one work harder. The GBP fixes are immediate and low cost. The website work is a 4–6 week project. The ad spend only kicks in once the first two are doing their job — which is the difference between paying for clicks that convert and paying for clicks that bounce.",
+        "When you're ready, we'll walk through the scope, the timeline, and exactly which pieces our team handles versus which ones we set up for your team to own going forward."
+      ],
+      "primary": { "label": "Book a 20-minute call" },
+      "secondary": { "label": "See our work" }
+    }
+  ]
+}

@@ -1,7 +1,10 @@
 export default function SettingsLoading() {
   return (
     <div className="space-y-8 animate-pulse">
-      <div className="h-7 w-24 rounded-lg bg-[var(--color-border)]" />
+      <div>
+        <div className="h-7 w-24 rounded-lg bg-[var(--color-border)]" />
+        <div className="mt-2 h-4 w-52 rounded bg-[var(--color-border)]" />
+      </div>
 
       {/* Profile card */}
       <div className="rounded-xl border border-[var(--color-border)] bg-white p-6">

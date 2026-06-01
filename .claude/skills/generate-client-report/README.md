@@ -29,12 +29,37 @@ Claude will ask for any missing info (just the website URL).
 
 ## What you'll do as the user
 
-Just **two manual steps** during the whole flow:
+Two manual steps per location:
 
-1. In the Chrome window that opens, solve any CAPTCHA and click "Grade my website". The capture script auto-detects completion — no Ctrl+S, no Enter.
-2. After Claude generates both JSON reports, pick an option from the manager menu (preview client / preview internal / push both / push as published / exit).
+1. In the Chrome tab that the script opens, the search field is pre-filled with the **restaurant's name**. A Google Places autocomplete dropdown appears — **click the location you want graded**. (For single-location brands there's typically just one entry.) Then solve any CAPTCHA and submit. The script auto-detects completion — no Ctrl+S, no Enter.
+2. For multi-location brands the script runs once per location. Each run opens its own tab and finishes by closing only that tab — Chrome itself stays open between runs so you don't sit through repeated launches.
 
-Everything else happens automatically.
+Claude prints a summary and stops once the JSON files are written. **Preview and publishing are not auto-launched** — when you're ready, run `scripts/manage-reports.bat` yourself (or call `scripts/push-report.js` directly).
+
+## Multi-location brands
+
+If the client operates from more than one location, the skill generates **one report per graded location**. Each location gets its own slug (`<base>-<location>`), its own archive folder, and its own `/report/<slug>` URL — because each location has its own Google Business Profile, review pool, and local pack.
+
+Default cap: **3 locations per session.** Claude discovers the brand's locations from its website + public data (no manual enumeration needed), picks the 3 most main ones (flagship → marketing prominence → review volume → geographic spread), and confirms with you in one message before capturing. The rest are documented in `client.location.skippedLocations`.
+
+Per-location grading uses `--query "<Brand> <Area>"` (e.g. `"Grumpy's Burgers Downtown"`) so Google Places autocomplete surfaces the right location as the top result.
+
+Each per-location report is **fully independent** — its hero rating and section content reflect only that location's grader run. No averaging, no shared brand-wide score. Full rules live in Step 0.5 of `SKILL.md`.
+
+## Data model: companies → locations → reports
+
+Supabase mirrors this hierarchy:
+
+| Table            | Granularity                          | Slug example                         |
+|------------------|--------------------------------------|--------------------------------------|
+| `clients`        | one row per **company** (brand)      | `taco-delphia`                       |
+| `locations`      | one row per **location** under a co. | `taco-delphia` → `south-broad`       |
+| `client_reports` | one row per **(company, location, month)** triple | `taco-delphia-south-broad` (`2026-05`) |
+
+- The unique constraint on `client_reports` is `(client_id, location_id, report_month)`.
+- Two reports for the same brand always share **one** `clients` row and live under **two** `locations` rows.
+- Single-location brands get a default `Main` location auto-created on first push.
+- Every report JSON carries a self-identifying `meta` block (`reportId`, `companyId`, `companyName`, `companySlug`, `locationId`, `locationName`, `locationSlug`, `reportMonth`) plus inline `client.id` / `client.company` / `client.location.id` fields. `push-report.js` writes these IDs back into the local JSON file after the first successful push.
 
 ## Editing an existing report later
 
@@ -76,20 +101,30 @@ The **internal** report is always team-only regardless of these settings (column
 ## Running the scripts directly (without the skill)
 
 ```bash
-# Capture only
-python scripts/grader_cli.py capture --company "Grumpy's Burgers" --url "grumpys-burgers.com"
+# Capture only — pass "<Brand> <Area>" via --query so Google Places autocomplete
+# narrows to the right location. The user clicks the top result and solves the CAPTCHA.
+python scripts/grader_cli.py capture \
+  --company "Grumpy's Burgers — Downtown" \
+  --url "grumpys-burgers.com" \
+  --query "Grumpy's Burgers Downtown"
 
-# Push two JSON reports
+# Push two JSON reports. --client is the brand-level company name; the location
+# is picked up from the JSON's client.location block (or pass --location-name
+# / --location-slug explicitly). push-report.js auto-creates the company and
+# location rows as needed and writes meta.{reportId,companyId,locationId} back
+# into the local JSON files after a successful push.
 node scripts/push-report.js \
   --client="Grumpy's Burgers" \
-  --slug=grumpys-burgers \
+  --slug=grumpys-burgers-downtown \
   --url="grumpys-burgers.com" \
-  --client-report-json="reports-archive/grumpys-burgers/grumpys-burgers-client-report.json" \
-  --internal-report-json="reports-archive/grumpys-burgers/grumpys-burgers-internal-report.json" \
+  --location-name="Downtown" --location-slug="downtown" \
+  --client-report-json="reports-archive/grumpys-burgers-downtown/2026-05/grumpys-burgers-downtown-client-report.json" \
+  --internal-report-json="reports-archive/grumpys-burgers-downtown/2026-05/grumpys-burgers-downtown-internal-report.json" \
   --status=draft --visibility=public
 
-# Fetch an existing report into reports-archive/<slug>/ for editing
-node scripts/fetch-report.js --slug=grumpys-burgers
+# Fetch an existing report into reports-archive/<slug>/<YYYY-MM>/ for editing.
+# Accepts either a per-report slug (taco-delphia-south-broad) or a company slug.
+node scripts/fetch-report.js --slug=grumpys-burgers-downtown --month=2026-05
 ```
 
 ## Editing the skill

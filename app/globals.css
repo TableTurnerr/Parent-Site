@@ -78,6 +78,191 @@
   --radius: 0.625rem;
 }
 
+/* ─── Admin Dashboard Dark Mode ─── */
+/* Scoped via .dark class on AdminShell root — public site unaffected. */
+.dark {
+  color: #FAFAF8;
+
+  /* TableTurnerr brand tokens flipped */
+  --color-cream: #0F0F11;
+  --color-cream-dark: #1A1A1D;
+  --color-charcoal: #050507;
+  --color-charcoal-light: #1F1F22;
+  --color-warm-gray: #B5B0AB;
+  --color-warm-gray-light: #75716B;
+  --color-border: #2A2A2E;
+
+  /* shadcn/ui tokens */
+  --background: #0F0F11;
+  --foreground: #FAFAF8;
+  --card: #1A1A1D;
+  --card-foreground: #FAFAF8;
+  --popover: #1A1A1D;
+  --popover-foreground: #FAFAF8;
+  --primary: #FAFAF8;
+  --primary-foreground: #1A1A1A;
+  --secondary: #1F1F22;
+  --secondary-foreground: #FAFAF8;
+  --muted: #1F1F22;
+  --muted-foreground: #B5B0AB;
+  --accent-foreground: #1A1A1A;
+  --border: #2A2A2E;
+  --input: #2A2A2E;
+}
+
+/* Translate hardcoded surface utilities used across admin pages so they
+   participate in the dark theme without touching every component. */
+.dark .bg-white {
+  background-color: var(--card);
+}
+.dark .hover\:bg-white:hover {
+  background-color: var(--card);
+}
+
+/* Neutral grays/slates used for cards, hover states and muted text. */
+.dark .bg-gray-50 { background-color: #1F1F22; }
+.dark .bg-gray-100 { background-color: #2A2A2E; }
+.dark .bg-gray-200 { background-color: #2F2F33; }
+.dark .hover\:bg-gray-50:hover { background-color: #1F1F22; }
+.dark .hover\:bg-gray-100:hover { background-color: #2A2A2E; }
+.dark .text-gray-400 { color: #75716B; }
+.dark .text-gray-500 { color: #9E9890; }
+.dark .text-gray-600 { color: #B5B0AB; }
+.dark .text-gray-700 { color: #C4C0BB; }
+.dark .text-gray-800 { color: #E5E2DD; }
+.dark .text-gray-900 { color: #FAFAF8; }
+.dark .border-gray-100 { border-color: #2A2A2E; }
+.dark .border-gray-200 { border-color: #2F2F33; }
+.dark .border-gray-300 { border-color: #3A3A3E; }
+
+.dark .bg-slate-50 { background-color: #1F1F22; }
+.dark .bg-slate-100 { background-color: #2A2A2E; }
+.dark .hover\:bg-slate-100:hover { background-color: #2A2A2E; }
+.dark .text-slate-500 { color: #9E9890; }
+.dark .text-slate-600 { color: #B5B0AB; }
+.dark .text-slate-700 { color: #C4C0BB; }
+.dark .border-slate-200 { border-color: #2F2F33; }
+
+/* Status pills / badges / alerts: tone tints down on dark surfaces and
+   lift the foreground text into a more readable range. */
+.dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.12); }
+.dark .bg-amber-100 { background-color: rgba(245, 158, 11, 0.18); }
+.dark .hover\:bg-amber-100:hover { background-color: rgba(245, 158, 11, 0.22); }
+.dark .border-amber-200 { border-color: rgba(245, 158, 11, 0.35); }
+.dark .text-amber-500 { color: #FCD34D; }
+.dark .text-amber-600 { color: #FCD34D; }
+.dark .text-amber-700 { color: #FCD34D; }
+
+.dark .bg-yellow-50 { background-color: rgba(234, 179, 8, 0.12); }
+.dark .bg-yellow-100 { background-color: rgba(234, 179, 8, 0.18); }
+.dark .text-yellow-700 { color: #FDE68A; }
+
+.dark .bg-green-50 { background-color: rgba(34, 197, 94, 0.12); }
+.dark .bg-green-100 { background-color: rgba(34, 197, 94, 0.18); }
+.dark .hover\:bg-green-100:hover { background-color: rgba(34, 197, 94, 0.22); }
+.dark .hover\:bg-green-200:hover { background-color: rgba(34, 197, 94, 0.28); }
+.dark .border-green-200 { border-color: rgba(34, 197, 94, 0.35); }
+.dark .text-green-500 { color: #6EE7B7; }
+.dark .text-green-600 { color: #6EE7B7; }
+.dark .text-green-700 { color: #6EE7B7; }
+
+.dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.12); }
+.dark .bg-emerald-100 { background-color: rgba(16, 185, 129, 0.18); }
+.dark .text-emerald-600 { color: #6EE7B7; }
+.dark .text-emerald-700 { color: #6EE7B7; }
+
+.dark .bg-red-50 { background-color: rgba(239, 68, 68, 0.12); }
+.dark .bg-red-100 { background-color: rgba(239, 68, 68, 0.18); }
+.dark .hover\:bg-red-50:hover { background-color: rgba(239, 68, 68, 0.12); }
+.dark .hover\:bg-red-100:hover { background-color: rgba(239, 68, 68, 0.20); }
+.dark .border-red-200 { border-color: rgba(239, 68, 68, 0.35); }
+.dark .text-red-500 { color: #FCA5A5; }
+.dark .text-red-600 { color: #FCA5A5; }
+.dark .text-red-700 { color: #FCA5A5; }
+.dark .hover\:text-red-600:hover { color: #FCA5A5; }
+.dark .hover\:text-red-700:hover { color: #FCA5A5; }
+
+.dark .bg-rose-50 { background-color: rgba(244, 63, 94, 0.12); }
+.dark .bg-rose-100 { background-color: rgba(244, 63, 94, 0.18); }
+.dark .text-rose-600 { color: #FDA4AF; }
+.dark .text-rose-700 { color: #FDA4AF; }
+
+.dark .bg-blue-50 { background-color: rgba(59, 130, 246, 0.12); }
+.dark .bg-blue-100 { background-color: rgba(59, 130, 246, 0.18); }
+.dark .text-blue-600 { color: #93C5FD; }
+.dark .text-blue-700 { color: #93C5FD; }
+
+.dark .bg-sky-50 { background-color: rgba(14, 165, 233, 0.12); }
+.dark .bg-sky-100 { background-color: rgba(14, 165, 233, 0.18); }
+.dark .text-sky-600 { color: #7DD3FC; }
+.dark .text-sky-700 { color: #7DD3FC; }
+
+.dark .bg-purple-50 { background-color: rgba(168, 85, 247, 0.12); }
+.dark .bg-purple-100 { background-color: rgba(168, 85, 247, 0.18); }
+.dark .text-purple-600 { color: #D8B4FE; }
+.dark .text-purple-700 { color: #D8B4FE; }
+
+.dark .bg-violet-50 { background-color: rgba(139, 92, 246, 0.12); }
+.dark .bg-violet-100 { background-color: rgba(139, 92, 246, 0.20); }
+.dark .text-violet-600 { color: #C4B5FD; }
+.dark .text-violet-700 { color: #C4B5FD; }
+
+.dark .bg-teal-50 { background-color: rgba(20, 184, 166, 0.12); }
+.dark .bg-teal-100 { background-color: rgba(20, 184, 166, 0.18); }
+.dark .text-teal-600 { color: #5EEAD4; }
+.dark .text-teal-700 { color: #5EEAD4; }
+
+/* `--color-charcoal` doubles as a dark surface (sidebar, primary buttons) AND
+   as the primary text color on cream surfaces. In dark mode the variable is
+   intentionally left near-black so surface utilities still read correctly,
+   but text utilities that consume it must flip to a light foreground here. */
+.dark .text-\[var\(--color-charcoal\)\],
+.dark .text-charcoal {
+  color: #FAFAF8;
+}
+.dark .text-\[var\(--color-charcoal-light\)\] {
+  color: #E5E2DD;
+}
+.dark .hover\:text-\[var\(--color-charcoal\)\]:hover {
+  color: #FAFAF8;
+}
+.dark .placeholder\:text-\[var\(--color-warm-gray-light\)\]::placeholder {
+  color: #75716B;
+}
+
+/* Auth + error/not-found pages use the named TableTurnerr utilities
+   (bg-cream, text-warm-gray, etc.). Tailwind v4's `@theme inline` inlines
+   the literal token value into the generated utility, so redefining the
+   CSS variables under `.dark` doesn't reach them — each one needs an
+   explicit override here. AdminShell uses `bg-[var(--color-cream)]`-style
+   arbitrary syntax, which IS dynamic, so it doesn't need these overrides. */
+
+/* Surfaces */
+.dark .bg-cream { background-color: #0F0F11; }
+.dark .bg-cream-dark { background-color: #1A1A1D; }
+
+/* Borders */
+.dark .border-border { border-color: #2A2A2E; }
+
+/* Foreground text on cream surfaces */
+.dark .text-warm-gray { color: #B5B0AB; }
+.dark .text-warm-gray-light { color: #75716B; }
+.dark .hover\:text-warm-gray:hover { color: #B5B0AB; }
+
+/* Primary button: invert to light surface + dark text in dark mode. */
+.dark .bg-charcoal { background-color: #FAFAF8; }
+.dark .hover\:bg-charcoal-light:hover { background-color: #E5E2DD; }
+.dark .text-cream { color: #1A1A1A; }
+.dark .hover\:text-charcoal-light:hover { color: #E5E2DD; }
+
+/* Charcoal-on-cream tints used for icons, dividers, secondary borders. */
+.dark .text-charcoal\/30 { color: rgba(250, 250, 248, 0.3); }
+.dark .text-charcoal\/40 { color: rgba(250, 250, 248, 0.4); }
+.dark .border-charcoal\/10 { border-color: rgba(250, 250, 248, 0.10); }
+.dark .border-charcoal\/15 { border-color: rgba(250, 250, 248, 0.15); }
+.dark .border-charcoal\/20 { border-color: rgba(250, 250, 248, 0.20); }
+.dark .hover\:border-charcoal\/50:hover { border-color: rgba(250, 250, 248, 0.50); }
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

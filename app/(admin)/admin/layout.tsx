@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { createClient } from "@/app/lib/supabase/server";
 import type { UserRole } from "@/app/lib/supabase/types";
 import AdminShell from "@/app/components/admin/AdminShell";
@@ -32,9 +33,14 @@ export default async function AdminLayout({
     .eq("id", user.id)
     .single();
 
+  const themeCookie = (await cookies()).get("admin-theme")?.value;
+  const initialTheme =
+    themeCookie === "dark" ? "dark" : themeCookie === "light" ? "light" : null;
+
   return (
     <AdminShell
       version={pkg.version}
+      initialTheme={initialTheme}
       user={{
         id: user.id,
         email: user.email ?? "",

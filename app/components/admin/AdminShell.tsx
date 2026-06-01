@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "@/app/components/ui/Logo";
+import UserAvatar from "@/app/components/ui/UserAvatar";
 import { createClient } from "@/app/lib/supabase/client";
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   LayoutDashboard,
   FileText,
@@ -20,10 +21,15 @@ import {
   MapPin,
   FileBarChart2,
   Inbox,
+  Building2,
+  Users,
+  LayoutTemplate,
 } from "lucide-react";
 
 import type { UserRole } from "@/app/lib/supabase/types";
 import { hasRole, ROLE_LABELS } from "@/app/lib/supabase/types";
+import ThemeToggle, { type AdminTheme } from "./ThemeToggle";
+import { NO_FLASH_THEME_SCRIPT } from "@/app/components/ui/themeMode";
 
 interface AdminUser {
   id: string;
@@ -33,30 +39,89 @@ interface AdminUser {
   role: UserRole;
 }
 
+const THEME_COOKIE = "admin-theme";
+const THEME_COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
+
+type NavItem = { href: string; label: string; icon: typeof LayoutDashboard; minRole: UserRole };
+type NavGroup = { label: string; items: NavItem[] };
+
 // minRole: minimum role required to see this nav item
-const NAV_ITEMS: { href: string; label: string; icon: typeof LayoutDashboard; minRole: UserRole }[] = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, minRole: "viewer" },
-  { href: "/admin/posts", label: "Posts", icon: FileText, minRole: "viewer" },
-  { href: "/admin/location-pages", label: "Location Pages", icon: MapPin, minRole: "viewer" },
-  { href: "/admin/reports", label: "Reports", icon: FileBarChart2, minRole: "viewer" },
-  { href: "/admin/leads", label: "Leads", icon: Inbox, minRole: "viewer" },
-  { href: "/admin/categories", label: "Blog Categories", icon: FolderOpen, minRole: "manager" },
-  { href: "/admin/settings", label: "Settings", icon: Settings, minRole: "manager" },
+const NAV_GROUPS: NavGroup[] = [
+  {
+    label: "Overview",
+    items: [
+      { href: "/admin", label: "Dashboard", icon: LayoutDashboard, minRole: "viewer" },
+    ],
+  },
+  {
+    label: "Reports",
+    items: [
+      { href: "/admin/reports", label: "Reports", icon: FileBarChart2, minRole: "viewer" },
+      { href: "/admin/companies", label: "Prospects & Clients", icon: Building2, minRole: "viewer" },
+      { href: "/admin/owners", label: "Owners", icon: Users, minRole: "viewer" },
+    ],
+  },
+  {
+    label: "Content",
+    items: [
+      { href: "/admin/posts", label: "Posts", icon: FileText, minRole: "viewer" },
+      { href: "/admin/categories", label: "Blog Categories", icon: FolderOpen, minRole: "manager" },
+      { href: "/admin/location-pages", label: "Location Pages", icon: MapPin, minRole: "viewer" },
+      { href: "/admin/leads", label: "Leads", icon: Inbox, minRole: "viewer" },
+    ],
+  },
+  {
+    label: "System",
+    items: [
+      { href: "/admin/settings", label: "Settings", icon: Settings, minRole: "manager" },
+    ],
+  },
 ];
 
 export default function AdminShell({
   user,
   version,
+  initialTheme = null,
   children,
 }: {
   user: AdminUser;
   version: string;
+  initialTheme?: AdminTheme | null;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  // null = follow system; resolved on the client in the effect below.
+  const [theme, setTheme] = useState<AdminTheme>(initialTheme ?? "light");
+  const userExpandedRef = useRef(false);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  // Apply theme to wrapper element directly (matches the pre-paint script
+  // so the React tree never fights it). When no cookie is set, follow the
+  // OS preference and subscribe to changes.
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+
+    const apply = (next: AdminTheme) => {
+      el.classList.toggle("dark", next === "dark");
+      setTheme(next);
+    };
+
+    if (initialTheme === "dark" || initialTheme === "light") {
+      apply(initialTheme);
+      return;
+    }
+
+    const mql = window.matchMedia("(prefers-color-scheme: dark)");
+    apply(mql.matches ? "dark" : "light");
+    const handler = (e: MediaQueryListEvent) =>
+      apply(e.matches ? "dark" : "light");
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, [initialTheme]);
 
   useEffect(() => {
     try {
@@ -65,9 +130,29 @@ export default function AdminShell({
     } catch { /* ignore */ }
   }, []);
 
+  useEffect(() => {
+    const handler = () => {
+      if (userExpandedRef.current) return;
+      setCollapsed((prev) => {
+        if (prev) return prev;
+        try { localStorage.setItem("admin-sidebar-collapsed", "true"); } catch { /* ignore */ }
+        return true;
+      });
+    };
+    window.addEventListener("admin-sidebar-auto-collapse", handler);
+    return () => window.removeEventListener("admin-sidebar-auto-collapse", handler);
+  }, []);
+
+  const handleThemeChange = (next: AdminTheme) => {
+    setTheme(next);
+    wrapperRef.current?.classList.toggle("dark", next === "dark");
+    document.cookie = `${THEME_COOKIE}=${next}; path=/; max-age=${THEME_COOKIE_MAX_AGE}; samesite=lax`;
+  };
+
   const toggleCollapsed = () => {
     setCollapsed((prev) => {
       const next = !prev;
+      if (!next) userExpandedRef.current = true;
       try { localStorage.setItem("admin-sidebar-collapsed", String(next)); } catch { /* ignore */ }
       return next;
     });
@@ -87,7 +172,7 @@ export default function AdminShell({
   const handleSignOut = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push("/admin/login");
+    router.push("/login");
   };
 
   const isActive = (href: string) => {
@@ -96,7 +181,13 @@ export default function AdminShell({
   };
 
   return (
-    <div className="flex h-screen bg-[var(--color-cream)]">
+    <>
+    <script dangerouslySetInnerHTML={{ __html: NO_FLASH_THEME_SCRIPT }} />
+    <div
+      ref={wrapperRef}
+      suppressHydrationWarning
+      className="flex h-screen bg-[var(--color-cream)]"
+    >
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -131,27 +222,44 @@ export default function AdminShell({
         </div>
 
         {/* Navigation */}
-        <nav className={`flex-1 space-y-1 py-4 ${collapsed ? "px-2" : "px-3"}`}>
-          {NAV_ITEMS.filter((item) => hasRole(user.role, item.minRole)).map((item) => {
-            const Icon = item.icon;
-            const active = isActive(item.href);
+        <nav className={`flex-1 overflow-y-auto py-4 ${collapsed ? "px-2" : "px-3"}`}>
+          {NAV_GROUPS.map((group, groupIdx) => {
+            const visibleItems = group.items.filter((item) => hasRole(user.role, item.minRole));
+            if (visibleItems.length === 0) return null;
             return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setSidebarOpen(false)}
-                title={collapsed ? item.label : undefined}
-                className={`flex items-center rounded-lg text-sm font-medium transition-colors ${
-                  collapsed ? "justify-center px-0 py-2.5" : "gap-3 px-3 py-2.5"
-                } ${
-                  active
-                    ? "bg-white/10 text-white"
-                    : "text-white/60 hover:bg-white/5 hover:text-white"
-                }`}
-              >
-                <Icon className="h-4 w-4 shrink-0" />
-                {!collapsed && <span>{item.label}</span>}
-              </Link>
+              <div key={group.label} className={groupIdx > 0 ? "mt-5" : ""}>
+                {collapsed ? (
+                  groupIdx > 0 && <div className="mx-2 mb-2 border-t border-white/10" />
+                ) : (
+                  <p className="mb-1.5 px-3 text-[10px] font-semibold uppercase tracking-wider text-white/30">
+                    {group.label}
+                  </p>
+                )}
+                <div className="space-y-0.5">
+                  {visibleItems.map((item) => {
+                    const Icon = item.icon;
+                    const active = isActive(item.href);
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setSidebarOpen(false)}
+                        title={collapsed ? item.label : undefined}
+                        className={`flex items-center rounded-lg text-sm font-medium transition-colors ${
+                          collapsed ? "justify-center px-0 py-2.5" : "gap-3 px-3 py-2.5"
+                        } ${
+                          active
+                            ? "bg-white/10 text-white"
+                            : "text-white/60 hover:bg-white/5 hover:text-white"
+                        }`}
+                      >
+                        <Icon className="h-4 w-4 shrink-0" />
+                        {!collapsed && <span>{item.label}</span>}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
             );
           })}
 
@@ -169,6 +277,21 @@ export default function AdminShell({
             <ExternalLink className="h-4 w-4 shrink-0" />
             {!collapsed && <span>View Site</span>}
           </a>
+
+          {process.env.NEXT_PUBLIC_WIREFRAMES_URL && (
+            <a
+              href={process.env.NEXT_PUBLIC_WIREFRAMES_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={collapsed ? "Wireframes" : undefined}
+              className={`mt-0.5 flex items-center rounded-lg text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white ${
+                collapsed ? "justify-center px-0 py-2.5" : "gap-3 px-3 py-2.5"
+              }`}
+            >
+              <LayoutTemplate className="h-4 w-4 shrink-0" />
+              {!collapsed && <span>Wireframes</span>}
+            </a>
+          )}
         </nav>
 
         {/* Collapse toggle (desktop only) */}
@@ -194,21 +317,14 @@ export default function AdminShell({
         {/* User section */}
         <div className={`border-t border-white/10 ${collapsed ? "p-2" : "p-4"}`}>
           <div className={`flex items-center ${collapsed ? "justify-center" : "gap-3"}`}>
-            {user.avatarUrl ? (
-              <img
-                src={user.avatarUrl}
-                alt={user.fullName}
-                className="h-8 w-8 shrink-0 rounded-full object-cover"
-                title={collapsed ? `${user.fullName} (${ROLE_LABELS[user.role]})` : undefined}
-              />
-            ) : (
-              <div
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-sm font-medium text-white"
-                title={collapsed ? `${user.fullName} (${ROLE_LABELS[user.role]})` : undefined}
-              >
-                {user.fullName.charAt(0).toUpperCase()}
-              </div>
-            )}
+            <UserAvatar
+              src={user.avatarUrl}
+              name={user.fullName}
+              seed={user.id}
+              size={32}
+              className="shrink-0"
+              title={collapsed ? `${user.fullName} (${ROLE_LABELS[user.role]})` : undefined}
+            />
             {!collapsed && (
               <>
                 <div className="flex-1 overflow-hidden">
@@ -235,7 +351,7 @@ export default function AdminShell({
       {/* Main content area */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Top bar (mobile) */}
-        <header className="flex h-16 items-center gap-4 border-b border-[var(--color-border)] bg-white px-4 lg:px-8">
+        <header className="flex h-16 items-center gap-4 border-b border-[var(--color-border)] bg-[var(--card)] px-4 lg:px-8">
           <button
             onClick={() => setSidebarOpen(true)}
             className="rounded-lg p-1.5 text-[var(--color-charcoal)] transition-colors hover:bg-[var(--color-cream-dark)] lg:hidden"
@@ -252,6 +368,7 @@ export default function AdminShell({
             </button>
           )}
           <div className="flex-1" />
+          <ThemeToggle theme={theme} onChange={handleThemeChange} />
           <span className="text-xs font-medium text-[var(--color-warm-gray-light)]">
             v{version}
           </span>
@@ -264,5 +381,6 @@ export default function AdminShell({
         <main className="flex-1 overflow-y-auto p-4 lg:p-8">{children}</main>
       </div>
     </div>
+    </>
   );
 }
