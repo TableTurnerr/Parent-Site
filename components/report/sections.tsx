@@ -8,6 +8,7 @@ import { KeywordGroupsList } from "./keyword-accordion";
 import {
   CollapsibleSection,
   CollapsibleProblem,
+  StepInfoTooltip,
 } from "./collapsible-section";
 
 const num2 = (i: number) => String(i).padStart(2, "0");
@@ -635,6 +636,87 @@ function CtaSectionBlock({
   );
 }
 
+// ─── Progression bar ─────────────────────────────────────────────────────
+
+function ProgressionBarBlock({
+  section,
+  index,
+}: {
+  section: Extract<ReportSection, { type: "progressionBar" }>;
+  index: number;
+}) {
+  return (
+    <section className="section progression-section" id={section.id}>
+      <div className="section-num">
+        <span>{`Section ${num2(index)}`}</span>
+      </div>
+      {section.title && <h2 className="progression-title">{section.title}</h2>}
+      {section.intro && (
+        <p className="section-intro">
+          <InlineMarkdown text={section.intro} />
+        </p>
+      )}
+      <ol className="progression-bar">
+        {section.steps.map((step, i) => (
+          <li
+            key={i}
+            className={`progression-step ${step.recommended ? "is-recommended" : ""}`}
+          >
+            <div className="progression-step-marker">
+              <span className="progression-step-num">{num2(i + 1)}</span>
+            </div>
+            <div className="progression-step-body">
+              <div className="progression-step-label">
+                <span>
+                  <InlineMarkdown text={step.label} />
+                  {step.recommended && (
+                    <span className="progression-step-badge">recommended</span>
+                  )}
+                </span>
+                <StepInfoTooltip info={step.info} />
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+// ─── Group ───────────────────────────────────────────────────────────────
+
+function GroupSectionBlock({
+  section,
+  index,
+}: {
+  section: Extract<ReportSection, { type: "group" }>;
+  index: number;
+}) {
+  return (
+    <section className="section group-section" id={section.id}>
+      <div className="section-num">
+        <span>{`Section ${num2(index)}`}</span>
+      </div>
+      <h2 className="group-section-title">{section.title}</h2>
+      {section.intro && (
+        <p className="section-intro">
+          <InlineMarkdown text={section.intro} />
+        </p>
+      )}
+      <div className="group-section-children">
+        {section.sections.map((child, i) => (
+          <SectionRenderer
+            key={child.id}
+            section={child}
+            index={i + 1}
+            depth={1}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // ─── Dispatcher ─────────────────────────────────────────────────────────
 
 function SectionBody({ section }: { section: ReportSection }) {
@@ -672,16 +754,28 @@ function getSectionIntro(section: ReportSection): string | undefined {
 export function SectionRenderer({
   section,
   index,
+  depth = 0,
 }: {
   section: ReportSection;
   index: number;
+  depth?: number;
 }) {
   if (section.type === "cta") {
     return <CtaSectionBlock section={section} index={index} />;
   }
 
-  // Problems section is expanded by default; everything else is collapsed.
-  const defaultOpen = section.type === "problems";
+  if (section.type === "group") {
+    return <GroupSectionBlock section={section} index={index} />;
+  }
+
+  if (section.type === "progressionBar") {
+    return <ProgressionBarBlock section={section} index={index} />;
+  }
+
+  // Sections nested inside a group are open by default — the group itself is
+  // the navigation scaffold, so collapsing the children would leave each group
+  // looking empty. Top-level sections stay collapsed except `problems`.
+  const defaultOpen = depth > 0 || section.type === "problems";
 
   return (
     <CollapsibleSection
@@ -690,6 +784,7 @@ export function SectionRenderer({
       title={section.title}
       intro={getSectionIntro(section)}
       defaultOpen={defaultOpen}
+      depth={depth}
     >
       <SectionBody section={section} />
     </CollapsibleSection>

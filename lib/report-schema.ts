@@ -203,6 +203,40 @@ export interface CtaSection {
   secondary?: { label: string; href?: string };
 }
 
+export interface ProgressionStep {
+  label: string;
+  info: InlineText;        // 1-liner shown in the tooltip
+  recommended?: boolean;   // marks the "*recommended" step
+}
+
+export interface ProgressionBarSection {
+  type: "progressionBar";
+  id: string;
+  title?: string;
+  intro?: InlineText;
+  steps: ProgressionStep[];
+}
+
+export interface GroupSection {
+  type: "group";
+  id: string;
+  title: string;
+  intro?: InlineText;
+  sections: ChildSection[];
+}
+
+export type ChildSection =
+  | NarrativeSection
+  | ScorecardSection
+  | TableSection
+  | ReviewsSection
+  | ProblemListSection
+  | CompetitionSection
+  | KeywordResearchSection
+  | ActionPlanSection
+  | SuccessMetricsSection
+  | ProgressionBarSection;
+
 export type ReportSection =
   | NarrativeSection
   | ScorecardSection
@@ -213,6 +247,8 @@ export type ReportSection =
   | KeywordResearchSection
   | ActionPlanSection
   | SuccessMetricsSection
+  | ProgressionBarSection
+  | GroupSection
   | CtaSection;
 
 export interface ReportMeta {
