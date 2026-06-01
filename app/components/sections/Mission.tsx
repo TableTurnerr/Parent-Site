@@ -41,14 +41,17 @@ export default function Mission() {
             <BlurText text="Independent restaurants pour their heart into every plate" />
             <span className="text-warm-gray-light">
               {" "}
-              <BlurText text="— we build the digital marketing that brings diners through the door." delay={300} />
+              <BlurText text="we build the digital marketing that brings " delay={300} />
+            </span>
+            <span className="text-accent-gradient">
+              <BlurText text="diners through the door." delay={450} />
             </span>
           </h2>
         </AnimatedElement>
 
         {/* Divider */}
         <AnimatedElement variants={fadeInUp}>
-          <div className="w-full h-px bg-border mt-12 mb-12 md:mt-16 md:mb-16" />
+          <hr className="rule-fade mt-12 mb-12 md:mt-16 md:mb-16" />
         </AnimatedElement>
 
         {/* Two column layout: image + values */}
@@ -89,7 +92,7 @@ export default function Mission() {
             >
               {VALUES.map((value) => (
                 <AnimatedElement key={value.number} variants={fadeInUp}>
-                  <span className="font-display text-sm text-accent font-semibold tracking-wide">
+                  <span className="font-display text-2xl text-accent-gradient font-bold tracking-tight">
                     {value.number}
                   </span>
                   <h3 className="font-display font-semibold text-charcoal text-lg mt-2 mb-2">

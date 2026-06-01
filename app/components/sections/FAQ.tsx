@@ -32,7 +32,9 @@ export default function FAQ() {
               <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-4 mb-6">
                 <BlurText text="Frequently Asked" />
                 <br />
-                <BlurText text="Questions" delay={200} />
+                <span className="text-accent-gradient">
+                  <BlurText text="Questions" delay={200} />
+                </span>
               </h2>
             </AnimatedElement>
 

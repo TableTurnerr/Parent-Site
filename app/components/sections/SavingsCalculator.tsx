@@ -180,12 +180,12 @@ export default function SavingsCalculator() {
           </div>
 
           {/* Result */}
-          <div className="rounded-[1.25rem] bg-charcoal text-cream p-7 sm:p-9 flex flex-col">
+          <div className="rounded-[1.25rem] dark-sheen elevate text-cream p-7 sm:p-9 flex flex-col">
             <p className="text-warm-gray-light text-sm uppercase tracking-[0.2em] font-medium">
               You&apos;re paying delivery apps
             </p>
             <p
-              className="font-display font-bold leading-none tracking-tight text-accent mt-3 tabular-nums"
+              className="font-display font-bold leading-none tracking-tight text-accent-gradient mt-3 tabular-nums"
               style={{ fontSize: "clamp(2.75rem, 7vw, 4.5rem)" }}
               aria-live="polite"
             >

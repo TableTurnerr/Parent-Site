@@ -49,7 +49,10 @@ export default function Process() {
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
           <SectionLabel>How It Works</SectionLabel>
           <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl">
-            <BlurText text="How We Grow Your Restaurant in Three Steps" />
+            <BlurText text="How We Grow Your Restaurant in" />{" "}
+            <span className="text-accent-gradient">
+              <BlurText text="Three Steps" delay={150} />
+            </span>
           </h2>
         </AnimatedElement>
 
@@ -73,7 +76,7 @@ export default function Process() {
               )}
 
               {/* Card */}
-              <div className="bg-cream-dark rounded-[1.25rem] overflow-hidden flex flex-col w-full">
+              <div className="elevate-hover bg-cream-dark rounded-[1.25rem] overflow-hidden flex flex-col w-full border border-transparent hover:border-border">
                 {/* Step image */}
                 <div className="relative h-[180px] sm:h-[160px] md:h-[140px] lg:h-[160px]">
                   <Image
@@ -87,7 +90,7 @@ export default function Process() {
 
                 <div className="p-8 md:p-9 lg:p-10 flex flex-col flex-1">
                   {/* Step number */}
-                  <span className="font-display text-[3.5rem] md:text-[4rem] leading-none font-bold text-warm-gray-light/50 select-none">
+                  <span className="font-display text-[3.5rem] md:text-[4rem] leading-none font-bold text-accent-gradient opacity-90 select-none">
                     {step.number}
                   </span>
 
