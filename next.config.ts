@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "psdb.tableturnerr.com",
       },
+      {
+        // Live homepage screenshots for the "Our Work" portfolio (thum.io).
+        protocol: "https",
+        hostname: "image.thum.io",
+      },
     ],
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,

@@ -8,6 +8,7 @@ import Container from "@/app/components/ui/Container";
 import SectionLabel from "@/app/components/ui/SectionLabel";
 import NumberTicker from "@/app/components/ui/NumberTicker";
 import CTA from "@/app/components/sections/CTA";
+import OurWork from "@/app/components/sections/OurWork";
 import { fadeInUp, staggerContainer, scaleIn } from "@/app/lib/animations";
 import { SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
@@ -175,6 +176,9 @@ export default function CaseStudiesPage() {
           </AnimatedElement>
         </Container>
       </section>
+
+      {/* ── Live client site portfolio (renders once real URLs are set) ── */}
+      <OurWork />
 
       {/* ── Our Clients ─────────────────────────────────────────── */}
       <section className="bg-cream pb-20 md:pb-28">
