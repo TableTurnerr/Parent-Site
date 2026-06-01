@@ -43,9 +43,7 @@ export default function Mission() {
               {" "}
               <BlurText text="we build the digital marketing that brings " delay={300} />
             </span>
-            <span className="text-accent-gradient">
-              <BlurText text="diners through the door." delay={450} />
-            </span>
+            <BlurText text="diners through the door." delay={450} gradient />
           </h2>
         </AnimatedElement>
 

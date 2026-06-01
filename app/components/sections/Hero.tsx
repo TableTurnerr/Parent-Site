@@ -46,9 +46,7 @@ export default function Hero() {
 
               <h1 className="font-display font-bold text-[clamp(2.25rem,5.5vw,4.5rem)] leading-[1.05] tracking-tight text-cream mb-6">
                 <BlurText text="Websites & marketing that" />{" "}
-                <span className="text-accent-gradient">
-                  <BlurText text="fill more tables" delay={200} />
-                </span>
+                <BlurText text="fill more tables" delay={200} gradient />
               </h1>
 
               <AnimatedElement variants={fadeInUp}>

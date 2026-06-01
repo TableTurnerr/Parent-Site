@@ -44,9 +44,7 @@ export default function Testimonials() {
           <SectionLabel>Testimonials</SectionLabel>
           <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl mx-auto">
             <BlurText text="Trusted by Independent Restaurants" />{" "}
-            <span className="text-accent-gradient">
-              <BlurText text="Nationwide" delay={150} />
-            </span>
+            <BlurText text="Nationwide" delay={150} gradient />
           </h2>
         </AnimatedElement>
 

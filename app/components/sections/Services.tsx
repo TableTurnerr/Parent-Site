@@ -51,9 +51,7 @@ export default function Services() {
           <SectionLabel>What We Do</SectionLabel>
           <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl">
             <BlurText text="Restaurant Marketing Services That Drive" />{" "}
-            <span className="text-accent-gradient">
-              <BlurText text="Real Growth" delay={150} />
-            </span>
+            <BlurText text="Real Growth" delay={150} gradient />
           </h2>
         </AnimatedElement>
 
