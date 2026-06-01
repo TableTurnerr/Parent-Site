@@ -24,6 +24,10 @@ Each post links to a different service page so every node in the service mesh ha
 | 06 | [google-ads-for-restaurants-cost](06-google-ads-for-restaurants-cost.md) | Google Ads for Restaurants: What It Costs and What to Expect | Educational | google-ads |
 | 07 | [how-to-write-menu-descriptions-that-sell](07-how-to-write-menu-descriptions-that-sell.md) | How to Write Menu Descriptions That Sell | Educational | restaurant-branding |
 | 08 | [why-restaurant-not-showing-up-on-google](08-why-restaurant-not-showing-up-on-google.md) | Why Your Restaurant Isn't Showing Up on Google | Educational | google-business-profile-optimization |
+| 09 | [avoid-delivery-app-commissions-playbook](09-avoid-delivery-app-commissions-playbook.md) | How to Avoid Uber Eats, Grubhub & DoorDash Commissions: A Restaurant Owner's Playbook | Pain to solution | commission-free-deliveries (pillar/hub, ~1800 words, links 5 services) |
+
+### Note on #01 vs #09
+Both are about delivery commissions but from different angles, so they complement rather than duplicate: **#01** is awareness ("here is what it costs you"), **#09** is the solution playbook ("here is how to escape it"). Publish #09 as the cornerstone/pillar and #01 as a shorter supporting post that links up to it. #09 is a cleaned-up version of an existing draft that was already in the admin dashboard (em-dashes removed; Square/Toast competitor mentions removed in favor of Owner.com + ChowNow).
 
 ## House rules applied
 - One primary keyword per post (title, slug, meta, first 100 words).
