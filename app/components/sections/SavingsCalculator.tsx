@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Container from "@/app/components/ui/Container";
 import SectionLabel from "@/app/components/ui/SectionLabel";
@@ -32,20 +32,76 @@ interface SliderProps {
   min: number;
   max: number;
   step: number;
-  format: (v: number) => string;
+  /** Prefix shown before the editable number (e.g. "$"). */
+  prefix?: string;
+  /** Suffix shown after the editable number (e.g. "%"). */
+  suffix?: string;
   onChange: (v: number) => void;
 }
 
-function Slider({ id, label, value, min, max, step, format, onChange }: SliderProps) {
+function clamp(v: number, min: number, max: number): number {
+  if (Number.isNaN(v)) return min;
+  return Math.min(max, Math.max(min, v));
+}
+
+function Slider({
+  id,
+  label,
+  value,
+  min,
+  max,
+  step,
+  prefix,
+  suffix,
+  onChange,
+}: SliderProps) {
+  // Local draft so the user can clear the field and type freely; we only
+  // clamp to the valid range when they leave the field (onBlur).
+  const [draft, setDraft] = useState<string>(String(value));
+
+  // Keep the field in sync when the slider (or another source) changes value.
+  useEffect(() => {
+    setDraft(String(value));
+  }, [value]);
+
+  function commit(raw: string) {
+    const parsed = Number(raw.replace(/,/g, ""));
+    const next = clamp(Math.round(parsed / step) * step, min, max);
+    onChange(next);
+    setDraft(String(next));
+  }
+
   return (
     <div>
-      <div className="flex items-baseline justify-between mb-2">
+      <div className="flex items-baseline justify-between mb-2 gap-3">
         <label htmlFor={id} className="text-sm font-medium text-charcoal">
           {label}
         </label>
-        <span className="font-display font-semibold text-charcoal tabular-nums">
-          {format(value)}
-        </span>
+        <div className="flex items-baseline rounded-lg border border-border bg-cream px-2.5 py-1 focus-within:border-accent transition-colors">
+          {prefix && (
+            <span className="font-display font-semibold text-charcoal text-sm">
+              {prefix}
+            </span>
+          )}
+          <input
+            id={`${id}-input`}
+            type="text"
+            inputMode="numeric"
+            value={draft}
+            aria-label={`${label} (type a value)`}
+            onChange={(e) => setDraft(e.target.value)}
+            onBlur={(e) => commit(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+            }}
+            className="w-16 bg-transparent text-right font-display font-semibold text-charcoal tabular-nums outline-none"
+          />
+          {suffix && (
+            <span className="font-display font-semibold text-charcoal text-sm">
+              {suffix}
+            </span>
+          )}
+        </div>
       </div>
       <input
         id={id}
@@ -55,10 +111,13 @@ function Slider({ id, label, value, min, max, step, format, onChange }: SliderPr
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        aria-valuetext={format(value)}
         className="w-full h-2 rounded-full appearance-none cursor-pointer bg-charcoal/10"
         style={{ accentColor: "var(--color-accent)" }}
       />
+      <div className="flex justify-between mt-1 text-[0.7rem] text-warm-gray-light tabular-nums">
+        <span>{prefix}{min.toLocaleString("en-US")}{suffix}</span>
+        <span>{prefix}{max.toLocaleString("en-US")}{suffix}</span>
+      </div>
     </div>
   );
 }
@@ -92,7 +151,6 @@ export default function SavingsCalculator() {
                 min={50}
                 max={3000}
                 step={10}
-                format={(v) => v.toLocaleString("en-US")}
                 onChange={setOrders}
               />
               <Slider
@@ -102,7 +160,7 @@ export default function SavingsCalculator() {
                 min={10}
                 max={120}
                 step={1}
-                format={(v) => usd.format(v)}
+                prefix="$"
                 onChange={setAov}
               />
               <Slider
@@ -112,7 +170,7 @@ export default function SavingsCalculator() {
                 min={10}
                 max={35}
                 step={1}
-                format={(v) => `${v}%`}
+                suffix="%"
                 onChange={setRate}
               />
             </div>
