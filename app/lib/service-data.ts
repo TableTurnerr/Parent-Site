@@ -62,7 +62,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Online Ordering Integration",
         description:
-          "We integrate commission-free ordering systems like Owner.com and ChowNow directly into your website, so you keep more profit from every order placed through your site.",
+          "We integrate commission-free direct ordering right into your website, so you keep more profit from every order placed through your site.",
       },
       {
         title: "Lightning-Fast Performance",
@@ -84,12 +84,11 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
         source: "Industry Data",
       },
       {
-        prefix: "+",
-        value: 377,
+        value: 88,
         suffix: "%",
         decimalPlaces: 0,
-        label: "online growth achieved by Samos Oaxaca after transitioning to Owner.com",
-        source: "Owner.com",
+        label: "of diners look at a restaurant's website before deciding to visit or order",
+        source: "Industry Data",
       },
       {
         value: 34,
@@ -99,12 +98,11 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
         source: "Industry Data",
       },
       {
-        prefix: "$",
-        value: 970,
-        suffix: "",
+        value: 2,
+        suffix: "x",
         decimalPlaces: 0,
-        label: "in Owner.com setup fees waived when you work with TableTurnerr",
-        source: "Owner.com",
+        label: "more orders for restaurants with their own commission-free online ordering vs apps alone",
+        source: "Industry Data",
       },
     ],
     faqs: [
@@ -126,7 +124,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         question: "Will my website work with online ordering platforms?",
         answer:
-          "Yes. We integrate commission-free ordering systems like Owner.com and ChowNow directly into your website. This means customers order through your site, not through third-party apps charging 15-30% per order.",
+          "Yes. We integrate commission-free direct ordering right into your website. This means customers order through your site, not through third-party apps charging 15-30% per order.",
       },
       {
         question: "Do you offer website maintenance after launch?",
@@ -596,7 +594,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     category: "Online Ordering",
     headline: "Commission-Free Deliveries for Restaurants",
     description:
-      "Stop losing 15-30% of every order to DoorDash and UberEats. We set up commission-free direct ordering through Owner.com and ChowNow so your restaurant keeps more profit from every delivery and takeout order.",
+      "Stop losing 15-30% of every order to DoorDash and UberEats. We set up commission-free direct ordering and flat-fee delivery so your restaurant keeps more profit from every delivery and takeout order.",
     heroImage: {
       src: "/images/usage/order-counter.jpg",
       alt: "Restaurant worker preparing food orders at the counter for delivery",
@@ -605,12 +603,12 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Direct Ordering Setup",
         description:
-          "We integrate commission-free ordering platforms like Owner.com and ChowNow directly into your restaurant's website. Customers order from you, not a third-party app, and you keep the revenue.",
+          "We build commission-free direct ordering right into your restaurant's website. Customers order from you, not a third-party app, and you keep the revenue.",
       },
       {
-        title: "Third-Party Fee Elimination",
+        title: "Flat-Fee Delivery",
         description:
-          "DoorDash and UberEats take 15-30% of every order, with hidden fees that can push costs above 40%. We transition your delivery and takeout orders to platforms that charge flat monthly rates instead of per-order commissions.",
+          "Our Turnerr Deliver service dispatches the nearest driver the moment an order comes in and charges a flat fee per delivery instead of a percentage, so a busy delivery night no longer means a giant commission bill.",
       },
       {
         title: "Branded Ordering Experience",
@@ -620,7 +618,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Automated Marketing & Loyalty",
         description:
-          "Commission-free platforms include built-in tools for email marketing, loyalty programs, and AI-powered upselling. Turn first-time delivery customers into repeat direct orders without lifting a finger.",
+          "Your direct ordering setup includes built-in tools for email and SMS marketing, loyalty programs, and automated follow-ups. Turn first-time delivery customers into repeat direct orders without lifting a finger.",
       },
       {
         title: "Third-Party App Pivot Strategy",
@@ -658,11 +656,11 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       },
       {
         prefix: "$",
-        value: 970,
+        value: 1.5,
         suffix: "",
-        decimalPlaces: 0,
-        label: "in Owner.com setup fees waived when you work with TableTurnerr",
-        source: "Owner.com",
+        decimalPlaces: 2,
+        label: "flat fee per delivered order with Turnerr Deliver, instead of 15-30% commission",
+        source: "TableTurnerr",
       },
     ],
     faqs: [
@@ -677,9 +675,9 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
           "We don't recommend stopping entirely. Our strategy is to keep DoorDash and UberEats as customer acquisition channels while moving repeat customers to your direct ordering platform. 67% of consumers already prefer ordering directly from restaurants when the option is available.",
       },
       {
-        question: "What's the difference between Owner.com and ChowNow?",
+        question: "How does Turnerr Deliver work?",
         answer:
-          "Owner.com is the premium option at $500/month flat plus a small 5% fee paid by the guest, with an all-in-one platform including website, mobile app, and automated marketing. ChowNow starts at $119/month with tiered pricing and transaction fees. Both eliminate commission-based delivery fees. We help you choose the right fit based on your budget and goals.",
+          "Turnerr Deliver is our flat-fee delivery service. When an order comes in through your own website, it dispatches the nearest available driver and charges a flat fee per delivered order instead of a percentage commission. It plugs into your POS, so a $40 order costs you a small flat fee rather than $10 to $12 in third-party commission.",
       },
       {
         question: "How long does it take to set up commission-free ordering?",
@@ -689,7 +687,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         question: "Do I need a new website to use commission-free ordering?",
         answer:
-          "No. Commission-free ordering platforms can be integrated into your existing website. If your current site needs updates to support direct ordering, we handle that as part of the setup. If you don't have a website yet, we build one as part of our restaurant website design service.",
+          "No. Commission-free direct ordering can be added to your existing website. If your current site needs updates to support direct ordering, we handle that as part of the setup. If you don't have a website yet, we build one as part of our restaurant website design service.",
       },
     ],
     keywords: [
@@ -700,7 +698,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       "commission free restaurant ordering system",
     ],
     metaDescription:
-      "Commission-free delivery and online ordering for restaurants. Stop paying 15-30% to DoorDash and UberEats. We set up direct ordering through Owner.com and ChowNow so you keep more profit.",
+      "Commission-free delivery and online ordering for restaurants. Stop paying 15-30% to DoorDash and UberEats. We set up direct ordering plus flat-fee delivery so you keep more profit.",
   },
 };
 

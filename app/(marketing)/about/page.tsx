@@ -81,7 +81,7 @@ const GROWTH_STEPS = [
     step: 2,
     title: "The Transition",
     description:
-      "Once qualified, you are seamlessly onboarded to a commission-free direct ordering system. We primarily recommend Owner.com as the complete system, with ChowNow available as a budget-friendly alternative.",
+      "Once qualified, you are seamlessly onboarded to a commission-free direct ordering system on your own website, plus our flat-fee Turnerr Deliver service, so the revenue and the customer data stay with you instead of a third-party app.",
   },
   {
     step: 3,
@@ -100,33 +100,31 @@ const PARTNER_STATS: readonly {
   source: string;
 }[] = [
   {
-    value: 377,
-    prefix: "+",
+    value: 30,
     suffix: "%",
-    label: "Online growth achieved by Samos Oaxaca on Owner.com",
-    source: "Owner.com",
+    label: "Commission third-party delivery apps take on every single order",
+    source: "Industry Data",
   },
   {
-    value: 4.5,
+    value: 16000,
     prefix: "$",
-    suffix: "M",
-    decimalPlaces: 1,
-    label: "In online sales generated for Saffron Indian Kitchen",
-    source: "Owner.com",
+    suffix: "",
+    label: "Average a restaurant saves per year by moving to direct ordering",
+    source: "Industry Data",
   },
   {
-    value: 2,
-    prefix: "$",
-    suffix: "M+",
-    label: "Saved in commissions by Ollie's in New York on ChowNow",
-    source: "ChowNow",
+    value: 67,
+    suffix: "%",
+    label: "Of diners prefer ordering directly from a restaurant when they can",
+    source: "Industry Data",
   },
   {
-    value: 288,
+    value: 1.5,
     prefix: "$",
-    suffix: "K",
-    label: "Saved annually by 4Top Hospitality after eliminating third-party fees",
-    source: "ChowNow",
+    suffix: "",
+    decimalPlaces: 2,
+    label: "Flat fee per delivered order with Turnerr Deliver, not a percentage",
+    source: "TableTurnerr",
   },
 ];
 
@@ -340,12 +338,12 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Stats Strip — Partner Ecosystem Results */}
+      {/* Stats Strip — commission-free numbers */}
       <section className="bg-charcoal py-16 md:py-20">
         <Container>
           <AnimatedElement variants={fadeIn} className="text-center mb-10 md:mb-14">
             <SectionLabel className="text-warm-gray-light">
-              Partner Ecosystem Results
+              Why Commission-Free Wins
             </SectionLabel>
           </AnimatedElement>
 

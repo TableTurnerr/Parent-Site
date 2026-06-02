@@ -25,8 +25,8 @@ export const metadata: Metadata = createPageMetadata({
     "restaurant marketing results",
     "restaurant SEO results",
     "restaurant growth examples",
-    "Owner.com results",
-    "ChowNow results",
+    "commission free ordering results",
+    "restaurant delivery savings",
   ],
 });
 
@@ -64,56 +64,48 @@ interface PartnerStat {
   suffix?: string;
   decimalPlaces?: number;
   label: string;
-  restaurant: string;
-  source: "Owner.com" | "ChowNow";
+  source: string;
 }
 
 const PARTNER_STATS: PartnerStat[] = [
   {
-    value: 377,
-    prefix: "+",
+    value: 30,
     suffix: "%",
-    label: "Online growth achieved",
-    restaurant: "Samos Oaxaca",
-    source: "Owner.com",
+    label: "Commission third-party apps take on every order, before any costs",
+    source: "Industry Data",
   },
   {
-    value: 4.5,
+    value: 16000,
     prefix: "$",
-    suffix: "M",
-    decimalPlaces: 1,
-    label: "In online sales generated",
-    restaurant: "Saffron Indian Kitchen",
-    source: "Owner.com",
+    suffix: "",
+    label: "Average annual savings switching from delivery apps to direct ordering",
+    source: "Industry Data",
   },
   {
-    display: "5-figure",
-    label: "Savings in third-party fees",
-    restaurant: "HillCrust Pizza",
-    source: "Owner.com",
-  },
-  {
-    value: 2,
-    prefix: "$",
-    suffix: "M+",
-    label: "Saved in commissions",
-    restaurant: "Ollie's in New York",
-    source: "ChowNow",
-  },
-  {
-    value: 108,
+    value: 67,
     suffix: "%",
-    label: "Increase in repeat orders",
-    restaurant: "Ollie's",
-    source: "ChowNow",
+    label: "Of diners prefer ordering directly from a restaurant when they can",
+    source: "Industry Data",
   },
   {
-    value: 288,
+    value: 70,
+    suffix: "%",
+    label: "Of first-time diners never return without a follow-up system",
+    source: "Industry Data",
+  },
+  {
+    value: 98,
+    suffix: "%",
+    label: "Open rate on SMS, vs about 20% for email, for bringing customers back",
+    source: "Industry Data",
+  },
+  {
+    value: 1.5,
     prefix: "$",
-    suffix: "K",
-    label: "Saved annually by eliminating third-party fees",
-    restaurant: "4Top Hospitality",
-    source: "ChowNow",
+    suffix: "",
+    decimalPlaces: 2,
+    label: "Flat fee per delivered order with Turnerr Deliver, not a percentage",
+    source: "TableTurnerr",
   },
 ];
 
@@ -238,22 +230,22 @@ export default function CaseStudiesPage() {
         <Container>
           <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
             <SectionLabel className="text-warm-gray-light">
-              Partner Ecosystem Results
+              The Numbers
             </SectionLabel>
             <h2 className="font-display font-bold text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.15] tracking-tight text-cream mt-4 max-w-2xl">
-              <BlurText text="The Numbers Behind Our Partner Platforms" />
+              <BlurText text="Why Commission-Free Ordering Wins" />
             </h2>
             <p className="text-warm-gray-light text-lg md:text-xl leading-relaxed max-w-2xl mt-6">
-              Restaurants using our recommended platforms (Owner.com and
-              ChowNow) are seeing massive, verified ROI. These are real results
-              from real restaurants in the ecosystem.
+              Delivery apps take a third of every order and keep your customers
+              as theirs. Here is what that costs, and what your restaurant keeps
+              when ordering runs through you instead.
             </p>
           </AnimatedElement>
 
           <AnimatedElement variants={staggerContainer}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
               {PARTNER_STATS.map((stat) => (
-                <AnimatedElement key={stat.restaurant + stat.label} variants={fadeInUp}>
+                <AnimatedElement key={stat.label} variants={fadeInUp}>
                   <div className="rounded-[1.25rem] border border-warm-gray/20 p-6 sm:p-8 md:p-10 flex flex-col h-full">
                     {/* Stat number */}
                     {stat.display ? (
@@ -277,14 +269,11 @@ export default function CaseStudiesPage() {
                       {stat.label}
                     </p>
 
-                    {/* Restaurant + source */}
-                    <div className="flex items-center justify-between mt-6 pt-6 border-t border-warm-gray/15">
-                      <p className="text-warm-gray text-sm">
-                        {stat.restaurant}
-                      </p>
+                    {/* Source */}
+                    <div className="flex items-center justify-end mt-6 pt-6 border-t border-warm-gray/15">
                       <span
                         className={`text-xs font-medium px-3 py-1 rounded-[9999px] ${
-                          stat.source === "Owner.com"
+                          stat.source === "TableTurnerr"
                             ? "text-accent bg-accent/15"
                             : "text-cream bg-warm-gray/20"
                         }`}
@@ -300,27 +289,27 @@ export default function CaseStudiesPage() {
         </Container>
       </section>
 
-      {/* ── Additional Partner Info ─────────────────────────────── */}
+      {/* ── How we keep your margin ─────────────────────────────── */}
       <section className="bg-cream-dark py-16 md:py-24">
         <Container>
           <AnimatedElement variants={fadeInUp}>
             <div className="max-w-3xl mx-auto">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-xs font-medium text-cream bg-warm-gray/20 px-3 py-1 rounded-[9999px]">
-                  ChowNow
-                </span>
-                <p className="font-display font-semibold text-charcoal text-lg md:text-xl">
-                  Emporium Thai: $68K saved in commissions
-                </p>
-              </div>
+              <p className="font-display font-semibold text-charcoal text-lg md:text-xl mb-6">
+                How we keep that margin in your pocket
+              </p>
 
               <p className="text-warm-gray text-base md:text-lg leading-relaxed">
-                Our recommended ecosystem includes{" "}
-                <strong className="text-charcoal font-medium">Owner.com</strong>{" "}
-                for restaurants ready to scale aggressively ($500/month flat fee,
-                setup fee waived through TableTurnerr) and{" "}
-                <strong className="text-charcoal font-medium">ChowNow</strong>{" "}
-                for cost-conscious restaurants seeking commission-free ordering.
+                We set you up with{" "}
+                <strong className="text-charcoal font-medium">
+                  commission-free direct ordering
+                </strong>{" "}
+                on your own website, so repeat customers order from you, not an
+                app, and you keep the revenue and the data. For delivery, our{" "}
+                <strong className="text-charcoal font-medium">
+                  Turnerr Deliver
+                </strong>{" "}
+                service dispatches the nearest driver for a flat fee per order
+                instead of a 15 to 30 percent commission.
               </p>
 
               <div className="mt-10">

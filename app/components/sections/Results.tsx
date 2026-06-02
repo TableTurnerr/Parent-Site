@@ -7,36 +7,36 @@ import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 
 const STATS = [
   {
-    prefix: "+",
-    value: 377,
+    prefix: "",
+    value: 30,
     suffix: "%",
     decimalPlaces: 0,
-    description: "Online growth achieved by Samos Oaxaca after switching to Owner.com",
-    source: "Owner.com",
+    description: "Commission third-party apps take on every order, before food, labor, or rent",
+    source: "Industry Data",
   },
   {
     prefix: "$",
-    value: 4.5,
-    suffix: "M",
-    decimalPlaces: 1,
-    description: "In online sales generated for Saffron Indian Kitchen through Owner.com",
-    source: "Owner.com",
-  },
-  {
-    prefix: "$",
-    value: 2,
-    suffix: "M+",
+    value: 16000,
+    suffix: "",
     decimalPlaces: 0,
-    description: "Saved in commissions by Ollie's in New York after moving to ChowNow",
-    source: "ChowNow",
+    description: "Average a restaurant saves per year by switching from delivery apps to direct ordering",
+    source: "Industry Data",
+  },
+  {
+    prefix: "",
+    value: 67,
+    suffix: "%",
+    decimalPlaces: 0,
+    description: "Of diners prefer ordering directly from a restaurant when the option is available",
+    source: "Industry Data",
   },
   {
     prefix: "$",
-    value: 288,
-    suffix: "K",
-    decimalPlaces: 0,
-    description: "Saved annually by 4Top Hospitality after eliminating third-party fees via ChowNow",
-    source: "ChowNow",
+    value: 1.5,
+    suffix: "",
+    decimalPlaces: 2,
+    description: "Flat fee per delivered order with Turnerr Deliver, instead of a percentage commission",
+    source: "TableTurnerr",
   },
 ] as const;
 
@@ -46,12 +46,12 @@ export default function Results() {
       <Container>
         {/* Section header */}
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
-          <SectionLabel className="text-warm-gray-light">Partner Results</SectionLabel>
+          <SectionLabel className="text-warm-gray-light">The Numbers</SectionLabel>
           <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-cream mt-3 max-w-2xl">
-            <BlurText text="Real Results From Our Partner Ecosystem" />
+            <BlurText text="Why Commission-Free Ordering Wins" />
           </h2>
           <p className="text-warm-gray-light text-lg leading-relaxed mt-4 max-w-2xl">
-            Restaurants using our recommended platforms are seeing massive, verified ROI. Here is what the ecosystem delivers.
+            Delivery apps quietly take a third of every order. Here is what that costs, and what your restaurant keeps when ordering runs through you instead.
           </p>
         </AnimatedElement>
 

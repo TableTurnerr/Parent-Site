@@ -36,7 +36,7 @@ export const SERVICES = [
   {
     title: "Commission-Free Deliveries",
     slug: "commission-free-deliveries",
-    description: "Stop losing 15-30% of every order to delivery apps. We set up commission-free direct ordering through Owner.com and ChowNow so your restaurant keeps more profit.",
+    description: "Stop losing 15-30% of every order to delivery apps. We set up commission-free direct ordering and flat-fee delivery so your restaurant keeps more profit.",
   },
 ] as const;
 
@@ -84,7 +84,7 @@ export const FAQ_DATA = [
   {
     question: "Can you help our restaurant reduce DoorDash and UberEats fees?",
     answer:
-      "Yes. We help restaurants transition away from high-commission third-party platforms by setting up commission-free direct ordering through partners like Owner.com and ChowNow. Most restaurants save thousands per year in delivery app fees while keeping more profit from every order.",
+      "Yes. We help restaurants transition away from high-commission third-party platforms by setting up commission-free direct ordering on your own website, plus flat-fee delivery that charges a small amount per order instead of a percentage. Most restaurants save thousands per year in delivery app fees while keeping more profit from every order.",
   },
   {
     question: "What makes TableTurnerr different from other restaurant marketing agencies?",

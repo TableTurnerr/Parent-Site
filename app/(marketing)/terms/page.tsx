@@ -229,8 +229,8 @@ export default function TermsOfServicePage() {
                 <p>
                   Our services may involve the use of third-party platforms and
                   tools, including but not limited to Google Ads, Google Business
-                  Profile, Owner.com, ChowNow, and various analytics and hosting
-                  providers. Your use of these platforms is subject to their
+                  Profile, online ordering and delivery systems, and various
+                  analytics and hosting providers. Your use of these platforms is subject to their
                   respective terms of service and privacy policies. TableTurnerr
                   is not responsible for the actions, availability, or policies
                   of third-party services.

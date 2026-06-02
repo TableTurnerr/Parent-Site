@@ -195,8 +195,8 @@ export default function PrivacyPolicyPage() {
                       Partner platforms:
                     </strong>{" "}
                     When delivering services, we may interact with platforms like
-                    Google Ads, Google Business Profile, Owner.com, or ChowNow
-                    on your behalf and as authorized by you.
+                    Google Ads, Google Business Profile, and online ordering or
+                    delivery systems on your behalf and as authorized by you.
                   </li>
                   <li>
                     <strong className="text-charcoal">

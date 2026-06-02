@@ -5,34 +5,34 @@ import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 
 const PARTNERS = [
   {
-    name: "Owner.com",
-    tier: "Premium",
-    tagline: "The complete restaurant operating system",
+    name: "Direct Ordering",
+    tier: "Own your customers",
+    tagline: "Commission-free ordering on your own website",
     features: [
       "Commission-free online ordering",
       "Automated email & SMS marketing",
-      "Custom-branded mobile app",
-      "AI-powered upselling & loyalty programs",
+      "Loyalty and repeat-order tools",
+      "You own the customer data, not an app",
     ],
-    perk: "$970 setup fee waived",
-    perkDetail: "through TableTurnerr",
-    stat: { prefix: "$", value: 4.5, suffix: "M", decimalPlaces: 1 },
-    statLabel: "In online sales generated for a single restaurant on Owner.com",
+    perk: "0% commission",
+    perkDetail: "on every direct order",
+    stat: { prefix: "", value: 67, suffix: "%", decimalPlaces: 0 },
+    statLabel: "of diners prefer ordering directly from a restaurant when they can",
   },
   {
-    name: "ChowNow",
-    tier: "Budget-Friendly",
-    tagline: "Direct ordering without the commission fees",
+    name: "Turnerr Deliver",
+    tier: "Flat-fee delivery",
+    tagline: "Delivery without the percentage commission",
     features: [
-      "Commission-free delivery & pickup",
-      "Dedicated ordering website",
-      "Branded mobile ordering app",
-      "Google & social media integrations",
+      "Flat fee per delivered order",
+      "Nearest driver dispatched automatically",
+      "Plugs straight into your POS",
+      "No per-order percentage, ever",
     ],
-    perk: "1 month free",
-    perkDetail: "on any annual plan",
-    stat: { prefix: "$", value: 288, suffix: "K", decimalPlaces: 0 },
-    statLabel: "Saved annually by a restaurant after ditching third-party fees",
+    perk: "$1.50 flat",
+    perkDetail: "per delivered order",
+    stat: { prefix: "$", value: 1.5, suffix: "", decimalPlaces: 2 },
+    statLabel: "flat per-order fee instead of $10 to $12 commission on a $40 order",
   },
 ] as const;
 
@@ -62,18 +62,16 @@ export default function Partners() {
         {/* Section header */}
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
           <p className="eyebrow mb-6" style={{ color: "rgba(250,250,248,0.6)" }}>
-            Our Partners
+            Keep More Profit
           </p>
           <h2 className="display-lg text-cream max-w-3xl">
-            Scale with industry-leading restaurant tech
+            Stop handing your margin to delivery apps
           </h2>
           <p className="text-cream/70 text-lg leading-relaxed mt-5 max-w-2xl">
-            As an official strategic partner of Owner.com and ChowNow, we get
-            you exclusive benefits you won't find signing up on your own,
-            commission-free ordering that puts revenue back in your pocket. We
-            audit your restaurant's operations and digital presence to ensure
-            you meet the qualification standards required by these platforms
-            before onboarding.
+            Third-party apps take 15 to 30 percent of every order and keep your
+            customers as theirs. We set you up with commission-free direct
+            ordering and flat-fee delivery, so the revenue, the data, and the
+            customer relationship stay with your restaurant.
           </p>
         </AnimatedElement>
 
