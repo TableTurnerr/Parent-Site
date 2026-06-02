@@ -36,7 +36,7 @@ That is a six-top trying to book a Friday, or an office manager pricing out a ca
 
 1. **Pull your missed-call report.** Your carrier or VoIP provider has it, free. Most owners are stunned the first time they see the number.
 2. **Missed-call text-back.** When a call rings out, your system auto-texts "Sorry we missed you, can we help by text?" Most VoIP providers support this for $0 to $30 a month, and people text back.
-3. **A 24/7 AI receptionist.** For busy restaurants, this is the real fix. It answers every call instantly, takes orders into your POS, books reservations, and handles FAQs in your restaurant's voice, even when the kitchen is slammed. We built one: it is $350 a month plus usage, with a 7-day free trial and no setup fee (most competitors charge $1,000 to $1,500 just to set it up).
+3. **A 24/7 AI receptionist.** For busy restaurants, this is the real fix. It answers every call instantly, takes orders into your POS, books reservations, and handles FAQs in your restaurant's voice, even when the kitchen is slammed, so the calls you used to miss during the rush get answered.
 
 ## Leak 3: You are paying delivery apps more than your profit margin
 
@@ -44,7 +44,7 @@ DoorDash, Uber Eats, and Grubhub charge 15 to 30 percent commission on every ord
 
 Worse, those customers are not yours. The app owns the email, the data, and the repeat order. You cooked the food; they kept the customer.
 
-**The fix:** Direct ordering plus commission-free delivery. When a customer orders through your own website, they are yours, with no middleman. For the delivery itself, our **Turnerr Deliver** service dispatches the nearest driver for a flat fee per order instead of a percentage. A restaurant doing $15,000 a month in delivery at 30 percent pays the apps $4,500 a month; the same volume on a flat per-order fee is a small fraction of that. See our [commission-free deliveries service](/services/commission-free-deliveries), and run your own numbers in the [commission calculator](/savings-calculator).
+**The fix:** Direct ordering plus commission-free delivery. When a customer orders through your own website, they are yours, with no middleman. For the delivery itself, flat-fee delivery dispatches a driver for a set fee per order instead of a percentage, so a busy night no longer means a giant commission bill. A restaurant doing $15,000 a month in delivery at 30 percent pays the apps $4,500 a month; on a flat per-order fee it is a small fraction of that. (See how we handle this on our [commission-free deliveries](/services/commission-free-deliveries) page, or work out your own number with the [commission calculator](/savings-calculator).)
 
 ## Leak 4: You have no system to bring customers back
 
@@ -60,7 +60,7 @@ Chains have marketing teams, phone systems, delivery infrastructure, and loyalty
 
 - **Be hyper-local.** A chain cannot be the authentic bakery that has been making baklava since 1919. Local SEO is your moat, not theirs.
 - **Own the customer relationship.** Through direct ordering, your phone list, and delivery that gives you the data instead of taking it.
-- **Be faster and more personal.** A $350-a-month AI receptionist gives you phone capability a chain pays a fortune for. Same technology, different price tag.
+- **Be faster and more personal.** Modern tools like an AI receptionist give a single location the same always-on phone capability a chain pays a fortune for. Same technology, within reach of an independent.
 
 ## Where to start
 

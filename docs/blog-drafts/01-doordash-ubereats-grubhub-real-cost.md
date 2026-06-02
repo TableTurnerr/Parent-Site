@@ -34,11 +34,7 @@ Add it up and the effective rate on a heavily promoted order can climb well past
 
 ## Do the math on your own restaurant
 
-The fastest way to see the damage is to run your real numbers. Take your monthly delivery order count, multiply by your average order value, and multiply by your commission rate. That is roughly what you hand to the apps every month.
-
-We built a free tool that does exactly this for you. Drag in your monthly orders, average ticket, and commission rate, and it shows your yearly commission bill in seconds.
-
-[Try the commission calculator](/savings-calculator)
+The fastest way to see the damage is to run your real numbers. Take your monthly delivery order count, multiply by your average order value, and multiply by your commission rate. That is roughly what you hand to the apps every month. (If you would rather not do it by hand, our [commission calculator](/savings-calculator) works it out from those three numbers.)
 
 Most owners are surprised. A restaurant doing a few hundred delivery orders a month at a normal ticket size is frequently paying tens of thousands of dollars a year in commission alone.
 

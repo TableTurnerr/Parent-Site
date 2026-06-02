@@ -34,7 +34,7 @@ This is the foundation of everything else on this list. If customers cannot orde
 
 A direct ordering system lets customers place pickup and delivery orders through your own website, and you keep the revenue minus a small payment processing fee (typically 2 to 3 percent) instead of a 15 to 30 percent commission.
 
-For the delivery side, our own **Turnerr Deliver** service dispatches the nearest driver the moment an order comes in and charges a flat fee per delivered order rather than a percentage, so a busy delivery night no longer means a giant commission bill.
+For the delivery side, flat-fee delivery dispatches the nearest driver the moment an order comes in and charges a set fee per delivered order rather than a percentage, so a busy delivery night no longer means a giant commission bill.
 
 The platform matters less than the decision to actually launch one. Every day without a direct ordering channel is another day of paying full commission on orders you could have kept. We handle this setup end to end as part of our [commission-free deliveries service](/services/commission-free-deliveries).
 

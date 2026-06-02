@@ -51,7 +51,7 @@ If your phone is ringing more than your team can answer, this is the actual solu
 - Books reservations and answers common questions in your restaurant's own voice
 - Handles multiple calls at once and never gets flustered during the rush
 
-We built one. It is $350 a month plus usage, with a 7-day free trial and no setup fee, while most competitors charge a $1,000 to $1,500 setup fee for the same capability. It usually pays for itself the first time it catches a catering call you would have missed, which, statistically, is the first week.
+The technology has gotten good enough, and affordable enough, that a single location can now have always-on phone coverage that used to be exclusive to big chains. It typically earns its keep the first time it catches a catering call you would otherwise have missed.
 
 There is a bonus most owners miss: an AI receptionist also captures the name and number of everyone who calls. That list becomes the foundation of bringing customers back later, which is its own quiet revenue leak.
 
@@ -59,4 +59,4 @@ There is a bonus most owners miss: an AI receptionist also captures the name and
 
 You do not need to overhaul anything. Just measure the leak: pull your missed-call report from your phone provider and look at the number, especially during your dinner hours. That single number usually makes the decision for you.
 
-If you want to hear what an AI receptionist sounds like answering your own restaurant's calls, [get in touch for a free demo](/contact) trained on your menu. Even if you only fix the free layers, you will be ahead of most restaurants on your street.
+Even if you only fix the free layers, you will be ahead of most restaurants on your street. And if you want help closing the gap for good, [get in touch](/contact) and we will walk you through the options for your setup.
