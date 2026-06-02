@@ -5,8 +5,10 @@ export interface CityData {
   stateCode: string;
 }
 
-// Texas-first local SEO targeting: top Texas metros by population.
-// Start with the 10 largest TX markets; expand as client coverage grows.
+// Local SEO targeting. Texas is the STARTING POINT, not a restriction: we lead
+// with the 10 largest Texas metros and expand to new US markets as we grow.
+// (Per Hasham: base the regional pages on major TX cities, frame TX as the
+// launch market, not a limit.)
 export const TARGET_CITIES: CityData[] = [
   { slug: "houston", name: "Houston", state: "Texas", stateCode: "TX" },
   { slug: "san-antonio", name: "San Antonio", state: "Texas", stateCode: "TX" },
