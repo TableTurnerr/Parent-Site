@@ -25,9 +25,13 @@ Each post links to a different service page so every node in the service mesh ha
 | 07 | [how-to-write-menu-descriptions-that-sell](07-how-to-write-menu-descriptions-that-sell.md) | How to Write Menu Descriptions That Sell | Educational | restaurant-branding |
 | 08 | [why-restaurant-not-showing-up-on-google](08-why-restaurant-not-showing-up-on-google.md) | Why Your Restaurant Isn't Showing Up on Google | Educational | google-business-profile-optimization |
 | 09 | [avoid-delivery-app-commissions-playbook](09-avoid-delivery-app-commissions-playbook.md) | How to Avoid Uber Eats, Grubhub & DoorDash Commissions: A Restaurant Owner's Playbook | Pain to solution | commission-free-deliveries (pillar/hub, ~1800 words, links 5 services) |
+| 10 | [restaurant-revenue-leaks](10-restaurant-revenue-leaks.md) | 5 Revenue Leaks Quietly Killing Independent Restaurants | Pain to solution | /services (overview; split from the 2.4k-word Revenue Leaks doc) |
+| 11 | [restaurant-missed-calls-cost](11-restaurant-missed-calls-cost.md) | Your Restaurant Is Missing a Third of Its Calls | Pain to solution | /contact (missed-calls deep-dive; the other half of the split) |
+
+Note (#10/#11): split from the founder's 2,463-word "5 Revenue Leaks" .docx into a tight overview + a missed-calls deep-dive. Owner.com/ChowNow are not mentioned; promotes our own Turnerr Deliver + AI Receptionist (both real products). The .docx editing-notes section was dropped.
 
 ### Note on #01 vs #09
-Both are about delivery commissions but from different angles, so they complement rather than duplicate: **#01** is awareness ("here is what it costs you"), **#09** is the solution playbook ("here is how to escape it"). Publish #09 as the cornerstone/pillar and #01 as a shorter supporting post that links up to it. #09 is a cleaned-up version of an existing draft that was already in the admin dashboard (em-dashes removed; Square/Toast competitor mentions removed in favor of Owner.com + ChowNow).
+Both are about delivery commissions but from different angles, so they complement rather than duplicate: **#01** is awareness ("here is what it costs you"), **#09** is the solution playbook ("here is how to escape it"). Publish #09 as the cornerstone/pillar and #01 as a shorter supporting post that links up to it. #09 is a cleaned-up version of an existing draft that was already in the admin dashboard (em-dashes removed; third-party platform names removed in favor of our own commission-free direct ordering + Turnerr Deliver).
 
 ## Category mapping (existing categories only)
 

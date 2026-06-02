@@ -68,7 +68,7 @@ Lead educational-heavy early; shift toward case studies as the results bank grow
 
 **Case study / results (pillar 3 — as data allows)**
 19. How [client] grew online orders by X% → `/case-studies` + service
-20. Partner spotlight: real Owner.com/ChowNow results, honestly framed → `commission-free-deliveries`
+20. Commission-free ordering + Turnerr Deliver: the real math on keeping your margin → `commission-free-deliveries`
 
 ## Publishing flow (already built)
 
