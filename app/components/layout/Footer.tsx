@@ -9,6 +9,11 @@ import {
   SITE_CONFIG,
 } from "@/app/lib/constants";
 
+// Free tools we offer. More easy-win tools land here over time.
+const TOOLS = [
+  { label: "Commission Calculator", href: "/savings-calculator" },
+] as const;
+
 function FlipLink({
   href,
   children,
@@ -43,7 +48,7 @@ export default function Footer({
     <footer className="bg-black pt-16 md:pt-20 pb-8">
       <Container>
         {/* ─── Main Footer Grid ─── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Column 1 — Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="inline-block">
@@ -97,15 +102,26 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* Column 4 — Contact */}
+          {/* Column 4 — Tools */}
+          <div>
+            <h3 className="text-white text-sm font-medium uppercase tracking-wider mb-4">
+              Tools
+            </h3>
+            <ul className="space-y-3">
+              {TOOLS.map((tool) => (
+                <li key={tool.href}>
+                  <FlipLink href={tool.href}>{tool.label}</FlipLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 5 — Contact */}
           <div>
             <h3 className="text-white text-sm font-medium uppercase tracking-wider mb-4">
               Contact
             </h3>
             <ul className="space-y-3">
-              <li>
-                <FlipLink href="/savings-calculator">Commission Calculator</FlipLink>
-              </li>
               <li>
                 <FlipLink href={`mailto:${SITE_CONFIG.email}`}>
                   {SITE_CONFIG.email}

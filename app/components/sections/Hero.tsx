@@ -77,10 +77,10 @@ export default function Hero() {
                   Get a free consultation
                 </Link>
                 <Link
-                  href="/savings-calculator"
+                  href="/case-studies"
                   className="inline-flex items-center justify-center rounded-full border border-cream/30 text-cream px-8 py-4 text-sm font-medium hover:bg-cream/10 transition-colors"
                 >
-                  Commission calculator
+                  See our work
                 </Link>
               </AnimatedElement>
             </div>
