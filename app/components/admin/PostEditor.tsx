@@ -1475,7 +1475,8 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
                     Schedule post
                   </button>
                   <p className="text-xs text-[var(--color-warm-gray-light)]">
-                    Publishes automatically at the time you set.
+                    Publishes automatically at the next daily run after the time
+                    you set.
                   </p>
                 </div>
               )}

@@ -5,12 +5,14 @@ import { revalidatePath } from "next/cache";
 /**
  * Cron endpoint: publishes any scheduled posts whose time has arrived.
  *
- * Trigger this on a schedule (e.g. every 5 minutes). Two options:
- *   1. Vercel Cron — add to vercel.json (see infra note below). Vercel sends a
- *      request with an Authorization: Bearer <CRON_SECRET> header automatically
- *      when CRON_SECRET is set in the project env.
+ * Trigger this on a schedule. Two options:
+ *   1. Vercel Cron — configured in vercel.json. NOTE: the Vercel Hobby plan only
+ *      allows ONCE-PER-DAY crons (more frequent schedules fail the deploy), so
+ *      vercel.json runs this daily at 05:00 UTC. On Hobby, a scheduled post goes
+ *      live at the next daily run, not its exact minute. For exact-time
+ *      publishing, upgrade to Vercel Pro and use a sub-daily schedule.
  *   2. Any external scheduler (cron-job.org, GitHub Actions) hitting this URL
- *      with header `Authorization: Bearer <CRON_SECRET>`.
+ *      with header `Authorization: Bearer <CRON_SECRET>` for finer timing.
  *
  * ⚠️ Owner note: setting up the cron trigger + CRON_SECRET is hosting/infra
  * (Hasham's domain). This endpoint is the logic; it does nothing until a
