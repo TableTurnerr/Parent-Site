@@ -33,7 +33,19 @@ import {
   Upload,
   Clock,
   CalendarClock,
+  Bold,
+  Italic,
+  Underline,
+  Heading2,
+  Heading3,
+  List,
+  ListOrdered,
+  Quote,
+  Link2,
+  Pilcrow,
+  RemoveFormatting,
 } from "lucide-react";
+import { wordCount as countWords, readingTime as readMins } from "@/app/lib/content-checks";
 import Link from "next/link";
 import ImageUploader from "./ImageUploader";
 import ContentChecklist from "./ContentChecklist";
@@ -625,6 +637,56 @@ window.addEventListener("message",function(e){
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [slashMenuOpen]);
 
+  // ── Visual editor formatting toolbar ──
+  // Uses execCommand: well-supported for contentEditable, no extra deps. After
+  // each command we sync the DOM back into contentHtml state.
+  const syncVisual = useCallback(() => {
+    if (visualRef.current) setContentHtml(visualRef.current.innerHTML);
+  }, []);
+
+  const exec = useCallback(
+    (command: string, value?: string) => {
+      visualRef.current?.focus();
+      document.execCommand(command, false, value);
+      syncVisual();
+    },
+    [syncVisual],
+  );
+
+  // Toggle a block format (h2/h3/p/blockquote). execCommand formatBlock needs
+  // the tag wrapped in <> on most browsers.
+  const formatBlock = useCallback(
+    (tag: string) => exec("formatBlock", `<${tag}>`),
+    [exec],
+  );
+
+  const insertLink = useCallback(() => {
+    const sel = window.getSelection();
+    const hasSelection = sel && sel.toString().trim().length > 0;
+    const url = window.prompt(
+      hasSelection
+        ? "Link URL (use /services/... for internal links):"
+        : "Select the text you want to link first, then add the URL:",
+    );
+    if (!url || !url.trim()) return;
+    const href = url.trim();
+    // Allow internal (/...) and http(s) links only.
+    const ok = href.startsWith("/") || /^https?:\/\//i.test(href);
+    if (!ok) {
+      alert("Use an internal path (/services/...) or a full https:// URL.");
+      return;
+    }
+    exec("createLink", href);
+    // Make external links open in a new tab + safe rel.
+    if (/^https?:\/\//i.test(href) && visualRef.current) {
+      visualRef.current.querySelectorAll('a[href="' + href + '"]').forEach((a) => {
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener");
+      });
+      syncVisual();
+    }
+  }, [exec, syncVisual]);
+
   const handleEditorTabSwitch = (tab: "code" | "visual") => {
     // Sync visual editor content back to state when leaving visual mode
     if (editorTab === "visual" && visualRef.current) {
@@ -966,6 +1028,45 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
 
             {editorTab === "visual" && (
               <div className="relative">
+                {/* Formatting toolbar */}
+                <div className="flex flex-wrap items-center gap-0.5 border-b border-[var(--color-border)] bg-[var(--color-cream)] px-2 py-1.5">
+                  {[
+                    { icon: Bold, label: "Bold (Ctrl+B)", run: () => exec("bold") },
+                    { icon: Italic, label: "Italic (Ctrl+I)", run: () => exec("italic") },
+                    { icon: Underline, label: "Underline (Ctrl+U)", run: () => exec("underline") },
+                    { sep: true },
+                    { icon: Heading2, label: "Heading 2", run: () => formatBlock("h2") },
+                    { icon: Heading3, label: "Heading 3", run: () => formatBlock("h3") },
+                    { icon: Pilcrow, label: "Paragraph", run: () => formatBlock("p") },
+                    { sep: true },
+                    { icon: List, label: "Bullet list", run: () => exec("insertUnorderedList") },
+                    { icon: ListOrdered, label: "Numbered list", run: () => exec("insertOrderedList") },
+                    { icon: Quote, label: "Quote", run: () => formatBlock("blockquote") },
+                    { sep: true },
+                    { icon: Link2, label: "Add link", run: insertLink },
+                    { icon: RemoveFormatting, label: "Clear formatting", run: () => exec("removeFormat") },
+                  ].map((item, i) =>
+                    "sep" in item ? (
+                      <span key={`sep-${i}`} className="mx-1 h-5 w-px bg-[var(--color-border)]" />
+                    ) : (
+                      <button
+                        key={item.label}
+                        type="button"
+                        title={item.label}
+                        aria-label={item.label}
+                        // onMouseDown + preventDefault keeps the editor selection alive
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          item.run!();
+                        }}
+                        className="rounded-md p-2 text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
+                      >
+                        <item.icon className="h-4 w-4" />
+                      </button>
+                    ),
+                  )}
+                </div>
+
                 <div
                   ref={visualRef}
                   contentEditable
@@ -1036,6 +1137,21 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
               </div>
             )}
 
+            {/* Word count footer */}
+            <div className="flex items-center justify-end gap-4 border-t border-[var(--color-border)] px-4 py-2 text-xs text-[var(--color-warm-gray)]">
+              <span>
+                <span className="font-semibold text-[var(--color-charcoal)]">
+                  {countWords(contentHtml).toLocaleString()}
+                </span>{" "}
+                words
+              </span>
+              <span>
+                <span className="font-semibold text-[var(--color-charcoal)]">
+                  {readMins(contentHtml)}
+                </span>{" "}
+                min read
+              </span>
+            </div>
           </div>
 
           {/* Talk to AI */}
