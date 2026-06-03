@@ -12,6 +12,7 @@ import {
 // Free tools we offer. More easy-win tools land here over time.
 const TOOLS = [
   { label: "Commission Calculator", href: "/savings-calculator" },
+  { label: "Review Calculator", href: "/review-calculator" },
 ] as const;
 
 function FlipLink({
