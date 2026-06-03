@@ -8,6 +8,7 @@ excerpt: "Every missed call is a customer who tried to pay you and could not. He
 pillar: "Pain to solution"
 categories: ["Restaurant Marketing", "Industry Insights"]
 primary_service_link: "/contact"
+featured_image_prompt: "A telephone handset ringing on a busy independent restaurant counter during service, softly glowing, with a blurred kitchen and staff in motion behind it, conveying calls going unanswered during the dinner rush. Photorealistic editorial photograph, warm natural light, shallow depth of field, premium and inviting mood, palette of warm cream, soft charcoal and subtle terracotta accents, wide 16:9 composition with clean negative space on one side for a title overlay, no text, no logos, no watermarks, no brand names, no app interface screens."
 status: draft
 reading_time: 6
 ---

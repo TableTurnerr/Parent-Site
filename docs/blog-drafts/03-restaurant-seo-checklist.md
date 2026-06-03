@@ -8,6 +8,7 @@ excerpt: "A practical, no fluff restaurant SEO checklist covering everything fro
 pillar: "Educational"
 categories: ["Restaurant SEO"]
 primary_service_link: "/services/restaurant-seo"
+featured_image_prompt: "A clean overhead flat lay on a warm wooden restaurant table with a clipboard holding an unmarked checklist with several ticked boxes, a pen, a cup of coffee and a small potted plant, organized and methodical. Photorealistic editorial photograph, warm natural light, shallow depth of field, premium and inviting mood, palette of warm cream, soft charcoal and subtle terracotta accents, wide 16:9 composition with clean negative space on one side for a title overlay, no text, no logos, no watermarks, no brand names, no app interface screens."
 status: draft
 reading_time: 8
 ---

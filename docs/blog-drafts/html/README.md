@@ -15,7 +15,7 @@ The editor's content box takes **HTML**, not markdown. And if you copy from a *r
    - Excerpt
    - SEO: meta title, meta description, keywords
    - Categories (chips) — listed in `../README.md`
-6. Add a **real** featured image + alt text (no AI product photos).
+6. Generate the featured image from the draft's `featured_image_prompt` field (paste it into your AI image tool), then upload it and write alt text. These are editorial/conceptual images, not faked photos of your actual dishes.
 7. Watch the **Content Check** panel go green, then Publish.
 
 ## Important

@@ -8,6 +8,7 @@ excerpt: "The leaks that take down independents are invisible: no line item, no 
 pillar: "Pain to solution"
 categories: ["Restaurant Marketing", "Industry Insights"]
 primary_service_link: "/services"
+featured_image_prompt: "A conceptual still life of a dripping brass faucet over a dark surface with a few coins and folded bills beneath the drips, set against a softly blurred warm restaurant background, a clean metaphor for money quietly leaking from a restaurant. Photorealistic editorial photograph, warm natural light, shallow depth of field, premium and inviting mood, palette of warm cream, soft charcoal and subtle terracotta accents, wide 16:9 composition with clean negative space on one side for a title overlay, no text, no logos, no watermarks, no brand names, no app interface screens."
 status: draft
 reading_time: 7
 ---

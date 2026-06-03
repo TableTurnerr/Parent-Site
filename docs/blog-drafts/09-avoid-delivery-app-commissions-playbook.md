@@ -8,6 +8,7 @@ excerpt: "Delivery apps take 15 to 30 percent of every order. This is the full p
 pillar: "Pain to solution"
 categories: ["Direct Ordering", "Restaurant Marketing"]
 primary_service_link: "/services/commission-free-deliveries"
+featured_image_prompt: "A confident independent restaurant owner standing at the counter holding a smartphone that shows a clean abstract direct ordering interface with no readable text, a few unbranded delivery bags set aside nearby, a strong hero composition about taking back control of orders and profit. Photorealistic editorial photograph, warm natural light, shallow depth of field, premium and inviting mood, palette of warm cream, soft charcoal and subtle terracotta accents, wide 16:9 composition with clean negative space on one side for a title overlay, no text, no logos, no watermarks, no brand names, no app interface screens."
 status: draft
 reading_time: 11
 ---

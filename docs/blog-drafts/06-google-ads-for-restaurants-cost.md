@@ -8,6 +8,7 @@ excerpt: "Thinking about running Google Ads for your restaurant? Here is a strai
 pillar: "Educational"
 categories: ["Restaurant Marketing"]
 primary_service_link: "/services/google-ads"
+featured_image_prompt: "A smartphone in a hand showing an abstract search results layout with one softly highlighted result block at the top and no readable text, a warm blurred restaurant street scene in the background, suggesting paid local visibility. Photorealistic editorial photograph, warm natural light, shallow depth of field, premium and inviting mood, palette of warm cream, soft charcoal and subtle terracotta accents, wide 16:9 composition with clean negative space on one side for a title overlay, no text, no logos, no watermarks, no brand names, no app interface screens."
 status: draft
 reading_time: 7
 ---

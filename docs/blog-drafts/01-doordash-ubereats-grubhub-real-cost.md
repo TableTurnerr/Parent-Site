@@ -8,6 +8,7 @@ excerpt: "Delivery apps quietly take 15 to 30 percent of every order. Here is th
 pillar: "Pain to solution"
 categories: ["Direct Ordering", "Platform Reviews"]
 primary_service_link: "/services/commission-free-deliveries"
+featured_image_prompt: "A cozy independent restaurant front counter with a small stack of unbranded brown takeout and delivery bags and a long printed receipt curling on the counter, an out-of-focus owner reviewing it in the background, conveying the hidden cost of delivery commissions. Photorealistic editorial photograph, warm natural light, shallow depth of field, premium and inviting mood, palette of warm cream, soft charcoal and subtle terracotta accents, wide 16:9 composition with clean negative space on one side for a title overlay, no text, no logos, no watermarks, no brand names, no app interface screens."
 status: draft
 reading_time: 6
 ---

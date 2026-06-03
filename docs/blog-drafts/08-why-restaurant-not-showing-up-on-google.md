@@ -8,6 +8,7 @@ excerpt: "Searched for your own restaurant and barely found it? Here are the rea
 pillar: "Educational"
 categories: ["Restaurant SEO"]
 primary_service_link: "/services/google-business-profile-optimization"
+featured_image_prompt: "A small independent restaurant storefront rendered slightly faded and semi transparent as if fading from view, with a subtle magnifying glass motif over a soft abstract map, a moody but warm metaphor for being invisible online. Photorealistic editorial photograph, warm natural light, shallow depth of field, premium and inviting mood, palette of warm cream, soft charcoal and subtle terracotta accents, wide 16:9 composition with clean negative space on one side for a title overlay, no text, no logos, no watermarks, no brand names, no app interface screens."
 status: draft
 reading_time: 7
 ---

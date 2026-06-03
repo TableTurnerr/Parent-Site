@@ -8,6 +8,7 @@ excerpt: "A pretty website is not the goal. Turning visitors into diners is. Her
 pillar: "Educational"
 categories: ["Restaurant Website Design"]
 primary_service_link: "/services/restaurant-website-design"
+featured_image_prompt: "A laptop and a smartphone resting on a warm restaurant table, both displaying a clean modern blank website layout made of abstract placeholder blocks with no readable text, a softly blurred cozy restaurant interior behind. Photorealistic editorial photograph, warm natural light, shallow depth of field, premium and inviting mood, palette of warm cream, soft charcoal and subtle terracotta accents, wide 16:9 composition with clean negative space on one side for a title overlay, no text, no logos, no watermarks, no brand names, no app interface screens."
 status: draft
 reading_time: 8
 ---

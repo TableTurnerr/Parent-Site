@@ -8,6 +8,7 @@ excerpt: "Reviews quietly decide who eats at your restaurant and who scrolls pas
 pillar: "Educational"
 categories: ["Restaurant SEO", "Restaurant Marketing"]
 primary_service_link: "/services/google-business-profile-optimization"
+featured_image_prompt: "Happy diners smiling around a warm restaurant table while one of them holds a smartphone showing five generic glowing stars with no app branding, relaxed and inviting ambiance conveying great customer reviews. Photorealistic editorial photograph, warm natural light, shallow depth of field, premium and inviting mood, palette of warm cream, soft charcoal and subtle terracotta accents, wide 16:9 composition with clean negative space on one side for a title overlay, no text, no logos, no watermarks, no brand names, no app interface screens."
 status: draft
 reading_time: 7
 ---

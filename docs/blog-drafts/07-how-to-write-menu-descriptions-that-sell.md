@@ -8,6 +8,7 @@ excerpt: "Your menu is the most-read sales document you own. Here is how to writ
 pillar: "Educational"
 categories: ["Restaurant Branding"]
 primary_service_link: "/services/restaurant-branding"
+featured_image_prompt: "An elegantly designed printed restaurant menu lying on a warm wooden table beside a pen, a glass of water and soft candlelight, the menu layout refined with abstract unreadable text blocks, appetizing and premium. Photorealistic editorial photograph, warm natural light, shallow depth of field, premium and inviting mood, palette of warm cream, soft charcoal and subtle terracotta accents, wide 16:9 composition with clean negative space on one side for a title overlay, no text, no logos, no watermarks, no brand names, no app interface screens."
 status: draft
 reading_time: 6
 ---
