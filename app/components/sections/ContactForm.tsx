@@ -182,19 +182,27 @@ export default function ContactForm() {
 
       {/* Error message */}
       {status === "error" && errorMsg && (
-        <p role="alert" className="text-sm text-accent">
+        <p
+          role="alert"
+          className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+        >
           {errorMsg}
         </p>
       )}
 
       {/* Submit */}
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="w-full sm:w-auto bg-charcoal text-cream rounded-full px-8 py-3.5 font-medium hover:bg-charcoal-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        {status === "sending" ? "Sending..." : "Send Message"}
-      </button>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <button
+          type="submit"
+          disabled={status === "sending"}
+          className="w-full sm:w-auto bg-charcoal text-cream rounded-full px-8 py-3.5 font-medium hover:bg-charcoal-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {status === "sending" ? "Sending..." : "Send Message"}
+        </button>
+        <p className="text-xs text-warm-gray-light">
+          We reply within 24 hours. No spam, ever.
+        </p>
+      </div>
     </form>
   );
 }
