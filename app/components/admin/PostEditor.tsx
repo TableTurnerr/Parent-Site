@@ -687,6 +687,77 @@ window.addEventListener("message",function(e){
     }
   }, [exec, syncVisual]);
 
+  // ── Markdown paste support ──
+  // The blog drafts are written in Markdown. Pasting raw Markdown into the HTML
+  // box leaves "##" / "**" literal and collapses paragraphs, which then looks
+  // broken in the visual editor. We detect Markdown and convert it to the same
+  // clean HTML the drafts-to-html script produces (marked v18 defaults: no
+  // header ids, no mangle). HTML pastes are left untouched.
+  const stripFrontmatter = (md: string) => {
+    const m = md.match(/^---\n[\s\S]*?\n---\n?/);
+    return m ? md.slice(m[0].length) : md;
+  };
+
+  const looksLikeMarkdown = (text: string) => {
+    const t = text.trim();
+    if (!t) return false;
+    // Already real HTML markup? Leave it alone.
+    if (/<(p|h[1-6]|ul|ol|li|div|section|article|blockquote|img|a|strong|em|table)\b/i.test(t))
+      return false;
+    return (
+      /^---\n[\s\S]*?\n---/.test(t) || // frontmatter block
+      /(^|\n)#{1,6}\s/.test(t) || // headings
+      /\*\*[^*]+\*\*/.test(t) || // bold
+      /(^|\n)\s*[-*]\s+/.test(t) || // bullet list
+      /(^|\n)\s*\d+\.\s+/.test(t) || // numbered list
+      /\[[^\]]+\]\([^)]+\)/.test(t) // links
+    );
+  };
+
+  const mdToHtml = async (md: string) => {
+    const { marked } = await import("marked");
+    return (marked.parse(stripFrontmatter(md)) as string).trim();
+  };
+
+  const handleCodePaste = useCallback(
+    (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+      const text = e.clipboardData.getData("text/plain");
+      if (!text || !looksLikeMarkdown(text)) return; // let the browser paste normally
+      e.preventDefault();
+      const textarea = e.currentTarget;
+      const { selectionStart, selectionEnd, value } = textarea;
+      void mdToHtml(text).then((html) => {
+        pushUndo();
+        const next = value.slice(0, selectionStart) + html + value.slice(selectionEnd);
+        setContentHtml(next);
+        requestAnimationFrame(() => {
+          const pos = selectionStart + html.length;
+          try {
+            textarea.setSelectionRange(pos, pos);
+          } catch {
+            /* textarea may have unmounted */
+          }
+        });
+      });
+    },
+    [pushUndo],
+  );
+
+  const [mdConvertStatus, setMdConvertStatus] = useState<"idle" | "done" | "noop">("idle");
+  const convertCodeMarkdown = useCallback(async () => {
+    if (!contentHtml.trim()) return;
+    if (!looksLikeMarkdown(contentHtml)) {
+      setMdConvertStatus("noop");
+      setTimeout(() => setMdConvertStatus("idle"), 2500);
+      return;
+    }
+    const html = await mdToHtml(contentHtml);
+    pushUndo();
+    setContentHtml(html);
+    setMdConvertStatus("done");
+    setTimeout(() => setMdConvertStatus("idle"), 2500);
+  }, [contentHtml, pushUndo]);
+
   const handleEditorTabSwitch = (tab: "code" | "visual") => {
     // Sync visual editor content back to state when leaving visual mode
     if (editorTab === "visual" && visualRef.current) {
@@ -1018,12 +1089,33 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
             </div>
 
             {editorTab === "code" && (
-              <textarea
-                value={contentHtml}
-                onChange={(e) => setContentHtml(e.target.value)}
-                placeholder="Write your post content in HTML..."
-                className="min-h-[500px] w-full resize-y bg-transparent px-4 py-3 font-mono text-sm text-[var(--color-charcoal)] placeholder:text-[var(--color-warm-gray-light)] focus:outline-none"
-              />
+              <>
+                <div className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border)] bg-[var(--color-cream)] px-2 py-1.5">
+                  <button
+                    type="button"
+                    onClick={convertCodeMarkdown}
+                    title="Convert Markdown in this box to clean HTML"
+                    className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-border)] bg-white px-2.5 py-1 text-xs font-medium text-[var(--color-charcoal)] transition-colors hover:bg-[var(--color-cream-dark)]"
+                  >
+                    <Code className="h-3.5 w-3.5" />
+                    Markdown &rarr; HTML
+                  </button>
+                  <span className="text-xs text-[var(--color-warm-gray-light)]">
+                    {mdConvertStatus === "done"
+                      ? "Converted to HTML."
+                      : mdConvertStatus === "noop"
+                        ? "Looks like HTML already, nothing to convert."
+                        : "Pasting a Markdown draft converts it automatically."}
+                  </span>
+                </div>
+                <textarea
+                  value={contentHtml}
+                  onChange={(e) => setContentHtml(e.target.value)}
+                  onPaste={handleCodePaste}
+                  placeholder="Paste a Markdown draft (auto-converts) or write HTML..."
+                  className="min-h-[500px] w-full resize-y bg-transparent px-4 py-3 font-mono text-sm text-[var(--color-charcoal)] placeholder:text-[var(--color-warm-gray-light)] focus:outline-none"
+                />
+              </>
             )}
 
             {editorTab === "visual" && (
