@@ -93,6 +93,45 @@ export function generateServiceSchema(service: {
   };
 }
 
+/**
+ * Service schema for a city variant. We do not claim a physical storefront in
+ * the city (no fake address); instead we mark the area we serve as that City,
+ * with metro geo coordinates, and keep the national agency as the provider.
+ * This signals local relevance honestly for "near me" / local-pack searches.
+ */
+export function generateCityServiceSchema(params: {
+  serviceName: string;
+  description: string;
+  url: string;
+  city: { name: string; state: string; lat: number; lng: number };
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: params.serviceName,
+    description: params.description,
+    url: params.url,
+    serviceType: params.serviceName,
+    provider: {
+      "@type": ["ProfessionalService", "MarketingAgency"],
+      name: SITE_CONFIG.name,
+      url: SITE_CONFIG.url,
+      email: SITE_CONFIG.email,
+      telephone: SITE_CONFIG.phone,
+    },
+    areaServed: {
+      "@type": "City",
+      name: params.city.name,
+      containedInPlace: { "@type": "State", name: params.city.state },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: params.city.lat,
+        longitude: params.city.lng,
+      },
+    },
+  };
+}
+
 export function generateAllServicesSchema() {
   return SERVICES.map((service) =>
     generateServiceSchema({

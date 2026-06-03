@@ -29,6 +29,13 @@ export interface ServicePageData {
   faqs: ServiceFAQ[];
   keywords: string[];
   metaDescription: string;
+  /** Present only on city variants: drives the unique local intro band. */
+  cityContext?: {
+    name: string;
+    state: string;
+    stateCode: string;
+    blurb: string;
+  };
 }
 
 export const SERVICE_PAGES: Record<string, ServicePageData> = {

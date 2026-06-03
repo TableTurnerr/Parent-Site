@@ -64,11 +64,11 @@ export default function LocationsPage() {
                 key={city.slug}
                 className="elevate-hover rounded-[1.25rem] border border-border bg-cream-dark p-6 sm:p-8"
               >
-                <h2 className="font-display font-semibold text-xl md:text-2xl text-charcoal mb-1">
+                <h2 className="font-display font-semibold text-xl md:text-2xl text-charcoal mb-2">
                   {city.name}, {city.stateCode}
                 </h2>
-                <p className="text-warm-gray text-sm mb-5">
-                  Restaurant marketing services in {city.name}
+                <p className="text-warm-gray text-sm leading-relaxed mb-5">
+                  {city.blurb}
                 </p>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2.5">
                   {SERVICES.map((service) => (

@@ -34,6 +34,28 @@ function ArrowIcon() {
   );
 }
 
+function MapPinIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="10" r="3" stroke="currentColor" strokeWidth="1.8" />
+    </svg>
+  );
+}
+
 export default function ServicePage({
   service,
   children,
@@ -122,6 +144,28 @@ export default function ServicePage({
           </div>
         </Container>
       </section>
+
+      {/* City-specific intro (only on /services/<slug>/<city> variants) */}
+      {service.cityContext && (
+        <section className="bg-cream pb-12 md:pb-16">
+          <Container>
+            <AnimatedElement variants={fadeInUp}>
+              <div className="rounded-[1.25rem] border border-border bg-cream-dark p-7 sm:p-9 lg:p-10">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-cream px-3 py-1 text-xs font-medium text-warm-gray">
+                  <MapPinIcon />
+                  {service.cityContext.name}, {service.cityContext.stateCode}
+                </span>
+                <h2 className="font-display font-bold text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.15] tracking-tight text-charcoal mt-4 mb-3 max-w-3xl">
+                  Restaurant marketing built for {service.cityContext.name}
+                </h2>
+                <p className="text-warm-gray text-lg leading-relaxed max-w-3xl">
+                  {service.cityContext.blurb}
+                </p>
+              </div>
+            </AnimatedElement>
+          </Container>
+        </section>
+      )}
 
       {/* Features Bento Grid */}
       <section className="bg-cream-dark py-20 md:py-28">
