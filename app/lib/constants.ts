@@ -69,7 +69,7 @@ export const FAQ_DATA = [
   {
     question: "How long does it take to design and build a restaurant website?",
     answer:
-      "Most custom restaurant websites are completed within 2\u20134 weeks from kickoff. This includes design, development, content creation, and full SEO optimization. Timelines vary depending on scope and complexity.",
+      "Most custom restaurant websites are completed within 2 to 4 weeks from kickoff. This includes design, development, content creation, and full SEO optimization. Timelines vary depending on scope and complexity.",
   },
   {
     question: "How much does a restaurant website cost?",
@@ -89,7 +89,7 @@ export const FAQ_DATA = [
   {
     question: "What makes TableTurnerr different from other restaurant marketing agencies?",
     answer:
-      "We specialize exclusively in the restaurant industry. Every website we design, every SEO campaign we run, and every Google Ads strategy we build is informed by deep food and beverage experience \u2014 not generic digital marketing repurposed for restaurants.",
+      "We specialize exclusively in the restaurant industry. Every website we design, every SEO campaign we run, and every Google Ads strategy we build is informed by deep food and beverage experience, not generic digital marketing repurposed for restaurants.",
   },
   {
     question: "Do you offer ongoing SEO and Google Ads management for restaurants?",
