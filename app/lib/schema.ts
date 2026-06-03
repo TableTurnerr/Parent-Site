@@ -6,7 +6,7 @@ export function generateOrganizationSchema() {
     "@type": ["ProfessionalService", "MarketingAgency"],
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
-    logo: `${SITE_CONFIG.url}/images/usage/restaurant-kitchen-2.jpg`,
+    logo: `${SITE_CONFIG.url}/icon.png`,
     image: `${SITE_CONFIG.url}/images/usage/restaurant-kitchen-2.jpg`,
     description:
       "TableTurnerr is a restaurant marketing agency specializing in custom website design, SEO, Google Ads, and branding for independent restaurants.",
@@ -189,7 +189,7 @@ export function generateArticleSchema(article: {
       url: SITE_CONFIG.url,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_CONFIG.url}/images/usage/restaurant-kitchen-2.jpg`,
+        url: `${SITE_CONFIG.url}/icon.png`,
       },
     },
   };
