@@ -13,6 +13,8 @@ import {
 const TOOLS = [
   { label: "Commission Calculator", href: "/savings-calculator" },
   { label: "Review Calculator", href: "/review-calculator" },
+  { label: "Menu Price Calculator", href: "/menu-price-calculator" },
+  { label: "All Tools", href: "/tools" },
 ] as const;
 
 function FlipLink({
