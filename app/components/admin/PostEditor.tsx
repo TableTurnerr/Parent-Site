@@ -50,7 +50,7 @@ import Link from "next/link";
 import ImageUploader from "./ImageUploader";
 import ContentChecklist from "./ContentChecklist";
 
-import { VISIBILITY_LABELS, VISIBILITY_DESCRIPTIONS, hasRole } from "@/app/lib/supabase/types";
+import { VISIBILITY_LABELS, VISIBILITY_DESCRIPTIONS, isTeamWriter } from "@/app/lib/supabase/types";
 import type { UserRole } from "@/app/lib/supabase/types";
 
 interface PostData {
@@ -302,9 +302,12 @@ export default function PostEditor({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const canEdit = hasRole(userRole, "editor");
-  const canPublish = hasRole(userRole, "manager");
-  const canDelete = hasRole(userRole, "manager");
+  // Gate the buttons on ownership-capable roles (author and up). The server
+  // actions enforce per-post ownership, not role level, so an author can save,
+  // publish, and delete their own posts. Viewers/commenters cannot write.
+  const canEdit = isTeamWriter(userRole);
+  const canPublish = isTeamWriter(userRole);
+  const canDelete = isTeamWriter(userRole);
 
   const handleSave = () => {
     startTransition(async () => {
