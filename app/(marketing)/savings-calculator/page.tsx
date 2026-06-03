@@ -3,6 +3,7 @@ import Link from "next/link";
 import Container from "@/app/components/ui/Container";
 import SectionLabel from "@/app/components/ui/SectionLabel";
 import SavingsCalculator from "@/app/components/sections/SavingsCalculator";
+import FaqList from "@/app/components/ui/FaqList";
 import CTA from "@/app/components/sections/CTA";
 import { SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
@@ -85,14 +86,7 @@ export default function SavingsCalculatorPage() {
             <h2 className="font-display font-bold text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.15] tracking-tight text-charcoal mb-8">
               Delivery commission questions
             </h2>
-            <dl className="divide-y divide-border">
-              {FAQS.map((faq) => (
-                <div key={faq.question} className="py-5">
-                  <dt className="font-medium text-charcoal mb-2">{faq.question}</dt>
-                  <dd className="text-warm-gray leading-relaxed">{faq.answer}</dd>
-                </div>
-              ))}
-            </dl>
+            <FaqList faqs={FAQS} />
             <p className="text-warm-gray mt-8">
               Want the full picture?{" "}
               <Link
