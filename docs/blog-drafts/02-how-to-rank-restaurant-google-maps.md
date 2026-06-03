@@ -1,9 +1,9 @@
 ---
 title: "How to Rank Your Restaurant on Google Maps"
 slug: how-to-rank-restaurant-google-maps
-meta_title: "How to Rank Your Restaurant on Google Maps (Step by Step)"
-meta_description: "Want your restaurant in the Google Maps top three? Here is a practical, step by step guide to ranking higher in local search and the map pack."
-meta_keywords: ["how to rank restaurant on google maps", "restaurant google maps ranking", "google maps SEO restaurant", "local pack restaurant", "restaurant local SEO"]
+meta_title: "How to Rank on Google Maps for Restaurants"
+meta_description: "Want to rank on Google Maps and land in the local pack top three? Here is a practical, step by step guide to ranking your restaurant higher in local search."
+meta_keywords: ["rank on google maps", "restaurant google maps ranking", "google maps SEO restaurant", "local pack restaurant", "restaurant local SEO"]
 excerpt: "The Google Maps top three drives most of the calls and visits in local search. Here is a practical, step by step guide to ranking your restaurant higher."
 pillar: "Educational"
 categories: ["Restaurant SEO"]
@@ -13,7 +13,7 @@ status: draft
 reading_time: 7
 ---
 
-When someone searches "restaurants near me" or "best tacos in [your city]," Google shows a map with three highlighted businesses at the top. That block is called the local pack, and it captures the majority of clicks, calls, and directions requests for local searches.
+When someone searches "restaurants near me" or "best tacos in [your city]," Google shows a map with three highlighted businesses at the top. That block is called the local pack, and learning to rank on Google Maps means landing in it, where the majority of clicks, calls, and directions for local searches happen.
 
 If your restaurant is not in those top three, you are losing diners to the restaurants that are. The good news: ranking in the local pack is something you can actively work on. Here is how.
 

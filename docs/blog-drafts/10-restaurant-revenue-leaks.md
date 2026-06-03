@@ -3,7 +3,7 @@ title: "5 Revenue Leaks Quietly Killing Independent Restaurants (And the Simple 
 slug: restaurant-revenue-leaks
 meta_title: "5 Revenue Leaks Quietly Killing Independent Restaurants"
 meta_description: "5 invisible revenue leaks costing independent restaurants thousands a month: missed calls, DoorDash commissions, Google invisibility, and how to fix each one."
-meta_keywords: ["restaurant revenue leaks", "why restaurants lose money", "restaurant profitability", "independent restaurant marketing", "restaurant missed calls"]
+meta_keywords: ["revenue leaks", "restaurant revenue leaks", "why restaurants lose money", "restaurant profitability", "restaurant missed calls"]
 excerpt: "The leaks that take down independents are invisible: no line item, no report. Here are the five we see most often, and the simple fix for each."
 pillar: "Pain to solution"
 categories: ["Restaurant Marketing", "Industry Insights"]
@@ -13,7 +13,7 @@ status: draft
 reading_time: 7
 ---
 
-If your restaurant feels busier than your bank account suggests, this is for you.
+If your restaurant feels busier than your bank account suggests, you probably have revenue leaks.
 
 Most of the conversation about restaurant profitability is about food cost and labor: the leaks you can see on a spreadsheet. Important, real, and not the thing actually killing you.
 

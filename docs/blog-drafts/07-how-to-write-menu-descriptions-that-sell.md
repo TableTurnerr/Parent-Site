@@ -3,7 +3,7 @@ title: "How to Write Menu Descriptions That Sell"
 slug: how-to-write-menu-descriptions-that-sell
 meta_title: "How to Write Menu Descriptions That Sell More Food"
 meta_description: "Your menu is your most powerful sales tool. Here is how to write menu descriptions that make dishes irresistible and guide diners toward your best sellers."
-meta_keywords: ["how to write menu descriptions", "menu descriptions that sell", "restaurant menu writing", "menu design", "restaurant menu copywriting"]
+meta_keywords: ["menu descriptions", "how to write menu descriptions", "menu descriptions that sell", "restaurant menu writing", "menu design"]
 excerpt: "Your menu is the most-read sales document you own. Here is how to write descriptions that make dishes irresistible and steer diners toward your best plates."
 pillar: "Educational"
 categories: ["Restaurant Branding"]
@@ -13,7 +13,7 @@ status: draft
 reading_time: 6
 ---
 
-Your menu is the most-read piece of writing your restaurant will ever produce. Every single guest reads it, usually while they are hungry and ready to spend money. And yet most menus are written as if the only goal is to list what exists. "Chicken sandwich. Caesar salad. Fries."
+Your menu descriptions are the most-read writing your restaurant will ever produce. Every single guest reads it, usually while they are hungry and ready to spend money. And yet most menus are written as if the only goal is to list what exists. "Chicken sandwich. Caesar salad. Fries."
 
 A menu can do so much more than catalog your food. Written well, it makes dishes sound irresistible, nudges diners toward the plates you most want to sell, and quietly raises your average check. Here is how to write descriptions that actually do that.
 

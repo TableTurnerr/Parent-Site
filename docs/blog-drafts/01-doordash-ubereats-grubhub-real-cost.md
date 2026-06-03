@@ -1,9 +1,9 @@
 ---
 title: "How Much DoorDash, Uber Eats, and Grubhub Really Cost Your Restaurant"
 slug: doordash-ubereats-grubhub-real-cost
-meta_title: "How Much DoorDash, Uber Eats & Grubhub Really Cost Restaurants"
-meta_description: "Third-party delivery apps take 15 to 30 percent of every order. Here is the real math on what DoorDash, Uber Eats, and Grubhub cost your restaurant, and how to keep more."
-meta_keywords: ["how much does doordash charge restaurants", "doordash commission", "uber eats fees restaurants", "grubhub commission", "third party delivery fees"]
+meta_title: "DoorDash Commission: What Delivery Apps Cost You"
+meta_description: "DoorDash commission runs 15 to 30 percent of every order. Here is the real math on what delivery apps cost your restaurant and how to keep more of it."
+meta_keywords: ["doordash commission", "how much does doordash charge restaurants", "uber eats fees restaurants", "grubhub commission", "third party delivery fees"]
 excerpt: "Delivery apps quietly take 15 to 30 percent of every order. Here is the real math on what they cost your restaurant, and how to keep more of it."
 pillar: "Pain to solution"
 categories: ["Direct Ordering", "Platform Reviews"]
@@ -13,7 +13,7 @@ status: draft
 reading_time: 6
 ---
 
-If you run a restaurant and use DoorDash, Uber Eats, or Grubhub, you already know they take a cut. What most owners do not realize is how big that cut actually is once every fee is added up, and how quickly it turns a profitable order into a break-even one.
+If you run a restaurant and use DoorDash, Uber Eats, or Grubhub, you already know they take a cut. What most owners do not realize is how big the DoorDash commission actually is once every fee is added up, and how quickly it turns a profitable order into a break-even one.
 
 This post breaks down the real cost, with no spin. By the end you will know exactly what these platforms take, why your margin disappears, and what you can do to keep more of every dollar.
 

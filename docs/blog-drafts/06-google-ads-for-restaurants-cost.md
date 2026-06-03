@@ -2,7 +2,7 @@
 title: "Google Ads for Restaurants: What It Costs and What to Expect"
 slug: google-ads-for-restaurants-cost
 meta_title: "Google Ads for Restaurants: What It Costs and What to Expect"
-meta_description: "Thinking about Google Ads for your restaurant? Here is what it really costs, how the budget works, what results to expect, and whether it is worth it for you."
+meta_description: "Thinking about Google Ads for your restaurant? Here is what it really costs, how the budget works, and what results to actually expect."
 meta_keywords: ["google ads for restaurants", "google ads restaurant cost", "restaurant ppc", "restaurant advertising on google", "are google ads worth it restaurant"]
 excerpt: "Thinking about running Google Ads for your restaurant? Here is a straight answer on what it costs, how the budget works, and what results to actually expect."
 pillar: "Educational"
@@ -13,7 +13,7 @@ status: draft
 reading_time: 7
 ---
 
-Google Ads is one of the few marketing channels that can put your restaurant at the very top of search results the day you turn it on. No waiting months to climb the rankings. Someone searches for a place to eat near you, and your ad is the first thing they see.
+Google Ads for restaurants is one of the few channels that can put you at the very top of search results the day you turn it on. No waiting months to climb the rankings. Someone searches for a place to eat near you, and your ad is the first thing they see.
 
 That speed is the appeal. The questions every owner has are fair ones: what does it actually cost, and is it worth it? Here is a straight answer.
 

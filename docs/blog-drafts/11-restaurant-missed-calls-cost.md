@@ -1,9 +1,9 @@
 ---
 title: "Your Restaurant Is Missing a Third of Its Calls. Here's What That Costs."
 slug: restaurant-missed-calls-cost
-meta_title: "What Missed Phone Calls Really Cost Your Restaurant"
+meta_title: "What Missed Calls Really Cost Your Restaurant"
 meta_description: "The average restaurant misses a third of its calls, and up to 60% during dinner rush. Here is what that costs and three ways to fix it, starting free."
-meta_keywords: ["restaurant missed calls", "restaurant phone system", "restaurant AI receptionist", "missed call text back", "restaurant answering service"]
+meta_keywords: ["missed calls", "restaurant missed calls", "restaurant phone system", "restaurant AI receptionist", "missed call text back"]
 excerpt: "Every missed call is a customer who tried to pay you and could not. Here is what a third of unanswered calls really costs, and three ways to fix it."
 pillar: "Pain to solution"
 categories: ["Restaurant Marketing", "Industry Insights"]
@@ -13,7 +13,7 @@ status: draft
 reading_time: 6
 ---
 
-Here is a leak that never shows up on your P&L: the phone.
+Here is a leak that never shows up on your P&L: missed calls.
 
 The average independent restaurant misses around a third of its incoming calls. During dinner rush, your most valuable three hours of the day, that number climbs to somewhere between 40 and 60 percent. And every one of those missed calls is a customer who tried to give you money and could not.
 

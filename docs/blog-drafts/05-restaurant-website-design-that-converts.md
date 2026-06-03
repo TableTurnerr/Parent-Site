@@ -1,8 +1,8 @@
 ---
 title: "Restaurant Website Design That Actually Converts Diners"
 slug: restaurant-website-design-that-converts
-meta_title: "Restaurant Website Design That Converts Diners (Not Just Looks Good)"
-meta_description: "A pretty restaurant website is not enough. Here is what actually turns visitors into diners: the layout, the must-have elements, and the mistakes that cost you orders."
+meta_title: "Restaurant Website Design That Converts Diners"
+meta_description: "Good restaurant website design is not just about looking pretty. Here is what turns visitors into diners, and the mistakes that quietly cost you orders."
 meta_keywords: ["restaurant website design", "restaurant website that converts", "restaurant web design", "best restaurant websites", "restaurant website builder"]
 excerpt: "A pretty website is not the goal. Turning visitors into diners is. Here is what separates a restaurant site that converts from one that just looks nice."
 pillar: "Educational"
@@ -13,7 +13,7 @@ status: draft
 reading_time: 8
 ---
 
-Most restaurant websites are built to look good in a meeting. The owner sees a slick homepage, approves it, and moves on. Then it goes live and quietly fails at the only job that matters: turning the people who visit into people who eat there.
+Restaurant website design has one job that matters: turning visitors into diners. Most restaurant websites are built to look good in a meeting. The owner sees a slick homepage, approves it, and moves on. Then it goes live and quietly fails at the only job that matters: turning the people who visit into people who eat there.
 
 A website that converts is a different thing from a website that looks nice. The two can overlap, but looking nice is not what fills tables. This post is about what actually does.
 

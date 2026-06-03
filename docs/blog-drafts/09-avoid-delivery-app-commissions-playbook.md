@@ -3,7 +3,7 @@ title: "How to Avoid Uber Eats, Grubhub & DoorDash Commissions: A Restaurant Own
 slug: avoid-delivery-app-commissions-playbook
 meta_title: "How to Avoid Uber Eats, Grubhub & DoorDash Commissions"
 meta_description: "Delivery apps take 15 to 30 percent of every order. This playbook shows restaurant owners exactly how to shift customers and revenue to channels you control."
-meta_keywords: ["how to avoid doordash commission", "reduce delivery app fees", "commission free ordering", "restaurant direct ordering", "stop paying doordash fees"]
+meta_keywords: ["doordash commission", "how to avoid doordash commission", "reduce delivery app fees", "commission free ordering", "stop paying doordash fees"]
 excerpt: "Delivery apps take 15 to 30 percent of every order. This is the full playbook for shifting your customers, and your revenue, to channels you actually control."
 pillar: "Pain to solution"
 categories: ["Direct Ordering", "Restaurant Marketing"]
@@ -13,7 +13,7 @@ status: draft
 reading_time: 11
 ---
 
-Every time a customer places an order through Uber Eats, Grubhub, or DoorDash, your restaurant hands over anywhere from 15 to 30 percent of that sale in commission fees. On a $40 order, that is up to $12 gone before you have paid for food, labor, or rent.
+Every time a customer places an order through Uber Eats, Grubhub, or DoorDash, your restaurant hands over anywhere from 15 to 30 percent of that sale. That DoorDash commission, and the Uber Eats and Grubhub fees beside it, is money gone before you pay for food, labor, or rent. On a $40 order, that is up to $12 gone before you have paid for food, labor, or rent.
 
 For most independent restaurants, that is not sustainable. And yet the apps have become so embedded in how people order that walking away entirely feels impossible.
 

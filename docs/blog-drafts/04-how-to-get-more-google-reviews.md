@@ -3,7 +3,7 @@ title: "How to Get More Google Reviews for Your Restaurant"
 slug: how-to-get-more-google-reviews-restaurant
 meta_title: "How to Get More Google Reviews for Your Restaurant"
 meta_description: "Reviews decide who eats at your restaurant and who scrolls past. Here is how to get more Google reviews, respond to them well, and turn them into more diners."
-meta_keywords: ["how to get more google reviews", "restaurant reviews", "google reviews for restaurants", "ask customers for reviews", "respond to restaurant reviews"]
+meta_keywords: ["more google reviews", "how to get more google reviews", "google reviews for restaurants", "ask customers for reviews", "respond to restaurant reviews"]
 excerpt: "Reviews quietly decide who eats at your restaurant and who scrolls past. Here is a practical system for getting more of them, the right way."
 pillar: "Educational"
 categories: ["Restaurant SEO", "Restaurant Marketing"]
@@ -13,9 +13,9 @@ status: draft
 reading_time: 7
 ---
 
-Picture two restaurants side by side in Google search results. Same cuisine, same neighborhood, similar prices. One has 38 reviews and a 4.7 rating. The other has 312 reviews and a 4.6 rating. Which one gets the click?
+Getting more Google reviews is one of the highest-return moves a restaurant can make. Picture two restaurants side by side in Google search results. Same cuisine, same neighborhood, similar prices. One has 38 reviews and a 4.7 rating. The other has 312 reviews and a 4.6 rating. Which one gets the click?
 
-Almost always the second one. The slightly lower star rating barely matters next to the wall of social proof. That is the quiet power of reviews, and it is why getting more of them is one of the highest-return things a restaurant can do.
+Almost always the second one. The slightly lower star rating barely matters next to the wall of social proof. That is the quiet power of reviews.
 
 This is not about gaming the system. It is about making it easy for the happy customers you already have to say so in public.
 

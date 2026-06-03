@@ -2,7 +2,7 @@
 title: "The Restaurant SEO Checklist: A Complete Guide for 2026"
 slug: restaurant-seo-checklist
 meta_title: "Restaurant SEO Checklist: The Complete 2026 Guide"
-meta_description: "A practical restaurant SEO checklist covering Google Business Profile, on-page, local, and technical SEO so nearby diners find you first. Free and actionable."
+meta_description: "A practical restaurant SEO checklist covering Google Business Profile, on-page, local, and technical SEO so nearby diners find you first."
 meta_keywords: ["restaurant SEO checklist", "restaurant SEO", "SEO for restaurants", "local SEO for restaurants", "restaurant google ranking"]
 excerpt: "A practical, no fluff restaurant SEO checklist covering everything from your Google profile to on page and technical SEO, so nearby diners find you first."
 pillar: "Educational"
@@ -15,7 +15,7 @@ reading_time: 8
 
 Most diners decide where to eat by searching online first. If your restaurant does not show up when they do, you are invisible to a large share of your potential customers, no matter how good the food is.
 
-This checklist walks through everything that actually moves the needle for restaurant SEO, grouped so you can work through it section by section. No jargon, no filler. Work down the list and you will be ahead of most of your local competition.
+This restaurant SEO checklist walks through everything that actually moves the needle, grouped so you can work through it section by section. No jargon, no filler. Work down the list and you will be ahead of most of your local competition.
 
 ## 1. Google Business Profile
 

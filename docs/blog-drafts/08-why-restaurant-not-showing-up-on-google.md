@@ -1,9 +1,9 @@
 ---
 title: "Why Your Restaurant Isn't Showing Up on Google (and How to Fix It)"
 slug: why-restaurant-not-showing-up-on-google
-meta_title: "Why Your Restaurant Isn't Showing Up on Google (and How to Fix It)"
+meta_title: "Why Your Restaurant Is Not Showing Up on Google"
 meta_description: "Searched for your own restaurant and could not find it? Here are the most common reasons restaurants stay invisible on Google, and exactly how to fix each one."
-meta_keywords: ["restaurant not showing up on google", "restaurant not on google maps", "why cant i find my restaurant on google", "restaurant google visibility", "restaurant local SEO"]
+meta_keywords: ["showing up on google", "restaurant not showing up on google", "restaurant not on google maps", "restaurant google visibility", "restaurant local SEO"]
 excerpt: "Searched for your own restaurant and barely found it? Here are the real reasons restaurants stay invisible on Google, and how to fix each one."
 pillar: "Educational"
 categories: ["Restaurant SEO"]
@@ -13,7 +13,7 @@ status: draft
 reading_time: 7
 ---
 
-You search for your own restaurant, or your cuisine in your city, and you are nowhere near the top. Maybe you are buried pages down. Maybe you do not appear on the map at all. It is a frustrating feeling, especially when you know the food is good and the place is busy on weekends.
+You search for your own restaurant and it is barely showing up on Google, buried pages down or missing from the map entirely. It is a frustrating feeling, especially when you know the food is good and the place is busy on weekends.
 
 The good news is that invisibility on Google almost always comes down to a short list of fixable causes. Here are the most common ones, and what to do about each.
 
