@@ -6,6 +6,7 @@ import Container from "@/app/components/ui/Container";
 import CTA from "@/app/components/sections/CTA";
 import ReadingProgress from "@/app/components/blog/ReadingProgress";
 import ArticleShare from "@/app/components/blog/ArticleShare";
+import ArticleToc from "@/app/components/blog/ArticleToc";
 import { SITE_CONFIG } from "@/app/lib/constants";
 import {
   generateArticleSchema,
@@ -162,43 +163,71 @@ export default async function BlogPostPage({
             </div>
           )}
 
-          {/* On this page (table of contents) */}
-          {toc.length >= 3 && (
-            <nav
-              aria-label="On this page"
-              className="mb-10 max-w-3xl rounded-[1.25rem] border border-border bg-cream-dark p-6"
-            >
-              <p className="mb-3 text-xs font-medium uppercase tracking-wider text-warm-gray">
-                On this page
-              </p>
-              <ol className="space-y-2">
-                {toc.map((item, i) => (
-                  <li key={item.id} className="flex gap-2 text-[0.95rem] leading-snug">
-                    <span className="tabular-nums text-warm-gray-light">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <a
-                      href={`#${item.id}`}
-                      className="text-charcoal underline-offset-2 transition-colors hover:text-accent hover:underline"
-                    >
-                      {item.text}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
-          )}
+          {/* Content + sticky sidebar */}
+          <div className="mt-10 lg:grid lg:grid-cols-12 lg:gap-12">
+            <div className="min-w-0 lg:col-span-8">
+              {/* Mobile/tablet table of contents */}
+              {toc.length >= 3 && (
+                <nav
+                  aria-label="On this page"
+                  className="mb-10 rounded-[1.25rem] border border-border bg-cream-dark p-6 lg:hidden"
+                >
+                  <p className="mb-3 text-xs font-medium uppercase tracking-wider text-warm-gray">
+                    On this page
+                  </p>
+                  <ol className="space-y-2">
+                    {toc.map((item, i) => (
+                      <li key={item.id} className="flex gap-2 text-[0.95rem] leading-snug">
+                        <span className="tabular-nums text-warm-gray-light">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <a
+                          href={`#${item.id}`}
+                          className="text-charcoal underline-offset-2 transition-colors hover:text-accent hover:underline"
+                        >
+                          {item.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </nav>
+              )}
 
-          {post.content_html ? (
-            <div
-              className="prose prose-lg max-w-3xl prose-headings:font-display prose-headings:text-charcoal prose-p:text-warm-gray prose-a:text-accent prose-strong:text-charcoal"
-              dangerouslySetInnerHTML={{ __html: articleHtml }}
-            />
-          ) : (
-            <p className="text-warm-gray max-w-3xl">{post.excerpt}</p>
-          )}
+              {post.content_html ? (
+                <div
+                  className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-charcoal prose-p:text-warm-gray prose-a:text-accent prose-strong:text-charcoal"
+                  dangerouslySetInnerHTML={{ __html: articleHtml }}
+                />
+              ) : (
+                <p className="text-warm-gray">{post.excerpt}</p>
+              )}
 
-          <ArticleShare url={url} title={post.title} />
+              <ArticleShare url={url} title={post.title} />
+            </div>
+
+            {/* Desktop sticky sidebar */}
+            <aside className="hidden lg:col-span-4 lg:block">
+              <div className="sticky top-28 space-y-8">
+                {toc.length >= 2 && <ArticleToc items={toc} />}
+
+                <div className="rounded-[1.25rem] border border-border bg-cream-dark p-6">
+                  <p className="font-display text-lg font-semibold leading-snug text-charcoal">
+                    Grow your restaurant
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-warm-gray">
+                    Want more diners without handing your margin to delivery apps?
+                    Get a free consultation and we will map out the plan.
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="mt-4 inline-flex items-center justify-center rounded-full bg-charcoal px-5 py-2.5 text-sm font-medium text-cream transition-colors hover:bg-charcoal-light"
+                  >
+                    Get a free consultation
+                  </Link>
+                </div>
+              </div>
+            </aside>
+          </div>
         </Container>
       </article>
 
