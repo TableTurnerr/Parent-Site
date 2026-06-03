@@ -66,20 +66,29 @@ export default function Navbar({
 
           {/* Center: Plain nav links */}
           <div className="hidden md:flex items-center gap-8 lg:gap-10">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`nav-link text-sm font-medium transition-colors ${
-                  overDark
-                    ? "text-cream/75 hover:text-cream"
-                    : "text-warm-gray hover:text-charcoal"
-                }`}
-              >
-                {link.label}
-                <span className="nav-link__line" />
-              </Link>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const isActive =
+                pathname === link.href || pathname.startsWith(`${link.href}/`);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`nav-link text-sm font-medium transition-colors ${
+                    overDark
+                      ? isActive
+                        ? "text-cream"
+                        : "text-cream/75 hover:text-cream"
+                      : isActive
+                        ? "text-charcoal"
+                        : "text-warm-gray hover:text-charcoal"
+                  }`}
+                >
+                  {link.label}
+                  <span className="nav-link__line" />
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right: CTA */}
