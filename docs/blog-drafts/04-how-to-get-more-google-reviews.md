@@ -32,7 +32,7 @@ So reviews are not a vanity metric. They are a ranking factor and a conversion f
 
 Most owners know reviews matter, so they do something once. They put up a sign, mention it for a week, get a small bump, and then forget about it. Reviews trickle in by accident after that.
 
-The restaurants that win at this treat review generation as a small, repeatable habit, not a one-time campaign. The goal is a steady stream, not an occasional flood. Ten genuine reviews a month, every month, will do far more for you than fifty reviews in one week followed by silence.
+The restaurants that win at this treat review generation as a small, repeatable habit, not a one-time campaign. The goal is a steady stream, not an occasional flood. Ten genuine reviews a month, every month, will do far more for you than fifty reviews in one week followed by silence. If you want to know how many you actually need to reach a target rating, our [review calculator](/review-calculator) does the math.
 
 ## A simple system that actually works
 

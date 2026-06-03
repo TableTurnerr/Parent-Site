@@ -44,7 +44,7 @@ DoorDash, Uber Eats, and Grubhub charge 15 to 30 percent commission on every ord
 
 Worse, those customers are not yours. The app owns the email, the data, and the repeat order. You cooked the food; they kept the customer.
 
-**The fix:** Direct ordering plus commission-free delivery. When a customer orders through your own website, they are yours, with no middleman. For the delivery itself, flat-fee delivery dispatches a driver for a set fee per order instead of a percentage, so a busy night no longer means a giant commission bill. A restaurant doing $15,000 a month in delivery at 30 percent pays the apps $4,500 a month; on a flat per-order fee it is a small fraction of that. (See how we handle this on our [commission-free deliveries](/services/commission-free-deliveries) page, or work out your own number with the [commission calculator](/savings-calculator).)
+**The fix:** Direct ordering plus commission-free delivery. When a customer orders through your own website, they are yours, with no middleman. For the delivery itself, flat-fee delivery dispatches a driver for a set fee per order instead of a percentage, so a busy night no longer means a giant commission bill. A restaurant doing $15,000 a month in delivery at 30 percent pays the apps $4,500 a month; on a flat per-order fee it is a small fraction of that. (See how we handle this on our [commission-free deliveries](/services/commission-free-deliveries) page.)
 
 ## Leak 4: You have no system to bring customers back
 

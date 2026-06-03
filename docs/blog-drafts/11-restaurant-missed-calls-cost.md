@@ -59,4 +59,4 @@ There is a bonus most owners miss: an AI receptionist also captures the name and
 
 You do not need to overhaul anything. Just measure the leak: pull your missed-call report from your phone provider and look at the number, especially during your dinner hours. That single number usually makes the decision for you.
 
-Even if you only fix the free layers, you will be ahead of most restaurants on your street. And if you want help closing the gap for good, [get in touch](/contact) and we will walk you through the options for your setup.
+Even if you only fix the free layers, you will be ahead of most restaurants on your street. Phone coverage is one piece of a bigger picture, and you can see how it fits with the rest of our [restaurant marketing services](/services). If you want help closing the gap for good, [get in touch](/contact) and we will walk you through the options for your setup.

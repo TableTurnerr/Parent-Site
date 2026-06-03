@@ -57,7 +57,7 @@ We set this up for restaurants as part of our [commission-free deliveries servic
 
 ## What to do next
 
-1. Run your numbers in the [commission calculator](/savings-calculator) so you know the real figure.
+1. Run your numbers so you know the real figure.
 2. Decide how much of your repeat delivery business could move to a direct channel.
 3. Set up commission-free ordering and start keeping that margin.
 
