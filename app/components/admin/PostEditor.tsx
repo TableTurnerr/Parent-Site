@@ -110,6 +110,18 @@ export default function PostEditor({
     post.selectedCategoryIds
   );
   const [saveStatus, setSaveStatus] = useState<string>("");
+  const [actionError, setActionError] = useState<string>("");
+
+  // Surface a server-action failure inline instead of letting it bubble to the
+  // global error page. Returns the message so callers can react if needed.
+  function reportActionError(err: unknown): string {
+    const message =
+      err instanceof Error && err.message
+        ? err.message
+        : "Something went wrong. Please try again.";
+    setActionError(message);
+    return message;
+  }
   const [editorTab, setEditorTab] = useState<"code" | "visual">("code");
   const visualRef = useRef<HTMLDivElement>(null);
   const [imageSearchQuery, setImageSearchQuery] = useState("");
@@ -310,63 +322,83 @@ export default function PostEditor({
   const canDelete = isTeamWriter(userRole);
 
   const handleSave = () => {
+    setActionError("");
     startTransition(async () => {
-      const formData = new FormData();
-      formData.set("title", title);
-      formData.set("slug", slug);
-      formData.set("content_html", contentHtml);
-      formData.set("excerpt", excerpt);
-      formData.set("featured_image", featuredImage);
-      formData.set("featured_image_alt", featuredImageAlt);
-      formData.set("meta_title", metaTitle);
-      formData.set("meta_description", metaDescription);
-      formData.set("meta_keywords", metaKeywords);
-      formData.set("og_image", ogImage);
-      formData.set("visibility", visibility);
-      formData.set("categories", selectedCategories.join(","));
+      try {
+        const formData = new FormData();
+        formData.set("title", title);
+        formData.set("slug", slug);
+        formData.set("content_html", contentHtml);
+        formData.set("excerpt", excerpt);
+        formData.set("featured_image", featuredImage);
+        formData.set("featured_image_alt", featuredImageAlt);
+        formData.set("meta_title", metaTitle);
+        formData.set("meta_description", metaDescription);
+        formData.set("meta_keywords", metaKeywords);
+        formData.set("og_image", ogImage);
+        formData.set("visibility", visibility);
+        formData.set("categories", selectedCategories.join(","));
 
-      await updatePost(post.id, formData);
-      clearDraft();
-      setSaveStatus("Saved!");
-      setTimeout(() => setSaveStatus(""), 2000);
+        await updatePost(post.id, formData);
+        clearDraft();
+        setSaveStatus("Saved!");
+        setTimeout(() => setSaveStatus(""), 2000);
+      } catch (err) {
+        reportActionError(err);
+      }
     });
   };
 
   const handlePublish = () => {
+    setActionError("");
     startTransition(async () => {
-      // Save first, then publish
-      const formData = new FormData();
-      formData.set("title", title);
-      formData.set("slug", slug);
-      formData.set("content_html", contentHtml);
-      formData.set("excerpt", excerpt);
-      formData.set("featured_image", featuredImage);
-      formData.set("featured_image_alt", featuredImageAlt);
-      formData.set("meta_title", metaTitle);
-      formData.set("meta_description", metaDescription);
-      formData.set("meta_keywords", metaKeywords);
-      formData.set("og_image", ogImage);
-      formData.set("visibility", visibility);
-      formData.set("categories", selectedCategories.join(","));
+      try {
+        // Save first, then publish
+        const formData = new FormData();
+        formData.set("title", title);
+        formData.set("slug", slug);
+        formData.set("content_html", contentHtml);
+        formData.set("excerpt", excerpt);
+        formData.set("featured_image", featuredImage);
+        formData.set("featured_image_alt", featuredImageAlt);
+        formData.set("meta_title", metaTitle);
+        formData.set("meta_description", metaDescription);
+        formData.set("meta_keywords", metaKeywords);
+        formData.set("og_image", ogImage);
+        formData.set("visibility", visibility);
+        formData.set("categories", selectedCategories.join(","));
 
-      await updatePost(post.id, formData);
-      await publishPost(post.id);
-      clearDraft();
-      router.refresh();
+        await updatePost(post.id, formData);
+        await publishPost(post.id);
+        clearDraft();
+        router.refresh();
+      } catch (err) {
+        reportActionError(err);
+      }
     });
   };
 
   const handleUnpublish = () => {
+    setActionError("");
     startTransition(async () => {
-      await unpublishPost(post.id);
-      router.refresh();
+      try {
+        await unpublishPost(post.id);
+        router.refresh();
+      } catch (err) {
+        reportActionError(err);
+      }
     });
   };
 
   const handleDelete = () => {
     if (!confirm("Are you sure you want to delete this post? This cannot be undone.")) return;
+    setActionError("");
     startTransition(async () => {
-      await deletePost(post.id);
+      try {
+        await deletePost(post.id);
+      } catch (err) {
+        reportActionError(err);
+      }
     });
   };
 
@@ -383,31 +415,40 @@ export default function PostEditor({
       return;
     }
     startTransition(async () => {
-      // Save current fields first so the scheduled post is up to date.
-      const formData = new FormData();
-      formData.set("title", title);
-      formData.set("slug", slug);
-      formData.set("content_html", contentHtml);
-      formData.set("excerpt", excerpt);
-      formData.set("featured_image", featuredImage);
-      formData.set("featured_image_alt", featuredImageAlt);
-      formData.set("meta_title", metaTitle);
-      formData.set("meta_description", metaDescription);
-      formData.set("meta_keywords", metaKeywords);
-      formData.set("og_image", ogImage);
-      formData.set("visibility", visibility);
-      formData.set("categories", selectedCategories.join(","));
-      await updatePost(post.id, formData);
-      await schedulePost(post.id, iso);
-      clearDraft();
-      router.refresh();
+      try {
+        // Save current fields first so the scheduled post is up to date.
+        const formData = new FormData();
+        formData.set("title", title);
+        formData.set("slug", slug);
+        formData.set("content_html", contentHtml);
+        formData.set("excerpt", excerpt);
+        formData.set("featured_image", featuredImage);
+        formData.set("featured_image_alt", featuredImageAlt);
+        formData.set("meta_title", metaTitle);
+        formData.set("meta_description", metaDescription);
+        formData.set("meta_keywords", metaKeywords);
+        formData.set("og_image", ogImage);
+        formData.set("visibility", visibility);
+        formData.set("categories", selectedCategories.join(","));
+        await updatePost(post.id, formData);
+        await schedulePost(post.id, iso);
+        clearDraft();
+        router.refresh();
+      } catch (err) {
+        setScheduleError(reportActionError(err));
+      }
     });
   };
 
   const handleUnschedule = () => {
+    setActionError("");
     startTransition(async () => {
-      await unschedulePost(post.id);
-      router.refresh();
+      try {
+        await unschedulePost(post.id);
+        router.refresh();
+      } catch (err) {
+        reportActionError(err);
+      }
     });
   };
 
@@ -987,10 +1028,15 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {saveStatus && (
+          {actionError && (
+            <span className="max-w-xs text-right text-sm text-red-600">
+              {actionError}
+            </span>
+          )}
+          {!actionError && saveStatus && (
             <span className="text-sm text-green-600">{saveStatus}</span>
           )}
-          {!saveStatus && hasDraft && (
+          {!actionError && !saveStatus && hasDraft && (
             <span className="text-xs text-[var(--color-warm-gray-light)]">
               Unsaved changes
             </span>

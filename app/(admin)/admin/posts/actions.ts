@@ -57,7 +57,23 @@ async function verifyPostOwnership(postId: string) {
     .single();
 
   if (!post) throw new Error("Post not found");
-  if (post.author_id !== user.id) throw new Error("Forbidden");
+
+  // Authors and editors can manage their own posts. Managers and admins can
+  // manage any post (matches the "manager manages all posts" role model), so a
+  // post created under a different account can still be published by them.
+  if (post.author_id !== user.id) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+    const role = profile?.role;
+    if (role !== "manager" && role !== "admin") {
+      throw new Error(
+        "This post belongs to another account. Ask a manager to publish it, or create it under your own account."
+      );
+    }
+  }
 
   return { supabase, user };
 }
