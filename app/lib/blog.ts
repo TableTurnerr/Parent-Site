@@ -93,6 +93,49 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   };
 }
 
+export interface TocItem {
+  id: string;
+  text: string;
+}
+
+/**
+ * Adds stable id attributes to the article's H2 headings and returns a table of
+ * contents built from them. Runs server-side on the stored HTML so the anchors
+ * work without client JS and the TOC is crawlable. Headings that already have an
+ * id are left untouched.
+ */
+export function buildArticle(html: string): { html: string; toc: TocItem[] } {
+  const toc: TocItem[] = [];
+  const used = new Set<string>();
+
+  const slugify = (s: string): string =>
+    s
+      .replace(/<[^>]+>/g, "")
+      .toLowerCase()
+      .replace(/&[a-z]+;/gi, " ")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 60) || "section";
+
+  const out = html.replace(
+    /<h2([^>]*)>([\s\S]*?)<\/h2>/gi,
+    (match, attrs: string, inner: string) => {
+      if (/\bid=/.test(attrs)) return match; // respect an existing id
+      const text = inner.replace(/<[^>]+>/g, "").trim();
+      if (!text) return match;
+      let id = slugify(text);
+      let n = 2;
+      const base = id;
+      while (used.has(id)) id = `${base}-${n++}`;
+      used.add(id);
+      toc.push({ id, text });
+      return `<h2${attrs} id="${id}">${inner}</h2>`;
+    }
+  );
+
+  return { html: out, toc };
+}
+
 export function formatPostDate(iso: string | null): string {
   if (!iso) return "";
   return new Date(iso).toLocaleDateString("en-US", {

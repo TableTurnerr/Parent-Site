@@ -4,12 +4,19 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import Container from "@/app/components/ui/Container";
 import CTA from "@/app/components/sections/CTA";
+import ReadingProgress from "@/app/components/blog/ReadingProgress";
+import ArticleShare from "@/app/components/blog/ArticleShare";
 import { SITE_CONFIG } from "@/app/lib/constants";
 import {
   generateArticleSchema,
   generateBreadcrumbSchema,
 } from "@/app/lib/schema";
-import { getPostBySlug, formatPostDate } from "@/app/lib/blog";
+import {
+  getPostBySlug,
+  getPublishedPosts,
+  buildArticle,
+  formatPostDate,
+} from "@/app/lib/blog";
 
 // Revalidate hourly; unknown slugs render on demand then cache.
 export const revalidate = 3600;
@@ -28,7 +35,7 @@ export async function generateMetadata({
 
   const title = post.meta_title ?? post.title;
   const description =
-    post.meta_description ?? post.excerpt ?? `${post.title} — TableTurnerr blog.`;
+    post.meta_description ?? post.excerpt ?? `${post.title}, from the TableTurnerr blog.`;
   const url = `${SITE_CONFIG.url}/blog/${post.slug}`;
   const ogImage = post.og_image ?? post.featured_image ?? undefined;
 
@@ -68,6 +75,11 @@ export default async function BlogPostPage({
 
   if (!post) notFound();
 
+  const { html: articleHtml, toc } = buildArticle(post.content_html ?? "");
+  const related = (await getPublishedPosts())
+    .filter((p) => p.slug !== post.slug)
+    .slice(0, 3);
+
   const url = `${SITE_CONFIG.url}/blog/${post.slug}`;
   const articleSchema = generateArticleSchema({
     title: post.title,
@@ -86,6 +98,7 @@ export default async function BlogPostPage({
 
   return (
     <>
+      <ReadingProgress />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -149,16 +162,93 @@ export default async function BlogPostPage({
             </div>
           )}
 
+          {/* On this page (table of contents) */}
+          {toc.length >= 3 && (
+            <nav
+              aria-label="On this page"
+              className="mb-10 max-w-3xl rounded-[1.25rem] border border-border bg-cream-dark p-6"
+            >
+              <p className="mb-3 text-xs font-medium uppercase tracking-wider text-warm-gray">
+                On this page
+              </p>
+              <ol className="space-y-2">
+                {toc.map((item, i) => (
+                  <li key={item.id} className="flex gap-2 text-[0.95rem] leading-snug">
+                    <span className="tabular-nums text-warm-gray-light">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <a
+                      href={`#${item.id}`}
+                      className="text-charcoal underline-offset-2 transition-colors hover:text-accent hover:underline"
+                    >
+                      {item.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
+
           {post.content_html ? (
             <div
               className="prose prose-lg max-w-3xl prose-headings:font-display prose-headings:text-charcoal prose-p:text-warm-gray prose-a:text-accent prose-strong:text-charcoal"
-              dangerouslySetInnerHTML={{ __html: post.content_html }}
+              dangerouslySetInnerHTML={{ __html: articleHtml }}
             />
           ) : (
             <p className="text-warm-gray max-w-3xl">{post.excerpt}</p>
           )}
+
+          <ArticleShare url={url} title={post.title} />
         </Container>
       </article>
+
+      {/* Related posts */}
+      {related.length > 0 && (
+        <section className="bg-cream-dark py-16 md:py-24">
+          <Container>
+            <h2 className="mb-8 font-display text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-[1.15] tracking-tight text-charcoal">
+              Keep reading
+            </h2>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
+              {related.map((r) => (
+                <Link
+                  key={r.slug}
+                  href={`/blog/${r.slug}`}
+                  className="group flex flex-col overflow-hidden rounded-[1.25rem] border border-border bg-cream elevate-hover"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden bg-cream-dark">
+                    {r.featured_image ? (
+                      <Image
+                        src={r.featured_image}
+                        alt={r.featured_image_alt ?? r.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    ) : null}
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="font-display text-lg font-semibold leading-snug text-charcoal">
+                      {r.title}
+                    </h3>
+                    {r.excerpt ? (
+                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-warm-gray">
+                        {r.excerpt}
+                      </p>
+                    ) : null}
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+                      Read more
+                      <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
+                        &rarr;
+                      </span>
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
 
       <CTA />
     </>
