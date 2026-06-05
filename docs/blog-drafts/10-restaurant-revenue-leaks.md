@@ -69,6 +69,6 @@ Do not try to fix all five at once. Pick the one that hurts most.
 
 - Dining room too quiet? Start with your Google Business Profile. Free, 30 minutes.
 - Losing orders during the rush? Pull your missed-call report this week.
-- Delivery apps eating your margin? Run the [commission calculator](/savings-calculator) and see the real number.
+- Delivery apps eating your margin? Add up your monthly app commissions and see the real number.
 
 The food you are making is good enough. The leaks are the problem, and leaks can be fixed. If you want a team to handle all of it, [book a free consultation](/contact) and we will tell you straight which leaks are costing you most.

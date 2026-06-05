@@ -27,7 +27,7 @@ Here is a quick exercise. Pull your monthly statements from each delivery platfo
 
 For a restaurant doing $15,000 a month in third-party delivery at an average 25 percent commission, that is $45,000 a year in fees. That is not a line item. That is a salary. That is a kitchen renovation. That is your profit margin.
 
-If you want the number without digging through statements, our [commission calculator](/savings-calculator) does the math from your order volume in a few seconds. Once you see it, the motivation to change becomes very real.
+Add up the commission totals across the platforms you use and multiply by twelve. Once you see the yearly number, the motivation to change becomes very real.
 
 ## Strategy 1: Launch your own direct ordering system
 

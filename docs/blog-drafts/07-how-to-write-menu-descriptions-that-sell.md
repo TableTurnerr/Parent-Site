@@ -47,7 +47,7 @@ A menu is not just words. It is a layout, and layout influences choice. Diners d
 
 That gives you a quiet tool. The dishes you box, highlight, place at the top of a section, or pair with a photo get noticed and ordered more often. Use that placement for your most profitable and most memorable items, not just whatever happened to be listed first.
 
-Be careful with how you present prices too. Long columns of dollar signs lined up on the right train diners to scan for the cheapest option. Tucking the price at the end of the description, in the same size text, keeps the focus on the food instead of the cost. And if you are not sure what to charge in the first place, our [menu price calculator](/menu-price-calculator) sets a starting price from your food cost.
+Be careful with how you present prices too. Long columns of dollar signs lined up on the right train diners to scan for the cheapest option. Tucking the price at the end of the description, in the same size text, keeps the focus on the food instead of the cost.
 
 ## Keep it consistent with your brand
 

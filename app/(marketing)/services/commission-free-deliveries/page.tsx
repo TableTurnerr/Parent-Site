@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import ServicePage from "@/app/components/templates/ServicePage";
-import SavingsCalculator from "@/app/components/sections/SavingsCalculator";
 import { getServiceBySlug } from "@/app/lib/service-data";
 import { createPageMetadata } from "@/app/lib/metadata";
 import {
@@ -40,9 +39,7 @@ export default function CommissionFreeDeliveriesPage() {
           __html: JSON.stringify([serviceSchema, breadcrumbSchema, faqSchema]),
         }}
       />
-      <ServicePage service={service}>
-        <SavingsCalculator />
-      </ServicePage>
+      <ServicePage service={service} />
     </>
   );
 }

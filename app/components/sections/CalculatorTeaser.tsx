@@ -4,8 +4,8 @@ import Container from "@/app/components/ui/Container";
 import { fadeInUp } from "@/app/lib/animations";
 
 /**
- * Homepage teaser for the delivery-commission calculator. Bold terracotta
- * band that drives traffic to the interactive tool at /savings-calculator.
+ * Homepage band on delivery commissions. Bold terracotta panel that drives
+ * traffic to the commission-free deliveries service.
  */
 export default function CalculatorTeaser() {
   return (
@@ -28,26 +28,26 @@ export default function CalculatorTeaser() {
             <div className="relative lg:flex-1">
               <p className="inline-flex items-center gap-2.5 text-cream/80 text-xs uppercase tracking-[0.22em] font-medium mb-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-cream" aria-hidden="true" />
-                Free Tool
+                Keep Your Margin
               </p>
               <p className="font-handwriting text-cream/90 text-3xl md:text-4xl rotate-[-3deg] mb-3">
                 check, please
               </p>
               <h2 className="display-lg text-cream mb-4">
-                See what delivery apps are really costing you
+                Stop handing your margin to delivery apps
               </h2>
               <p className="text-cream/85 text-lg leading-relaxed max-w-xl">
                 DoorDash, Uber Eats, and Grubhub take 15 to 30 percent of every
-                order. See your yearly commission bill, then find out how much
-                you could keep.
+                order. We set up commission-free direct ordering so the money you
+                make on delivery stays yours.
               </p>
             </div>
             <div className="relative shrink-0">
               <Link
-                href="/savings-calculator"
+                href="/services/commission-free-deliveries"
                 className="inline-flex items-center justify-center rounded-full bg-cream text-charcoal px-8 py-4 font-semibold hover:bg-white transition-colors"
               >
-                Try the commission calculator
+                See how it works
               </Link>
             </div>
           </div>
