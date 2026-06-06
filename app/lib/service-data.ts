@@ -45,7 +45,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     category: "Web Design",
     headline: "Custom Restaurant Website Design",
     description:
-      "We design and build custom restaurant websites that rank on Google, convert visitors into paying diners, and give you full control over your online presence. Mobile-first, SEO-optimized, and built for online ordering from day one.",
+      "We build high-converting websites on a proven, conversion-tested framework that we tailor to your brand, so you rank on Google, turn visitors into customers, and own your online presence. Mobile-first, SEO-optimized, and ready for online ordering from day one.",
     heroImage: {
       src: "/images/usage/chef-plating.webp",
       alt: "Chef carefully plating a dish in a professional restaurant kitchen",
@@ -77,9 +77,9 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
           "Slow websites lose customers. We optimize every image, minimize code, and use modern hosting to keep your restaurant website loading in under 2 seconds on any connection.",
       },
       {
-        title: "Custom Branding, Not Templates",
+        title: "A Proven Framework, Tailored to You",
         description:
-          "No cookie-cutter templates. Every restaurant website we design reflects your brand identity, menu style, and atmosphere. Your website should feel like walking into your restaurant.",
+          "We start from a refined, conversion-tested foundation we have battle-tested across real businesses, then tailor it to your brand, content, and voice. You get a site that performs from day one without paying to reinvent the wheel.",
       },
     ],
     stats: [

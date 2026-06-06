@@ -11,7 +11,7 @@ export const SERVICES = [
   {
     title: "Restaurant Website Design",
     slug: "restaurant-website-design",
-    description: "Custom restaurant websites built to rank on Google and convert visitors into paying diners. Mobile-first, SEO-optimized, and ready for online ordering.",
+    description: "High-converting websites built on our proven, conversion-tested framework and tailored to your brand. Built to rank on Google, mobile-first, SEO-optimized, and ready for online ordering.",
   },
   {
     title: "Restaurant SEO",
@@ -60,7 +60,7 @@ export const SOCIAL_LINKS = [
 export const SITE_CONFIG = {
   name: "TableTurnerr",
   url: "https://tableturnerr.com",
-  tagline: "Restaurant Website Design, SEO & Marketing Agency",
+  tagline: "Web Design, SEO & Marketing Agency for Local Businesses",
   email: "contact@tableturnerr.com",
   phone: "+1 (808) 559-9006",
 } as const;
@@ -87,9 +87,9 @@ export const FAQ_DATA = [
       "Yes. We help restaurants transition away from high-commission third-party platforms by setting up commission-free direct ordering on your own website, plus flat-fee delivery that charges a small amount per order instead of a percentage. Most restaurants save thousands per year in delivery app fees while keeping more profit from every order.",
   },
   {
-    question: "What makes TableTurnerr different from other restaurant marketing agencies?",
+    question: "What makes TableTurnerr different from other marketing agencies?",
     answer:
-      "We specialize exclusively in the restaurant industry. Every website we design, every SEO campaign we run, and every Google Ads strategy we build is informed by deep food and beverage experience, not generic digital marketing repurposed for restaurants.",
+      "We help local businesses get found and grow, and we build on a proven, conversion-tested website framework that we tailor to each client instead of starting from a blank page. That means faster launches, lower cost, and a site built to rank and convert from day one. We cut our teeth in the restaurant industry, so we know how to win in crowded local markets.",
   },
   {
     question: "Do you offer ongoing SEO and Google Ads management for restaurants?",

@@ -338,8 +338,8 @@ export default function ContactPage() {
 
                 {/* Disclaimer */}
                 <p className="text-warm-gray-light text-xs leading-relaxed">
-                  We work exclusively with independent restaurants with physical
-                  locations.
+                  We work with local businesses that have a physical location,
+                  with deep experience in the restaurant industry.
                 </p>
               </div>
             </AnimatedElement>

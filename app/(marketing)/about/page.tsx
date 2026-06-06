@@ -17,7 +17,7 @@ import { generateOrganizationSchema, generateBreadcrumbSchema } from "@/app/lib/
 export const metadata: Metadata = createPageMetadata({
   title: "About TableTurnerr, the Restaurant Growth Agency",
   description:
-    "TableTurnerr is a marketing agency built exclusively for independent restaurants. We design websites, run local SEO, and manage Google Ads so independent restaurants can compete with the major chains and win.",
+    "TableTurnerr is a marketing agency for local businesses. We build high-converting websites, run local SEO, and manage Google Ads so local businesses can compete with the big players and win, with deep experience in the restaurant industry.",
   path: "/about",
   keywords: [
     "restaurant marketing agency",
@@ -178,15 +178,15 @@ export default function AboutPage() {
                 who we are
               </p>
               <h1 className="display-lg text-charcoal mb-6">
-                The restaurant growth agency
+                The local business growth agency
               </h1>
               <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl mb-8">
-                TableTurnerr is a specialized SEO website development and
-                traffic generation agency built exclusively for independent
-                restaurants. We bridge the gap between independent restaurants
-                and major chains by acting as an outsourced digital team,
-                driving massive organic and paid traffic so restaurants can scale
-                their brand and compete.
+                TableTurnerr is an SEO, website, and traffic-generation agency for
+                local businesses. We act as your outsourced digital team, building
+                a high-converting site on our proven framework and driving the
+                organic and paid traffic that helps you compete with the big
+                players. Our roots are in the restaurant industry, so we know how
+                to win in crowded local markets.
               </p>
               <Button href="/contact" variant="primary">
                 Get a Free Consultation

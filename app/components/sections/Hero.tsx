@@ -32,7 +32,7 @@ export default function Hero() {
             <AnimatedElement variants={fadeInUp}>
               <p className="inline-flex items-center gap-2.5 text-cream/70 text-xs md:text-sm uppercase tracking-[0.25em] font-medium mb-8">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-                Restaurant Marketing Agency
+                Marketing Agency for Local Businesses
               </p>
             </AnimatedElement>
 
@@ -60,9 +60,9 @@ export default function Hero() {
             <div className="mt-10 md:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
               <AnimatedElement variants={fadeInUp} className="lg:col-span-6">
                 <p className="text-cream/80 text-lg md:text-xl leading-relaxed max-w-xl">
-                  High-converting websites, local SEO, and Google Ads for
-                  independent restaurants. We turn online searches into paying
-                  customers, every single day.
+                  High-converting websites, local SEO, and Google Ads for local
+                  businesses. We turn online searches into paying customers,
+                  every single day.
                 </p>
               </AnimatedElement>
 
@@ -94,7 +94,7 @@ export default function Hero() {
           {[0, 1].map((dup) => (
             <div key={dup} className="flex items-center gap-8 pr-8" aria-hidden={dup === 1}>
               {[
-                "Restaurant Website Design",
+                "Website Design",
                 "Local SEO",
                 "Google Ads",
                 "Commission-Free Ordering",
