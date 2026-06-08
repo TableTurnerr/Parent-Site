@@ -1,4 +1,4 @@
-import { createClient } from "@/app/lib/supabase/server";
+import { createClient, createAdminClient } from "@/app/lib/supabase/server";
 
 /** A published post as shown in the public list (no body). */
 export interface BlogListItem {
@@ -70,6 +70,46 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     .eq("slug", slug)
     .eq("status", PUBLIC_FILTER.status)
     .eq("visibility", PUBLIC_FILTER.visibility)
+    .single();
+
+  if (error || !data) return null;
+
+  const author = Array.isArray(data.author) ? data.author[0] : data.author;
+  return {
+    slug: data.slug,
+    title: data.title,
+    excerpt: data.excerpt,
+    featured_image: data.featured_image,
+    featured_image_alt: data.featured_image_alt,
+    published_at: data.published_at,
+    reading_time: data.reading_time,
+    content_html: data.content_html,
+    meta_title: data.meta_title,
+    meta_description: data.meta_description,
+    meta_keywords: data.meta_keywords,
+    og_image: data.og_image,
+    updated_at: data.updated_at,
+    author_name: author?.full_name ?? null,
+  };
+}
+
+/**
+ * A single post by id, regardless of status/visibility, for the authenticated
+ * editor preview. Uses the service-role client so drafts and scheduled posts are
+ * visible. CALLERS MUST gate this behind an authenticated team check, never call
+ * it from a public, unauthenticated path.
+ */
+export async function getPostById(id: string): Promise<BlogPost | null> {
+  const supabase = await createAdminClient();
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select(
+      `slug, title, excerpt, featured_image, featured_image_alt, published_at,
+       reading_time, content_html, meta_title, meta_description, meta_keywords,
+       og_image, updated_at,
+       author:profiles!blog_posts_author_id_fkey(full_name)`
+    )
+    .eq("id", id)
     .single();
 
   if (error || !data) return null;

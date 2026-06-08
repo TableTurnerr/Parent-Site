@@ -468,86 +468,16 @@ export default function PostEditor({
     );
   };
 
-  const previewWinRef = useRef<Window | null>(null);
-
+  // Live Preview opens the real post in a new tab: the live URL if the post is
+  // published, otherwise the auth-gated preview route that renders the saved
+  // draft with the real site theme (like WordPress). Save first to refresh it.
   const openPreviewTab = () => {
-    // Reuse existing window if still open
-    if (previewWinRef.current && !previewWinRef.current.closed) {
-      previewWinRef.current.focus();
-      return;
-    }
-    const win = window.open("", "_blank");
-    if (!win) return;
-    previewWinRef.current = win;
-    win.document.write(`<!DOCTYPE html>
-<html><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Preview</title>
-<style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:system-ui,-apple-system,sans-serif;color:#1A1A1A;background:#FAFAF8;padding:3rem 1.5rem;max-width:720px;margin:0 auto;line-height:1.7}
-  h1#p-title{font-family:var(--font-satoshi),system-ui,sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:0.5rem;line-height:1.1;letter-spacing:-0.025em}
-  .meta{font-size:0.875rem;color:#6B6560;margin-bottom:2rem}
-  #p-hero{max-width:100%;border-radius:0.75rem;margin:0 0 1.5rem 0;display:none}
-  img{max-width:100%;border-radius:0.75rem;margin:1.5rem 0}
-  h2{font-size:1.5rem;font-weight:700;margin:2rem 0 0.75rem}
-  h3{font-size:1.25rem;font-weight:600;margin:1.5rem 0 0.5rem}
-  p{margin-bottom:1rem}
-  a{color:#C8553D}
-  ul,ol{margin:0 0 1rem 1.5rem}
-  li{margin-bottom:0.25rem}
-  blockquote{border-left:3px solid #E8E5DF;padding-left:1rem;margin:1.5rem 0;color:#6B6560;font-style:italic}
-  pre{background:#F2F0EB;padding:1rem;border-radius:0.5rem;overflow-x:auto;margin:1.5rem 0;font-size:0.875rem}
-  code{font-size:0.875rem}
-  hr{border:none;border-top:1px solid #E8E5DF;margin:2rem 0}
-  .live-badge{position:fixed;top:12px;right:12px;background:#1A1A1A;color:#FAFAF8;font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;display:flex;align-items:center;gap:6px;z-index:99}
-  .live-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse-dot 2s ease-in-out infinite}
-  @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
-</style>
-</head><body>
-<div class="live-badge">Live Preview</div>
-<img id="p-hero" src="" alt="">
-<h1 id="p-title"></h1>
-<p id="p-excerpt" class="meta"></p>
-<hr>
-<div id="p-content"></div>
-<script>
-window.addEventListener("message",function(e){
-  if(!e.data||e.data.type!=="post-preview-update")return;
-  if(e.origin!==window.location.origin)return;
-  var d=e.data;
-  document.title=d.title||"Preview";
-  document.getElementById("p-title").textContent=d.title||"Untitled";
-  document.getElementById("p-excerpt").textContent=d.excerpt||"";
-  document.getElementById("p-content").innerHTML=d.contentHtml||"<p>No content yet.</p>";
-  var hero=document.getElementById("p-hero");
-  if(d.featuredImage){hero.src=d.featuredImage;hero.alt=d.featuredImageAlt||d.title||"";hero.style.display="block"}
-  else{hero.style.display="none"}
-});
-</script>
-</body></html>`);
-    win.document.close();
-    // Send initial data after a tick so the listener is ready
-    setTimeout(() => sendPreviewUpdate(win), 50);
+    const url =
+      post.status === "published"
+        ? `/blog/${post.slug}`
+        : `/blog/preview/${post.id}`;
+    window.open(url, "_blank", "noopener");
   };
-
-  const sendPreviewUpdate = useCallback((win?: Window | null) => {
-    const target = win || previewWinRef.current;
-    if (!target || target.closed) return;
-    target.postMessage({
-      type: "post-preview-update",
-      title,
-      excerpt,
-      contentHtml,
-      featuredImage,
-      featuredImageAlt,
-    }, window.location.origin);
-  }, [title, excerpt, contentHtml, featuredImage, featuredImageAlt]);
-
-  // Push live updates to preview window
-  useEffect(() => {
-    sendPreviewUpdate();
-  }, [sendPreviewUpdate]);
 
   // --- /image slash command logic ---
   const handleVisualInput = useCallback(() => {
