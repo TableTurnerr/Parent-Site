@@ -17,7 +17,7 @@ export default function TrustBar() {
     <section className="bg-cream py-10 md:py-12 border-y border-border">
       <Container>
         <p className="text-center text-warm-gray text-xs uppercase tracking-[0.2em] font-medium mb-7">
-          Restaurants growing with TableTurnerr
+          Local businesses growing with TableTurnerr
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-16">
           {LOGOS.map((logo) => (
