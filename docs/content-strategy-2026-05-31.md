@@ -42,10 +42,10 @@ Lead educational-heavy early; shift toward case studies as the results bank grow
 
 **Educational (pillar 1)**
 1. How to rank your restaurant on Google Maps → `restaurant SEO` page
-2. Restaurant SEO checklist (the complete guide) → `restaurant SEO`
+2. Restaurant SEO checklist (complete, 2026) → `restaurant SEO`
 3. Why your restaurant isn't showing up on Google → `google-business-profile-optimization`
 4. How to set up Google Business Profile for a restaurant → `google-business-profile-optimization`
-5. Local SEO for restaurants: a beginner's guide → `restaurant SEO`
+5. Local SEO for restaurants: where to start → `restaurant SEO`
 6. How to get more Google reviews for your restaurant → `google-business-profile-optimization`
 7. Restaurant website design best practices that convert → `restaurant-website-design`
 8. How to write menu descriptions that sell → `restaurant-branding`

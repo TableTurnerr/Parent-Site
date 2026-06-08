@@ -1,7 +1,7 @@
 ---
-title: "The Restaurant SEO Checklist: A Complete Guide for 2026"
+title: "The Complete Restaurant SEO Checklist for 2026"
 slug: restaurant-seo-checklist
-meta_title: "Restaurant SEO Checklist: The Complete 2026 Guide"
+meta_title: "The Complete Restaurant SEO Checklist (2026)"
 meta_description: "A practical restaurant SEO checklist covering Google Business Profile, on-page, local, and technical SEO so nearby diners find you first."
 meta_keywords: ["restaurant SEO checklist", "restaurant SEO", "SEO for restaurants", "local SEO for restaurants", "restaurant google ranking"]
 excerpt: "A practical, no fluff restaurant SEO checklist covering everything from your Google profile to on page and technical SEO, so nearby diners find you first."

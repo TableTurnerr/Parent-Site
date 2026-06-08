@@ -2,9 +2,9 @@
 title: "How to Rank Your Restaurant on Google Maps"
 slug: how-to-rank-restaurant-google-maps
 meta_title: "How to Rank on Google Maps for Restaurants"
-meta_description: "Want to rank on Google Maps and land in the local pack top three? Here is a practical, step by step guide to ranking your restaurant higher in local search."
+meta_description: "Want to rank on Google Maps and land in the local pack top three? Here is a practical, step-by-step plan to rank your restaurant higher in local search."
 meta_keywords: ["rank on google maps", "restaurant google maps ranking", "google maps SEO restaurant", "local pack restaurant", "restaurant local SEO"]
-excerpt: "The Google Maps top three drives most of the calls and visits in local search. Here is a practical, step by step guide to ranking your restaurant higher."
+excerpt: "The Google Maps top three drives most of the calls and visits in local search. Here is a practical, step-by-step plan to rank your restaurant higher."
 pillar: "Educational"
 categories: ["Restaurant SEO"]
 primary_service_link: "/services/restaurant-seo"
