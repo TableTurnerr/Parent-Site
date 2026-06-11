@@ -7,51 +7,51 @@ import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 
 const STATS = [
   {
-    prefix: "+",
-    value: 377,
+    prefix: "",
+    value: 92,
     suffix: "%",
     decimalPlaces: 0,
-    description: "Online growth achieved by Samos Oaxaca after switching to Owner.com",
-    source: "Owner.com",
+    description: "Of consumers use a search engine to find a local business",
+    source: "Industry Data",
   },
   {
-    prefix: "$",
-    value: 4.5,
-    suffix: "M",
-    decimalPlaces: 1,
-    description: "In online sales generated for Saffron Indian Kitchen through Owner.com",
-    source: "Owner.com",
-  },
-  {
-    prefix: "$",
-    value: 2,
-    suffix: "M+",
+    prefix: "",
+    value: 90,
+    suffix: "%",
     decimalPlaces: 0,
-    description: "Saved in commissions by Ollie's in New York after moving to ChowNow",
-    source: "ChowNow",
+    description: "Of consumers read reviews before choosing a local business",
+    source: "Industry Data",
   },
   {
-    prefix: "$",
-    value: 288,
-    suffix: "K",
+    prefix: "",
+    value: 88,
+    suffix: "%",
     decimalPlaces: 0,
-    description: "Saved annually by 4Top Hospitality after eliminating third-party fees via ChowNow",
-    source: "ChowNow",
+    description: "Of people who search for a local business on mobile call or visit within a day",
+    source: "Google",
+  },
+  {
+    prefix: "",
+    value: 5,
+    suffix: ":1",
+    decimalPlaces: 0,
+    description: "Return that local SEO and content marketing deliver over time",
+    source: "Industry Data",
   },
 ] as const;
 
 export default function Results() {
   return (
-    <section className="bg-charcoal py-20 md:py-28">
+    <section className="dark-sheen py-20 md:py-28">
       <Container>
         {/* Section header */}
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
-          <SectionLabel className="text-warm-gray-light">Partner Results</SectionLabel>
+          <SectionLabel className="text-warm-gray-light">The Numbers</SectionLabel>
           <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-cream mt-3 max-w-2xl">
-            <BlurText text="Real Results From Our Partner Ecosystem" />
+            <BlurText text="Why local visibility wins" />
           </h2>
           <p className="text-warm-gray-light text-lg leading-relaxed mt-4 max-w-2xl">
-            Restaurants using our recommended platforms are seeing massive, verified ROI. Here is what the ecosystem delivers.
+            Your next customer is searching right now. Here is what the numbers say about getting found, and why showing up first changes everything.
           </p>
         </AnimatedElement>
 
@@ -64,7 +64,7 @@ export default function Results() {
             <AnimatedElement
               key={stat.description}
               variants={fadeInUp}
-              className="rounded-[1.25rem] border border-warm-gray/20 p-6 sm:p-8 md:p-10"
+              className="rounded-[1.25rem] border border-warm-gray/20 p-6 sm:p-8 md:p-10 transition-transform duration-300 hover:-translate-y-1 hover:border-warm-gray/40"
             >
               <p className="font-display font-bold text-[clamp(2.5rem,5vw,3.5rem)] leading-none tracking-tight text-cream">
                 {stat.prefix && (

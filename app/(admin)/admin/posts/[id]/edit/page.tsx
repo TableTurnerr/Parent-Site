@@ -3,6 +3,13 @@ import { notFound } from "next/navigation";
 import PostEditor from "@/app/components/admin/PostEditor";
 import type { UserRole } from "@/app/lib/supabase/types";
 
+/** Convert a stored ISO timestamp to a value for <input type="datetime-local">. */
+function toDatetimeLocal(iso: string): string {
+  const d = new Date(iso);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
 export default async function EditPostPage({
   params,
 }: {
@@ -59,6 +66,9 @@ export default async function EditPostPage({
         metaDescription: post.meta_description ?? "",
         metaKeywords: post.meta_keywords?.join(", ") ?? "",
         ogImage: post.og_image ?? "",
+        scheduledAt: post.scheduled_at
+          ? toDatetimeLocal(post.scheduled_at)
+          : "",
         selectedCategoryIds,
       }}
       categories={allCategories ?? []}

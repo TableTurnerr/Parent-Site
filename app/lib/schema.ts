@@ -6,10 +6,10 @@ export function generateOrganizationSchema() {
     "@type": ["ProfessionalService", "MarketingAgency"],
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
-    logo: `${SITE_CONFIG.url}/images/og/default.jpg`,
-    image: `${SITE_CONFIG.url}/images/og/default.jpg`,
+    logo: `${SITE_CONFIG.url}/icon.png`,
+    image: `${SITE_CONFIG.url}/images/usage/restaurant-kitchen-2.jpg`,
     description:
-      "TableTurnerr is a restaurant marketing agency specializing in custom website design, SEO, Google Ads, and branding for independent restaurants.",
+      "TableTurnerr is a marketing agency for local businesses, offering website design, SEO, Google Ads, and Google Business Profile optimization, with deep experience in the restaurant industry.",
     email: SITE_CONFIG.email,
     telephone: SITE_CONFIG.phone,
     priceRange: "$$",
@@ -18,22 +18,22 @@ export function generateOrganizationSchema() {
       name: "United States",
     },
     serviceType: [
-      "Restaurant Website Design",
-      "Restaurant SEO",
-      "Restaurant Branding",
+      "Website Design",
+      "Local SEO",
+      "Branding",
       "Google Ads Management",
       "Google Business Profile Optimization",
       "Commission-Free Delivery Setup",
     ],
     knowsAbout: [
-      "Restaurant Marketing",
-      "Restaurant SEO",
-      "Restaurant Website Design",
+      "Local Business Marketing",
+      "Small Business SEO",
+      "Website Design",
       "Local SEO",
       "Google Business Profile Optimization",
+      "Google Ads",
+      "Restaurant Marketing",
       "Commission-Free Online Ordering",
-      "Restaurant Branding",
-      "Google Ads for Restaurants",
     ],
     contactPoint: {
       "@type": "ContactPoint",
@@ -73,6 +73,7 @@ export function generateServiceSchema(service: {
   name: string;
   description: string;
   url: string;
+  areaServed?: { type: "State" | "City"; name: string };
 }) {
   return {
     "@context": "https://schema.org",
@@ -85,11 +86,49 @@ export function generateServiceSchema(service: {
       name: SITE_CONFIG.name,
       url: SITE_CONFIG.url,
     },
-    areaServed: {
-      "@type": "Country",
-      name: "United States",
-    },
+    areaServed: service.areaServed
+      ? { "@type": service.areaServed.type, name: service.areaServed.name }
+      : { "@type": "Country", name: "United States" },
     serviceType: service.name,
+  };
+}
+
+/**
+ * Service schema for a city variant. We do not claim a physical storefront in
+ * the city (no fake address); instead we mark the area we serve as that City,
+ * with metro geo coordinates, and keep the national agency as the provider.
+ * This signals local relevance honestly for "near me" / local-pack searches.
+ */
+export function generateCityServiceSchema(params: {
+  serviceName: string;
+  description: string;
+  url: string;
+  city: { name: string; state: string; lat: number; lng: number };
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: params.serviceName,
+    description: params.description,
+    url: params.url,
+    serviceType: params.serviceName,
+    provider: {
+      "@type": ["ProfessionalService", "MarketingAgency"],
+      name: SITE_CONFIG.name,
+      url: SITE_CONFIG.url,
+      email: SITE_CONFIG.email,
+      telephone: SITE_CONFIG.phone,
+    },
+    areaServed: {
+      "@type": "City",
+      name: params.city.name,
+      containedInPlace: { "@type": "State", name: params.city.state },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: params.city.lat,
+        longitude: params.city.lng,
+      },
+    },
   };
 }
 
@@ -117,6 +156,42 @@ export function generateFAQSchema(
         text: faq.answer,
       },
     })),
+  };
+}
+
+export function generateArticleSchema(article: {
+  title: string;
+  description: string;
+  url: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+  authorName?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: article.title,
+    description: article.description,
+    url: article.url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": article.url },
+    ...(article.image && { image: article.image }),
+    ...(article.datePublished && { datePublished: article.datePublished }),
+    ...(article.dateModified && { dateModified: article.dateModified }),
+    author: {
+      "@type": "Organization",
+      name: article.authorName ?? SITE_CONFIG.name,
+      url: SITE_CONFIG.url,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_CONFIG.name,
+      url: SITE_CONFIG.url,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_CONFIG.url}/icon.png`,
+      },
+    },
   };
 }
 

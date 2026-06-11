@@ -1,47 +1,45 @@
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
-import BlurText from "@/app/components/ui/BlurText";
 import Container from "@/app/components/ui/Container";
-import SectionLabel from "@/app/components/ui/SectionLabel";
 import NumberTicker from "@/app/components/ui/NumberTicker";
 import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 
 const PARTNERS = [
   {
-    name: "Owner.com",
-    tier: "Premium",
-    tagline: "The complete restaurant operating system",
+    name: "Get Found",
+    tier: "Show up first",
+    tagline: "Rank where your customers are searching",
     features: [
-      "Commission-free online ordering",
-      "Automated email & SMS marketing",
-      "Custom-branded mobile app",
-      "AI-powered upselling & loyalty programs",
+      "A fast, conversion-built website",
+      "Local SEO and Google Maps",
+      "Optimized Google Business Profile",
+      "Targeted Google Ads",
     ],
-    perk: "$970 setup fee waived",
-    perkDetail: "through TableTurnerr",
-    stat: { prefix: "$", value: 4.5, suffix: "M", decimalPlaces: 1 },
-    statLabel: "In online sales generated for a single restaurant on Owner.com",
+    perk: "Top 3",
+    perkDetail: "in your local market",
+    stat: { prefix: "", value: 92, suffix: "%", decimalPlaces: 0 },
+    statLabel: "of consumers use a search engine to find a local business",
   },
   {
-    name: "ChowNow",
-    tier: "Budget-Friendly",
-    tagline: "Direct ordering without the commission fees",
+    name: "Get Chosen",
+    tier: "Win the click",
+    tagline: "Turn searchers into paying customers",
     features: [
-      "Commission-free delivery & pickup",
-      "Dedicated ordering website",
-      "Branded mobile ordering app",
-      "Google & social media integrations",
+      "Reviews that build trust",
+      "Branding that looks established",
+      "Clear calls to action",
+      "Pages built to convert",
     ],
-    perk: "1 month free",
-    perkDetail: "on any annual plan",
-    stat: { prefix: "$", value: 288, suffix: "K", decimalPlaces: 0 },
-    statLabel: "Saved annually by a restaurant after ditching third-party fees",
+    perk: "5-star",
+    perkDetail: "reputation that sells",
+    stat: { prefix: "", value: 90, suffix: "%", decimalPlaces: 0 },
+    statLabel: "of consumers read reviews before choosing a business",
   },
 ] as const;
 
 function CheckIcon() {
   return (
     <svg
-      className="w-5 h-5 text-accent mt-0.5 shrink-0"
+      className="w-5 h-5 text-accent mt-1 shrink-0"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -59,23 +57,20 @@ function CheckIcon() {
 
 export default function Partners() {
   return (
-    <section className="bg-white py-16 md:py-28">
+    <section className="dark-sheen py-20 md:py-32">
       <Container>
         {/* Section header */}
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
-          <SectionLabel>
-            Our Partners
-          </SectionLabel>
-          <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl">
-            <BlurText text="Scale With Industry-Leading Restaurant Tech" />
+          <p className="eyebrow mb-6" style={{ color: "rgba(250,250,248,0.6)" }}>
+            How We Help
+          </p>
+          <h2 className="display-lg text-cream max-w-3xl">
+            Everything you need to get found and get chosen
           </h2>
-          <p className="text-warm-gray text-lg leading-relaxed mt-4 max-w-2xl">
-            As an official strategic partner of Owner.com and ChowNow, we get
-            you exclusive benefits you won't find signing up on your own —
-            commission-free ordering that puts revenue back in your pocket. We
-            audit your restaurant's operations and digital presence to ensure
-            you meet the qualification standards required by these platforms
-            before onboarding.
+          <p className="text-cream/70 text-lg leading-relaxed mt-5 max-w-2xl">
+            We act as your outsourced marketing team. We build the foundation
+            that ranks, drive the traffic that converts, and turn it into booked,
+            paying customers, all measured so you see the return.
           </p>
         </AnimatedElement>
 
@@ -88,17 +83,17 @@ export default function Partners() {
             <AnimatedElement
               key={partner.name}
               variants={fadeInUp}
-              className="rounded-[1.25rem] border border-charcoal/10 bg-cream/50 p-6 sm:p-8 md:p-10 flex flex-col"
+              className="rounded-[1.25rem] border border-cream/10 bg-cream/[0.04] p-6 sm:p-8 md:p-10 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-accent/40"
             >
               {/* Partner header */}
               <div className="mb-6">
                 <span className="text-accent text-sm font-semibold tracking-wide uppercase">
                   {partner.tier}
                 </span>
-                <h3 className="font-display font-bold text-2xl md:text-3xl text-charcoal mt-1">
+                <h3 className="font-display font-bold text-2xl md:text-3xl text-cream mt-1">
                   {partner.name}
                 </h3>
-                <p className="text-warm-gray text-base mt-1">
+                <p className="text-cream/60 text-base mt-1">
                   {partner.tagline}
                 </p>
               </div>
@@ -108,7 +103,7 @@ export default function Partners() {
                 {partner.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-start gap-3 text-warm-gray text-[0.95rem] leading-relaxed"
+                    className="flex items-start gap-3 text-cream/75 text-[0.95rem] leading-relaxed"
                   >
                     <CheckIcon />
                     {feature}
@@ -117,10 +112,10 @@ export default function Partners() {
               </ul>
 
               {/* Exclusive perk */}
-              <div className="rounded-xl bg-charcoal/[0.04] border border-charcoal/10 px-5 py-4 mb-6">
-                <p className="text-sm text-warm-gray">
-                  <span className="text-charcoal font-semibold">
-                    TableTurnerr Exclusive:
+              <div className="rounded-xl bg-cream/[0.06] border border-cream/10 px-5 py-4 mb-6">
+                <p className="text-sm text-cream/70">
+                  <span className="text-cream font-semibold">
+                    The goal:
                   </span>{" "}
                   <span className="text-accent font-bold">{partner.perk}</span>{" "}
                   {partner.perkDetail}
@@ -129,16 +124,16 @@ export default function Partners() {
 
               {/* Stat */}
               <div>
-                <p className="font-display font-bold text-[clamp(2rem,4vw,2.75rem)] leading-none tracking-tight text-charcoal">
+                <p className="font-display font-bold text-[clamp(2rem,4vw,2.75rem)] leading-none tracking-tight text-cream">
                   {partner.stat.prefix && <span>{partner.stat.prefix}</span>}
                   <NumberTicker
                     value={partner.stat.value}
                     decimalPlaces={partner.stat.decimalPlaces}
-                    className="text-charcoal"
+                    className="text-cream"
                   />
                   {partner.stat.suffix && <span>{partner.stat.suffix}</span>}
                 </p>
-                <p className="text-warm-gray text-sm leading-relaxed mt-1">
+                <p className="text-cream/60 text-sm leading-relaxed mt-1">
                   {partner.statLabel}
                 </p>
               </div>
@@ -148,15 +143,15 @@ export default function Partners() {
 
         {/* 3rd-party pivot strategy */}
         <AnimatedElement variants={fadeInUp} className="mt-4 md:mt-5">
-          <div className="rounded-[1.25rem] border border-charcoal/10 bg-cream/50 px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8">
-            <p className="text-warm-gray text-base md:text-lg leading-relaxed max-w-3xl">
-              <span className="text-charcoal font-semibold">
-                The smart play:
+          <div className="rounded-[1.25rem] border border-cream/10 bg-cream/[0.04] px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8">
+            <p className="text-cream/75 text-base md:text-lg leading-relaxed max-w-3xl">
+              <span className="text-cream font-semibold">
+                The approach:
               </span>{" "}
-              We don't ask you to ditch DoorDash or UberEats. Instead, we flip
-              the script — use those platforms as marketing channels to find new
-              customers, then convert repeat orders to your own commission-free
-              system.
+              We don't just send traffic. We build the website, the local
+              presence, and the reputation that turn that traffic into booked
+              customers, and we track every call, form, and visit so you always
+              know the return.
             </p>
           </div>
         </AnimatedElement>

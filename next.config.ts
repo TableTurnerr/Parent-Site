@@ -8,12 +8,27 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
       {
+        // Supabase Storage: blog featured images + inline uploads live here.
+        protocol: "https",
+        hostname: "ehmadjsryrsjjfwsmqqq.supabase.co",
+      },
+      {
+        // Any Supabase project host, future-proofing storage URLs.
+        protocol: "https",
+        hostname: "*.supabase.co",
+      },
+      {
         protocol: "http",
         hostname: "psdb.tableturnerr.com",
       },
       {
         protocol: "https",
         hostname: "psdb.tableturnerr.com",
+      },
+      {
+        // Live homepage screenshots for the "Our Work" portfolio (thum.io).
+        protocol: "https",
+        hostname: "image.thum.io",
       },
     ],
     formats: ["image/avif", "image/webp"],

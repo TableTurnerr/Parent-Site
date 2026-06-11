@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useMemo } from "react";
+import { useReducedMotion } from "framer-motion";
 
 interface BlurTextProps {
   /** The text string to animate word by word */
@@ -9,13 +10,22 @@ interface BlurTextProps {
   className?: string;
   /** Additional delay in ms before animation starts after scrolling into view */
   delay?: number;
+  /**
+   * Render the words with the terracotta gradient. Must be set HERE rather than
+   * wrapping BlurText in a `.text-accent-gradient` span: gradient text clips a
+   * background to the glyphs, but BlurText puts each word in its own child span,
+   * so the clip has to live on those word spans or the text renders invisible.
+   */
+  gradient?: boolean;
 }
 
 export default function BlurText({
   text,
   className = "",
   delay = 0,
+  gradient = false,
 }: BlurTextProps) {
+  const prefersReducedMotion = useReducedMotion();
   const [isAnimating, setIsAnimating] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
 
@@ -39,6 +49,11 @@ export default function BlurText({
   }, [text]);
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setIsAnimating(true);
+      return;
+    }
+
     const el = ref.current;
     if (!el) return;
 
@@ -57,7 +72,7 @@ export default function BlurText({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [delay]);
+  }, [delay, prefersReducedMotion]);
 
   return (
     <span ref={ref} className={className}>
@@ -65,8 +80,8 @@ export default function BlurText({
         <span
           key={index}
           className={`inline-block transition-all ${
-            isAnimating ? "opacity-100" : "opacity-0"
-          }`}
+            gradient ? "text-accent-gradient" : ""
+          } ${isAnimating ? "opacity-100" : "opacity-0"}`}
           style={{
             transitionDuration: `${word.duration}s`,
             transitionDelay: `${word.delay}s`,

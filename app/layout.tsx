@@ -32,30 +32,29 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://tableturnerr.com"),
   title: {
     default:
-      "TableTurnerr | Restaurant Website Design, SEO & Marketing Agency",
+      "TableTurnerr | Web Design, SEO & Marketing for Local Businesses",
     template: "%s | TableTurnerr",
   },
   description:
-    "We design SEO-optimized restaurant websites and drive traffic for independent restaurants. Custom website design, local SEO, Google Ads management, and commission-free ordering setup. Get a free quote.",
+    "TableTurnerr helps local businesses get found, get booked, and grow. High-converting websites built on a proven framework, local SEO, Google Ads, and Google Business Profile optimization. Book a free consultation.",
   keywords: [
-    "restaurant website design",
-    "restaurant SEO",
-    "restaurant marketing agency",
-    "restaurant branding",
-    "Google Ads for restaurants",
+    "marketing agency for local businesses",
+    "local business website design",
+    "small business SEO",
+    "local SEO services",
+    "Google Ads management",
     "Google Business Profile optimization",
-    "restaurant digital marketing",
-    "independent restaurant marketing",
-    "commission-free online ordering",
-    "restaurant menu design",
-    "local SEO for restaurants",
-    "restaurant website builder",
+    "web design agency",
+    "local business marketing",
+    "restaurant marketing",
+    "restaurant SEO",
+    "restaurant website design",
   ],
   openGraph: {
     siteName: "TableTurnerr",
     locale: "en_US",
     type: "website",
-    images: [{ url: "/images/og/default.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/images/usage/restaurant-kitchen-2.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -72,7 +71,10 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  category: "Restaurant Marketing",
+  verification: {
+    google: "M-0AZRyz9kqD2TwnHjOCO3R593wsaKNLCDZy0JiGFVs",
+  },
+  category: "Marketing",
 };
 
 export default function RootLayout({
@@ -88,7 +90,10 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="font-body antialiased">
+      {/* suppressHydrationWarning: browser extensions (e.g. Bitdefender) inject
+          attributes like bis_register onto <body> before React hydrates. This
+          suppresses warnings for body's OWN attributes only, not its children. */}
+      <body className="font-body antialiased" suppressHydrationWarning>
         {children}
         <SpeedInsights />
         <Analytics />

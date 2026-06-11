@@ -9,6 +9,11 @@ import {
   SITE_CONFIG,
 } from "@/app/lib/constants";
 
+// Free tools we offer. More easy-win tools land here over time.
+const TOOLS = [
+  { label: "Review Calculator", href: "/review-calculator" },
+] as const;
+
 function FlipLink({
   href,
   children,
@@ -43,7 +48,7 @@ export default function Footer({
     <footer className="bg-black pt-16 md:pt-20 pb-8">
       <Container>
         {/* ─── Main Footer Grid ─── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Column 1 — Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="inline-block">
@@ -97,7 +102,21 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* Column 4 — Contact */}
+          {/* Column 4 — Tools */}
+          <div>
+            <h3 className="text-white text-sm font-medium uppercase tracking-wider mb-4">
+              Tools
+            </h3>
+            <ul className="space-y-3">
+              {TOOLS.map((tool) => (
+                <li key={tool.href}>
+                  <FlipLink href={tool.href}>{tool.label}</FlipLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 5 — Contact */}
           <div>
             <h3 className="text-white text-sm font-medium uppercase tracking-wider mb-4">
               Contact
@@ -126,17 +145,8 @@ export default function Footer({
           </div>
         </div>
 
-        {/* ─── Large Watermark Text ─── */}
-        {!hideWatermark && (
-          <div className="mt-12 sm:mt-16 overflow-visible select-none pointer-events-none flex justify-center" aria-hidden="true">
-            <p className="text-neutral-800 text-[2.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[8rem] xl:text-[12rem] font-bold uppercase tracking-tighter leading-none whitespace-nowrap text-center">
-              TABLETURNERR
-            </p>
-          </div>
-        )}
-
-        {/* ─── Bottom Bar ─── */}
-        <div className={`${hideWatermark ? "mt-12 sm:mt-16" : "mt-6 sm:mt-8"} border-t border-neutral-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4`}>
+        {/* ─── Bottom Bar ─── (watermark removed per design) */}
+        <div className="mt-12 sm:mt-16 border-t border-neutral-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
           <p className="text-neutral-400 text-sm">
             &copy; {new Date().getFullYear()} TableTurnerr. All rights reserved.
           </p>

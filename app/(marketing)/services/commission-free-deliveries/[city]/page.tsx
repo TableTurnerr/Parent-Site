@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
 import ServicePage from "@/app/components/templates/ServicePage";
 import {
-  generateServiceSchema,
-  generateBreadcrumbSchema,
-  generateFAQSchema,
-} from "@/app/lib/schema";
-import { SITE_CONFIG } from "@/app/lib/constants";
-import {
   getLocationStaticParams,
   getLocationData,
   buildLocationServiceData,
   buildLocationMetadata,
+  buildLocationJsonLd,
 } from "@/app/lib/location-service-helpers";
 
 const SERVICE_SLUG = "commission-free-deliveries";
@@ -37,33 +32,13 @@ export default async function Page({
   const { city } = await params;
   const { service, city: cityData } = getLocationData(SERVICE_SLUG, city);
   const locationService = buildLocationServiceData(service, cityData);
-
-  const serviceSchema = generateServiceSchema({
-    name: locationService.title,
-    description: locationService.metaDescription,
-    url: `${SITE_CONFIG.url}/services/${service.slug}/${cityData.slug}`,
-  });
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: SITE_CONFIG.url },
-    { name: "Services", url: `${SITE_CONFIG.url}/services` },
-    {
-      name: service.title,
-      url: `${SITE_CONFIG.url}/services/${service.slug}`,
-    },
-    {
-      name: `${cityData.name}, ${cityData.stateCode}`,
-      url: `${SITE_CONFIG.url}/services/${service.slug}/${cityData.slug}`,
-    },
-  ]);
-  const faqSchema = generateFAQSchema(service.faqs);
+  const jsonLd = buildLocationJsonLd(service, cityData, locationService);
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([serviceSchema, breadcrumbSchema, faqSchema]),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <ServicePage service={locationService} />
     </>

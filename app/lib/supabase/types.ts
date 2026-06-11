@@ -42,6 +42,51 @@ export type Database = {
           },
         ]
       }
+      contact_leads: {
+        Row: {
+          id: string
+          name: string
+          email: string
+          restaurant: string | null
+          phone: string | null
+          service: string | null
+          message: string
+          source_path: string | null
+          user_agent: string | null
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          email: string
+          restaurant?: string | null
+          phone?: string | null
+          service?: string | null
+          message: string
+          source_path?: string | null
+          user_agent?: string | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          email?: string
+          restaurant?: string | null
+          phone?: string | null
+          service?: string | null
+          message?: string
+          source_path?: string | null
+          user_agent?: string | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           author_id: string

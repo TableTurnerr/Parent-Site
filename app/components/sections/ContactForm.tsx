@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { submitLead } from "@/app/(marketing)/contact/actions";
 
 type FormStatus = "idle" | "sending" | "sent" | "error";
 
@@ -20,15 +21,22 @@ const labelClasses = "block text-sm font-medium text-charcoal mb-2";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
+    setErrorMsg("");
 
-    // Simulate sending — no backend wired yet
-    setTimeout(() => {
+    const formData = new FormData(e.currentTarget);
+    const result = await submitLead(formData);
+
+    if (result.ok) {
       setStatus("sent");
-    }, 600);
+    } else {
+      setErrorMsg(result.error);
+      setStatus("error");
+    }
   }
 
   if (status === "sent") {
@@ -64,6 +72,18 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Honeypot — hidden from humans, catches bots. Do not remove. */}
+      <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="company_website">Company website</label>
+        <input
+          id="company_website"
+          name="company_website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       {/* Name + Email */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
@@ -160,14 +180,29 @@ export default function ContactForm() {
         />
       </div>
 
+      {/* Error message */}
+      {status === "error" && errorMsg && (
+        <p
+          role="alert"
+          className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+        >
+          {errorMsg}
+        </p>
+      )}
+
       {/* Submit */}
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="w-full sm:w-auto bg-charcoal text-cream rounded-full px-8 py-3.5 font-medium hover:bg-charcoal-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        {status === "sending" ? "Sending..." : "Send Message"}
-      </button>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <button
+          type="submit"
+          disabled={status === "sending"}
+          className="w-full sm:w-auto bg-charcoal text-cream rounded-full px-8 py-3.5 font-medium hover:bg-charcoal-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {status === "sending" ? "Sending..." : "Send Message"}
+        </button>
+        <p className="text-xs text-warm-gray-light">
+          We reply within 24 hours. No spam, ever.
+        </p>
+      </div>
     </form>
   );
 }

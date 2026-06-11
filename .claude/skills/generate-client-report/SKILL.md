@@ -50,6 +50,52 @@
    }
    ```
 
+6. **Non-restaurant clients skip the grader.** The grader (`grader.owner.com`) is restaurant-specific. For any business that is **not** a restaurant or food-service venue (med spas, salons, clinics, dentists, gyms, law firms, home services, retail, etc.), **do not run Step 1 at all** — there is nothing to capture. Score the six `ratings`, `graderScore`, `overallGrade`, and `monthlyRevenueLoss` manually from web research, and follow the **"Non-restaurant clients" section below** for the language analogs and the manual-scoring rubric. The two live precedents are `reports-archive/refresh-medspa/` (NJ med spa) and `reports-archive/the-gem-med-spa/` (TX med spa) — mirror them for non-restaurant tone, alongside the bundled sample for structure.
+
+---
+
+## Non-restaurant clients (med spas, salons, clinics, service businesses)
+
+The grader only scores restaurants. When the client is **not** a restaurant, the structure of both reports stays identical — same locked sections, IDs, order, group nesting, progression bar — but you **skip the grader entirely** and adapt the restaurant-specific wording. Read this section once before generating for any non-restaurant client.
+
+### Is it a non-restaurant?
+If the business sells food/drink for on- or off-premise consumption (restaurant, café, bakery, bar, food truck, ghost kitchen), use the normal restaurant flow with the grader. Everything else — med spa, salon, barbershop, dental/medical/vet practice, gym/studio, law/accounting firm, home services (HVAC, plumbing, roofing), auto, retail boutique — is a **non-restaurant**: skip Step 1 and score manually.
+
+### What changes
+1. **Skip Step 1 (grader capture) completely.** Do not launch `grader_cli.py`, do not open Chrome, do not pass `graderData`. There is no `<slug>-grader.json` for these clients.
+2. **Replace the grader with web research.** WebFetch the homepage, About/team page, and the top service pages; WebSearch the brand name for reviews/rating, Google Business Profile status, and 4–6 local competitors. This research is your only data source — gather it before writing.
+3. **Score the six `ratings`, `graderScore`, `overallGrade`, and `monthlyRevenueLoss` by hand** using the rubric below. In the **client** report these appear as TableTurnerr's own analysis with no provenance (same as always). In the **internal** report, the `risks-and-caveats` section MUST state that no grader was run and that all scores are directional, not tool output.
+4. **Adapt the restaurant-specific labels** per the language map below. Section IDs and order never change — only human-facing wording.
+
+### Language map (restaurant → service business)
+| Locked element | Restaurant wording | Service-business wording |
+|---|---|---|
+| `website-keywords` title | "…Bringing You Customers" | "…Bringing You **Patients**" (medical/med spa/dental) or "…Bringing You **Clients**" (salon/legal/fitness) |
+| `money-keywords` label | "People Ready to **Order**" | "People Ready to **Book**" (services) or "…to **Buy**" (retail) |
+| `gbp` group intro | "more than your restaurant" | "more than your **clinic / salon / practice / shop**" |
+| `neighborhoods` label | "Reaching Nearby [City] Neighborhoods" | "Reaching Nearby **[County / Region] Communities**" (use the real local hub) |
+| `catering` group (id stays `catering`) | "Catering — A Search Almost No One Is Going After" | the client's **highest-LTV, most-repeatable offering**: Medical Weight Loss / Semaglutide, Bridal & Events, Memberships, Packages, Corporate/B2B, Maintenance Plans |
+| `ad-spend` column 4 header | "Est. Calls / Direct Orders" | "Est. **Consultations**" or "Est. **Bookings**" |
+| `ad-spend` average ticket | $25–45 food ticket | service AOV: med spa ~$200–300, salon ~$80–150, dental new-patient ~$300+, home services ~$250–500 |
+| `ad-spend` ROAS caveat | "direct orders avoid the 20–30% delivery-app commission" | drop the delivery line; use "direct bookings avoid third-party marketplace/booking fees" or simply omit it |
+| hero `monthlyRevenueLoss` | restaurant-sized | size to the service market (a small-town clinic ≪ a metro restaurant) |
+
+Keep the 4th keyword group's `id` as `catering` (the ID is locked) even when the label is "Medical Weight Loss" or "Bridal & Events" — only the `label` changes.
+
+### Manual scoring rubric (no grader)
+Estimate each `ratings[]` score 0–100 from research signals, then set `graderScore` near the weighted feel of the six (it need not be the exact average), pick `overallGrade` from it, and size `monthlyRevenueLoss` to the local market. Anchor points:
+- **Reviews & Reputation** — driven by Google review **count + recency + average**. A 5.0 with 80+ reviews → 75–85. A brand-new profile with <10 reviews → 25–35 regardless of how good those few are.
+- **Google Business Profile** — completeness (categories, photos, Posts) + map-pack position. Not in top 3 for primary terms → 30–45.
+- **Social Media** — presence + activity + following across IG/FB/TikTok. Active but small → 35–45.
+- **Website Content** — depth, individual service pages, blog, local keywords, schema. Thin/templated → 25–40.
+- **Google Search** — non-branded organic visibility. Ranks for nothing but the brand name → 15–25.
+- **Speed & Setup** — SSL, mobile, modern template, booking integration. Modern template, not PageSpeed-measured → 55–65 (note "unverified" in the internal report).
+- **`overallGrade`** — map the felt average: ~25–40 → "D"/"D+"; ~41–55 → "C-"/"C"; ~56–70 → "C+"/"B-". (Valid grades only — there is no "F+"; the floor is "F".)
+- **`monthlyRevenueLoss`** — conservative monthly $ left on the table from search invisibility, scaled to local ticket × plausible missed bookings. Small-town clinic ≈ $2,000–3,500; metro practice higher.
+
+### Everything else is unchanged
+Locations (Step 0.5) — most service businesses are single-location, so omit `client.location` and let `push-report.js` create the default `Main` location; the same multi-location rules apply to chains (salon/clinic groups). The bundled sample is still the structural source of truth (Step 0a). The Step 3a/3b shapes, the locked section table, the progression bar, and the "stop after writing JSON" rule (Steps 4–5) all apply exactly as written.
+
 ---
 
 ## Step 0 — Gather inputs
@@ -232,6 +278,8 @@ State the reference once, briefly, at the start of generation (e.g. "Using the b
 
 ## Step 1 — Capture grader report (run the Python CLI, watch for sentinel)
 
+> **Skip this entire step for non-restaurant clients** (med spas, salons, clinics, etc.). The grader only scores restaurants — see the "Non-restaurant clients" section above. Score manually from web research and go straight to Step 2/3.
+
 **Search by NAME + AREA, not URL.** grader.owner.com's input box accepts both a website URL and a Google Places business name. Always pass `"<Brand Name> <Area or Address>"` in `--query` — that surfaces a Google Places autocomplete dropdown narrowed to that one location. The user clicks it; the grader scores that location's actual GBP, not whatever the homepage URL resolves to. See Step 0.5d for what to put in `<Area>`.
 
 This is materially better than passing a URL or a bare brand name because:
@@ -345,6 +393,8 @@ Open the sample JSON and copy its top-level shape, section order, group structur
 | `website` | `keywords` | `website-keywords` | `Search Terms That Should Be Bringing You Customers` |
 | `google-ads` | `table` | `ad-spend` | `Ad Spend & Estimated Returns` |
 
+> **Non-restaurant clients:** the child **IDs and types above are locked**, but the human-facing **titles/labels** adapt per the language map in the "Non-restaurant clients" section (e.g. `website-keywords` becomes "…Bringing You Patients"). Never change an `id`.
+
 **Group section rules:**
 
 - Each group has a short 1–2 sentence `intro` introducing the group, written client-facing.
@@ -356,10 +406,10 @@ Open the sample JSON and copy its top-level shape, section order, group structur
 - **`gbp-competition`** — competitor table (rank, name, style, rating, knownFor; mark the client with `"isYou": true`); `searchPosition` rows; `rivalCallouts` (2 rivals — closest neighborhood rival + biggest threat); `winLose` array; and the `opportunity` block with intro + rows + bottomLine. Match the sample's structure 1:1.
 - **`website-problems`** — exactly **5** numbered problem cards. Each has `number`, `title`, `body[]` (1–2 paragraphs), and optional `bullets[]`. Tone: direct, specific, actionable. Identify problems that are real for *this* business — never copy-paste the sample's exact problems.
 - **`website-keywords`** — **4** keyword groups in this order, with these exact `id`/`label` patterns:
-  1. `money-keywords` — "The Money Keywords — People Ready to Order"
+  1. `money-keywords` — "The Money Keywords — People Ready to Order" (non-restaurant: "…People Ready to **Book**", or "…to **Buy**" for retail)
   2. `secret-weapons` — "Your Secret Weapons — Keywords Only You Can Own"
-  3. `neighborhoods` — "Reaching Nearby [City] Neighborhoods" (or analogous geographic hub for non-restaurant clients)
-  4. `catering` — "Catering — A Search Almost No One Is Going After" (or analogous high-margin offering: "Events," "Private Hire," "B2B," etc.)
+  3. `neighborhoods` — "Reaching Nearby [City] Neighborhoods" (non-restaurant: "Reaching Nearby [County/Region] Communities")
+  4. `catering` — "Catering — A Search Almost No One Is Going After" (keep the `catering` **id**, but for non-restaurants swap the **label** to the client's highest-LTV offering: "Medical Weight Loss," "Bridal & Events," "Memberships," "Corporate/B2B," etc.)
   Each group needs `summary`, `highlight` (volume badge), `intro`, `table` (headers + rows), and `takeaway`. Plus the `totals` block at the end.
 
   **`keywords.totals.summary` MUST close with a traffic-performance paragraph** that frames current monthly traffic vs. a 3-month target. Required shape (separated from the rest of the summary by a blank line):
@@ -393,9 +443,9 @@ Open the sample JSON and copy its top-level shape, section order, group structur
 - **`ad-spend` (inside the `google-ads` group)** — `type: "table"`, `id: "ad-spend"`, `title: "Ad Spend & Estimated Returns"`. Three-tier paid-ads forecast that pairs with the keyword opportunity sized in the `keywords` section. Required shape:
   - `intro` — 1 short paragraph: "Once the site fixes above are live, a small monthly Google Ads budget compounds the lift…" Tailor a sentence to *this* location's market dynamics (low-CPC small town vs. competitive city, college market, border traffic, etc.). Never name upstream tools.
   - `emphasizeFirstColumn: true`.
-  - `headers`: **exactly** `["Tier", "Monthly Spend", "Est. Clicks", "Est. Calls / Direct Orders", "Est. Monthly Revenue", "Approx. ROAS"]`.
+  - `headers`: **exactly** `["Tier", "Monthly Spend", "Est. Clicks", "Est. Calls / Direct Orders", "Est. Monthly Revenue", "Approx. ROAS"]`. **Non-restaurant clients** swap column 4 to `"Est. Consultations"` or `"Est. Bookings"` (the other five headers stay identical).
   - `rows`: **exactly 3 rows** — `Starter` ($300/mo), `**Growth — Recommended**` ($750/mo) with the bolded recommended badge in column 1, and `Aggressive` ($1,500/mo). Keep the spend column at `$300/mo`/`$750/mo`/`$1,500/mo` across all reports; only the click/order/revenue/ROAS ranges change per location.
-  - `callout` — a "How to read this" paragraph stating: (a) what queries the ads target (use this location's actual money-keywords + secret-weapon terms), (b) assumed conversion rate (~10–12% clicks → calls/orders), (c) assumed average ticket (location-specific, typically $30–45), (d) that ROAS is conservative because direct orders avoid the 20–30% delivery-app commission, and (e) which tier you recommend starting with.
+  - `callout` — a "How to read this" paragraph stating: (a) what queries the ads target (use this location's actual money-keywords + secret-weapon terms), (b) assumed conversion rate (~10–12% clicks → calls/orders; ~8–12% clicks → consultations/bookings for services), (c) assumed average ticket (location-specific, typically $30–45 for food; for non-restaurants use the service AOV from the language map — med spa ~$200–300, salon ~$80–150, etc.), (d) that ROAS is conservative because direct orders avoid the 20–30% delivery-app commission (for non-restaurants drop the delivery line — say direct bookings avoid third-party marketplace/booking fees, or omit it), and (e) which tier you recommend starting with.
 
   **How to size the per-location numbers** (don't copy verbatim across locations — tune them):
   - **Cost-per-click bands** to anchor the click counts:
@@ -495,6 +545,8 @@ The internal report is admin-only and will never appear on the public URL.
 | `EOFError: EOF when reading a line` from share menu | Trying to run the interactive menu inside Bash. Re-launch via `cmd //c start "" "scripts/manage-reports.bat"` so it gets its own terminal |
 | Chained `mkdir && cd && python ...` returns exit code 1 | Don't chain. Run `mkdir -p ...` separately |
 | Capture script doesn't print `READY:` line | Capture failed — continue with `graderData = null`. Note it in the internal report only. The client report still ships with TableTurnerr's analysis numbers. |
+| Client is a med spa / salon / clinic / any non-restaurant | Do **not** run the grader at all. Skip Step 1, score the six ratings manually (see "Non-restaurant clients" section), and note "no grader run — scores directional" in the internal `risks-and-caveats`. |
+| Unsure whether to run the grader | If it sells food/drink, run it. Anything else (services, retail, medical, fitness) is a non-restaurant — skip it. |
 | CAPTCHA in browser | User solves it in real Chrome; script auto-detects completion |
 | Chrome not found | Ask user to install Chrome or check PATH |
 | CDP connection refused | Close all Chrome windows and re-run |
@@ -522,6 +574,9 @@ The internal report is admin-only and will never appear on the public URL.
 - ❌ Do not copy the Namaste Blaine / Bellingham ad-spend numbers into a new client's report — re-derive them from the location's CPC band, conversion rate, and average ticket. Verbatim copying is a tell.
 - ❌ Do not let the Growth tier's low-end revenue come in below spend. If it does, your CPC, conversion-rate, or AOV assumption is wrong — fix it before shipping.
 - ❌ Do not name upstream tools ("owner.com", "grader", etc.) in the client JSON.
+- ❌ Do not run the grader for a non-restaurant client (med spa, salon, clinic, etc.). Skip Step 1 and score manually per the "Non-restaurant clients" section. Conversely, do not skip the grader for an actual restaurant.
+- ❌ Do not change a locked `id` when adapting wording for a non-restaurant. Only the human-facing titles/labels change (e.g. the 4th keyword group stays `id: "catering"` even when its label is "Medical Weight Loss"). IDs, types, and section order are identical to the restaurant flow.
+- ❌ Do not present manually-scored ratings as grader output in the internal report. State plainly in `risks-and-caveats` that no grader was run and the numbers are directional.
 - ❌ Do not run `scripts/grader_cli.py share` directly — use `scripts/push-report.js` (the manager calls it for you).
 - ❌ Do not produce one report covering many locations. Each graded location gets its own slug, folder, and JSON pair.
 - ❌ Do not silently skip locations when a brand has too many. Always document `graderRunFor` + `skippedLocations` in `client.location`, and surface skipped ones in the internal report's `risks-and-caveats`.

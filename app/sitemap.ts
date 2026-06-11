@@ -1,10 +1,20 @@
 import type { MetadataRoute } from "next";
 import { SERVICES } from "./lib/constants";
 import { TARGET_CITIES } from "./lib/location-data";
+import { getPublishedPostSlugs } from "./lib/blog";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://tableturnerr.com";
   const now = new Date();
+
+  // Published blog posts (empty if none / DB unavailable at build).
+  const posts = await getPublishedPostSlugs();
+  const blogPostPages: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: post.updated_at ? new Date(post.updated_at) : now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
 
   const servicePages: MetadataRoute.Sitemap = SERVICES.map((service) => ({
     url: `${baseUrl}/services/${service.slug}`,
@@ -39,6 +49,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...servicePages,
     ...locationPages,
     {
+      url: `${baseUrl}/locations`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/review-calculator`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/about`,
       lastModified: now,
       changeFrequency: "monthly",
@@ -56,6 +78,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.8,
     },
+    ...blogPostPages,
     {
       url: `${baseUrl}/search`,
       lastModified: now,

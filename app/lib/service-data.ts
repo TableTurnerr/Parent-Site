@@ -29,16 +29,23 @@ export interface ServicePageData {
   faqs: ServiceFAQ[];
   keywords: string[];
   metaDescription: string;
+  /** Present only on city variants: drives the unique local intro band. */
+  cityContext?: {
+    name: string;
+    state: string;
+    stateCode: string;
+    blurb: string;
+  };
 }
 
 export const SERVICE_PAGES: Record<string, ServicePageData> = {
   "restaurant-website-design": {
-    title: "Custom Restaurant Website Design",
+    title: "Website Design",
     slug: "restaurant-website-design",
     category: "Web Design",
-    headline: "Custom Restaurant Website Design",
+    headline: "Website Design That Converts",
     description:
-      "We design and build custom restaurant websites that rank on Google, convert visitors into paying diners, and give you full control over your online presence. Mobile-first, SEO-optimized, and built for online ordering from day one.",
+      "We build high-converting websites on a proven, conversion-tested framework that we tailor to your brand, so you rank on Google, turn visitors into customers, and own your online presence. Mobile-first, SEO-optimized, and ready for online ordering from day one.",
     heroImage: {
       src: "/images/usage/chef-plating.webp",
       alt: "Chef carefully plating a dish in a professional restaurant kitchen",
@@ -47,32 +54,32 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Mobile-First Design",
         description:
-          "78.4% of restaurant website traffic comes from mobile devices. Every site we build is designed mobile-first, ensuring a fast, smooth experience that converts on any screen size.",
+          "The majority of local website traffic comes from mobile devices. Every site we build is designed mobile-first, ensuring a fast, smooth experience that converts on any screen size.",
       },
       {
         title: "SEO Built In From Day One",
         description:
-          "We don't bolt SEO on after the fact. Every restaurant website we build includes proper heading hierarchy, local SEO markup, schema data, optimized images, and fast load times baked into the foundation.",
+          "We don't bolt SEO on after the fact. Every website we build includes proper heading hierarchy, local SEO markup, schema data, optimized images, and fast load times baked into the foundation.",
       },
       {
         title: "Conversion-Optimized Layouts",
         description:
-          "Strategic placement of online ordering buttons, reservation links, and contact info based on how real diners browse restaurant websites. Every layout decision is driven by conversion data.",
+          "Strategic placement of calls-to-action, booking, and contact info based on how real customers browse and decide. Every layout decision is driven by conversion data.",
       },
       {
-        title: "Online Ordering Integration",
+        title: "Lead Capture Built In",
         description:
-          "We integrate commission-free ordering systems like Owner.com and ChowNow directly into your website, so you keep more profit from every order placed through your site.",
+          "We build in the forms, click-to-call, and booking that turn visitors into enquiries, so your site captures leads instead of losing them.",
       },
       {
         title: "Lightning-Fast Performance",
         description:
-          "Slow websites lose customers. We optimize every image, minimize code, and use modern hosting to keep your restaurant website loading in under 2 seconds on any connection.",
+          "Slow websites lose customers. We optimize every image, minimize code, and use modern hosting to keep your website loading in under 2 seconds on any connection.",
       },
       {
-        title: "Custom Branding, Not Templates",
+        title: "A Proven Framework, Tailored to You",
         description:
-          "No cookie-cutter templates. Every restaurant website we design reflects your brand identity, menu style, and atmosphere. Your website should feel like walking into your restaurant.",
+          "We start from a refined, conversion-tested foundation we have battle-tested across real businesses, then tailor it to your brand, content, and voice. You get a site that performs from day one without paying to reinvent the wheel.",
       },
     ],
     stats: [
@@ -80,78 +87,76 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
         value: 78.4,
         suffix: "%",
         decimalPlaces: 1,
-        label: "of restaurant website traffic comes from mobile devices",
+        label: "of local website traffic comes from mobile devices",
         source: "Industry Data",
       },
       {
-        prefix: "+",
-        value: 377,
+        value: 88,
         suffix: "%",
         decimalPlaces: 0,
-        label: "online growth achieved by Samos Oaxaca after transitioning to Owner.com",
-        source: "Owner.com",
+        label: "of consumers look at a business's website before deciding to buy",
+        source: "Industry Data",
       },
       {
         value: 34,
         suffix: "%",
         decimalPlaces: 0,
-        label: "increase in online ordering volume from mobile-first redesigns with sticky CTAs",
+        label: "increase in conversions from a mobile-first redesign with clear CTAs",
         source: "Industry Data",
       },
       {
-        prefix: "$",
-        value: 970,
-        suffix: "",
+        value: 2,
+        suffix: "x",
         decimalPlaces: 0,
-        label: "in Owner.com setup fees waived when you work with TableTurnerr",
-        source: "Owner.com",
+        label: "more enquiries for businesses with a fast, conversion-built website",
+        source: "Industry Data",
       },
     ],
     faqs: [
       {
-        question: "How much does a custom restaurant website cost?",
+        question: "How much does a custom website cost?",
         answer:
-          "Every restaurant has different needs, so we provide custom quotes after an initial consultation. Pricing depends on the number of pages, features like online ordering integration, and the level of custom design work required.",
+          "Every business has different needs, so we provide custom quotes after an initial consultation. Pricing depends on the number of pages, the features you need, and the level of custom design work required.",
       },
       {
-        question: "How long does it take to design and build a restaurant website?",
+        question: "How long does it take to design and build a website?",
         answer:
-          "Most custom restaurant websites are completed within 2-4 weeks from kickoff. This includes design, development, content creation, and full SEO optimization.",
+          "Most custom websites are completed within 2-4 weeks from kickoff. This includes design, development, content creation, and full SEO optimization.",
       },
       {
         question: "Do I need to provide my own content and photos?",
         answer:
-          "We can work with what you have, or handle content creation for you. We write SEO-optimized copy for your menu, about page, and service descriptions. For photography, we recommend professional food photography but can source high-quality stock images as a starting point.",
+          "We can work with what you have, or handle content creation for you. We write SEO-optimized copy for your home, about, and service pages. For photography, we recommend professional photos but can source high-quality stock images as a starting point.",
       },
       {
-        question: "Will my website work with online ordering platforms?",
+        question: "Can you add booking, forms, or online payments?",
         answer:
-          "Yes. We integrate commission-free ordering systems like Owner.com and ChowNow directly into your website. This means customers order through your site, not through third-party apps charging 15-30% per order.",
+          "Yes. We can integrate booking, contact forms, click-to-call, and payment or scheduling tools right into your site, so visitors can take action without leaving the page.",
       },
       {
         question: "Do you offer website maintenance after launch?",
         answer:
-          "Yes. We offer ongoing maintenance packages that include content updates, security patches, performance monitoring, and SEO improvements. Most of our restaurant clients work with us on an ongoing monthly basis.",
+          "Yes. We offer ongoing maintenance packages that include content updates, security patches, performance monitoring, and SEO improvements. Most of our clients work with us on an ongoing monthly basis.",
       },
     ],
     keywords: [
-      "restaurant website design",
-      "restaurant website builder",
-      "custom restaurant website",
-      "restaurant web design",
-      "restaurant website development",
+      "website design",
+      "website design agency",
+      "small business website design",
+      "local business website design",
+      "custom website design",
     ],
     metaDescription:
-      "Custom restaurant website design built to rank on Google and convert visitors into paying diners. Mobile-first, SEO-optimized, with online ordering integration. Get a free consultation.",
+      "Custom website design built to rank on Google and convert visitors into paying customers. Mobile-first, SEO-optimized, and built on a proven framework. Get a free consultation.",
   },
 
   "restaurant-seo": {
-    title: "Restaurant SEO Services",
+    title: "Local SEO Services",
     slug: "restaurant-seo",
     category: "SEO",
-    headline: "Restaurant SEO Services",
+    headline: "Local SEO Services",
     description:
-      "Local SEO strategies built specifically for restaurants. We get your restaurant found on Google Search, Google Maps, and local pack results so nearby diners choose you over the competition.",
+      "Local SEO strategies that get your business found on Google Search, Google Maps, and the local pack, so nearby customers choose you over the competition.",
     heroImage: {
       src: "/images/usage/kitchen-busy.webp",
       alt: "Busy restaurant kitchen with chefs working during peak service",
@@ -160,22 +165,22 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Local SEO Strategy",
         description:
-          "We build location-specific SEO strategies that target the searches your ideal diners are making. From 'best sushi near me' to 'Italian restaurant downtown,' we make sure you show up.",
+          "We build location-specific SEO strategies that target the searches your ideal customers are making. From 'near me' searches to 'best [service] in [city],' we make sure you show up.",
       },
       {
         title: "Google Maps Optimization",
         description:
-          "Your Google Business Profile is the most important piece of restaurant SEO. We optimize every field, manage your photos, respond to reviews, and keep your listing performing at its best.",
+          "Your Google Business Profile is the most important piece of local SEO. We optimize every field, manage your photos, respond to reviews, and keep your listing performing at its best.",
       },
       {
         title: "On-Page SEO",
         description:
-          "We optimize your website's title tags, meta descriptions, heading structure, internal linking, and content to target the keywords restaurant owners actually search for.",
+          "We optimize your website's title tags, meta descriptions, heading structure, internal linking, and content to target the keywords your customers actually search for.",
       },
       {
         title: "Keyword Research & Strategy",
         description:
-          "We identify the exact search terms your potential customers use to find restaurants like yours, then build a strategy to rank for those terms across Google Search and Maps.",
+          "We identify the exact search terms your potential customers use to find businesses like yours, then build a strategy to rank for those terms across Google Search and Maps.",
       },
       {
         title: "Competitor Analysis",
@@ -185,7 +190,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Monthly Reporting & Tracking",
         description:
-          "You get clear, actionable reports showing your ranking positions, organic traffic, Google Business Profile views, and the actual phone calls and orders driven by SEO.",
+          "You get clear, actionable reports showing your ranking positions, organic traffic, Google Business Profile views, and the actual phone calls and enquiries driven by SEO.",
       },
     ],
     stats: [
@@ -193,76 +198,76 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
         value: 92,
         suffix: "%",
         decimalPlaces: 0,
-        label: "of customers use a search engine to find restaurants",
+        label: "of consumers use a search engine to find local businesses",
         source: "Industry Data",
       },
       {
         value: 90,
         suffix: "%",
         decimalPlaces: 0,
-        label: "of diners research a restaurant online before visiting",
+        label: "of consumers research a business online before visiting",
         source: "Industry Data",
       },
       {
         value: 72,
         suffix: "%",
         decimalPlaces: 0,
-        label: "of local restaurant searches result in a visit within 5 miles",
+        label: "of local searches result in a visit within 5 miles",
         source: "Google",
       },
       {
         value: 10,
         suffix: ":1",
         decimalPlaces: 0,
-        label: "ROI delivered by content and SEO for restaurants",
+        label: "ROI delivered by content and SEO over time",
         source: "Industry Data",
       },
     ],
     faqs: [
       {
-        question: "How long does restaurant SEO take to show results?",
+        question: "How long does local SEO take to show results?",
         answer:
-          "Most restaurants start seeing measurable improvements in Google rankings and traffic within 3-6 months. Local SEO tends to move faster than national SEO because you're competing in a smaller geographic area. Quick wins like Google Business Profile optimization can show results in weeks.",
+          "Most businesses start seeing measurable improvements in Google rankings and traffic within 3-6 months. Local SEO tends to move faster than national SEO because you're competing in a smaller geographic area. Quick wins like Google Business Profile optimization can show results in weeks.",
       },
       {
-        question: "What's included in your restaurant SEO service?",
+        question: "What's included in your local SEO service?",
         answer:
-          "Our restaurant SEO service covers local SEO strategy, Google Business Profile optimization, on-page SEO for your website, keyword targeting for your menu and location, Google Maps optimization, competitor analysis, and monthly performance reporting.",
+          "Our local SEO service covers local SEO strategy, Google Business Profile optimization, on-page SEO for your website, keyword targeting for your services and location, Google Maps optimization, competitor analysis, and monthly performance reporting.",
       },
       {
-        question: "Do you work with restaurants in specific locations?",
+        question: "Do you work with businesses in specific locations?",
         answer:
-          "We work with independent restaurants across the United States. Our local SEO strategies are tailored to your specific city, neighborhood, and competitive landscape. Whether you're in a major metro area or a small town, we build a strategy around your market.",
+          "We work with local businesses across the United States. Our local SEO strategies are tailored to your specific city, neighborhood, and competitive landscape. Whether you're in a major metro area or a small town, we build a strategy around your market.",
       },
       {
         question: "What's the difference between local SEO and regular SEO?",
         answer:
-          "Local SEO focuses on ranking your restaurant in location-based searches and Google Maps results. Regular SEO targets broader, non-location-specific searches. For restaurants, local SEO is far more valuable because your customers are searching for food near a specific location.",
+          "Local SEO focuses on ranking your business in location-based searches and Google Maps results. Regular SEO targets broader, non-location-specific searches. For local businesses, local SEO is far more valuable because your customers are searching near a specific location.",
       },
       {
-        question: "Can SEO help my restaurant compete with chain restaurants?",
+        question: "Can SEO help my business compete with bigger competitors?",
         answer:
-          "Yes. Chain restaurants have big budgets, but local SEO levels the playing field. Google's algorithm favors locally relevant, well-optimized businesses in local search results. An independent restaurant with strong local SEO can outrank major chains in its own neighborhood.",
+          "Yes. Bigger competitors have bigger budgets, but local SEO levels the playing field. Google's algorithm favors locally relevant, well-optimized businesses in local search results. A small business with strong local SEO can outrank much larger competitors in its own neighborhood.",
       },
     ],
     keywords: [
-      "restaurant SEO",
-      "SEO for restaurants",
-      "local SEO for restaurants",
-      "restaurant SEO services",
-      "restaurant Google ranking",
+      "local SEO",
+      "local SEO services",
+      "SEO services",
+      "small business SEO",
+      "local business SEO",
     ],
     metaDescription:
-      "Restaurant SEO services that get your restaurant found on Google Search and Google Maps. Local SEO strategies, keyword targeting, and monthly reporting for independent restaurants.",
+      "Local SEO services that get your business found on Google Search and Google Maps. Local strategies, keyword targeting, and monthly reporting that turn searches into customers.",
   },
 
   "restaurant-branding": {
-    title: "Restaurant Branding & Design",
+    title: "Branding & Design",
     slug: "restaurant-branding",
     category: "Branding",
-    headline: "Restaurant Branding & Design",
+    headline: "Branding & Design",
     description:
-      "Complete restaurant branding that sets you apart from the chains. Logo design, menu design, visual identity systems, and brand guidelines that make your restaurant instantly recognizable.",
+      "Complete branding that sets you apart from the competition. Logo design, visual identity systems, and brand guidelines that make your business instantly recognizable.",
     heroImage: {
       src: "/images/usage/enjoying-food.webp",
       alt: "People enjoying beautifully presented food at a restaurant table",
@@ -271,32 +276,32 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Logo & Identity Design",
         description:
-          "We design restaurant logos that work everywhere: your storefront, website, social media, packaging, and print materials. Every logo comes with a complete brand identity system.",
+          "We design logos that work everywhere: your storefront, website, social media, packaging, and print materials. Every logo comes with a complete brand identity system.",
       },
       {
-        title: "Menu Design & Layout",
+        title: "Marketing Collateral Design",
         description:
-          "Your menu is your most powerful sales tool. We design menus that look beautiful, guide customer decisions, and highlight your most profitable items using proven layout psychology.",
+          "From brochures to one-pagers and price lists, we design the materials that sell. Clean, on-brand layouts that guide customer decisions and highlight what matters most using proven layout psychology.",
       },
       {
         title: "Visual Identity System",
         description:
-          "Colors, typography, photography style, patterns, and textures that create a cohesive visual language. Everything your restaurant puts out into the world should feel intentionally connected.",
+          "Colors, typography, photography style, patterns, and textures that create a cohesive visual language. Everything your business puts out into the world should feel intentionally connected.",
       },
       {
         title: "Brand Guidelines Document",
         description:
-          "A comprehensive brand guidelines document that ensures consistency across every touchpoint, whether it's your team creating social media posts or a printer producing your menus.",
+          "A comprehensive brand guidelines document that ensures consistency across every touchpoint, whether it's your team creating social media posts or a printer producing your materials.",
       },
       {
         title: "Print & Digital Collateral",
         description:
-          "Business cards, table tents, flyers, social media templates, email headers, and signage. Every piece of collateral is designed to reinforce your brand at every customer interaction.",
+          "Business cards, flyers, social media templates, email headers, and signage. Every piece of collateral is designed to reinforce your brand at every customer interaction.",
       },
       {
-        title: "Packaging & Takeout Design",
+        title: "Signage & Environment Design",
         description:
-          "Branded packaging for takeout and delivery orders. Your brand experience shouldn't stop at the restaurant door. We design bags, boxes, stickers, and inserts that keep your brand in front of customers.",
+          "Your brand experience shouldn't stop at the front door. We design signage, window graphics, and on-site materials that reinforce your brand at every physical touchpoint.",
       },
     ],
     stats: [
@@ -304,41 +309,41 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
         value: 77,
         suffix: "%",
         decimalPlaces: 0,
-        label: "of diners check a restaurant's website before deciding where to eat",
+        label: "of consumers check a business's website before deciding to buy",
         source: "Industry Data",
       },
       {
         value: 65,
         suffix: "%",
         decimalPlaces: 0,
-        label: "of consumers prefer local restaurants over chains",
+        label: "of consumers prefer local businesses over big chains",
         source: "Industry Data",
       },
       {
         value: 74,
         suffix: "%",
         decimalPlaces: 0,
-        label: "of diners use social media to decide where to eat",
+        label: "of consumers use social media to decide where to buy",
         source: "Industry Data",
       },
       {
         value: 30,
         suffix: "%",
         decimalPlaces: 0,
-        label: "more online orders for restaurants with prominent 'Order Online' buttons",
+        label: "more conversions for businesses with a prominent, clear call to action",
         source: "Industry Data",
       },
     ],
     faqs: [
       {
-        question: "What's included in a restaurant branding package?",
+        question: "What's included in a branding package?",
         answer:
-          "A complete branding package includes logo design with variations, color palette, typography system, photography direction, menu design, brand guidelines document, business cards, and social media templates. We tailor each package to your restaurant's needs.",
+          "A complete branding package includes logo design with variations, color palette, typography system, photography direction, collateral design, brand guidelines document, business cards, and social media templates. We tailor each package to your business's needs.",
       },
       {
         question: "How long does the branding process take?",
         answer:
-          "A full restaurant branding project typically takes 3-5 weeks. This includes discovery and research, concept development, design rounds with revisions, and final delivery of all brand assets and guidelines.",
+          "A full branding project typically takes 3-5 weeks. This includes discovery and research, concept development, design rounds with revisions, and final delivery of all brand assets and guidelines.",
       },
       {
         question: "Can you redesign our existing brand without starting from scratch?",
@@ -346,34 +351,34 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
           "Yes. We offer brand refresh services that update and modernize your existing identity while maintaining the recognition your customers already have. This is faster and more cost-effective than a full rebrand.",
       },
       {
-        question: "Do you design restaurant menus?",
+        question: "Do you design marketing materials?",
         answer:
-          "Yes, menu design is one of our core branding services. We design menus that are visually compelling and strategically organized to guide customer decisions toward your highest-margin items. We handle both print menus and digital menu design.",
+          "Yes, collateral design is one of our core branding services. We design brochures, one-pagers, price lists, and other materials that are visually compelling and strategically organized to guide customer decisions. We handle both print and digital.",
       },
       {
         question: "Will I own all the brand assets you create?",
         answer:
-          "Yes. Upon project completion, you receive full ownership of all brand assets including logo files in all formats, brand guidelines, menu design files, and all collateral templates. Everything is yours to use without restrictions.",
+          "Yes. Upon project completion, you receive full ownership of all brand assets including logo files in all formats, brand guidelines, and all collateral templates. Everything is yours to use without restrictions.",
       },
     ],
     keywords: [
-      "restaurant branding",
-      "restaurant menu design",
-      "restaurant brand identity",
-      "restaurant logo design",
-      "restaurant branding agency",
+      "branding agency",
+      "logo design",
+      "brand identity",
+      "small business branding",
+      "local business branding",
     ],
     metaDescription:
-      "Restaurant branding and design services including logo design, menu design, and visual identity systems. Build a brand that sets your restaurant apart. Get a free consultation.",
+      "Branding and design services including logo design and visual identity systems. Build a brand that sets your business apart. Get a free consultation.",
   },
 
   "google-ads": {
-    title: "Google Ads for Restaurants",
+    title: "Google Ads Management",
     slug: "google-ads",
     category: "Paid Ads",
-    headline: "Google Ads for Restaurants",
+    headline: "Google Ads Management",
     description:
-      "Targeted Google Ads campaigns that put your restaurant in front of hungry diners at the exact moment they're searching for a place to eat. Low-cost clicks, high-intent customers, measurable ROI.",
+      "Targeted Google Ads campaigns that put your business in front of high-intent local customers at the exact moment they are searching. Low-cost clicks, high-intent customers, measurable ROI.",
     heroImage: {
       src: "/images/usage/kitchen-motion.webp",
       alt: "Restaurant kitchen in motion during a busy dinner service",
@@ -382,27 +387,27 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Campaign Strategy & Setup",
         description:
-          "We build Google Ads campaigns specifically for restaurants, targeting high-intent local searches like 'best pizza near me' and 'restaurants open now.' Every campaign is structured for maximum relevance and minimum wasted spend.",
+          "We build Google Ads campaigns targeting high-intent local searches like '[service] near me' and 'open now.' Every campaign is structured for maximum relevance and minimum wasted spend.",
       },
       {
         title: "Local Keyword Targeting",
         description:
-          "We target the exact search terms hungry diners use when looking for restaurants in your area. Location-based keywords, cuisine-specific searches, and high-intent phrases that drive immediate action.",
+          "We target the exact search terms customers use when looking for businesses like yours in your area. Location-based keywords, service-specific searches, and high-intent phrases that drive immediate action.",
       },
       {
         title: "Bid & Budget Management",
         description:
-          "We manage your bids and budget to maximize every dollar spent. Our strategies focus on driving the most orders and reservations at the lowest cost per acquisition.",
+          "We manage your bids and budget to maximize every dollar spent. Our strategies focus on driving the most calls, bookings, and enquiries at the lowest cost per acquisition.",
       },
       {
         title: "Conversion Tracking",
         description:
-          "We track every phone call, online order, reservation, and direction request generated by your ads. You'll know exactly how many customers your ad spend is bringing through the door.",
+          "We track every phone call, form submission, booking, and direction request generated by your ads. You'll know exactly how many customers your ad spend is bringing through the door.",
       },
       {
         title: "Ad Copy & Creative",
         description:
-          "Restaurant-specific ad copy that highlights your menu, specials, and unique selling points. We A/B test headlines, descriptions, and calls-to-action to find what drives the most clicks and conversions.",
+          "Ad copy that highlights your services, offers, and unique selling points. We A/B test headlines, descriptions, and calls-to-action to find what drives the most clicks and conversions.",
       },
       {
         title: "Monthly Performance Reports",
@@ -415,7 +420,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
         value: 8.72,
         suffix: "%",
         decimalPlaces: 2,
-        label: "average conversion rate for restaurant Google Ads campaigns",
+        label: "average conversion rate for well-targeted local Google Ads campaigns",
         source: "Google Ads Benchmarks",
       },
       {
@@ -423,44 +428,44 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
         value: 1.92,
         suffix: "",
         decimalPlaces: 2,
-        label: "average cost-per-click for restaurant ads vs $8.58 for legal",
+        label: "average cost-per-click for a well-optimized local campaign",
         source: "Google Ads Benchmarks",
       },
       {
         value: 92,
         suffix: "%",
         decimalPlaces: 0,
-        label: "of customers use a search engine to find restaurants",
+        label: "of consumers use a search engine to find local businesses",
         source: "Industry Data",
       },
       {
         value: 72,
         suffix: "%",
         decimalPlaces: 0,
-        label: "of local restaurant searches result in a visit within 5 miles",
+        label: "of local searches result in a visit within 5 miles",
         source: "Google",
       },
     ],
     faqs: [
       {
-        question: "How much should a restaurant spend on Google Ads?",
+        question: "How much should a business spend on Google Ads?",
         answer:
-          "Most independent restaurants see strong results starting at $500-1,500 per month in ad spend, plus management fees. The right budget depends on your location, competition, and goals. We help you find the sweet spot where your ad spend generates a measurable return.",
+          "Most local businesses see strong results starting at $500-1,500 per month in ad spend, plus management fees. The right budget depends on your location, competition, and goals. We help you find the sweet spot where your ad spend generates a measurable return.",
       },
       {
         question: "How quickly will I see results from Google Ads?",
         answer:
-          "Google Ads can drive results immediately after launch. Unlike SEO, which builds over months, paid ads put your restaurant at the top of search results on day one. Most restaurants see meaningful traffic and conversions within the first two weeks.",
+          "Google Ads can drive results immediately after launch. Unlike SEO, which builds over months, paid ads put your business at the top of search results on day one. Most businesses see meaningful traffic and conversions within the first two weeks.",
       },
       {
-        question: "What types of Google Ads do you run for restaurants?",
+        question: "What types of Google Ads do you run?",
         answer:
-          "We primarily run Search ads targeting high-intent local queries, Google Maps ads that promote your restaurant in map results, and remarketing campaigns that bring back visitors who didn't convert on their first visit.",
+          "We primarily run Search ads targeting high-intent local queries, Google Maps ads that promote your business in map results, and remarketing campaigns that bring back visitors who didn't convert on their first visit.",
       },
       {
-        question: "How do you measure success for restaurant Google Ads?",
+        question: "How do you measure success for Google Ads?",
         answer:
-          "We track phone calls, online orders, direction requests, reservation bookings, and website visits generated by your ads. Every month, we report your cost per customer, return on ad spend, and total conversions so you know exactly what your investment is producing.",
+          "We track phone calls, form submissions, direction requests, bookings, and website visits generated by your ads. Every month, we report your cost per customer, return on ad spend, and total conversions so you know exactly what your investment is producing.",
       },
       {
         question: "Can I pause my Google Ads campaigns at any time?",
@@ -469,14 +474,14 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       },
     ],
     keywords: [
-      "Google Ads for restaurants",
-      "restaurant Google Ads management",
-      "restaurant PPC",
-      "restaurant paid advertising",
-      "Google Ads restaurant marketing",
+      "Google Ads management",
+      "Google Ads agency",
+      "PPC management",
+      "Google Ads for small business",
+      "local Google Ads",
     ],
     metaDescription:
-      "Google Ads management for restaurants. Targeted local ad campaigns that drive diners to your door with measurable ROI. Expert setup, bid management, and monthly reporting.",
+      "Google Ads management for local businesses. Targeted local campaigns that drive customers to you with measurable ROI. Expert setup, bid management, and monthly reporting.",
   },
 
   "google-business-profile-optimization": {
@@ -485,7 +490,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     category: "Local Search",
     headline: "Google Business Profile Optimization",
     description:
-      "Your Google Business Profile is the single most important piece of your restaurant's online presence. We optimize every detail so your restaurant dominates local search, Google Maps, and nearby searches.",
+      "Your Google Business Profile is the single most important piece of your local online presence. We optimize every detail so your business dominates local search, Google Maps, and nearby searches.",
     heroImage: {
       src: "/images/usage/restaurant-interior.webp",
       alt: "Warm, inviting restaurant interior with ambient lighting",
@@ -499,12 +504,12 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Category & Attribute Optimization",
         description:
-          "Choosing the right primary and secondary categories is critical for local search visibility. We optimize your categories, attributes, and service descriptions to match what diners search for.",
+          "Choosing the right primary and secondary categories is critical for local search visibility. We optimize your categories, attributes, and service descriptions to match what customers search for.",
       },
       {
-        title: "Photo & Menu Strategy",
+        title: "Photo Strategy",
         description:
-          "Restaurants with quality photos get 42% more direction requests. We develop a photo strategy that showcases your food, interior, and team at their best.",
+          "Businesses with quality photos get 42% more direction requests. We develop a photo strategy that showcases your work, your space, and your team at their best.",
       },
       {
         title: "Review Management",
@@ -514,12 +519,12 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Google Posts & Updates",
         description:
-          "Regular Google Posts keep your profile active and give you an extra touchpoint with potential diners. We create and schedule posts for specials, events, new menu items, and seasonal promotions.",
+          "Regular Google Posts keep your profile active and give you an extra touchpoint with potential customers. We create and schedule posts for offers, events, updates, and seasonal promotions.",
       },
       {
         title: "Local Pack Ranking Strategy",
         description:
-          "We focus on getting your restaurant into the coveted Google Local Pack, the top 3 map results that appear for local searches. This is where the majority of clicks and calls come from.",
+          "We focus on getting your business into the coveted Google Local Pack, the top 3 map results that appear for local searches. This is where the majority of clicks and calls come from.",
       },
     ],
     stats: [
@@ -527,28 +532,28 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
         value: 42,
         suffix: "%",
         decimalPlaces: 0,
-        label: "more direction requests for restaurants with quality photos on their profile",
+        label: "more direction requests for businesses with quality photos on their profile",
         source: "Google",
       },
       {
         value: 2.3,
         suffix: "x",
         decimalPlaces: 1,
-        label: "more reviews for GBP-optimized restaurants compared to unoptimized listings",
+        label: "more reviews for GBP-optimized businesses compared to unoptimized listings",
         source: "Google",
       },
       {
         value: 15,
         suffix: "%+",
         decimalPlaces: 0,
-        label: "more interactions for restaurants with optimized Google Business Profiles",
+        label: "more interactions for businesses with optimized Google Business Profiles",
         source: "Google",
       },
       {
         value: 90,
         suffix: "%",
         decimalPlaces: 0,
-        label: "of people read reviews before visiting a restaurant",
+        label: "of people read reviews before visiting a business",
         source: "Industry Data",
       },
     ],
@@ -556,47 +561,47 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         question: "How long does Google Business Profile optimization take to show results?",
         answer:
-          "Most restaurants see noticeable improvements in their Google Maps visibility within 4-8 weeks of optimization. Results depend on your starting point, local competition, and how consistently we execute the strategy.",
+          "Most businesses see noticeable improvements in their Google Maps visibility within 4-8 weeks of optimization. Results depend on your starting point, local competition, and how consistently we execute the strategy.",
       },
       {
         question: "What if I haven't claimed my Google Business Profile yet?",
         answer:
-          "We handle the entire claim and verification process for you. If your restaurant already has an unclaimed listing (which is common), we'll claim it, verify ownership, and then optimize every field for maximum visibility.",
+          "We handle the entire claim and verification process for you. If your business already has an unclaimed listing (which is common), we'll claim it, verify ownership, and then optimize every field for maximum visibility.",
       },
       {
         question: "How do you help with negative reviews?",
         answer:
-          "We help you respond to negative reviews professionally and constructively. A well-crafted response to a negative review can actually improve how potential customers perceive your restaurant. We also build systems to proactively generate positive reviews from happy diners.",
+          "We help you respond to negative reviews professionally and constructively. A well-crafted response to a negative review can actually improve how potential customers perceive your business. We also build systems to proactively generate positive reviews from happy customers.",
       },
       {
-        question: "Do you manage profiles for restaurants with multiple locations?",
+        question: "Do you manage profiles for businesses with multiple locations?",
         answer:
-          "Yes. We manage Google Business Profiles for multi-location restaurants with location-specific strategies for each listing. Each location gets its own optimized profile, photo strategy, and review management approach.",
+          "Yes. We manage Google Business Profiles for multi-location businesses with location-specific strategies for each listing. Each location gets its own optimized profile, photo strategy, and review management approach.",
       },
       {
         question: "What's the difference between Google Business Profile and Google Ads?",
         answer:
-          "Your Google Business Profile is your free listing on Google Maps and local search results. Google Ads are paid campaigns that put your restaurant at the top of search results. Both are important: your GBP builds long-term organic visibility, while Google Ads drive immediate traffic. We recommend optimizing both.",
+          "Your Google Business Profile is your free listing on Google Maps and local search results. Google Ads are paid campaigns that put your business at the top of search results. Both are important: your GBP builds long-term organic visibility, while Google Ads drive immediate traffic. We recommend optimizing both.",
       },
     ],
     keywords: [
       "Google Business Profile optimization",
-      "Google Business Profile for restaurants",
-      "GBP optimization restaurant",
-      "Google Maps restaurant listing",
-      "restaurant Google profile",
+      "Google Business Profile management",
+      "Google Maps optimization",
+      "local listing optimization",
+      "GBP optimization",
     ],
     metaDescription:
-      "Google Business Profile optimization for restaurants. Dominate local search, Google Maps, and nearby searches. Profile setup, review management, and local pack ranking strategies.",
+      "Google Business Profile optimization for local businesses. Dominate local search, Google Maps, and nearby searches. Profile setup, review management, and local pack ranking.",
   },
 
   "commission-free-deliveries": {
-    title: "Commission-Free Deliveries for Restaurants",
+    title: "Commission-Free Online Ordering",
     slug: "commission-free-deliveries",
     category: "Online Ordering",
-    headline: "Commission-Free Deliveries for Restaurants",
+    headline: "Commission-Free Online Ordering",
     description:
-      "Stop losing 15-30% of every order to DoorDash and UberEats. We set up commission-free direct ordering through Owner.com and ChowNow so your restaurant keeps more profit from every delivery and takeout order.",
+      "Stop losing 15-30% of every order to DoorDash and UberEats. We set up commission-free direct ordering and flat-fee delivery so your restaurant keeps more profit from every delivery and takeout order.",
     heroImage: {
       src: "/images/usage/order-counter.jpg",
       alt: "Restaurant worker preparing food orders at the counter for delivery",
@@ -605,12 +610,12 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Direct Ordering Setup",
         description:
-          "We integrate commission-free ordering platforms like Owner.com and ChowNow directly into your restaurant's website. Customers order from you, not a third-party app, and you keep the revenue.",
+          "We build commission-free direct ordering right into your restaurant's website. Customers order from you, not a third-party app, and you keep the revenue.",
       },
       {
-        title: "Third-Party Fee Elimination",
+        title: "Flat-Fee Delivery",
         description:
-          "DoorDash and UberEats take 15-30% of every order, with hidden fees that can push costs above 40%. We transition your delivery and takeout orders to platforms that charge flat monthly rates instead of per-order commissions.",
+          "Our Turnerr Deliver service dispatches the nearest driver the moment an order comes in and charges a flat fee per delivery instead of a percentage, so a busy delivery night no longer means a giant commission bill.",
       },
       {
         title: "Branded Ordering Experience",
@@ -620,7 +625,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Automated Marketing & Loyalty",
         description:
-          "Commission-free platforms include built-in tools for email marketing, loyalty programs, and AI-powered upselling. Turn first-time delivery customers into repeat direct orders without lifting a finger.",
+          "Your direct ordering setup includes built-in tools for email and SMS marketing, loyalty programs, and automated follow-ups. Turn first-time delivery customers into repeat direct orders without lifting a finger.",
       },
       {
         title: "Third-Party App Pivot Strategy",
@@ -658,11 +663,11 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       },
       {
         prefix: "$",
-        value: 970,
+        value: 1.5,
         suffix: "",
-        decimalPlaces: 0,
-        label: "in Owner.com setup fees waived when you work with TableTurnerr",
-        source: "Owner.com",
+        decimalPlaces: 2,
+        label: "flat fee per delivered order with Turnerr Deliver, instead of 15-30% commission",
+        source: "TableTurnerr",
       },
     ],
     faqs: [
@@ -677,9 +682,9 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
           "We don't recommend stopping entirely. Our strategy is to keep DoorDash and UberEats as customer acquisition channels while moving repeat customers to your direct ordering platform. 67% of consumers already prefer ordering directly from restaurants when the option is available.",
       },
       {
-        question: "What's the difference between Owner.com and ChowNow?",
+        question: "How does Turnerr Deliver work?",
         answer:
-          "Owner.com is the premium option at $500/month flat plus a small 5% fee paid by the guest, with an all-in-one platform including website, mobile app, and automated marketing. ChowNow starts at $119/month with tiered pricing and transaction fees. Both eliminate commission-based delivery fees. We help you choose the right fit based on your budget and goals.",
+          "Turnerr Deliver is our flat-fee delivery service. When an order comes in through your own website, it dispatches the nearest available driver and charges a flat fee per delivered order instead of a percentage commission. It plugs into your POS, so a $40 order costs you a small flat fee rather than $10 to $12 in third-party commission.",
       },
       {
         question: "How long does it take to set up commission-free ordering?",
@@ -689,18 +694,18 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         question: "Do I need a new website to use commission-free ordering?",
         answer:
-          "No. Commission-free ordering platforms can be integrated into your existing website. If your current site needs updates to support direct ordering, we handle that as part of the setup. If you don't have a website yet, we build one as part of our restaurant website design service.",
+          "No. Commission-free direct ordering can be added to your existing website. If your current site needs updates to support direct ordering, we handle that as part of the setup. If you don't have a website yet, we build one as part of our restaurant website design service.",
       },
     ],
     keywords: [
-      "commission free delivery for restaurants",
       "commission free online ordering",
-      "reduce DoorDash commission fees",
-      "restaurant direct ordering",
-      "commission free restaurant ordering system",
+      "commission free delivery",
+      "direct online ordering",
+      "online ordering system",
+      "reduce delivery app fees",
     ],
     metaDescription:
-      "Commission-free delivery and online ordering for restaurants. Stop paying 15-30% to DoorDash and UberEats. We set up direct ordering through Owner.com and ChowNow so you keep more profit.",
+      "Commission-free delivery and online ordering for restaurants. Stop paying 15-30% to DoorDash and UberEats. We set up direct ordering plus flat-fee delivery so you keep more profit.",
   },
 };
 

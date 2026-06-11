@@ -13,7 +13,7 @@ import {
   SITE_CONFIG,
 } from "@/app/lib/constants";
 
-export default function MobileMenu() {
+export default function MobileMenu({ overDark = false }: { overDark?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -211,14 +211,18 @@ export default function MobileMenu() {
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         <span
-          className={`block h-[1.5px] rounded-full bg-charcoal transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] origin-center ${
+          className={`block h-[1.5px] rounded-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] origin-center ${
+            overDark && !isOpen ? "bg-cream" : "bg-charcoal"
+          } ${
             isOpen
               ? "w-6 rotate-45 translate-y-[4.25px]"
               : "w-6 rotate-0 translate-y-0"
           }`}
         />
         <span
-          className={`block h-[1.5px] rounded-full bg-charcoal transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] origin-center ${
+          className={`block h-[1.5px] rounded-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] origin-center ${
+            overDark && !isOpen ? "bg-cream" : "bg-charcoal"
+          } ${
             isOpen
               ? "w-6 -rotate-45 -translate-y-[4.25px]"
               : "w-4 rotate-0 translate-y-0"

@@ -8,7 +8,7 @@ import { generateBreadcrumbSchema } from "@/app/lib/schema";
 export const metadata: Metadata = createPageMetadata({
   title: "Terms of Service",
   description:
-    "Terms of Service for TableTurnerr's restaurant marketing services including website design, SEO, branding, and Google Ads management.",
+    "Terms of Service for TableTurnerr's marketing services including website design, SEO, branding, and Google Ads management.",
   path: "/terms",
 });
 
@@ -88,10 +88,10 @@ export default function TermsOfServicePage() {
                   2. Services
                 </h2>
                 <p>
-                  TableTurnerr provides restaurant marketing services including
-                  but not limited to custom website design and development,
-                  search engine optimization (SEO), restaurant branding, Google
-                  Ads management, and Google Business Profile optimization. The
+                  TableTurnerr provides marketing services including but not
+                  limited to custom website design and development, search engine
+                  optimization (SEO), branding, Google Ads management, and Google
+                  Business Profile optimization. The
                   specific scope, deliverables, timelines, and pricing for each
                   engagement are defined in a separate service agreement or
                   proposal between TableTurnerr and the client.
@@ -229,8 +229,8 @@ export default function TermsOfServicePage() {
                 <p>
                   Our services may involve the use of third-party platforms and
                   tools, including but not limited to Google Ads, Google Business
-                  Profile, Owner.com, ChowNow, and various analytics and hosting
-                  providers. Your use of these platforms is subject to their
+                  Profile, online ordering and delivery systems, and various
+                  analytics and hosting providers. Your use of these platforms is subject to their
                   respective terms of service and privacy policies. TableTurnerr
                   is not responsible for the actions, availability, or policies
                   of third-party services.

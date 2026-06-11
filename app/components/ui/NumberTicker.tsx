@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useInView, useMotionValue, useSpring } from "framer-motion";
+import {
+  useInView,
+  useMotionValue,
+  useSpring,
+  useReducedMotion,
+} from "framer-motion";
 
 interface NumberTickerProps {
   value: number;
@@ -19,6 +24,7 @@ export default function NumberTicker({
   className = "",
 }: NumberTickerProps) {
   const ref = useRef<HTMLSpanElement>(null);
+  const prefersReducedMotion = useReducedMotion();
   const motionValue = useMotionValue(direction === "down" ? value : 0);
   const springValue = useSpring(motionValue, {
     damping: 60,
@@ -27,13 +33,17 @@ export default function NumberTicker({
   const isInView = useInView(ref, { once: true, margin: "0px" });
 
   useEffect(() => {
-    if (isInView) {
-      const timer = setTimeout(() => {
-        motionValue.set(direction === "down" ? 0 : value);
-      }, delay * 1000);
-      return () => clearTimeout(timer);
+    if (!isInView) return;
+    // Reduced motion: jump straight to the final value, no spring count-up.
+    if (prefersReducedMotion) {
+      motionValue.set(direction === "down" ? 0 : value);
+      return;
     }
-  }, [motionValue, isInView, delay, value, direction]);
+    const timer = setTimeout(() => {
+      motionValue.set(direction === "down" ? 0 : value);
+    }, delay * 1000);
+    return () => clearTimeout(timer);
+  }, [motionValue, isInView, delay, value, direction, prefersReducedMotion]);
 
   useEffect(
     () =>

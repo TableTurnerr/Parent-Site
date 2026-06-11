@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Hero from "@/app/components/sections/Hero";
+import TrustBar from "@/app/components/sections/TrustBar";
 import Services from "@/app/components/sections/Services";
 import { FAQ_DATA } from "@/app/lib/constants";
 
@@ -19,16 +20,16 @@ import {
 } from "@/app/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Restaurant Website Design, SEO & Marketing Agency",
+  title: "Marketing Agency for Local Businesses",
   description:
-    "We design SEO-optimized restaurant websites and drive traffic for independent restaurants. Custom website design, local SEO, Google Ads management, and commission-free ordering setup. Get a free quote.",
+    "TableTurnerr helps local businesses get found, get booked, and grow. High-converting websites, local SEO, Google Ads, and Google Business Profile optimization. Book a free consultation.",
   alternates: {
     canonical: "https://tableturnerr.com",
   },
   openGraph: {
-    title: "TableTurnerr | Restaurant Website Design, SEO & Marketing Agency",
+    title: "TableTurnerr | Marketing for Local Businesses",
     description:
-      "We design SEO-optimized restaurant websites and drive traffic for independent restaurants. Custom website design, local SEO, Google Ads, and commission-free ordering setup.",
+      "High-converting websites, local SEO, Google Ads, and Google Business Profile optimization for local businesses nationwide. Book a free consultation.",
     url: "https://tableturnerr.com",
     siteName: "TableTurnerr",
     type: "website",
@@ -36,9 +37,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TableTurnerr | Restaurant Website Design, SEO & Marketing Agency",
+    title: "TableTurnerr | Marketing for Local Businesses",
     description:
-      "Custom restaurant websites, local SEO, Google Ads, and commission-free ordering for independent restaurants.",
+      "High-converting websites, local SEO, Google Ads, and Google Business Profile optimization for local businesses nationwide.",
   },
 };
 
@@ -66,6 +67,7 @@ export default function HomePage() {
         }}
       />
       <Hero />
+      <TrustBar />
       <Services />
       <Mission />
       <Partners />

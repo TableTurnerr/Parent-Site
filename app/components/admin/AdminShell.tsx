@@ -20,6 +20,7 @@ import {
   PanelLeft,
   MapPin,
   FileBarChart2,
+  Inbox,
   Building2,
   Users,
   LayoutTemplate,
@@ -66,6 +67,7 @@ const NAV_GROUPS: NavGroup[] = [
       { href: "/admin/posts", label: "Posts", icon: FileText, minRole: "viewer" },
       { href: "/admin/categories", label: "Blog Categories", icon: FolderOpen, minRole: "manager" },
       { href: "/admin/location-pages", label: "Location Pages", icon: MapPin, minRole: "viewer" },
+      { href: "/admin/leads", label: "Leads", icon: Inbox, minRole: "viewer" },
     ],
   },
   {

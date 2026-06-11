@@ -15,16 +15,16 @@ import { createPageMetadata } from "@/app/lib/metadata";
 import { generateOrganizationSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "About TableTurnerr — Restaurant Marketing Agency",
+  title: "About TableTurnerr, the Local Business Growth Agency",
   description:
-    "TableTurnerr is a restaurant marketing agency built exclusively for independent restaurants. We design custom websites, run local SEO campaigns, and manage Google Ads to help restaurants grow online and compete with major chains.",
+    "TableTurnerr is a marketing agency for local businesses. We build high-converting websites, run local SEO, and manage Google Ads so local businesses can compete with the big players and win, with deep experience in the restaurant industry.",
   path: "/about",
   keywords: [
-    "restaurant marketing agency",
+    "local business marketing agency",
     "about TableTurnerr",
-    "restaurant growth partner",
-    "independent restaurant digital marketing",
-    "restaurant website agency",
+    "local business growth partner",
+    "small business digital marketing",
+    "local web design agency",
   ],
 });
 
@@ -51,7 +51,7 @@ const VALUE_CARDS = [
   {
     title: "Restaurant-First",
     description:
-      "Every strategy, website, and campaign is built specifically for the food and beverage industry — not repurposed from generic marketing playbooks.",
+      "Every strategy, website, and campaign is built specifically for the food and beverage industry, not repurposed from generic marketing playbooks.",
   },
   {
     title: "Traffic-First Approach",
@@ -66,7 +66,7 @@ const VALUE_CARDS = [
   {
     title: "Commission-Free Future",
     description:
-      "We help restaurants flip the script on third-party apps — using DoorDash and UberEats as marketing channels while converting repeat orders to their own direct platform.",
+      "We help restaurants flip the script on third-party apps, using DoorDash and UberEats as marketing channels while converting repeat orders to their own direct platform.",
   },
 ] as const;
 
@@ -81,13 +81,13 @@ const GROWTH_STEPS = [
     step: 2,
     title: "The Transition",
     description:
-      "Once qualified, you are seamlessly onboarded to a commission-free direct ordering system. We primarily recommend Owner.com as the complete system, with ChowNow available as a budget-friendly alternative.",
+      "Once qualified, you are seamlessly onboarded to a commission-free direct ordering system on your own website, plus our flat-fee Turnerr Deliver service, so the revenue and the customer data stay with you instead of a third-party app.",
   },
   {
     step: 3,
     title: "The Scale",
     description:
-      "With the foundation and ordering system in place, we help you aggressively invest in revenue-driving marketing channels — scaling Google Ads, deploying branding strategies, and implementing smart systems for capturing 5-star reviews and driving repeat direct orders.",
+      "With the foundation and ordering system in place, we help you aggressively invest in revenue-driving marketing channels: scaling Google Ads, deploying branding strategies, and implementing smart systems for capturing 5-star reviews and driving repeat direct orders.",
   },
 ] as const;
 
@@ -100,33 +100,31 @@ const PARTNER_STATS: readonly {
   source: string;
 }[] = [
   {
-    value: 377,
-    prefix: "+",
+    value: 30,
     suffix: "%",
-    label: "Online growth achieved by Samos Oaxaca on Owner.com",
-    source: "Owner.com",
+    label: "Commission third-party delivery apps take on every single order",
+    source: "Industry Data",
   },
   {
-    value: 4.5,
+    value: 16000,
     prefix: "$",
-    suffix: "M",
-    decimalPlaces: 1,
-    label: "In online sales generated for Saffron Indian Kitchen",
-    source: "Owner.com",
+    suffix: "",
+    label: "Average a restaurant saves per year by moving to direct ordering",
+    source: "Industry Data",
   },
   {
-    value: 2,
-    prefix: "$",
-    suffix: "M+",
-    label: "Saved in commissions by Ollie's in New York on ChowNow",
-    source: "ChowNow",
+    value: 67,
+    suffix: "%",
+    label: "Of diners prefer ordering directly from a restaurant when they can",
+    source: "Industry Data",
   },
   {
-    value: 288,
+    value: 1.5,
     prefix: "$",
-    suffix: "K",
-    label: "Saved annually by 4Top Hospitality after eliminating third-party fees",
-    source: "ChowNow",
+    suffix: "",
+    decimalPlaces: 2,
+    label: "Flat fee per delivered order with Turnerr Deliver, not a percentage",
+    source: "TableTurnerr",
   },
 ];
 
@@ -176,16 +174,19 @@ export default function AboutPage() {
               variants={fadeInUp}
               className="lg:col-span-7"
             >
-              <h1 className="font-display font-bold text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mb-6">
-                <BlurText text="The Restaurant Growth Agency" />
+              <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
+                who we are
+              </p>
+              <h1 className="display-lg text-charcoal mb-6">
+                The local business growth agency
               </h1>
               <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl mb-8">
-                TableTurnerr is a specialized SEO website development and
-                traffic generation agency built exclusively for independent
-                restaurants. We bridge the gap between independent restaurants
-                and major chains by acting as an outsourced digital team —
-                driving massive organic and paid traffic so restaurants can scale
-                their brand and compete.
+                TableTurnerr is an SEO, website, and traffic-generation agency for
+                local businesses. We act as your outsourced digital team, building
+                a high-converting site on our proven framework and driving the
+                organic and paid traffic that helps you compete with the big
+                players. Our roots are in the restaurant industry, so we know how
+                to win in crowded local markets.
               </p>
               <Button href="/contact" variant="primary">
                 Get a Free Consultation
@@ -220,7 +221,7 @@ export default function AboutPage() {
               <BlurText text="The restaurant industry is skewed" delay={100} />
               {" "}
               <BlurText
-                text="— large chains have the capital to build powerful digital infrastructures, while"
+                text="Large chains have the capital to build powerful digital infrastructures, while"
                 className="text-warm-gray-light"
                 delay={500}
               />
@@ -337,12 +338,12 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Stats Strip — Partner Ecosystem Results */}
+      {/* Stats Strip — commission-free numbers */}
       <section className="bg-charcoal py-16 md:py-20">
         <Container>
           <AnimatedElement variants={fadeIn} className="text-center mb-10 md:mb-14">
             <SectionLabel className="text-warm-gray-light">
-              Partner Ecosystem Results
+              Why Commission-Free Wins
             </SectionLabel>
           </AnimatedElement>
 

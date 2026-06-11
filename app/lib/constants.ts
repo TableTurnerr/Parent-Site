@@ -1,6 +1,7 @@
 export const NAV_LINKS = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
+  { label: "Locations", href: "/locations" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
@@ -8,22 +9,22 @@ export const NAV_LINKS = [
 
 export const SERVICES = [
   {
-    title: "Restaurant Website Design",
+    title: "Website Design",
     slug: "restaurant-website-design",
-    description: "Custom restaurant websites built to rank on Google and convert visitors into paying diners. Mobile-first, SEO-optimized, and ready for online ordering.",
+    description: "High-converting websites built on our proven, conversion-tested framework and tailored to your brand. Built to rank on Google, mobile-first, SEO-optimized, and ready for online ordering.",
   },
   {
-    title: "Restaurant SEO",
+    title: "Local SEO",
     slug: "restaurant-seo",
     description: "Local SEO strategies that get your restaurant found on Google Search and Google Maps. Outrank the competition and drive organic traffic.",
   },
   {
-    title: "Restaurant Branding",
+    title: "Branding & Design",
     slug: "restaurant-branding",
-    description: "Full-service restaurant branding — logo design, menu design, and a visual identity that sets your restaurant apart from the chains.",
+    description: "Full-service restaurant branding: logo design, menu design, and a visual identity that sets your restaurant apart from the chains.",
   },
   {
-    title: "Google Ads for Restaurants",
+    title: "Google Ads Management",
     slug: "google-ads",
     description: "Targeted Google Ads campaigns that drive local diners to your restaurant. Low-cost clicks, high-intent customers, measurable ROI.",
   },
@@ -33,9 +34,9 @@ export const SERVICES = [
     description: "Google Business Profile setup and optimization so your restaurant dominates local search results, Google Maps, and nearby searches.",
   },
   {
-    title: "Commission-Free Deliveries",
+    title: "Commission-Free Ordering",
     slug: "commission-free-deliveries",
-    description: "Stop losing 15-30% of every order to delivery apps. We set up commission-free direct ordering through Owner.com and ChowNow so your restaurant keeps more profit.",
+    description: "Stop losing 15-30% of every order to delivery apps. We set up commission-free direct ordering and flat-fee delivery so your restaurant keeps more profit.",
   },
 ] as const;
 
@@ -59,40 +60,40 @@ export const SOCIAL_LINKS = [
 export const SITE_CONFIG = {
   name: "TableTurnerr",
   url: "https://tableturnerr.com",
-  tagline: "Restaurant Website Design, SEO & Marketing Agency",
+  tagline: "Web Design, SEO & Marketing Agency for Local Businesses",
   email: "contact@tableturnerr.com",
   phone: "+1 (808) 559-9006",
 } as const;
 
 export const FAQ_DATA = [
   {
-    question: "How long does it take to design and build a restaurant website?",
+    question: "How long does it take to design and build a website?",
     answer:
-      "Most custom restaurant websites are completed within 2\u20134 weeks from kickoff. This includes design, development, content creation, and full SEO optimization. Timelines vary depending on scope and complexity.",
+      "Most custom websites are completed within 2 to 4 weeks from kickoff. This includes design, development, content creation, and full SEO optimization. Timelines vary depending on scope and complexity.",
   },
   {
-    question: "How much does a restaurant website cost?",
+    question: "How much does a website cost?",
     answer:
-      "Because every restaurant's needs, size, and existing branding differ, the price of our services varies completely per project. We provide custom quotes based on your specific requirements after an initial consultation.",
+      "Because every business's needs, size, and existing branding differ, the price of our services varies completely per project. We provide custom quotes based on your specific requirements after an initial consultation.",
   },
   {
-    question: "What does your restaurant SEO service include?",
+    question: "What does your local SEO service include?",
     answer:
-      "Our restaurant SEO service covers local SEO strategy, Google Business Profile optimization, on-page SEO for your website, keyword targeting for your menu and location, Google Maps optimization, and ongoing performance tracking. We focus on getting your restaurant found by nearby diners searching on Google.",
+      "Our local SEO service covers local SEO strategy, Google Business Profile optimization, on-page SEO for your website, keyword targeting for your services and location, Google Maps optimization, and ongoing performance tracking. We focus on getting your business found by nearby customers searching on Google.",
   },
   {
-    question: "Can you help our restaurant reduce DoorDash and UberEats fees?",
+    question: "What types of businesses do you work with?",
     answer:
-      "Yes. We help restaurants transition away from high-commission third-party platforms by setting up commission-free direct ordering through partners like Owner.com and ChowNow. Most restaurants save thousands per year in delivery app fees while keeping more profit from every order.",
+      "We work with local businesses that rely on getting found online: home services, clinics and practices, professional services, hospitality, and more. We have deep experience in the restaurant industry, and we bring that proven local-marketing playbook to every business we help.",
   },
   {
-    question: "What makes TableTurnerr different from other restaurant marketing agencies?",
+    question: "What makes TableTurnerr different from other marketing agencies?",
     answer:
-      "We specialize exclusively in the restaurant industry. Every website we design, every SEO campaign we run, and every Google Ads strategy we build is informed by deep food and beverage experience \u2014 not generic digital marketing repurposed for restaurants.",
+      "We help local businesses get found and grow, and we build on a proven, conversion-tested website framework that we tailor to each client instead of starting from a blank page. That means faster launches, lower cost, and a site built to rank and convert from day one. We cut our teeth in the restaurant industry, so we know how to win in crowded local markets.",
   },
   {
-    question: "Do you offer ongoing SEO and Google Ads management for restaurants?",
+    question: "Do you offer ongoing SEO and Google Ads management?",
     answer:
-      "Yes. Most of our restaurant clients work with us on a monthly retainer for local SEO, Google Ads management, Google Business Profile optimization, and ongoing website maintenance. We also offer one-time optimization packages for restaurants that need a specific boost.",
+      "Yes. Most of our clients work with us on a monthly retainer for local SEO, Google Ads management, Google Business Profile optimization, and ongoing website maintenance. We also offer one-time optimization packages for businesses that need a specific boost.",
   },
 ] as const;

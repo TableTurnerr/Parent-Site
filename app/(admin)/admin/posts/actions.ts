@@ -57,7 +57,23 @@ async function verifyPostOwnership(postId: string) {
     .single();
 
   if (!post) throw new Error("Post not found");
-  if (post.author_id !== user.id) throw new Error("Forbidden");
+
+  // Authors and editors can manage their own posts. Managers and admins can
+  // manage any post (matches the "manager manages all posts" role model), so a
+  // post created under a different account can still be published by them.
+  if (post.author_id !== user.id) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+    const role = profile?.role;
+    if (role !== "manager" && role !== "admin") {
+      throw new Error(
+        "This post belongs to another account. Ask a manager to publish it, or create it under your own account."
+      );
+    }
+  }
 
   return { supabase, user };
 }
@@ -203,6 +219,49 @@ export async function unpublishPost(postId: string) {
   revalidatePath("/admin/posts");
   revalidatePath(`/admin/posts/${postId}/edit`);
   revalidatePath("/blog");
+}
+
+/**
+ * Schedule a post to go live at a future time. Stores the target time and sets
+ * status to "scheduled". A cron job (see app/api/cron/publish-scheduled) flips
+ * scheduled posts to published once their time arrives.
+ */
+export async function schedulePost(postId: string, scheduledAtIso: string) {
+  const { supabase } = await verifyPostOwnership(postId);
+
+  const when = new Date(scheduledAtIso);
+  if (Number.isNaN(when.getTime())) throw new Error("Invalid schedule time");
+  if (when.getTime() <= Date.now()) {
+    throw new Error("Schedule time must be in the future");
+  }
+
+  const { error } = await supabase
+    .from("blog_posts")
+    .update({
+      status: "scheduled",
+      scheduled_at: when.toISOString(),
+    })
+    .eq("id", postId);
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/admin/posts");
+  revalidatePath(`/admin/posts/${postId}/edit`);
+}
+
+/** Cancel a pending schedule and return the post to draft. */
+export async function unschedulePost(postId: string) {
+  const { supabase } = await verifyPostOwnership(postId);
+
+  const { error } = await supabase
+    .from("blog_posts")
+    .update({ status: "draft", scheduled_at: null })
+    .eq("id", postId);
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/admin/posts");
+  revalidatePath(`/admin/posts/${postId}/edit`);
 }
 
 export async function deletePost(postId: string) {

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
-import BlurText from "@/app/components/ui/BlurText";
 import Container from "@/app/components/ui/Container";
 import NumberTicker from "@/app/components/ui/NumberTicker";
 import CTA from "@/app/components/sections/CTA";
@@ -17,7 +16,7 @@ import {
 export const metadata: Metadata = createPageMetadata({
   title: "Restaurant Marketing Services",
   description:
-    "Full-service restaurant marketing — custom website design, local SEO, Google Ads, branding, and Google Business Profile optimization. See how TableTurnerr helps restaurants grow online.",
+    "Full-service restaurant marketing: custom website design, local SEO, Google Ads, branding, and Google Business Profile optimization. See how TableTurnerr helps restaurants grow online.",
   path: "/services",
   keywords: [
     "restaurant marketing services",
@@ -139,12 +138,15 @@ export default function ServicesPage() {
       {/* H1 Header Section */}
       <section className="bg-cream pt-10 pb-16 md:pt-14 md:pb-24">
         <Container>
-          <AnimatedElement variants={fadeInUp} className="max-w-3xl">
-            <h1 className="font-display font-bold text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mb-6">
-              <BlurText text="Restaurant Marketing Services" />
+          <AnimatedElement variants={fadeInUp} className="max-w-4xl">
+            <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
+              the full menu
+            </p>
+            <h1 className="display-xl text-charcoal mb-6">
+              Restaurant marketing services
             </h1>
             <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl">
-              Everything your restaurant needs to grow online — from a
+              Everything your restaurant needs to grow online, from a
               high-converting website to local SEO, paid ads, and a brand
               identity that fills tables. Each service is built specifically for
               the restaurant industry.
@@ -164,7 +166,7 @@ export default function ServicesPage() {
                   <AnimatedElement key={service.slug} variants={fadeInUp}>
                     <Link
                       href={`/services/${service.slug}`}
-                      className="service-card group block bg-cream-dark rounded-[1.25rem] overflow-hidden h-full border border-transparent hover:border-border hover:shadow-[0_2px_20px_rgba(0,0,0,0.04)] transition-all duration-300"
+                      className="service-card elevate-hover group block bg-cream-dark rounded-[1.25rem] overflow-hidden h-full border border-transparent hover:border-border"
                     >
                       {image && (
                         <div className="relative h-[200px] sm:h-[220px] md:h-[240px] overflow-hidden">
@@ -205,7 +207,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Aggregate Stats Strip */}
-      <section className="bg-charcoal py-16 md:py-20">
+      <section className="dark-sheen py-16 md:py-24">
         <Container>
           <AnimatedElement variants={scaleIn}>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12">

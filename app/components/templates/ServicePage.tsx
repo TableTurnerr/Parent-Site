@@ -11,6 +11,7 @@ import CTA from "@/app/components/sections/CTA";
 import { fadeInUp, staggerContainer, scaleIn } from "@/app/lib/animations";
 import type { ServicePageData } from "@/app/lib/service-data";
 import { getRelatedServices } from "@/app/lib/service-data";
+import { TARGET_CITIES } from "@/app/lib/location-data";
 
 function ArrowIcon() {
   return (
@@ -33,7 +34,35 @@ function ArrowIcon() {
   );
 }
 
-export default function ServicePage({ service }: { service: ServicePageData }) {
+function MapPinIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="10" r="3" stroke="currentColor" strokeWidth="1.8" />
+    </svg>
+  );
+}
+
+export default function ServicePage({
+  service,
+  children,
+}: {
+  service: ServicePageData;
+  children?: React.ReactNode;
+}) {
   const relatedServices = getRelatedServices(service.slug);
 
   return (
@@ -76,8 +105,8 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
               </AnimatedElement>
 
               <AnimatedElement variants={fadeInUp}>
-                <h1 className="font-display font-bold text-[clamp(2rem,4vw+0.5rem,3.75rem)] leading-[1.1] tracking-tight text-charcoal mb-6">
-                  <BlurText text={service.headline} />
+                <h1 className="display-lg text-charcoal mb-6">
+                  {service.headline}
                 </h1>
               </AnimatedElement>
 
@@ -115,6 +144,28 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
           </div>
         </Container>
       </section>
+
+      {/* City-specific intro (only on /services/<slug>/<city> variants) */}
+      {service.cityContext && (
+        <section className="bg-cream pb-12 md:pb-16">
+          <Container>
+            <AnimatedElement variants={fadeInUp}>
+              <div className="rounded-[1.25rem] border border-border bg-cream-dark p-7 sm:p-9 lg:p-10">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-cream px-3 py-1 text-xs font-medium text-warm-gray">
+                  <MapPinIcon />
+                  {service.cityContext.name}, {service.cityContext.stateCode}
+                </span>
+                <h2 className="font-display font-bold text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.15] tracking-tight text-charcoal mt-4 mb-3 max-w-3xl">
+                  Restaurant marketing built for {service.cityContext.name}
+                </h2>
+                <p className="text-warm-gray text-lg leading-relaxed max-w-3xl">
+                  {service.cityContext.blurb}
+                </p>
+              </div>
+            </AnimatedElement>
+          </Container>
+        </section>
+      )}
 
       {/* Features Bento Grid */}
       <section className="bg-cream-dark py-20 md:py-28">
@@ -196,8 +247,38 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
         </Container>
       </section>
 
+      {/* Optional page-specific section (e.g. savings calculator) */}
+      {children}
+
       {/* FAQ */}
       <ServiceFAQ faqs={service.faqs} serviceName={service.title} />
+
+      {/* Areas we serve — internal links to per-city variants */}
+      <section className="bg-cream py-16 md:py-24">
+        <Container>
+          <AnimatedElement variants={fadeInUp} className="mb-8 md:mb-10">
+            <SectionLabel>Areas We Serve</SectionLabel>
+            <h2 className="font-display font-bold text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl">
+              {service.title} in Your City
+            </h2>
+          </AnimatedElement>
+          <AnimatedElement
+            variants={staggerContainer}
+            className="flex flex-wrap gap-2.5"
+          >
+            {TARGET_CITIES.map((city) => (
+              <AnimatedElement key={city.slug} variants={fadeInUp}>
+                <Link
+                  href={`/services/${service.slug}/${city.slug}`}
+                  className="inline-block rounded-full border border-border bg-cream-dark px-4 py-2 text-sm text-charcoal hover:border-charcoal/30 hover:text-accent transition-colors"
+                >
+                  {service.title.replace(/^Restaurant /, "")} in {city.name}
+                </Link>
+              </AnimatedElement>
+            ))}
+          </AnimatedElement>
+        </Container>
+      </section>
 
       {/* CTA */}
       <CTA />
@@ -220,6 +301,7 @@ export default function ServicePage({ service }: { service: ServicePageData }) {
               <AnimatedElement key={related.slug} variants={fadeInUp}>
                 <Link
                   href={`/services/${related.slug}`}
+                  aria-label={`Learn more about ${related.title}`}
                   className="service-card block bg-cream rounded-[1.25rem] p-7 md:p-8 h-full border border-transparent hover:border-border hover:shadow-[0_2px_20px_rgba(0,0,0,0.04)] transition-all duration-300"
                 >
                   <div className="flex flex-col justify-between h-full min-h-[200px]">

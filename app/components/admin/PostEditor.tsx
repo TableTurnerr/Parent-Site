@@ -7,6 +7,8 @@ import {
   publishPost,
   unpublishPost,
   deletePost,
+  schedulePost,
+  unschedulePost,
 } from "@/app/(admin)/admin/posts/actions";
 import {
   Save,
@@ -29,11 +31,26 @@ import {
   SquareArrowOutUpRight,
   ImageIcon,
   Upload,
+  Clock,
+  CalendarClock,
+  Bold,
+  Italic,
+  Underline,
+  Heading2,
+  Heading3,
+  List,
+  ListOrdered,
+  Quote,
+  Link2,
+  Pilcrow,
+  RemoveFormatting,
 } from "lucide-react";
+import { wordCount as countWords, readingTime as readMins } from "@/app/lib/content-checks";
 import Link from "next/link";
 import ImageUploader from "./ImageUploader";
+import ContentChecklist from "./ContentChecklist";
 
-import { VISIBILITY_LABELS, VISIBILITY_DESCRIPTIONS, hasRole } from "@/app/lib/supabase/types";
+import { VISIBILITY_LABELS, VISIBILITY_DESCRIPTIONS, isTeamWriter } from "@/app/lib/supabase/types";
 import type { UserRole } from "@/app/lib/supabase/types";
 
 interface PostData {
@@ -50,6 +67,7 @@ interface PostData {
   metaDescription: string;
   metaKeywords: string;
   ogImage: string;
+  scheduledAt: string;
   selectedCategoryIds: string[];
 }
 
@@ -86,10 +104,24 @@ export default function PostEditor({
   const [metaKeywords, setMetaKeywords] = useState(post.metaKeywords);
   const [ogImage, setOgImage] = useState(post.ogImage);
   const [visibility, setVisibility] = useState(post.visibility);
+  const [scheduleAt, setScheduleAt] = useState(post.scheduledAt);
+  const [scheduleError, setScheduleError] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     post.selectedCategoryIds
   );
   const [saveStatus, setSaveStatus] = useState<string>("");
+  const [actionError, setActionError] = useState<string>("");
+
+  // Surface a server-action failure inline instead of letting it bubble to the
+  // global error page. Returns the message so callers can react if needed.
+  function reportActionError(err: unknown): string {
+    const message =
+      err instanceof Error && err.message
+        ? err.message
+        : "Something went wrong. Please try again.";
+    setActionError(message);
+    return message;
+  }
   const [editorTab, setEditorTab] = useState<"code" | "visual">("code");
   const visualRef = useRef<HTMLDivElement>(null);
   const [imageSearchQuery, setImageSearchQuery] = useState("");
@@ -282,68 +314,141 @@ export default function PostEditor({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const canEdit = hasRole(userRole, "editor");
-  const canPublish = hasRole(userRole, "manager");
-  const canDelete = hasRole(userRole, "manager");
+  // Gate the buttons on ownership-capable roles (author and up). The server
+  // actions enforce per-post ownership, not role level, so an author can save,
+  // publish, and delete their own posts. Viewers/commenters cannot write.
+  const canEdit = isTeamWriter(userRole);
+  const canPublish = isTeamWriter(userRole);
+  const canDelete = isTeamWriter(userRole);
 
   const handleSave = () => {
+    setActionError("");
     startTransition(async () => {
-      const formData = new FormData();
-      formData.set("title", title);
-      formData.set("slug", slug);
-      formData.set("content_html", contentHtml);
-      formData.set("excerpt", excerpt);
-      formData.set("featured_image", featuredImage);
-      formData.set("featured_image_alt", featuredImageAlt);
-      formData.set("meta_title", metaTitle);
-      formData.set("meta_description", metaDescription);
-      formData.set("meta_keywords", metaKeywords);
-      formData.set("og_image", ogImage);
-      formData.set("visibility", visibility);
-      formData.set("categories", selectedCategories.join(","));
+      try {
+        const formData = new FormData();
+        formData.set("title", title);
+        formData.set("slug", slug);
+        formData.set("content_html", contentHtml);
+        formData.set("excerpt", excerpt);
+        formData.set("featured_image", featuredImage);
+        formData.set("featured_image_alt", featuredImageAlt);
+        formData.set("meta_title", metaTitle);
+        formData.set("meta_description", metaDescription);
+        formData.set("meta_keywords", metaKeywords);
+        formData.set("og_image", ogImage);
+        formData.set("visibility", visibility);
+        formData.set("categories", selectedCategories.join(","));
 
-      await updatePost(post.id, formData);
-      clearDraft();
-      setSaveStatus("Saved!");
-      setTimeout(() => setSaveStatus(""), 2000);
+        await updatePost(post.id, formData);
+        clearDraft();
+        setSaveStatus("Saved!");
+        setTimeout(() => setSaveStatus(""), 2000);
+      } catch (err) {
+        reportActionError(err);
+      }
     });
   };
 
   const handlePublish = () => {
+    setActionError("");
     startTransition(async () => {
-      // Save first, then publish
-      const formData = new FormData();
-      formData.set("title", title);
-      formData.set("slug", slug);
-      formData.set("content_html", contentHtml);
-      formData.set("excerpt", excerpt);
-      formData.set("featured_image", featuredImage);
-      formData.set("featured_image_alt", featuredImageAlt);
-      formData.set("meta_title", metaTitle);
-      formData.set("meta_description", metaDescription);
-      formData.set("meta_keywords", metaKeywords);
-      formData.set("og_image", ogImage);
-      formData.set("visibility", visibility);
-      formData.set("categories", selectedCategories.join(","));
+      try {
+        // Save first, then publish
+        const formData = new FormData();
+        formData.set("title", title);
+        formData.set("slug", slug);
+        formData.set("content_html", contentHtml);
+        formData.set("excerpt", excerpt);
+        formData.set("featured_image", featuredImage);
+        formData.set("featured_image_alt", featuredImageAlt);
+        formData.set("meta_title", metaTitle);
+        formData.set("meta_description", metaDescription);
+        formData.set("meta_keywords", metaKeywords);
+        formData.set("og_image", ogImage);
+        formData.set("visibility", visibility);
+        formData.set("categories", selectedCategories.join(","));
 
-      await updatePost(post.id, formData);
-      await publishPost(post.id);
-      clearDraft();
-      router.refresh();
+        await updatePost(post.id, formData);
+        await publishPost(post.id);
+        clearDraft();
+        router.refresh();
+      } catch (err) {
+        reportActionError(err);
+      }
     });
   };
 
   const handleUnpublish = () => {
+    setActionError("");
     startTransition(async () => {
-      await unpublishPost(post.id);
-      router.refresh();
+      try {
+        await unpublishPost(post.id);
+        router.refresh();
+      } catch (err) {
+        reportActionError(err);
+      }
     });
   };
 
   const handleDelete = () => {
     if (!confirm("Are you sure you want to delete this post? This cannot be undone.")) return;
+    setActionError("");
     startTransition(async () => {
-      await deletePost(post.id);
+      try {
+        await deletePost(post.id);
+      } catch (err) {
+        reportActionError(err);
+      }
+    });
+  };
+
+  const handleSchedule = () => {
+    setScheduleError("");
+    if (!scheduleAt) {
+      setScheduleError("Pick a date and time first.");
+      return;
+    }
+    // datetime-local has no timezone; treat it as the user's local time.
+    const iso = new Date(scheduleAt).toISOString();
+    if (new Date(iso).getTime() <= Date.now()) {
+      setScheduleError("Schedule time must be in the future.");
+      return;
+    }
+    startTransition(async () => {
+      try {
+        // Save current fields first so the scheduled post is up to date.
+        const formData = new FormData();
+        formData.set("title", title);
+        formData.set("slug", slug);
+        formData.set("content_html", contentHtml);
+        formData.set("excerpt", excerpt);
+        formData.set("featured_image", featuredImage);
+        formData.set("featured_image_alt", featuredImageAlt);
+        formData.set("meta_title", metaTitle);
+        formData.set("meta_description", metaDescription);
+        formData.set("meta_keywords", metaKeywords);
+        formData.set("og_image", ogImage);
+        formData.set("visibility", visibility);
+        formData.set("categories", selectedCategories.join(","));
+        await updatePost(post.id, formData);
+        await schedulePost(post.id, iso);
+        clearDraft();
+        router.refresh();
+      } catch (err) {
+        setScheduleError(reportActionError(err));
+      }
+    });
+  };
+
+  const handleUnschedule = () => {
+    setActionError("");
+    startTransition(async () => {
+      try {
+        await unschedulePost(post.id);
+        router.refresh();
+      } catch (err) {
+        reportActionError(err);
+      }
     });
   };
 
@@ -363,86 +468,16 @@ export default function PostEditor({
     );
   };
 
-  const previewWinRef = useRef<Window | null>(null);
-
+  // Live Preview opens the real post in a new tab: the live URL if the post is
+  // published, otherwise the auth-gated preview route that renders the saved
+  // draft with the real site theme (like WordPress). Save first to refresh it.
   const openPreviewTab = () => {
-    // Reuse existing window if still open
-    if (previewWinRef.current && !previewWinRef.current.closed) {
-      previewWinRef.current.focus();
-      return;
-    }
-    const win = window.open("", "_blank");
-    if (!win) return;
-    previewWinRef.current = win;
-    win.document.write(`<!DOCTYPE html>
-<html><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Preview</title>
-<style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:system-ui,-apple-system,sans-serif;color:#1A1A1A;background:#FAFAF8;padding:3rem 1.5rem;max-width:720px;margin:0 auto;line-height:1.7}
-  h1#p-title{font-family:var(--font-satoshi),system-ui,sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:0.5rem;line-height:1.1;letter-spacing:-0.025em}
-  .meta{font-size:0.875rem;color:#6B6560;margin-bottom:2rem}
-  #p-hero{max-width:100%;border-radius:0.75rem;margin:0 0 1.5rem 0;display:none}
-  img{max-width:100%;border-radius:0.75rem;margin:1.5rem 0}
-  h2{font-size:1.5rem;font-weight:700;margin:2rem 0 0.75rem}
-  h3{font-size:1.25rem;font-weight:600;margin:1.5rem 0 0.5rem}
-  p{margin-bottom:1rem}
-  a{color:#C8553D}
-  ul,ol{margin:0 0 1rem 1.5rem}
-  li{margin-bottom:0.25rem}
-  blockquote{border-left:3px solid #E8E5DF;padding-left:1rem;margin:1.5rem 0;color:#6B6560;font-style:italic}
-  pre{background:#F2F0EB;padding:1rem;border-radius:0.5rem;overflow-x:auto;margin:1.5rem 0;font-size:0.875rem}
-  code{font-size:0.875rem}
-  hr{border:none;border-top:1px solid #E8E5DF;margin:2rem 0}
-  .live-badge{position:fixed;top:12px;right:12px;background:#1A1A1A;color:#FAFAF8;font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;display:flex;align-items:center;gap:6px;z-index:99}
-  .live-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse-dot 2s ease-in-out infinite}
-  @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
-</style>
-</head><body>
-<div class="live-badge">Live Preview</div>
-<img id="p-hero" src="" alt="">
-<h1 id="p-title"></h1>
-<p id="p-excerpt" class="meta"></p>
-<hr>
-<div id="p-content"></div>
-<script>
-window.addEventListener("message",function(e){
-  if(!e.data||e.data.type!=="post-preview-update")return;
-  if(e.origin!==window.location.origin)return;
-  var d=e.data;
-  document.title=d.title||"Preview";
-  document.getElementById("p-title").textContent=d.title||"Untitled";
-  document.getElementById("p-excerpt").textContent=d.excerpt||"";
-  document.getElementById("p-content").innerHTML=d.contentHtml||"<p>No content yet.</p>";
-  var hero=document.getElementById("p-hero");
-  if(d.featuredImage){hero.src=d.featuredImage;hero.alt=d.featuredImageAlt||d.title||"";hero.style.display="block"}
-  else{hero.style.display="none"}
-});
-</script>
-</body></html>`);
-    win.document.close();
-    // Send initial data after a tick so the listener is ready
-    setTimeout(() => sendPreviewUpdate(win), 50);
+    const url =
+      post.status === "published"
+        ? `/blog/${post.slug}`
+        : `/blog/preview/${post.id}`;
+    window.open(url, "_blank", "noopener");
   };
-
-  const sendPreviewUpdate = useCallback((win?: Window | null) => {
-    const target = win || previewWinRef.current;
-    if (!target || target.closed) return;
-    target.postMessage({
-      type: "post-preview-update",
-      title,
-      excerpt,
-      contentHtml,
-      featuredImage,
-      featuredImageAlt,
-    }, window.location.origin);
-  }, [title, excerpt, contentHtml, featuredImage, featuredImageAlt]);
-
-  // Push live updates to preview window
-  useEffect(() => {
-    sendPreviewUpdate();
-  }, [sendPreviewUpdate]);
 
   // --- /image slash command logic ---
   const handleVisualInput = useCallback(() => {
@@ -575,6 +610,127 @@ window.addEventListener("message",function(e){
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [slashMenuOpen]);
+
+  // ── Visual editor formatting toolbar ──
+  // Uses execCommand: well-supported for contentEditable, no extra deps. After
+  // each command we sync the DOM back into contentHtml state.
+  const syncVisual = useCallback(() => {
+    if (visualRef.current) setContentHtml(visualRef.current.innerHTML);
+  }, []);
+
+  const exec = useCallback(
+    (command: string, value?: string) => {
+      visualRef.current?.focus();
+      document.execCommand(command, false, value);
+      syncVisual();
+    },
+    [syncVisual],
+  );
+
+  // Toggle a block format (h2/h3/p/blockquote). execCommand formatBlock needs
+  // the tag wrapped in <> on most browsers.
+  const formatBlock = useCallback(
+    (tag: string) => exec("formatBlock", `<${tag}>`),
+    [exec],
+  );
+
+  const insertLink = useCallback(() => {
+    const sel = window.getSelection();
+    const hasSelection = sel && sel.toString().trim().length > 0;
+    const url = window.prompt(
+      hasSelection
+        ? "Link URL (use /services/... for internal links):"
+        : "Select the text you want to link first, then add the URL:",
+    );
+    if (!url || !url.trim()) return;
+    const href = url.trim();
+    // Allow internal (/...) and http(s) links only.
+    const ok = href.startsWith("/") || /^https?:\/\//i.test(href);
+    if (!ok) {
+      alert("Use an internal path (/services/...) or a full https:// URL.");
+      return;
+    }
+    exec("createLink", href);
+    // Make external links open in a new tab + safe rel.
+    if (/^https?:\/\//i.test(href) && visualRef.current) {
+      visualRef.current.querySelectorAll('a[href="' + href + '"]').forEach((a) => {
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener");
+      });
+      syncVisual();
+    }
+  }, [exec, syncVisual]);
+
+  // ── Markdown paste support ──
+  // The blog drafts are written in Markdown. Pasting raw Markdown into the HTML
+  // box leaves "##" / "**" literal and collapses paragraphs, which then looks
+  // broken in the visual editor. We detect Markdown and convert it to the same
+  // clean HTML the drafts-to-html script produces (marked v18 defaults: no
+  // header ids, no mangle). HTML pastes are left untouched.
+  const stripFrontmatter = (md: string) => {
+    const m = md.match(/^---\n[\s\S]*?\n---\n?/);
+    return m ? md.slice(m[0].length) : md;
+  };
+
+  const looksLikeMarkdown = (text: string) => {
+    const t = text.trim();
+    if (!t) return false;
+    // Already real HTML markup? Leave it alone.
+    if (/<(p|h[1-6]|ul|ol|li|div|section|article|blockquote|img|a|strong|em|table)\b/i.test(t))
+      return false;
+    return (
+      /^---\n[\s\S]*?\n---/.test(t) || // frontmatter block
+      /(^|\n)#{1,6}\s/.test(t) || // headings
+      /\*\*[^*]+\*\*/.test(t) || // bold
+      /(^|\n)\s*[-*]\s+/.test(t) || // bullet list
+      /(^|\n)\s*\d+\.\s+/.test(t) || // numbered list
+      /\[[^\]]+\]\([^)]+\)/.test(t) // links
+    );
+  };
+
+  const mdToHtml = async (md: string) => {
+    const { marked } = await import("marked");
+    return (marked.parse(stripFrontmatter(md)) as string).trim();
+  };
+
+  const handleCodePaste = useCallback(
+    (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+      const text = e.clipboardData.getData("text/plain");
+      if (!text || !looksLikeMarkdown(text)) return; // let the browser paste normally
+      e.preventDefault();
+      const textarea = e.currentTarget;
+      const { selectionStart, selectionEnd, value } = textarea;
+      void mdToHtml(text).then((html) => {
+        pushUndo();
+        const next = value.slice(0, selectionStart) + html + value.slice(selectionEnd);
+        setContentHtml(next);
+        requestAnimationFrame(() => {
+          const pos = selectionStart + html.length;
+          try {
+            textarea.setSelectionRange(pos, pos);
+          } catch {
+            /* textarea may have unmounted */
+          }
+        });
+      });
+    },
+    [pushUndo],
+  );
+
+  const [mdConvertStatus, setMdConvertStatus] = useState<"idle" | "done" | "noop">("idle");
+  const convertCodeMarkdown = useCallback(async () => {
+    if (!contentHtml.trim()) return;
+    if (!looksLikeMarkdown(contentHtml)) {
+      setMdConvertStatus("noop");
+      setTimeout(() => setMdConvertStatus("idle"), 2500);
+      return;
+    }
+    const html = await mdToHtml(contentHtml);
+    pushUndo();
+    setContentHtml(html);
+    setMdConvertStatus("done");
+    setTimeout(() => setMdConvertStatus("idle"), 2500);
+  }, [contentHtml, pushUndo]);
 
   const handleEditorTabSwitch = (tab: "code" | "visual") => {
     // Sync visual editor content back to state when leaving visual mode
@@ -802,10 +958,15 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {saveStatus && (
+          {actionError && (
+            <span className="max-w-xs text-right text-sm text-red-600">
+              {actionError}
+            </span>
+          )}
+          {!actionError && saveStatus && (
             <span className="text-sm text-green-600">{saveStatus}</span>
           )}
-          {!saveStatus && hasDraft && (
+          {!actionError && !saveStatus && hasDraft && (
             <span className="text-xs text-[var(--color-warm-gray-light)]">
               Unsaved changes
             </span>
@@ -907,16 +1068,76 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
             </div>
 
             {editorTab === "code" && (
-              <textarea
-                value={contentHtml}
-                onChange={(e) => setContentHtml(e.target.value)}
-                placeholder="Write your post content in HTML..."
-                className="min-h-[500px] w-full resize-y bg-transparent px-4 py-3 font-mono text-sm text-[var(--color-charcoal)] placeholder:text-[var(--color-warm-gray-light)] focus:outline-none"
-              />
+              <>
+                <div className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border)] bg-[var(--color-cream)] px-2 py-1.5">
+                  <button
+                    type="button"
+                    onClick={convertCodeMarkdown}
+                    title="Convert Markdown in this box to clean HTML"
+                    className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-border)] bg-white px-2.5 py-1 text-xs font-medium text-[var(--color-charcoal)] transition-colors hover:bg-[var(--color-cream-dark)]"
+                  >
+                    <Code className="h-3.5 w-3.5" />
+                    Markdown &rarr; HTML
+                  </button>
+                  <span className="text-xs text-[var(--color-warm-gray-light)]">
+                    {mdConvertStatus === "done"
+                      ? "Converted to HTML."
+                      : mdConvertStatus === "noop"
+                        ? "Looks like HTML already, nothing to convert."
+                        : "Pasting a Markdown draft converts it automatically."}
+                  </span>
+                </div>
+                <textarea
+                  value={contentHtml}
+                  onChange={(e) => setContentHtml(e.target.value)}
+                  onPaste={handleCodePaste}
+                  placeholder="Paste a Markdown draft (auto-converts) or write HTML..."
+                  className="min-h-[500px] w-full resize-y bg-transparent px-4 py-3 font-mono text-sm text-[var(--color-charcoal)] placeholder:text-[var(--color-warm-gray-light)] focus:outline-none"
+                />
+              </>
             )}
 
             {editorTab === "visual" && (
               <div className="relative">
+                {/* Formatting toolbar */}
+                <div className="flex flex-wrap items-center gap-0.5 border-b border-[var(--color-border)] bg-[var(--color-cream)] px-2 py-1.5">
+                  {[
+                    { icon: Bold, label: "Bold (Ctrl+B)", run: () => exec("bold") },
+                    { icon: Italic, label: "Italic (Ctrl+I)", run: () => exec("italic") },
+                    { icon: Underline, label: "Underline (Ctrl+U)", run: () => exec("underline") },
+                    { sep: true },
+                    { icon: Heading2, label: "Heading 2", run: () => formatBlock("h2") },
+                    { icon: Heading3, label: "Heading 3", run: () => formatBlock("h3") },
+                    { icon: Pilcrow, label: "Paragraph", run: () => formatBlock("p") },
+                    { sep: true },
+                    { icon: List, label: "Bullet list", run: () => exec("insertUnorderedList") },
+                    { icon: ListOrdered, label: "Numbered list", run: () => exec("insertOrderedList") },
+                    { icon: Quote, label: "Quote", run: () => formatBlock("blockquote") },
+                    { sep: true },
+                    { icon: Link2, label: "Add link", run: insertLink },
+                    { icon: RemoveFormatting, label: "Clear formatting", run: () => exec("removeFormat") },
+                  ].map((item, i) =>
+                    "sep" in item ? (
+                      <span key={`sep-${i}`} className="mx-1 h-5 w-px bg-[var(--color-border)]" />
+                    ) : (
+                      <button
+                        key={item.label}
+                        type="button"
+                        title={item.label}
+                        aria-label={item.label}
+                        // onMouseDown + preventDefault keeps the editor selection alive
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          item.run!();
+                        }}
+                        className="rounded-md p-2 text-[var(--color-warm-gray)] transition-colors hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-charcoal)]"
+                      >
+                        <item.icon className="h-4 w-4" />
+                      </button>
+                    ),
+                  )}
+                </div>
+
                 <div
                   ref={visualRef}
                   contentEditable
@@ -987,6 +1208,21 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
               </div>
             )}
 
+            {/* Word count footer */}
+            <div className="flex items-center justify-end gap-4 border-t border-[var(--color-border)] px-4 py-2 text-xs text-[var(--color-warm-gray)]">
+              <span>
+                <span className="font-semibold text-[var(--color-charcoal)]">
+                  {countWords(contentHtml).toLocaleString()}
+                </span>{" "}
+                words
+              </span>
+              <span>
+                <span className="font-semibold text-[var(--color-charcoal)]">
+                  {readMins(contentHtml)}
+                </span>{" "}
+                min read
+              </span>
+            </div>
           </div>
 
           {/* Talk to AI */}
@@ -1175,6 +1411,18 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
 
         {/* Sidebar */}
         <div className="space-y-4">
+          {/* Content quality + SEO checklist */}
+          <ContentChecklist
+            title={title}
+            contentHtml={contentHtml}
+            excerpt={excerpt}
+            metaTitle={metaTitle}
+            metaDescription={metaDescription}
+            featuredImageAlt={featuredImageAlt}
+            featuredImage={featuredImage}
+            metaKeywords={metaKeywords}
+          />
+
           {/* Slug */}
           <div className="rounded-xl border border-[var(--color-border)] bg-white p-4">
             <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
@@ -1363,6 +1611,64 @@ IMPORTANT: Respond with ONLY the JSON object. No text before or after it. Only i
               ))}
             </div>
           </div>
+
+          {/* Schedule */}
+          {canPublish && post.status !== "published" && (
+            <div className="rounded-xl border border-[var(--color-border)] bg-white p-4">
+              <label className="mb-2 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-[var(--color-warm-gray)]">
+                <CalendarClock className="h-3.5 w-3.5" />
+                Schedule
+              </label>
+              {post.status === "scheduled" ? (
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2 rounded-lg border border-purple-200 bg-purple-50 p-3">
+                    <Clock className="mt-0.5 h-4 w-4 shrink-0 text-purple-600" />
+                    <p className="text-xs text-purple-700">
+                      Scheduled to publish on{" "}
+                      <span className="font-semibold">
+                        {scheduleAt ? new Date(scheduleAt).toLocaleString() : "a set time"}
+                      </span>
+                      .
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleUnschedule}
+                    disabled={isPending}
+                    className="w-full rounded-full border border-[var(--color-border)] bg-white px-4 py-2 text-sm font-medium text-[var(--color-charcoal)] transition-colors hover:bg-[var(--color-cream-dark)] disabled:opacity-50"
+                  >
+                    Cancel schedule
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <input
+                    type="datetime-local"
+                    value={scheduleAt}
+                    onChange={(e) => {
+                      setScheduleAt(e.target.value);
+                      setScheduleError("");
+                    }}
+                    className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm text-[var(--color-charcoal)] focus:border-[var(--color-charcoal)] focus:outline-none"
+                  />
+                  {scheduleError && (
+                    <p className="text-xs text-red-600">{scheduleError}</p>
+                  )}
+                  <button
+                    onClick={handleSchedule}
+                    disabled={isPending || !scheduleAt}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:opacity-40"
+                  >
+                    <CalendarClock className="h-3.5 w-3.5" />
+                    Schedule post
+                  </button>
+                  <p className="text-xs text-[var(--color-warm-gray-light)]">
+                    Publishes automatically at the next daily run after the time
+                    you set.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* SEO Settings */}
           <div className="rounded-xl border border-[var(--color-border)] bg-white">

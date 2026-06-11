@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import Button from "@/app/components/ui/Button";
@@ -14,6 +15,7 @@ export default function Navbar({
   rightSlot?: React.ReactNode;
 }) {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (variant === "static") return;
@@ -25,6 +27,9 @@ export default function Navbar({
 
   const isStatic = variant === "static";
   const isShrunk = !isStatic && scrolled;
+  // The homepage has a full-screen dark hero; while at the top (not scrolled
+  // into the cream pill) the nav sits over it and must render light.
+  const overDark = !isStatic && pathname === "/" && !scrolled;
 
   return (
     <header
@@ -52,34 +57,53 @@ export default function Navbar({
           {/* Logo */}
           <Link
             href="/"
-            className="font-display text-xl md:text-2xl font-bold text-charcoal md:flex-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0"
+            className={`font-display text-xl md:text-2xl font-bold transition-colors duration-300 md:flex-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0 ${
+              overDark ? "text-cream" : "text-charcoal"
+            }`}
           >
             TableTurnerr
           </Link>
 
           {/* Center: Plain nav links */}
           <div className="hidden md:flex items-center gap-8 lg:gap-10">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="nav-link text-sm font-medium text-warm-gray hover:text-charcoal transition-colors"
-              >
-                {link.label}
-                <span className="nav-link__line" />
-              </Link>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const isActive =
+                pathname === link.href || pathname.startsWith(`${link.href}/`);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`nav-link text-sm font-medium transition-colors ${
+                    overDark
+                      ? isActive
+                        ? "text-cream"
+                        : "text-cream/75 hover:text-cream"
+                      : isActive
+                        ? "text-charcoal"
+                        : "text-warm-gray hover:text-charcoal"
+                  }`}
+                >
+                  {link.label}
+                  <span className="nav-link__line" />
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right: CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Button href="/contact" variant="primary" className="flow-btn--nav py-2.5 px-6 text-xs">
+            <Button
+              href="/contact"
+              variant={overDark ? "primary-light" : "primary"}
+              className="flow-btn--nav py-2.5 px-6 text-xs"
+            >
               Talk to Us
             </Button>
             {rightSlot}
           </div>
 
-          <MobileMenu />
+          <MobileMenu overDark={overDark} />
         </div>
       </nav>
     </header>

@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
-import BlurText from "@/app/components/ui/BlurText";
 import Container from "@/app/components/ui/Container";
-import SectionLabel from "@/app/components/ui/SectionLabel";
 import ContactForm from "@/app/components/sections/ContactForm";
 import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 import { SITE_CONFIG, SOCIAL_LINKS } from "@/app/lib/constants";
@@ -14,16 +12,16 @@ import {
 } from "@/app/lib/schema";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Contact Us — Free Restaurant Consultation",
+  title: "Contact Us for a Free Consultation",
   description:
-    "Get a free consultation for your restaurant. Contact TableTurnerr for custom website design, local SEO, Google Ads, branding, and commission-free ordering setup for independent restaurants.",
+    "Tell us about your business and get a free, no-obligation consultation. We reply within 24 hours with a plan for your website, local SEO, and Google Ads.",
   path: "/contact",
   keywords: [
-    "contact restaurant marketing agency",
-    "free restaurant consultation",
-    "restaurant website quote",
-    "restaurant SEO consultation",
-    "restaurant marketing help",
+    "contact marketing agency",
+    "free marketing consultation",
+    "website quote",
+    "local SEO consultation",
+    "local business marketing help",
   ],
 });
 
@@ -227,14 +225,16 @@ export default function ContactPage() {
       <section className="bg-cream pt-10 pb-10 md:pt-14 md:pb-14">
         <Container>
           <AnimatedElement variants={fadeInUp} className="max-w-3xl">
-            <SectionLabel className="mb-4">Contact Us</SectionLabel>
-            <h1 className="font-display font-bold text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mb-6">
-              <BlurText text="Let's Grow Your Restaurant" />
+            <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
+              let&apos;s talk
+            </p>
+            <h1 className="display-xl text-charcoal mb-6">
+              Let&apos;s grow your business
             </h1>
             <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl">
-              Get a free consultation and discover how our restaurant website
-              design, SEO, and marketing services can drive more online orders
-              and fill more tables.
+              Get a free consultation and discover how our website design, SEO,
+              and marketing can drive more calls, bookings, and customers
+              through your door.
             </p>
           </AnimatedElement>
         </Container>
@@ -338,8 +338,8 @@ export default function ContactPage() {
 
                 {/* Disclaimer */}
                 <p className="text-warm-gray-light text-xs leading-relaxed">
-                  We work exclusively with independent restaurants with physical
-                  locations.
+                  We work with local businesses that have a physical location,
+                  with deep experience in the restaurant industry.
                 </p>
               </div>
             </AnimatedElement>

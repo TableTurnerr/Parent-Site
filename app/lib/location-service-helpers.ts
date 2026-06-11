@@ -3,6 +3,11 @@ import type { Metadata } from "next";
 import { getServiceBySlug, type ServicePageData } from "./service-data";
 import { getCityBySlug, getAllCitySlugs, type CityData } from "./location-data";
 import { SITE_CONFIG } from "./constants";
+import {
+  generateCityServiceSchema,
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+} from "./schema";
 
 export function getLocationStaticParams() {
   return getAllCitySlugs().map((city) => ({ city }));
@@ -19,6 +24,14 @@ export function buildLocationServiceData(
   service: ServicePageData,
   city: CityData
 ): ServicePageData {
+  // A city-specific FAQ so each location page has at least one unique Q&A in
+  // both the visible accordion and the FAQ schema (helps avoid thin/duplicate
+  // content across the 10 city variants).
+  const cityFaq = {
+    question: `Do you offer ${service.title.toLowerCase()} for ${city.name} restaurants?`,
+    answer: `Yes. We work with independent restaurants in ${city.name}, ${city.state} and across the US. Our ${service.title.toLowerCase()} is tailored to how diners in ${city.name} search and order, and it starts with a free consultation about your menu, your market, and your goals.`,
+  };
+
   return {
     ...service,
     title: `${service.title} in ${city.name}, ${city.stateCode}`,
@@ -28,7 +41,43 @@ export function buildLocationServiceData(
       ` in ${city.name}, ${city.state}.`
     ),
     metaDescription: `${service.title} in ${city.name}, ${city.stateCode}. ${service.metaDescription}`,
+    faqs: [...service.faqs, cityFaq],
+    cityContext: {
+      name: city.name,
+      state: city.state,
+      stateCode: city.stateCode,
+      blurb: city.blurb,
+    },
   };
+}
+
+/**
+ * Builds the JSON-LD array for a city service page: a geo-aware Service schema,
+ * a breadcrumb, and the FAQ schema (including the city-specific question).
+ */
+export function buildLocationJsonLd(
+  service: ServicePageData,
+  city: CityData,
+  locationService: ServicePageData
+) {
+  const url = `${SITE_CONFIG.url}/services/${service.slug}/${city.slug}`;
+  const serviceSchema = generateCityServiceSchema({
+    serviceName: locationService.title,
+    description: locationService.metaDescription,
+    url,
+    city: { name: city.name, state: city.state, lat: city.lat, lng: city.lng },
+  });
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: SITE_CONFIG.url },
+    { name: "Services", url: `${SITE_CONFIG.url}/services` },
+    { name: service.title, url: `${SITE_CONFIG.url}/services/${service.slug}` },
+    {
+      name: `${city.name}, ${city.stateCode}`,
+      url,
+    },
+  ]);
+  const faqSchema = generateFAQSchema(locationService.faqs);
+  return [serviceSchema, breadcrumbSchema, faqSchema];
 }
 
 export function buildLocationMetadata(

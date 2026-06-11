@@ -1,9 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
-import BlurText from "@/app/components/ui/BlurText";
 import Container from "@/app/components/ui/Container";
-import SectionLabel from "@/app/components/ui/SectionLabel";
 import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 import {
   Accordion,
@@ -24,14 +23,12 @@ export default function FAQ() {
             className="lg:col-span-5"
           >
             <AnimatedElement variants={fadeInUp}>
-              <SectionLabel>FAQ</SectionLabel>
+              <p className="eyebrow mb-6">FAQ</p>
             </AnimatedElement>
 
             <AnimatedElement variants={fadeInUp}>
-              <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-4 mb-6">
-                <BlurText text="Frequently Asked" />
-                <br />
-                <BlurText text="Questions" delay={200} />
+              <h2 className="display-lg text-charcoal mb-6">
+                Frequently asked questions
               </h2>
             </AnimatedElement>
 
@@ -63,6 +60,20 @@ export default function FAQ() {
                 </AnimatedElement>
               ))}
             </Accordion>
+
+            <AnimatedElement variants={fadeInUp}>
+              <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-[1.25rem] bg-cream-dark border border-border p-6">
+                <p className="text-charcoal font-medium">
+                  Still have questions about growing your restaurant?
+                </p>
+                <Link
+                  href="/contact"
+                  className="shrink-0 inline-flex items-center justify-center rounded-full bg-charcoal text-cream px-6 py-3 text-sm font-medium hover:bg-charcoal-light transition-colors"
+                >
+                  Get in touch
+                </Link>
+              </div>
+            </AnimatedElement>
           </AnimatedElement>
         </div>
       </Container>

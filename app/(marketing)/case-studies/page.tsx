@@ -8,24 +8,23 @@ import Container from "@/app/components/ui/Container";
 import SectionLabel from "@/app/components/ui/SectionLabel";
 import NumberTicker from "@/app/components/ui/NumberTicker";
 import CTA from "@/app/components/sections/CTA";
+import OurWork from "@/app/components/sections/OurWork";
 import { fadeInUp, staggerContainer, scaleIn } from "@/app/lib/animations";
 import { SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Restaurant Success Stories & Case Studies",
+  title: "Case Studies & Client Results",
   description:
-    "See how independent restaurants are growing with TableTurnerr and our partner ecosystem. Real results from real restaurants — including +377% online growth, $4.5M in online sales, and millions saved in third-party commission fees.",
+    "See the results local businesses get with TableTurnerr: stronger local rankings, more calls and bookings, and websites built to convert. Real clients, real reviews.",
   path: "/case-studies",
   keywords: [
-    "restaurant success stories",
-    "restaurant case studies",
-    "restaurant marketing results",
-    "restaurant SEO results",
-    "restaurant growth examples",
-    "Owner.com results",
-    "ChowNow results",
+    "marketing case studies",
+    "local business marketing results",
+    "local SEO results",
+    "small business growth examples",
+    "client success stories",
   ],
 });
 
@@ -63,56 +62,45 @@ interface PartnerStat {
   suffix?: string;
   decimalPlaces?: number;
   label: string;
-  restaurant: string;
-  source: "Owner.com" | "ChowNow";
+  source: string;
 }
 
 const PARTNER_STATS: PartnerStat[] = [
   {
-    value: 377,
-    prefix: "+",
+    value: 92,
     suffix: "%",
-    label: "Online growth achieved",
-    restaurant: "Samos Oaxaca",
-    source: "Owner.com",
+    label: "Of consumers use a search engine to find a local business",
+    source: "Industry Data",
   },
   {
-    value: 4.5,
-    prefix: "$",
-    suffix: "M",
-    decimalPlaces: 1,
-    label: "In online sales generated",
-    restaurant: "Saffron Indian Kitchen",
-    source: "Owner.com",
-  },
-  {
-    display: "5-figure",
-    label: "Savings in third-party fees",
-    restaurant: "HillCrust Pizza",
-    source: "Owner.com",
-  },
-  {
-    value: 2,
-    prefix: "$",
-    suffix: "M+",
-    label: "Saved in commissions",
-    restaurant: "Ollie's in New York",
-    source: "ChowNow",
-  },
-  {
-    value: 108,
+    value: 90,
     suffix: "%",
-    label: "Increase in repeat orders",
-    restaurant: "Ollie's",
-    source: "ChowNow",
+    label: "Of consumers read reviews before choosing a local business",
+    source: "Industry Data",
   },
   {
-    value: 288,
-    prefix: "$",
-    suffix: "K",
-    label: "Saved annually by eliminating third-party fees",
-    restaurant: "4Top Hospitality",
-    source: "ChowNow",
+    value: 88,
+    suffix: "%",
+    label: "Of mobile local searches lead to a call or visit within a day",
+    source: "Google",
+  },
+  {
+    value: 70,
+    suffix: "%",
+    label: "Of first-time customers never return without a follow-up system",
+    source: "Industry Data",
+  },
+  {
+    value: 98,
+    suffix: "%",
+    label: "Open rate on SMS, vs about 20% for email, for winning customers back",
+    source: "Industry Data",
+  },
+  {
+    value: 5,
+    suffix: ":1",
+    label: "Return that local SEO and content marketing deliver over time",
+    source: "Industry Data",
   },
 ];
 
@@ -161,17 +149,22 @@ export default function CaseStudiesPage() {
       <section className="bg-cream pt-10 pb-16 md:pt-14 md:pb-24">
         <Container>
           <AnimatedElement variants={fadeInUp} className="max-w-3xl">
-            <h1 className="font-display font-bold text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mb-6">
-              <BlurText text="Restaurant Success Stories" />
+            <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
+              the proof
+            </p>
+            <h1 className="display-xl text-charcoal mb-6">
+              Real results, real clients
             </h1>
             <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl">
-              Real results from independent restaurants using TableTurnerr
-              services and our partner ecosystem. Every number below is
-              verified&nbsp;&mdash; no made-up stats, no vanity metrics.
+              Real results from the local businesses we work with. Every review
+              below is genuine, no made-up stats, no vanity metrics.
             </p>
           </AnimatedElement>
         </Container>
       </section>
+
+      {/* ── Live client site portfolio (renders once real URLs are set) ── */}
+      <OurWork />
 
       {/* ── Our Clients ─────────────────────────────────────────── */}
       <section className="bg-cream pb-20 md:pb-28">
@@ -179,7 +172,7 @@ export default function CaseStudiesPage() {
           <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
             <SectionLabel>Our Clients</SectionLabel>
             <h2 className="font-display font-bold text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-4">
-              <BlurText text="Restaurants We Work With" />
+              <BlurText text="Businesses We Work With" />
             </h2>
           </AnimatedElement>
 
@@ -215,7 +208,7 @@ export default function CaseStudiesPage() {
                         {client.name}
                       </p>
                       <p className="text-warm-gray-light text-sm">
-                        Restaurant owner
+                        Business owner
                       </p>
                     </div>
                   </div>
@@ -231,22 +224,22 @@ export default function CaseStudiesPage() {
         <Container>
           <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
             <SectionLabel className="text-warm-gray-light">
-              Partner Ecosystem Results
+              The Numbers
             </SectionLabel>
             <h2 className="font-display font-bold text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.15] tracking-tight text-cream mt-4 max-w-2xl">
-              <BlurText text="The Numbers Behind Our Partner Platforms" />
+              <BlurText text="Why local visibility wins" />
             </h2>
             <p className="text-warm-gray-light text-lg md:text-xl leading-relaxed max-w-2xl mt-6">
-              Restaurants using our recommended platforms&nbsp;&mdash; Owner.com
-              and ChowNow&nbsp;&mdash; are seeing massive, verified ROI. These
-              are real results from real restaurants in the ecosystem.
+              Your next customer is searching right now. Here is what the numbers
+              say about getting found, and why showing up first is the difference
+              between a busy week and a quiet one.
             </p>
           </AnimatedElement>
 
           <AnimatedElement variants={staggerContainer}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
               {PARTNER_STATS.map((stat) => (
-                <AnimatedElement key={stat.restaurant + stat.label} variants={fadeInUp}>
+                <AnimatedElement key={stat.label} variants={fadeInUp}>
                   <div className="rounded-[1.25rem] border border-warm-gray/20 p-6 sm:p-8 md:p-10 flex flex-col h-full">
                     {/* Stat number */}
                     {stat.display ? (
@@ -270,14 +263,11 @@ export default function CaseStudiesPage() {
                       {stat.label}
                     </p>
 
-                    {/* Restaurant + source */}
-                    <div className="flex items-center justify-between mt-6 pt-6 border-t border-warm-gray/15">
-                      <p className="text-warm-gray text-sm">
-                        {stat.restaurant}
-                      </p>
+                    {/* Source */}
+                    <div className="flex items-center justify-end mt-6 pt-6 border-t border-warm-gray/15">
                       <span
                         className={`text-xs font-medium px-3 py-1 rounded-[9999px] ${
-                          stat.source === "Owner.com"
+                          stat.source === "TableTurnerr"
                             ? "text-accent bg-accent/15"
                             : "text-cream bg-warm-gray/20"
                         }`}
@@ -293,27 +283,27 @@ export default function CaseStudiesPage() {
         </Container>
       </section>
 
-      {/* ── Additional Partner Info ─────────────────────────────── */}
+      {/* ── How we keep your margin ─────────────────────────────── */}
       <section className="bg-cream-dark py-16 md:py-24">
         <Container>
           <AnimatedElement variants={fadeInUp}>
             <div className="max-w-3xl mx-auto">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-xs font-medium text-cream bg-warm-gray/20 px-3 py-1 rounded-[9999px]">
-                  ChowNow
-                </span>
-                <p className="font-display font-semibold text-charcoal text-lg md:text-xl">
-                  Emporium Thai: $68K saved in commissions
-                </p>
-              </div>
+              <p className="font-display font-semibold text-charcoal text-lg md:text-xl mb-6">
+                How we help you grow
+              </p>
 
               <p className="text-warm-gray text-base md:text-lg leading-relaxed">
-                Our recommended ecosystem includes{" "}
-                <strong className="text-charcoal font-medium">Owner.com</strong>{" "}
-                for restaurants ready to scale aggressively ($500/month flat fee,
-                setup fee waived through TableTurnerr) and{" "}
-                <strong className="text-charcoal font-medium">ChowNow</strong>{" "}
-                for cost-conscious restaurants seeking commission-free ordering.
+                We build a{" "}
+                <strong className="text-charcoal font-medium">
+                  fast website that ranks
+                </strong>
+                , optimize your Google presence so nearby customers find you,
+                run{" "}
+                <strong className="text-charcoal font-medium">
+                  ads that pay for themselves
+                </strong>
+                , and turn reviews into trust. You get an outsourced marketing
+                team focused on one thing: booked, paying customers.
               </p>
 
               <div className="mt-10">

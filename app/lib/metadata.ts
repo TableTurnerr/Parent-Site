@@ -33,7 +33,7 @@ export function createPageMetadata({
       type: "website",
       images: [
         {
-          url: ogImage ?? "/images/og/default.jpg",
+          url: ogImage ?? "/images/usage/restaurant-kitchen-2.jpg",
           width: 1200,
           height: 630,
           alt: `${title} - ${SITE_CONFIG.name}`,
