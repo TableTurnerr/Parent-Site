@@ -74,7 +74,7 @@ export const metadata: Metadata = {
   verification: {
     google: "M-0AZRyz9kqD2TwnHjOCO3R593wsaKNLCDZy0JiGFVs",
   },
-  category: "Restaurant Marketing",
+  category: "Marketing",
 };
 
 export default function RootLayout({

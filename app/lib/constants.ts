@@ -67,24 +67,24 @@ export const SITE_CONFIG = {
 
 export const FAQ_DATA = [
   {
-    question: "How long does it take to design and build a restaurant website?",
+    question: "How long does it take to design and build a website?",
     answer:
-      "Most custom restaurant websites are completed within 2 to 4 weeks from kickoff. This includes design, development, content creation, and full SEO optimization. Timelines vary depending on scope and complexity.",
+      "Most custom websites are completed within 2 to 4 weeks from kickoff. This includes design, development, content creation, and full SEO optimization. Timelines vary depending on scope and complexity.",
   },
   {
-    question: "How much does a restaurant website cost?",
+    question: "How much does a website cost?",
     answer:
-      "Because every restaurant's needs, size, and existing branding differ, the price of our services varies completely per project. We provide custom quotes based on your specific requirements after an initial consultation.",
+      "Because every business's needs, size, and existing branding differ, the price of our services varies completely per project. We provide custom quotes based on your specific requirements after an initial consultation.",
   },
   {
-    question: "What does your restaurant SEO service include?",
+    question: "What does your local SEO service include?",
     answer:
-      "Our restaurant SEO service covers local SEO strategy, Google Business Profile optimization, on-page SEO for your website, keyword targeting for your menu and location, Google Maps optimization, and ongoing performance tracking. We focus on getting your restaurant found by nearby diners searching on Google.",
+      "Our local SEO service covers local SEO strategy, Google Business Profile optimization, on-page SEO for your website, keyword targeting for your services and location, Google Maps optimization, and ongoing performance tracking. We focus on getting your business found by nearby customers searching on Google.",
   },
   {
-    question: "Can you help our restaurant reduce DoorDash and UberEats fees?",
+    question: "What types of businesses do you work with?",
     answer:
-      "Yes. We help restaurants transition away from high-commission third-party platforms by setting up commission-free direct ordering on your own website, plus flat-fee delivery that charges a small amount per order instead of a percentage. Most restaurants save thousands per year in delivery app fees while keeping more profit from every order.",
+      "We work with local businesses that rely on getting found online: home services, clinics and practices, professional services, hospitality, and more. We have deep experience in the restaurant industry, and we bring that proven local-marketing playbook to every business we help.",
   },
   {
     question: "What makes TableTurnerr different from other marketing agencies?",
@@ -92,8 +92,8 @@ export const FAQ_DATA = [
       "We help local businesses get found and grow, and we build on a proven, conversion-tested website framework that we tailor to each client instead of starting from a blank page. That means faster launches, lower cost, and a site built to rank and convert from day one. We cut our teeth in the restaurant industry, so we know how to win in crowded local markets.",
   },
   {
-    question: "Do you offer ongoing SEO and Google Ads management for restaurants?",
+    question: "Do you offer ongoing SEO and Google Ads management?",
     answer:
-      "Yes. Most of our restaurant clients work with us on a monthly retainer for local SEO, Google Ads management, Google Business Profile optimization, and ongoing website maintenance. We also offer one-time optimization packages for restaurants that need a specific boost.",
+      "Yes. Most of our clients work with us on a monthly retainer for local SEO, Google Ads management, Google Business Profile optimization, and ongoing website maintenance. We also offer one-time optimization packages for businesses that need a specific boost.",
   },
 ] as const;

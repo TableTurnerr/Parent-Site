@@ -5,34 +5,34 @@ import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 
 const PARTNERS = [
   {
-    name: "Direct Ordering",
-    tier: "Own your customers",
-    tagline: "Commission-free ordering on your own website",
+    name: "Get Found",
+    tier: "Show up first",
+    tagline: "Rank where your customers are searching",
     features: [
-      "Commission-free online ordering",
-      "Automated email & SMS marketing",
-      "Loyalty and repeat-order tools",
-      "You own the customer data, not an app",
+      "A fast, conversion-built website",
+      "Local SEO and Google Maps",
+      "Optimized Google Business Profile",
+      "Targeted Google Ads",
     ],
-    perk: "0% commission",
-    perkDetail: "on every direct order",
-    stat: { prefix: "", value: 67, suffix: "%", decimalPlaces: 0 },
-    statLabel: "of diners prefer ordering directly from a restaurant when they can",
+    perk: "Top 3",
+    perkDetail: "in your local market",
+    stat: { prefix: "", value: 92, suffix: "%", decimalPlaces: 0 },
+    statLabel: "of consumers use a search engine to find a local business",
   },
   {
-    name: "Turnerr Deliver",
-    tier: "Flat-fee delivery",
-    tagline: "Delivery without the percentage commission",
+    name: "Get Chosen",
+    tier: "Win the click",
+    tagline: "Turn searchers into paying customers",
     features: [
-      "Flat fee per delivered order",
-      "Nearest driver dispatched automatically",
-      "Plugs straight into your POS",
-      "No per-order percentage, ever",
+      "Reviews that build trust",
+      "Branding that looks established",
+      "Clear calls to action",
+      "Pages built to convert",
     ],
-    perk: "$1.50 flat",
-    perkDetail: "per delivered order",
-    stat: { prefix: "$", value: 1.5, suffix: "", decimalPlaces: 2 },
-    statLabel: "flat per-order fee instead of $10 to $12 commission on a $40 order",
+    perk: "5-star",
+    perkDetail: "reputation that sells",
+    stat: { prefix: "", value: 90, suffix: "%", decimalPlaces: 0 },
+    statLabel: "of consumers read reviews before choosing a business",
   },
 ] as const;
 
@@ -62,16 +62,15 @@ export default function Partners() {
         {/* Section header */}
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
           <p className="eyebrow mb-6" style={{ color: "rgba(250,250,248,0.6)" }}>
-            Keep More Profit
+            How We Help
           </p>
           <h2 className="display-lg text-cream max-w-3xl">
-            Stop handing your margin to delivery apps
+            Everything you need to get found and get chosen
           </h2>
           <p className="text-cream/70 text-lg leading-relaxed mt-5 max-w-2xl">
-            Third-party apps take 15 to 30 percent of every order and keep your
-            customers as theirs. We set you up with commission-free direct
-            ordering and flat-fee delivery, so the revenue, the data, and the
-            customer relationship stay with your restaurant.
+            We act as your outsourced marketing team. We build the foundation
+            that ranks, drive the traffic that converts, and turn it into booked,
+            paying customers, all measured so you see the return.
           </p>
         </AnimatedElement>
 
@@ -116,7 +115,7 @@ export default function Partners() {
               <div className="rounded-xl bg-cream/[0.06] border border-cream/10 px-5 py-4 mb-6">
                 <p className="text-sm text-cream/70">
                   <span className="text-cream font-semibold">
-                    TableTurnerr Exclusive:
+                    The goal:
                   </span>{" "}
                   <span className="text-accent font-bold">{partner.perk}</span>{" "}
                   {partner.perkDetail}
@@ -147,12 +146,12 @@ export default function Partners() {
           <div className="rounded-[1.25rem] border border-cream/10 bg-cream/[0.04] px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8">
             <p className="text-cream/75 text-base md:text-lg leading-relaxed max-w-3xl">
               <span className="text-cream font-semibold">
-                The smart play:
+                The approach:
               </span>{" "}
-              We don't ask you to ditch DoorDash or UberEats. Instead, we flip
-              the script, use those platforms as marketing channels to find new
-              customers, then convert repeat orders to your own commission-free
-              system.
+              We don't just send traffic. We build the website, the local
+              presence, and the reputation that turn that traffic into booked
+              customers, and we track every call, form, and visit so you always
+              know the return.
             </p>
           </div>
         </AnimatedElement>

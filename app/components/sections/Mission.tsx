@@ -6,21 +6,21 @@ import { fadeInUp, fadeIn, staggerContainer } from "@/app/lib/animations";
 const VALUES = [
   {
     number: "01",
-    title: "Restaurant-First",
+    title: "Local-First",
     description:
-      "Every strategy, website, and campaign is built specifically for the food and beverage industry, not repurposed from generic marketing playbooks.",
+      "Every strategy, website, and campaign is built to win in local search, where your next customer is actually looking for you.",
   },
   {
     number: "02",
     title: "Performance-Driven",
     description:
-      "We measure success by the metrics that matter: online orders placed, Google rankings gained, and revenue generated for your restaurant.",
+      "We measure success by the metrics that matter: leads generated, Google rankings gained, and revenue generated for your business.",
   },
   {
     number: "03",
     title: "Built for Growth",
     description:
-      "From your first restaurant website to multi-location expansion, our digital marketing systems scale as your business grows.",
+      "From your first website to multi-location expansion, our marketing systems scale as your business grows.",
   },
 ];
 
@@ -32,18 +32,18 @@ export default function Mission() {
         <AnimatedElement variants={fadeInUp}>
           <p className="eyebrow mb-3">Our Mission</p>
           <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-7">
-            from our kitchen to yours
+            we grow local
           </p>
         </AnimatedElement>
 
         {/* Big editorial headline */}
         <AnimatedElement variants={fadeInUp}>
           <h2 className="display-lg text-charcoal max-w-5xl">
-            Independent restaurants pour their heart into every plate.{" "}
+            Local businesses pour their heart into what they do.{" "}
             <span className="text-warm-gray-light">
-              We build the digital marketing that brings{" "}
+              We build the marketing that brings{" "}
             </span>
-            <span className="text-accent">diners through the door.</span>
+            <span className="text-accent">customers through the door.</span>
           </h2>
         </AnimatedElement>
 
@@ -74,12 +74,11 @@ export default function Mission() {
           >
             <AnimatedElement variants={fadeInUp}>
               <p className="text-warm-gray text-lg leading-relaxed max-w-xl mb-10">
-                TableTurnerr is a restaurant marketing agency built for one
-                purpose: giving independent restaurants the same digital
-                advantage as major chains, without the enterprise budget. We
-                combine deep food and beverage industry expertise with custom
-                website design, proven SEO strategy, and performance marketing
-                that drives real revenue.
+                TableTurnerr is a marketing agency for local businesses, built
+                for one purpose: giving local businesses the same digital
+                advantage as the big players, without the enterprise budget. We
+                combine a proven website framework with sharp local SEO strategy
+                and performance marketing that drives real revenue.
               </p>
             </AnimatedElement>
 

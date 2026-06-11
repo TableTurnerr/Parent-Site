@@ -7,7 +7,6 @@ import { FAQ_DATA } from "@/app/lib/constants";
 
 const Mission = dynamic(() => import("@/app/components/sections/Mission"));
 const Partners = dynamic(() => import("@/app/components/sections/Partners"));
-const CalculatorTeaser = dynamic(() => import("@/app/components/sections/CalculatorTeaser"));
 const Process = dynamic(() => import("@/app/components/sections/Process"));
 const Testimonials = dynamic(() => import("@/app/components/sections/Testimonials"));
 const FAQ = dynamic(() => import("@/app/components/sections/FAQ"));
@@ -21,16 +20,16 @@ import {
 } from "@/app/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Restaurant Marketing Agency That Fills More Tables",
+  title: "Marketing Agency for Local Businesses",
   description:
-    "TableTurnerr helps independent restaurants get found, get booked, and keep more profit. Websites that convert, local SEO, Google Ads, and commission-free ordering. Book a free consultation.",
+    "TableTurnerr helps local businesses get found, get booked, and grow. High-converting websites, local SEO, Google Ads, and Google Business Profile optimization. Book a free consultation.",
   alternates: {
     canonical: "https://tableturnerr.com",
   },
   openGraph: {
-    title: "TableTurnerr | Restaurant Marketing That Fills More Tables",
+    title: "TableTurnerr | Marketing for Local Businesses",
     description:
-      "Websites that convert, local SEO, Google Ads, and commission-free ordering for independent restaurants nationwide. Book a free consultation.",
+      "High-converting websites, local SEO, Google Ads, and Google Business Profile optimization for local businesses nationwide. Book a free consultation.",
     url: "https://tableturnerr.com",
     siteName: "TableTurnerr",
     type: "website",
@@ -38,9 +37,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TableTurnerr | Restaurant Marketing That Fills More Tables",
+    title: "TableTurnerr | Marketing for Local Businesses",
     description:
-      "Websites that convert, local SEO, Google Ads, and commission-free ordering for independent restaurants nationwide.",
+      "High-converting websites, local SEO, Google Ads, and Google Business Profile optimization for local businesses nationwide.",
   },
 };
 
@@ -72,7 +71,6 @@ export default function HomePage() {
       <Services />
       <Mission />
       <Partners />
-      <CalculatorTeaser />
       <Process />
       <Testimonials />
       <FAQ />

@@ -8,35 +8,35 @@ import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 const STATS = [
   {
     prefix: "",
-    value: 30,
+    value: 92,
     suffix: "%",
     decimalPlaces: 0,
-    description: "Commission third-party apps take on every order, before food, labor, or rent",
-    source: "Industry Data",
-  },
-  {
-    prefix: "$",
-    value: 16000,
-    suffix: "",
-    decimalPlaces: 0,
-    description: "Average a restaurant saves per year by switching from delivery apps to direct ordering",
+    description: "Of consumers use a search engine to find a local business",
     source: "Industry Data",
   },
   {
     prefix: "",
-    value: 67,
+    value: 90,
     suffix: "%",
     decimalPlaces: 0,
-    description: "Of diners prefer ordering directly from a restaurant when the option is available",
+    description: "Of consumers read reviews before choosing a local business",
     source: "Industry Data",
   },
   {
-    prefix: "$",
-    value: 1.5,
-    suffix: "",
-    decimalPlaces: 2,
-    description: "Flat fee per delivered order with Turnerr Deliver, instead of a percentage commission",
-    source: "TableTurnerr",
+    prefix: "",
+    value: 88,
+    suffix: "%",
+    decimalPlaces: 0,
+    description: "Of people who search for a local business on mobile call or visit within a day",
+    source: "Google",
+  },
+  {
+    prefix: "",
+    value: 5,
+    suffix: ":1",
+    decimalPlaces: 0,
+    description: "Return that local SEO and content marketing deliver over time",
+    source: "Industry Data",
   },
 ] as const;
 
@@ -48,10 +48,10 @@ export default function Results() {
         <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
           <SectionLabel className="text-warm-gray-light">The Numbers</SectionLabel>
           <h2 className="font-display font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] tracking-tight text-cream mt-3 max-w-2xl">
-            <BlurText text="Why Commission-Free Ordering Wins" />
+            <BlurText text="Why local visibility wins" />
           </h2>
           <p className="text-warm-gray-light text-lg leading-relaxed mt-4 max-w-2xl">
-            Delivery apps quietly take a third of every order. Here is what that costs, and what your restaurant keeps when ordering runs through you instead.
+            Your next customer is searching right now. Here is what the numbers say about getting found, and why showing up first changes everything.
           </p>
         </AnimatedElement>
 

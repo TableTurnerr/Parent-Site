@@ -12,16 +12,16 @@ import {
 } from "@/app/lib/schema";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Contact Us for a Free Restaurant Consultation",
+  title: "Contact Us for a Free Consultation",
   description:
-    "Tell us about your restaurant and get a free, no-obligation consultation. We reply within 24 hours with a plan for your website, local SEO, Google Ads, and commission-free ordering.",
+    "Tell us about your business and get a free, no-obligation consultation. We reply within 24 hours with a plan for your website, local SEO, and Google Ads.",
   path: "/contact",
   keywords: [
-    "contact restaurant marketing agency",
-    "free restaurant consultation",
-    "restaurant website quote",
-    "restaurant SEO consultation",
-    "restaurant marketing help",
+    "contact marketing agency",
+    "free marketing consultation",
+    "website quote",
+    "local SEO consultation",
+    "local business marketing help",
   ],
 });
 
@@ -229,12 +229,12 @@ export default function ContactPage() {
               let&apos;s talk
             </p>
             <h1 className="display-xl text-charcoal mb-6">
-              Let&apos;s grow your restaurant
+              Let&apos;s grow your business
             </h1>
             <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl">
-              Get a free consultation and discover how our restaurant website
-              design, SEO, and marketing services can drive more online orders
-              and fill more tables.
+              Get a free consultation and discover how our website design, SEO,
+              and marketing can drive more calls, bookings, and customers
+              through your door.
             </p>
           </AnimatedElement>
         </Container>

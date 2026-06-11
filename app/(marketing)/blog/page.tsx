@@ -12,15 +12,15 @@ import { getPublishedPosts, formatPostDate } from "@/app/lib/blog";
 export const revalidate = 3600;
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Restaurant Marketing Blog",
+  title: "Marketing Blog for Local Businesses",
   description:
-    "Restaurant marketing, local SEO, and Google Ads insights for independent restaurants. Practical guides, tips, and strategies to fill more tables.",
+    "Marketing, local SEO, and Google Ads insights for local businesses. Practical tips and strategies to get found and win more customers.",
   path: "/blog",
   keywords: [
-    "restaurant marketing blog",
-    "restaurant SEO tips",
-    "restaurant marketing ideas",
-    "how to market a restaurant",
+    "local business marketing blog",
+    "local SEO tips",
+    "small business marketing ideas",
+    "how to market a local business",
   ],
 });
 
@@ -46,12 +46,11 @@ export default async function BlogPage() {
               fresh from the pass
             </p>
             <h1 className="display-xl text-charcoal mb-6">
-              Restaurant marketing insights
+              Local marketing insights
             </h1>
             <p className="text-warm-gray text-lg leading-relaxed">
-              Practical guides on restaurant SEO, Google Ads, and local
-              marketing, written to help independent restaurants grow online and
-              fill more tables.
+              Practical advice on local SEO, Google Ads, and marketing, written
+              to help local businesses grow online and win more customers.
             </p>
           </div>
         </Container>

@@ -15,18 +15,16 @@ import { createPageMetadata } from "@/app/lib/metadata";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Restaurant Success Stories & Case Studies",
+  title: "Case Studies & Client Results",
   description:
-    "See how independent restaurants are growing with TableTurnerr and our partner ecosystem. Real, verified results: +377% online growth, $4.5M in online sales, and millions saved in third-party commission fees.",
+    "See the results local businesses get with TableTurnerr: stronger local rankings, more calls and bookings, and websites built to convert. Real clients, real reviews.",
   path: "/case-studies",
   keywords: [
-    "restaurant success stories",
-    "restaurant case studies",
-    "restaurant marketing results",
-    "restaurant SEO results",
-    "restaurant growth examples",
-    "commission free ordering results",
-    "restaurant delivery savings",
+    "marketing case studies",
+    "local business marketing results",
+    "local SEO results",
+    "small business growth examples",
+    "client success stories",
   ],
 });
 
@@ -69,43 +67,40 @@ interface PartnerStat {
 
 const PARTNER_STATS: PartnerStat[] = [
   {
-    value: 30,
+    value: 92,
     suffix: "%",
-    label: "Commission third-party apps take on every order, before any costs",
+    label: "Of consumers use a search engine to find a local business",
     source: "Industry Data",
   },
   {
-    value: 16000,
-    prefix: "$",
-    suffix: "",
-    label: "Average annual savings switching from delivery apps to direct ordering",
+    value: 90,
+    suffix: "%",
+    label: "Of consumers read reviews before choosing a local business",
     source: "Industry Data",
   },
   {
-    value: 67,
+    value: 88,
     suffix: "%",
-    label: "Of diners prefer ordering directly from a restaurant when they can",
-    source: "Industry Data",
+    label: "Of mobile local searches lead to a call or visit within a day",
+    source: "Google",
   },
   {
     value: 70,
     suffix: "%",
-    label: "Of first-time diners never return without a follow-up system",
+    label: "Of first-time customers never return without a follow-up system",
     source: "Industry Data",
   },
   {
     value: 98,
     suffix: "%",
-    label: "Open rate on SMS, vs about 20% for email, for bringing customers back",
+    label: "Open rate on SMS, vs about 20% for email, for winning customers back",
     source: "Industry Data",
   },
   {
-    value: 1.5,
-    prefix: "$",
-    suffix: "",
-    decimalPlaces: 2,
-    label: "Flat fee per delivered order with Turnerr Deliver, not a percentage",
-    source: "TableTurnerr",
+    value: 5,
+    suffix: ":1",
+    label: "Return that local SEO and content marketing deliver over time",
+    source: "Industry Data",
   },
 ];
 
@@ -158,12 +153,11 @@ export default function CaseStudiesPage() {
               the proof
             </p>
             <h1 className="display-xl text-charcoal mb-6">
-              Restaurant success stories
+              Real results, real clients
             </h1>
             <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl">
-              Real results from independent restaurants using TableTurnerr
-              services and our partner ecosystem. Every number below is
-              verified, no made-up stats, no vanity metrics.
+              Real results from the local businesses we work with. Every review
+              below is genuine, no made-up stats, no vanity metrics.
             </p>
           </AnimatedElement>
         </Container>
@@ -178,7 +172,7 @@ export default function CaseStudiesPage() {
           <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
             <SectionLabel>Our Clients</SectionLabel>
             <h2 className="font-display font-bold text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.15] tracking-tight text-charcoal mt-4">
-              <BlurText text="Restaurants We Work With" />
+              <BlurText text="Businesses We Work With" />
             </h2>
           </AnimatedElement>
 
@@ -214,7 +208,7 @@ export default function CaseStudiesPage() {
                         {client.name}
                       </p>
                       <p className="text-warm-gray-light text-sm">
-                        Restaurant owner
+                        Business owner
                       </p>
                     </div>
                   </div>
@@ -233,12 +227,12 @@ export default function CaseStudiesPage() {
               The Numbers
             </SectionLabel>
             <h2 className="font-display font-bold text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.15] tracking-tight text-cream mt-4 max-w-2xl">
-              <BlurText text="Why Commission-Free Ordering Wins" />
+              <BlurText text="Why local visibility wins" />
             </h2>
             <p className="text-warm-gray-light text-lg md:text-xl leading-relaxed max-w-2xl mt-6">
-              Delivery apps take a third of every order and keep your customers
-              as theirs. Here is what that costs, and what your restaurant keeps
-              when ordering runs through you instead.
+              Your next customer is searching right now. Here is what the numbers
+              say about getting found, and why showing up first is the difference
+              between a busy week and a quiet one.
             </p>
           </AnimatedElement>
 
@@ -295,21 +289,21 @@ export default function CaseStudiesPage() {
           <AnimatedElement variants={fadeInUp}>
             <div className="max-w-3xl mx-auto">
               <p className="font-display font-semibold text-charcoal text-lg md:text-xl mb-6">
-                How we keep that margin in your pocket
+                How we help you grow
               </p>
 
               <p className="text-warm-gray text-base md:text-lg leading-relaxed">
-                We set you up with{" "}
+                We build a{" "}
                 <strong className="text-charcoal font-medium">
-                  commission-free direct ordering
-                </strong>{" "}
-                on your own website, so repeat customers order from you, not an
-                app, and you keep the revenue and the data. For delivery, our{" "}
+                  fast website that ranks
+                </strong>
+                , optimize your Google presence so nearby customers find you,
+                run{" "}
                 <strong className="text-charcoal font-medium">
-                  Turnerr Deliver
-                </strong>{" "}
-                service dispatches the nearest driver for a flat fee per order
-                instead of a 15 to 30 percent commission.
+                  ads that pay for themselves
+                </strong>
+                , and turn reviews into trust. You get an outsourced marketing
+                team focused on one thing: booked, paying customers.
               </p>
 
               <div className="mt-10">
