@@ -40,10 +40,10 @@ export interface ServicePageData {
 
 export const SERVICE_PAGES: Record<string, ServicePageData> = {
   "restaurant-website-design": {
-    title: "Custom Restaurant Website Design",
+    title: "Website Design",
     slug: "restaurant-website-design",
     category: "Web Design",
-    headline: "Custom Restaurant Website Design",
+    headline: "Website Design That Converts",
     description:
       "We build high-converting websites on a proven, conversion-tested framework that we tailor to your brand, so you rank on Google, turn visitors into customers, and own your online presence. Mobile-first, SEO-optimized, and ready for online ordering from day one.",
     heroImage: {
@@ -140,21 +140,21 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       },
     ],
     keywords: [
-      "restaurant website design",
-      "restaurant website builder",
-      "custom restaurant website",
-      "restaurant web design",
-      "restaurant website development",
+      "website design",
+      "website design agency",
+      "small business website design",
+      "local business website design",
+      "custom website design",
     ],
     metaDescription:
       "Custom restaurant website design built to rank on Google and convert visitors into paying diners. Mobile-first, SEO-optimized, with online ordering integration. Get a free consultation.",
   },
 
   "restaurant-seo": {
-    title: "Restaurant SEO Services",
+    title: "Local SEO Services",
     slug: "restaurant-seo",
     category: "SEO",
-    headline: "Restaurant SEO Services",
+    headline: "Local SEO Services",
     description:
       "Local SEO strategies built specifically for restaurants. We get your restaurant found on Google Search, Google Maps, and local pack results so nearby diners choose you over the competition.",
     heroImage: {
@@ -251,21 +251,21 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       },
     ],
     keywords: [
-      "restaurant SEO",
-      "SEO for restaurants",
-      "local SEO for restaurants",
-      "restaurant SEO services",
-      "restaurant Google ranking",
+      "local SEO",
+      "local SEO services",
+      "SEO services",
+      "small business SEO",
+      "local business SEO",
     ],
     metaDescription:
       "Restaurant SEO services that get your restaurant found on Google Search and Google Maps. Local SEO strategies, keyword targeting, and monthly reporting for independent restaurants.",
   },
 
   "restaurant-branding": {
-    title: "Restaurant Branding & Design",
+    title: "Branding & Design",
     slug: "restaurant-branding",
     category: "Branding",
-    headline: "Restaurant Branding & Design",
+    headline: "Branding & Design",
     description:
       "Complete restaurant branding that sets you apart from the chains. Logo design, menu design, visual identity systems, and brand guidelines that make your restaurant instantly recognizable.",
     heroImage: {
@@ -362,21 +362,21 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       },
     ],
     keywords: [
-      "restaurant branding",
-      "restaurant menu design",
-      "restaurant brand identity",
-      "restaurant logo design",
-      "restaurant branding agency",
+      "branding agency",
+      "logo design",
+      "brand identity",
+      "small business branding",
+      "local business branding",
     ],
     metaDescription:
       "Restaurant branding and design services including logo design, menu design, and visual identity systems. Build a brand that sets your restaurant apart. Get a free consultation.",
   },
 
   "google-ads": {
-    title: "Google Ads for Restaurants",
+    title: "Google Ads Management",
     slug: "google-ads",
     category: "Paid Ads",
-    headline: "Google Ads for Restaurants",
+    headline: "Google Ads Management",
     description:
       "Targeted Google Ads campaigns that put your restaurant in front of hungry diners at the exact moment they're searching for a place to eat. Low-cost clicks, high-intent customers, measurable ROI.",
     heroImage: {
@@ -474,11 +474,11 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       },
     ],
     keywords: [
-      "Google Ads for restaurants",
-      "restaurant Google Ads management",
-      "restaurant PPC",
-      "restaurant paid advertising",
-      "Google Ads restaurant marketing",
+      "Google Ads management",
+      "Google Ads agency",
+      "PPC management",
+      "Google Ads for small business",
+      "local Google Ads",
     ],
     metaDescription:
       "Google Ads management for restaurants. Targeted local ad campaigns that drive diners to your door with measurable ROI. Expert setup, bid management, and monthly reporting.",
@@ -586,20 +586,20 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     ],
     keywords: [
       "Google Business Profile optimization",
-      "Google Business Profile for restaurants",
-      "GBP optimization restaurant",
-      "Google Maps restaurant listing",
-      "restaurant Google profile",
+      "Google Business Profile management",
+      "Google Maps optimization",
+      "local listing optimization",
+      "GBP optimization",
     ],
     metaDescription:
       "Google Business Profile optimization for restaurants. Dominate local search, Google Maps, and nearby searches. Profile setup, review management, and local pack ranking strategies.",
   },
 
   "commission-free-deliveries": {
-    title: "Commission-Free Deliveries for Restaurants",
+    title: "Commission-Free Online Ordering",
     slug: "commission-free-deliveries",
     category: "Online Ordering",
-    headline: "Commission-Free Deliveries for Restaurants",
+    headline: "Commission-Free Online Ordering",
     description:
       "Stop losing 15-30% of every order to DoorDash and UberEats. We set up commission-free direct ordering and flat-fee delivery so your restaurant keeps more profit from every delivery and takeout order.",
     heroImage: {
@@ -698,11 +698,11 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       },
     ],
     keywords: [
-      "commission free delivery for restaurants",
       "commission free online ordering",
-      "reduce DoorDash commission fees",
-      "restaurant direct ordering",
-      "commission free restaurant ordering system",
+      "commission free delivery",
+      "direct online ordering",
+      "online ordering system",
+      "reduce delivery app fees",
     ],
     metaDescription:
       "Commission-free delivery and online ordering for restaurants. Stop paying 15-30% to DoorDash and UberEats. We set up direct ordering plus flat-fee delivery so you keep more profit.",

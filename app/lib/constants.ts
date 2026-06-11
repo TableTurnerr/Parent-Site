@@ -9,22 +9,22 @@ export const NAV_LINKS = [
 
 export const SERVICES = [
   {
-    title: "Restaurant Website Design",
+    title: "Website Design",
     slug: "restaurant-website-design",
     description: "High-converting websites built on our proven, conversion-tested framework and tailored to your brand. Built to rank on Google, mobile-first, SEO-optimized, and ready for online ordering.",
   },
   {
-    title: "Restaurant SEO",
+    title: "Local SEO",
     slug: "restaurant-seo",
     description: "Local SEO strategies that get your restaurant found on Google Search and Google Maps. Outrank the competition and drive organic traffic.",
   },
   {
-    title: "Restaurant Branding",
+    title: "Branding & Design",
     slug: "restaurant-branding",
     description: "Full-service restaurant branding: logo design, menu design, and a visual identity that sets your restaurant apart from the chains.",
   },
   {
-    title: "Google Ads for Restaurants",
+    title: "Google Ads Management",
     slug: "google-ads",
     description: "Targeted Google Ads campaigns that drive local diners to your restaurant. Low-cost clicks, high-intent customers, measurable ROI.",
   },
@@ -34,7 +34,7 @@ export const SERVICES = [
     description: "Google Business Profile setup and optimization so your restaurant dominates local search results, Google Maps, and nearby searches.",
   },
   {
-    title: "Commission-Free Deliveries",
+    title: "Commission-Free Ordering",
     slug: "commission-free-deliveries",
     description: "Stop losing 15-30% of every order to delivery apps. We set up commission-free direct ordering and flat-fee delivery so your restaurant keeps more profit.",
   },
