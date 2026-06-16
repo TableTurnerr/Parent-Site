@@ -34,9 +34,9 @@ export default function FAQ() {
 
             <AnimatedElement variants={fadeInUp}>
               <p className="text-warm-gray text-lg leading-relaxed">
-                Everything you need to know about our restaurant website design,
-                SEO, and marketing services. Can&apos;t find what you&apos;re
-                looking for? Reach out and we&apos;ll be happy to help.
+                Everything you need to know about our website design, SEO, and
+                marketing services. Can&apos;t find what you&apos;re looking for?
+                Reach out and we&apos;ll be happy to help.
               </p>
             </AnimatedElement>
           </AnimatedElement>
@@ -64,7 +64,7 @@ export default function FAQ() {
             <AnimatedElement variants={fadeInUp}>
               <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-[1.25rem] bg-cream-dark border border-border p-6">
                 <p className="text-charcoal font-medium">
-                  Still have questions about growing your restaurant?
+                  Still have questions about growing your business?
                 </p>
                 <Link
                   href="/contact"

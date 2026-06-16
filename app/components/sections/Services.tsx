@@ -24,8 +24,8 @@ export default function Services() {
             className="lg:col-span-5 flex items-end"
           >
             <p className="text-warm-gray text-base md:text-lg leading-relaxed">
-              Six focused services, built for the food and beverage industry.
-              Each one is designed to get more diners through your door.
+              Six focused services, built for local businesses. Each one is
+              designed to get more customers through your door.
             </p>
           </AnimatedElement>
         </div>

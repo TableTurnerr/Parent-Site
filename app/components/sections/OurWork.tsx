@@ -28,13 +28,13 @@ export default function OurWork() {
               the house specials
             </p>
             <h2 className="display-lg text-charcoal">
-              Restaurant sites we build and run
+              Sites we build and run
             </h2>
           </AnimatedElement>
           <AnimatedElement variants={fadeInUp} className="lg:col-span-5 flex items-end">
             <p className="text-warm-gray text-base md:text-lg leading-relaxed">
-              Real, live restaurant websites we designed, host, and grow. Click
-              any one to see it in the wild.
+              Real, live websites we designed, host, and grow. Click any one to
+              see it in the wild.
             </p>
           </AnimatedElement>
         </div>

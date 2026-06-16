@@ -14,16 +14,16 @@ import {
 } from "@/app/lib/schema";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Restaurant Marketing Services",
+  title: "Marketing Services for Local Businesses",
   description:
-    "Full-service restaurant marketing: custom website design, local SEO, Google Ads, branding, and Google Business Profile optimization. See how TableTurnerr helps restaurants grow online.",
+    "Full-service local marketing: website design, local SEO, Google Ads, branding, and Google Business Profile optimization. See how TableTurnerr helps local businesses grow online.",
   path: "/services",
   keywords: [
-    "restaurant marketing services",
-    "restaurant website design",
-    "restaurant SEO",
-    "restaurant branding",
-    "Google Ads for restaurants",
+    "local business marketing services",
+    "website design",
+    "local SEO",
+    "branding agency",
+    "Google Ads management",
   ],
 });
 
@@ -55,23 +55,23 @@ const SERVICE_PAGE_IMAGES: Record<string, { src: string; alt: string }> = {
 };
 
 const STATS: readonly { value: number; suffix: string; prefix?: string; decimalPlaces?: number; label: string; source?: string }[] = [
-  { value: 6, suffix: "", label: "Core marketing services for restaurants" },
+  { value: 6, suffix: "", label: "Core marketing services for local businesses" },
   {
     value: 90,
     suffix: "%",
-    label: "Of diners research online before visiting",
+    label: "Of consumers research online before visiting",
     source: "Industry Data",
   },
   {
     value: 77,
     suffix: "%",
-    label: "Of diners check a restaurant's website before choosing where to eat",
+    label: "Of consumers check a business's website before choosing",
     source: "Industry Data",
   },
   {
     value: 92,
     suffix: "%",
-    label: "Of customers use a search engine to find restaurants",
+    label: "Of consumers use a search engine to find local businesses",
     source: "Industry Data",
   },
 ];
@@ -140,16 +140,16 @@ export default function ServicesPage() {
         <Container>
           <AnimatedElement variants={fadeInUp} className="max-w-4xl">
             <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
-              the full menu
+              the full lineup
             </p>
             <h1 className="display-xl text-charcoal mb-6">
-              Restaurant marketing services
+              Marketing services for local businesses
             </h1>
             <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl">
-              Everything your restaurant needs to grow online, from a
+              Everything your business needs to grow online, from a
               high-converting website to local SEO, paid ads, and a brand
-              identity that fills tables. Each service is built specifically for
-              the restaurant industry.
+              identity that wins customers. Each service is built to get you found
+              and chosen in local search.
             </p>
           </AnimatedElement>
         </Container>

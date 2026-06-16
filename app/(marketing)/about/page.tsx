@@ -49,9 +49,9 @@ const CLIENT_LOGOS: Record<string, { file: string; alt: string }> = {
 
 const VALUE_CARDS = [
   {
-    title: "Restaurant-First",
+    title: "Local-First",
     description:
-      "Every strategy, website, and campaign is built specifically for the food and beverage industry, not repurposed from generic marketing playbooks.",
+      "Every strategy, website, and campaign is built to win in local search, where your next customer is actually looking for you.",
   },
   {
     title: "Traffic-First Approach",
@@ -64,9 +64,9 @@ const VALUE_CARDS = [
       "Our relationship does not end at handoff. We offer ongoing services, advocate for our clients with tech partners, and provide objective, business-first advice.",
   },
   {
-    title: "Commission-Free Future",
+    title: "Conversion-Obsessed",
     description:
-      "We help restaurants flip the script on third-party apps, using DoorDash and UberEats as marketing channels while converting repeat orders to their own direct platform.",
+      "We don't just send traffic. We build the website, reviews, and follow-up that turn clicks into booked, paying customers.",
   },
 ] as const;
 
@@ -75,19 +75,19 @@ const GROWTH_STEPS = [
     step: 1,
     title: "The Foundation",
     description:
-      "We build a highly-converting, SEO-optimized website and handle necessary branding to instantly scale your online presence and satisfy the qualification requirements of elite software partners.",
+      "We build a highly-converting, SEO-optimized website and handle the branding you need to instantly scale your online presence and look established from day one.",
   },
   {
     step: 2,
     title: "The Transition",
     description:
-      "Once qualified, you are seamlessly onboarded to a commission-free direct ordering system on your own website, plus our flat-fee Turnerr Deliver service, so the revenue and the customer data stay with you instead of a third-party app.",
+      "We get you found where your customers are searching: local SEO, an optimized Google Business Profile, and a site built to convert, so the traffic and the customer relationship stay with you instead of a third-party platform.",
   },
   {
     step: 3,
     title: "The Scale",
     description:
-      "With the foundation and ordering system in place, we help you aggressively invest in revenue-driving marketing channels: scaling Google Ads, deploying branding strategies, and implementing smart systems for capturing 5-star reviews and driving repeat direct orders.",
+      "With the foundation in place, we help you aggressively invest in revenue-driving channels: scaling Google Ads, deploying branding strategies, and implementing smart systems for capturing 5-star reviews and winning repeat customers.",
   },
 ] as const;
 
@@ -100,31 +100,28 @@ const PARTNER_STATS: readonly {
   source: string;
 }[] = [
   {
-    value: 30,
+    value: 92,
     suffix: "%",
-    label: "Commission third-party delivery apps take on every single order",
+    label: "Of consumers use a search engine to find a local business",
     source: "Industry Data",
   },
   {
-    value: 16000,
-    prefix: "$",
-    suffix: "",
-    label: "Average a restaurant saves per year by moving to direct ordering",
-    source: "Industry Data",
-  },
-  {
-    value: 67,
+    value: 90,
     suffix: "%",
-    label: "Of diners prefer ordering directly from a restaurant when they can",
+    label: "Of consumers read reviews before choosing a local business",
     source: "Industry Data",
   },
   {
-    value: 1.5,
-    prefix: "$",
-    suffix: "",
-    decimalPlaces: 2,
-    label: "Flat fee per delivered order with Turnerr Deliver, not a percentage",
-    source: "TableTurnerr",
+    value: 88,
+    suffix: "%",
+    label: "Of mobile local searches lead to a call or visit within a day",
+    source: "Google",
+  },
+  {
+    value: 5,
+    suffix: ":1",
+    label: "Return that local SEO and content marketing deliver over time",
+    source: "Industry Data",
   },
 ];
 
@@ -218,7 +215,7 @@ export default function AboutPage() {
           <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
             <SectionLabel>Why TableTurnerr</SectionLabel>
             <h2 className="font-display font-bold text-[clamp(1.75rem,4vw,3rem)] leading-[1.15] tracking-tight mt-4 max-w-4xl">
-              <BlurText text="The restaurant industry is skewed" delay={100} />
+              <BlurText text="Local marketing is a skewed game" delay={100} />
               {" "}
               <BlurText
                 text="Large chains have the capital to build powerful digital infrastructures, while"
@@ -227,7 +224,7 @@ export default function AboutPage() {
               />
               {" "}
               <PencilCrossout
-                text="independent restaurants"
+                text="local businesses"
                 replacement="You"
                 className="text-warm-gray-light"
                 delay={1200}
@@ -304,7 +301,7 @@ export default function AboutPage() {
           <AnimatedElement variants={fadeInUp} className="text-center mb-12 md:mb-16">
             <SectionLabel className="mb-4">Our Clients</SectionLabel>
             <h2 className="font-display font-bold text-[clamp(1.75rem,4vw,3rem)] leading-[1.15] tracking-tight text-charcoal">
-              <BlurText text="Trusted by Independent Restaurants" delay={0.1} />
+              <BlurText text="Trusted by Local Businesses" delay={0.1} />
             </h2>
           </AnimatedElement>
 

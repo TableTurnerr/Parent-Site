@@ -22,21 +22,21 @@ const STATIC_PAGES: SearchResult[] = [
   {
     title: "About TableTurnerr",
     description:
-      "TableTurnerr is a restaurant marketing agency specializing in custom website design, SEO, Google Ads, and branding for independent restaurants.",
+      "TableTurnerr is a marketing agency for local businesses specializing in website design, SEO, Google Ads, and branding, with deep experience in the restaurant industry.",
     url: "/about",
     type: "page",
   },
   {
     title: "Case Studies",
     description:
-      "Real results from real restaurants. See how independent restaurants have grown with the right digital strategy and marketing partner.",
+      "Real results from real clients. See how local businesses have grown with the right digital strategy and marketing partner.",
     url: "/case-studies",
     type: "page",
   },
   {
     title: "Contact Us",
     description:
-      "Get in touch with TableTurnerr for a free consultation about your restaurant's website design, SEO, and digital marketing needs.",
+      "Get in touch with TableTurnerr for a free consultation about your website design, SEO, and digital marketing needs.",
     url: "/contact",
     type: "page",
   },
@@ -111,8 +111,8 @@ export async function generateMetadata({
   const { q } = await searchParams;
   const title = q ? `Results for "${q}"` : "Search";
   const description = q
-    ? `Search results for "${q}" on TableTurnerr. Find restaurant marketing services, SEO strategies, website design, and more.`
-    : "Search TableTurnerr for restaurant marketing services, SEO, website design, branding, and more.";
+    ? `Search results for "${q}" on TableTurnerr. Find local marketing services, SEO strategies, website design, and more.`
+    : "Search TableTurnerr for local marketing services, SEO, website design, branding, and more.";
 
   return {
     title,

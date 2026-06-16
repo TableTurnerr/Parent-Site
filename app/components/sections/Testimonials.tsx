@@ -13,7 +13,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     author: "Grill Shack",
     blurb: "Website design and local SEO for a grill and burger spot.",
     quote: "Amazing work amazing people!! Definitely my go to",
-    role: "Restaurant owner",
+    role: "Business owner",
     avatar: "/Client_Logos/GrillShack.webp",
     siteUrl: "grillshackuk.com",
   },
@@ -44,7 +44,7 @@ export default function Testimonials() {
         <AnimatedElement variants={fadeInUp} className="mb-10 md:mb-14 text-center">
           <p className="eyebrow mb-6 justify-center">Our Work</p>
           <h2 className="display-lg text-charcoal max-w-3xl mx-auto">
-            Restaurant sites we build and run
+            Sites we build and run
           </h2>
         </AnimatedElement>
 

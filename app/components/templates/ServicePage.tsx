@@ -156,7 +156,7 @@ export default function ServicePage({
                   {service.cityContext.name}, {service.cityContext.stateCode}
                 </span>
                 <h2 className="font-display font-bold text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.15] tracking-tight text-charcoal mt-4 mb-3 max-w-3xl">
-                  Restaurant marketing built for {service.cityContext.name}
+                  Local marketing built for {service.cityContext.name}
                 </h2>
                 <p className="text-warm-gray text-lg leading-relaxed max-w-3xl">
                   {service.cityContext.blurb}

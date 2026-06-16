@@ -8,21 +8,21 @@ const STEPS = [
     title: "Foundation",
     subtitle: "Custom website & brand design",
     description:
-      "We audit your current online presence, design a custom restaurant website optimized for search, and build a brand identity that stands out across every digital touchpoint.",
+      "We audit your current online presence, design a high-converting website optimized for search, and build a brand identity that stands out across every digital touchpoint.",
   },
   {
     number: "02",
     title: "Transition",
-    subtitle: "Restaurant SEO & local visibility",
+    subtitle: "Local SEO & visibility",
     description:
-      "We optimize your restaurant for Google Search and Maps, set up your Google Business Profile, and implement a local SEO strategy so nearby diners find you before your competitors.",
+      "We optimize your business for Google Search and Maps, set up your Google Business Profile, and implement a local SEO strategy so nearby customers find you before your competitors.",
   },
   {
     number: "03",
     title: "Scale",
     subtitle: "Google Ads & revenue growth",
     description:
-      "With your digital foundation in place, we launch targeted Google Ads campaigns, help set up commission-free online ordering, and refine your strategy to maximize direct orders month over month.",
+      "With your digital foundation in place, we launch targeted Google Ads campaigns, sharpen your conversion paths, and refine your strategy to drive more customers month over month.",
   },
 ];
 
@@ -36,7 +36,7 @@ export default function Process() {
             <div className="lg:sticky lg:top-32">
               <p className="eyebrow mb-6">How It Works</p>
               <h2 className="display-lg text-charcoal">
-                Three steps to a fuller dining room
+                Three steps to a fuller pipeline
               </h2>
             </div>
           </AnimatedElement>
