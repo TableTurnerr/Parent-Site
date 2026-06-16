@@ -13,16 +13,16 @@ import {
 } from "@/app/lib/schema";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Restaurant Google Review Calculator",
+  title: "Google Review Calculator",
   description:
-    "Find out exactly how many new 5-star reviews your restaurant needs to raise its Google rating to a target, then learn how to get them.",
+    "Find out exactly how many new 5-star reviews your business needs to raise its Google rating to a target, then learn how to get them.",
   path: "/review-calculator",
   keywords: [
     "google review calculator",
     "how many reviews to raise rating",
-    "restaurant review calculator",
+    "business review calculator",
     "improve google star rating",
-    "restaurant reviews",
+    "customer reviews",
   ],
 });
 
@@ -30,17 +30,17 @@ const FAQS = [
   {
     question: "How many 5-star reviews do I need to raise my Google rating?",
     answer:
-      "It depends on how many reviews you already have and your current average. The more reviews you have, the more new 5-star reviews it takes to move the average. Enter your numbers above to see the exact figure for your restaurant.",
+      "It depends on how many reviews you already have and your current average. The more reviews you have, the more new 5-star reviews it takes to move the average. Enter your numbers above to see the exact figure for your business.",
   },
   {
     question: "Why does my rating move so slowly?",
     answer:
-      "Your average is weighted by every review you have ever received. A restaurant with 500 reviews needs far more new 5-star reviews to move a tenth of a point than one with 30 reviews. That is why building reviews steadily over time matters.",
+      "Your average is weighted by every review you have ever received. A business with 500 reviews needs far more new 5-star reviews to move a tenth of a point than one with 30 reviews. That is why building reviews steadily over time matters.",
   },
   {
-    question: "How can my restaurant get more 5-star reviews?",
+    question: "How can my business get more 5-star reviews?",
     answer:
-      "Ask happy diners at the right moment, make it one tap with a direct review link or QR code, train your team to mention it naturally, and respond to every review. A consistent system beats occasional bursts.",
+      "Ask happy customers at the right moment, make it one tap with a direct review link or QR code, train your team to mention it naturally, and respond to every review. A consistent system beats occasional bursts.",
   },
 ];
 
@@ -65,7 +65,7 @@ export default function ReviewCalculatorPage() {
           <div className="max-w-2xl">
             <SectionLabel>Free Tool</SectionLabel>
             <h1 className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] tracking-tight text-charcoal mt-3 mb-6">
-              Restaurant Google Review Calculator
+              Google Review Calculator
             </h1>
             <p className="text-warm-gray text-lg leading-relaxed">
               Reviews decide who clicks you and who scrolls past. See exactly how
@@ -83,7 +83,7 @@ export default function ReviewCalculatorPage() {
         <Container>
           <div className="max-w-3xl">
             <h2 className="font-display font-bold text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.15] tracking-tight text-charcoal mb-8">
-              Restaurant review questions
+              Review questions
             </h2>
             <FaqList faqs={FAQS} />
             <p className="text-warm-gray mt-8">

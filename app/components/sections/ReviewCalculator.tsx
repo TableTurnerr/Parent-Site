@@ -6,7 +6,7 @@ import Container from "@/app/components/ui/Container";
 import SectionLabel from "@/app/components/ui/SectionLabel";
 
 /**
- * Review calculator: how many new 5-star reviews a restaurant needs to raise
+ * Review calculator: how many new 5-star reviews a business needs to raise
  * its average Google rating to a target.
  *
  * Math: current total stars = rating * count. Each new 5-star review adds 5
