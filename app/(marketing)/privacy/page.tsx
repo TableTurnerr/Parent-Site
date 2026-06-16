@@ -12,7 +12,7 @@ export const metadata: Metadata = createPageMetadata({
   path: "/privacy",
 });
 
-const LAST_UPDATED = "March 16, 2026";
+const LAST_UPDATED = "June 12, 2026";
 
 export default function PrivacyPolicyPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -214,6 +214,13 @@ export default function PrivacyPolicyPage() {
                     transaction.
                   </li>
                 </ul>
+                <p className="mt-4">
+                  No mobile information will be shared with third
+                  parties/affiliates for marketing/promotional purposes. All
+                  other categories exclude text messaging originator opt-in data
+                  and consent; this information will not be shared with any
+                  third parties.
+                </p>
               </section>
 
               <section>
