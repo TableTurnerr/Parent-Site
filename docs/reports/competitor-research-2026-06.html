@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TableTurnerr — Competitor Research Report · June 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TABLETURNERR REPORT TEMPLATE  ·  v1.0
+     Reusable. To make a new report: keep the <style> + section
+     shells, swap the content. Brand tokens live in :root below.
+     ============================================================ */
+  :root{
+    --cream:#FAF7F2; --cream-dark:#F2EDE4; --card:#FFFFFF;
+    --charcoal:#211F1B; --charcoal-soft:#34322D;
+    --warm-gray:#6E6A62; --warm-gray-light:#9B968C;
+    --accent:#E2623B;              /* orange — used sparingly */
+    --accent-soft:#FBEDE7;
+    --border:#E7E0D4; --border-strong:#D8D0C1;
+    --good:#2F8F6B; --good-soft:#E7F3ED;
+    --warn:#C8932B; --warn-soft:#FBF1DC;
+    --bad:#C0533E; --bad-soft:#FBE8E2;
+    --shadow:0 1px 2px rgba(33,31,27,.04), 0 8px 30px rgba(33,31,27,.06);
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:var(--cream); color:var(--charcoal);
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+    font-size:16px;
+  }
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px}
+  .hand{font-family:'Caveat',cursive;color:var(--accent);font-weight:600}
+
+  /* ---------- Cover ---------- */
+  .cover{
+    background:linear-gradient(160deg,#211F1B 0%,#2C2A24 60%,#37332A 100%);
+    color:var(--cream); padding:80px 0 70px; position:relative; overflow:hidden;
+  }
+  .cover::after{
+    content:""; position:absolute; right:-120px; top:-120px; width:360px; height:360px;
+    background:radial-gradient(circle,rgba(226,98,59,.30),transparent 65%); border-radius:50%;
+  }
+  .cover .wrap{position:relative;z-index:1}
+  .badge-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+  .pill{
+    font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+    padding:6px 13px;border-radius:999px;border:1px solid rgba(250,247,242,.22);
+    color:rgba(250,247,242,.85);
+  }
+  .pill.accent{background:var(--accent);border-color:var(--accent);color:#fff}
+  .cover h1{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin-bottom:14px}
+  .cover .sub{font-size:1.12rem;color:rgba(250,247,242,.78);max-width:620px}
+  .cover .scribble{font-family:'Caveat',cursive;font-size:1.9rem;color:#F0A88E;transform:rotate(-3deg);display:inline-block;margin-bottom:8px}
+  .meta-grid{display:flex;gap:34px;flex-wrap:wrap;margin-top:34px;padding-top:26px;border-top:1px solid rgba(250,247,242,.16)}
+  .meta-grid div span{display:block}
+  .meta-k{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:rgba(250,247,242,.5);margin-bottom:3px}
+  .meta-v{font-size:.98rem;font-weight:600;color:var(--cream)}
+
+  /* ---------- Section scaffolding ---------- */
+  section{padding:54px 0}
+  section:nth-of-type(even){background:var(--cream-dark)}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin-bottom:8px}
+  h2 + .lead{color:var(--warm-gray);font-size:1.05rem;margin-bottom:30px;max-width:720px}
+  h3{font-size:1.18rem;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+
+  /* ---------- Cards & grids ---------- */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:760px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+  /* glossary */
+  .gloss{display:flex;gap:13px;align-items:flex-start}
+  .gloss .ic{flex:0 0 38px;height:38px;border-radius:11px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:19px}
+  .gloss b{display:block;font-size:.97rem}
+  .gloss p{font-size:.88rem;color:var(--warm-gray);line-height:1.5}
+
+  /* callout */
+  .callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:16px 20px;border-radius:0 12px 12px 0;margin:18px 0}
+  .callout.note{border-color:var(--warn);background:var(--warn-soft)}
+  .callout b{color:var(--charcoal)}
+  .callout p{font-size:.95rem;color:var(--charcoal-soft)}
+
+  /* stat tiles */
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+  .stat .num{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .stat .num.accent{color:var(--accent)}
+  .stat .lbl{font-size:.85rem;color:var(--warm-gray);margin-top:7px}
+
+  /* ---------- Bar chart ---------- */
+  .chart{margin-top:8px}
+  .bar-row{display:grid;grid-template-columns:188px 1fr 108px;gap:12px;align-items:center;margin-bottom:13px}
+  @media(max-width:620px){.bar-row{grid-template-columns:108px 1fr 64px;gap:8px}}
+  .bar-name{font-weight:700;font-size:.92rem;line-height:1.2}
+  .bar-name small{display:block;color:var(--warm-gray-light);font-weight:500;font-size:.72rem}
+  @media(max-width:620px){.bar-name{font-size:.82rem}.bar-name small{font-size:.66rem}}
+  .bar-track{background:var(--cream-dark);border-radius:8px;height:28px;position:relative;overflow:hidden;border:1px solid var(--border)}
+  .bar-fill{height:100%;border-radius:7px;min-width:8px;transition:width .3s}
+  .bar-fill.lg{background:linear-gradient(90deg,#37332A,#5A5446)}
+  .bar-fill.md{background:linear-gradient(90deg,#A8753F,#C89A4E)}
+  .bar-fill.sm{background:linear-gradient(90deg,#C0533E,#E2623B)}
+  .bar-fill.us{background:linear-gradient(90deg,#2F8F6B,#46A883)}
+  .bar-val{font-weight:800;font-size:.92rem;text-align:right;white-space:nowrap;line-height:1.15}
+  .bar-val small{display:block;font-weight:600;font-size:.62rem;color:var(--warm-gray-light);letter-spacing:.02em}
+  @media(max-width:620px){.bar-val{font-size:.78rem}}
+  .bar-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:6px;font-size:.76rem;color:var(--warm-gray)}
+  .bar-legend span{display:inline-flex;align-items:center;gap:6px}
+  .bar-legend i{width:13px;height:13px;border-radius:4px;display:inline-block}
+  .bar-cap{font-size:.74rem;color:var(--warm-gray-light);margin-top:-4px;margin-bottom:14px;padding-left:200px}
+  @media(max-width:620px){.bar-cap{padding-left:0}}
+
+  /* confidence chips */
+  .conf{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:6px}
+  .conf.h{background:var(--good-soft);color:var(--good)}
+  .conf.m{background:var(--warn-soft);color:var(--warn)}
+  .conf.l{background:var(--bad-soft);color:var(--bad)}
+
+  /* threat badges */
+  .threat{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:700;padding:4px 10px;border-radius:999px}
+  .threat::before{content:"";width:7px;height:7px;border-radius:50%}
+  .threat.hi{background:var(--bad-soft);color:var(--bad)} .threat.hi::before{background:var(--bad)}
+  .threat.mid{background:var(--warn-soft);color:var(--warn)} .threat.mid::before{background:var(--warn)}
+  .threat.lo{background:var(--good-soft);color:var(--good)} .threat.lo::before{background:var(--good)}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;font-size:.9rem}
+  th{background:var(--charcoal);color:var(--cream);text-align:left;padding:13px 15px;font-weight:600;font-size:.82rem;letter-spacing:.02em}
+  td{padding:12px 15px;border-top:1px solid var(--border);vertical-align:top}
+  tr:nth-child(even) td{background:#FCFAF6}
+  .tick{color:var(--good);font-weight:700} .cross{color:var(--bad);font-weight:700}
+  .wrap-tbl{overflow-x:auto;border-radius:var(--radius)}
+
+  /* competitor block */
+  .comp{margin-bottom:20px}
+  .comp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+  .comp-head .dom{font-size:.85rem;color:var(--warm-gray);font-weight:500}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  @media(max-width:680px){.cols{grid-template-columns:1fr}}
+  .mini-h{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--warm-gray-light);margin-bottom:9px}
+  ul.clean{list-style:none}
+  ul.clean li{position:relative;padding-left:22px;margin-bottom:8px;font-size:.92rem;color:var(--charcoal-soft)}
+  ul.clean.win li::before{content:"↑";position:absolute;left:0;color:var(--good);font-weight:800}
+  ul.clean.gap li::before{content:"↓";position:absolute;left:0;color:var(--bad);font-weight:800}
+  ul.clean.dot li::before{content:"•";position:absolute;left:4px;color:var(--accent);font-weight:800}
+
+  /* timeline */
+  .tl{position:relative;padding-left:8px}
+  .tl-item{position:relative;padding:0 0 22px 46px}
+  .tl-item::before{content:"";position:absolute;left:15px;top:30px;bottom:-4px;width:2px;background:var(--border-strong)}
+  .tl-item:last-child::before{display:none}
+  .tl-num{position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--charcoal);color:var(--cream);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem}
+  .tl-item.flag .tl-num{background:var(--accent)}
+  .tl-item h4{font-size:1rem;font-weight:700;margin-bottom:2px}
+  .tl-item p{font-size:.9rem;color:var(--warm-gray)}
+  .tl-tag{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--good);background:var(--good-soft);padding:2px 8px;border-radius:6px;margin-left:8px}
+
+  /* tag chips for keywords */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .chip{font-size:.82rem;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:6px 13px;font-weight:500}
+  .chip.win{border-color:var(--good);background:var(--good-soft);color:var(--good);font-weight:600}
+  .chip.avoid{border-color:var(--border-strong);background:var(--cream-dark);color:var(--warm-gray-light);text-decoration:line-through}
+
+  /* info-icon tooltips */
+  .info{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--warm-gray-light);color:#fff;font-size:11px;font-weight:700;font-style:normal;cursor:help;margin:0 2px;vertical-align:middle;text-transform:none;letter-spacing:0;line-height:1}
+  .info:hover,.info:focus{background:var(--accent);outline:none}
+  .info .tip{visibility:hidden;opacity:0;position:absolute;bottom:150%;left:50%;transform:translateX(-50%) translateY(4px);background:var(--charcoal);color:var(--cream);padding:11px 13px;border-radius:11px;width:250px;max-width:78vw;font-size:.78rem;font-weight:500;line-height:1.55;text-align:left;box-shadow:0 10px 34px rgba(33,31,27,.28);z-index:40;transition:.18s;pointer-events:none}
+  .info .tip b{color:#F0A88E}
+  .info .tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--charcoal)}
+  .info:hover .tip,.info:focus .tip{visibility:visible;opacity:1;transform:translateX(-50%) translateY(0)}
+  @media(max-width:620px){.info .tip{left:auto;right:-6px;transform:translateY(4px)}.info .tip::after{left:auto;right:10px}.info:hover .tip,.info:focus .tip{transform:translateY(0)}}
+
+  /* why-it-matters cards */
+  .why{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+  .why.flagship{border:1px solid var(--accent);border-left:5px solid var(--accent)}
+  .why-top{margin-bottom:14px}
+  .why-top h3{display:flex;align-items:center;flex-wrap:wrap;gap:2px}
+  .why-top .sub{font-size:.92rem;color:var(--warm-gray);margin-top:4px}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:680px){.why-grid{grid-template-columns:1fr}}
+  .why-box{background:var(--cream);border:1px solid var(--border);border-radius:13px;padding:15px 16px}
+  .why-box .bh{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+  .why-box.ex .bh{color:var(--warm-gray-light)} .why-box.rs .bh{color:var(--good)}
+  .why-box p{font-size:.89rem;color:var(--charcoal-soft);line-height:1.55;margin-bottom:8px}
+  .why-box p:last-child{margin-bottom:0}
+  .verdict{margin-top:14px;background:var(--good-soft);border-radius:11px;padding:13px 16px;font-size:.9rem;color:var(--charcoal-soft);line-height:1.55}
+  .verdict.myth{background:var(--bad-soft)}
+  .verdict b{color:var(--charcoal)}
+  .mini-why{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:680px){.mini-why{grid-template-columns:1fr}}
+  .mini-why .card h3{font-size:1.02rem;display:flex;align-items:center;gap:2px;flex-wrap:wrap}
+  .mini-why .card .ex{font-size:.86rem;color:var(--warm-gray);margin:8px 0}
+  .mini-why .card .rs{font-size:.89rem;color:var(--charcoal-soft)}
+  .mini-why .card .rs b{color:var(--charcoal)}
+
+  /* spotlight — the un-missable key argument */
+  .spotlight{background:linear-gradient(160deg,#211F1B,#36322A);color:var(--cream);border-radius:16px;padding:22px 24px;margin:4px 0 18px;border-left:6px solid var(--accent);box-shadow:0 10px 34px rgba(33,31,27,.18);position:relative}
+  .spotlight .tag{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-bottom:13px}
+  .spotlight h4{color:#fff;font-size:1.18rem;font-weight:800;margin-bottom:12px;line-height:1.28}
+  .spotlight p{color:rgba(250,247,242,.86);font-size:.95rem;line-height:1.62;margin-bottom:11px}
+  .spotlight p:last-child{margin-bottom:0}
+  .spotlight b{color:#F2B199}
+  .spotlight .ob{background:rgba(250,247,242,.07);border:1px solid rgba(250,247,242,.12);border-radius:10px;padding:12px 15px;font-size:.92rem;font-style:italic;color:rgba(250,247,242,.8);margin-bottom:14px}
+  .spotlight .keyline{background:rgba(226,98,59,.16);border-radius:10px;padding:13px 16px;font-size:.97rem;color:#fff;margin-top:6px}
+  .spotlight .keyline b{color:#FFD7C7}
+
+  /* footer */
+  footer{background:var(--charcoal);color:rgba(250,247,242,.7);padding:40px 0;font-size:.85rem}
+  footer b{color:var(--cream)}
+  footer .wm{font-family:'Caveat',cursive;font-size:2.4rem;color:rgba(250,247,242,.14);letter-spacing:.02em}
+
+  /* toc */
+  .toc{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .toc a{font-size:.85rem;text-decoration:none;color:var(--charcoal-soft);background:var(--card);border:1px solid var(--border);padding:8px 14px;border-radius:999px;font-weight:500;transition:.2s}
+  .toc a:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* print */
+  @media print{
+    body{font-size:11pt;background:#fff}
+    section,section:nth-of-type(even){background:#fff;padding:22px 0;break-inside:avoid}
+    .cover{background:#211F1B!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .card,.stat,table,.bar-fill,.threat,.conf,.callout,.pill,.tl-num,.spotlight,.bar-legend i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .spotlight{break-inside:avoid}
+    .toc{display:none}
+    .comp,.card,.bar-row,.tl-item{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div class="cover">
+  <div class="wrap">
+    <div class="badge-row">
+      <span class="pill accent">Competitor Research</span>
+      <span class="pill">SEO Intelligence</span>
+      <span class="pill">Internal + Shareable</span>
+    </div>
+    <span class="scribble">know the field before you play it</span>
+    <h1>Who We're Up Against<br>&amp; Where We Win</h1>
+    <p class="sub">A deep look at the marketing agencies competing with TableTurnerr in Google — what they do better, the traffic they pull, and the exact gaps we can walk through. Written so everyone on the team can use it, not just SEO.</p>
+    <div class="meta-grid">
+      <div><span class="meta-k">Prepared</span><span class="meta-v">16 June 2026</span></div>
+      <div><span class="meta-k">Focus</span><span class="meta-v">SERP-rival agencies</span></div>
+      <div><span class="meta-k">Lens</span><span class="meta-v">Restaurant + Local business</span></div>
+      <div><span class="meta-k">Audience</span><span class="meta-v">Whole team</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ INTRO / TOC ============ -->
+<section id="start">
+  <div class="wrap">
+    <div class="eyebrow">Start here</div>
+    <h2>What this report is</h2>
+    <p class="lead">We researched the agencies that show up against us in Google search. For each, we pulled their estimated traffic, what they do well, and where they're soft — then mapped it to what we can do next. Jump to any section:</p>
+    <div class="toc">
+      <a href="#glossary">📖 Plain-English glossary</a>
+      <a href="#summary">⭐ Executive summary</a>
+      <a href="#landscape">🗺️ The landscape</a>
+      <a href="#traffic">📊 Traffic comparison</a>
+      <a href="#deep">🔍 Competitor deep-dives</a>
+      <a href="#midtier">🔬 The mid-tier</a>
+      <a href="#us">🪞 Where we stand</a>
+      <a href="#why">💡 Why the gaps matter</a>
+      <a href="#keywords">🎯 Keyword opportunities</a>
+      <a href="#plan">🚀 Action plan</a>
+    </div>
+    <div class="callout note" style="margin-top:28px">
+      <p><b>Honesty note on the numbers.</b> We don't have a paid Ahrefs/Semrush feed wired in. Every traffic and keyword figure here comes from public sources (SimilarWeb, free tool previews, aggregators) and carries a confidence chip — <span class="conf h">High</span> <span class="conf m">Med</span> <span class="conf l">Low</span>. They're solid enough to decide direction; confirm exact numbers in Keyword Planner before spending ad budget.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GLOSSARY ============ -->
+<section id="glossary">
+  <div class="wrap">
+    <div class="eyebrow">No SEO background needed</div>
+    <h2>The 7 terms in this report</h2>
+    <p class="lead">Read these once and the rest of the report reads like plain English.</p>
+    <div class="grid g2">
+      <div class="card gloss"><div class="ic">🌱</div><div><b>Organic traffic</b><p>Free visitors who find a site through Google (not paid ads). More of it = Google trusts them = free leads every month.</p></div></div>
+      <div class="card gloss"><div class="ic">🔑</div><div><b>Ranking keywords ("queries")</b><p>How many different Google searches a site shows up for. 50,000 keywords = it appears for 50,000 different searches = a wide net.</p></div></div>
+      <div class="card gloss"><div class="ic">⛰️</div><div><b>KD — Keyword Difficulty</b><p>How hard a search is to win, 0–100. Under ~30 = realistic for us. 60+ = a fight against giants. We chase the low ones.</p></div></div>
+      <div class="card gloss"><div class="ic">📄</div><div><b>SERP</b><p>The Google results page for a search. "We rank in the SERP" just means we show up on that page.</p></div></div>
+      <div class="card gloss"><div class="ic">🏙️</div><div><b>Programmatic / city pages</b><p>One page template multiplied across cities — "Restaurant Web Design in Houston / Dallas / Austin…". One build, hundreds of local-catching pages.</p></div></div>
+      <div class="card gloss"><div class="ic">🧲</div><div><b>Lead magnet</b><p>A free thing (tool, audit, checklist) that gets an owner to hand over their email. Then we sell to them.</p></div></div>
+      <div class="card gloss"><div class="ic">🔗</div><div><b>Backlinks &amp; Authority (DR)</b><p>Other sites linking to you — Google treats each like a vote of trust. The 0–100 "DR/Authority" score is built from them. The big agencies' real moat.</p></div></div>
+      <div class="card gloss"><div class="ic">💬</div><div><b>One line for sales</b><p>These agencies get free leads because Google sends them traffic. This report shows where they're strong, where they're soft, and the gaps we can take.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<section id="summary">
+  <div class="wrap">
+    <div class="eyebrow">If you read nothing else</div>
+    <h2>Executive summary</h2>
+    <p class="lead">Three takeaways decide our next quarter.</p>
+    <div class="grid g3" style="margin-bottom:26px">
+      <div class="card">
+        <div class="hand" style="font-size:1.5rem">01</div>
+        <h3>Beat the giants sideways</h3>
+        <p style="font-size:.93rem;color:var(--warm-gray)">We won't outrank WebFX for "local SEO services." We <b style="color:var(--charcoal)">can</b> own "restaurant website design Houston" and hundreds of city + service combos they build thin or skip. Our 60 city pages are the right weapon — we need more.</p>
+      </div>
+      <div class="card">
+        <div class="hand" style="font-size:1.5rem">02</div>
+        <h3>The restaurant lane is open</h3>
+        <p style="font-size:.93rem;color:var(--warm-gray)">The most credentialed restaurant agency, Gourmet Marketing, quietly pivoted to <b style="color:var(--charcoal)">hotels</b>. Its restaurant rankings are weak and very beatable. Restaurants stay our proof and our easiest wins.</p>
+      </div>
+      <div class="card">
+        <div class="hand" style="font-size:1.5rem">03</div>
+        <h3>Free tools + "cost" pages win</h3>
+        <p style="font-size:.93rem;color:var(--warm-gray)">Free tools capture leads and earn the links that make our client-pages rank; cost pages catch ready-to-buy searchers. We have <b style="color:var(--charcoal)">one tool and zero cost pages</b>. Clearest gap on the board.</p>
+      </div>
+    </div>
+    <div class="grid g2">
+      <div class="callout"><p><b>What we already do better:</b> genuinely customized city pages (Thrive's are boilerplate — visitors leave in ~28 seconds), clean technical SEO, and real restaurant credibility.</p></div>
+      <div class="callout note"><p><b>What they do better than us:</b> scale of content, free tools, hard proof numbers ("$462M generated", exact % lifts), trust badges, "cost of X" pages, and risk-reversal copy ("month-to-month, no lock-in").</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LANDSCAPE ============ -->
+<section id="landscape">
+  <div class="wrap">
+    <div class="eyebrow">The field</div>
+    <h2>Who we actually compete with</h2>
+    <p class="lead">Two national giants, one fading restaurant specialist, and a long tail of small regional shops + "top-10-list" directory sites.</p>
+    <div class="wrap-tbl">
+    <table>
+      <thead><tr><th>Agency</th><th>What they are</th><th>Est. organic traffic / mo</th><th>Ranking keywords</th><th>Trust</th><th>Threat to us</th></tr></thead>
+      <tbody>
+        <tr><td><b>WebFX</b></td><td>30-yr national giant, 750+ staff</td><td>~150K–400K <span class="conf l">Low</span></td><td>~18K+</td><td>DR <b>89</b></td><td><span class="threat mid">Copy, don't fight</span></td></tr>
+        <tr><td><b>Thrive Agency</b></td><td>20-yr generalist (Arlington TX)</td><td>~200K–300K <span class="conf h">High</span></td><td>~80K–200K <span class="conf l">est</span></td><td>Auth <b>52</b>, ~1M links</td><td><span class="threat hi">Most omnipresent</span></td></tr>
+        <tr><td><b>Gourmet Marketing</b></td><td>Boutique, drifting to hotels</td><td>~8.7K <span class="conf m">Med</span></td><td>~256 <small>(mostly branded)</small></td><td>Modest</td><td><span class="threat lo">Beatable</span></td></tr>
+        <tr><td><b>Restaurant specialists</b><br><small style="color:var(--warm-gray-light)">TheDigitalRestaurant, LocalRestaurantSEO, RestaurantEngine, BlueTone, Flying V</small></td><td>Small niche shops</td><td>Small <span class="conf l">n/a</span></td><td>Small</td><td>Low</td><td><span class="threat lo">Most winnable</span></td></tr>
+        <tr><td><b>Directories / list sites</b><br><small style="color:var(--warm-gray-light)">DesignRush, Clutch, HigherVisibility</small></td><td>"Top 10 agencies" publishers</td><td>Very high</td><td>Very high</td><td>High</td><td><span class="threat mid">Join, don't fight</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRAFFIC CHART ============ -->
+<section id="traffic">
+  <div class="wrap">
+    <div class="eyebrow">Visualized — named, with numbers</div>
+    <h2>Free monthly visitors — the real field</h2>
+    <p class="lead">Every bar is a named, real agency with its own estimated traffic — no vague groupings. Two giants tower over everyone, but notice the middle: most of the field lives under ~80K, and the restaurant-focused players sit low enough to beat. That space is the opportunity.</p>
+    <div class="card chart">
+      <div class="bar-row"><div class="bar-name">Thrive Agency<small>national generalist</small></div><div class="bar-track"><div class="bar-fill lg" style="width:100%"></div></div><div class="bar-val">~265K<small>/mo · High</small></div></div>
+      <div class="bar-row"><div class="bar-name">WebFX<small>DR 89 giant</small></div><div class="bar-track"><div class="bar-fill lg" style="width:94%"></div></div><div class="bar-val">~250K<small>/mo · Med</small></div></div>
+      <div class="bar-row"><div class="bar-name">SmartSites<small>generalist</small></div><div class="bar-track"><div class="bar-fill md" style="width:30%"></div></div><div class="bar-val">~79K<small>/mo · High</small></div></div>
+      <div class="bar-row"><div class="bar-name">Searchbloom<small>↑ growing</small></div><div class="bar-track"><div class="bar-fill md" style="width:11%"></div></div><div class="bar-val">~27K<small>/mo · High</small></div></div>
+      <div class="bar-row"><div class="bar-name">BizIQ<small>cheap local · restaurants</small></div><div class="bar-track"><div class="bar-fill sm" style="width:7%"></div></div><div class="bar-val">~14K<small>/mo · High</small></div></div>
+      <div class="bar-row"><div class="bar-name">Gourmet Marketing<small>left for hotels</small></div><div class="bar-track"><div class="bar-fill sm" style="width:5%"></div></div><div class="bar-val">~8.7K<small>/mo · Med</small></div></div>
+      <div class="bar-row"><div class="bar-name">The Digital Restaurant<small>true restaurant rival</small></div><div class="bar-track"><div class="bar-fill sm" style="width:4%"></div></div><div class="bar-val">~6K<small>/mo · Low</small></div></div>
+      <div class="bar-row"><div class="bar-name" style="color:var(--good)">TableTurnerr<small>where we start</small></div><div class="bar-track"><div class="bar-fill us" style="width:2%"></div></div><div class="bar-val" style="color:var(--good)">new<small>just launched</small></div></div>
+      <div class="bar-legend">
+        <span><i style="background:#454136"></i> National giant</span>
+        <span><i style="background:#C2934A"></i> Generalist agency</span>
+        <span><i style="background:#D85A3D"></i> Restaurant-focused</span>
+        <span><i style="background:#3C9A74"></i> Us</span>
+      </div>
+    </div>
+    <p style="font-size:.78rem;color:var(--warm-gray-light);margin-top:10px">Estimates from SimilarWeb / public sources (May–June 2026), each labelled High / Med / Low confidence. Low-traffic figures are directional. <a href="#midtier" style="color:var(--accent)">See the full mid-tier breakdown ↓</a></p>
+    <div class="grid g4" style="margin-top:18px">
+      <div class="stat"><div class="num">~1M</div><div class="lbl">Thrive's backlinks — their trust moat</div></div>
+      <div class="stat"><div class="num accent">−15%</div><div class="lbl">Thrive's organic traffic drop in May 2026 (a crack)</div></div>
+      <div class="stat"><div class="num">28+</div><div class="lbl">Free tools WebFX uses as lead magnets</div></div>
+      <div class="stat"><div class="num">~256</div><div class="lbl">Gourmet's keywords — mostly just their brand name</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEEP DIVES ============ -->
+<section id="deep">
+  <div class="wrap">
+    <div class="eyebrow">Rival by rival</div>
+    <h2>The deep-dives</h2>
+    <p class="lead">For each: their traffic, what they do better than us, and the openings they leave.</p>
+
+    <!-- Thrive -->
+    <div class="card comp">
+      <div class="comp-head">
+        <div><h3>Thrive Agency</h3><div class="dom">thriveagency.com · Arlington, TX · ~160 staff</div></div>
+        <span class="threat hi">Most omnipresent rival</span>
+      </div>
+      <p style="font-size:.93rem;color:var(--warm-gray)">Shows up in almost every search we care about — both their own pages and inside "best agency" lists. ~200K–300K visits/mo, ~1M backlinks. But organic traffic <b style="color:var(--charcoal)">dropped ~15% in May 2026</b> — likely Google's AI-search shift hitting their generic content.</p>
+      <div class="cols">
+        <div>
+          <div class="mini-h">What they do better</div>
+          <ul class="clean win">
+            <li><b>City × industry × service pages at scale</b> ("Dallas Restaurant SEO Company"). Our exact engine, run wider — the #1 tactic to copy.</li>
+            <li><b>"Best [X] companies" list articles</b> — and they rank themselves #1.</li>
+            <li><b>Risk-reversal everywhere:</b> "month-to-month, no contracts, 95% retention." Kills the owner's fear of being locked in — sales should be saying this.</li>
+            <li>Trust badges stacked: Inc. 5000 ×7, Google Premier Partner, 4.7★ Clutch.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="mini-h">Where they're soft (our openings)</div>
+          <ul class="clean gap">
+            <li>City pages are <b>thin &amp; templated</b> — ~28-second visits. A genuinely local page beats them.</li>
+            <li>They're a <b>generalist</b> — restaurants are 1 of 30+ industries on a template.</li>
+            <li>Only ~3 cities have their full restaurant set — we can blanket Texas first.</li>
+            <li>No pricing, generic voice, big-agency feel — we offer owner-level attention.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- WebFX -->
+    <div class="card comp">
+      <div class="comp-head">
+        <div><h3>WebFX</h3><div class="dom">webfx.com · 30+ yrs · 750+ staff · DR 89</div></div>
+        <span class="threat mid">Study the playbook</span>
+      </div>
+      <p style="font-size:.93rem;color:var(--warm-gray)">One of the best-ranking agency domains in the US. Hundreds of thousands of free visits for 18K+ keywords. Their trust score (DR 89, 33K linking sites) is <b style="color:var(--charcoal)">30 years of compounding — we can't match it.</b> So we copy the mechanism, not the size.</p>
+      <div class="cols">
+        <div>
+          <div class="mini-h">What they do better (copyable)</div>
+          <ul class="clean win">
+            <li><b>Free tools as lead magnets</b> — 28+ of them. Their top pages are <i>tools, not service pages</i> (one calculator pulls ~14K visits/mo). Confirms our Review Calculator strategy — add more.</li>
+            <li><b>"How much does X cost" pages</b> — high buying intent, low competition. We have zero.</li>
+            <li>"Learn" hubs + glossaries owning "what is…" searches.</li>
+            <li>Original data ("we analyzed 2.3B sessions") earns links cheaply.</li>
+            <li>Partial pricing transparency ("starting at $X/mo").</li>
+          </ul>
+        </div>
+        <div>
+          <div class="mini-h">Not realistically copyable</div>
+          <ul class="clean dot">
+            <li>30 years of backlinks (DR 89, 33K linking domains).</li>
+            <li>750 staff running 28 tools across 20+ industries.</li>
+            <li>Custom in-house software platforms.</li>
+          </ul>
+          <div class="callout" style="margin-top:14px"><p><b>The lesson:</b> don't out-<i>size</i> WebFX. Copy the mechanism — free tool + tight topic cluster + cost pages — aimed at one niche.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gourmet -->
+    <div class="card comp">
+      <div class="comp-head">
+        <div><h3>Gourmet Marketing</h3><div class="dom">gourmetmarketing.net · boutique hospitality</div></div>
+        <span class="threat lo">Beatable</span>
+      </div>
+      <p style="font-size:.93rem;color:var(--warm-gray)">The most credentialed "restaurant" agency — but it has <b style="color:var(--charcoal)">largely left restaurants for hotels</b> (blog + 5 of 6 case studies are hotels now). Only ~8.7K visits/mo, ~256 keywords, mostly people Googling the brand. Their buyer-intent restaurant rankings are weak — a strategic gift.</p>
+      <div class="cols">
+        <div>
+          <div class="mini-h">What they do better</div>
+          <ul class="clean win">
+            <li><b>A "credibility wall" of hard numbers</b> above the fold: "$462M generated", "17:1 ad ROI". We show almost none — big gap.</li>
+            <li>Named premium client logos + attributed testimonials (real name/title/company).</li>
+            <li>Industry e-books as soft lead magnets before the sales call.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="mini-h">Where they're soft</div>
+          <ul class="clean gap">
+            <li>They've <b>left restaurants for hotels</b> — attention gap in our exact niche.</li>
+            <li>No city/local pages — wide-open local opportunity.</li>
+            <li>Thin service pages, only ~6 case studies, no free tool — we out-depth them.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERP rivals -->
+    <div class="card comp" style="margin-bottom:0">
+      <div class="comp-head">
+        <div><h3>The smaller SERP rivals</h3><div class="dom">who we actually outrank-or-lose-to on page 1</div></div>
+        <span class="threat lo">Winnable</span>
+      </div>
+      <p style="font-size:.93rem;color:var(--warm-gray)">Google our target terms and page 1 is mostly <b style="color:var(--charcoal)">small regional agencies + "top 10" list sites</b>, not the giants. Good news.</p>
+      <div class="cols">
+        <div>
+          <div class="mini-h">Direct rivals worth knowing</div>
+          <ul class="clean dot">
+            <li>TheDigitalRestaurant, LocalRestaurantSEO, RestaurantEngine (cheap templates), BlueTone, Flying V, Red Dash.</li>
+            <li>Texas: <b>Vorgestern</b> (smart city-page strategy worth studying), Web Sales Group, CZone Star, Hyperlinks Media, Red Spot Design.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="mini-h">Directories — join, don't fight</div>
+          <ul class="clean dot">
+            <li>DesignRush, Clutch, HigherVisibility, FitSmallBusiness own page 1 for head terms like "restaurant website design company."</li>
+            <li><b>Play:</b> get listed/reviewed on them + publish our own comparison content — don't fight for a pure service page.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MID-TIER ============ -->
+<section id="midtier">
+  <div class="wrap">
+    <div class="eyebrow">The ones you asked us to dig deeper on</div>
+    <h2>The mid-tier — between the giants and the boutiques</h2>
+    <p class="lead">Below Thrive/WebFX and above a one-person boutique sits a band of agencies we'll actually meet in the search results. We tore down 11 of them. The short version: most are smaller than they look, three of five hide their pricing, and almost none have a free tool or real result numbers — which is exactly the door we walk through.</p>
+
+    <!-- mid-tier traffic ladder -->
+    <div class="card chart" style="margin-bottom:18px">
+      <div class="mini-h" style="margin-bottom:14px">Estimated free monthly visitors — the mid-tier ladder <span class="conf m">SimilarWeb · May 2026</span></div>
+      <div class="bar-row"><div class="bar-name">SmartSites<small>generalist · top of tier</small></div><div class="bar-track"><div class="bar-fill md" style="width:100%"></div></div><div class="bar-val">~79K<small>/mo · High</small></div></div>
+      <div class="bar-row"><div class="bar-name">Flying V Group<small>farms restaurants</small></div><div class="bar-track"><div class="bar-fill md" style="width:68%"></div></div><div class="bar-val">~30–80K<small>/mo · Low</small></div></div>
+      <div class="bar-row"><div class="bar-name">Searchbloom<small>↑ growing +12%</small></div><div class="bar-track"><div class="bar-fill md" style="width:34%"></div></div><div class="bar-val">~27K<small>/mo · High</small></div></div>
+      <div class="bar-row"><div class="bar-name">BizIQ<small>cheap local · ↓ -16%</small></div><div class="bar-track"><div class="bar-fill sm" style="width:18%"></div></div><div class="bar-val">~14K<small>/mo · High</small></div></div>
+      <div class="bar-row"><div class="bar-name">39 Celsius<small>content-led</small></div><div class="bar-track"><div class="bar-fill md" style="width:15%"></div></div><div class="bar-val">~12K<small>/mo · Med</small></div></div>
+      <div class="bar-row"><div class="bar-name">The Digital Restaurant<small>true restaurant rival</small></div><div class="bar-track"><div class="bar-fill sm" style="width:9%"></div></div><div class="bar-val">~6K<small>/mo · Low</small></div></div>
+      <div class="bar-row"><div class="bar-name">Funnel Boost Media<small>geo-pages · ↓ -32%</small></div><div class="bar-track"><div class="bar-fill sm" style="width:8%"></div></div><div class="bar-val">~6.5K<small>/mo · High</small></div></div>
+      <div class="bar-row"><div class="bar-name">RestaurantEngine<small>productized templates</small></div><div class="bar-track"><div class="bar-fill sm" style="width:4%"></div></div><div class="bar-val">~1–4K<small>/mo · Low</small></div></div>
+      <div class="bar-row"><div class="bar-name">Vorgestern<small>50-state programmatic</small></div><div class="bar-track"><div class="bar-fill sm" style="width:2%"></div></div><div class="bar-val">~1.4K<small>/mo · Low</small></div></div>
+      <div class="bar-cap">☝ Vorgestern's ~1,400/mo comes from <b>tens of thousands of pages</b> — the teardown below explains why.</div>
+      <div class="bar-legend">
+        <span><i style="background:#C2934A"></i> Generalist agency</span>
+        <span><i style="background:#D85A3D"></i> Restaurant-focused</span>
+      </div>
+    </div>
+
+    <div class="callout"><p><b>The pattern across all 11 — and our wedge:</b> three of five hide pricing entirely, <b>none</b> offers a free instant tool/grader, and almost none lead with verified before/after numbers. That triple gap — <b>transparent productized pricing + a free tool + real proof numbers, aimed at restaurants</b> — is precisely what we're built to drive through.</p></div>
+
+    <!-- VORGESTERN TEARDOWN -->
+    <div class="why flagship" style="margin-top:18px">
+      <div class="why-top">
+        <h3>📐 Teardown: Vorgestern — our exact strategy, done huge, and failing</h3>
+        <p class="sub">The single most useful competitor lesson in this report. They run the same play we do (city + service pages) across <b>all 50 states</b> — and it earns almost nothing. Proof that breadth without depth doesn't rank.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-box ex">
+          <div class="bh">📦 What they built (impressive on paper)</div>
+          <p>A clean URL machine: <code style="font-size:.82rem">/state/city/service/industry</code> — e.g. <i>/texas/houston/web-design/restaurants</i>. An estimated <b>15,000–40,000+ pages</b> across all 50 states, with tidy breadcrumbs, hub pages, internal linking, and a lead form on every single one.</p>
+        </div>
+        <div class="why-box rs">
+          <div class="bh">💀 Why it's failing (~1.4K visits, ~9 keywords total)</div>
+          <p>The copy is <b>templated</b> — every city page is the same sentences with just the city name and a sector list swapped in. <b>No</b> real local detail, <b>no</b> case studies, <b>no</b> proof, and a <b>Georgia phone number on Texas pages.</b> Google's thin-content systems are quietly burying the whole thing.</p>
+        </div>
+      </div>
+      <div class="verdict"><p><b>The lesson — steal the architecture, not the content:</b> adopt their <code style="font-size:.82rem">city × service × industry</code> URL structure and hub linking, but fill every page with <b>real local data and real client proof</b> (we have actual restaurant reports — they have none). <b>Our 10 Texas metros done deep will beat their 50 states done thin.</b> Concentration beats sprawl.</p></div>
+    </div>
+
+    <!-- key mid-tier players -->
+    <h3 style="margin:30px 0 14px">The ones worth knowing by name</h3>
+    <div class="mini-why">
+      <div class="card">
+        <h3>The Digital Restaurant <span class="threat hi" style="margin-left:6px">Most dangerous direct rival</span></h3>
+        <p style="font-size:.82rem;color:var(--warm-gray-light)">Chicago · genuinely restaurant-native · ~3–10K visits/mo <span class="conf l">Low</span></p>
+        <p class="ex"><b>Does better:</b> public starting prices ($295 / $495 / $1,995/mo), a paid $995 "digital assessment" that filters leads, real named case studies, city pages, and its own software (NGAZE/RichMenu). Essentially the playbook we're building.</p>
+        <p class="rs"><b>Beatable:</b> weak quantified results, <b>no free instant tool</b>, and a high commitment ($1,995/mo + 6-month minimum) that abandons the smaller owner. Our free tool + verified numbers out-flank them.</p>
+      </div>
+      <div class="card">
+        <h3>BizIQ <span class="threat mid" style="margin-left:6px">Threat on price</span></h3>
+        <p style="font-size:.82rem;color:var(--warm-gray-light)">Phoenix · volume/affordable · ~14K visits/mo, ↓ <span class="conf h">High</span></p>
+        <p class="ex"><b>Does better:</b> the most transparent pricing of anyone — <b>$399/mo</b> packages right on the site, a live <i>/restaurants</i> vertical, "38,000+ businesses" volume-proof, and a blog tuned to "how much does it cost" searches.</p>
+        <p class="rs"><b>Beatable:</b> only ~38 reviews for 38,000 clients screams churny/commodity; traffic declining; cheap-and-cheerful brand with no premium or design credibility. We win the up-market local business they can't keep.</p>
+      </div>
+      <div class="card">
+        <h3>Funnel Boost Media <span class="threat lo" style="margin-left:6px">Geo-page play</span></h3>
+        <p style="font-size:.82rem;color:var(--warm-gray-light)">San Antonio · local lead-gen · ~6.5K visits/mo, ↓ -32% <span class="conf h">High</span></p>
+        <p class="ex"><b>Does better:</b> city + service landing pages (the exact local play to copy), sharp "most awarded agency in San Antonio" positioning, BBB A+, Veteran-owned, and named result stats (+84% traffic, +94% local inquiries).</p>
+        <p class="rs"><b>Beatable:</b> the weakest and fastest-falling traffic in the set right now, capped by a single-metro identity, with no pricing transparency and no free tools. Outrankable today.</p>
+      </div>
+      <div class="card">
+        <h3>SmartSites <span class="threat mid" style="margin-left:6px">Top of the tier</span></h3>
+        <p style="font-size:.82rem;color:var(--warm-gray-light)">NJ · generalist · ~79K visits/mo <span class="conf h">High</span></p>
+        <p class="ex"><b>Does better:</b> an overwhelming trust wall — 1,000+ five-star reviews, 9× Inc. 5000, Google Premier + Meta partner — plus clean productized 3-tier SEO pricing ($2,600 / $3,900 / $5,200/mo) and vertical "experts" hubs.</p>
+        <p class="rs"><b>Beatable:</b> a generalist with no single-niche depth, and a $2,600+/mo floor that leaves the entire sub-$1K local market wide open. Our restaurant proof beats them on vertical authority.</p>
+      </div>
+      <div class="card">
+        <h3>Searchbloom <span class="threat lo" style="margin-left:6px">Comparison-hub master</span></h3>
+        <p style="font-size:.82rem;color:var(--warm-gray-light)">Utah · performance SEO · ~27K visits/mo, ↑ +12% <span class="conf h">High</span></p>
+        <p class="ex"><b>Does better:</b> a "best [vertical] SEO companies" listicle hub that captures buyers while they're comparison-shopping, plus hard proof (720% avg ROI, 98% retention) and a free ROI calculator. Only one in the set growing.</p>
+        <p class="rs"><b>Beatable:</b> chases mid-market/enterprise, not local SMBs, and hides pricing. The local restaurant lane is beneath their radar — it's ours to take.</p>
+      </div>
+      <div class="card">
+        <h3>RestaurantEngine <span class="threat lo" style="margin-left:6px">Productized template</span></h3>
+        <p style="font-size:.82rem;color:var(--warm-gray-light)">Restaurant template shop · ~1–4K visits/mo <span class="conf l">Low</span></p>
+        <p class="ex"><b>Does better:</b> friction-killing offer — <b>$49/mo</b>, no contract, money-back guarantee, and a "your site live by this weekend" speed promise. Every page speaks restaurant.</p>
+        <p class="rs"><b>Beatable:</b> no city/local pages at all, no free tool, no result numbers, and drifting away from its transparent-pricing edge toward a "contact us" funnel. Open lane for a Texas-metro page strategy.</p>
+      </div>
+    </div>
+    <p style="font-size:.86rem;color:var(--warm-gray);margin-top:16px"><b>Below the boutique line (awareness, not real SERP threats):</b> Kreative Media (~3.6K, buys ~half its traffic), Red Spot Design (~2K), Hyperlinks Media (~1.8K — but marquee clients like Landry's), BlueTone Media (~0.5–2.5K, industry×city pages worth a look), Red Dash Media (~0.2–1.5K, offshore/ambiguous identity, fabricated-feeling proof).</p>
+  </div>
+</section>
+
+<!-- ============ WHERE WE STAND ============ -->
+<section id="us">
+  <div class="wrap">
+    <div class="eyebrow">The mirror</div>
+    <h2>Where we stand today</h2>
+    <p class="lead">An honest self-audit — what we've already built well, and the gaps this report exists to flag.</p>
+    <div class="grid g2" style="margin-bottom:24px">
+      <div class="card">
+        <div class="mini-h" style="color:var(--good)">✓ Already solid</div>
+        <ul class="clean win">
+          <li>60 programmatic city × service pages — and ours are genuinely customized, not boilerplate.</li>
+          <li>Clean technical SEO: sitemap, robots, 8 schema types, good metadata.</li>
+          <li>A blog ready to go with 11 restaurant drafts written.</li>
+          <li>One free tool (Review Calculator) + contact form.</li>
+          <li>4 real client testimonials with logos.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="mini-h" style="color:var(--bad)">↓ The gaps</div>
+        <ul class="clean gap">
+          <li>Only 1 free tool vs WebFX's 28+.</li>
+          <li>Zero "how much does X cost" pages.</li>
+          <li>No hard result numbers / proof shown.</li>
+          <li>11 drafts written but not yet published.</li>
+          <li>No trust badges, review counts, or comparison articles.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap-tbl">
+    <table>
+      <thead><tr><th>Capability</th><th>The competition</th><th>Us</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td>Free tools / lead magnets<span class="info" tabindex="0">i<span class="tip">A <b>lead magnet</b> is a free tool, audit, or checklist that gets a business owner to hand over their email — which we then turn into a sales conversation.</span></span></td><td>WebFX (28+), Thrive</td><td><span class="cross">1 only</span></td><td><span class="threat hi">High</span></td></tr>
+        <tr><td>"How much does X cost" pages</td><td>WebFX + others</td><td><span class="cross">0</span></td><td><span class="threat hi">High · easy</span></td></tr>
+        <tr><td>Hard result numbers / proof</td><td>Gourmet, WebFX</td><td><span class="cross">None shown</span></td><td><span class="threat hi">High</span></td></tr>
+        <tr><td>Published blog content</td><td>Thrive (~daily)</td><td><span class="cross">11 drafts, unpublished</span></td><td><span class="threat hi">High · ready</span></td></tr>
+        <tr><td>"Best / comparison" articles</td><td>Thrive, Flying V</td><td><span class="cross">0</span></td><td><span class="threat mid">Medium</span></td></tr>
+        <tr><td>Trust badges / review counts</td><td>All of them</td><td><span class="cross">None</span></td><td><span class="threat mid">Medium</span></td></tr>
+        <tr><td>Customized local pages</td><td>Thrive (thin)</td><td><span class="tick">Better than them</span></td><td><span class="threat lo">Keep / extend</span></td></tr>
+        <tr><td>Technical SEO &amp; schema</td><td>Mixed</td><td><span class="tick">Clean</span></td><td><span class="threat lo">Maintain</span></td></tr>
+        <tr><td>Backlinks / domain authority<span class="info" tabindex="0">i<span class="tip">A <b>backlink</b> is another website linking to ours. Google counts each as a vote of trust. The total trust score is <b>domain authority</b> — higher means everything ranks easier.</span></span></td><td>Giants (elite)</td><td><span class="cross">Low (new)</span></td><td><span class="threat mid">Long-term</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY THE GAPS MATTER ============ -->
+<section id="why">
+  <div class="wrap">
+    <div class="eyebrow">Examples &amp; proof — for anyone who's skeptical</div>
+    <h2>Why each gap is worth closing</h2>
+    <p class="lead">The table above lists <i>what</i> we're missing. This section is the <i>why</i> — with real-world examples and the evidence behind each one. It's written to settle the "is this even relevant?" question, because the data answers it clearly. <span class="hand" style="font-size:1.25rem">hover the&nbsp;<span class="info" tabindex="0">i<span class="tip">Like this one. Hover or tap any of these icons through the report and a plain-English explanation pops up.</span></span>&nbsp;icons for the jargon</span></p>
+
+    <!-- FLAGSHIP 1: FREE TOOLS (the disputed one) -->
+    <div class="why flagship">
+      <div class="why-top">
+        <h3>1 · Free tools / lead magnets<span class="info" tabindex="0">i<span class="tip">A <b>lead magnet</b> = a free tool/audit/checklist that captures a business owner's email so we can follow up and sell.</span></span></h3>
+        <p class="sub"><b>The highest-leverage gap on the board — and the most misunderstood.</b> Here's what a free tool is actually for, and why the best-ranking agency in this entire report is built on exactly this.</p>
+      </div>
+
+      <div class="spotlight">
+        <span class="tag">⚡ Read this first — settle the "traffic vs clients" question</span>
+        <div class="ob">"We don't need empty traffic — we need clients and leads."</div>
+        <h4>That concern is 100% correct. And it's exactly why we should build tools — the right way.</h4>
+        <p><b>Agreed: traffic for its own sake is worthless.</b> We should never build a tool that pulls visitors who'll never hire us. So the test for any tool is NOT "how much traffic" — it's two things only: <b>does it capture a lead, and does it earn links?</b></p>
+        <p>A <b>relevant</b> tool produces clients two ways. <b>(1) It captures the email of a buyer with the exact problem we fix</b> — e.g. an owner who just learned their restaurant isn't showing on Google Maps. That's a lead, not a pageview. <b>(2) It earns the backlinks that make our service &amp; city pages rank at all</b> — and those pages are what bring clients. A new site cannot rank its money-pages without that authority. So tools aren't <i>instead of</i> leads — <b>they're what makes lead-generation possible.</b></p>
+        <p><b>One honest correction for how we pitch it:</b> Google does <i>not</i> rank you higher just for having traffic. The value isn't the traffic itself — it's the <b>leads captured, links earned, and retargeting audience built.</b> A tool with no email capture really would be empty traffic — so we simply won't build that kind.</p>
+        <div class="keyline"><b>The proposal, in client terms:</b> build ONE tool — a free "Are you showing on Google Maps?" / Google Business Profile audit — and judge it purely on <b>leads: emails captured + calls booked in 90 days.</b> If it doesn't produce leads, we kill it. Zero risk, and it quietly builds the authority our client-pages need.</div>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-box ex">
+          <div class="bh">📍 Real-world proof</div>
+          <p><b>WebFX</b> — the strongest agency domain in our research — runs <b>28+ free tools</b>. Their single highest-traffic pages are <i>tools, not service pages.</i> One simple free calculator pulls <b>~14,000 visitors a month</b> on its own. Their whole #1 ranking position is built on this play.</p>
+          <p><b>HubSpot's "Website Grader"</b> became one of the most famous lead magnets ever made — millions of submissions, and a cornerstone of how HubSpot grew from startup to a multi-billion-dollar company.</p>
+        </div>
+        <div class="why-box rs">
+          <div class="bh">✅ Why it works (3 reasons)</div>
+          <p><b>1. It reaches owners before they're shopping.</b> A restaurant owner won't Google "marketing agency" on a random Tuesday — but they <i>will</i> use a "how many reviews do I need to hit 4.5 stars?" calculator. That's how we catch them at the top of the funnel<span class="info" tabindex="0">i<span class="tip"><b>Top of the funnel</b> = people who have a problem but aren't yet looking to buy. Reach them early and you're the name they remember when they <i>are</i> ready.</span></span> and capture the email.</p>
+          <p><b>2. It earns backlinks cheaply.</b> People link to useful free tools, never to sales pages. Each link lifts the ranking of <i>every</i> page we own<span class="info" tabindex="0">i<span class="tip">Links are trust votes that raise our whole site's <b>domain authority</b> — the single lever a small site can pull to chase the giants.</span></span> — the one lever that lets a small site close the gap to WebFX/Thrive.</p>
+          <p><b>3. It ranks for searches a service page can't.</b> A tool ranks for "review calculator," "ROI calculator," etc. — words our /services page will never target.</p>
+        </div>
+      </div>
+      <div class="verdict myth">
+        <p><b>Common misconception:</b> "a free tool is pointless because it doesn't sell anything." &nbsp; <b>Reality:</b> a tool isn't a salesperson — it's the <b>front door</b>. Its job isn't to close a deal; it's to capture a stranger's email and earn links. Two things make or break a tool: <b>it has to be tied to a service we actually sell, and it has to capture the visitor's email.</b> Get those right and the payoff is proven — the best-ranking competitor in this entire report is, essentially, a library of free tools.</p>
+      </div>
+      <div class="verdict">
+        <p><b>What a <i>relevant</i> tool looks like for us:</b> a free "Is your restaurant showing up on Google Maps?" checker, a "Google Business Profile health audit," or the review calculator we already have — each exposes a problem the owner didn't know they had, then hands them to us to fix it. <b>That's</b> the difference between a relevant tool and a random one.</p>
+      </div>
+    </div>
+
+    <!-- FLAGSHIP 2: COST OF X PAGES -->
+    <div class="why flagship">
+      <div class="why-top">
+        <h3>2 · "How much does X cost?" pages<span class="info" tabindex="0">i<span class="tip">A page that openly answers a pricing question, e.g. "How much does a restaurant website cost?" — explaining price ranges and what changes them.</span></span></h3>
+        <p class="sub">You asked exactly what these are. Here's the full picture — they're the cheapest, fastest wins on the entire board.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-box ex">
+          <div class="bh">📍 What they are + example</div>
+          <p>A single page that honestly answers a money question: <i>"How much does a restaurant website cost?"</i>, <i>"How much does local SEO cost per month?"</i>, <i>"What do Google Ads cost for a small business?"</i> — laying out realistic price ranges and what makes the number go up or down.</p>
+          <p><b>WebFX</b> publishes a whole library of these ("how much does SEO cost," "digital marketing pricing") and ranks for all of them. The search <i>"how much does a restaurant website cost"</i> has confirmed, real monthly demand on Google right now.</p>
+        </div>
+        <div class="why-box rs">
+          <div class="bh">✅ Why they convert so well</div>
+          <p><b>1. The searcher is almost ready to buy.</b> Someone Googling "cost" has already decided they want the thing and is checking the price — that's the bottom of the funnel<span class="info" tabindex="0">i<span class="tip"><b>Bottom of the funnel</b> = people about to buy. They've stopped researching <i>whether</i> and are deciding <i>who from</i>. The highest-value visitor there is.</span></span>, the closest-to-the-wallet visitor there is.</p>
+          <p><b>2. Almost no competition.</b> Most agencies refuse to talk price publicly. That silence is our opening — be the one honest answer on the page.</p>
+          <p><b>3. We don't even need a fixed price.</b> A page giving honest ranges + "what changes the cost" + a "get your custom quote" button builds trust, ranks, and captures the lead — all at once.</p>
+        </div>
+      </div>
+      <div class="verdict">
+        <p><b>Bottom line:</b> one page each, low competition, and every visitor is a near-ready buyer. There is no faster, cheaper win in this whole report — and we currently have <b>zero</b> of them.</p>
+      </div>
+    </div>
+
+    <!-- THE REST: compact -->
+    <h3 style="margin:30px 0 14px">The rest of the gaps, in brief</h3>
+    <div class="mini-why">
+      <div class="card">
+        <h3>3 · Hard result numbers<span class="info" tabindex="0">i<span class="tip">Specific, real outcomes shown on the site — e.g. "+38% calls in 90 days" — instead of vague claims like "great results."</span></span></h3>
+        <p class="ex"><b>Example:</b> Gourmet Marketing puts "$462M generated for partners · 17:1 ad ROI" right above the fold; WebFX shows exact "% traffic lift" per client.</p>
+        <p class="rs"><b>Why it matters:</b> owners don't trust adjectives, they trust numbers. "We got Grill Shack 38% more calls in 90 days" converts a browser into a lead far better than "amazing results." We currently show <b>none</b> — ask the team for real client wins.</p>
+      </div>
+      <div class="card">
+        <h3>4 · Publishing the blog</h3>
+        <p class="ex"><b>Example:</b> Thrive publishes roughly daily — every article is another fishing line into Google. We have <b>11 finished drafts</b> targeting easy-win searches.</p>
+        <p class="rs"><b>Why it matters:</b> every published post is a new way to be found for free. Ours are written and paid for but sitting unpublished — that's revenue in a drawer. Publishing them is the highest-ROI hour we can spend; the work is already done.</p>
+      </div>
+      <div class="card">
+        <h3>5 · "Best / comparison" articles<span class="info" tabindex="0">i<span class="tip">Articles like "12 Best Restaurant SEO Companies (2026)" that capture people comparing vendors before they choose one.</span></span></h3>
+        <p class="ex"><b>Example:</b> Thrive ranks for "12 Best SEO Companies for Restaurants" — and lists <i>itself</i> at #1. Flying V Group does the same.</p>
+        <p class="rs"><b>Why it matters:</b> these catch people in compare-and-choose mode — high buying intent. If we don't write them, our competitors write them <b>and leave us off the list entirely.</b></p>
+      </div>
+      <div class="card">
+        <h3>6 · Trust badges &amp; review counts</h3>
+        <p class="ex"><b>Example:</b> Thrive flashes "Inc. 5000 · 7 years running," Google Premier Partner, and "4.7★ on Clutch (100+ reviews)" on every page.</p>
+        <p class="rs"><b>Why it matters:</b> a stranger deciding whether to trust us scans for proof in seconds. Badges and review counts are instant credibility shortcuts. We should collect Google/Clutch reviews and display the Google Partner badge.</p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:20px"><p><b>Two gaps we're actually ahead on</b> (so they're not in the list above): our <b>customized local city pages</b> already beat Thrive's thin templated ones, and our <b>technical SEO</b> is clean. The only "gap" that's genuinely slow is <b>backlinks/domain authority</b> — that's earned over time, not built in a week.</p></div>
+  </div>
+</section>
+
+<!-- ============ KEYWORDS ============ -->
+<section id="keywords">
+  <div class="wrap">
+    <div class="eyebrow">Where we can win</div>
+    <h2>Keyword opportunities</h2>
+    <p class="lead">The pattern matters more than any single number: <b>lots of small, low-competition, local + "cost" searches beat a few giant head terms.</b> Volumes are estimates — confirm before ad spend.</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="color:var(--good)">🟢 Ironclad easy wins — do first</h3>
+        <p style="font-size:.85rem;color:var(--warm-gray);margin-bottom:6px">Low competition + clear buyer intent + we can rank.</p>
+        <div class="mini-h" style="margin-top:14px">Restaurant lens</div>
+        <div class="chips">
+          <span class="chip win">restaurant web design services</span>
+          <span class="chip win">restaurant SEO services</span>
+          <span class="chip win">local SEO for restaurants</span>
+          <span class="chip win">restaurant website design {city} ×10</span>
+          <span class="chip win">restaurant SEO {city}</span>
+          <span class="chip win">how much does a restaurant website cost</span>
+          <span class="chip win">restaurant Google Ads management</span>
+          <span class="chip win">how to get more restaurant reviews</span>
+        </div>
+        <div class="mini-h" style="margin-top:16px">Generic local-business lens</div>
+        <div class="chips">
+          <span class="chip win">affordable web design for small business</span>
+          <span class="chip win">GBP optimization service</span>
+          <span class="chip win">small business web design {city}</span>
+          <span class="chip win">local SEO {city}</span>
+          <span class="chip win">{industry} web design {city}</span>
+          <span class="chip win">how much does local SEO cost</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--warm-gray-light)">⚪ Fights to avoid — for now</h3>
+        <p style="font-size:.85rem;color:var(--warm-gray);margin-bottom:6px">Head terms owned by giants + directories. Only approach via long-tail or our own list content.</p>
+        <div class="chips">
+          <span class="chip avoid">local SEO services</span>
+          <span class="chip avoid">local SEO agency</span>
+          <span class="chip avoid">small business website design</span>
+          <span class="chip avoid">restaurant branding agency</span>
+          <span class="chip avoid">restaurant logo design</span>
+        </div>
+        <div class="callout" style="margin-top:20px"><p><b>The rule of thumb:</b> a city term at 50 searches/mo and KD 20 beats the national head term at 2,000/mo and KD 70 — because the giants don't build city pages well, and 50 buyers who can't find anyone else convert.</p></div>
+        <div class="mini-h" style="margin-top:18px">Biggest untapped surface</div>
+        <p style="font-size:.92rem;color:var(--charcoal-soft)"><b>{industry} × {city}</b> pages — the generic twin of our restaurant engine. Pick 2–3 high-value verticals once the niche is decided (dentists, lawyers, home services).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACTION PLAN ============ -->
+<section id="plan">
+  <div class="wrap">
+    <div class="eyebrow">What we do next</div>
+    <h2>The action plan</h2>
+    <p class="lead">Ranked fastest-leads-for-least-effort first. Orange steps need a quick decision before starting.</p>
+    <div class="tl">
+      <div class="tl-item"><div class="tl-num">1</div><h4>Publish the 11 restaurant blog drafts <span class="tl-tag">already written</span></h4><p>Free traffic sitting on the shelf, targeting easy-win searches. Paste, add featured images, publish.</p></div>
+      <div class="tl-item"><div class="tl-num">2</div><h4>Build 2–3 "how much does X cost" pages</h4><p>Restaurant website cost, local SEO cost, Google Ads cost. Low effort, low competition, ready-to-buy searchers. WebFX proves it works.</p></div>
+      <div class="tl-item"><div class="tl-num">3</div><h4>Widen the city × service page set</h4><p>Across all 10 Texas metros + the highest-value missing combos. We already own the engine — our single biggest edge over Thrive.</p></div>
+      <div class="tl-item"><div class="tl-num">4</div><h4>Add hard proof numbers to the site</h4><p>Even modest real wins ("X reviews generated", "Y% more calls"). Copy Gourmet's credibility wall. Sales likely has wins we're not showing.</p></div>
+      <div class="tl-item"><div class="tl-num">5</div><h4>Add risk-reversal messaging</h4><p>"Month-to-month · no lock-in · free strategy call" — prominently. Steal Thrive's best line. Costs nothing, removes the #1 objection.</p></div>
+      <div class="tl-item flag"><div class="tl-num">6</div><h4>Build 1–2 more free micro-tools</h4><p>Beyond the Review Calculator — e.g. a focused "is your restaurant on Google Maps?" checker or a Google Business Profile audit. Free tools are WebFX's #1 lead-gen move and our clearest lead-magnet gap — judge them on leads captured, not pageviews.</p></div>
+      <div class="tl-item"><div class="tl-num">7</div><h4>Write 2–3 "best / comparison" articles</h4><p>"Best restaurant website builders", "DIY vs agency local SEO" — catch decision-stage searchers.</p></div>
+      <div class="tl-item"><div class="tl-num">8</div><h4>Get listed on the directories</h4><p>DesignRush, Clutch, etc. own page 1 for our head terms — join the lists instead of fighting them.</p></div>
+      <div class="tl-item flag"><div class="tl-num">9</div><h4>Launch the 2nd-niche pages <span class="tl-tag" style="color:var(--accent);background:var(--accent-soft)">after niche decision</span></h4><p>Industry landing pages for the chosen vertical, then multiply by city — same playbook as restaurants.</p></div>
+      <div class="tl-item"><div class="tl-num">10</div><h4>Start earning backlinks (long game)</h4><p>Local press, partner sites, the directories above. Slow, but it's the moat the giants have and we don't.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="wm">TableTurnerr</div>
+    <p style="margin-top:6px"><b>Competitor Research &amp; SEO Opportunity Report</b> — June 2026</p>
+    <p style="margin-top:10px;max-width:680px">All traffic and keyword figures are public-source estimates with confidence labels — directional, not exact. Confirm target keywords in Keyword Planner before ad spend. Note: <b>thefoodieagency.com</b> in older notes is a one-page photographer site, not a real competitor — the real agency is foodie.agency.</p>
+    <p style="margin-top:14px;color:rgba(250,247,242,.4);font-size:.78rem">Internal document · reusable report template v1.0 · Tip: print this page to PDF (Ctrl/Cmd+P) to share a clean copy.</p>
+  </div>
+</footer>
+
+</body>
+</html>
