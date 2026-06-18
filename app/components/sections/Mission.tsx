@@ -74,7 +74,7 @@ export default function Mission() {
           >
             <AnimatedElement variants={fadeInUp}>
               <p className="text-warm-gray text-lg leading-relaxed max-w-xl mb-10">
-                TableTurnerr is a marketing agency for local businesses, built
+                TableTurnerr is an SEO agency for local businesses, built
                 for one purpose: giving local businesses the same digital
                 advantage as the big players, without the enterprise budget. We
                 combine a proven website framework with sharp local SEO strategy

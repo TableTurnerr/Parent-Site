@@ -14,12 +14,12 @@ import {
 } from "@/app/lib/schema";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Marketing Services for Local Businesses",
+  title: "SEO, Web Design & Marketing Services",
   description:
-    "Full-service local marketing: website design, local SEO, Google Ads, branding, and Google Business Profile optimization. See how TableTurnerr helps local businesses grow online.",
+    "Local SEO, website design, Google Ads, branding, and Google Business Profile optimization. See how TableTurnerr helps local businesses get found and grow online.",
   path: "/services",
   keywords: [
-    "local business marketing services",
+    "local SEO services for small business",
     "website design",
     "local SEO",
     "branding agency",
@@ -143,7 +143,7 @@ export default function ServicesPage() {
               the full lineup
             </p>
             <h1 className="display-xl text-charcoal mb-6">
-              Marketing services for local businesses
+              SEO, web design, and marketing for local businesses
             </h1>
             <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl">
               Everything your business needs to grow online, from a

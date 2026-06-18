@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 export const alt =
-  "TableTurnerr, Website Design, SEO & Marketing for Local Businesses";
+  "TableTurnerr, SEO, Web Design & Google Ads for Local Businesses";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -69,7 +69,7 @@ export default async function Image() {
               marginBottom: 28,
             }}
           >
-            Marketing Agency for Local Businesses
+            SEO Agency for Local Businesses
           </div>
 
           {/* Headline */}

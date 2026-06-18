@@ -45,7 +45,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     category: "Web Design",
     headline: "Website Design That Converts",
     description:
-      "We build high-converting websites on a proven, conversion-tested framework that we tailor to your brand, so you rank on Google, turn visitors into customers, and own your online presence. Mobile-first, SEO-optimized, and ready for online ordering from day one.",
+      "We don't build every site from scratch. We've perfected one conversion-tested website template with strong SEO baked into its foundation, then tailor it to your brand, content, and goals. You get a Google-ready, mobile-first site that turns visitors into customers, faster and for less than a custom build.",
     heroImage: {
       src: "/images/usage/chef-plating.webp",
       alt: "Chef carefully plating a dish in a professional restaurant kitchen",
@@ -54,12 +54,12 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Mobile-First Design",
         description:
-          "The majority of local website traffic comes from mobile devices. Every site we build is designed mobile-first, ensuring a fast, smooth experience that converts on any screen size.",
+          "The majority of local website traffic comes from mobile devices. Our template is built mobile-first, so you get a fast, smooth experience that converts on any screen size.",
       },
       {
         title: "SEO Built In From Day One",
         description:
-          "We don't bolt SEO on after the fact. Every website we build includes proper heading hierarchy, local SEO markup, schema data, optimized images, and fast load times baked into the foundation.",
+          "We don't bolt SEO on after the fact. Our template has proper heading hierarchy, local SEO markup, schema data, optimized images, and fast load times baked into its foundation, which is a big part of why it ranks.",
       },
       {
         title: "Conversion-Optimized Layouts",
@@ -114,14 +114,14 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     ],
     faqs: [
       {
-        question: "How much does a custom website cost?",
+        question: "How much does a website cost?",
         answer:
-          "Every business has different needs, so we provide custom quotes after an initial consultation. Pricing depends on the number of pages, the features you need, and the level of custom design work required.",
+          "Because we start from a proven template instead of building from scratch, you get agency-quality results faster and for less. Every business is different, so we give a clear quote after a quick consultation, based on the number of pages and the customization your brand needs.",
       },
       {
         question: "How long does it take to design and build a website?",
         answer:
-          "Most custom websites are completed within 2-4 weeks from kickoff. This includes design, development, content creation, and full SEO optimization.",
+          "Most websites are ready within 2-4 weeks from kickoff, since we tailor a proven template rather than starting from a blank page. This includes design, content creation, and full SEO optimization.",
       },
       {
         question: "Do I need to provide my own content and photos?",
@@ -147,7 +147,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       "custom website design",
     ],
     metaDescription:
-      "Custom website design built to rank on Google and convert visitors into paying customers. Mobile-first, SEO-optimized, and built on a proven framework. Get a free consultation.",
+      "Website design built on a proven, SEO-ready template, tailored to your brand. Mobile-first, fast, and built to convert visitors into customers. Get a free consultation.",
   },
 
   "restaurant-seo": {

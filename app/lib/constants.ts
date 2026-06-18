@@ -11,7 +11,7 @@ export const SERVICES = [
   {
     title: "Website Design",
     slug: "restaurant-website-design",
-    description: "High-converting websites built on our proven, conversion-tested framework and tailored to your brand. Built to rank on Google, mobile-first, SEO-optimized, and ready for online ordering.",
+    description: "We don't build every site from scratch. We've perfected one proven, SEO-strong website template and tailor it to your brand, so you get a Google-ready, mobile-first, high-converting site faster and for less than a custom build.",
   },
   {
     title: "Local SEO",
@@ -59,8 +59,8 @@ export const SOCIAL_LINKS = [
 
 export const SITE_CONFIG = {
   name: "TableTurnerr",
-  url: "https://tableturnerr.com",
-  tagline: "Web Design, SEO & Marketing Agency for Local Businesses",
+  url: "https://www.tableturnerr.com",
+  tagline: "Local SEO, Web Design & Google Ads for Local Businesses",
   email: "contact@tableturnerr.com",
   phone: "+1 (808) 559-9006",
 } as const;
@@ -69,12 +69,12 @@ export const FAQ_DATA = [
   {
     question: "How long does it take to design and build a website?",
     answer:
-      "Most custom websites are completed within 2 to 4 weeks from kickoff. This includes design, development, content creation, and full SEO optimization. Timelines vary depending on scope and complexity.",
+      "Most websites are ready within 2 to 4 weeks from kickoff, because we tailor a proven template rather than building from scratch. This includes design, content creation, and full SEO optimization. Timelines vary with scope and complexity.",
   },
   {
     question: "How much does a website cost?",
     answer:
-      "Because every business's needs, size, and existing branding differ, the price of our services varies completely per project. We provide custom quotes based on your specific requirements after an initial consultation.",
+      "Because we start from a proven, conversion-tested template instead of building from scratch, you get agency-quality results faster and for less. Prices still vary by your size, number of pages, and branding, so we give a clear quote after an initial consultation.",
   },
   {
     question: "What does your local SEO service include?",

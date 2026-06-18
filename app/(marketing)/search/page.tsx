@@ -22,7 +22,7 @@ const STATIC_PAGES: SearchResult[] = [
   {
     title: "About TableTurnerr",
     description:
-      "TableTurnerr is a marketing agency for local businesses specializing in website design, SEO, Google Ads, and branding, with deep experience in the restaurant industry.",
+      "TableTurnerr is an SEO agency for local businesses specializing in local SEO, website design, Google Ads, and branding, with deep experience in the restaurant industry.",
     url: "/about",
     type: "page",
   },

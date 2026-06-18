@@ -9,7 +9,7 @@ export function generateOrganizationSchema() {
     logo: `${SITE_CONFIG.url}/icon.png`,
     image: `${SITE_CONFIG.url}/images/usage/restaurant-kitchen-2.jpg`,
     description:
-      "TableTurnerr is a marketing agency for local businesses, offering website design, SEO, Google Ads, and Google Business Profile optimization, with deep experience in the restaurant industry.",
+      "TableTurnerr is an SEO agency for local businesses, offering local SEO, website design, Google Ads, and Google Business Profile optimization, with deep experience in the restaurant industry.",
     email: SITE_CONFIG.email,
     telephone: SITE_CONFIG.phone,
     priceRange: "$$",

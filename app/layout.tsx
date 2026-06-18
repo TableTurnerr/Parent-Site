@@ -29,16 +29,16 @@ const caveat = Caveat({
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tableturnerr.com"),
+  metadataBase: new URL("https://www.tableturnerr.com"),
   title: {
     default:
-      "TableTurnerr | Web Design, SEO & Marketing for Local Businesses",
+      "TableTurnerr | SEO Agency for Local Businesses",
     template: "%s | TableTurnerr",
   },
   description:
-    "TableTurnerr helps local businesses get found, get booked, and grow. High-converting websites built on a proven framework, local SEO, Google Ads, and Google Business Profile optimization. Book a free consultation.",
+    "TableTurnerr is an SEO agency for local businesses. We get you found on Google with local SEO, plus high-converting websites built on a proven framework, Google Ads, and Google Business Profile optimization. Book a free consultation.",
   keywords: [
-    "marketing agency for local businesses",
+    "SEO agency for local businesses",
     "local business website design",
     "small business SEO",
     "local SEO services",

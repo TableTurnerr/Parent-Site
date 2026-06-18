@@ -774,7 +774,7 @@ CURRENT POST DATA:
 ---`
       : `Available Categories: ${categoryNames.join(", ")}`;
 
-    return `You are a blog post assistant for TableTurnerr, a restaurant marketing agency. I need help with a blog post. ${contextBlock}
+    return `You are a blog post assistant for TableTurnerr, an SEO agency for local businesses with deep restaurant experience. I need help with a blog post. ${contextBlock}
 
 MY REQUEST:
 ${aiPrompt}

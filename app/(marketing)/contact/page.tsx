@@ -17,7 +17,7 @@ export const metadata: Metadata = createPageMetadata({
     "Tell us about your business and get a free, no-obligation consultation. We reply within 24 hours with a plan for your website, local SEO, and Google Ads.",
   path: "/contact",
   keywords: [
-    "contact marketing agency",
+    "contact SEO agency",
     "free marketing consultation",
     "website quote",
     "local SEO consultation",

@@ -17,10 +17,10 @@ import { generateOrganizationSchema, generateBreadcrumbSchema } from "@/app/lib/
 export const metadata: Metadata = createPageMetadata({
   title: "About TableTurnerr, the Local Business Growth Agency",
   description:
-    "TableTurnerr is a marketing agency for local businesses. We build high-converting websites, run local SEO, and manage Google Ads so local businesses can compete with the big players and win, with deep experience in the restaurant industry.",
+    "TableTurnerr is an SEO agency for local businesses. We run local SEO, build high-converting websites, and manage Google Ads so local businesses can compete with the big players and win, with deep experience in the restaurant industry.",
   path: "/about",
   keywords: [
-    "local business marketing agency",
+    "local SEO agency",
     "about TableTurnerr",
     "local business growth partner",
     "small business digital marketing",

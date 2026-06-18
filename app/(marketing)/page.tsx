@@ -20,26 +20,26 @@ import {
 } from "@/app/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Marketing Agency for Local Businesses",
+  title: "SEO Agency for Local Businesses",
   description:
-    "TableTurnerr helps local businesses get found, get booked, and grow. High-converting websites, local SEO, Google Ads, and Google Business Profile optimization. Book a free consultation.",
+    "TableTurnerr is an SEO agency for local businesses. We get you found on Google with local SEO, high-converting websites, and Google Ads. Book a free consultation.",
   alternates: {
-    canonical: "https://tableturnerr.com",
+    canonical: "https://www.tableturnerr.com",
   },
   openGraph: {
-    title: "TableTurnerr | Marketing for Local Businesses",
+    title: "TableTurnerr | SEO Agency for Local Businesses",
     description:
-      "High-converting websites, local SEO, Google Ads, and Google Business Profile optimization for local businesses nationwide. Book a free consultation.",
-    url: "https://tableturnerr.com",
+      "Local SEO, high-converting websites, Google Ads, and Google Business Profile optimization for local businesses nationwide. Book a free consultation.",
+    url: "https://www.tableturnerr.com",
     siteName: "TableTurnerr",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "TableTurnerr | Marketing for Local Businesses",
+    title: "TableTurnerr | SEO Agency for Local Businesses",
     description:
-      "High-converting websites, local SEO, Google Ads, and Google Business Profile optimization for local businesses nationwide.",
+      "Local SEO, high-converting websites, Google Ads, and Google Business Profile optimization for local businesses nationwide.",
   },
 };
 
@@ -49,7 +49,7 @@ export default function HomePage() {
   const faqSchema = generateFAQSchema(FAQ_DATA);
   const servicesSchema = generateAllServicesSchema();
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: "https://tableturnerr.com" },
+    { name: "Home", url: "https://www.tableturnerr.com" },
   ]);
 
   return (
