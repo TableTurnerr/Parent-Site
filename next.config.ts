@@ -39,6 +39,22 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  async redirects() {
+    // 301s for pages we removed, so old/indexed URLs and stray links don't 404.
+    return [
+      { source: "/tools", destination: "/review-calculator", permanent: true },
+      {
+        source: "/savings-calculator",
+        destination: "/review-calculator",
+        permanent: true,
+      },
+      {
+        source: "/menu-price-calculator",
+        destination: "/review-calculator",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

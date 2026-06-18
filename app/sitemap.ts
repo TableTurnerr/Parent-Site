@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
 import { SERVICES } from "./lib/constants";
 import { TARGET_CITIES } from "./lib/location-data";
+import { COST_PAGE_LIST } from "./lib/cost-data";
 import { getPublishedPostSlugs } from "./lib/blog";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://tableturnerr.com";
+  const baseUrl = "https://www.tableturnerr.com";
   const now = new Date();
 
   // Published blog posts (empty if none / DB unavailable at build).
@@ -60,6 +61,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/pricing`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    ...COST_PAGE_LIST.map((page) => ({
+      url: `${baseUrl}/pricing/${page.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
     {
       url: `${baseUrl}/about`,
       lastModified: now,

@@ -17,7 +17,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://tableturnerr.com/sitemap.xml",
-    host: "https://tableturnerr.com",
+    sitemap: "https://www.tableturnerr.com/sitemap.xml",
+    host: "https://www.tableturnerr.com",
   };
 }
