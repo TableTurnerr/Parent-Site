@@ -5,6 +5,11 @@ export interface PortfolioClient {
   url: string;
   /** One-line descriptor: cuisine / what we did. */
   blurb: string;
+  /** Static screenshot in /public/images/work/. Falls back to a name card if missing. */
+  image?: string;
+  /** Set when the site blocks iframe embedding (X-Frame-Options / Cloudflare),
+   *  so the live preview degrades to a branded name card instead of a blank frame. */
+  noFrame?: boolean;
 }
 
 /**
@@ -24,26 +29,40 @@ export const PORTFOLIO_CLIENTS: PortfolioClient[] = [
     name: "Grill Shack",
     url: "grillshackuk.com",
     blurb: "Website design and local SEO for a grill and burger spot.",
+    image: "/images/work/grill-shack.webp",
   },
   {
     name: "Suntea Mix",
     url: "sunteamix.co",
     blurb: "Custom site for a bubble tea and specialty drinks brand.",
+    image: "/images/work/suntea-mix.webp",
+    noFrame: true,
   },
   {
     name: "Waikiki Chicken in Paradise",
     url: "waikikichickeninparadise.com",
     blurb: "Website built for a Hawaiian-style chicken restaurant.",
+    image: "/images/work/waikiki-chicken.webp",
+    noFrame: true,
   },
   {
     name: "Waffle Pop Dallas",
     url: "wafflepopdallas.com",
     blurb: "Site and local SEO for a Dallas waffle and dessert shop.",
+    image: "/images/work/waffle-pop-dallas.webp",
   },
   {
     name: "The Battle Brand",
     url: "thebattlebrand.com",
     blurb: "Brand-forward website for a specialty cheesecake maker.",
+    image: "/images/work/battle-brand.webp",
+    noFrame: true,
+  },
+  {
+    name: "Al-Baghdady Bakery & Café",
+    url: "www.albaghdadybakery.com",
+    blurb: "Website and local SEO for an authentic Iraqi bakery and café in Richardson, TX.",
+    image: "/images/work/al-baghdady.webp",
   },
 ];
 

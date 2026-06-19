@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react"
 import { cn } from "@/lib/utils"
+import LivePreview from "@/app/components/ui/LivePreview"
 
 export interface TestimonialItem {
   id: number
@@ -12,15 +13,12 @@ export interface TestimonialItem {
   blurb?: string
   role?: string
   avatar?: string
-  /** Live site URL (no protocol). When set, the active client's homepage
-   *  screenshot is shown above, swapping as the carousel rotates. */
+  /** Live site URL (no protocol). When set, the card links out to the site. */
   siteUrl?: string
-}
-
-/** thum.io live homepage screenshot for a client URL. */
-function shot(siteUrl: string): string {
-  const clean = siteUrl.replace(/^https?:\/\//, "")
-  return `https://image.thum.io/get/width/1000/crop/720/wait/2/https://${clean}`
+  /** Static screenshot in /public/images/work/. Falls back to a name card. */
+  image?: string
+  /** Set when the site blocks iframe embedding; live preview becomes a name card. */
+  noFrame?: boolean
 }
 
 /** Google's favicon service for a site (no files to manage, always current). */
@@ -104,16 +102,7 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
   return (
     <div ref={sectionRef} className={cn("flex flex-col items-center gap-6 sm:gap-8 md:gap-10 py-8 sm:py-12 md:py-16", className)}>
       {/* Live screenshot of the highlighted client's site */}
-      <a
-        href={active.siteUrl ? `https://${active.siteUrl.replace(/^https?:\/\//, "")}` : undefined}
-        target={active.siteUrl ? "_blank" : undefined}
-        rel="noopener"
-        aria-label={active.siteUrl ? `Visit ${active.author}` : undefined}
-        className={cn(
-          "relative block w-full max-w-2xl aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-cream shadow-sm",
-          active.siteUrl ? "cursor-pointer" : "cursor-default",
-        )}
-      >
+      <div className="relative w-full max-w-2xl aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-cream-dark shadow-sm">
         {testimonials.map((t, i) => (
           <div
             key={t.id}
@@ -123,32 +112,16 @@ export function UniqueTestimonials({ testimonials, className }: TestimonialsProp
             )}
             aria-hidden={i !== activeIndex}
           >
-            {t.siteUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={shot(t.siteUrl)}
-                alt={`Live homepage of ${t.author}, built by TableTurnerr`}
-                className="w-full h-full object-cover object-top"
-                loading={i === 0 ? "eager" : "lazy"}
-              />
-            ) : (
-              // Fallback when no live URL yet: enlarged logo on cream
-              <div className="w-full h-full flex items-center justify-center">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={t.avatar} alt={t.author} className="h-20 w-20 rounded-full object-cover opacity-90" />
-              </div>
-            )}
+            <LivePreview
+              url={t.siteUrl ?? ""}
+              name={t.author}
+              canFrame={!!t.siteUrl && !t.noFrame}
+              image={t.image}
+              className="h-full w-full"
+            />
           </div>
         ))}
-        {active.siteUrl && (
-          <span className="absolute bottom-3 right-3 inline-flex items-center gap-1 rounded-full bg-charcoal/80 backdrop-blur-sm px-3 py-1 text-xs font-medium text-cream">
-            Visit site
-            <svg width="12" height="12" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M5.833 14.167 14.167 5.833M14.167 5.833H6.667M14.167 5.833v7.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
-        )}
-      </a>
+      </div>
 
       {/* Line container — real quote (with quotation marks) or factual descriptor */}
       <div className="relative px-4 sm:px-8 min-h-[4rem] sm:min-h-[5rem] md:min-h-[4.5rem] flex items-center justify-center">

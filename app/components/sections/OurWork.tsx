@@ -1,12 +1,8 @@
-import Image from "next/image";
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
 import Container from "@/app/components/ui/Container";
+import LivePreview from "@/app/components/ui/LivePreview";
 import { fadeInUp, staggerContainer } from "@/app/lib/animations";
-import {
-  PORTFOLIO_CLIENTS,
-  screenshotUrl,
-  hasRealPortfolio,
-} from "@/app/lib/portfolio-data";
+import { PORTFOLIO_CLIENTS, hasRealPortfolio } from "@/app/lib/portfolio-data";
 
 /**
  * "Our Work" portfolio: live screenshot thumbnails of client restaurant sites
@@ -45,31 +41,27 @@ export default function OurWork() {
         >
           {clients.map((client) => (
             <AnimatedElement key={client.name} variants={fadeInUp}>
-              <a
-                href={`https://${client.url.replace(/^https?:\/\//, "")}`}
-                target="_blank"
-                rel="noopener"
-                className="elevate-hover group block rounded-[1.25rem] overflow-hidden border border-border bg-cream-dark"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden bg-cream">
-                  <Image
-                    src={screenshotUrl(client.url)}
-                    alt={`Live homepage of ${client.name}, built by TableTurnerr`}
-                    fill
-                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    unoptimized
-                  />
-                </div>
+              <div className="elevate-hover group block overflow-hidden rounded-[1.25rem] border border-border bg-cream-dark">
+                <LivePreview
+                  url={client.url}
+                  name={client.name}
+                  canFrame={!client.noFrame}
+                  image={client.image}
+                  className="aspect-[4/3] w-full"
+                />
                 <div className="p-6">
                   <div className="flex items-center justify-between gap-3">
                     <h3 className="font-display font-semibold text-lg text-charcoal">
-                      {client.name}
+                      <a
+                        href={`https://${client.url.replace(/^https?:\/\//, "")}`}
+                        target="_blank"
+                        rel="noopener"
+                        className="transition-colors hover:text-accent"
+                      >
+                        {client.name}
+                      </a>
                     </h3>
-                    <span
-                      className="text-warm-gray-light group-hover:text-accent transition-colors"
-                      aria-hidden="true"
-                    >
+                    <span className="text-warm-gray-light" aria-hidden="true">
                       <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
                         <path
                           d="M5.833 14.167 14.167 5.833M14.167 5.833H6.667M14.167 5.833v7.5"
@@ -85,7 +77,7 @@ export default function OurWork() {
                     {client.blurb}
                   </p>
                 </div>
-              </a>
+              </div>
             </AnimatedElement>
           ))}
         </AnimatedElement>

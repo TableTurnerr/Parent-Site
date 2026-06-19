@@ -16,24 +16,37 @@ const TESTIMONIALS: TestimonialItem[] = [
     role: "Business owner",
     avatar: "/Client_Logos/GrillShack.webp",
     siteUrl: "grillshackuk.com",
+    image: "/images/work/grill-shack.webp",
   },
   {
     id: 2,
     author: "Waffle Pop Dallas",
     blurb: "Site and local SEO for a Dallas waffle and dessert shop.",
     siteUrl: "wafflepopdallas.com",
+    image: "/images/work/waffle-pop-dallas.webp",
   },
   {
     id: 3,
     author: "Waikiki Chicken in Paradise",
     blurb: "Website built for a Hawaiian-style chicken restaurant.",
     siteUrl: "waikikichickeninparadise.com",
+    image: "/images/work/waikiki-chicken.webp",
+    noFrame: true,
   },
   {
     id: 4,
     author: "Suntea Mix",
     blurb: "Custom site for a bubble tea and specialty drinks brand.",
     siteUrl: "sunteamix.co",
+    image: "/images/work/suntea-mix.webp",
+    noFrame: true,
+  },
+  {
+    id: 5,
+    author: "Al-Baghdady Bakery & Café",
+    blurb: "Website and local SEO for an authentic Iraqi bakery and café in Richardson, TX.",
+    siteUrl: "www.albaghdadybakery.com",
+    image: "/images/work/al-baghdady.webp",
   },
 ];
 
