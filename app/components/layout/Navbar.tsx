@@ -27,9 +27,12 @@ export default function Navbar({
 
   const isStatic = variant === "static";
   const isShrunk = !isStatic && scrolled;
-  // The homepage has a full-screen dark hero; while at the top (not scrolled
-  // into the cream pill) the nav sits over it and must render light.
-  const overDark = !isStatic && pathname === "/" && !scrolled;
+  // Pages whose hero is a dark, full-bleed image: while at the top (before the
+  // nav shrinks into the cream pill) it sits over that dark hero and must render
+  // light. The homepage + med spa heroes are light, so they use dark nav text.
+  const heroIsDark =
+    pathname === "/" || pathname === "/restaurants" || pathname === "/medspa";
+  const overDark = !isStatic && heroIsDark && !scrolled;
 
   return (
     <header
