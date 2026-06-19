@@ -13,8 +13,6 @@
   --color-charcoal-light: #2D2D2D;
   --color-warm-gray: #6B6560;
   --color-warm-gray-light: #9E9890;
-  --color-accent: #C8553D;
-  --color-accent-hover: #B44A35;
   --color-border: #E8E5DF;
 
   /* Typography */
@@ -56,6 +54,23 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* Accent lives in a SEPARATE non-inline @theme so its utilities reference
+   var(--color-accent) and can be re-skinned per niche via the scoped classes
+   below. Brand default = indigo; med spa = emerald; restaurants = terracotta. */
+@theme {
+  --color-accent: #4F46E5;
+  --color-accent-hover: #4338CA;
+}
+
+.theme-medspa {
+  --color-accent: #10805A;
+  --color-accent-hover: #0C6A49;
+}
+.theme-restaurant {
+  --color-accent: #C8553D;
+  --color-accent-hover: #B44A35;
+}
+
 /* shadcn/ui vars mapped to TableTurnerr palette */
 :root {
   --background: #FAFAF8;
@@ -74,8 +89,84 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: #E8E5DF;
   --input: #E8E5DF;
-  --ring: #C8553D;
+  --ring: #4F46E5;
   --radius: 0.625rem;
+}
+
+/* subtle film grain for hero sections (layered over dot-grid + glow) */
+.hero-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* drifting aurora blobs for hero backgrounds */
+@keyframes aurora {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(7%, -6%) scale(1.18); }
+  66%  { transform: translate(-6%, 7%) scale(0.92); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+.aurora-blob { animation: aurora 20s ease-in-out infinite; }
+.aurora-blob-2 { animation: aurora 26s ease-in-out infinite reverse; }
+
+/* perspective tilt for the hero product panel */
+.hero-tilt {
+  transform: perspective(1600px) rotateX(9deg) rotateZ(-0.5deg);
+  transform-style: preserve-3d;
+}
+@media (max-width: 768px) {
+  .hero-tilt { transform: none; }
+}
+
+/* gentle pulse for the rank badge */
+@keyframes rankPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+  50% { box-shadow: 0 0 0 6px color-mix(in oklab, var(--color-accent) 22%, transparent); }
+}
+.rank-pulse { animation: rankPulse 2.4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob, .aurora-blob-2, .rank-pulse { animation: none; }
+}
+
+/* slow float for hero UI cards */
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.hero-float { animation: heroFloat 6s ease-in-out infinite; }
+.hero-float-slow { animation: heroFloat 8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-float, .hero-float-slow { animation: none; }
+}
+
+/* ── Live site previews (OurWork + testimonials carousel) ── */
+.lp-frame {
+  pointer-events: none;
+  transform: scale(var(--lp-s, 0.3)) translateY(0);
+  animation: lpDrift 11s ease-in-out infinite alternate;
+}
+.lp-window:hover .lp-frame {
+  animation-play-state: paused;
+  pointer-events: auto;
+}
+@keyframes lpDrift {
+  0% {
+    transform: scale(var(--lp-s, 0.3)) translateY(0);
+  }
+  100% {
+    transform: scale(var(--lp-s, 0.3)) translateY(-360px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-frame {
+    animation: none;
+  }
 }
 
 /* ─── Admin Dashboard Dark Mode ─── */
@@ -91,6 +182,9 @@
   --color-warm-gray: #B5B0AB;
   --color-warm-gray-light: #75716B;
   --color-border: #2A2A2E;
+  /* lighter indigo so the brand accent stays legible on dark admin surfaces */
+  --color-accent: #818CF8;
+  --color-accent-hover: #6F7BF0;
 
   /* shadcn/ui tokens */
   --background: #0F0F11;
@@ -380,7 +474,7 @@ html {
 
 /* Terracotta gradient text for emphasis on key words / numbers */
 .text-accent-gradient {
-  background: linear-gradient(120deg, #E0694E 0%, #C8553D 55%, #A8412E 100%);
+  background: linear-gradient(120deg, color-mix(in oklab, var(--color-accent) 78%, white) 0%, var(--color-accent) 55%, color-mix(in oklab, var(--color-accent) 72%, black) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
