@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import Hero from "@/app/components/sections/Hero";
+import HomeHero from "@/app/components/sections/HomeHero";
 import TrustBar from "@/app/components/sections/TrustBar";
-import Services from "@/app/components/sections/Services";
+import IndustrySwitch from "@/app/components/sections/IndustrySwitch";
+import HomeServices from "@/app/components/sections/HomeServices";
 import { FAQ_DATA } from "@/app/lib/constants";
 
-const Mission = dynamic(() => import("@/app/components/sections/Mission"));
-const Partners = dynamic(() => import("@/app/components/sections/Partners"));
 const Process = dynamic(() => import("@/app/components/sections/Process"));
 const Testimonials = dynamic(() => import("@/app/components/sections/Testimonials"));
 const FAQ = dynamic(() => import("@/app/components/sections/FAQ"));
@@ -66,11 +65,10 @@ export default function HomePage() {
           ]),
         }}
       />
-      <Hero />
+      <HomeHero />
       <TrustBar />
-      <Services />
-      <Mission />
-      <Partners />
+      <IndustrySwitch />
+      <HomeServices />
       <Process />
       <Testimonials />
       <FAQ />
