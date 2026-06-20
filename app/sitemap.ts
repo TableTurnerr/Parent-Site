@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SERVICES } from "./lib/constants";
+import { SERVICES, PLATFORM_SERVICES } from "./lib/constants";
 import { TARGET_CITIES } from "./lib/location-data";
 import { COST_PAGE_LIST } from "./lib/cost-data";
 import { getPublishedPostSlugs } from "./lib/blog";
@@ -17,7 +17,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  const servicePages: MetadataRoute.Sitemap = SERVICES.map((service) => ({
+  const servicePages: MetadataRoute.Sitemap = [
+    ...SERVICES,
+    ...PLATFORM_SERVICES,
+  ].map((service) => ({
     url: `${baseUrl}/services/${service.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,

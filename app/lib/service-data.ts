@@ -23,7 +23,9 @@ export interface ServicePageData {
   category: string;
   headline: string;
   description: string;
-  heroImage: { src: string; alt: string };
+  heroImage?: { src: string; alt: string };
+  /** Set on platform services (AI Receptionist, CRM, Scheduling) with no per-city variants. */
+  noCityPages?: boolean;
   features: ServiceFeature[];
   stats: ServiceStat[];
   faqs: ServiceFAQ[];
@@ -706,6 +708,330 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     ],
     metaDescription:
       "Commission-free delivery and online ordering for restaurants. Stop paying 15-30% to DoorDash and UberEats. We set up direct ordering plus flat-fee delivery so you keep more profit.",
+  },
+
+  "ai-receptionist": {
+    title: "AI Receptionist",
+    slug: "ai-receptionist",
+    category: "Automation",
+    headline: "An AI Receptionist That Never Misses a Call",
+    description:
+      "Missed calls are missed customers. Our AI receptionist answers every call, text, and web chat around the clock, answers common questions, qualifies the lead, and books them straight into your calendar, so your front desk never drops a customer again.",
+    noCityPages: true,
+    features: [
+      {
+        title: "24/7 Call & Message Answering",
+        description:
+          "Your AI receptionist picks up every call, text, and website chat day or night, including weekends and holidays. No voicemail, no hold music, no missed business when your team is busy or closed.",
+      },
+      {
+        title: "Instant Lead Qualification",
+        description:
+          "It asks the right questions, captures the customer's name, contact details, and what they need, then scores how ready they are to book, so your team spends time on real opportunities instead of tyre-kickers.",
+      },
+      {
+        title: "Books Appointments Automatically",
+        description:
+          "When a caller is ready, the AI checks your live availability and books them straight into your calendar. The customer gets a confirmation and you wake up to a full schedule.",
+      },
+      {
+        title: "Missed-Call Text Back",
+        description:
+          "If a call ever slips through, the customer instantly gets a friendly text inviting them to keep the conversation going. You recover the leads most businesses lose to a single missed ring.",
+      },
+      {
+        title: "Trained in Your Brand Voice",
+        description:
+          "We train the AI on your services, prices, hours, and the questions your customers actually ask, so every conversation sounds like a knowledgeable member of your own team.",
+      },
+      {
+        title: "Every Conversation Logged",
+        description:
+          "Each call and message flows into your CRM with a full transcript and the lead's details, so nothing is forgotten and your team can pick up right where the AI left off.",
+      },
+    ],
+    stats: [
+      {
+        value: 62,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "of calls to local businesses go unanswered during busy hours",
+        source: "Industry Data",
+      },
+      {
+        value: 78,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "of customers buy from the business that responds to them first",
+        source: "Industry Data",
+      },
+      {
+        value: 24,
+        suffix: "/7",
+        decimalPlaces: 0,
+        label: "always-on coverage for calls, texts, and web chats",
+        source: "TableTurnerr",
+      },
+      {
+        value: 10,
+        suffix: "x",
+        decimalPlaces: 0,
+        label: "more likely to connect with a lead when you respond within 5 minutes",
+        source: "Industry Data",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI receptionist?",
+        answer:
+          "It is an intelligent virtual receptionist that answers your phone, texts, and website chats automatically. It holds a natural conversation, answers common questions about your business, qualifies the caller, and books appointments into your calendar, all without a human on the line.",
+      },
+      {
+        question: "Will callers know they are talking to an AI?",
+        answer:
+          "The conversation is natural and helpful, and most callers simply get their questions answered and book in. We are always transparent if asked, and the AI hands off to a real person whenever a caller prefers it or the request is complex.",
+      },
+      {
+        question: "What happens to calls after hours?",
+        answer:
+          "That is when it pays for itself. The AI receptionist works 24/7, so calls and messages that come in evenings, weekends, and holidays still get answered, qualified, and booked instead of going to voicemail and never calling back.",
+      },
+      {
+        question: "Can it book appointments into my existing calendar?",
+        answer:
+          "Yes. It connects to your calendar and booking system, checks real-time availability, and schedules the appointment during the call. The customer gets an instant confirmation and an automated reminder before their visit.",
+      },
+      {
+        question: "Does it replace my staff?",
+        answer:
+          "No, it backs them up. The AI handles the repetitive calls, after-hours enquiries, and overflow when everyone is busy, so your team is freed up for in-person customers and the conversations that genuinely need a human touch.",
+      },
+    ],
+    keywords: [
+      "ai receptionist",
+      "ai phone answering service",
+      "virtual receptionist",
+      "missed call text back",
+      "automated lead response",
+    ],
+    metaDescription:
+      "An AI receptionist that answers every call, text, and chat 24/7, qualifies the lead, and books it into your calendar. Never miss a customer again. Get a free demo.",
+  },
+
+  "crm": {
+    title: "CRM",
+    slug: "crm",
+    category: "Automation",
+    headline: "One CRM for Every Lead and Conversation",
+    description:
+      "Leads come in from your website, calls, ads, and social, then get lost across scattered inboxes and sticky notes. Our CRM pulls every lead, conversation, and follow-up into one place, with automated nurture so no enquiry ever goes cold.",
+    noCityPages: true,
+    features: [
+      {
+        title: "Every Lead in One Place",
+        description:
+          "Calls, web forms, ad leads, and social messages all land in a single dashboard. You see who reached out, where they came from, and what they need, without digging through five different apps.",
+      },
+      {
+        title: "Unified Inbox",
+        description:
+          "Reply to calls, texts, emails, web chat, and social messages from one screen. Your whole team shares the conversation history, so customers never have to repeat themselves.",
+      },
+      {
+        title: "Automated Follow-Up",
+        description:
+          "Most leads need several touches before they buy. We set up automated text and email sequences that follow up instantly and keep nurturing, so warm leads never slip through the cracks.",
+      },
+      {
+        title: "Visual Pipeline Tracking",
+        description:
+          "Every lead moves through clear stages from new enquiry to booked customer. You always know what is in your pipeline, what needs attention, and what is about to close.",
+      },
+      {
+        title: "Reviews & Reputation Built In",
+        description:
+          "Automatically request Google reviews from happy customers at the right moment, and manage every review from inside the CRM, so your reputation grows on autopilot.",
+      },
+      {
+        title: "Clear Reporting & Attribution",
+        description:
+          "See exactly which services, ads, and channels bring in leads and revenue, so you can double down on what works and stop spending on what does not.",
+      },
+    ],
+    stats: [
+      {
+        value: 80,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "of leads never get a single follow-up after the first contact",
+        source: "Industry Data",
+      },
+      {
+        value: 5,
+        suffix: "",
+        decimalPlaces: 0,
+        label: "follow-ups on average are needed to convert a lead, yet most send one",
+        source: "Industry Data",
+      },
+      {
+        value: 391,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "higher conversion when a new lead is contacted within the first minute",
+        source: "Industry Data",
+      },
+      {
+        value: 47,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "more qualified leads handled by businesses that use marketing automation",
+        source: "Industry Data",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is a CRM and do I need one?",
+        answer:
+          "A CRM (customer relationship management system) is the central hub for every lead and customer your business has. If leads currently live in your phone, your email, and your head, a CRM stops them from falling through the cracks and turns more of them into paying customers.",
+      },
+      {
+        question: "Does it work with my website and ad leads?",
+        answer:
+          "Yes. We connect your website forms, Google and Facebook ad leads, phone calls, and social messages so every enquiry flows into one place automatically, no manual copying or chasing across apps.",
+      },
+      {
+        question: "Can it automatically follow up with leads?",
+        answer:
+          "That is one of the biggest wins. We build automated text and email sequences that fire the moment a lead comes in and keep following up over the following days, so warm leads get nurtured even when your team is slammed.",
+      },
+      {
+        question: "Will it help me get more reviews?",
+        answer:
+          "Yes. The CRM can automatically text or email customers to request a Google review after their visit, and lets you respond to every review from one place. More reviews mean better local rankings and more trust.",
+      },
+      {
+        question: "Is it hard to learn?",
+        answer:
+          "We set the whole thing up for you, import your contacts, build the automations, and train your team. The day-to-day view is a simple, single dashboard, so most teams are comfortable with it within the first week.",
+      },
+    ],
+    keywords: [
+      "crm for small business",
+      "lead management software",
+      "customer relationship management",
+      "sales pipeline software",
+      "marketing automation",
+    ],
+    metaDescription:
+      "A CRM that pulls every lead, conversation, and follow-up into one place, with automated nurture so no enquiry goes cold. Built for local businesses. Get a free demo.",
+  },
+
+  "appointment-scheduling": {
+    title: "Appointment Scheduling",
+    slug: "appointment-scheduling",
+    category: "Automation",
+    headline: "Online Booking That Fills Your Calendar",
+    description:
+      "Every back-and-forth to book an appointment is a chance to lose the customer. Our online scheduling lets customers book themselves 24/7, syncs to your calendar in real time, and sends automated reminders that cut no-shows and keep your week full.",
+    noCityPages: true,
+    features: [
+      {
+        title: "24/7 Self-Service Booking",
+        description:
+          "Customers book the moment they decide, day or night, straight from your website, Google profile, or a text link. No phone tag, no waiting for opening hours, no lost bookings.",
+      },
+      {
+        title: "Real-Time Calendar Sync",
+        description:
+          "Bookings sync instantly with your Google or Outlook calendar and update availability the moment a slot is taken, so you never get double-booked across staff or services.",
+      },
+      {
+        title: "Automated Reminders",
+        description:
+          "Every booking triggers automatic text and email confirmations and reminders before the appointment, the single most effective way to stop no-shows and last-minute cancellations.",
+      },
+      {
+        title: "Take Deposits & Payments",
+        description:
+          "Collect a deposit or full payment at the time of booking to protect your calendar from no-shows and get paid before the customer even walks in.",
+      },
+      {
+        title: "Staff & Service Routing",
+        description:
+          "Set different services, durations, and staff availability so customers book the right appointment with the right person, with buffers and limits handled automatically.",
+      },
+      {
+        title: "Easy Rescheduling",
+        description:
+          "Customers reschedule or cancel from their confirmation with one tap, which frees the slot for someone else automatically instead of leaving a silent gap in your day.",
+      },
+    ],
+    stats: [
+      {
+        value: 24,
+        suffix: "/7",
+        decimalPlaces: 0,
+        label: "self-service booking, even while you are closed",
+        source: "TableTurnerr",
+      },
+      {
+        value: 67,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "of customers prefer to book online rather than call",
+        source: "Industry Data",
+      },
+      {
+        value: 26,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "of appointments end in no-shows when there are no reminders",
+        source: "Industry Data",
+      },
+      {
+        value: 38,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "fewer no-shows once automated reminders are switched on",
+        source: "Industry Data",
+      },
+    ],
+    faqs: [
+      {
+        question: "How does online appointment scheduling work?",
+        answer:
+          "Customers click a booking link on your website, Google profile, or in a text, see your live availability, and pick a time. The slot is reserved instantly, added to your calendar, and confirmed to the customer automatically, with no phone call needed.",
+      },
+      {
+        question: "Will it sync with my current calendar?",
+        answer:
+          "Yes. It connects to your Google or Outlook calendar and updates in real time, so the moment a slot is booked it disappears from your availability. That keeps you from being double-booked across services or team members.",
+      },
+      {
+        question: "How does it reduce no-shows?",
+        answer:
+          "Every booking automatically sends confirmation and reminder messages by text and email before the appointment. Reminders are the most effective way to cut no-shows, and you can also require a deposit to lock in the booking.",
+      },
+      {
+        question: "Can customers pay or leave a deposit when booking?",
+        answer:
+          "Yes. You can require a deposit or full payment at the time of booking. This protects your calendar from no-shows and means revenue is secured before the customer arrives.",
+      },
+      {
+        question: "Can I still take bookings over the phone?",
+        answer:
+          "Absolutely. Online booking runs alongside how you already work. Your team can still add phone bookings manually, and they sync into the same calendar so everything stays in one place.",
+      },
+    ],
+    keywords: [
+      "appointment scheduling software",
+      "online booking system",
+      "appointment booking software",
+      "automated appointment reminders",
+      "reduce no-shows",
+    ],
+    metaDescription:
+      "Online appointment scheduling that lets customers book 24/7, syncs to your calendar, and sends automated reminders to cut no-shows. Keep your calendar full. Get a free demo.",
   },
 };
 

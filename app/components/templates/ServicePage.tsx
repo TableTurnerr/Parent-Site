@@ -130,15 +130,17 @@ export default function ServicePage({
 
             {/* Right column — hero image */}
             <AnimatedElement variants={scaleIn} className="lg:col-span-5">
-              <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-[1.25rem] overflow-hidden">
-                <Image
-                  src={service.heroImage.src}
-                  alt={service.heroImage.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  priority
-                />
+              <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-[1.25rem] overflow-hidden border border-border bg-gradient-to-br from-accent/20 via-cream-dark to-cream-dark">
+                {service.heroImage && (
+                  <Image
+                    src={service.heroImage.src}
+                    alt={service.heroImage.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    priority
+                  />
+                )}
               </div>
             </AnimatedElement>
           </div>
@@ -253,32 +255,34 @@ export default function ServicePage({
       {/* FAQ */}
       <ServiceFAQ faqs={service.faqs} serviceName={service.title} />
 
-      {/* Areas we serve — internal links to per-city variants */}
-      <section className="bg-cream py-16 md:py-24">
-        <Container>
-          <AnimatedElement variants={fadeInUp} className="mb-8 md:mb-10">
-            <SectionLabel>Areas We Serve</SectionLabel>
-            <h2 className="font-display font-bold text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl">
-              {service.title} in Your City
-            </h2>
-          </AnimatedElement>
-          <AnimatedElement
-            variants={staggerContainer}
-            className="flex flex-wrap gap-2.5"
-          >
-            {TARGET_CITIES.map((city) => (
-              <AnimatedElement key={city.slug} variants={fadeInUp}>
-                <Link
-                  href={`/services/${service.slug}/${city.slug}`}
-                  className="inline-block rounded-full border border-border bg-cream-dark px-4 py-2 text-sm text-charcoal hover:border-charcoal/30 hover:text-accent transition-colors"
-                >
-                  {service.title.replace(/^Restaurant /, "")} in {city.name}
-                </Link>
-              </AnimatedElement>
-            ))}
-          </AnimatedElement>
-        </Container>
-      </section>
+      {/* Areas we serve — internal links to per-city variants (skipped for platform services) */}
+      {!service.noCityPages && (
+        <section className="bg-cream py-16 md:py-24">
+          <Container>
+            <AnimatedElement variants={fadeInUp} className="mb-8 md:mb-10">
+              <SectionLabel>Areas We Serve</SectionLabel>
+              <h2 className="font-display font-bold text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.15] tracking-tight text-charcoal mt-3 max-w-2xl">
+                {service.title} in Your City
+              </h2>
+            </AnimatedElement>
+            <AnimatedElement
+              variants={staggerContainer}
+              className="flex flex-wrap gap-2.5"
+            >
+              {TARGET_CITIES.map((city) => (
+                <AnimatedElement key={city.slug} variants={fadeInUp}>
+                  <Link
+                    href={`/services/${service.slug}/${city.slug}`}
+                    className="inline-block rounded-full border border-border bg-cream-dark px-4 py-2 text-sm text-charcoal hover:border-charcoal/30 hover:text-accent transition-colors"
+                  >
+                    {service.title.replace(/^Restaurant /, "")} in {city.name}
+                  </Link>
+                </AnimatedElement>
+              ))}
+            </AnimatedElement>
+          </Container>
+        </section>
+      )}
 
       {/* CTA */}
       <CTA />

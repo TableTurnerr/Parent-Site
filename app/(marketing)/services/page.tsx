@@ -6,7 +6,7 @@ import Container from "@/app/components/ui/Container";
 import NumberTicker from "@/app/components/ui/NumberTicker";
 import CTA from "@/app/components/sections/CTA";
 import { fadeInUp, staggerContainer, scaleIn } from "@/app/lib/animations";
-import { SERVICES, SITE_CONFIG } from "@/app/lib/constants";
+import { SERVICES, PLATFORM_SERVICES, SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
 import {
   generateAllServicesSchema,
@@ -202,6 +202,53 @@ export default function ServicesPage() {
                 );
               })}
             </div>
+          </AnimatedElement>
+        </Container>
+      </section>
+
+      {/* Automation & growth tools (GoHighLevel-powered) */}
+      <section className="bg-cream-dark py-20 md:py-28">
+        <Container>
+          <AnimatedElement variants={fadeInUp} className="max-w-3xl mb-12 md:mb-16">
+            <p className="eyebrow mb-3">Capture & convert</p>
+            <h2 className="display-lg text-charcoal mb-4">
+              Automation tools that turn leads into booked customers
+            </h2>
+            <p className="text-warm-gray text-lg leading-relaxed">
+              Getting found is half the battle. These tools make sure every lead
+              gets answered, followed up, and booked, so the traffic we drive
+              actually turns into revenue.
+            </p>
+          </AnimatedElement>
+
+          <AnimatedElement
+            variants={staggerContainer}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
+          >
+            {PLATFORM_SERVICES.map((service, i) => (
+              <AnimatedElement key={service.slug} variants={fadeInUp}>
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="elevate-hover group flex h-full flex-col rounded-[1.25rem] border border-border bg-cream p-7 md:p-8 transition-colors hover:border-accent/40"
+                >
+                  <span className="font-display text-sm tabular-nums text-accent mb-4">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="font-display font-semibold text-xl text-charcoal mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-warm-gray leading-relaxed mb-6">
+                    {service.description}
+                  </p>
+                  <span className="mt-auto inline-flex items-center gap-1.5 text-charcoal font-medium transition-colors group-hover:text-accent">
+                    Learn more
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">
+                      <ArrowIcon />
+                    </span>
+                  </span>
+                </Link>
+              </AnimatedElement>
+            ))}
           </AnimatedElement>
         </Container>
       </section>

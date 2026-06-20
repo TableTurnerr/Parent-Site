@@ -6,27 +6,26 @@ import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 /**
  * Homepage services block. Leads with the GoHighLevel-powered services Hisham
  * wants front and center (AI Receptionist / CRM / Appointment Scheduling),
- * then the core SEO services. The GHL ones route to /contact until their own
- * service pages exist.
+ * then the core SEO services.
  */
 const HOME_SERVICES = [
   {
     title: "AI Receptionist",
     blurb:
       "Answer every call and message 24/7, qualify the lead, and book them in automatically, so you never miss business again.",
-    href: "/contact",
+    href: "/services/ai-receptionist",
   },
   {
     title: "CRM",
     blurb:
       "Every lead, conversation, and follow-up in one place, so nothing slips through the cracks.",
-    href: "/contact",
+    href: "/services/crm",
   },
   {
     title: "Appointment Scheduling",
     blurb:
       "Online booking with automated reminders that cut no-shows and keep your calendar full.",
-    href: "/contact",
+    href: "/services/appointment-scheduling",
   },
   {
     title: "Local SEO",

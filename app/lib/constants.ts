@@ -40,6 +40,30 @@ export const SERVICES = [
   },
 ] as const;
 
+// GoHighLevel-powered automation services. These have their own detail pages
+// but NO per-city programmatic variants, so they live separately from SERVICES
+// (which drives the service x city matrix in the sitemap and city routes).
+export const PLATFORM_SERVICES = [
+  {
+    title: "AI Receptionist",
+    slug: "ai-receptionist",
+    description:
+      "Answer every call and message 24/7, qualify the lead, and book them in automatically, so you never miss business again.",
+  },
+  {
+    title: "CRM",
+    slug: "crm",
+    description:
+      "Every lead, conversation, and follow-up in one place, with automated nurture so nothing slips through the cracks.",
+  },
+  {
+    title: "Appointment Scheduling",
+    slug: "appointment-scheduling",
+    description:
+      "Online booking with automated reminders that cut no-shows and keep your calendar full.",
+  },
+] as const;
+
 export const CLIENTS = [
   { name: "Grill Shack" },
   { name: "Miss Mat Cafe" },
