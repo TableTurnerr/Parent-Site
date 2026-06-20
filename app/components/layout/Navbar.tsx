@@ -46,18 +46,12 @@ export default function Navbar({
 
   const isStatic = variant === "static";
   const isShrunk = !isStatic && scrolled;
-  // Pages whose hero is dark: while at the top (before the nav shrinks into the
-  // cream pill) the nav sits over that dark hero and must render light. Covers
-  // the niche landings + every inner page that now uses the dark PageHero /
-  // ServicePage hero. Blog POSTS (/blog/<slug>) keep their own light header.
+  // Pages whose hero is a dark, full-bleed canvas: while at the top (before the
+  // nav shrinks into the cream pill) the nav sits over that dark hero and must
+  // render light. Only the homepage + niche landings are dark; the inner pages
+  // (services, locations, blog) use the light editorial PageHero.
   const heroIsDark =
-    pathname === "/" ||
-    pathname === "/restaurants" ||
-    pathname === "/medspa" ||
-    pathname === "/services" ||
-    pathname.startsWith("/services/") ||
-    pathname === "/locations" ||
-    pathname === "/blog";
+    pathname === "/" || pathname === "/restaurants" || pathname === "/medspa";
   const overDark = !isStatic && heroIsDark && !scrolled;
   const industriesActive = INDUSTRY_LINKS.some(
     (i) => pathname === i.href || pathname.startsWith(`${i.href}/`)

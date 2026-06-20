@@ -6,6 +6,7 @@ import Container from "@/app/components/ui/Container";
 import NumberTicker from "@/app/components/ui/NumberTicker";
 import CTA from "@/app/components/sections/CTA";
 import PageHero from "@/app/components/sections/PageHero";
+import RankClimb from "@/app/components/ui/RankClimb";
 import { fadeInUp, staggerContainer, scaleIn } from "@/app/lib/animations";
 import { SERVICES, PLATFORM_SERVICES, SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
@@ -120,6 +121,7 @@ export default function ServicesPage() {
         title="SEO, web design, and marketing for local businesses"
         description="Everything your business needs to grow online, from a high-converting website to local SEO, paid ads, and a brand identity that wins customers. Each service is built to get you found and chosen in local search."
         breadcrumb={[{ label: "Home", href: "/" }, { label: "Services" }]}
+        visual={<RankClimb query="best near me" />}
       >
         <div className="flex flex-wrap gap-2.5">
           {[

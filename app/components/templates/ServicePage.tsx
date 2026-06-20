@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
 import BlurText from "@/app/components/ui/BlurText";
@@ -8,8 +7,9 @@ import SectionLabel from "@/app/components/ui/SectionLabel";
 import NumberTicker from "@/app/components/ui/NumberTicker";
 import ServiceFAQ from "@/app/components/sections/service/ServiceFAQ";
 import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
+import RankClimb from "@/app/components/ui/RankClimb";
 import CTA from "@/app/components/sections/CTA";
-import { fadeInUp, staggerContainer, scaleIn } from "@/app/lib/animations";
+import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 import type { ServicePageData } from "@/app/lib/service-data";
 import { getRelatedServices } from "@/app/lib/service-data";
 import { TARGET_CITIES } from "@/app/lib/location-data";
@@ -44,8 +44,7 @@ function CheckIcon() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      className="shrink-0"
-      style={{ color: "color-mix(in oklab, var(--color-accent) 60%, white)" }}
+      className="shrink-0 text-accent"
     >
       <path
         d="M20 6 9 17l-5-5"
@@ -53,27 +52,6 @@ function CheckIcon() {
         strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function SparkIcon() {
-  return (
-    <svg
-      width="40"
-      height="40"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      className="text-accent"
-    >
-      <path
-        d="M12 3v4m0 10v4m9-9h-4M7 12H3m13.5-6.5-2.8 2.8m-5.4 5.4-2.8 2.8m11 0-2.8-2.8m-5.4-5.4L5.5 5.5"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
       />
     </svg>
   );
@@ -112,26 +90,24 @@ export default function ServicePage({
 
   return (
     <>
-      {/* Hero / Intro (dark) */}
-      <section className="hero-grain relative overflow-hidden bg-charcoal pt-28 sm:pt-32 md:pt-36 pb-14 md:pb-20">
-        {/* Decorative background: accent aurora glows + faded light grid */}
+      {/* Hero / Intro (light editorial + rank-climb signature animation) */}
+      <section className="relative overflow-hidden bg-cream pt-28 sm:pt-32 md:pt-36 pb-14 md:pb-20">
+        {/* Restrained decoration: one soft accent wash + a faded dot grid */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          <div className="aurora-blob absolute -top-32 right-[-6%] h-[30rem] w-[30rem] rounded-full bg-accent/40 blur-[130px]" />
-          <div className="aurora-blob-2 absolute bottom-[-8rem] left-[-8%] h-[26rem] w-[26rem] rounded-full bg-accent/25 blur-[130px]" />
+          <div className="absolute -top-28 right-[-10rem] h-[26rem] w-[26rem] rounded-full bg-accent/10 blur-[120px]" />
+          <div
+            className="absolute inset-0 opacity-[0.5]"
+            style={{
+              backgroundImage:
+                "radial-gradient(rgba(0,0,0,0.045) 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
+              maskImage:
+                "radial-gradient(ellipse 60% 50% at 50% 0%, black, transparent 75%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse 60% 50% at 50% 0%, black, transparent 75%)",
+            }}
+          />
         </div>
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-[0.07]"
-          style={{
-            backgroundImage:
-              "radial-gradient(rgba(250,250,248,0.9) 1px, transparent 1px)",
-            backgroundSize: "26px 26px",
-            maskImage:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 75%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 75%)",
-          }}
-        />
 
         <Container className="relative z-10">
           <AnimatedElement variants={fadeInUp} className="mb-8">
@@ -141,14 +117,13 @@ export default function ServicePage({
                 { label: "Services", href: "/services" },
                 { label: service.title },
               ]}
-              onDark
             />
           </AnimatedElement>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left column — headline + description + CTA */}
-            <AnimatedElement variants={staggerContainer} className="lg:col-span-7">
+            <AnimatedElement variants={staggerContainer} className="lg:col-span-6">
               <AnimatedElement variants={fadeInUp}>
-                <span className="inline-flex items-center gap-2 rounded-full border border-cream/15 bg-cream/5 px-4 py-1.5 text-sm font-medium text-cream/80 backdrop-blur-sm mb-6">
+                <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-cream-dark px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-charcoal">
                   <span
                     className="h-1.5 w-1.5 rounded-full bg-accent"
                     aria-hidden="true"
@@ -158,23 +133,23 @@ export default function ServicePage({
               </AnimatedElement>
 
               <AnimatedElement variants={fadeInUp}>
-                <h1 className="display-lg text-cream mb-6">
+                <h1 className="display-xl text-charcoal mb-6">
                   {service.headline}
                 </h1>
               </AnimatedElement>
 
               <AnimatedElement variants={fadeInUp}>
-                <p className="text-warm-gray-light text-lg md:text-xl leading-relaxed max-w-xl mb-8">
+                <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-xl mb-8">
                   {service.description}
                 </p>
               </AnimatedElement>
 
               <AnimatedElement variants={fadeInUp}>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button href="/contact" variant="primary-light">
+                  <Button href="/contact" variant="primary">
                     Get a Free Consultation
                   </Button>
-                  <Button href="/services" variant="secondary-light">
+                  <Button href="/services" variant="secondary">
                     View All Services
                   </Button>
                 </div>
@@ -189,7 +164,7 @@ export default function ServicePage({
                   ].map((point) => (
                     <li
                       key={point}
-                      className="inline-flex items-center gap-2 text-sm text-cream/70"
+                      className="inline-flex items-center gap-2 text-sm text-warm-gray"
                     >
                       <CheckIcon />
                       {point}
@@ -199,38 +174,15 @@ export default function ServicePage({
               </AnimatedElement>
             </AnimatedElement>
 
-            {/* Right column — hero image */}
-            <AnimatedElement variants={scaleIn} className="lg:col-span-5">
-              <div className="relative">
-                {/* soft accent glow behind the frame */}
-                <div
-                  aria-hidden="true"
-                  className="absolute -inset-4 -z-10 rounded-[2rem] bg-accent/15 blur-2xl"
-                />
-                <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-[1.5rem] overflow-hidden border border-border shadow-[0_20px_60px_-25px_rgba(0,0,0,0.25)] bg-gradient-to-br from-accent/25 via-cream-dark to-cream-dark">
-                  {service.heroImage ? (
-                    <Image
-                      src={service.heroImage.src}
-                      alt={service.heroImage.alt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 40vw"
-                      priority
-                    />
-                  ) : (
-                    /* Designed placeholder until a bespoke image is added */
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 p-8 text-center">
-                      <div className="absolute inset-0 [background-image:radial-gradient(rgba(0,0,0,0.05)_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_40%,black,transparent)]" />
-                      <div className="hero-float relative flex h-20 w-20 items-center justify-center rounded-2xl border border-border bg-cream/80 shadow-sm backdrop-blur-sm">
-                        <SparkIcon />
-                      </div>
-                      <p className="relative font-display text-lg font-semibold text-charcoal">
-                        {service.category}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
+            {/* Right column — rank-climb signature animation */}
+            <AnimatedElement variants={fadeInUp} className="lg:col-span-6">
+              <RankClimb
+                query={
+                  service.cityContext
+                    ? `best in ${service.cityContext.name}`
+                    : "best near me"
+                }
+              />
             </AnimatedElement>
           </div>
         </Container>
