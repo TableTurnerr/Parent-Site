@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Container from "@/app/components/ui/Container";
 import Button from "@/app/components/ui/Button";
+import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import { SERVICES, SITE_CONFIG } from "@/app/lib/constants";
 import { TARGET_CITIES } from "@/app/lib/location-data";
 import {
@@ -41,6 +42,10 @@ export default function LocationsPage() {
       <section className="bg-cream pt-32 sm:pt-36 md:pt-44 pb-12 md:pb-16">
         <Container>
           <div className="max-w-3xl">
+            <Breadcrumbs
+              items={[{ label: "Home", href: "/" }, { label: "Locations" }]}
+              className="mb-6"
+            />
             <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
               find your city
             </p>

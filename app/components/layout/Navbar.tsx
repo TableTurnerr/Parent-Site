@@ -5,7 +5,26 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import Button from "@/app/components/ui/Button";
-import { NAV_LINKS } from "@/app/lib/constants";
+import { NAV_LINKS, INDUSTRY_LINKS } from "@/app/lib/constants";
+
+function ChevronIcon() {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="transition-transform duration-300 group-hover:rotate-180 group-focus-within:rotate-180"
+      aria-hidden="true"
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  );
+}
 
 export default function Navbar({
   variant = "default",
@@ -33,6 +52,9 @@ export default function Navbar({
   const heroIsDark =
     pathname === "/" || pathname === "/restaurants" || pathname === "/medspa";
   const overDark = !isStatic && heroIsDark && !scrolled;
+  const industriesActive = INDUSTRY_LINKS.some(
+    (i) => pathname === i.href || pathname.startsWith(`${i.href}/`)
+  );
 
   return (
     <header
@@ -69,6 +91,53 @@ export default function Navbar({
 
           {/* Center: Plain nav links */}
           <div className="hidden md:flex items-center gap-8 lg:gap-10">
+            {/* Industries dropdown — surfaces the two niche landing pages */}
+            <div className="relative group">
+              <button
+                type="button"
+                aria-haspopup="true"
+                className={`nav-link inline-flex items-center gap-1 text-sm font-medium transition-colors ${
+                  industriesActive
+                    ? overDark
+                      ? "text-cream"
+                      : "text-charcoal"
+                    : overDark
+                      ? "text-cream/75 hover:text-cream"
+                      : "text-warm-gray hover:text-charcoal"
+                }`}
+              >
+                Industries
+                <ChevronIcon />
+              </button>
+              {/* pt-3 bridges the gap so the panel stays open while moving the cursor */}
+              <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                <div className="w-64 rounded-2xl border border-border bg-cream p-2 shadow-lg">
+                  {INDUSTRY_LINKS.map((industry) => {
+                    const isActive =
+                      pathname === industry.href ||
+                      pathname.startsWith(`${industry.href}/`);
+                    return (
+                      <Link
+                        key={industry.href}
+                        href={industry.href}
+                        aria-current={isActive ? "page" : undefined}
+                        className={`block rounded-xl px-4 py-3 transition-colors ${
+                          isActive ? "bg-cream-dark" : "hover:bg-cream-dark"
+                        }`}
+                      >
+                        <span className="block text-sm font-semibold text-charcoal">
+                          {industry.label}
+                        </span>
+                        <span className="mt-0.5 block text-xs text-warm-gray">
+                          {industry.blurb}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
             {NAV_LINKS.map((link) => {
               const isActive =
                 pathname === link.href || pathname.startsWith(`${link.href}/`);

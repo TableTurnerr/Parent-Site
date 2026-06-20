@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Container from "@/app/components/ui/Container";
 import Button from "@/app/components/ui/Button";
+import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import { SERVICES, SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
@@ -42,6 +43,10 @@ export default async function BlogPage() {
       <section className="bg-cream pt-28 sm:pt-32 md:pt-36 pb-12 md:pb-16">
         <Container>
           <div className="max-w-2xl">
+            <Breadcrumbs
+              items={[{ label: "Home", href: "/" }, { label: "Blog" }]}
+              className="mb-6"
+            />
             <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
               fresh from the pass
             </p>

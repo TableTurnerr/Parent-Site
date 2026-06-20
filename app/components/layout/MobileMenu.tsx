@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import {
   NAV_LINKS,
+  INDUSTRY_LINKS,
   SERVICES,
   SOCIAL_LINKS,
   SITE_CONFIG,
@@ -76,6 +77,22 @@ export default function MobileMenu({ overDark = false }: { overDark?: boolean })
 
           {/* ── Nav Links ── */}
           <nav className="flex-1 flex flex-col px-6 pt-2 overflow-y-auto">
+            {/* Industries — the two niche landing pages, surfaced up top */}
+            {INDUSTRY_LINKS.map((industry) => (
+              <div
+                key={industry.href}
+                className="border-b border-black/[0.08]"
+              >
+                <Link
+                  href={industry.href}
+                  onClick={toggle}
+                  className="block py-4 font-display text-[17px] text-black"
+                >
+                  {industry.label}
+                </Link>
+              </div>
+            ))}
+
             {NAV_LINKS.map((link) => {
               const hasSubPages = link.href === "/services";
 

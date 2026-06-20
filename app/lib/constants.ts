@@ -7,6 +7,22 @@ export const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ] as const;
 
+// The two niches we serve. Surfaced as an "Industries" dropdown in the navbar
+// (and flat links in the mobile menu) so the two-stream homepage isn't the only
+// way to reach the niche landing pages.
+export const INDUSTRY_LINKS = [
+  {
+    label: "Med Spas",
+    href: "/medspa",
+    blurb: "SEO, sites & booking for aesthetic clinics",
+  },
+  {
+    label: "Restaurants",
+    href: "/restaurants",
+    blurb: "Get found, fill tables, own your orders",
+  },
+] as const;
+
 export const SERVICES = [
   {
     title: "Website Design",

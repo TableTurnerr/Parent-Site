@@ -3,6 +3,8 @@ import dynamic from "next/dynamic";
 import Hero from "@/app/components/sections/Hero";
 import TrustBar from "@/app/components/sections/TrustBar";
 import Services from "@/app/components/sections/Services";
+import Container from "@/app/components/ui/Container";
+import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import { FAQ_DATA, SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
 import {
@@ -49,6 +51,14 @@ export default function RestaurantsPage() {
         }}
       />
       <Hero />
+      <div className="bg-cream">
+        <Container>
+          <Breadcrumbs
+            items={[{ label: "Home", href: "/" }, { label: "Restaurants" }]}
+            className="pt-6 pb-1"
+          />
+        </Container>
+      </div>
       <TrustBar />
       <Services />
       <Mission />

@@ -4,6 +4,7 @@ import Link from "next/link";
 import AnimatedElement from "@/app/components/ui/AnimatedElement";
 import Container from "@/app/components/ui/Container";
 import FaqList from "@/app/components/ui/FaqList";
+import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import MedspaHero from "@/app/components/sections/MedspaHero";
 import { fadeInUp, staggerContainer } from "@/app/lib/animations";
 import { SITE_CONFIG } from "@/app/lib/constants";
@@ -134,6 +135,16 @@ export default function MedSpaPage() {
       />
 
       <MedspaHero />
+
+      {/* Breadcrumb */}
+      <div className="bg-cream">
+        <Container>
+          <Breadcrumbs
+            items={[{ label: "Home", href: "/" }, { label: "Med Spas" }]}
+            className="pt-6 pb-1"
+          />
+        </Container>
+      </div>
 
       {/* Benefits */}
       <section className="bg-cream-dark py-16 md:py-24">
