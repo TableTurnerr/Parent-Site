@@ -91,20 +91,21 @@ export default function ServicePage({
   return (
     <>
       {/* Hero / Intro (light editorial + rank-climb signature animation) */}
-      <section className="relative overflow-hidden bg-cream pt-28 sm:pt-32 md:pt-36 pb-14 md:pb-20">
-        {/* Restrained decoration: one soft accent wash + a faded dot grid */}
+      <section className="mesh-hero hero-grain relative overflow-hidden pt-28 sm:pt-32 md:pt-36 pb-16 md:pb-24">
+        {/* Decoration: drifting accent glows + a faded dot grid over the mesh */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-28 right-[-10rem] h-[26rem] w-[26rem] rounded-full bg-accent/10 blur-[120px]" />
+          <div className="aurora-blob absolute -top-32 right-[-8rem] h-[30rem] w-[30rem] rounded-full bg-accent/25 blur-[120px]" />
+          <div className="aurora-blob-2 absolute bottom-[-10rem] left-[-8rem] h-[26rem] w-[26rem] rounded-full bg-accent/15 blur-[110px]" />
           <div
-            className="absolute inset-0 opacity-[0.5]"
+            className="absolute inset-0 opacity-[0.6]"
             style={{
               backgroundImage:
-                "radial-gradient(rgba(0,0,0,0.045) 1px, transparent 1px)",
+                "radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px)",
               backgroundSize: "24px 24px",
               maskImage:
-                "radial-gradient(ellipse 60% 50% at 50% 0%, black, transparent 75%)",
+                "radial-gradient(ellipse 65% 55% at 50% 0%, black, transparent 78%)",
               WebkitMaskImage:
-                "radial-gradient(ellipse 60% 50% at 50% 0%, black, transparent 75%)",
+                "radial-gradient(ellipse 65% 55% at 50% 0%, black, transparent 78%)",
             }}
           />
         </div>

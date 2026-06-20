@@ -9,6 +9,7 @@ import SectionLabel from "@/app/components/ui/SectionLabel";
 import NumberTicker from "@/app/components/ui/NumberTicker";
 import CTA from "@/app/components/sections/CTA";
 import OurWork from "@/app/components/sections/OurWork";
+import PageHero from "@/app/components/sections/PageHero";
 import { fadeInUp, staggerContainer, scaleIn } from "@/app/lib/animations";
 import { SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
@@ -123,45 +124,13 @@ export default function CaseStudiesPage() {
         }}
       />
 
-      {/* ── Breadcrumb ──────────────────────────────────────────── */}
-      <div className="bg-cream pt-24 sm:pt-28 md:pt-36">
-        <Container>
-          <nav aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-warm-gray">
-              <li>
-                <Link
-                  href="/"
-                  className="hover:text-charcoal transition-colors"
-                >
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li>
-                <span className="text-charcoal font-medium">Case Studies</span>
-              </li>
-            </ol>
-          </nav>
-        </Container>
-      </div>
-
       {/* ── Hero Header ─────────────────────────────────────────── */}
-      <section className="bg-cream pt-10 pb-16 md:pt-14 md:pb-24">
-        <Container>
-          <AnimatedElement variants={fadeInUp} className="max-w-3xl">
-            <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
-              the proof
-            </p>
-            <h1 className="display-xl text-charcoal mb-6">
-              Real results, real clients
-            </h1>
-            <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl">
-              Real results from the local businesses we work with. Every review
-              below is genuine, no made-up stats, no vanity metrics.
-            </p>
-          </AnimatedElement>
-        </Container>
-      </section>
+      <PageHero
+        eyebrow="the proof"
+        title="Real results, real clients"
+        description="Real results from the local businesses we work with. Every review below is genuine, no made-up stats, no vanity metrics."
+        breadcrumb={[{ label: "Home", href: "/" }, { label: "Case Studies" }]}
+      />
 
       {/* ── Live client site portfolio (renders once real URLs are set) ── */}
       <OurWork />

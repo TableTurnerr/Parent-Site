@@ -71,6 +71,22 @@
   --color-accent-hover: #B44A35;
 }
 
+/* Rich, tinted gradient mesh for light heroes — a warm accent wash over cream
+   so inner heroes read as designed, not blank white. Auto-tints per niche
+   because every stop is mixed from var(--color-accent). */
+.mesh-hero {
+  background-color: var(--color-cream);
+  background-image:
+    radial-gradient(48% 62% at 88% -10%, color-mix(in oklab, var(--color-accent) 24%, transparent), transparent 70%),
+    radial-gradient(42% 56% at -8% 8%, color-mix(in oklab, var(--color-accent) 15%, transparent), transparent 72%),
+    radial-gradient(64% 52% at 52% 118%, color-mix(in oklab, var(--color-accent) 13%, transparent), transparent 70%);
+}
+/* Soft accent halo ring used behind hero cards/visuals. */
+.hero-halo {
+  background:
+    radial-gradient(closest-side, color-mix(in oklab, var(--color-accent) 28%, transparent), transparent);
+}
+
 /* shadcn/ui vars mapped to TableTurnerr palette */
 :root {
   --background: #FAFAF8;
