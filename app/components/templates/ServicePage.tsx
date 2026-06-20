@@ -34,6 +34,49 @@ function ArrowIcon() {
   );
 }
 
+function CheckIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className="shrink-0 text-accent"
+    >
+      <path
+        d="M20 6 9 17l-5-5"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function SparkIcon() {
+  return (
+    <svg
+      width="40"
+      height="40"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className="text-accent"
+    >
+      <path
+        d="M12 3v4m0 10v4m9-9h-4M7 12H3m13.5-6.5-2.8 2.8m-5.4 5.4-2.8 2.8m11 0-2.8-2.8m-5.4-5.4L5.5 5.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 function MapPinIcon() {
   return (
     <svg
@@ -93,8 +136,14 @@ export default function ServicePage({
       </section>
 
       {/* Hero / Intro */}
-      <section className="bg-cream py-12 md:py-20">
-        <Container>
+      <section className="hero-grain relative overflow-hidden bg-cream py-12 md:py-20">
+        {/* Decorative background: faded dot grid + drifting accent glows */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+          <div className="absolute inset-0 [background-image:radial-gradient(rgba(0,0,0,0.05)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_70%_60%_at_70%_0%,black,transparent)]" />
+          <div className="aurora-blob absolute -top-20 right-[-5rem] h-80 w-80 rounded-full bg-accent/20 blur-[110px]" />
+          <div className="aurora-blob-2 absolute bottom-[-6rem] left-[-6rem] h-72 w-72 rounded-full bg-accent/10 blur-[100px]" />
+        </div>
+        <Container className="relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             {/* Left column — headline + description + CTA */}
             <AnimatedElement variants={staggerContainer} className="lg:col-span-7">
@@ -126,21 +175,57 @@ export default function ServicePage({
                   </Button>
                 </div>
               </AnimatedElement>
+
+              <AnimatedElement variants={fadeInUp}>
+                <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2.5">
+                  {[
+                    "Free consultation",
+                    "No long-term contracts",
+                    "Built for local businesses",
+                  ].map((point) => (
+                    <li
+                      key={point}
+                      className="inline-flex items-center gap-2 text-sm text-warm-gray"
+                    >
+                      <CheckIcon />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </AnimatedElement>
             </AnimatedElement>
 
             {/* Right column — hero image */}
             <AnimatedElement variants={scaleIn} className="lg:col-span-5">
-              <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-[1.25rem] overflow-hidden border border-border bg-gradient-to-br from-accent/20 via-cream-dark to-cream-dark">
-                {service.heroImage && (
-                  <Image
-                    src={service.heroImage.src}
-                    alt={service.heroImage.alt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    priority
-                  />
-                )}
+              <div className="relative">
+                {/* soft accent glow behind the frame */}
+                <div
+                  aria-hidden="true"
+                  className="absolute -inset-4 -z-10 rounded-[2rem] bg-accent/15 blur-2xl"
+                />
+                <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-[1.5rem] overflow-hidden border border-border shadow-[0_20px_60px_-25px_rgba(0,0,0,0.25)] bg-gradient-to-br from-accent/25 via-cream-dark to-cream-dark">
+                  {service.heroImage ? (
+                    <Image
+                      src={service.heroImage.src}
+                      alt={service.heroImage.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      priority
+                    />
+                  ) : (
+                    /* Designed placeholder until a bespoke image is added */
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 p-8 text-center">
+                      <div className="absolute inset-0 [background-image:radial-gradient(rgba(0,0,0,0.05)_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_40%,black,transparent)]" />
+                      <div className="hero-float relative flex h-20 w-20 items-center justify-center rounded-2xl border border-border bg-cream/80 shadow-sm backdrop-blur-sm">
+                        <SparkIcon />
+                      </div>
+                      <p className="relative font-display text-lg font-semibold text-charcoal">
+                        {service.category}
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             </AnimatedElement>
           </div>

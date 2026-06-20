@@ -5,6 +5,8 @@ import AnimatedElement from "@/app/components/ui/AnimatedElement";
 import Container from "@/app/components/ui/Container";
 import NumberTicker from "@/app/components/ui/NumberTicker";
 import CTA from "@/app/components/sections/CTA";
+import PageHero from "@/app/components/sections/PageHero";
+import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import { fadeInUp, staggerContainer, scaleIn } from "@/app/lib/animations";
 import { SERVICES, PLATFORM_SERVICES, SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
@@ -113,47 +115,35 @@ export default function ServicesPage() {
         }}
       />
 
-      {/* Breadcrumb */}
-      <div className="bg-cream pt-24 sm:pt-28 md:pt-36">
-        <Container>
-          <nav aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-warm-gray">
-              <li>
-                <Link
-                  href="/"
-                  className="hover:text-charcoal transition-colors"
-                >
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li>
-                <span className="text-charcoal font-medium">Services</span>
-              </li>
-            </ol>
-          </nav>
-        </Container>
-      </div>
-
-      {/* H1 Header Section */}
-      <section className="bg-cream pt-10 pb-16 md:pt-14 md:pb-24">
-        <Container>
-          <AnimatedElement variants={fadeInUp} className="max-w-4xl">
-            <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
-              the full lineup
-            </p>
-            <h1 className="display-xl text-charcoal mb-6">
-              SEO, web design, and marketing for local businesses
-            </h1>
-            <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl">
-              Everything your business needs to grow online, from a
-              high-converting website to local SEO, paid ads, and a brand
-              identity that wins customers. Each service is built to get you found
-              and chosen in local search.
-            </p>
-          </AnimatedElement>
-        </Container>
-      </section>
+      {/* Header */}
+      <PageHero
+        eyebrow="the full lineup"
+        title="SEO, web design, and marketing for local businesses"
+        description="Everything your business needs to grow online, from a high-converting website to local SEO, paid ads, and a brand identity that wins customers. Each service is built to get you found and chosen in local search."
+        topSlot={
+          <Breadcrumbs
+            items={[{ label: "Home", href: "/" }, { label: "Services" }]}
+          />
+        }
+      >
+        <div className="flex flex-wrap gap-2.5">
+          {[
+            "Local SEO",
+            "Web Design",
+            "Google Ads",
+            "AI Receptionist",
+            "CRM",
+            "Scheduling",
+          ].map((chip) => (
+            <span
+              key={chip}
+              className="rounded-full border border-border bg-cream/70 px-3.5 py-1.5 text-sm font-medium text-charcoal backdrop-blur-sm"
+            >
+              {chip}
+            </span>
+          ))}
+        </div>
+      </PageHero>
 
       {/* Service Cards Grid */}
       <section className="bg-cream pb-20 md:pb-28">
