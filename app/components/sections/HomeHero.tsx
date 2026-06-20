@@ -72,7 +72,10 @@ export default function HomeHero() {
                 style={{ fontSize: "clamp(2.8rem, 5.6vw, 5.2rem)", lineHeight: 0.95, letterSpacing: "-0.035em" }}
               >
                 We turn local searches into{" "}
-                <span className="block text-accent-gradient">
+                <span
+                  className="block"
+                  style={{ color: "color-mix(in oklab, var(--color-accent) 58%, white)" }}
+                >
                   <RotatingWord
                     words={["booked customers.", "more bookings.", "more orders.", "more calls."]}
                   />
