@@ -18,19 +18,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const servicePages: MetadataRoute.Sitemap = [
-    ...SERVICES,
-    ...PLATFORM_SERVICES,
-  ].map((service) => ({
-    url: `${baseUrl}/services/${service.slug}`,
+    ...SERVICES.map((s) => s.slug),
+    ...PLATFORM_SERVICES.map((s) => s.slug),
+    "medspa-seo",
+  ].map((slug) => ({
+    url: `${baseUrl}/services/${slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.9,
   }));
 
-  // Location-specific service pages (service x city combinations)
-  const locationPages: MetadataRoute.Sitemap = SERVICES.flatMap((service) =>
+  // Location-specific service pages (service x city combinations). The med spa
+  // SEO service runs the same Texas city matrix as the restaurant services.
+  const cityMatrixSlugs = [...SERVICES.map((s) => s.slug), "medspa-seo"];
+  const locationPages: MetadataRoute.Sitemap = cityMatrixSlugs.flatMap((slug) =>
     TARGET_CITIES.map((city) => ({
-      url: `${baseUrl}/services/${service.slug}/${city.slug}`,
+      url: `${baseUrl}/services/${slug}/${city.slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.7,

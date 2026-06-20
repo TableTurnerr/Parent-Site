@@ -1,7 +1,12 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getServiceBySlug, type ServicePageData } from "./service-data";
-import { getCityBySlug, getAllCitySlugs, type CityData } from "./location-data";
+import {
+  getCityBySlug,
+  getAllCitySlugs,
+  MEDSPA_CITY_BLURBS,
+  type CityData,
+} from "./location-data";
 import { SITE_CONFIG } from "./constants";
 import {
   generateCityServiceSchema,
@@ -20,17 +25,31 @@ export function getLocationData(serviceSlug: string, citySlug: string) {
   return { service, city };
 }
 
+export type ServiceVertical = "restaurant" | "medspa";
+
 export function buildLocationServiceData(
   service: ServicePageData,
-  city: CityData
+  city: CityData,
+  vertical: ServiceVertical = "restaurant"
 ): ServicePageData {
   // A city-specific FAQ so each location page has at least one unique Q&A in
   // both the visible accordion and the FAQ schema (helps avoid thin/duplicate
-  // content across the 10 city variants).
-  const cityFaq = {
-    question: `Do you offer ${service.title.toLowerCase()} for ${city.name} restaurants?`,
-    answer: `Yes. We work with independent restaurants in ${city.name}, ${city.state} and across the US. Our ${service.title.toLowerCase()} is tailored to how diners in ${city.name} search and order, and it starts with a free consultation about your menu, your market, and your goals.`,
-  };
+  // content across the city variants).
+  const cityFaq =
+    vertical === "medspa"
+      ? {
+          question: `Do you offer ${service.title.toLowerCase()} for ${city.name} med spas?`,
+          answer: `Yes. We work with med spas, aesthetic clinics, and wellness practices in ${city.name}, ${city.state} and across the US. Our ${service.title.toLowerCase()} is tailored to how clients in ${city.name} search for and book treatments, and it starts with a free consultation about your treatments, your market, and your goals.`,
+        }
+      : {
+          question: `Do you offer ${service.title.toLowerCase()} for ${city.name} restaurants?`,
+          answer: `Yes. We work with independent restaurants in ${city.name}, ${city.state} and across the US. Our ${service.title.toLowerCase()} is tailored to how diners in ${city.name} search and order, and it starts with a free consultation about your menu, your market, and your goals.`,
+        };
+
+  const blurb =
+    vertical === "medspa"
+      ? MEDSPA_CITY_BLURBS[city.slug] ?? city.blurb
+      : city.blurb;
 
   return {
     ...service,
@@ -46,7 +65,7 @@ export function buildLocationServiceData(
       name: city.name,
       state: city.state,
       stateCode: city.stateCode,
-      blurb: city.blurb,
+      blurb,
     },
   };
 }
@@ -82,12 +101,17 @@ export function buildLocationJsonLd(
 
 export function buildLocationMetadata(
   service: ServicePageData,
-  city: CityData
+  city: CityData,
+  vertical: ServiceVertical = "restaurant"
 ): Metadata {
   const title = `${service.title} in ${city.name}, ${city.stateCode}`;
   const description = `${service.title} in ${city.name}, ${city.stateCode}. ${service.metaDescription}`;
   const path = `/services/${service.slug}/${city.slug}`;
   const url = `${SITE_CONFIG.url}${path}`;
+  const verticalKeyword =
+    vertical === "medspa"
+      ? `med spa marketing ${city.name}`
+      : `restaurant marketing ${city.name}`;
 
   return {
     title,
@@ -96,7 +120,7 @@ export function buildLocationMetadata(
       ...service.keywords,
       `${service.keywords[0]} ${city.name}`,
       `${city.name} ${service.keywords[0]}`,
-      `restaurant marketing ${city.name}`,
+      verticalKeyword,
     ],
     alternates: { canonical: url },
     openGraph: {

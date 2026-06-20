@@ -1033,6 +1033,113 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     metaDescription:
       "Online appointment scheduling that lets customers book 24/7, syncs to your calendar, and sends automated reminders to cut no-shows. Keep your calendar full. Get a free demo.",
   },
+
+  "medspa-seo": {
+    title: "Med Spa Local SEO",
+    slug: "medspa-seo",
+    category: "SEO",
+    headline: "Med Spa Local SEO",
+    description:
+      "Local SEO built for med spas and aesthetic clinics. We get your practice found on Google Search, Google Maps, and the local pack, so nearby clients searching for Botox, fillers, and treatments choose you over the competition.",
+    features: [
+      {
+        title: "Med Spa Local SEO Strategy",
+        description:
+          "We build a location-specific strategy around the treatments you want to fill, from 'botox near me' to 'lip filler [city]' and 'medical weight loss near me,' so you show up exactly where high-intent clients are searching.",
+      },
+      {
+        title: "Google Maps & Map Pack Optimization",
+        description:
+          "Your Google Business Profile is the single biggest driver of med spa bookings. We optimize every field, category, photo, and post, and build the local signals that push you into the top three map results where the calls and bookings happen.",
+      },
+      {
+        title: "Treatment-Focused On-Page SEO",
+        description:
+          "We turn thin or templated pages into dedicated, optimized pages for each treatment you offer, with the right titles, headings, schema, and local copy so Google understands exactly what you do and where you do it.",
+      },
+      {
+        title: "Treatment Keyword Research",
+        description:
+          "We map the exact terms clients use for every service, from injectables and laser to facials, microneedling, and body contouring, then build a plan to rank for the searches that actually lead to booked consultations.",
+      },
+      {
+        title: "Competitor Analysis",
+        description:
+          "We analyze the other med spas and clinics ranking in your area, find where they are winning and where they are weak, then build a strategy that targets those gaps and outranks them locally.",
+      },
+      {
+        title: "Reviews, Reputation & Monthly Reporting",
+        description:
+          "We help you generate a steady flow of Google reviews and manage your reputation, then send clear monthly reports showing your rankings, profile views, and the calls and consultations your SEO is driving.",
+      },
+    ],
+    stats: [
+      {
+        value: 90,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "of patients research a provider online before booking a treatment",
+        source: "Industry Data",
+      },
+      {
+        value: 92,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "of consumers use a search engine to find local businesses",
+        source: "Industry Data",
+      },
+      {
+        value: 72,
+        suffix: "%",
+        decimalPlaces: 0,
+        label: "of local searches result in a visit within 5 miles",
+        source: "Google",
+      },
+      {
+        value: 10,
+        suffix: ":1",
+        decimalPlaces: 0,
+        label: "ROI delivered by SEO over time compared with most paid channels",
+        source: "Industry Data",
+      },
+    ],
+    faqs: [
+      {
+        question: "How long does med spa SEO take to show results?",
+        answer:
+          "Most clinics see measurable gains in rankings and bookings within 3-6 months. Local SEO moves faster than national SEO because you compete in a smaller area, and quick wins like Google Business Profile optimization can show results within weeks.",
+      },
+      {
+        question: "What's included in your med spa SEO service?",
+        answer:
+          "Local SEO strategy, Google Business Profile and Maps optimization, dedicated treatment pages, treatment keyword targeting, on-page SEO, competitor analysis, review generation, and clear monthly reporting on rankings, profile views, and the consultations your SEO drives.",
+      },
+      {
+        question: "Can SEO help me compete with bigger med spa chains?",
+        answer:
+          "Yes. Local SEO levels the playing field. Google rewards locally relevant, well-optimized clinics in map and local results, so a single well-run med spa with strong SEO can consistently outrank larger chains in its own area.",
+      },
+      {
+        question: "Do you help with reviews and online reputation?",
+        answer:
+          "Yes. Reviews are one of the strongest ranking and trust signals for med spas. We set up systems to generate a steady flow of Google reviews from happy clients and help you respond professionally, always in line with privacy best practices for healthcare.",
+      },
+      {
+        question: "Which treatments and keywords do you target?",
+        answer:
+          "We target the services that fill your calendar and carry the best margins, such as Botox and injectables, dermal fillers, laser treatments, facials, microneedling, body contouring, and medical weight loss, each mapped to the local search terms your ideal clients actually use.",
+      },
+    ],
+    keywords: [
+      "med spa SEO",
+      "med spa local SEO",
+      "medical spa SEO",
+      "aesthetic clinic SEO",
+      "med spa marketing",
+    ],
+    metaDescription:
+      "Med spa local SEO that gets your clinic found on Google Search and Google Maps. Rank for Botox, filler, and treatment searches near you and turn searches into booked consultations.",
+  },
 };
 
 export function getServiceBySlug(slug: string): ServicePageData | undefined {

@@ -54,31 +54,37 @@ const SERVICES = [
     title: "Local SEO for Med Spas",
     blurb:
       "Own the map pack and local search for your treatments and your city, so new clients find you first.",
+    href: "/services/medspa-seo",
   },
   {
     title: "Med Spa Websites",
     blurb:
       "Elegant, fast websites built to turn browsers into booked consultations, with SEO baked in.",
+    href: "/services/restaurant-website-design",
   },
   {
     title: "Google Ads",
     blurb:
       "Get to the top of search the day you launch and capture high-intent treatment searches.",
+    href: "/services/google-ads",
   },
   {
     title: "AI Receptionist",
     blurb:
       "Answer every call and message 24/7, qualify the lead, and book the consult automatically.",
+    href: "/services/ai-receptionist",
   },
   {
     title: "Appointment Scheduling",
     blurb:
       "Online booking with reminders that cut no-shows and keep your calendar full.",
+    href: "/services/appointment-scheduling",
   },
   {
     title: "Reviews & Reputation",
     blurb:
       "Build a wall of 5-star reviews that wins trust before a client ever calls.",
+    href: "/services/google-business-profile-optimization",
   },
 ];
 
@@ -168,7 +174,10 @@ export default function MedSpaPage() {
           >
             {SERVICES.map((s, i) => (
               <AnimatedElement key={s.title} variants={fadeInUp}>
-                <div className="flex h-full flex-col rounded-[1.25rem] border border-border bg-cream-dark p-7 md:p-8">
+                <Link
+                  href={s.href}
+                  className="elevate-hover group flex h-full flex-col rounded-[1.25rem] border border-border bg-cream-dark p-7 md:p-8 transition-colors hover:border-accent/40"
+                >
                   <span className="font-display text-sm tabular-nums text-accent mb-4">
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -176,7 +185,7 @@ export default function MedSpaPage() {
                     {s.title}
                   </h3>
                   <p className="text-warm-gray leading-relaxed">{s.blurb}</p>
-                </div>
+                </Link>
               </AnimatedElement>
             ))}
           </AnimatedElement>
