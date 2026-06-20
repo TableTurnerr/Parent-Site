@@ -6,7 +6,6 @@ import Container from "@/app/components/ui/Container";
 import NumberTicker from "@/app/components/ui/NumberTicker";
 import CTA from "@/app/components/sections/CTA";
 import PageHero from "@/app/components/sections/PageHero";
-import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import { fadeInUp, staggerContainer, scaleIn } from "@/app/lib/animations";
 import { SERVICES, PLATFORM_SERVICES, SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
@@ -120,11 +119,7 @@ export default function ServicesPage() {
         eyebrow="the full lineup"
         title="SEO, web design, and marketing for local businesses"
         description="Everything your business needs to grow online, from a high-converting website to local SEO, paid ads, and a brand identity that wins customers. Each service is built to get you found and chosen in local search."
-        topSlot={
-          <Breadcrumbs
-            items={[{ label: "Home", href: "/" }, { label: "Services" }]}
-          />
-        }
+        breadcrumb={[{ label: "Home", href: "/" }, { label: "Services" }]}
       >
         <div className="flex flex-wrap gap-2.5">
           {[
@@ -137,7 +132,7 @@ export default function ServicesPage() {
           ].map((chip) => (
             <span
               key={chip}
-              className="rounded-full border border-border bg-cream/70 px-3.5 py-1.5 text-sm font-medium text-charcoal backdrop-blur-sm"
+              className="rounded-full border border-cream/15 bg-cream/5 px-3.5 py-1.5 text-sm font-medium text-cream/80 backdrop-blur-sm"
             >
               {chip}
             </span>

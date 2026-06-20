@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Container from "@/app/components/ui/Container";
 import Button from "@/app/components/ui/Button";
-import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import PageHero from "@/app/components/sections/PageHero";
 import { SERVICES, SITE_CONFIG } from "@/app/lib/constants";
 import { TARGET_CITIES } from "@/app/lib/location-data";
@@ -44,11 +43,7 @@ export default function LocationsPage() {
         eyebrow="find your city"
         title="Areas we serve"
         description="We started in the major markets across Texas, from Houston and Dallas to Austin and San Antonio, and we are expanding to new cities as we grow. Pick a city to see how our website design, local SEO, and Google Ads work for businesses near you, and if you are outside these markets, reach out anyway."
-        topSlot={
-          <Breadcrumbs
-            items={[{ label: "Home", href: "/" }, { label: "Locations" }]}
-          />
-        }
+        breadcrumb={[{ label: "Home", href: "/" }, { label: "Locations" }]}
       />
 
       <section className="bg-cream pb-20 md:pb-28">

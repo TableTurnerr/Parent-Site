@@ -17,10 +17,13 @@ export interface Crumb {
 export default function Breadcrumbs({
   items,
   withSchema = false,
+  onDark = false,
   className = "",
 }: {
   items: Crumb[];
   withSchema?: boolean;
+  /** Light text + separators for use on a dark hero background. */
+  onDark?: boolean;
   className?: string;
 }) {
   const schema = withSchema
@@ -41,7 +44,11 @@ export default function Breadcrumbs({
         />
       )}
       <nav aria-label="Breadcrumb" className={className}>
-        <ol className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-sm text-warm-gray">
+        <ol
+          className={`flex flex-wrap items-center gap-1.5 sm:gap-2 text-sm ${
+            onDark ? "text-cream/60" : "text-warm-gray"
+          }`}
+        >
           {items.map((crumb, i) => {
             const isLast = i === items.length - 1;
             return (
@@ -49,20 +56,33 @@ export default function Breadcrumbs({
                 {crumb.href && !isLast ? (
                   <Link
                     href={crumb.href}
-                    className="hover:text-charcoal transition-colors"
+                    className={
+                      onDark
+                        ? "hover:text-cream transition-colors"
+                        : "hover:text-charcoal transition-colors"
+                    }
                   >
                     {crumb.label}
                   </Link>
                 ) : (
                   <span
-                    className={isLast ? "text-charcoal font-medium" : ""}
+                    className={
+                      isLast
+                        ? onDark
+                          ? "text-cream font-medium"
+                          : "text-charcoal font-medium"
+                        : ""
+                    }
                     aria-current={isLast ? "page" : undefined}
                   >
                     {crumb.label}
                   </span>
                 )}
                 {!isLast && (
-                  <span aria-hidden="true" className="text-warm-gray-light">
+                  <span
+                    aria-hidden="true"
+                    className={onDark ? "text-cream/30" : "text-warm-gray-light"}
+                  >
                     /
                   </span>
                 )}

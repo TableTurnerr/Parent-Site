@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import Container from "@/app/components/ui/Container";
 import Button from "@/app/components/ui/Button";
-import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import PageHero from "@/app/components/sections/PageHero";
 import { SERVICES, SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
@@ -45,11 +44,7 @@ export default async function BlogPage() {
         eyebrow="fresh from the pass"
         title="Local marketing insights"
         description="Practical advice on local SEO, Google Ads, and marketing, written to help local businesses grow online and win more customers."
-        topSlot={
-          <Breadcrumbs
-            items={[{ label: "Home", href: "/" }, { label: "Blog" }]}
-          />
-        }
+        breadcrumb={[{ label: "Home", href: "/" }, { label: "Blog" }]}
       />
 
       <section className="bg-cream pb-20 md:pb-28">

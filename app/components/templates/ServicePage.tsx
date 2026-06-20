@@ -7,6 +7,7 @@ import Container from "@/app/components/ui/Container";
 import SectionLabel from "@/app/components/ui/SectionLabel";
 import NumberTicker from "@/app/components/ui/NumberTicker";
 import ServiceFAQ from "@/app/components/sections/service/ServiceFAQ";
+import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import CTA from "@/app/components/sections/CTA";
 import { fadeInUp, staggerContainer, scaleIn } from "@/app/lib/animations";
 import type { ServicePageData } from "@/app/lib/service-data";
@@ -43,7 +44,8 @@ function CheckIcon() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      className="shrink-0 text-accent"
+      className="shrink-0"
+      style={{ color: "color-mix(in oklab, var(--color-accent) 60%, white)" }}
     >
       <path
         d="M20 6 9 17l-5-5"
@@ -110,67 +112,69 @@ export default function ServicePage({
 
   return (
     <>
-      {/* Breadcrumb */}
-      <section className="bg-cream pt-24 sm:pt-28 md:pt-32 pb-4">
-        <Container>
-          <nav aria-label="Breadcrumb">
-            <ol className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-sm text-warm-gray">
-              <li>
-                <Link href="/" className="hover:text-charcoal transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden="true" className="text-warm-gray-light">/</li>
-              <li>
-                <Link href="/services" className="hover:text-charcoal transition-colors">
-                  Services
-                </Link>
-              </li>
-              <li aria-hidden="true" className="text-warm-gray-light">/</li>
-              <li className="text-charcoal font-medium" aria-current="page">
-                {service.title}
-              </li>
-            </ol>
-          </nav>
-        </Container>
-      </section>
-
-      {/* Hero / Intro */}
-      <section className="hero-grain relative overflow-hidden bg-cream py-12 md:py-20">
-        {/* Decorative background: faded dot grid + drifting accent glows */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-          <div className="absolute inset-0 [background-image:radial-gradient(rgba(0,0,0,0.05)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_70%_60%_at_70%_0%,black,transparent)]" />
-          <div className="aurora-blob absolute -top-20 right-[-5rem] h-80 w-80 rounded-full bg-accent/20 blur-[110px]" />
-          <div className="aurora-blob-2 absolute bottom-[-6rem] left-[-6rem] h-72 w-72 rounded-full bg-accent/10 blur-[100px]" />
+      {/* Hero / Intro (dark) */}
+      <section className="hero-grain relative overflow-hidden bg-charcoal pt-28 sm:pt-32 md:pt-36 pb-14 md:pb-20">
+        {/* Decorative background: accent aurora glows + faded light grid */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          <div className="aurora-blob absolute -top-32 right-[-6%] h-[30rem] w-[30rem] rounded-full bg-accent/40 blur-[130px]" />
+          <div className="aurora-blob-2 absolute bottom-[-8rem] left-[-8%] h-[26rem] w-[26rem] rounded-full bg-accent/25 blur-[130px]" />
         </div>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(250,250,248,0.9) 1px, transparent 1px)",
+            backgroundSize: "26px 26px",
+            maskImage:
+              "radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 75%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 75%)",
+          }}
+        />
+
         <Container className="relative z-10">
+          <AnimatedElement variants={fadeInUp} className="mb-8">
+            <Breadcrumbs
+              items={[
+                { label: "Home", href: "/" },
+                { label: "Services", href: "/services" },
+                { label: service.title },
+              ]}
+              onDark
+            />
+          </AnimatedElement>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             {/* Left column — headline + description + CTA */}
             <AnimatedElement variants={staggerContainer} className="lg:col-span-7">
               <AnimatedElement variants={fadeInUp}>
-                <span className="inline-block bg-cream-dark text-warm-gray text-sm font-medium px-4 py-1.5 rounded-full border border-border mb-6">
+                <span className="inline-flex items-center gap-2 rounded-full border border-cream/15 bg-cream/5 px-4 py-1.5 text-sm font-medium text-cream/80 backdrop-blur-sm mb-6">
+                  <span
+                    className="h-1.5 w-1.5 rounded-full bg-accent"
+                    aria-hidden="true"
+                  />
                   {service.category}
                 </span>
               </AnimatedElement>
 
               <AnimatedElement variants={fadeInUp}>
-                <h1 className="display-lg text-charcoal mb-6">
+                <h1 className="display-lg text-cream mb-6">
                   {service.headline}
                 </h1>
               </AnimatedElement>
 
               <AnimatedElement variants={fadeInUp}>
-                <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-xl mb-8">
+                <p className="text-warm-gray-light text-lg md:text-xl leading-relaxed max-w-xl mb-8">
                   {service.description}
                 </p>
               </AnimatedElement>
 
               <AnimatedElement variants={fadeInUp}>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button href="/contact" variant="primary">
+                  <Button href="/contact" variant="primary-light">
                     Get a Free Consultation
                   </Button>
-                  <Button href="/services" variant="secondary">
+                  <Button href="/services" variant="secondary-light">
                     View All Services
                   </Button>
                 </div>
@@ -185,7 +189,7 @@ export default function ServicePage({
                   ].map((point) => (
                     <li
                       key={point}
-                      className="inline-flex items-center gap-2 text-sm text-warm-gray"
+                      className="inline-flex items-center gap-2 text-sm text-cream/70"
                     >
                       <CheckIcon />
                       {point}
