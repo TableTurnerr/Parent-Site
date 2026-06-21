@@ -87,6 +87,16 @@
     radial-gradient(closest-side, color-mix(in oklab, var(--color-accent) 28%, transparent), transparent);
 }
 
+/* Accent word inside a DARK hero headline. The accent-colored aurora glow sits
+   right behind these words, so a mid-tone accent (58% mix) washed out and read
+   as invisible. This is a bright tint (mostly white) plus a soft accent glow —
+   high-contrast on the glow, still clearly "the accent word." Auto-themes per
+   niche (indigo / emerald / terracotta) via var(--color-accent). */
+.hero-accent-word {
+  color: color-mix(in oklab, var(--color-accent) 32%, white);
+  text-shadow: 0 0 32px color-mix(in oklab, var(--color-accent) 55%, transparent);
+}
+
 /* shadcn/ui vars mapped to TableTurnerr palette */
 :root {
   --background: #FAFAF8;

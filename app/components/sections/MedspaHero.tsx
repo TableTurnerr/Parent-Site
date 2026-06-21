@@ -64,11 +64,10 @@ export default function MedspaHero() {
                 <span className="relative inline-block">
                   More booked
                   <span
-                    className="font-handwriting absolute -top-8 -right-8 md:-top-10 md:-right-12 rotate-[-8deg]"
+                    className="hero-accent-word font-handwriting absolute -top-8 -right-8 md:-top-10 md:-right-12 rotate-[-8deg]"
                     style={{
                       fontSize: "clamp(1.4rem, 3vw, 2.6rem)",
                       lineHeight: 1,
-                      color: "color-mix(in oklab, var(--color-accent) 58%, white)",
                     }}
                     aria-hidden="true"
                   >
@@ -77,9 +76,7 @@ export default function MedspaHero() {
                 </span>
                 <br />
                 <span>treatments, </span>
-                <span style={{ color: "color-mix(in oklab, var(--color-accent) 58%, white)" }}>
-                  straight from Google.
-                </span>
+                <span className="hero-accent-word">straight from Google.</span>
               </h1>
             </AnimatedElement>
 

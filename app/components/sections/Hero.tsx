@@ -61,7 +61,7 @@ export default function Hero() {
                   We fill
                   {/* handwritten chef's note */}
                   <span
-                    className="font-handwriting text-accent absolute -top-8 -right-10 md:-top-10 md:-right-16 rotate-[-8deg]"
+                    className="hero-accent-word font-handwriting absolute -top-8 -right-10 md:-top-10 md:-right-16 rotate-[-8deg]"
                     style={{ fontSize: "clamp(1.5rem, 3vw, 2.75rem)", lineHeight: 1 }}
                     aria-hidden="true"
                   >
@@ -69,7 +69,7 @@ export default function Hero() {
                   </span>
                 </span>
                 <br />
-                <span className="text-accent">more tables.</span>
+                <span className="hero-accent-word">more tables.</span>
               </h1>
             </AnimatedElement>
 
