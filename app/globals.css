@@ -16,17 +16,17 @@
   --color-muted: #94a3b8;        /* captions */
   --color-line: #e4e8ef;         /* borders */
 
-  /* Brand */
-  --color-primary: #2563eb;      /* confident blue */
-  --color-primary-hover: #1d4ed8;
+  /* Brand — violet + gold (distinct from the category's blues & greens) */
+  --color-primary: #7c3aed;      /* vivid violet */
+  --color-primary-hover: #6d28d9;
   --color-primary-ink: #ffffff;
-  --color-primary-soft: #eaf1ff; /* tinted bg */
+  --color-primary-soft: #f4effe; /* tinted bg */
   --color-star: #f59e0b;         /* review gold */
   --color-success: #16a34a;
 
-  /* Dark sections */
-  --color-night: #060b18;
-  --color-night-2: #0c1426;
+  /* Dark sections — near-black with a violet undertone */
+  --color-night: #0b0a1a;
+  --color-night-2: #15112b;
 
   /* Type */
   --font-display: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
@@ -134,7 +134,7 @@
 .btn-primary {
   background: var(--color-primary);
   color: var(--color-primary-ink);
-  box-shadow: 0 8px 24px -8px rgba(37, 99, 235, 0.6);
+  box-shadow: 0 8px 24px -8px rgba(124, 58, 237, 0.6);
 }
 .btn-primary:hover { background: var(--color-primary-hover); }
 .btn-ghost {
@@ -172,7 +172,7 @@
 /* ── Hero decoration ── */
 .hero-grid {
   background-image:
-    radial-gradient(rgba(37, 99, 235, 0.07) 1px, transparent 1px);
+    radial-gradient(rgba(124, 58, 237, 0.07) 1px, transparent 1px);
   background-size: 26px 26px;
   -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 0%, #000, transparent 75%);
   mask-image: radial-gradient(ellipse 65% 55% at 50% 0%, #000, transparent 75%);
@@ -196,8 +196,8 @@
 .tt-float-slow { animation: tt-float 8.5s ease-in-out infinite; }
 
 @keyframes tt-pulse-ring {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
-  50% { box-shadow: 0 0 0 7px rgba(37, 99, 235, 0.16); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+  50% { box-shadow: 0 0 0 7px rgba(124, 58, 237, 0.16); }
 }
 .tt-pulse { animation: tt-pulse-ring 2.6s ease-in-out infinite; }
 

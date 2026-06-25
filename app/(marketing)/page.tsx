@@ -6,6 +6,8 @@ import {
   X, Quote,
 } from "lucide-react";
 import MapPackClimb from "@/app/components/site/MapPackClimb";
+import Reveal from "@/app/components/site/Reveal";
+import WelcomePopup from "@/app/components/site/WelcomePopup";
 
 export const metadata: Metadata = {
   title: "TableTurnerr — Review Automation for Home Services",
@@ -128,7 +130,7 @@ function Features() {
           <h2 className="display-2 mt-5 text-ink">Everything you need to own your local market</h2>
           <p className="lead mt-4">Not a generic reputation tool with a home-services coat of paint. Built around how trades actually win work.</p>
         </div>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <Reveal className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f) => (
             <div key={f.t} className="card card-hover p-7">
               <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-soft text-primary">
@@ -138,7 +140,7 @@ function Features() {
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">{f.b}</p>
             </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -194,7 +196,7 @@ function Trades() {
           <h2 className="display-2 mt-5 text-ink">Big-ticket trades, big-ticket reviews</h2>
           <p className="lead mt-4">One bad month of reviews can cost a high-ticket trade real jobs. We focus where reviews matter most.</p>
         </div>
-        <div className="mt-12 grid grid-cols-2 gap-5 md:grid-cols-4">
+        <Reveal className="mt-12 grid grid-cols-2 gap-5 md:grid-cols-4">
           {TRADES.map((t) => (
             <Link key={t.t} href={t.href} className="card card-hover group flex flex-col items-start p-7">
               <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-soft text-primary">
@@ -206,7 +208,7 @@ function Trades() {
               </span>
             </Link>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -230,11 +232,11 @@ function Pricing() {
           <h2 className="display-2 mt-5 text-ink">Pick a plan. Cancel anytime.</h2>
           <p className="lead mt-4">14-day free trial. No setup fees, no contracts, no surprises.</p>
         </div>
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <Reveal className="mt-12 grid gap-6 lg:grid-cols-3">
           {PLANS.map((p) => (
             <div
               key={p.name}
-              className={`card relative flex flex-col p-7 ${p.popular ? "border-primary shadow-[0_30px_70px_-40px_rgba(37,99,235,0.5)] ring-1 ring-primary" : ""}`}
+              className={`card relative flex flex-col p-7 ${p.popular ? "border-primary shadow-[0_30px_70px_-40px_rgba(124,58,237,0.5)] ring-1 ring-primary" : ""}`}
             >
               {p.popular && (
                 <span className="absolute -top-3 left-7 rounded-full bg-primary px-3 py-1 text-xs font-bold text-white">
@@ -262,7 +264,7 @@ function Pricing() {
               </Link>
             </div>
           ))}
-        </div>
+        </Reveal>
         <p className="mt-8 flex items-center justify-center gap-2 text-sm text-ink-soft">
           <ShieldCheck className="h-4 w-4 text-success" /> More reviews in 90 days or your next month is free.
         </p>
@@ -389,7 +391,7 @@ function Comparison() {
           <p className="lead mt-4">A side-by-side look at what you get with us versus a typical review tool.</p>
         </div>
 
-        <div className="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border border-line bg-white">
+        <Reveal className="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border border-line bg-white">
           <div className="grid grid-cols-[1fr_auto_auto] items-center gap-x-4 border-b border-line bg-surface/60 px-5 py-4 text-sm font-semibold text-ink sm:gap-x-8 sm:px-7">
             <span>Feature</span>
             <span className="w-20 text-center text-primary sm:w-28">TableTurnerr</span>
@@ -405,7 +407,7 @@ function Comparison() {
               <span className="w-20 sm:w-28"><Cell v={row.them} /></span>
             </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -425,7 +427,7 @@ function Testimonials() {
           <span className="eyebrow">From the field</span>
           <h2 className="display-2 mt-5 text-ink">Trusted by home-services pros</h2>
         </div>
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        <Reveal className="mt-12 grid gap-5 md:grid-cols-3">
           {TESTIMONIALS.map((t) => (
             <figure key={t.name} className="card flex h-full flex-col p-7">
               <Quote className="h-6 w-6 text-primary/30" aria-hidden />
@@ -439,7 +441,7 @@ function Testimonials() {
               </figcaption>
             </figure>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -460,6 +462,7 @@ export default function HomePage() {
       <Pricing />
       <FAQ />
       <FinalCTA />
+      <WelcomePopup />
     </>
   );
 }
