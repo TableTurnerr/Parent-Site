@@ -7,26 +7,26 @@
    ============================================================ */
 
 @theme {
-  /* Surfaces */
-  --color-bg: #ffffff;
-  --color-surface: #f6f8fb;
-  --color-surface-2: #eef2f7;
-  --color-ink: #0a1326;          /* near-black navy — headings */
-  --color-ink-soft: #475569;     /* slate — body */
-  --color-muted: #94a3b8;        /* captions */
-  --color-line: #e4e8ef;         /* borders */
+  /* Surfaces — soft, toned-down (not stark white) so cards & detail show */
+  --color-bg: #f1f3f8;           /* soft cool off-white page bg */
+  --color-surface: #e7eaf2;      /* slightly deeper panel */
+  --color-surface-2: #dde1ee;
+  --color-ink: #161a33;          /* deep navy — headings */
+  --color-ink-soft: #4a5170;     /* slate — body */
+  --color-muted: #888fa8;        /* captions */
+  --color-line: #d9dded;         /* borders */
 
-  /* Brand — violet + gold (distinct from the category's blues & greens) */
-  --color-primary: #7c3aed;      /* vivid violet */
-  --color-primary-hover: #6d28d9;
+  /* Brand — professional navy/indigo + amber gold */
+  --color-primary: #36408f;      /* deep indigo-navy */
+  --color-primary-hover: #2b3477;
   --color-primary-ink: #ffffff;
-  --color-primary-soft: #f4effe; /* tinted bg */
-  --color-star: #f59e0b;         /* review gold */
+  --color-primary-soft: #eaecf7; /* tinted bg */
+  --color-star: #f4a100;         /* review gold */
   --color-success: #16a34a;
 
-  /* Dark sections — near-black with a violet undertone */
-  --color-night: #0b0a1a;
-  --color-night-2: #15112b;
+  /* Dark sections — deep navy */
+  --color-night: #11142b;
+  --color-night-2: #1b2046;
 
   /* Type */
   --font-display: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
@@ -134,7 +134,7 @@
 .btn-primary {
   background: var(--color-primary);
   color: var(--color-primary-ink);
-  box-shadow: 0 8px 24px -8px rgba(124, 58, 237, 0.6);
+  box-shadow: 0 8px 24px -8px rgba(54, 64, 143, 0.6);
 }
 .btn-primary:hover { background: var(--color-primary-hover); }
 .btn-ghost {
@@ -172,7 +172,7 @@
 /* ── Hero decoration ── */
 .hero-grid {
   background-image:
-    radial-gradient(rgba(124, 58, 237, 0.07) 1px, transparent 1px);
+    radial-gradient(rgba(54, 64, 143, 0.07) 1px, transparent 1px);
   background-size: 26px 26px;
   -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 0%, #000, transparent 75%);
   mask-image: radial-gradient(ellipse 65% 55% at 50% 0%, #000, transparent 75%);
@@ -196,8 +196,8 @@
 .tt-float-slow { animation: tt-float 8.5s ease-in-out infinite; }
 
 @keyframes tt-pulse-ring {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
-  50% { box-shadow: 0 0 0 7px rgba(124, 58, 237, 0.16); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(54, 64, 143, 0); }
+  50% { box-shadow: 0 0 0 7px rgba(54, 64, 143, 0.16); }
 }
 .tt-pulse { animation: tt-pulse-ring 2.6s ease-in-out infinite; }
 

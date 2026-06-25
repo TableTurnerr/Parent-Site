@@ -236,7 +236,7 @@ function Pricing() {
           {PLANS.map((p) => (
             <div
               key={p.name}
-              className={`card relative flex flex-col p-7 ${p.popular ? "border-primary shadow-[0_30px_70px_-40px_rgba(124,58,237,0.5)] ring-1 ring-primary" : ""}`}
+              className={`card relative flex flex-col p-7 ${p.popular ? "border-primary shadow-[0_30px_70px_-40px_rgba(54,64,143,0.5)] ring-1 ring-primary" : ""}`}
             >
               {p.popular && (
                 <span className="absolute -top-3 left-7 rounded-full bg-primary px-3 py-1 text-xs font-bold text-white">

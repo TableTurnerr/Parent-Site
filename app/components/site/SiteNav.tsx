@@ -19,8 +19,9 @@ export default function SiteNav() {
       <PromoBar />
       <div className="container-tt">
         <nav className="mt-3 flex items-center justify-between rounded-full border border-line bg-white/85 px-4 py-2.5 shadow-[0_8px_30px_-18px_rgba(10,19,38,0.35)] backdrop-blur-md md:px-5">
-          <Link href="/" className="flex items-center gap-2 pl-1 text-lg font-bold tracking-tight text-ink">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-sm text-white">T</span>
+          <Link href="/" className="flex items-center gap-2.5 pl-1 text-lg font-bold tracking-tight text-ink">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="TableTurnerr logo" className="h-8 w-8 rounded-lg object-contain" />
             TableTurnerr
           </Link>
 

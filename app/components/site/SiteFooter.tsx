@@ -38,8 +38,9 @@ export default function SiteFooter() {
       <div className="container-tt py-14 md:py-16">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
-            <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight text-ink">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-sm text-white">T</span>
+            <Link href="/" className="flex items-center gap-2.5 text-lg font-bold tracking-tight text-ink">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="TableTurnerr logo" className="h-8 w-8 rounded-lg object-contain" />
               TableTurnerr
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
