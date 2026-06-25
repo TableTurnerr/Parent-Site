@@ -19,7 +19,7 @@ const YOU_START = 71;
 const YOU_TOP = 158;
 const STEP = 9;
 
-export default function MapPackClimb() {
+export default function MapPackClimb({ query = "plumbers near me" }: { query?: string }) {
   const reduce = useReducedMotion();
   const [yourReviews, setYourReviews] = useState(reduce ? YOU_TOP : YOU_START);
   const [toast, setToast] = useState(false);
@@ -56,7 +56,7 @@ export default function MapPackClimb() {
         {/* search header */}
         <div className="flex items-center gap-2.5 border-b border-line bg-surface px-4 py-3">
           <Search className="h-4 w-4 text-muted" />
-          <span className="text-sm font-medium text-ink-soft">plumbers near me</span>
+          <span className="text-sm font-medium text-ink-soft">{query}</span>
           <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-primary-soft px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">
             <MapPin className="h-3 w-3" /> Map
           </span>

@@ -40,29 +40,35 @@
   --radius-pill: 9999px;
 }
 
-* {
-  border-color: var(--color-line);
-}
+/* Base element styles live in @layer base so Tailwind utilities (text-white,
+   text-ink, etc.) always override them — an unlayered rule here would beat the
+   utility layer and make `text-white` on headings silently fail on dark
+   sections. */
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-}
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
 
-body {
-  background: var(--color-bg);
-  color: var(--color-ink-soft);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink-soft);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-h1, h2, h3, h4 {
-  color: var(--color-ink);
-  font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+  h1, h2, h3, h4 {
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
 }
 
 /* ── Layout helpers ── */
