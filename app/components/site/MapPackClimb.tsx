@@ -11,7 +11,8 @@ import { MapPin, Star, Phone, Globe, Search } from "lucide-react";
  * outcome — more reviews -> top of the local pack -> more booked jobs. Loops with
  * a hold at #1; renders the finished #1 state for reduced motion.
  */
-const COMPETITORS = [
+type Row = { id: string; name: string; reviews: number; rating: string; you?: boolean };
+const COMPETITORS: Row[] = [
   { id: "a", name: "Citywide Comfort Co.", reviews: 128, rating: "4.6" },
   { id: "b", name: "Apex Home Services", reviews: 96, rating: "4.7" },
 ];
