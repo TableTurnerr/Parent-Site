@@ -5,7 +5,7 @@ import {
   Wrench, Home, Droplets, Zap, Check, ArrowRight, ShieldCheck, Plug,
   X, Quote,
 } from "lucide-react";
-import HomeHero from "@/app/components/site/HomeHero";
+import MapPackClimb from "@/app/components/site/MapPackClimb";
 import Reveal from "@/app/components/site/Reveal";
 import WelcomePopup from "@/app/components/site/WelcomePopup";
 
@@ -14,6 +14,76 @@ export const metadata: Metadata = {
   description:
     "Turn every finished job into 5-star reviews and more booked work. Review automation built for HVAC, roofing, plumbing & electrical pros. Multi-platform, technician leaderboards, map-pack rank tracking. Start a free trial.",
 };
+
+/* ── Hero ───────────────────────────────────────────────── */
+function Hero() {
+  return (
+    <section className="hero-wash relative overflow-hidden pt-36 md:pt-44">
+      <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
+      <div className="container-tt relative pb-16 md:pb-24">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-10">
+          <div>
+            <span className="eyebrow">Review automation for home services</span>
+            <h1 className="display mt-6 text-ink">
+              Turn finished jobs into{" "}
+              <span className="text-primary">5-star reviews</span> and more
+              booked work.
+            </h1>
+            <p className="lead mt-6 max-w-xl">
+              TableTurnerr automatically asks every customer for a review the
+              moment the job is done, across Google, Facebook, Yelp and Angi, so
+              you climb the map pack and get chosen first. Built for HVAC,
+              roofing, plumbing and electrical pros.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/signup" className="btn btn-primary">
+                Start free trial <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/#how" className="btn btn-ghost">
+                See how it works
+              </Link>
+            </div>
+
+            <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-soft">
+              {["14-day free trial", "No contracts", "Setup in 15 minutes"].map((t) => (
+                <li key={t} className="inline-flex items-center gap-2">
+                  <Check className="h-4 w-4 text-success" /> {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:pl-6">
+            <MapPackClimb />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Stat strip ─────────────────────────────────────────── */
+const STATS = [
+  { v: "4×", l: "more reviews in the first 90 days" },
+  { v: "≤24h", l: "to your first new reviews" },
+  { v: "4", l: "review platforms, not just Google" },
+  { v: "15 min", l: "to connect your CRM and launch" },
+];
+function Stats() {
+  return (
+    <section className="border-y border-line bg-white">
+      <div className="container-tt grid grid-cols-2 gap-8 py-10 md:grid-cols-4 md:py-12">
+        {STATS.map((s) => (
+          <div key={s.l} className="text-center md:text-left">
+            <p className="font-display text-3xl font-bold text-ink md:text-4xl">{s.v}</p>
+            <p className="mt-1.5 text-sm leading-snug text-ink-soft">{s.l}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 /* ── Problem ────────────────────────────────────────────── */
 const PROBLEMS = [
@@ -276,14 +346,12 @@ function TrustMarquee() {
         <p className="text-center text-xs font-semibold uppercase tracking-[0.14em] text-muted">
           Connects with the tools you already run your business on
         </p>
-        <div className="relative mt-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
-          <div className="tt-marquee flex w-max items-center gap-12">
-            {[...TRUST, ...TRUST].map((name, i) => (
-              <span key={i} className="whitespace-nowrap text-lg font-bold text-ink/35">
-                {name}
-              </span>
-            ))}
-          </div>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
+          {TRUST.map((name) => (
+            <span key={name} className="whitespace-nowrap text-lg font-bold text-ink/35">
+              {name}
+            </span>
+          ))}
         </div>
       </div>
     </section>
@@ -380,7 +448,8 @@ function Testimonials() {
 export default function HomePage() {
   return (
     <>
-      <HomeHero />
+      <Hero />
+      <Stats />
       <TrustMarquee />
       <Problem />
       <Features />
