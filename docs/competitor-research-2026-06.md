@@ -1,5 +1,5 @@
 # TableTurnerr — Competitor Research & SEO Opportunity Report
-**Prepared:** 16 June 2026 · **For:** the whole team (no SEO background needed) · **Focus:** the marketing/SEO agencies we compete with *in Google search results*, on both restaurant and general local-business terms.
+**Prepared:** 21 June 2026 · **For:** the whole team (no SEO background needed) · **Focus:** the marketing/SEO agencies we compete with *in Google search results*, on both restaurant and general local-business terms.
 
 ---
 
