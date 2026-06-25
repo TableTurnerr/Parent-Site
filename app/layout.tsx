@@ -31,30 +31,27 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tableturnerr.com"),
   title: {
-    default:
-      "TableTurnerr | SEO Agency for Local Businesses",
+    default: "TableTurnerr — Review Automation for Home Services",
     template: "%s | TableTurnerr",
   },
   description:
-    "TableTurnerr is an SEO agency for local businesses. We get you found on Google with local SEO, plus high-converting websites built on a proven framework, Google Ads, and Google Business Profile optimization. Book a free consultation.",
+    "Review automation built for home-services pros. Turn every finished job into 5-star reviews across Google, Facebook, Yelp and Angi, climb the map pack, and get more booked work. Built for HVAC, roofing, plumbing and electrical. Start a free trial.",
   keywords: [
-    "SEO agency for local businesses",
-    "local business website design",
-    "small business SEO",
-    "local SEO services",
-    "Google Ads management",
-    "Google Business Profile optimization",
-    "web design agency",
-    "local business marketing",
-    "restaurant marketing",
-    "restaurant SEO",
-    "restaurant website design",
+    "review automation",
+    "review automation for home services",
+    "get more Google reviews",
+    "HVAC reviews software",
+    "roofing reviews software",
+    "plumbing reviews",
+    "electrician reviews",
+    "reputation management for contractors",
+    "review request software",
+    "map pack ranking",
   ],
   openGraph: {
     siteName: "TableTurnerr",
     locale: "en_US",
     type: "website",
-    images: [{ url: "/images/usage/restaurant-kitchen-2.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -85,8 +82,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${satoshi.variable} ${caveat.variable}`}>
       <head>
-        <link rel="dns-prefetch" href="//psdb.tableturnerr.com" />
-        <link rel="preconnect" href="http://psdb.tableturnerr.com:8000" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
