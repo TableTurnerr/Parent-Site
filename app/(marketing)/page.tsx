@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import {
   Star, MessageSquareText, Repeat2, Trophy, BarChart3, Bot, Globe2,
   Wrench, Home, Droplets, Zap, Check, ArrowRight, ShieldCheck, Plug,
+  X, Quote,
 } from "lucide-react";
 import MapPackClimb from "@/app/components/site/MapPackClimb";
 
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 /* ── Hero ───────────────────────────────────────────────── */
 function Hero() {
   return (
-    <section className="hero-wash relative overflow-hidden pt-32 md:pt-40">
+    <section className="hero-wash relative overflow-hidden pt-36 md:pt-44">
       <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
       <div className="container-tt relative pb-16 md:pb-24">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-10">
@@ -334,15 +335,128 @@ function FinalCTA() {
   );
 }
 
+/* ── Trust marquee ──────────────────────────────────────── */
+const TRUST = ["Jobber", "Housecall Pro", "ServiceTitan", "Workiz", "QuickBooks", "Zapier", "Google", "Facebook", "Yelp", "Angi"];
+function TrustMarquee() {
+  return (
+    <section className="border-b border-line bg-white py-8">
+      <div className="container-tt">
+        <p className="text-center text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+          Connects with the tools you already run your business on
+        </p>
+        <div className="relative mt-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
+          <div className="tt-marquee flex w-max items-center gap-12">
+            {[...TRUST, ...TRUST].map((name, i) => (
+              <span key={i} className="whitespace-nowrap text-lg font-bold text-ink/35">
+                {name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Comparison (our wedge vs typical review tools) ─────── */
+const COMPARE = [
+  { f: "Google reviews", us: true, them: true },
+  { f: "Facebook, Yelp & Angi too", us: true, them: false },
+  { f: "Technician leaderboards", us: true, them: false },
+  { f: "Map-pack rank tracking", us: true, them: false },
+  { f: "Review reactivation of past customers", us: true, them: "partial" as const },
+  { f: "Built for big-ticket trades", us: true, them: false },
+  { f: "Free review-score grader", us: true, them: false },
+  { f: "No contracts, cancel anytime", us: true, them: false },
+  { f: "90-day results guarantee", us: true, them: false },
+];
+function Cell({ v }: { v: boolean | "partial" }) {
+  if (v === "partial")
+    return <span className="text-xs font-semibold text-muted">Some</span>;
+  return v ? (
+    <Check className="mx-auto h-5 w-5 text-success" />
+  ) : (
+    <X className="mx-auto h-5 w-5 text-muted/50" />
+  );
+}
+function Comparison() {
+  return (
+    <section className="section bg-surface">
+      <div className="container-tt">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="eyebrow">Why TableTurnerr</span>
+          <h2 className="display-2 mt-5 text-ink">Most review tools stop at Google. We don&apos;t.</h2>
+          <p className="lead mt-4">A side-by-side look at what you get with us versus a typical review tool.</p>
+        </div>
+
+        <div className="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border border-line bg-white">
+          <div className="grid grid-cols-[1fr_auto_auto] items-center gap-x-4 border-b border-line bg-surface/60 px-5 py-4 text-sm font-semibold text-ink sm:gap-x-8 sm:px-7">
+            <span>Feature</span>
+            <span className="w-20 text-center text-primary sm:w-28">TableTurnerr</span>
+            <span className="w-20 text-center text-muted sm:w-28">Other tools</span>
+          </div>
+          {COMPARE.map((row, i) => (
+            <div
+              key={row.f}
+              className={`grid grid-cols-[1fr_auto_auto] items-center gap-x-4 px-5 py-3.5 text-sm sm:gap-x-8 sm:px-7 ${i % 2 ? "bg-surface/30" : ""}`}
+            >
+              <span className="text-ink-soft">{row.f}</span>
+              <span className="w-20 sm:w-28"><Cell v={row.us} /></span>
+              <span className="w-20 sm:w-28"><Cell v={row.them} /></span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Testimonials (PLACEHOLDER — replace with real customer quotes) ── */
+const TESTIMONIALS = [
+  { quote: "We went from 60-something Google reviews to over 200 in three months. The phone rings more, plain and simple.", name: "Mike R.", role: "Owner, HVAC", loc: "Round Rock, TX" },
+  { quote: "The technician leaderboard turned reviews into a competition. My crew actually asks customers now.", name: "Dana P.", role: "Operations, Roofing", loc: "Dallas, TX" },
+  { quote: "Set it up in an afternoon, connected Housecall Pro, and reviews just started showing up. Easiest tool we use.", name: "Carlos M.", role: "Owner, Plumbing", loc: "Phoenix, AZ" },
+];
+function Testimonials() {
+  return (
+    <section className="section">
+      <div className="container-tt">
+        <div className="max-w-2xl">
+          <span className="eyebrow">From the field</span>
+          <h2 className="display-2 mt-5 text-ink">Trusted by home-services pros</h2>
+        </div>
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {TESTIMONIALS.map((t) => (
+            <figure key={t.name} className="card flex h-full flex-col p-7">
+              <Quote className="h-6 w-6 text-primary/30" aria-hidden />
+              <div className="stars mt-3 text-sm" aria-label="5 out of 5 stars">★★★★★</div>
+              <blockquote className="mt-3 flex-1 text-[0.97rem] leading-relaxed text-ink-soft">
+                &ldquo;{t.quote}&rdquo;
+              </blockquote>
+              <figcaption className="mt-5 border-t border-line pt-4 text-sm">
+                <span className="font-bold text-ink">{t.name}</span>
+                <span className="block text-muted">{t.role} · {t.loc}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function HomePage() {
   return (
     <>
       <Hero />
       <Stats />
+      <TrustMarquee />
       <Problem />
       <Features />
       <How />
+      <Comparison />
       <Trades />
+      <Testimonials />
       <Pricing />
       <FAQ />
       <FinalCTA />
