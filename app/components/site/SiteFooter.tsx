@@ -8,6 +8,7 @@ const COLS = [
       { label: "How it works", href: "/#how" },
       { label: "Pricing", href: "/#pricing" },
       { label: "Integrations", href: "/integrations" },
+      { label: "Texas locations", href: "/locations" },
     ],
   },
   {

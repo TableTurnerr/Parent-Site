@@ -1,90 +1,57 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import Container from "@/app/components/ui/Container";
-import Button from "@/app/components/ui/Button";
-import PageHero from "@/app/components/sections/PageHero";
-import { SERVICES, SITE_CONFIG } from "@/app/lib/constants";
-import { TARGET_CITIES } from "@/app/lib/location-data";
-import {
-  generateBreadcrumbSchema,
-  generateOrganizationSchema,
-} from "@/app/lib/schema";
-import { createPageMetadata } from "@/app/lib/metadata";
+import type { Metadata } from "next";
+import { MapPin, ArrowRight } from "lucide-react";
+import { REVIEW_CITIES } from "@/app/lib/review-cities";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "Areas We Serve",
+export const metadata: Metadata = {
+  title: "Texas Locations We Serve",
   description:
-    "TableTurnerr works with local businesses in major Texas metros and beyond. Browse our city pages for website design, local SEO, and Google Ads in your market.",
-  path: "/locations",
-  keywords: [
-    "local business marketing by city",
-    "local marketing near me",
-    "local SEO near me",
-  ],
-});
+    "Review automation for home-services businesses across Texas — Houston, Dallas, San Antonio, Austin, Fort Worth and more. Turn finished jobs into 5-star reviews and climb local search.",
+  alternates: { canonical: "https://www.tableturnerr.com/locations" },
+};
 
-export default function LocationsPage() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: SITE_CONFIG.url },
-    { name: "Locations", url: `${SITE_CONFIG.url}/locations` },
-  ]);
-  const organizationSchema = generateOrganizationSchema();
-
+export default function LocationsIndex() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([organizationSchema, breadcrumbSchema]),
-        }}
-      />
+      <section className="hero-wash relative overflow-hidden pt-36 pb-14 md:pt-44 md:pb-20">
+        <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
+        <div className="container-tt relative">
+          <div className="max-w-3xl">
+            <span className="eyebrow">Locations</span>
+            <h1 className="display mt-6 text-ink">Review automation across Texas</h1>
+            <p className="lead mt-6 max-w-2xl">
+              We launched in Texas, where home-services competition is fierce and reviews
+              decide who gets the call. Pick your city to see how TableTurnerr helps local
+              HVAC, roofing, plumbing and electrical pros climb the map pack, and if you&apos;re
+              outside these markets, reach out anyway, we&apos;re expanding fast.
+            </p>
+          </div>
+        </div>
+      </section>
 
-      <PageHero
-        eyebrow="find your city"
-        title="Areas we serve"
-        description="We started in the major markets across Texas, from Houston and Dallas to Austin and San Antonio, and we are expanding to new cities as we grow. Pick a city to see how our website design, local SEO, and Google Ads work for businesses near you, and if you are outside these markets, reach out anyway."
-        breadcrumb={[{ label: "Home", href: "/" }, { label: "Locations" }]}
-      />
-
-      <section className="bg-cream pb-20 md:pb-28">
-        <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-            {TARGET_CITIES.map((city) => (
-              <div
-                key={city.slug}
-                className="elevate-hover rounded-[1.25rem] border border-border bg-cream-dark p-6 sm:p-8"
+      <section className="section pt-0">
+        <div className="container-tt">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {REVIEW_CITIES.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/locations/${c.slug}`}
+                className="card card-hover group flex items-center justify-between p-6"
               >
-                <h2 className="font-display font-semibold text-xl md:text-2xl text-charcoal mb-2">
-                  {city.name}, {city.stateCode}
-                </h2>
-                <p className="text-warm-gray text-sm leading-relaxed mb-5">
-                  {city.blurb}
-                </p>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2.5">
-                  {SERVICES.map((service) => (
-                    <li key={service.slug}>
-                      <Link
-                        href={`/services/${service.slug}/${city.slug}`}
-                        className="text-charcoal text-[0.95rem] hover:text-accent underline-offset-2 hover:underline transition-colors"
-                      >
-                        {service.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                <span className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-soft text-primary">
+                    <MapPin className="h-5 w-5" />
+                  </span>
+                  <span>
+                    <span className="block font-bold text-ink">{c.name}</span>
+                    <span className="block text-xs text-muted">{c.state}</span>
+                  </span>
+                </span>
+                <ArrowRight className="h-4 w-4 text-muted transition-transform group-hover:translate-x-1 group-hover:text-primary" />
+              </Link>
             ))}
           </div>
-
-          <div className="mt-12 flex flex-col sm:flex-row items-center gap-3">
-            <Button href="/contact" variant="primary">
-              Get a Free Consultation
-            </Button>
-            <Button href="/services" variant="secondary">
-              View All Services
-            </Button>
-          </div>
-        </Container>
+        </div>
       </section>
     </>
   );
