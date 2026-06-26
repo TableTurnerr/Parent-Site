@@ -15,6 +15,10 @@ and electrical pros.
 
 ## reports/
 Reports for the new site go here (audits, monthly summaries, etc.).
+- **`site-audit-2026-06.html`** — deep launch-readiness audit of the new site
+  (architecture, technical SEO, performance, content/conversion/compliance, backend,
+  brand cleanup) with a readiness scorecard + prioritized action plan. Verdict: B-
+  (72/100) — strong build, unfinished funnel + legal layer. Open in Live Preview.
 
 ## Report skin (house template)
 All reports use **our own report skin** — the editorial `.report-page` consulting
