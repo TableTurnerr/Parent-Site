@@ -17,13 +17,16 @@ and electrical pros.
 Reports for the new site go here (audits, monthly summaries, etc.).
 
 ## Report skin (house template)
-All reports use the **TableTurnerr Report Template v2.0** (navy + gold brand) — the
-reusable `<style>` block at the top of
-[`research/niche-analysis-2026-06.html`](research/niche-analysis-2026-06.html).
-To make a new report: **copy that file, keep the `<style>` + section shells, swap
-the content.** Components available: dark cover (pills + handwriting scribble +
-meta-grid + TOC), `eyebrow`/`h2`/`lead` sections, `.card`/`.grid`, `.stat` tiles,
-bar `.chart`, `.conf` confidence chips, `.table`, win/gap `.clean` lists,
-`.callout` (+ `.note`), `.spotlight`, `.chips`, `.tl` timeline, and the watermark
-footer. Same skin as the old-site report (`docs/old-site/competitor-research-2026-06.html`,
-v1.0), updated to the review-automation brand.
+All reports use **our own report skin** — the editorial `.report-page` consulting
+layout we built for the client/internal reports (canonical CSS:
+[`components/report/report.css`](../../components/report/report.css)). It's the same
+sticky-sidebar + collapsible-section + right-rail look as
+`reports-archive/tableturnerr/2026-06/*.html`.
+
+[`research/niche-analysis-2026-06.html`](research/niche-analysis-2026-06.html) is
+the reference build. To make a new standalone report: **copy that file, keep the
+`<style>` + the shell (meta-strip / sidebar / main / rail) + the script, swap the
+content.** Components: hero + `.verdict` grade-card, `.rp-collapsible` sections,
+`.competitor-list` (+ `.is-you` row), `.win-lose`, `.rival-grid`,
+`.reviews-split` (green/orange two-column compare), `.report-table`, `.ap-table`
+action plan, `.callout`, `.prose`, and the right-rail `.section-nav`.
