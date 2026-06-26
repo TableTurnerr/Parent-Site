@@ -2,7 +2,7 @@ export const NAV_LINKS = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Locations", href: "/locations" },
-  { label: "Case Studies", href: "/case-studies" },
+  // { label: "Case Studies", href: "/case-studies" }, // disabled: no real case studies yet (page redirects to / in next.config.ts)
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ] as const;
@@ -80,12 +80,13 @@ export const PLATFORM_SERVICES = [
   },
 ] as const;
 
-export const CLIENTS = [
-  { name: "Grill Shack" },
-  { name: "Miss Mat Cafe" },
-  { name: "Texbbq" },
-  { name: "Qadeer Coffee" },
-] as const;
+// CLIENTS — disabled: placeholder/fabricated client names, not currently rendered anywhere
+// export const CLIENTS = [
+//   { name: "Grill Shack" },
+//   { name: "Miss Mat Cafe" },
+//   { name: "Texbbq" },
+//   { name: "Qadeer Coffee" },
+// ] as const;
 
 export const SOCIAL_LINKS = [
   { platform: "Instagram", href: "https://www.instagram.com/tableturnerr/", label: "Follow us on Instagram" },

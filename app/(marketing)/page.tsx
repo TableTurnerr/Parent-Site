@@ -424,7 +424,7 @@ function Comparison() {
   );
 }
 
-/* ── Testimonials (PLACEHOLDER — replace with real customer quotes) ── */
+/* ── Testimonials — DISABLED (placeholder/fabricated reviews; restore when real customer quotes exist) ──
 const TESTIMONIALS = [
   { quote: "We went from 60-something Google reviews to over 200 in three months. The phone rings more, plain and simple.", name: "Mike R.", role: "Owner, HVAC", loc: "Round Rock, TX" },
   { quote: "The technician leaderboard turned reviews into a competition. My crew actually asks customers now.", name: "Dana P.", role: "Operations, Roofing", loc: "Dallas, TX" },
@@ -457,6 +457,7 @@ function Testimonials() {
     </section>
   );
 }
+*/
 
 export default function HomePage() {
   return (
@@ -480,7 +481,7 @@ export default function HomePage() {
       <How />
       <Comparison />
       <Trades />
-      <Testimonials />
+      {/* <Testimonials /> disabled: placeholder/fabricated reviews */}
       <Pricing />
       <FAQ />
       <FinalCTA />
