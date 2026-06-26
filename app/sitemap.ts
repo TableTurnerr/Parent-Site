@@ -1,126 +1,40 @@
 import type { MetadataRoute } from "next";
-import { SERVICES, PLATFORM_SERVICES } from "./lib/constants";
-import { TARGET_CITIES } from "./lib/location-data";
-import { COST_PAGE_LIST } from "./lib/cost-data";
-import { getPublishedPostSlugs } from "./lib/blog";
+import { TRADE_SLUGS } from "./lib/trades";
+import { INTEGRATION_SLUGS } from "./lib/integrations";
+import { REVIEW_CITY_SLUGS } from "./lib/review-cities";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://www.tableturnerr.com";
+const baseUrl = "https://www.tableturnerr.com";
+
+export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  // Published blog posts (empty if none / DB unavailable at build).
-  const posts = await getPublishedPostSlugs();
-  const blogPostPages: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.updated_at ? new Date(post.updated_at) : now,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
-
-  const servicePages: MetadataRoute.Sitemap = [
-    ...SERVICES.map((s) => s.slug),
-    ...PLATFORM_SERVICES.map((s) => s.slug),
-    "medspa-seo",
-  ].map((slug) => ({
-    url: `${baseUrl}/services/${slug}`,
+  const entry = (
+    path: string,
+    priority: number,
+    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = "monthly"
+  ): MetadataRoute.Sitemap[number] => ({
+    url: `${baseUrl}${path}`,
     lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.9,
-  }));
-
-  // Location-specific service pages (service x city combinations). The med spa
-  // SEO service runs the same Texas city matrix as the restaurant services.
-  const cityMatrixSlugs = [...SERVICES.map((s) => s.slug), "medspa-seo"];
-  const locationPages: MetadataRoute.Sitemap = cityMatrixSlugs.flatMap((slug) =>
-    TARGET_CITIES.map((city) => ({
-      url: `${baseUrl}/services/${slug}/${city.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    }))
-  );
+    changeFrequency,
+    priority,
+  });
 
   return [
-    {
-      url: baseUrl,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/services`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/medspa`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/restaurants`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    ...servicePages,
-    ...locationPages,
-    {
-      url: `${baseUrl}/locations`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/review-calculator`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/pricing`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    ...COST_PAGE_LIST.map((page) => ({
-      url: `${baseUrl}/pricing/${page.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-    {
-      url: `${baseUrl}/about`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/case-studies`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.8,
-    },
-    ...blogPostPages,
-    {
-      url: `${baseUrl}/search`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
+    entry("", 1.0, "weekly"),
+    // Core marketing pages
+    entry("/about", 0.7),
+    entry("/seo", 0.6),
+    entry("/signup", 0.8),
+    entry("/contact", 0.7),
+    entry("/privacy", 0.3, "yearly"),
+    entry("/terms", 0.3, "yearly"),
+    // Trades
+    ...TRADE_SLUGS.map((slug) => entry(`/trades/${slug}`, 0.9)),
+    // Integrations
+    entry("/integrations", 0.8),
+    ...INTEGRATION_SLUGS.map((slug) => entry(`/integrations/${slug}`, 0.8)),
+    // Texas locations
+    entry("/locations", 0.8),
+    ...REVIEW_CITY_SLUGS.map((slug) => entry(`/locations/${slug}`, 0.7)),
   ];
 }
