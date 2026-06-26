@@ -7,8 +7,7 @@ const COLS = [
       { label: "Features", href: "/#features" },
       { label: "How it works", href: "/#how" },
       { label: "Pricing", href: "/#pricing" },
-      { label: "Integrations", href: "/#integrations" },
-      { label: "Free review grader", href: "/grader" },
+      { label: "Integrations", href: "/integrations" },
     ],
   },
   {
