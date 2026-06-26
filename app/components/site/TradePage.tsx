@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Check, ArrowRight, ShieldCheck, Plug } from "lucide-react";
-import MapPackClimb from "@/app/components/site/MapPackClimb";
+import Image from "next/image";
+import { Check, ArrowRight, ShieldCheck, Plug, Star } from "lucide-react";
+import Accordion from "@/app/components/site/Accordion";
 import type { Trade } from "@/app/lib/trades";
 
 const STEPS = [
@@ -43,8 +44,26 @@ export default function TradePage({ trade }: { trade: Trade }) {
                 ))}
               </ul>
             </div>
-            <div className="lg:pl-6">
-              <MapPackClimb query={trade.query} />
+            <div className="relative lg:pl-6">
+              <div className="overflow-hidden rounded-[1.5rem] border border-line shadow-[0_30px_70px_-35px_rgba(10,19,38,0.45)]">
+                <Image
+                  src={`/images/trades/${trade.slug}.png`}
+                  alt={`${trade.name} professional at work`}
+                  width={1200}
+                  height={900}
+                  priority
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="tt-float absolute -bottom-5 -left-3 flex items-center gap-3 rounded-2xl border border-line bg-white px-4 py-3 shadow-lg">
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-star/15 text-star">
+                  <Star className="h-5 w-5 fill-current" />
+                </span>
+                <div className="leading-tight">
+                  <p className="text-sm font-bold text-ink">New 5-star review</p>
+                  <p className="text-xs text-muted">just now · Google</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -126,17 +145,7 @@ export default function TradePage({ trade }: { trade: Trade }) {
             </p>
           </div>
           <div className="lg:col-span-8">
-            <div className="divide-y divide-line border-y border-line">
-              {trade.faqs.map((f) => (
-                <details key={f.q} className="group py-5">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-ink">
-                    {f.q}
-                    <span className="text-primary transition-transform group-open:rotate-45">+</span>
-                  </summary>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-soft">{f.a}</p>
-                </details>
-              ))}
-            </div>
+            <Accordion items={trade.faqs} />
           </div>
         </div>
       </section>

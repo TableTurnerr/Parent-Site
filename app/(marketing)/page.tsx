@@ -5,8 +5,10 @@ import {
   Wrench, Home, Droplets, Zap, Check, ArrowRight, ShieldCheck, Plug,
   X, Quote,
 } from "lucide-react";
+import Image from "next/image";
 import MapPackClimb from "@/app/components/site/MapPackClimb";
 import Reveal from "@/app/components/site/Reveal";
+import Accordion from "@/app/components/site/Accordion";
 import WelcomePopup from "@/app/components/site/WelcomePopup";
 
 export const metadata: Metadata = {
@@ -99,14 +101,14 @@ function Problem() {
           <span className="eyebrow">The reviews gap</span>
           <h2 className="display-2 mt-5 text-ink">Great work that nobody can see isn&apos;t winning you jobs</h2>
         </div>
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        <Reveal className="mt-12 grid gap-5 md:grid-cols-3">
           {PROBLEMS.map((p) => (
             <div key={p.t} className="card p-7">
               <h3 className="text-lg font-bold text-ink">{p.t}</h3>
               <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">{p.b}</p>
             </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -160,7 +162,7 @@ function How() {
           <span className="eyebrow border-white/15 bg-white/5 text-white">Set it once</span>
           <h2 className="display-2 mt-5 text-white">Live in 15 minutes. Working on autopilot after that.</h2>
         </div>
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        <Reveal className="mt-12 grid gap-5 md:grid-cols-3">
           {STEPS.map((s) => (
             <div key={s.n} className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
               <p className="font-display text-sm font-bold text-primary">{s.n}</p>
@@ -168,7 +170,7 @@ function How() {
               <p className="mt-2.5 text-sm leading-relaxed text-white/65">{s.b}</p>
             </div>
           ))}
-        </div>
+        </Reveal>
         <div id="integrations" className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-white/55">
           <span className="inline-flex items-center gap-2 font-medium text-white/80"><Plug className="h-4 w-4 text-primary" /> Connects with</span>
           {["Jobber", "Housecall Pro", "ServiceTitan", "Workiz", "QuickBooks", "Zapier"].map((i) => (
@@ -182,10 +184,10 @@ function How() {
 
 /* ── Trades ─────────────────────────────────────────────── */
 const TRADES = [
-  { icon: Wrench, t: "HVAC", href: "/trades/hvac" },
-  { icon: Home, t: "Roofing", href: "/trades/roofing" },
-  { icon: Droplets, t: "Plumbing", href: "/trades/plumbing" },
-  { icon: Zap, t: "Electrical", href: "/trades/electrical" },
+  { icon: Wrench, t: "HVAC", href: "/trades/hvac", img: "/images/trades/hvac.png" },
+  { icon: Home, t: "Roofing", href: "/trades/roofing", img: "/images/trades/roofing.png" },
+  { icon: Droplets, t: "Plumbing", href: "/trades/plumbing", img: "/images/trades/plumbing.png" },
+  { icon: Zap, t: "Electrical", href: "/trades/electrical", img: "/images/trades/electrical.png" },
 ];
 function Trades() {
   return (
@@ -198,14 +200,25 @@ function Trades() {
         </div>
         <Reveal className="mt-12 grid grid-cols-2 gap-5 md:grid-cols-4">
           {TRADES.map((t) => (
-            <Link key={t.t} href={t.href} className="card card-hover group flex flex-col items-start p-7">
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-soft text-primary">
-                <t.icon className="h-6 w-6" />
-              </span>
-              <h3 className="mt-5 text-lg font-bold text-ink">{t.t}</h3>
-              <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                See {t.t} reviews <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
+            <Link key={t.t} href={t.href} className="card card-hover group flex flex-col overflow-hidden p-0">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={t.img}
+                  alt={`${t.t} review automation`}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <div className="flex flex-1 flex-col items-start p-6">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-soft text-primary">
+                  <t.icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-4 text-lg font-bold text-ink">{t.t}</h3>
+                <span className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                  See {t.t} reviews <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
             </Link>
           ))}
         </Reveal>
@@ -291,17 +304,7 @@ function FAQ() {
           <p className="lead mt-4">Still unsure? <Link href="/contact" className="font-semibold text-primary">Talk to us</Link>.</p>
         </div>
         <div className="lg:col-span-8">
-          <div className="divide-y divide-line border-y border-line">
-            {FAQS.map((f) => (
-              <details key={f.q} className="group py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-ink">
-                  {f.q}
-                  <span className="text-primary transition-transform group-open:rotate-45">+</span>
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-ink-soft">{f.a}</p>
-              </details>
-            ))}
-          </div>
+          <Accordion items={FAQS} />
         </div>
       </div>
     </section>
