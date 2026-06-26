@@ -1,128 +1,54 @@
 import { ImageResponse } from "next/og";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 
-export const alt =
-  "TableTurnerr, SEO, Web Design & Google Ads for Local Businesses";
+export const alt = "TableTurnerr — Review automation for home services";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default async function Image() {
-  const bgImage = await readFile(
-    join(process.cwd(), "public/images/usage/restaurant-kitchen-2.jpg")
-  );
-  const bgSrc = `data:image/jpeg;base64,${bgImage.toString("base64")}`;
-
+export default function Image() {
   return new ImageResponse(
     (
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           width: "100%",
           height: "100%",
-          position: "relative",
+          background: "#11142b",
+          padding: "80px",
+          justifyContent: "center",
+          fontFamily: "sans-serif",
         }}
       >
-        {/* Background photo */}
-        <img
-          src={bgSrc}
-          alt=""
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-        />
-
-        {/* Gradient overlay */}
-        <div
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            background:
-              "linear-gradient(135deg, rgba(28,25,23,0.92) 0%, rgba(28,25,23,0.75) 50%, rgba(28,25,23,0.45) 100%)",
-          }}
-        />
-
-        {/* Content */}
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: "60px 80px",
-            position: "relative",
-            width: "100%",
-            height: "100%",
+            alignItems: "center",
+            gap: 14,
+            fontSize: 20,
+            fontWeight: 700,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "#f4a100",
+            marginBottom: 28,
           }}
         >
-          {/* Label */}
-          <div
-            style={{
-              fontSize: 16,
-              fontWeight: 600,
-              color: "#C4A97D",
-              letterSpacing: "0.25em",
-              textTransform: "uppercase",
-              marginBottom: 28,
-            }}
-          >
-            SEO Agency for Local Businesses
-          </div>
+          <div style={{ width: 11, height: 11, borderRadius: "50%", background: "#f4a100", display: "flex" }} />
+          Review automation for home services
+        </div>
 
-          {/* Headline */}
-          <div
-            style={{
-              fontSize: 52,
-              fontWeight: 800,
-              color: "#FAF8F5",
-              lineHeight: 1.15,
-              marginBottom: 24,
-              maxWidth: 700,
-            }}
-          >
-            Website Design, SEO & Marketing
-          </div>
+        <div style={{ display: "flex", fontSize: 66, fontWeight: 800, color: "#ffffff", lineHeight: 1.08, maxWidth: 940 }}>
+          Turn finished jobs into 5-star reviews
+        </div>
 
-          {/* Subline */}
-          <div
-            style={{
-              fontSize: 20,
-              color: "#C4B8A8",
-              maxWidth: 560,
-              lineHeight: 1.6,
-            }}
-          >
-            High-converting websites, local SEO, and Google Ads for local
-            businesses.
-          </div>
+        <div style={{ display: "flex", fontSize: 26, color: "rgba(255,255,255,0.72)", marginTop: 26, maxWidth: 800, lineHeight: 1.5 }}>
+          More reviews, a higher map-pack rank, and more booked work for HVAC, roofing, plumbing & electrical pros.
+        </div>
 
-          {/* Brand bar */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginTop: 44,
-              gap: 12,
-            }}
-          >
-            <div style={{ fontSize: 22, fontWeight: 700, color: "#FAF8F5" }}>
-              TableTurnerr
-            </div>
-            <div
-              style={{
-                width: 5,
-                height: 5,
-                borderRadius: "50%",
-                background: "#C4A97D",
-              }}
-            />
-            <div style={{ fontSize: 17, color: "#C4A97D" }}>
-              tableturnerr.com
-            </div>
-          </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 50 }}>
+          <div style={{ display: "flex", fontSize: 30, fontWeight: 800, color: "#ffffff" }}>TableTurnerr</div>
+          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#f4a100", display: "flex" }} />
+          <div style={{ display: "flex", fontSize: 22, color: "#f4a100" }}>tableturnerr.com</div>
+          <div style={{ display: "flex", marginLeft: "auto", fontSize: 20, fontWeight: 700, color: "#f4a100", letterSpacing: "0.12em", textTransform: "uppercase" }}>HVAC · Roofing · Plumbing · Electrical</div>
         </div>
       </div>
     ),

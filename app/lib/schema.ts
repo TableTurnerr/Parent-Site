@@ -6,10 +6,10 @@ export function generateOrganizationSchema() {
     "@type": ["ProfessionalService", "MarketingAgency"],
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
-    logo: `${SITE_CONFIG.url}/icon.png`,
-    image: `${SITE_CONFIG.url}/images/usage/restaurant-kitchen-2.jpg`,
+    logo: `${SITE_CONFIG.url}/logo.png`,
+    image: `${SITE_CONFIG.url}/logo.png`,
     description:
-      "TableTurnerr is an SEO agency for local businesses, offering local SEO, website design, Google Ads, and Google Business Profile optimization, with deep experience in the restaurant industry.",
+      "TableTurnerr is review automation for home-services businesses, turning completed jobs into 5-star reviews across Google, Facebook, Yelp and Angi for HVAC, roofing, plumbing and electrical pros.",
     email: SITE_CONFIG.email,
     telephone: SITE_CONFIG.phone,
     priceRange: "$$",
