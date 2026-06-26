@@ -184,10 +184,10 @@ function How() {
 
 /* ── Trades ─────────────────────────────────────────────── */
 const TRADES = [
-  { icon: Wrench, t: "HVAC", href: "/trades/hvac", img: "/images/trades/hvac.png" },
-  { icon: Home, t: "Roofing", href: "/trades/roofing", img: "/images/trades/roofing.png" },
-  { icon: Droplets, t: "Plumbing", href: "/trades/plumbing", img: "/images/trades/plumbing.png" },
-  { icon: Zap, t: "Electrical", href: "/trades/electrical", img: "/images/trades/electrical.png" },
+  { icon: Wrench, t: "HVAC", href: "/trades/hvac", img: "/images/trades/hvac-review-automation.webp" },
+  { icon: Home, t: "Roofing", href: "/trades/roofing", img: "/images/trades/roofing-review-automation.webp" },
+  { icon: Droplets, t: "Plumbing", href: "/trades/plumbing", img: "/images/trades/plumbing-review-automation.webp" },
+  { icon: Zap, t: "Electrical", href: "/trades/electrical", img: "/images/trades/electrical-review-automation.webp" },
 ];
 function Trades() {
   return (
