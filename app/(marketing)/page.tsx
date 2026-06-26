@@ -10,6 +10,8 @@ import MapPackClimb from "@/app/components/site/MapPackClimb";
 import Reveal from "@/app/components/site/Reveal";
 import Accordion from "@/app/components/site/Accordion";
 import WelcomePopup from "@/app/components/site/WelcomePopup";
+import JsonLd from "@/app/components/site/JsonLd";
+import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 
 export const metadata: Metadata = {
   title: "TableTurnerr — Review Automation for Home Services",
@@ -459,6 +461,17 @@ function Testimonials() {
 export default function HomePage() {
   return (
     <>
+      <JsonLd
+        data={[
+          generateServiceSchema({
+            name: "Review Automation for Home Services",
+            description:
+              "Turn every finished job into 5-star reviews across Google, Facebook, Yelp and Angi. Built for HVAC, roofing, plumbing and electrical pros.",
+            url: "https://www.tableturnerr.com",
+          }),
+          generateFAQSchema(FAQS.map((f) => ({ question: f.q, answer: f.a }))),
+        ]}
+      />
       <Hero />
       <Stats />
       <TrustMarquee />

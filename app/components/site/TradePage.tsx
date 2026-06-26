@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Check, ArrowRight, ShieldCheck, Plug, Star } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
+import JsonLd from "@/app/components/site/JsonLd";
+import { generateServiceSchema, generateFAQSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
 import type { Trade } from "@/app/lib/trades";
 
 const STEPS = [
@@ -11,8 +13,24 @@ const STEPS = [
 ];
 
 export default function TradePage({ trade }: { trade: Trade }) {
+  const base = "https://www.tableturnerr.com";
   return (
     <>
+      <JsonLd
+        data={[
+          generateServiceSchema({
+            name: `${trade.name} Review Automation`,
+            description: trade.heroSub,
+            url: `${base}/trades/${trade.slug}`,
+          }),
+          generateFAQSchema(trade.faqs.map((f) => ({ question: f.q, answer: f.a }))),
+          generateBreadcrumbSchema([
+            { name: "Home", url: base },
+            { name: "Trades", url: `${base}/#trades` },
+            { name: trade.name, url: `${base}/trades/${trade.slug}` },
+          ]),
+        ]}
+      />
       {/* Hero */}
       <section className="hero-wash relative overflow-hidden pt-36 md:pt-44">
         <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />

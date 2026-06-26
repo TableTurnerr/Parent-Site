@@ -87,11 +87,6 @@ export const CLIENTS = [
   { name: "Qadeer Coffee" },
 ] as const;
 
-export const HERO_IMAGE = {
-  src: "/images/hero/hero-bg.webp",
-  alt: "Chef cooking with flames in a professional restaurant kitchen",
-};
-
 export const SOCIAL_LINKS = [
   { platform: "Instagram", href: "https://www.instagram.com/tableturnerr/", label: "Follow us on Instagram" },
   { platform: "LinkedIn", href: "https://www.linkedin.com/company/tableturnerr", label: "Connect on LinkedIn" },
@@ -100,7 +95,7 @@ export const SOCIAL_LINKS = [
 export const SITE_CONFIG = {
   name: "TableTurnerr",
   url: "https://www.tableturnerr.com",
-  tagline: "Local SEO, Web Design & Google Ads for Local Businesses",
+  tagline: "Review automation for home services — turn finished jobs into 5-star reviews.",
   email: "contact@tableturnerr.com",
   phone: "+1 (808) 559-9006",
 } as const;

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Check, ArrowRight, ShieldCheck, MapPin } from "lucide-react";
 import MapPackClimb from "@/app/components/site/MapPackClimb";
+import JsonLd from "@/app/components/site/JsonLd";
+import { generateCityServiceSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
 import { TRADES } from "@/app/lib/trades";
 import { REVIEW_CITIES, type ReviewCity } from "@/app/lib/review-cities";
 
@@ -13,9 +15,25 @@ const STEPS = [
 export default function CityPage({ city }: { city: ReviewCity }) {
   const nearby = REVIEW_CITIES.filter((c) => c.slug !== city.slug).slice(0, 6);
   const trades = Object.values(TRADES);
+  const base = "https://www.tableturnerr.com";
 
   return (
     <>
+      <JsonLd
+        data={[
+          generateCityServiceSchema({
+            serviceName: "Review Automation for Home Services",
+            description: city.intro,
+            url: `${base}/locations/${city.slug}`,
+            city: { name: city.name, state: city.state, lat: city.lat, lng: city.lng },
+          }),
+          generateBreadcrumbSchema([
+            { name: "Home", url: base },
+            { name: "Locations", url: `${base}/locations` },
+            { name: city.name, url: `${base}/locations/${city.slug}` },
+          ]),
+        ]}
+      />
       {/* Hero */}
       <section className="hero-wash relative overflow-hidden pt-36 md:pt-44">
         <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />

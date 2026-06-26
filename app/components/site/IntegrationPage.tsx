@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Check, ArrowRight, ShieldCheck, Plug, Zap } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
+import JsonLd from "@/app/components/site/JsonLd";
+import { generateFAQSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
 import type { Integration } from "@/app/lib/integrations";
 
 export default function IntegrationPage({ integration }: { integration: Integration }) {
@@ -10,8 +12,19 @@ export default function IntegrationPage({ integration }: { integration: Integrat
     { n: "03", t: "Reviews on autopilot", b: `Every finished job in ${integration.name} automatically asks that customer for a review.` },
   ];
 
+  const base = "https://www.tableturnerr.com";
   return (
     <>
+      <JsonLd
+        data={[
+          generateFAQSchema(integration.faqs.map((f) => ({ question: f.q, answer: f.a }))),
+          generateBreadcrumbSchema([
+            { name: "Home", url: base },
+            { name: "Integrations", url: `${base}/integrations` },
+            { name: integration.name, url: `${base}/integrations/${integration.slug}` },
+          ]),
+        ]}
+      />
       {/* Hero */}
       <section className="hero-wash relative overflow-hidden pt-36 md:pt-44">
         <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />

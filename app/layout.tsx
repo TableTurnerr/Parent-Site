@@ -4,6 +4,8 @@ import { Caveat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import JsonLd from "@/app/components/site/JsonLd";
+import { generateOrganizationSchema, generateWebSiteSchema } from "@/app/lib/schema";
 import "./globals.css";
 
 const satoshi = localFont({
@@ -89,6 +91,7 @@ export default function RootLayout({
           attributes like bis_register onto <body> before React hydrates. This
           suppresses warnings for body's OWN attributes only, not its children. */}
       <body className="font-body antialiased" suppressHydrationWarning>
+        <JsonLd data={[generateOrganizationSchema(), generateWebSiteSchema()]} />
         {children}
         <SpeedInsights />
         <Analytics />
