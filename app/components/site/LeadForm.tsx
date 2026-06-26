@@ -2,17 +2,43 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Check } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
+import { submitLead } from "@/app/(marketing)/contact/actions";
 
 const TRADES = ["HVAC", "Roofing", "Plumbing", "Electrical", "Other home service"];
 
 /**
- * Shared lead form for /signup (trial) and /contact (demo). Client-side success
- * state for now — wire to Supabase/Resend later. Not yet a real backend submit.
+ * Shared lead form for /signup (trial) and /contact (demo). Submits to the
+ * existing `submitLead` server action, which writes to the `contact_leads`
+ * table (visible in /admin/leads) via the RLS server client.
  */
 export default function LeadForm({ variant }: { variant: "trial" | "contact" }) {
   const [done, setDone] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const isTrial = variant === "trial";
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    const fd = new FormData(e.currentTarget);
+    // Map our field names onto the action's expected fields.
+    fd.set("restaurant", String(fd.get("business") || ""));
+    fd.set("service", String(fd.get("trade") || ""));
+    if (isTrial) {
+      fd.set(
+        "message",
+        `Free trial signup (LAUNCH30). Trade: ${fd.get("trade") || "n/a"}.`
+      );
+    }
+
+    const res = await submitLead(fd);
+    setLoading(false);
+    if (res.ok) setDone(true);
+    else setError(res.error);
+  }
 
   if (done) {
     return (
@@ -34,13 +60,17 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
   }
 
   return (
-    <form
-      className="card p-7 md:p-8"
-      onSubmit={(e) => {
-        e.preventDefault();
-        setDone(true);
-      }}
-    >
+    <form className="card p-7 md:p-8" onSubmit={onSubmit}>
+      {/* honeypot — hidden from real users, bots fill it */}
+      <input
+        type="text"
+        name="company_website"
+        tabIndex={-1}
+        autoComplete="off"
+        className="absolute left-[-9999px] h-0 w-0 opacity-0"
+        aria-hidden="true"
+      />
+
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Your name" name="name" placeholder="Jordan Smith" required />
         <Field label="Business name" name="business" placeholder="Smith HVAC" required />
@@ -71,14 +101,25 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
             id="message"
             name="message"
             rows={4}
+            required
             placeholder="Tell us a bit about your business and what you're looking for."
             className="mt-2 w-full resize-none rounded-xl border border-line bg-surface px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-primary focus:bg-white"
           />
         </div>
       )}
 
-      <button type="submit" className="btn btn-primary mt-6 w-full">
-        {isTrial ? "Start my free trial" : "Book my demo"}
+      {error && (
+        <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>
+      )}
+
+      <button type="submit" disabled={loading} className="btn btn-primary mt-6 w-full disabled:opacity-70">
+        {loading ? (
+          <><Loader2 className="h-4 w-4 animate-spin" /> Sending…</>
+        ) : isTrial ? (
+          "Start my free trial"
+        ) : (
+          "Book my demo"
+        )}
       </button>
       <p className="mt-3 text-center text-xs text-muted">
         {isTrial

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, Star, Gift, Check } from "lucide-react";
+import { submitLead } from "@/app/(marketing)/contact/actions";
 
 /**
  * Welcome / launch-offer modal. Fires whenever the homepage mounts — a fresh
@@ -143,9 +144,18 @@ export default function WelcomePopup() {
                 </div>
               ) : (
                 <form
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault();
-                    if (email.trim()) setDone(true);
+                    if (!email.trim()) return;
+                    const fd = new FormData();
+                    fd.set("name", "Launch popup lead");
+                    fd.set("email", email.trim());
+                    fd.set(
+                      "message",
+                      "Requested the 30% LAUNCH30 launch deal via the homepage popup."
+                    );
+                    await submitLead(fd);
+                    setDone(true);
                   }}
                 >
                   <label htmlFor="welcome-email" className="text-sm font-medium text-ink">
