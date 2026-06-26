@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/admin/"],
+        disallow: ["/api/", "/_next/", "/admin/", "/portal/", "/login"],
       },
       {
         userAgent: "GPTBot",
@@ -17,7 +17,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://tableturnerr.com/sitemap.xml",
-    host: "https://tableturnerr.com",
+    sitemap: "https://www.tableturnerr.com/sitemap.xml",
+    host: "https://www.tableturnerr.com",
   };
 }

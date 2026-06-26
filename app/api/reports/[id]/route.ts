@@ -1,4 +1,4 @@
-import { createClient } from "@/app/lib/supabase/server";
+import { createClient, createAdminClient } from "@/app/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { marked } from "marked";
 import { isClientReport } from "@/lib/report-schema";
@@ -246,10 +246,36 @@ export async function DELETE(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { error } = await supabase.from("client_reports").delete().eq("id", id);
+  // API routes aren't role-gated by middleware, so verify the caller is an
+  // approved team member (not a client) before a destructive action.
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role, status")
+    .eq("id", user.id)
+    .single();
+  if (!profile || profile.status !== "approved" || profile.role === "client") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  // Use the service-role client: there is an UPDATE policy on client_reports but
+  // no DELETE policy, so an RLS delete silently removes 0 rows and returns no
+  // error (the bug). Service role bypasses RLS; .select() confirms a real delete.
+  const admin = await createAdminClient();
+  const { data, error } = await admin
+    .from("client_reports")
+    .delete()
+    .eq("id", id)
+    .select("id");
+
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+  if (!data || data.length === 0) {
+    return NextResponse.json(
+      { error: "Report not found or already deleted" },
+      { status: 404 }
+    );
+  }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, deleted: data.length });
 }

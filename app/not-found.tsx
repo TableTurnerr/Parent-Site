@@ -141,11 +141,11 @@ export default function NotFound() {
           </Link>
 
           <Link
-            href="/services"
+            href="/signup"
             className="group flex items-center gap-2.5 border border-charcoal/20 text-charcoal rounded-full px-7 py-3.5 font-medium text-sm hover:border-charcoal/50 transition-colors"
           >
             <Compass className="w-4 h-4" />
-            Our Services
+            Start Free Trial
           </Link>
 
           <Link

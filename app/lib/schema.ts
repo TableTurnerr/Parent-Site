@@ -1,4 +1,4 @@
-import { SITE_CONFIG, SOCIAL_LINKS, SERVICES } from "./constants";
+import { SITE_CONFIG, SOCIAL_LINKS } from "./constants";
 
 export function generateOrganizationSchema() {
   return {
@@ -6,10 +6,10 @@ export function generateOrganizationSchema() {
     "@type": ["ProfessionalService", "MarketingAgency"],
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
-    logo: `${SITE_CONFIG.url}/icon.png`,
-    image: `${SITE_CONFIG.url}/images/usage/restaurant-kitchen-2.jpg`,
+    logo: `${SITE_CONFIG.url}/logo.png`,
+    image: `${SITE_CONFIG.url}/logo.png`,
     description:
-      "TableTurnerr is a marketing agency for local businesses, offering website design, SEO, Google Ads, and Google Business Profile optimization, with deep experience in the restaurant industry.",
+      "TableTurnerr is review automation for home-services businesses, turning completed jobs into 5-star reviews across Google, Facebook, Yelp and Angi for HVAC, roofing, plumbing and electrical pros.",
     email: SITE_CONFIG.email,
     telephone: SITE_CONFIG.phone,
     priceRange: "$$",
@@ -18,22 +18,23 @@ export function generateOrganizationSchema() {
       name: "United States",
     },
     serviceType: [
-      "Website Design",
+      "Review Automation",
+      "Online Reputation Management",
+      "Review Management Software",
       "Local SEO",
-      "Branding",
-      "Google Ads Management",
-      "Google Business Profile Optimization",
-      "Commission-Free Delivery Setup",
     ],
     knowsAbout: [
-      "Local Business Marketing",
-      "Small Business SEO",
-      "Website Design",
+      "Review automation",
+      "Online reputation management",
+      "Google reviews",
       "Local SEO",
-      "Google Business Profile Optimization",
-      "Google Ads",
-      "Restaurant Marketing",
-      "Commission-Free Online Ordering",
+      "Google Business Profile optimization",
+      "Map pack ranking",
+      "Home services marketing",
+      "HVAC marketing",
+      "Roofing marketing",
+      "Plumbing marketing",
+      "Electrical contractor marketing",
     ],
     contactPoint: {
       "@type": "ContactPoint",
@@ -57,14 +58,6 @@ export function generateWebSiteSchema() {
       "@type": "Organization",
       name: SITE_CONFIG.name,
       url: SITE_CONFIG.url,
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${SITE_CONFIG.url}/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
     },
   };
 }
@@ -130,16 +123,6 @@ export function generateCityServiceSchema(params: {
       },
     },
   };
-}
-
-export function generateAllServicesSchema() {
-  return SERVICES.map((service) =>
-    generateServiceSchema({
-      name: service.title,
-      description: service.description,
-      url: `${SITE_CONFIG.url}/services/${service.slug}`,
-    })
-  );
 }
 
 export function generateFAQSchema(

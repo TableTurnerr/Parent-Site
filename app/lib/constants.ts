@@ -2,16 +2,32 @@ export const NAV_LINKS = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Locations", href: "/locations" },
-  { label: "Case Studies", href: "/case-studies" },
+  // { label: "Case Studies", href: "/case-studies" }, // disabled: no real case studies yet (page redirects to / in next.config.ts)
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
+] as const;
+
+// The two niches we serve. Surfaced as an "Industries" dropdown in the navbar
+// (and flat links in the mobile menu) so the two-stream homepage isn't the only
+// way to reach the niche landing pages.
+export const INDUSTRY_LINKS = [
+  {
+    label: "Med Spas",
+    href: "/medspa",
+    blurb: "SEO, sites & booking for aesthetic clinics",
+  },
+  {
+    label: "Restaurants",
+    href: "/restaurants",
+    blurb: "Get found, fill tables, own your orders",
+  },
 ] as const;
 
 export const SERVICES = [
   {
     title: "Website Design",
     slug: "restaurant-website-design",
-    description: "High-converting websites built on our proven, conversion-tested framework and tailored to your brand. Built to rank on Google, mobile-first, SEO-optimized, and ready for online ordering.",
+    description: "We don't build every site from scratch. We've perfected one proven, SEO-strong website template and tailor it to your brand, so you get a Google-ready, mobile-first, high-converting site faster and for less than a custom build.",
   },
   {
     title: "Local SEO",
@@ -40,17 +56,37 @@ export const SERVICES = [
   },
 ] as const;
 
-export const CLIENTS = [
-  { name: "Grill Shack" },
-  { name: "Miss Mat Cafe" },
-  { name: "Texbbq" },
-  { name: "Qadeer Coffee" },
+// GoHighLevel-powered automation services. These have their own detail pages
+// but NO per-city programmatic variants, so they live separately from SERVICES
+// (which drives the service x city matrix in the sitemap and city routes).
+export const PLATFORM_SERVICES = [
+  {
+    title: "AI Receptionist",
+    slug: "ai-receptionist",
+    description:
+      "Answer every call and message 24/7, qualify the lead, and book them in automatically, so you never miss business again.",
+  },
+  {
+    title: "CRM",
+    slug: "crm",
+    description:
+      "Every lead, conversation, and follow-up in one place, with automated nurture so nothing slips through the cracks.",
+  },
+  {
+    title: "Appointment Scheduling",
+    slug: "appointment-scheduling",
+    description:
+      "Online booking with automated reminders that cut no-shows and keep your calendar full.",
+  },
 ] as const;
 
-export const HERO_IMAGE = {
-  src: "/images/hero/hero-bg.webp",
-  alt: "Chef cooking with flames in a professional restaurant kitchen",
-};
+// CLIENTS — disabled: placeholder/fabricated client names, not currently rendered anywhere
+// export const CLIENTS = [
+//   { name: "Grill Shack" },
+//   { name: "Miss Mat Cafe" },
+//   { name: "Texbbq" },
+//   { name: "Qadeer Coffee" },
+// ] as const;
 
 export const SOCIAL_LINKS = [
   { platform: "Instagram", href: "https://www.instagram.com/tableturnerr/", label: "Follow us on Instagram" },
@@ -59,8 +95,8 @@ export const SOCIAL_LINKS = [
 
 export const SITE_CONFIG = {
   name: "TableTurnerr",
-  url: "https://tableturnerr.com",
-  tagline: "Web Design, SEO & Marketing Agency for Local Businesses",
+  url: "https://www.tableturnerr.com",
+  tagline: "Review automation for home services — turn finished jobs into 5-star reviews.",
   email: "contact@tableturnerr.com",
   phone: "+1 (808) 559-9006",
 } as const;
@@ -69,12 +105,12 @@ export const FAQ_DATA = [
   {
     question: "How long does it take to design and build a website?",
     answer:
-      "Most custom websites are completed within 2 to 4 weeks from kickoff. This includes design, development, content creation, and full SEO optimization. Timelines vary depending on scope and complexity.",
+      "Most websites are ready within 2 to 4 weeks from kickoff, because we tailor a proven template rather than building from scratch. This includes design, content creation, and full SEO optimization. Timelines vary with scope and complexity.",
   },
   {
     question: "How much does a website cost?",
     answer:
-      "Because every business's needs, size, and existing branding differ, the price of our services varies completely per project. We provide custom quotes based on your specific requirements after an initial consultation.",
+      "Because we start from a proven, conversion-tested template instead of building from scratch, you get agency-quality results faster and for less. Prices still vary by your size, number of pages, and branding, so we give a clear quote after an initial consultation.",
   },
   {
     question: "What does your local SEO service include?",

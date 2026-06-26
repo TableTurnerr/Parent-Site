@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Container from "@/app/components/ui/Container";
 import Button from "@/app/components/ui/Button";
+import PageHero from "@/app/components/sections/PageHero";
 import { SERVICES, SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
@@ -39,22 +40,12 @@ export default async function BlogPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <section className="bg-cream pt-28 sm:pt-32 md:pt-36 pb-12 md:pb-16">
-        <Container>
-          <div className="max-w-2xl">
-            <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
-              fresh from the pass
-            </p>
-            <h1 className="display-xl text-charcoal mb-6">
-              Local marketing insights
-            </h1>
-            <p className="text-warm-gray text-lg leading-relaxed">
-              Practical advice on local SEO, Google Ads, and marketing, written
-              to help local businesses grow online and win more customers.
-            </p>
-          </div>
-        </Container>
-      </section>
+      <PageHero
+        eyebrow="fresh from the pass"
+        title="Local marketing insights"
+        description="Practical advice on local SEO, Google Ads, and marketing, written to help local businesses grow online and win more customers."
+        breadcrumb={[{ label: "Home", href: "/" }, { label: "Blog" }]}
+      />
 
       <section className="bg-cream pb-20 md:pb-28">
         <Container>
@@ -121,8 +112,8 @@ function EmptyState() {
         <Button href="/contact" variant="primary">
           Get a Free Consultation
         </Button>
-        <Button href="/services" variant="secondary">
-          View Our Services
+        <Button href="/signup" variant="secondary">
+          Start Free Trial
         </Button>
       </div>
       <div className="mt-14">

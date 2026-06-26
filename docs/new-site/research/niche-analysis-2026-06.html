@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>TableTurnerr — Niche Analysis · Review Automation for Home Services</title>
+<style>
+  body { margin: 0; background: #F7F3ED; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; }
+  .preview-banner { background:#1F1D1A; color:#F7F3ED; padding:10px 18px; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; display:flex; justify-content:space-between; gap:12px; }
+  .preview-banner a { color:#E8B89A; text-decoration:none; }
+
+/* ==========================================================
+   TableTurnerr — Report skin (editorial / premium-consulting)
+   Canonical source: components/report/report.css
+   Reusable house template — keep this <style> + the section
+   shells, swap the content for any new report.
+   ========================================================== */
+
+.report-page {
+  --rp-cream: #F7F3ED;
+  --rp-paper: #FBF8F2;
+  --rp-ink: #1F1D1A;
+  --rp-ink-soft: #2A2724;
+  --rp-warm-900: #4B463F;
+  --rp-warm-700: #6E665B;
+  --rp-warm-500: #948A7C;
+  --rp-warm-300: #C9C0B0;
+  --rp-warm-200: #DCD3C2;
+  --rp-warm-100: #ECE5D6;
+  --rp-border: rgba(31, 29, 26, 0.10);
+  --rp-border-strong: rgba(31, 29, 26, 0.20);
+  --rp-accent: #C8552A;
+  --rp-accent-soft: #E8B89A;
+
+  --rp-tone-green: #4F7A4A;
+  --rp-tone-lime: #8FA34A;
+  --rp-tone-amber: #C7973A;
+  --rp-tone-orange: #C76A2A;
+  --rp-tone-rose: #B0463F;
+
+  --rp-col-sidebar: 180px;
+  --rp-col-rail: 180px;
+  --rp-col-gap: 28px;
+  --rp-content-max: 1080px;
+
+  background: var(--rp-cream);
+  color: var(--rp-ink);
+  font-feature-settings: "ss01", "ss02", "cv11";
+  font-variant-numeric: tabular-nums;
+}
+.report-page a { color: inherit; text-decoration: none; }
+.report-page ::selection { background: var(--rp-ink); color: var(--rp-cream); }
+
+/* ---------- Meta strip ---------- */
+.report-page .meta-strip {
+  border-bottom: 1px solid var(--rp-border);
+  background: var(--rp-cream);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+.report-page .meta-strip-inner {
+  max-width: var(--rp-content-max);
+  margin: 0 auto;
+  padding: 14px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rp-warm-700);
+  font-weight: 500;
+}
+.report-page .meta-strip .dot {
+  display: inline-block;
+  width: 4px; height: 4px;
+  background: var(--rp-accent);
+  border-radius: 50%;
+  margin: 0 10px;
+  vertical-align: middle;
+}
+.report-page .meta-strip-right { display: flex; align-items: center; gap: 18px; }
+
+/* ---------- Layout shell ---------- */
+.report-page .shell {
+  max-width: var(--rp-content-max);
+  margin: 0 auto;
+  padding: 0 8px;
+  display: grid;
+  grid-template-columns: var(--rp-col-sidebar) minmax(0, 1fr) var(--rp-col-rail);
+  grid-template-areas: "sidebar main rail";
+  gap: var(--rp-col-gap);
+  align-items: start;
+}
+.report-page .sidebar { grid-area: sidebar; grid-column: 1; grid-row: 1; }
+.report-page .main { grid-area: main; grid-column: 2; grid-row: 1; }
+.report-page .rail { grid-area: rail; grid-column: 3; grid-row: 1; }
+
+.report-page .sidebar,
+.report-page .rail {
+  position: sticky;
+  top: 60px;
+  align-self: start;
+  padding-top: 32px;
+  padding-bottom: 80px;
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
+  scrollbar-width: thin;
+}
+.report-page .sidebar > *,
+.report-page .rail > * { min-width: 0; }
+.report-page .section-nav a { min-width: 0; }
+.report-page .section-nav a > span:last-child {
+  min-width: 0; flex: 1 1 auto; word-break: break-word; overflow-wrap: anywhere;
+}
+.report-page .sidebar::-webkit-scrollbar,
+.report-page .rail::-webkit-scrollbar { width: 4px; }
+.report-page .sidebar::-webkit-scrollbar-thumb,
+.report-page .rail::-webkit-scrollbar-thumb { background: var(--rp-warm-300); border-radius: 2px; }
+.report-page .rail .section-nav a.is-active::before { left: -12px; }
+.report-page .main { padding-top: 32px; padding-bottom: 160px; min-width: 0; }
+
+/* ---------- Hero ---------- */
+.report-page .hero { margin-bottom: 96px; }
+.report-page .hero-eyebrow {
+  font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--rp-warm-700); margin-bottom: 28px; font-weight: 500;
+  display: flex; align-items: center; gap: 14px;
+}
+.report-page .hero-eyebrow::after { content: ""; height: 1px; flex: 1; background: var(--rp-border); }
+.report-page .hero h1 {
+  font-size: clamp(40px, 5vw, 64px); line-height: 1.02; letter-spacing: -0.035em;
+  font-weight: 500; margin: 0 0 24px; text-wrap: balance;
+}
+.report-page .hero h1 em { font-style: italic; font-weight: 400; color: var(--rp-warm-700); }
+.report-page .hero-sub {
+  font-size: 20px; line-height: 1.5; color: var(--rp-warm-900);
+  max-width: 60ch; margin: 0 0 48px; font-weight: 400; text-wrap: pretty;
+}
+.report-page .hero-narrative {
+  margin: 0 0 32px; display: flex; flex-direction: column; gap: 14px;
+  max-width: 65ch; font-size: 16px; line-height: 1.65; color: var(--rp-warm-900);
+}
+.report-page .hero-narrative em { font-style: italic; color: var(--rp-ink); }
+
+/* Verdict centerpiece */
+.report-page .verdict {
+  display: grid; grid-template-columns: minmax(280px, 360px) 1fr; gap: 48px;
+  align-items: stretch; margin: 56px 0 0; padding: 48px 0;
+  border-top: 1px solid var(--rp-border); border-bottom: 1px solid var(--rp-border);
+}
+.report-page .grade-card {
+  position: relative; background: var(--rp-ink); color: var(--rp-cream);
+  padding: 36px 32px 28px; border-radius: 4px; display: flex; flex-direction: column;
+  justify-content: space-between; min-height: 320px; overflow: hidden;
+}
+.report-page .grade-card::before {
+  content: ""; position: absolute; top: 16px; left: 16px; right: 16px; bottom: 16px;
+  border: 1px solid rgba(247, 243, 237, 0.15); pointer-events: none; border-radius: 2px;
+}
+.report-page .grade-card-top,
+.report-page .grade-card-bottom {
+  position: relative; z-index: 2; display: flex; justify-content: space-between;
+  align-items: flex-start; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(247, 243, 237, 0.6); font-weight: 500;
+}
+.report-page .grade-card-bottom { align-items: flex-end; font-size: 12px; letter-spacing: 0.12em; gap: 12px; }
+.report-page .grade-letter {
+  position: relative; z-index: 2; font-size: clamp(120px, 18vw, 190px); line-height: 0.85;
+  letter-spacing: -0.06em; font-weight: 500; margin: 8px 0 0;
+  display: flex; align-items: flex-end; gap: 10px;
+}
+.report-page .grade-letter .grade-modifier {
+  font-size: 0.24em; line-height: 1.15; margin-bottom: 0.7em; color: var(--rp-accent-soft); font-weight: 500;
+}
+.report-page .grade-score {
+  font-size: 22px; letter-spacing: -0.02em; text-transform: none; color: var(--rp-cream);
+  font-weight: 500; text-align: right;
+}
+.report-page .verdict-body { display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+.report-page .verdict-headline {
+  font-size: 28px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 500; margin: 0; text-wrap: balance;
+}
+.report-page .verdict-headline strong {
+  font-weight: 500; background: linear-gradient(transparent 60%, rgba(200, 85, 42, 0.22) 60%);
+}
+.report-page .verdict-stat {
+  display: flex; align-items: baseline; gap: 16px; padding: 20px 0;
+  border-top: 1px dashed var(--rp-border-strong);
+}
+.report-page .verdict-stat-value { font-size: 32px; font-weight: 500; letter-spacing: -0.02em; color: var(--rp-accent); white-space: nowrap; }
+.report-page .verdict-stat-label {
+  font-size: 13px; color: var(--rp-warm-700); text-transform: uppercase; letter-spacing: 0.1em;
+  font-weight: 500; max-width: 32ch; line-height: 1.4;
+}
+
+/* ---------- Sidebar blocks ---------- */
+.report-page .side-block + .side-block { margin-top: 40px; }
+.report-page .side-eyebrow {
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rp-warm-700);
+  font-weight: 500; margin: 0 0 18px; padding-bottom: 12px; border-bottom: 1px solid var(--rp-border);
+  display: flex; justify-content: space-between;
+}
+.report-page .side-eyebrow .num { color: var(--rp-warm-500); }
+.report-page .side-grade {
+  display: flex; align-items: baseline; gap: 14px;
+}
+.report-page .side-grade-letter {
+  font-size: 52px; line-height: 0.85; letter-spacing: -0.05em; font-weight: 500; color: var(--rp-ink);
+}
+.report-page .side-grade-letter span { font-size: 22px; color: var(--rp-accent); }
+.report-page .side-grade-meta {
+  display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--rp-warm-700);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.report-page .side-grade-meta .num {
+  font-size: 15px; color: var(--rp-ink); text-transform: none; letter-spacing: -0.01em; font-weight: 500;
+}
+
+.report-page .section-nav { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
+.report-page .section-nav li { border-top: 1px solid var(--rp-border); }
+.report-page .section-nav li:last-child { border-bottom: 1px solid var(--rp-border); }
+.report-page .section-nav a {
+  display: flex; align-items: baseline; gap: 12px; padding: 11px 0; font-size: 13px;
+  color: var(--rp-warm-700); font-weight: 400; transition: color 0.2s; position: relative;
+}
+.report-page .section-nav a .num {
+  color: var(--rp-warm-500); font-size: 11px; letter-spacing: 0.05em; width: 18px; flex-shrink: 0;
+}
+.report-page .section-nav a:hover { color: var(--rp-ink); }
+.report-page .section-nav a.is-active { color: var(--rp-ink); font-weight: 500; }
+.report-page .section-nav a.is-active::before {
+  content: ""; position: absolute; left: -16px; top: 50%; transform: translateY(-50%);
+  width: 4px; height: 4px; background: var(--rp-accent); border-radius: 50%;
+}
+
+/* ---------- Sections ---------- */
+.report-page .section { margin-bottom: 28px; scroll-margin-top: 80px; }
+
+/* ---------- Collapsible sections ---------- */
+.report-page .rp-collapsible-toggle {
+  width: 100%; background: var(--rp-paper); border: 1px solid var(--rp-border); border-radius: 4px;
+  padding: 28px 32px; text-align: left; font: inherit; color: inherit; cursor: pointer;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 24px;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.report-page .rp-collapsible-toggle:hover { border-color: var(--rp-border-strong); background: var(--rp-cream); }
+.report-page .rp-collapsible.is-open .rp-collapsible-toggle {
+  background: var(--rp-cream); border-color: var(--rp-ink);
+  border-bottom-left-radius: 0; border-bottom-right-radius: 0;
+}
+.report-page .rp-collapsible-head { min-width: 0; }
+.report-page .rp-collapsible-head .section-num { margin-bottom: 10px; }
+.report-page .rp-collapsible-head h2 {
+  font-size: clamp(26px, 2.6vw, 34px); line-height: 1.1; letter-spacing: -0.02em;
+  font-weight: 500; margin: 0; max-width: 28ch; text-wrap: balance;
+}
+.report-page .rp-collapsible-head .section-intro { margin: 14px 0 0; font-size: 15px; line-height: 1.55; }
+
+.report-page .rp-expand-indicator {
+  display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 999px;
+  background: var(--rp-ink); color: var(--rp-cream); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; font-weight: 600; white-space: nowrap; flex-shrink: 0; transition: background 0.2s;
+}
+.report-page .rp-collapsible-toggle:hover .rp-expand-indicator { background: var(--rp-accent); }
+.report-page .rp-collapsible.is-open .rp-expand-indicator { background: var(--rp-accent); }
+.report-page .rp-expand-icon { position: relative; width: 14px; height: 14px; display: inline-block; }
+.report-page .rp-chev {
+  position: absolute; background: currentColor; border-radius: 0;
+  transition: opacity 0.3s, transform 0.3s cubic-bezier(.2,.8,.2,1);
+}
+.report-page .rp-chev-1 { top: 6.25px; left: 0; width: 14px; height: 1.5px; }
+.report-page .rp-chev-2 { top: 0; left: 6.25px; width: 1.5px; height: 14px; }
+.report-page .rp-collapsible.is-open > .rp-collapsible-toggle .rp-chev-2 { opacity: 0; }
+
+.report-page .rp-collapsible-body {
+  border: 1px solid var(--rp-ink); border-top: none;
+  border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;
+  padding: 32px; background: var(--rp-cream); animation: rpSectionIn 0.35s cubic-bezier(.2,.8,.2,1);
+}
+.report-page .rp-collapsible-body[hidden] { display: none; }
+@keyframes rpSectionIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+.report-page .section-num {
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rp-warm-700);
+  font-weight: 500; margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
+}
+.report-page .section-num::before { content: ""; width: 16px; height: 1px; background: var(--rp-ink); }
+.report-page .section-sub {
+  font-size: 18px; font-weight: 500; letter-spacing: -0.01em; margin: 40px 0 12px; color: var(--rp-ink);
+}
+
+/* Callout */
+.report-page .callout {
+  position: relative; padding: 24px 28px; background: var(--rp-paper); border: 1px solid var(--rp-border);
+  border-left: 3px solid var(--rp-accent); font-size: 15px; line-height: 1.55; color: var(--rp-ink-soft);
+  margin: 32px 0 0; border-radius: 2px;
+}
+.report-page .callout strong { color: var(--rp-ink); font-weight: 700; }
+
+/* Prose */
+.report-page .prose { max-width: 65ch; }
+.report-page .prose p { font-size: 16px; line-height: 1.7; color: var(--rp-warm-900); margin: 0 0 14px; }
+.report-page .prose p:last-child { margin-bottom: 0; }
+.report-page .prose strong { color: var(--rp-ink); }
+.report-page .prose em { font-style: italic; color: var(--rp-ink); }
+
+/* ---------- Tables ---------- */
+.report-page .report-table-wrap {
+  border: 1px solid var(--rp-border); border-radius: 2px; overflow-x: auto;
+  -webkit-overflow-scrolling: touch; margin: 0; max-width: 100%;
+}
+.report-page .report-table { width: 100%; border-collapse: collapse; font-size: 14px; table-layout: auto; }
+.report-page .report-table thead th {
+  text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rp-warm-700); font-weight: 500; padding: 14px 12px; background: var(--rp-paper);
+  border-bottom: 1px solid var(--rp-border); white-space: normal; line-height: 1.3;
+}
+.report-page .report-table thead th:first-child { padding-left: 16px; }
+.report-page .report-table thead th:last-child { padding-right: 16px; }
+.report-page .report-table tbody td {
+  padding: 16px 12px; border-bottom: 1px solid var(--rp-border); vertical-align: top;
+  line-height: 1.5; color: var(--rp-ink-soft);
+}
+.report-page .report-table tbody td:first-child { padding-left: 16px; }
+.report-page .report-table tbody td:last-child { padding-right: 16px; }
+.report-page .report-table tbody tr:last-child td { border-bottom: none; }
+.report-page .report-table tbody tr:hover td { background: rgba(31, 29, 26, 0.015); }
+.report-page .report-table .emphasize { color: var(--rp-ink); font-weight: 500; }
+.report-page .report-table .num { white-space: nowrap; }
+
+/* ---------- Two-column compare (loved/complaints pips) ---------- */
+.report-page .reviews-split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 0; }
+.report-page .reviews-col h4 {
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;
+  margin: 0 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--rp-border);
+  display: flex; align-items: center; gap: 10px;
+}
+.report-page .reviews-col h4 .pip { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.report-page .reviews-col.loved h4 .pip { background: var(--rp-tone-green); }
+.report-page .reviews-col.complaints h4 .pip { background: var(--rp-tone-orange); }
+.report-page .reviews-col ul {
+  list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;
+  font-size: 14px; line-height: 1.55; color: var(--rp-ink-soft);
+}
+.report-page .reviews-col li { position: relative; padding-left: 18px; }
+.report-page .reviews-col li::before {
+  content: ""; position: absolute; left: 0; top: 9px; width: 8px; height: 1px; background: var(--rp-warm-500);
+}
+.report-page .reviews-col li strong { color: var(--rp-ink); font-weight: 600; }
+
+/* ---------- Competition ---------- */
+.report-page .competitor-list {
+  border: 1px solid var(--rp-border); border-radius: 2px; overflow: hidden; margin: 0;
+}
+.report-page .competitor-row {
+  display: grid; grid-template-columns: 44px 1.4fr 1.3fr 90px 2fr; align-items: center;
+  padding: 16px 20px; border-bottom: 1px solid var(--rp-border); font-size: 14px; gap: 16px;
+}
+.report-page .competitor-row:last-child { border-bottom: none; }
+.report-page .competitor-row.is-you { background: var(--rp-ink); color: var(--rp-cream); }
+.report-page .competitor-row.is-you .competitor-rank,
+.report-page .competitor-row.is-you .competitor-style,
+.report-page .competitor-row.is-you .competitor-known { color: rgba(247, 243, 237, 0.7); }
+.report-page .competitor-row.is-you .competitor-rating { color: var(--rp-accent-soft); }
+.report-page .competitor-rank { font-size: 13px; font-weight: 500; color: var(--rp-warm-700); }
+.report-page .competitor-name { font-weight: 500; }
+.report-page .competitor-name .you-tag {
+  display: inline-block; margin-left: 8px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--rp-accent); color: var(--rp-cream); padding: 2px 7px; border-radius: 999px; vertical-align: middle;
+}
+.report-page .competitor-name .sub { font-weight: 400; color: var(--rp-warm-500); }
+.report-page .competitor-style { color: var(--rp-warm-700); font-size: 13px; }
+.report-page .competitor-rating { font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
+.report-page .competitor-rating em { font-style: italic; font-weight: 400; color: var(--rp-warm-500); font-size: 13px; }
+.report-page .competitor-known { color: var(--rp-warm-700); font-size: 13px; line-height: 1.4; }
+
+.report-page .win-lose { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 40px 0 0; }
+.report-page .wl-col h4 {
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; margin: 0 0 16px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--rp-border);
+}
+.report-page .wl-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+.report-page .wl-item { display: grid; grid-template-columns: 1fr; gap: 4px; font-size: 14px; line-height: 1.5; }
+.report-page .wl-area { font-weight: 500; font-size: 13px; }
+.report-page .wl-detail { color: var(--rp-warm-700); font-size: 13px; }
+.report-page .wl-col.win .wl-area::before { content: "\2191 "; color: var(--rp-tone-green); font-weight: 700; }
+.report-page .wl-col.lose .wl-area::before { content: "\2193 "; color: var(--rp-tone-orange); font-weight: 700; }
+
+.report-page .rival-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 32px 0 0; }
+.report-page .rival { padding: 24px 26px; background: var(--rp-paper); border: 1px solid var(--rp-border); border-radius: 2px; }
+.report-page .rival h4 { font-size: 16px; font-weight: 500; letter-spacing: -0.01em; margin: 0 0 12px; }
+.report-page .rival p { font-size: 13px; line-height: 1.55; color: var(--rp-warm-900); margin: 0; }
+
+/* ---------- Action plan ---------- */
+.report-page .ap-table {
+  width: 100%; border-collapse: collapse; font-size: 14px; margin: 0;
+  border-top: 1px solid var(--rp-ink); border-bottom: 1px solid var(--rp-ink);
+}
+.report-page .ap-table thead th {
+  text-align: left; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--rp-warm-700); font-weight: 500; padding: 14px 0; border-bottom: 1px solid var(--rp-border);
+}
+.report-page .ap-table thead th:first-child { width: 50px; }
+.report-page .ap-table thead th:nth-child(2) { width: 110px; }
+.report-page .ap-table thead th:nth-child(4) { width: 26%; }
+.report-page .ap-table thead th:last-child { width: 110px; text-align: right; }
+.report-page .ap-table tbody td { padding: 16px 0; border-bottom: 1px solid var(--rp-border); vertical-align: top; line-height: 1.5; }
+.report-page .ap-table tbody td.ap-action, .report-page .ap-table tbody td.ap-impact { padding-right: 20px; }
+.report-page .ap-table tbody tr:last-child td { border-bottom: none; }
+.report-page .ap-priority { font-weight: 500; font-size: 16px; letter-spacing: -0.01em; color: var(--rp-ink); }
+.report-page .ap-category {
+  display: inline-block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+  padding: 4px 10px; border-radius: 999px; border: 1px solid var(--rp-border-strong); color: var(--rp-ink-soft); white-space: nowrap;
+}
+.report-page .ap-category[data-cat="Quick win"] { background: var(--rp-ink); color: var(--rp-cream); border-color: var(--rp-ink); }
+.report-page .ap-category[data-cat="Build"] { background: var(--rp-paper); color: var(--rp-ink); }
+.report-page .ap-category[data-cat="Ongoing"] { background: transparent; color: var(--rp-warm-700); }
+.report-page .ap-action { font-weight: 500; color: var(--rp-ink); }
+.report-page .ap-impact { color: var(--rp-warm-700); }
+.report-page .ap-timeline { text-align: right; color: var(--rp-warm-700); white-space: nowrap; }
+
+/* ---------- Footer ---------- */
+.report-page .rp-foot {
+  border-top: 1px solid var(--rp-border); margin-top: 24px; padding-top: 24px;
+  font-size: 13px; line-height: 1.6; color: var(--rp-warm-700); max-width: 75ch;
+}
+.report-page .rp-foot strong { color: var(--rp-ink); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1280px) {
+  .report-page .shell { grid-template-columns: var(--rp-col-sidebar) minmax(0, 1fr); grid-template-areas: "sidebar main"; }
+  .report-page .rail { display: none !important; }
+}
+@media (max-width: 1080px) {
+  .report-page { --rp-col-sidebar: 170px; --rp-col-gap: 20px; }
+  .report-page .shell { padding: 0 12px; }
+}
+@media (max-width: 768px) {
+  .report-page { --rp-col-gap: 0; }
+  .report-page .meta-strip-inner { padding: 12px 20px; flex-direction: column; gap: 8px; align-items: flex-start; font-size: 11px; }
+  .report-page .meta-strip-right { gap: 12px; flex-wrap: wrap; }
+  .report-page .meta-strip-by { display: none; }
+  .report-page .shell { grid-template-columns: 1fr; grid-template-areas: "sidebar" "main"; padding: 0 20px; gap: 0; }
+  .report-page .sidebar { grid-column: 1; grid-row: 1; position: static; max-height: none; overflow: visible; padding: 32px 0; border-bottom: 1px solid var(--rp-border); margin-bottom: 32px; display: flex; gap: 40px; }
+  .report-page .side-block + .side-block { margin-top: 0; }
+  .report-page .main { grid-column: 1; grid-row: 2; padding-top: 0; padding-bottom: 80px; }
+  .report-page .rail { display: none !important; }
+  .report-page .verdict { grid-template-columns: 1fr; gap: 32px; padding: 32px 0; }
+  .report-page .grade-card { min-height: 260px; }
+  .report-page .reviews-split { grid-template-columns: 1fr; gap: 24px; }
+  .report-page .win-lose { grid-template-columns: 1fr; }
+  .report-page .rival-grid { grid-template-columns: 1fr; }
+  .report-page .competitor-row { grid-template-columns: 36px 1fr auto; grid-template-rows: auto auto auto; gap: 4px 12px; padding: 14px 16px; }
+  .report-page .competitor-rank { grid-row: 1 / span 2; }
+  .report-page .competitor-name { grid-column: 2; grid-row: 1; }
+  .report-page .competitor-rating { grid-column: 3; grid-row: 1; align-self: start; }
+  .report-page .competitor-style { grid-column: 2; grid-row: 2; }
+  .report-page .competitor-known { grid-column: 2 / span 2; grid-row: 3; padding-top: 4px; font-size: 12px; }
+  .report-page .ap-table { font-size: 13px; }
+  .report-page .ap-table thead th:nth-child(4), .report-page .ap-table tbody td.ap-impact { display: none; }
+  .report-page .report-table { font-size: 13px; }
+  .report-page .rp-collapsible-toggle { grid-template-columns: 1fr; padding: 22px 20px; gap: 18px; }
+  .report-page .rp-expand-indicator { justify-self: start; }
+  .report-page .rp-collapsible-body { padding: 22px 18px; }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  .preview-banner, .report-page .sidebar, .report-page .rail, .report-page .meta-strip { display: none !important; }
+  .report-page .shell { display: block; max-width: none; padding: 0; }
+  .report-page .main { padding: 0; grid-column: 1 / -1; }
+  .report-page { background: #fff; }
+  .report-page .section { page-break-inside: avoid; margin-bottom: 32px; }
+  .report-page .rp-collapsible-body[hidden] { display: block !important; }
+}
+.report-page [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="preview-banner">
+  <span><strong>TableTurnerr</strong> — Local Preview · Niche Analysis</span>
+  <span>Internal · June 2026</span>
+</div>
+<div class="report-page">
+  <div class="meta-strip">
+    <div class="meta-strip-inner">
+      <div class="meta-strip-text">
+        Niche Analysis
+        <span class="dot"></span>
+        Review Automation for Home Services
+        <span class="dot"></span>
+        June 21, 2026
+      </div>
+      <div class="meta-strip-right">
+        <span class="meta-strip-by">By TableTurnerr</span>
+      </div>
+    </div>
+  </div>
+  <div class="shell">
+
+    <aside class="sidebar">
+      <div class="side-block">
+        <div class="side-eyebrow"><span>The opening</span><span class="num">Jun 2026</span></div>
+        <div class="side-grade">
+          <div class="side-grade-letter">4</div>
+          <div class="side-grade-meta"><span class="num">Openings</span><span>Ways to win</span></div>
+        </div>
+      </div>
+      <div class="side-block">
+        <div class="side-eyebrow"><span>Evidence</span><span class="num">&#10003;</span></div>
+        <div class="side-grade">
+          <div class="side-grade-letter">25</div>
+          <div class="side-grade-meta"><span class="num">Verified</span><span>From 23 sources</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+
+      <header class="hero">
+        <div class="hero-eyebrow"><span>Niche Analysis</span><span>June 21, 2026</span></div>
+        <h1>Review automation for home services, read A&nbsp;to&nbsp;Z</h1>
+        <p class="hero-sub">Who's in the niche, what's table stakes, what it costs, what's legal, and exactly where a focused, affordable, home-services-only product wins.</p>
+        <div class="hero-narrative">
+          <p>The category is commoditized. Job-triggered SMS and email requests, CRM integrations, AI review replies, widgets and social posting are now standard — GatherUp ships all of them from $99/mo. So the durable wins aren't features. They're <em>focus, price, platform breadth, and compliance.</em></p>
+          <p>The market splits three ways: enterprise generalists (Birdeye, Podium) selling per-location annual contracts; affordable specialists (NiceJob, GatherUp) at $75–$125 flat; and the field-service CRMs' own built-in tools, which only post to Google and Facebook. Nobody owns the intersection we can: home-services-only, flat month-to-month pricing, true multi-platform routing, and clean no-gating compliance.</p>
+        </div>
+        <div class="verdict">
+          <div class="grade-card">
+            <div class="grade-card-top"><span>The category</span><span>June 2026</span></div>
+            <div class="grade-letter">4<span class="grade-modifier">ways<br>to win</span></div>
+            <div class="grade-card-bottom"><span>Home-services<br>review automation</span><span class="grade-score">Wide open</span></div>
+          </div>
+          <div class="verdict-body">
+            <p class="verdict-headline">A commoditized category with <strong>four clear openings</strong> — focus, price, multi-platform breadth, and compliance — and no single player holding all four.</p>
+            <div class="verdict-stat">
+              <div class="verdict-stat-value">$75–$449</div>
+              <div class="verdict-stat-label">Monthly price spread across the niche — the affordable, home-services-only lane is unclaimed</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- 01 — Executive summary -->
+      <section class="section rp-collapsible is-open" id="summary" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="true" aria-controls="summary-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 01</span></div>
+            <h2>Executive Summary</h2>
+            <p class="section-intro">The features are a draw. The strategy is the product.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true">
+            <span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span>
+            <span class="rp-expand-label">Click to Collapse</span>
+          </span>
+        </button>
+        <div id="summary-body" class="rp-collapsible-body">
+          <div class="prose">
+            <p>Review automation for home services is a crowded, feature-commoditized category. Every serious player triggers SMS/email review requests off completed jobs, integrates with the field-service CRMs, monitors reviews, drafts AI replies, and embeds widgets. Matching that is table stakes, not an edge.</p>
+            <p>The real differences are structural. <strong>Birdeye and Podium</strong> sell up-market — $299–$449/mo per location on annual contracts with implementation fees. <strong>NiceJob and GatherUp</strong> own the affordable tier ($75–$125 flat, month-to-month), but NiceJob leans on a negative-feedback funnel that flirts with banned review gating. The CRMs' <strong>built-in tools</strong> (Housecall Pro) only push to Google and Facebook; Jobber has no built-in tool at all, making it a partner rather than a rival.</p>
+            <p>That leaves four openings no single competitor holds together: be <strong>home-services-only</strong>, price <strong>flat and contract-free</strong>, route to <strong>more platforms</strong> than the CRM built-ins, and make <strong>compliance a feature</strong> (no gating, A2P-registered SMS). Layer the niche's proven GTM — a free review-score grader, "X alternative" pages, and CRM-marketplace listings — and there's a defensible wedge.</p>
+          </div>
+          <div class="callout">
+            <strong>The one-liner:</strong> nobody owns "home-services-only, affordable, contract-free, and compliance-clean." Everyone else is enterprise-priced, horizontal, gating-risky, or platform-limited. That gap is the whole strategy.
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 — Competitive landscape -->
+      <section class="section rp-collapsible" id="landscape" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="landscape-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 02</span></div>
+            <h2>Competitive Landscape</h2>
+            <p class="section-intro">Verified players only. Pricing that failed verification (Podium, Broadly) is marked; the price column shows each tool's entry point.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true">
+            <span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span>
+            <span class="rp-expand-label">Click to Expand</span>
+          </span>
+        </button>
+        <div id="landscape-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="competitor-list">
+            <div class="competitor-row">
+              <div class="competitor-rank">#1</div>
+              <div class="competitor-name">Birdeye</div>
+              <div class="competitor-style">Enterprise / 10+ locations</div>
+              <div class="competitor-rating">$299–449</div>
+              <div class="competitor-known">Per location, annual; $5K–15K implementation. 150k+ businesses; powers ServiceTitan reviews.</div>
+            </div>
+            <div class="competitor-row">
+              <div class="competitor-rank">#2</div>
+              <div class="competitor-name">NiceJob</div>
+              <div class="competitor-style">Home-services owner-operators</div>
+              <div class="competitor-rating">$75–125</div>
+              <div class="competitor-known">Closest rival. Month-to-month, $199 setup; Jobber/HCP. Negative-feedback funnel = gating risk.</div>
+            </div>
+            <div class="competitor-row">
+              <div class="competitor-rank">#3</div>
+              <div class="competitor-name">GatherUp</div>
+              <div class="competitor-style">SMB &rarr; multi-location</div>
+              <div class="competitor-rating">$99</div>
+              <div class="competitor-known">Sets the table-stakes feature bar; $60/loc multi-site. No contracts.</div>
+            </div>
+            <div class="competitor-row">
+              <div class="competitor-rank">#4</div>
+              <div class="competitor-name">PulseM</div>
+              <div class="competitor-style">Home services (tech-centric)</div>
+              <div class="competitor-rating">~$99<span class="sub">/user</span></div>
+              <div class="competitor-known">Technician bios; ServiceTitan-dependent. 5 techs &asymp; $495/mo — growth gets punished.</div>
+            </div>
+            <div class="competitor-row">
+              <div class="competitor-rank">#5</div>
+              <div class="competitor-name">Housecall Pro <span class="sub">(built-in)</span></div>
+              <div class="competitor-style">HCP customers</div>
+              <div class="competitor-rating">Bundled</div>
+              <div class="competitor-known">Only Google + Facebook + HCP site — no Yelp / BBB / Angi. The platform gap.</div>
+            </div>
+            <div class="competitor-row">
+              <div class="competitor-rank">#6</div>
+              <div class="competitor-name">Jobber <span class="sub">(built-in)</span></div>
+              <div class="competitor-style">Jobber customers</div>
+              <div class="competitor-rating">&mdash;</div>
+              <div class="competitor-known">No built-in review automation &rarr; integration partner, not a competitor.</div>
+            </div>
+            <div class="competitor-row">
+              <div class="competitor-rank">#7</div>
+              <div class="competitor-name">Broadly</div>
+              <div class="competitor-style">Small service businesses</div>
+              <div class="competitor-rating"><em>n/a</em></div>
+              <div class="competitor-known">"AI Reputation Specialist"; general small-service focus. Pricing unverified.</div>
+            </div>
+            <div class="competitor-row">
+              <div class="competitor-rank">#8</div>
+              <div class="competitor-name">Podium</div>
+              <div class="competitor-style">SMB messaging + reviews</div>
+              <div class="competitor-rating"><em>refuted</em></div>
+              <div class="competitor-known">Omnichannel messaging; AI replies as paid add-on. Pricing claims didn't verify.</div>
+            </div>
+            <div class="competitor-row is-you">
+              <div class="competitor-rank">#9</div>
+              <div class="competitor-name">TableTurnerr<span class="you-tag">Us</span></div>
+              <div class="competitor-style">Home-services only, multi-platform</div>
+              <div class="competitor-rating">~$129</div>
+              <div class="competitor-known">Flat, month-to-month, Google + Facebook + Yelp + Angi, no gating. The open lane.</div>
+            </div>
+          </div>
+
+          <p class="section-sub">Closest rival &amp; the structural opening</p>
+          <div class="rival-grid">
+            <div class="rival">
+              <h4>Closest direct rival: NiceJob</h4>
+              <p>Owns the affordable, home-services tier with month-to-month pricing and the right CRM integrations — the tier we're entering. Copy its pricing transparency and CRM partnerships; beat it on compliance (its negative-feedback funnel risks Google/FTC gating bans) and platform breadth.</p>
+            </div>
+            <div class="rival">
+              <h4>The structural opening</h4>
+              <p>Enterprise tools price out small shops; specialists either risk gating or stay horizontal; CRM built-ins only touch Google + Facebook. "Home-services-only, flat &amp; contract-free, multi-platform, compliance-clean" is genuinely unclaimed — that's the whole strategy in one line.</p>
+            </div>
+          </div>
+
+          <div class="win-lose">
+            <div class="wl-col win">
+              <h4>Where we win</h4>
+              <ul class="wl-list">
+                <li class="wl-item"><div class="wl-area">Focus</div><div class="wl-detail">Exclusively HVAC / roofing / plumbing / electrical — nobody else is trades-only.</div></li>
+                <li class="wl-item"><div class="wl-area">Price &amp; terms</div><div class="wl-detail">Flat, month-to-month, no per-location or per-tech penalty.</div></li>
+                <li class="wl-item"><div class="wl-area">Platform breadth</div><div class="wl-detail">Google + Facebook + Yelp + Angi vs the CRMs' Google+FB only.</div></li>
+                <li class="wl-item"><div class="wl-area">Compliance</div><div class="wl-detail">No gating, A2P-registered SMS — a trust feature vs funnel-based rivals.</div></li>
+              </ul>
+            </div>
+            <div class="wl-col lose">
+              <h4>Where rivals lead</h4>
+              <ul class="wl-list">
+                <li class="wl-item"><div class="wl-area">Brand &amp; authority</div><div class="wl-detail">Birdeye/Podium have scale, funding, and years of domain trust.</div></li>
+                <li class="wl-item"><div class="wl-area">Integration depth</div><div class="wl-detail">Incumbents have mature, broad CRM connectors; ours start narrower.</div></li>
+                <li class="wl-item"><div class="wl-area">Proof</div><div class="wl-detail">Established players publish case studies and review counts; we start from zero.</div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — Features -->
+      <section class="section rp-collapsible" id="features" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="features-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 03</span></div>
+            <h2>Table Stakes vs Differentiators</h2>
+            <p class="section-intro">Match the left column to be credible. Compete on the right column to win.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true">
+            <span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span>
+            <span class="rp-expand-label">Click to Expand</span>
+          </span>
+        </button>
+        <div id="features-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="reviews-split">
+            <div class="reviews-col complaints">
+              <h4><span class="pip"></span> Table stakes — must match</h4>
+              <ul>
+                <li>Job-completion SMS + email review requests</li>
+                <li>CRM / field-service integrations</li>
+                <li>Multi-site review monitoring &amp; alerts</li>
+                <li>AI-generated review replies</li>
+                <li>Website review widgets</li>
+                <li>Social auto-posting and QR codes</li>
+              </ul>
+            </div>
+            <div class="reviews-col loved">
+              <h4><span class="pip"></span> Differentiators — win here</h4>
+              <ul>
+                <li><strong>Technician / crew leaderboards</strong> — review credit per tech</li>
+                <li><strong>Map-pack rank tracking</strong> — movement, not just counts</li>
+                <li><strong>Missed-call text-back</strong> — recover lost jobs</li>
+                <li><strong>Broad multi-platform routing</strong> — Google + Facebook + Yelp + Angi</li>
+              </ul>
+            </div>
+          </div>
+          <div class="callout">
+            <strong>Read:</strong> we will not out-feature Birdeye or GatherUp on the table-stakes list — and we don't need to. Ship those competently, then make the four differentiators the headline of every page.
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — Pricing -->
+      <section class="section rp-collapsible" id="pricing" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="pricing-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 04</span></div>
+            <h2>Pricing &amp; Where the Money Sits</h2>
+            <p class="section-intro">Three bands. The affordable, flat, home-services-only slot between the specialists and the enterprise is the wedge.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true">
+            <span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span>
+            <span class="rp-expand-label">Click to Expand</span>
+          </span>
+        </button>
+        <div id="pricing-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="report-table-wrap">
+            <table class="report-table">
+              <thead><tr><th>Player</th><th>Entry price</th><th>Model</th><th>Note</th></tr></thead>
+              <tbody>
+                <tr><td class="emphasize">Birdeye / Podium</td><td class="num">$299–$599/mo</td><td>Per location, annual + implementation</td><td>Enterprise. Hidden pricing, sales-led.</td></tr>
+                <tr><td class="emphasize">NiceJob</td><td class="num">$75–$125/mo</td><td>Flat, month-to-month</td><td>The affordable sweet spot.</td></tr>
+                <tr><td class="emphasize">GatherUp</td><td class="num">$99/mo</td><td>Flat single-loc; $60/loc multi</td><td>No contracts.</td></tr>
+                <tr><td class="emphasize">PulseM</td><td class="num">~$99/user/mo</td><td>Per technician</td><td>12 techs &asymp; $1,188/mo — punishes growth.</td></tr>
+                <tr><td class="emphasize">TableTurnerr (target)</td><td class="num">~$99–$149/mo</td><td>Flat, month-to-month</td><td>Undercut enterprise, match specialists, never per-tech.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout">
+            <strong>Our wedge:</strong> transparent, flat, month-to-month at ~$99–$149 — publish it on the site (the enterprise players hide theirs), and never charge per location or per tech. That alone differentiates from both bands.
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — Compliance -->
+      <section class="section rp-collapsible" id="compliance" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="compliance-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 05</span></div>
+            <h2>Compliance &amp; Risk</h2>
+            <p class="section-intro">Review gating is banned by Google and the FTC; SMS is governed by TCPA. This shapes both the product and the copy.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true">
+            <span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span>
+            <span class="rp-expand-label">Click to Expand</span>
+          </span>
+        </button>
+        <div id="compliance-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="reviews-split">
+            <div class="reviews-col complaints">
+              <h4><span class="pip"></span> Don't — banned / risky</h4>
+              <ul>
+                <li><strong>No review gating.</strong> Routing unhappy customers to a private form is banned (FTC Final Rule, Oct 2024; Google removed 292M+ violating reviews in 2025). NiceJob-style funnels flirt with this.</li>
+                <li><strong>No paying for or incentivizing</strong> reviews.</li>
+                <li><strong>No fake reviews or testimonials</strong> (FTC).</li>
+              </ul>
+            </div>
+            <div class="reviews-col loved">
+              <h4><span class="pip"></span> Do — compliant</h4>
+              <ul>
+                <li><strong>SMS opt-out (TCPA, Apr 2025):</strong> honor STOP/UNSUBSCRIBE within 10 business days; covers calls + texts.</li>
+                <li><strong>Register A2P 10DLC</strong> with automatic STOP handling.</li>
+                <li><strong>Ask every customer</strong> and let reviews land publicly, good or bad.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="callout">
+            <strong>Turn the rule into a feature:</strong> "We never hide bad reviews — Google and the FTC ban that. Fully compliant, A2P-registered SMS." It differentiates us from gating funnels and builds buyer trust. (Any result stats or testimonials we publish must be real and verifiable — FTC.)
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 — GTM -->
+      <section class="section rp-collapsible" id="gtm" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="gtm-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 06</span></div>
+            <h2>Go-to-Market Playbook</h2>
+            <p class="section-intro">The tactics the whole niche already runs — copy them, then add our compliance and focus angle.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true">
+            <span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span>
+            <span class="rp-expand-label">Click to Expand</span>
+          </span>
+        </button>
+        <div id="gtm-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="report-table-wrap">
+            <table class="report-table">
+              <thead><tr><th>Tactic</th><th>Why it works</th></tr></thead>
+              <tbody>
+                <tr><td class="emphasize">Free review-score grader</td><td>The niche's standard lead magnet — captures intent before the sale.</td></tr>
+                <tr><td class="emphasize">"X alternative" comparison pages</td><td>Dominant SEO move (Birdeye ranks for "Podium alternatives"). Build vs NiceJob / Birdeye / Podium.</td></tr>
+                <tr><td class="emphasize">CRM marketplace listings</td><td>Jobber / Housecall Pro / ServiceTitan app directories = qualified discovery.</td></tr>
+                <tr><td class="emphasize">Transparent on-site pricing</td><td>Enterprise players hide pricing; publishing ours is a trust wedge.</td></tr>
+                <tr><td class="emphasize">Trade + Texas-city content</td><td>Unique per-trade and per-city pages capture local buyer searches.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 — Action plan -->
+      <section class="section rp-collapsible" id="actions" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="actions-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 07</span></div>
+            <h2>What TableTurnerr Should Do</h2>
+            <p class="section-intro">Highest-leverage first. Build + GTM, in priority order.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true">
+            <span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span>
+            <span class="rp-expand-label">Click to Expand</span>
+          </span>
+        </button>
+        <div id="actions-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <table class="ap-table">
+            <thead><tr><th>#</th><th>Type</th><th>Action</th><th>Impact</th><th>Priority</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="ap-priority">01</td>
+                <td><span class="ap-category" data-cat="Quick win">Quick win</span></td>
+                <td class="ap-action">Own "home-services only" everywhere — lead with HVAC / roofing / plumbing / electrical.</td>
+                <td class="ap-impact">Nobody else is trades-exclusive; instant differentiation.</td>
+                <td class="ap-timeline">Now</td>
+              </tr>
+              <tr>
+                <td class="ap-priority">02</td>
+                <td><span class="ap-category" data-cat="Quick win">Quick win</span></td>
+                <td class="ap-action">Publish transparent, flat, month-to-month pricing (~$99–$149); no contracts, no per-tech.</td>
+                <td class="ap-impact">Undercuts enterprise, matches specialists, builds trust.</td>
+                <td class="ap-timeline">Now</td>
+              </tr>
+              <tr>
+                <td class="ap-priority">03</td>
+                <td><span class="ap-category" data-cat="Build">Build</span></td>
+                <td class="ap-action">Beat the CRM built-ins on platform breadth — Google + Facebook + Yelp + Angi.</td>
+                <td class="ap-impact">Verified gap vs Housecall Pro (Google+FB only).</td>
+                <td class="ap-timeline">High</td>
+              </tr>
+              <tr>
+                <td class="ap-priority">04</td>
+                <td><span class="ap-category" data-cat="Build">Build</span></td>
+                <td class="ap-action">Make compliance a feature — no gating, A2P-registered SMS, public reviews.</td>
+                <td class="ap-impact">Separates us from gating funnels; trust selling point.</td>
+                <td class="ap-timeline">High</td>
+              </tr>
+              <tr>
+                <td class="ap-priority">05</td>
+                <td><span class="ap-category" data-cat="Build">Build</span></td>
+                <td class="ap-action">Ship the rare differentiators — technician leaderboards, map-pack tracking, missed-call text-back.</td>
+                <td class="ap-impact">Features incumbents mostly lack; deepens the moat.</td>
+                <td class="ap-timeline">Medium</td>
+              </tr>
+              <tr>
+                <td class="ap-priority">06</td>
+                <td><span class="ap-category" data-cat="Ongoing">Ongoing</span></td>
+                <td class="ap-action">Run the GTM playbook — free grader, "X alternative" pages, CRM marketplace listings.</td>
+                <td class="ap-impact">Proven niche demand engine.</td>
+                <td class="ap-timeline">Ongoing</td>
+              </tr>
+              <tr>
+                <td class="ap-priority">07</td>
+                <td><span class="ap-category" data-cat="Ongoing">Ongoing</span></td>
+                <td class="ap-action">Integrate with the CRMs, don't fight them — be the multi-platform layer on top of Jobber/HCP/ServiceTitan.</td>
+                <td class="ap-impact">Turns the biggest "competitors" into a distribution channel.</td>
+                <td class="ap-timeline">Ongoing</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 08 — Method & sources -->
+      <section class="section rp-collapsible" id="method" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="method-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 08</span></div>
+            <h2>Method &amp; Sources</h2>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true">
+            <span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span>
+            <span class="rp-expand-label">Click to Expand</span>
+          </span>
+        </button>
+        <div id="method-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="prose">
+            <p><strong>Method.</strong> Multi-agent deep research across six angles — competitor landscape, features, pricing, CRM built-ins, compliance, and GTM. 23 sources fetched; 114 falsifiable claims extracted; 25 put through 3-vote adversarial verification (20 confirmed, 5 killed). 106 agents total, June 21 2026.</p>
+            <p><strong>Killed claims (excluded).</strong> Podium and Broadly specific pricing failed verification and is shown as "refuted" / "n/a." Swell is healthcare-only and excluded as a competitor.</p>
+            <p><strong>Caveats.</strong> Pricing is time-sensitive and partly vendor-reported — re-verify before publishing any of it externally. Off-the-record figures are directional.</p>
+            <p><strong>Provenance.</strong> Full verified claim set with confidence + sources: <strong>niche-research-raw-2026-06.json</strong>. Long-form write-up: <strong>niche-analysis-2026-06.md</strong> (both in <em>docs/new-site/research/</em>).</p>
+          </div>
+          <div class="rp-foot">
+            <strong>TableTurnerr — Review-Automation Niche Analysis.</strong> Internal research, June 2026. Built in the house report skin (<em>components/report/report.css</em>).
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <aside class="rail">
+      <div class="side-block">
+        <div class="side-eyebrow"><span>Sections</span><span class="num">08</span></div>
+        <ul class="section-nav">
+          <li><a href="#summary" data-rail-link="summary"><span class="num">01</span><span>Executive Summary</span></a></li>
+          <li><a href="#landscape" data-rail-link="landscape"><span class="num">02</span><span>Competitive Landscape</span></a></li>
+          <li><a href="#features" data-rail-link="features"><span class="num">03</span><span>Table Stakes vs Differentiators</span></a></li>
+          <li><a href="#pricing" data-rail-link="pricing"><span class="num">04</span><span>Pricing</span></a></li>
+          <li><a href="#compliance" data-rail-link="compliance"><span class="num">05</span><span>Compliance &amp; Risk</span></a></li>
+          <li><a href="#gtm" data-rail-link="gtm"><span class="num">06</span><span>Go-to-Market</span></a></li>
+          <li><a href="#actions" data-rail-link="actions"><span class="num">07</span><span>What We Should Do</span></a></li>
+          <li><a href="#method" data-rail-link="method"><span class="num">08</span><span>Method &amp; Sources</span></a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+</div>
+<script>
+(function () {
+  function bindCollapsible(root) {
+    var toggle = root.querySelector(".rp-collapsible-toggle");
+    var body = root.querySelector(".rp-collapsible-body");
+    if (!toggle || !body) return;
+    toggle.addEventListener("click", function () {
+      var isOpen = root.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      if (isOpen) { body.removeAttribute("hidden"); body.removeAttribute("aria-hidden"); }
+      else { body.setAttribute("hidden", ""); body.setAttribute("aria-hidden", "true"); }
+      var label = toggle.querySelector(".rp-expand-label");
+      if (label) label.textContent = isOpen ? "Click to Collapse" : "Click to Expand";
+    });
+  }
+  document.querySelectorAll('[data-collapsible="section"]').forEach(bindCollapsible);
+
+  var railLinks = Array.prototype.slice.call(document.querySelectorAll("[data-rail-link]"));
+  function syncActive() {
+    var y = window.scrollY + 200;
+    var current = railLinks[0] ? railLinks[0].getAttribute("data-rail-link") : null;
+    railLinks.forEach(function (a) {
+      var el = document.getElementById(a.getAttribute("data-rail-link"));
+      if (el && el.offsetTop <= y) current = a.getAttribute("data-rail-link");
+    });
+    railLinks.forEach(function (a) {
+      a.classList.toggle("is-active", a.getAttribute("data-rail-link") === current);
+    });
+  }
+  if (railLinks.length) { syncActive(); window.addEventListener("scroll", syncActive, { passive: true }); }
+})();
+</script>
+</body>
+</html>

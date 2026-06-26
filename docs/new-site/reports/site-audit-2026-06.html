@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>TableTurnerr — Site Audit · Review Automation (New Site)</title>
+<style>
+  body { margin: 0; background: #F7F3ED; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; }
+  .preview-banner { background:#1F1D1A; color:#F7F3ED; padding:10px 18px; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; display:flex; justify-content:space-between; gap:12px; }
+
+/* ==========================================================
+   TableTurnerr — Report skin (editorial / premium-consulting)
+   Canonical source: components/report/report.css
+   ========================================================== */
+
+.report-page {
+  --rp-cream: #F7F3ED;
+  --rp-paper: #FBF8F2;
+  --rp-ink: #1F1D1A;
+  --rp-ink-soft: #2A2724;
+  --rp-warm-900: #4B463F;
+  --rp-warm-700: #6E665B;
+  --rp-warm-500: #948A7C;
+  --rp-warm-300: #C9C0B0;
+  --rp-warm-200: #DCD3C2;
+  --rp-warm-100: #ECE5D6;
+  --rp-border: rgba(31, 29, 26, 0.10);
+  --rp-border-strong: rgba(31, 29, 26, 0.20);
+  --rp-accent: #C8552A;
+  --rp-accent-soft: #E8B89A;
+
+  --rp-tone-green: #4F7A4A;
+  --rp-tone-lime: #8FA34A;
+  --rp-tone-amber: #C7973A;
+  --rp-tone-orange: #C76A2A;
+  --rp-tone-rose: #B0463F;
+
+  --rp-col-sidebar: 200px;
+  --rp-col-rail: 180px;
+  --rp-col-gap: 28px;
+  --rp-content-max: 1080px;
+
+  background: var(--rp-cream);
+  color: var(--rp-ink);
+  font-feature-settings: "ss01", "ss02", "cv11";
+  font-variant-numeric: tabular-nums;
+}
+.report-page a { color: inherit; text-decoration: none; }
+.report-page ::selection { background: var(--rp-ink); color: var(--rp-cream); }
+
+/* Meta strip */
+.report-page .meta-strip { border-bottom: 1px solid var(--rp-border); background: var(--rp-cream); position: sticky; top: 0; z-index: 30; }
+.report-page .meta-strip-inner { max-width: var(--rp-content-max); margin: 0 auto; padding: 14px 8px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rp-warm-700); font-weight: 500; }
+.report-page .meta-strip .dot { display: inline-block; width: 4px; height: 4px; background: var(--rp-accent); border-radius: 50%; margin: 0 10px; vertical-align: middle; }
+.report-page .meta-strip-right { display: flex; align-items: center; gap: 18px; }
+
+/* Shell */
+.report-page .shell { max-width: var(--rp-content-max); margin: 0 auto; padding: 0 8px; display: grid; grid-template-columns: var(--rp-col-sidebar) minmax(0, 1fr) var(--rp-col-rail); grid-template-areas: "sidebar main rail"; gap: var(--rp-col-gap); align-items: start; }
+.report-page .sidebar { grid-area: sidebar; }
+.report-page .main { grid-area: main; }
+.report-page .rail { grid-area: rail; }
+.report-page .sidebar, .report-page .rail { position: sticky; top: 60px; align-self: start; padding-top: 32px; padding-bottom: 80px; max-height: calc(100vh - 60px); overflow-y: auto; overflow-x: hidden; min-width: 0; scrollbar-width: thin; }
+.report-page .sidebar::-webkit-scrollbar, .report-page .rail::-webkit-scrollbar { width: 4px; }
+.report-page .sidebar::-webkit-scrollbar-thumb, .report-page .rail::-webkit-scrollbar-thumb { background: var(--rp-warm-300); border-radius: 2px; }
+.report-page .section-nav a > span:last-child { min-width: 0; flex: 1 1 auto; word-break: break-word; overflow-wrap: anywhere; }
+.report-page .rail .section-nav a.is-active::before { left: -12px; }
+.report-page .main { padding-top: 32px; padding-bottom: 160px; min-width: 0; }
+
+/* Hero */
+.report-page .hero { margin-bottom: 96px; }
+.report-page .hero-eyebrow { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rp-warm-700); margin-bottom: 28px; font-weight: 500; display: flex; align-items: center; gap: 14px; }
+.report-page .hero-eyebrow::after { content: ""; height: 1px; flex: 1; background: var(--rp-border); }
+.report-page .hero h1 { font-size: clamp(40px, 5vw, 62px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 500; margin: 0 0 24px; text-wrap: balance; }
+.report-page .hero-sub { font-size: 20px; line-height: 1.5; color: var(--rp-warm-900); max-width: 60ch; margin: 0 0 48px; font-weight: 400; text-wrap: pretty; }
+.report-page .hero-narrative { margin: 0 0 32px; display: flex; flex-direction: column; gap: 14px; max-width: 65ch; font-size: 16px; line-height: 1.65; color: var(--rp-warm-900); }
+.report-page .hero-narrative em { font-style: italic; color: var(--rp-ink); }
+
+/* Verdict */
+.report-page .verdict { display: grid; grid-template-columns: minmax(280px, 360px) 1fr; gap: 48px; align-items: stretch; margin: 56px 0 0; padding: 48px 0; border-top: 1px solid var(--rp-border); border-bottom: 1px solid var(--rp-border); }
+.report-page .grade-card { position: relative; background: var(--rp-ink); color: var(--rp-cream); padding: 36px 32px 28px; border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between; min-height: 320px; overflow: hidden; }
+.report-page .grade-card::before { content: ""; position: absolute; top: 16px; left: 16px; right: 16px; bottom: 16px; border: 1px solid rgba(247, 243, 237, 0.15); pointer-events: none; border-radius: 2px; }
+.report-page .grade-card-top, .report-page .grade-card-bottom { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: flex-start; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247, 243, 237, 0.6); font-weight: 500; }
+.report-page .grade-card-bottom { align-items: flex-end; font-size: 12px; letter-spacing: 0.12em; gap: 12px; }
+.report-page .grade-letter { position: relative; z-index: 2; font-size: clamp(140px, 20vw, 210px); line-height: 0.85; letter-spacing: -0.06em; font-weight: 500; margin: 8px 0 0; display: flex; align-items: flex-end; gap: 8px; }
+.report-page .grade-letter .grade-modifier { font-size: 0.3em; line-height: 1; margin-bottom: 0.7em; color: var(--rp-accent-soft); font-weight: 400; }
+.report-page .grade-score { font-size: 24px; letter-spacing: -0.02em; text-transform: none; color: var(--rp-cream); font-weight: 500; text-align: right; }
+.report-page .grade-score small { font-size: 14px; color: rgba(247, 243, 237, 0.5); margin-left: 2px; }
+.report-page .verdict-body { display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+.report-page .verdict-headline { font-size: 27px; line-height: 1.22; letter-spacing: -0.02em; font-weight: 500; margin: 0; text-wrap: balance; }
+.report-page .verdict-headline strong { font-weight: 500; background: linear-gradient(transparent 60%, rgba(200, 85, 42, 0.22) 60%); }
+.report-page .verdict-stat { display: flex; align-items: baseline; gap: 16px; padding: 20px 0; border-top: 1px dashed var(--rp-border-strong); }
+.report-page .verdict-stat-value { font-size: 32px; font-weight: 500; letter-spacing: -0.02em; color: var(--rp-accent); white-space: nowrap; }
+.report-page .verdict-stat-label { font-size: 13px; color: var(--rp-warm-700); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; max-width: 32ch; line-height: 1.4; }
+
+/* Sidebar blocks */
+.report-page .side-block + .side-block { margin-top: 40px; }
+.report-page .side-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rp-warm-700); font-weight: 500; margin: 0 0 18px; padding-bottom: 12px; border-bottom: 1px solid var(--rp-border); display: flex; justify-content: space-between; }
+.report-page .side-eyebrow .num { color: var(--rp-warm-500); }
+.report-page .side-grade { display: flex; align-items: baseline; gap: 14px; padding-bottom: 20px; border-bottom: 1px solid var(--rp-border); margin-bottom: 24px; }
+.report-page .side-grade-letter { font-size: 58px; line-height: 0.85; letter-spacing: -0.05em; font-weight: 500; color: var(--rp-ink); }
+.report-page .side-grade-letter span { font-size: 26px; color: var(--rp-accent); }
+.report-page .side-grade-meta { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--rp-warm-700); letter-spacing: 0.06em; text-transform: uppercase; }
+.report-page .side-grade-meta .num { font-size: 17px; color: var(--rp-ink); text-transform: none; letter-spacing: -0.01em; font-weight: 500; }
+.report-page .side-facts { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.report-page .side-facts li { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; color: var(--rp-warm-700); }
+.report-page .side-facts li b { color: var(--rp-ink); font-weight: 600; }
+
+/* Score list */
+.report-page .score-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 18px; }
+.report-page .score-row { display: flex; flex-direction: column; gap: 8px; }
+.report-page .score-row-top { display: flex; justify-content: space-between; align-items: baseline; font-size: 12.5px; }
+.report-page .score-label { color: var(--rp-ink); font-weight: 500; }
+.report-page .score-value { color: var(--rp-warm-700); font-size: 12px; letter-spacing: 0.04em; }
+.report-page .score-track { height: 4px; background: var(--rp-warm-100); border-radius: 2px; overflow: hidden; }
+.report-page .score-fill { height: 100%; border-radius: 2px; }
+.report-page .score-fill[data-tone="green"] { background: var(--rp-tone-green); }
+.report-page .score-fill[data-tone="lime"] { background: var(--rp-tone-lime); }
+.report-page .score-fill[data-tone="amber"] { background: var(--rp-tone-amber); }
+.report-page .score-fill[data-tone="orange"] { background: var(--rp-tone-orange); }
+.report-page .score-fill[data-tone="rose"] { background: var(--rp-tone-rose); }
+
+/* Section nav */
+.report-page .section-nav { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
+.report-page .section-nav li { border-top: 1px solid var(--rp-border); }
+.report-page .section-nav li:last-child { border-bottom: 1px solid var(--rp-border); }
+.report-page .section-nav a { display: flex; align-items: baseline; gap: 12px; padding: 11px 0; font-size: 13px; color: var(--rp-warm-700); font-weight: 400; transition: color 0.2s; position: relative; }
+.report-page .section-nav a .num { color: var(--rp-warm-500); font-size: 11px; letter-spacing: 0.05em; width: 18px; flex-shrink: 0; }
+.report-page .section-nav a:hover { color: var(--rp-ink); }
+.report-page .section-nav a.is-active { color: var(--rp-ink); font-weight: 500; }
+.report-page .section-nav a.is-active::before { content: ""; position: absolute; left: -16px; top: 50%; transform: translateY(-50%); width: 4px; height: 4px; background: var(--rp-accent); border-radius: 50%; }
+
+/* Sections + collapsible */
+.report-page .section { margin-bottom: 28px; scroll-margin-top: 80px; }
+.report-page .rp-collapsible-toggle { width: 100%; background: var(--rp-paper); border: 1px solid var(--rp-border); border-radius: 4px; padding: 28px 32px; text-align: left; font: inherit; color: inherit; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 24px; transition: border-color 0.2s, background 0.2s; }
+.report-page .rp-collapsible-toggle:hover { border-color: var(--rp-border-strong); background: var(--rp-cream); }
+.report-page .rp-collapsible.is-open .rp-collapsible-toggle { background: var(--rp-cream); border-color: var(--rp-ink); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.report-page .rp-collapsible-head { min-width: 0; }
+.report-page .rp-collapsible-head .section-num { margin-bottom: 10px; }
+.report-page .rp-collapsible-head h2 { font-size: clamp(24px, 2.4vw, 32px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 500; margin: 0; max-width: 30ch; text-wrap: balance; }
+.report-page .rp-collapsible-head .section-intro { margin: 14px 0 0; font-size: 15px; line-height: 1.55; }
+.report-page .rp-expand-indicator { display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 999px; background: var(--rp-ink); color: var(--rp-cream); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; white-space: nowrap; flex-shrink: 0; transition: background 0.2s; }
+.report-page .rp-collapsible-toggle:hover .rp-expand-indicator { background: var(--rp-accent); }
+.report-page .rp-collapsible.is-open .rp-expand-indicator { background: var(--rp-accent); }
+.report-page .rp-expand-icon { position: relative; width: 14px; height: 14px; display: inline-block; }
+.report-page .rp-chev { position: absolute; background: currentColor; transition: opacity 0.3s, transform 0.3s cubic-bezier(.2,.8,.2,1); }
+.report-page .rp-chev-1 { top: 6.25px; left: 0; width: 14px; height: 1.5px; }
+.report-page .rp-chev-2 { top: 0; left: 6.25px; width: 1.5px; height: 14px; }
+.report-page .rp-collapsible.is-open > .rp-collapsible-toggle .rp-chev-2 { opacity: 0; }
+.report-page .rp-collapsible-body { border: 1px solid var(--rp-ink); border-top: none; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; padding: 32px; background: var(--rp-cream); animation: rpSectionIn 0.35s cubic-bezier(.2,.8,.2,1); }
+.report-page .rp-collapsible-body[hidden] { display: none; }
+@keyframes rpSectionIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+.report-page .section-num { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rp-warm-700); font-weight: 500; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+.report-page .section-num::before { content: ""; width: 16px; height: 1px; background: var(--rp-ink); }
+.report-page .section-sub { font-size: 17px; font-weight: 500; letter-spacing: -0.01em; margin: 36px 0 12px; color: var(--rp-ink); }
+.report-page .section-sub:first-child { margin-top: 0; }
+
+/* Callout */
+.report-page .callout { position: relative; padding: 24px 28px; background: var(--rp-paper); border: 1px solid var(--rp-border); border-left: 3px solid var(--rp-accent); font-size: 15px; line-height: 1.55; color: var(--rp-ink-soft); margin: 32px 0 0; border-radius: 2px; }
+.report-page .callout.warn { border-left-color: var(--rp-tone-rose); }
+.report-page .callout strong { color: var(--rp-ink); font-weight: 700; }
+
+/* Prose */
+.report-page .prose { max-width: 65ch; }
+.report-page .prose p { font-size: 16px; line-height: 1.7; color: var(--rp-warm-900); margin: 0 0 14px; }
+.report-page .prose p:last-child { margin-bottom: 0; }
+.report-page .prose strong { color: var(--rp-ink); }
+.report-page .prose em { font-style: italic; color: var(--rp-ink); }
+
+/* Tables */
+.report-page .report-table-wrap { border: 1px solid var(--rp-border); border-radius: 2px; overflow-x: auto; margin: 0; max-width: 100%; }
+.report-page .report-table-wrap + .section-sub { margin-top: 36px; }
+.report-page .report-table { width: 100%; border-collapse: collapse; font-size: 14px; table-layout: auto; }
+.report-page .report-table thead th { text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rp-warm-700); font-weight: 500; padding: 14px 12px; background: var(--rp-paper); border-bottom: 1px solid var(--rp-border); white-space: normal; line-height: 1.3; }
+.report-page .report-table thead th:first-child { padding-left: 16px; }
+.report-page .report-table thead th:last-child { padding-right: 16px; }
+.report-page .report-table tbody td { padding: 14px 12px; border-bottom: 1px solid var(--rp-border); vertical-align: top; line-height: 1.5; color: var(--rp-ink-soft); }
+.report-page .report-table tbody td:first-child { padding-left: 16px; }
+.report-page .report-table tbody td:last-child { padding-right: 16px; }
+.report-page .report-table tbody tr:last-child td { border-bottom: none; }
+.report-page .report-table tbody tr:hover td { background: rgba(31, 29, 26, 0.015); }
+.report-page .report-table .emphasize { color: var(--rp-ink); font-weight: 500; }
+.report-page .report-table .num { white-space: nowrap; }
+.report-page .tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+.report-page .tag.ok { background: var(--rp-tone-green); color: #fff; }
+.report-page .tag.part { background: var(--rp-tone-amber); color: #fff; }
+.report-page .tag.gap { background: var(--rp-tone-rose); color: #fff; }
+
+/* Two-column compare */
+.report-page .reviews-split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 0; }
+.report-page .reviews-col h4 { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; margin: 0 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--rp-border); display: flex; align-items: center; gap: 10px; }
+.report-page .reviews-col h4 .pip { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.report-page .reviews-col.loved h4 .pip { background: var(--rp-tone-green); }
+.report-page .reviews-col.complaints h4 .pip { background: var(--rp-tone-orange); }
+.report-page .reviews-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 1.55; color: var(--rp-ink-soft); }
+.report-page .reviews-col li { position: relative; padding-left: 18px; }
+.report-page .reviews-col li::before { content: ""; position: absolute; left: 0; top: 9px; width: 8px; height: 1px; background: var(--rp-warm-500); }
+.report-page .reviews-col li strong { color: var(--rp-ink); font-weight: 600; }
+
+/* Scorecard tiles */
+.report-page .scorecard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--rp-border); border: 1px solid var(--rp-border); border-radius: 2px; overflow: hidden; }
+.report-page .scorecard-tile { background: var(--rp-cream); padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; min-height: 150px; }
+.report-page .scorecard-tile-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.report-page .scorecard-area { font-size: 14px; font-weight: 500; color: var(--rp-ink); }
+.report-page .scorecard-grade { font-size: 34px; font-weight: 500; line-height: 0.85; letter-spacing: -0.04em; }
+.report-page .scorecard-grade[data-tone="green"] { color: var(--rp-tone-green); }
+.report-page .scorecard-grade[data-tone="lime"] { color: var(--rp-tone-lime); }
+.report-page .scorecard-grade[data-tone="amber"] { color: var(--rp-tone-amber); }
+.report-page .scorecard-grade[data-tone="orange"] { color: var(--rp-tone-orange); }
+.report-page .scorecard-grade[data-tone="rose"] { color: var(--rp-tone-rose); }
+.report-page .scorecard-summary { font-size: 13px; line-height: 1.5; color: var(--rp-warm-900); margin: 0; }
+
+/* Action plan */
+.report-page .ap-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 0; border-top: 1px solid var(--rp-ink); border-bottom: 1px solid var(--rp-ink); }
+.report-page .ap-table thead th { text-align: left; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rp-warm-700); font-weight: 500; padding: 14px 0; border-bottom: 1px solid var(--rp-border); }
+.report-page .ap-table thead th:first-child { width: 44px; }
+.report-page .ap-table thead th:nth-child(2) { width: 104px; }
+.report-page .ap-table thead th:nth-child(4) { width: 26%; }
+.report-page .ap-table thead th:last-child { width: 90px; text-align: right; }
+.report-page .ap-table tbody td { padding: 16px 0; border-bottom: 1px solid var(--rp-border); vertical-align: top; line-height: 1.5; }
+.report-page .ap-table tbody td.ap-action, .report-page .ap-table tbody td.ap-impact { padding-right: 20px; }
+.report-page .ap-table tbody tr:last-child td { border-bottom: none; }
+.report-page .ap-priority { font-weight: 500; font-size: 16px; letter-spacing: -0.01em; color: var(--rp-ink); }
+.report-page .ap-category { display: inline-block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--rp-border-strong); color: var(--rp-ink-soft); white-space: nowrap; }
+.report-page .ap-category[data-cat="Quick win"] { background: var(--rp-ink); color: var(--rp-cream); border-color: var(--rp-ink); }
+.report-page .ap-category[data-cat="Build"] { background: var(--rp-paper); color: var(--rp-ink); }
+.report-page .ap-category[data-cat="Ongoing"] { background: transparent; color: var(--rp-warm-700); }
+.report-page .ap-action { font-weight: 500; color: var(--rp-ink); }
+.report-page .ap-impact { color: var(--rp-warm-700); }
+.report-page .ap-timeline { text-align: right; color: var(--rp-warm-700); white-space: nowrap; }
+
+/* Footer */
+.report-page .rp-foot { border-top: 1px solid var(--rp-border); margin-top: 24px; padding-top: 24px; font-size: 13px; line-height: 1.6; color: var(--rp-warm-700); max-width: 78ch; }
+.report-page .rp-foot strong { color: var(--rp-ink); }
+
+/* Responsive */
+@media (max-width: 1280px) { .report-page .shell { grid-template-columns: var(--rp-col-sidebar) minmax(0, 1fr); grid-template-areas: "sidebar main"; } .report-page .rail { display: none !important; } }
+@media (max-width: 1080px) { .report-page { --rp-col-sidebar: 180px; --rp-col-gap: 20px; } .report-page .shell { padding: 0 12px; } }
+@media (max-width: 768px) {
+  .report-page { --rp-col-gap: 0; }
+  .report-page .meta-strip-inner { padding: 12px 20px; flex-direction: column; gap: 8px; align-items: flex-start; font-size: 11px; }
+  .report-page .meta-strip-by { display: none; }
+  .report-page .shell { grid-template-columns: 1fr; grid-template-areas: "sidebar" "main"; padding: 0 20px; gap: 0; }
+  .report-page .sidebar { position: static; max-height: none; overflow: visible; padding: 32px 0; border-bottom: 1px solid var(--rp-border); margin-bottom: 32px; }
+  .report-page .main { padding-top: 0; padding-bottom: 80px; }
+  .report-page .rail { display: none !important; }
+  .report-page .verdict { grid-template-columns: 1fr; gap: 32px; padding: 32px 0; }
+  .report-page .grade-card { min-height: 240px; }
+  .report-page .reviews-split { grid-template-columns: 1fr; gap: 24px; }
+  .report-page .scorecard-grid { grid-template-columns: 1fr; }
+  .report-page .ap-table thead th:nth-child(4), .report-page .ap-table tbody td.ap-impact { display: none; }
+  .report-page .report-table { font-size: 13px; }
+  .report-page .rp-collapsible-toggle { grid-template-columns: 1fr; padding: 22px 20px; gap: 18px; }
+  .report-page .rp-expand-indicator { justify-self: start; }
+  .report-page .rp-collapsible-body { padding: 22px 18px; }
+}
+
+/* Print */
+@media print {
+  .preview-banner, .report-page .sidebar, .report-page .rail, .report-page .meta-strip { display: none !important; }
+  .report-page .shell { display: block; max-width: none; padding: 0; }
+  .report-page .main { padding: 0; }
+  .report-page { background: #fff; }
+  .report-page .section { page-break-inside: avoid; margin-bottom: 32px; }
+  .report-page .rp-collapsible-body[hidden] { display: block !important; }
+}
+.report-page [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="preview-banner">
+  <span><strong>TableTurnerr</strong> — Local Preview · New-Site Audit</span>
+  <span>Internal · June 2026</span>
+</div>
+<div class="report-page">
+  <div class="meta-strip">
+    <div class="meta-strip-inner">
+      <div class="meta-strip-text">
+        Site Audit
+        <span class="dot"></span>
+        Review Automation for Home Services (new site)
+        <span class="dot"></span>
+        June 26, 2026
+      </div>
+      <div class="meta-strip-right"><span class="meta-strip-by">By TableTurnerr</span></div>
+    </div>
+  </div>
+  <div class="shell">
+
+    <aside class="sidebar">
+      <div class="side-block">
+        <div class="side-eyebrow"><span>Verdict</span><span class="num">Jun 2026</span></div>
+        <div class="side-grade">
+          <div class="side-grade-letter">B<span>-</span></div>
+          <div class="side-grade-meta"><span class="num">72/100</span><span>Launch readiness</span></div>
+        </div>
+        <ul class="side-facts">
+          <li><span>Pages</span><b>~33</b></li>
+          <li><span>Trades</span><b>4</b></li>
+          <li><span>Integrations</span><b>5</b></li>
+          <li><span>Texas cities</span><b>24</b></li>
+          <li><span>Blog posts live</span><b>0</b></li>
+        </ul>
+      </div>
+      <div class="side-block">
+        <div class="side-eyebrow"><span>Readiness by area</span><span class="num">7</span></div>
+        <ul class="score-list">
+          <li class="score-row"><div class="score-row-top"><span class="score-label">Build &amp; code</span><span class="score-value">88</span></div><div class="score-track"><div class="score-fill" data-tone="lime" style="width:88%"></div></div></li>
+          <li class="score-row"><div class="score-row-top"><span class="score-label">Content &amp; IA</span><span class="score-value">86</span></div><div class="score-track"><div class="score-fill" data-tone="lime" style="width:86%"></div></div></li>
+          <li class="score-row"><div class="score-row-top"><span class="score-label">Technical SEO</span><span class="score-value">85</span></div><div class="score-track"><div class="score-fill" data-tone="lime" style="width:85%"></div></div></li>
+          <li class="score-row"><div class="score-row-top"><span class="score-label">Performance</span><span class="score-value">80</span></div><div class="score-track"><div class="score-fill" data-tone="lime" style="width:80%"></div></div></li>
+          <li class="score-row"><div class="score-row-top"><span class="score-label">Brand cleanup</span><span class="score-value">65</span></div><div class="score-track"><div class="score-fill" data-tone="amber" style="width:65%"></div></div></li>
+          <li class="score-row"><div class="score-row-top"><span class="score-label">Conversion funnel</span><span class="score-value">55</span></div><div class="score-track"><div class="score-fill" data-tone="amber" style="width:55%"></div></div></li>
+          <li class="score-row"><div class="score-row-top"><span class="score-label">Compliance &amp; legal</span><span class="score-value">45</span></div><div class="score-track"><div class="score-fill" data-tone="rose" style="width:45%"></div></div></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main">
+
+      <header class="hero">
+        <div class="hero-eyebrow"><span>New-Site Audit</span><span>June 26, 2026</span></div>
+        <h1>The new site is well-built. It isn't launch-complete yet.</h1>
+        <p class="hero-sub">A full read of the review-automation site — architecture, technical SEO, performance, content, conversion, compliance and backend — with the exact gaps between "looks done" and "ready to take money."</p>
+        <div class="hero-narrative">
+          <p>The build quality is genuinely strong. The information architecture is clean, the per-trade and per-city copy is hand-written (not find-and-replace), the metadata and JSON-LD are correct for review automation, security headers and 301s are in place, and assets are light. As an <em>asset</em>, this is a B+ site.</p>
+          <p>What holds it back from launch is everything that turns a visitor into a paying customer and keeps it legal: the signup flow is a manual lead form with no trial provisioning or billing; the free grader lead-magnet and the blog are empty; there are no competitor "alternative" pages; and the legal/compliance layer has real holes — no SMS/TCPA language, an unverified "4×" stat, and a Terms page that still describes the old agency services and contradicts the 90-day guarantee. Plus old restaurant/med-spa code still lingers backstage.</p>
+          <p>None of these are rebuilds. They're <em>finish-the-job</em> work on a foundation that's already done.</p>
+        </div>
+        <div class="verdict">
+          <div class="grade-card">
+            <div class="grade-card-top"><span>Launch readiness</span><span>June 2026</span></div>
+            <div class="grade-letter">B<span class="grade-modifier">&ndash;</span></div>
+            <div class="grade-card-bottom"><span>Strong build,<br>unfinished funnel</span><span class="grade-score">72<small>/100</small></span></div>
+          </div>
+          <div class="verdict-body">
+            <p class="verdict-headline">A B+ site with a <strong>C-grade go-to-market layer</strong> — the product story is built, the money path and the legal layer are not.</p>
+            <div class="verdict-stat">
+              <div class="verdict-stat-value">4 gaps</div>
+              <div class="verdict-stat-label">Stand between this and launch: self-serve conversion, the lead-magnet + content engine, compliance/legal, and brand cleanup</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- 01 Executive summary -->
+      <section class="section rp-collapsible is-open" id="summary" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="true" aria-controls="summary-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 01</span></div>
+            <h2>Executive Summary</h2>
+            <p class="section-intro">What's done, what's missing, and the four things that gate a real launch.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true"><span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span><span class="rp-expand-label">Click to Collapse</span></span>
+        </button>
+        <div id="summary-body" class="rp-collapsible-body">
+          <div class="prose">
+            <p>The new TableTurnerr site scores <strong>B- (72/100) on launch readiness</strong> — the kind of split where the asset is excellent and the go-to-market layer is unfinished. The site, content, and technical SEO are <strong>B+/A-</strong> work; conversion, compliance, and brand cleanup are <strong>C/D</strong>.</p>
+            <p><strong>Top 5 findings:</strong></p>
+            <p><strong>1. The funnel doesn't close.</strong> Every CTA points at <em>/signup</em> or <em>/contact</em>, and both are the same manual lead form writing to <em>contact_leads</em>. There's no automated trial provisioning, no Stripe/billing, and no credentials email — the success message promises a trial that nothing actually creates.</p>
+            <p><strong>2. The lead-magnet and content engine are empty.</strong> The free review-score grader (the niche's standard lead magnet) doesn't exist, the blog ships with zero live posts, and there are no "X alternative" comparison pages — the three highest-ROI organic plays in this niche.</p>
+            <p><strong>3. The legal/compliance layer has real holes.</strong> No SMS/TCPA/A2P language anywhere for an SMS product; the homepage "4× more reviews" stat is unverified (FTC risk); the Terms page still describes the old agency services (website design, SEO, ads) and its "all payments non-refundable" clause contradicts the site-wide "90 days or next month free" guarantee.</p>
+            <p><strong>4. The no-gating compliance angle is a wasted differentiator.</strong> The product correctly does <em>not</em> gate reviews — but the site never says so, leaving a strong, on-trend selling point on the table.</p>
+            <p><strong>5. Old-brand code lingers backstage.</strong> The public marketing nav is clean, but <em>constants.ts</em> (SERVICES/FAQ/INDUSTRY_LINKS), the old <em>layout/Navbar</em>+<em>Footer</em>, and <em>components/sections/*</em> (ReviewCalculator, OurWork, ContactForm) still carry restaurant/med-spa copy and feed the portal + blog imports.</p>
+            <p>The good news: the four highest-leverage fixes are execution on an existing foundation, not new architecture.</p>
+          </div>
+          <div class="callout"><strong>One-liner:</strong> this is a "ship the funnel and finish the legal layer" problem, not a "build the site" problem. The site is the easy 80% that's done; the gaps are the 20% that actually converts and protects revenue.</div>
+        </div>
+      </section>
+
+      <!-- 02 Architecture -->
+      <section class="section rp-collapsible" id="architecture" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="architecture-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 02</span></div>
+            <h2>Site Architecture &amp; Pages</h2>
+            <p class="section-intro">~33 routes, clean IA, genuinely unique programmatic content. The gaps are missing page types, not broken structure.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true"><span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span><span class="rp-expand-label">Click to Expand</span></span>
+        </button>
+        <div id="architecture-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <p class="section-sub">What's built</p>
+          <div class="report-table-wrap">
+            <table class="report-table">
+              <thead><tr><th>Area</th><th>Count</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td class="emphasize">Core marketing pages</td><td class="num">~9</td><td>Home, About, Contact, Signup, SEO, Integrations index, Locations index, Privacy, Terms.</td></tr>
+                <tr><td class="emphasize">Trade pages</td><td class="num">4</td><td>HVAC, roofing, plumbing, electrical — hand-written hero, pains, outcomes, FAQs per trade.</td></tr>
+                <tr><td class="emphasize">Integration pages</td><td class="num">5</td><td>Jobber, Housecall Pro, ServiceTitan, Workiz, QuickBooks — unique value prop + syncs each.</td></tr>
+                <tr><td class="emphasize">Texas city pages</td><td class="num">24</td><td>Distinct intro + market copy per city (climate, growth, competition). Not duplicated.</td></tr>
+                <tr><td class="emphasize">Blog</td><td class="num">1+</td><td>Index + dynamic post + preview routes exist; <strong>0 posts published</strong>.</td></tr>
+                <tr><td class="emphasize">Auth / app</td><td class="num">—</td><td>/login + reused admin + portal shells.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="section-sub">Present vs missing (launch-ready SaaS)</p>
+          <div class="report-table-wrap">
+            <table class="report-table">
+              <thead><tr><th>Page type</th><th>Status</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td class="emphasize">Pricing</td><td><span class="tag part">Partial</span></td><td>On homepage; <em>/pricing</em> 301-redirects to <em>/#pricing</em> (not a 404). A standalone page would rank + convert better.</td></tr>
+                <tr><td class="emphasize">Signup / trial</td><td><span class="tag part">Partial</span></td><td>Page exists but is a lead form — no real account/trial creation (see §06).</td></tr>
+                <tr><td class="emphasize">Free review grader</td><td><span class="tag gap">Missing</span></td><td>The niche's #1 lead magnet. Not built.</td></tr>
+                <tr><td class="emphasize">"X alternative" pages</td><td><span class="tag gap">Missing</span></td><td>No vs-NiceJob / vs-Birdeye / vs-Podium. Dominant SEO play in this niche.</td></tr>
+                <tr><td class="emphasize">Case studies</td><td><span class="tag part">Thin</span></td><td>3 one-line testimonials only; no deep, numbers-backed stories.</td></tr>
+                <tr><td class="emphasize">Security / trust</td><td><span class="tag gap">Missing</span></td><td>No data-handling / compliance trust page.</td></tr>
+                <tr><td class="emphasize">About depth</td><td><span class="tag part">Thin</span></td><td>Values statement; no team/story.</td></tr>
+                <tr><td class="emphasize">Login, Privacy, Terms</td><td><span class="tag ok">Present</span></td><td>All exist (Terms needs content fixes — see §05).</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout"><strong>Internal links:</strong> the public nav/footer (<em>SiteNav</em>/<em>SiteFooter</em>) has no broken links — every CTA target resolves or 301s. The dead restaurant/med-spa links live only in the old portal-side nav (see §07).</div>
+        </div>
+      </section>
+
+      <!-- 03 Technical SEO -->
+      <section class="section rp-collapsible" id="seo" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="seo-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 03</span></div>
+            <h2>Technical SEO &amp; Metadata</h2>
+            <p class="section-intro">Above-average and on-brand. A handful of finishing gaps, none structural.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true"><span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span><span class="rp-expand-label">Click to Expand</span></span>
+        </button>
+        <div id="seo-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="reviews-split">
+            <div class="reviews-col loved">
+              <h4><span class="pip"></span> Strong</h4>
+              <ul>
+                <li><strong>metadataBase + title template</strong> correct (<em>www.tableturnerr.com</em>, "%s | TableTurnerr").</li>
+                <li><strong>Org + WebSite JSON-LD</strong> in root layout; per-page Service/FAQ/Breadcrumb/CityService schemas, all review-automation-correct.</li>
+                <li><strong>Per-page metadata + canonicals</strong> on every route via <em>createPageMetadata</em> / <em>generateMetadata</em>.</li>
+                <li><strong>Branded OG image</strong> (next/og, dark navy, no heavy photo); twitter re-exports it.</li>
+                <li><strong>robots.ts</strong> disallows api/admin/portal/login; <strong>HSTS</strong> + nosniff + referrer/permissions headers set.</li>
+                <li><strong>301s</strong> for all removed old routes; remotePatterns locked to Supabase.</li>
+              </ul>
+            </div>
+            <div class="reviews-col complaints">
+              <h4><span class="pip"></span> Gaps to fix</h4>
+              <ul>
+                <li><strong>Blog missing from sitemap.ts</strong> — posts won't be discovered. Add <em>/blog</em> + published slugs.</li>
+                <li><strong>No CSP header</strong> in next.config.ts (HSTS is there; CSP isn't). Add report-only to start.</li>
+                <li><strong>Dynamic pages lack unique OG images</strong> (trades/integrations/cities fall back to the default — acceptable, but per-trade/city OG lifts social CTR).</li>
+                <li><strong>createPageMetadata</strong> omits OG <em>width/height/alt</em> when a custom image is passed.</li>
+                <li><strong>Restaurant copy in constants.ts</strong> (SERVICES/FAQ) is imported by schema.ts + blog page; the restaurant <em>generateAllServicesSchema</em> is dead/unused, but the strings still leak into the blog import. Clean it.</li>
+                <li>Missing <strong>theme-color</strong> + apple-touch-icon; confirm favicon/manifest.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="callout"><strong>Net:</strong> the brand transition from restaurant/med-spa to review automation is clean in everything public-facing. The SEO debt is finishing work (sitemap blog, CSP, OG images) plus purging the backstage restaurant strings.</div>
+        </div>
+      </section>
+
+      <!-- 04 Performance -->
+      <section class="section rp-collapsible" id="performance" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="performance-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 04</span></div>
+            <h2>Performance &amp; Assets</h2>
+            <p class="section-intro">Light and well-configured. One slightly heavy image, one raw logo, and some boilerplate to delete.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true"><span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span><span class="rp-expand-label">Click to Expand</span></span>
+        </button>
+        <div id="performance-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="report-table-wrap">
+            <table class="report-table">
+              <thead><tr><th>Asset / metric</th><th>Current</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td class="emphasize">trades/roofing-review-automation.webp</td><td class="num">320 KB</td><td>Slightly over 300KB — re-compress via media-optimizer.</td></tr>
+                <tr><td>trades/hvac / electrical / plumbing .webp</td><td class="num">233 / 143 / 94 KB</td><td>Fine.</td></tr>
+                <tr><td class="emphasize">logo.png in SiteNav</td><td>raw &lt;img&gt;</td><td>Served via raw img (2.1KB); use next/image or the SVG.</td></tr>
+                <tr><td class="emphasize">Boilerplate SVGs</td><td class="num">~3 KB</td><td>file/globe/window/next/vercel.svg — unused, delete.</td></tr>
+                <tr><td>Fonts (Satoshi woff2 + Caveat)</td><td>self-hosted, swap</td><td>Good — keep.</td></tr>
+                <tr><td>next/image, AVIF/WebP, 1yr cache</td><td>configured</td><td>Good — heroes use fill + sizes.</td></tr>
+                <tr><td>Total public assets</td><td class="num">~0.95 MB</td><td>Healthy for a marketing site.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout"><strong>Quick win:</strong> run the <em>media-optimizer</em> skill on the roofing image and delete the five boilerplate SVGs — a sub-hour pass. No real performance red flags otherwise; served LCP is protected by next/image.</div>
+        </div>
+      </section>
+
+      <!-- 05 Content/Conversion/Compliance -->
+      <section class="section rp-collapsible" id="content" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="content-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 05</span></div>
+            <h2>Content, Conversion &amp; Compliance</h2>
+            <p class="section-intro">The messaging is excellent. The conversion proof and the legal/compliance layer are where the risk sits.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true"><span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span><span class="rp-expand-label">Click to Expand</span></span>
+        </button>
+        <div id="content-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="reviews-split">
+            <div class="reviews-col loved">
+              <h4><span class="pip"></span> Strongest</h4>
+              <ul>
+                <li><strong>Per-trade + per-city copy</strong> is genuinely unique and on-message.</li>
+                <li><strong>Multi-platform value prop</strong> (Google + Facebook + Yelp + Angi) is consistent everywhere.</li>
+                <li><strong>No-contract / month-to-month</strong> trust language is repeated and clear.</li>
+                <li><strong>Technician leaderboards</strong> framed as a compliant motivator, not gating.</li>
+                <li><strong>Product does NOT gate reviews</strong> — frequency caps + cooldown, no "filter bad reviews."</li>
+              </ul>
+            </div>
+            <div class="reviews-col complaints">
+              <h4><span class="pip"></span> Biggest gaps / risk</h4>
+              <ul>
+                <li><strong>No SMS/TCPA/A2P language</strong> anywhere — for an SMS product. Privacy has a mobile-data clause but no opt-in/opt-out/carrier-charge specifics.</li>
+                <li><strong>"4× more reviews" stat is unverified</strong> (FTC §5 risk). Requalify as "typical customers see…" + cite.</li>
+                <li><strong>Testimonials unattributed</strong> — names/locations but no verifiable link.</li>
+                <li><strong>Terms describe the OLD agency</strong> (website/SEO/ads), not review automation.</li>
+                <li><strong>Refund clause contradicts the guarantee</strong> — Terms say "non-refundable"; site says "90 days or next month free."</li>
+                <li><strong>No-gating angle not marketed</strong> — a strong differentiator left unused.</li>
+                <li><strong>Blog empty</strong> — zero TOFU/SEO content.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="callout warn"><strong>Compliance is the real launch blocker here.</strong> An SMS-based product with no opt-in/opt-out disclosure, an unverifiable hero stat, and a Terms page that both describes the wrong product and contradicts its own guarantee is exposed on three fronts (TCPA, FTC, and contract). Fix these before any paid traffic.</div>
+        </div>
+      </section>
+
+      <!-- 06 Backend -->
+      <section class="section rp-collapsible" id="backend" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="backend-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 06</span></div>
+            <h2>Backend &amp; What's Missing</h2>
+            <p class="section-intro">The reused Supabase stack is solid. The money path is the hole.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true"><span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span><span class="rp-expand-label">Click to Expand</span></span>
+        </button>
+        <div id="backend-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="report-table-wrap">
+            <table class="report-table">
+              <thead><tr><th>Capability</th><th>Status</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td class="emphasize">Supabase clients + auth</td><td><span class="tag ok">Reused</span></td><td>server/admin/browser clients, middleware session + role routing, magic-link callback.</td></tr>
+                <tr><td class="emphasize">Lead capture</td><td><span class="tag ok">Works</span></td><td>submitLead → <em>contact_leads</em>, visible in /admin/leads; honeypot + validation.</td></tr>
+                <tr><td class="emphasize">Ingestion API</td><td><span class="tag ok">Reused</span></td><td>/api/ingest reviews + form-submissions; rate-limit, Turnstile, API-key + origin auth.</td></tr>
+                <tr><td class="emphasize">Admin + portal + reports</td><td><span class="tag ok">Reused</span></td><td>Companies/owners/posts/reports CMS; client portal; delete bug fixed (service-role).</td></tr>
+                <tr><td class="emphasize">Trial provisioning</td><td><span class="tag gap">Missing</span></td><td>Signup is a lead form — no account/trial created, no credentials email despite the success copy.</td></tr>
+                <tr><td class="emphasize">Billing / Stripe</td><td><span class="tag gap">Missing</span></td><td>Pricing plans are static; no checkout, no subscription, no webhook. Conversion is fully manual.</td></tr>
+                <tr><td class="emphasize">Free grader endpoint</td><td><span class="tag gap">Missing</span></td><td>No public review-score API behind the lead magnet.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout"><strong>Decision point:</strong> launch <em>sales-led</em> (keep the lead form, sell + provision by hand) and ship billing later — or build self-serve trial + Stripe first. Either is valid; what's not valid is shipping a "Start free trial" button that quietly creates nothing.</div>
+        </div>
+      </section>
+
+      <!-- 07 Brand cleanup -->
+      <section class="section rp-collapsible" id="cleanup" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="cleanup-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 07</span></div>
+            <h2>Brand Cleanup (backstage)</h2>
+            <p class="section-intro">The public site is clean. The old restaurant/med-spa code that still ships isn't.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true"><span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span><span class="rp-expand-label">Click to Expand</span></span>
+        </button>
+        <div id="cleanup-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="report-table-wrap">
+            <table class="report-table">
+              <thead><tr><th>Leftover</th><th>Where it shows</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td class="emphasize">constants.ts SERVICES / FAQ_DATA / INDUSTRY_LINKS</td><td>schema.ts import + blog page + old nav; restaurant/med-spa slugs &amp; copy</td><td>Rewrite to home-services or delete the unused arrays.</td></tr>
+                <tr><td class="emphasize">layout/Navbar + Footer + MobileMenu</td><td>Used by portal/admin shells; link /medspa, /restaurants (dead 301s)</td><td>Repoint to trades or retire; public site already uses SiteNav.</td></tr>
+                <tr><td class="emphasize">components/sections/*</td><td>ReviewCalculator, OurWork, ContactForm, Partners, Results — old restaurant components</td><td>Delete if unused; rebrand ContactForm options if kept.</td></tr>
+                <tr><td class="emphasize">contact/actions.ts field "restaurant"</td><td>DB column name for business name</td><td>Rename to business_name for clean analytics.</td></tr>
+                <tr><td class="emphasize">portal copy "your restaurants"</td><td>/portal dashboard text</td><td>Change to "your locations".</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout"><strong>Severity:</strong> low for public SEO (none of this renders on the marketing pages), but it's real debt — the restaurant strings still travel through schema.ts and the blog import, and they'll confuse anyone reading the code or the portal. A focused half-day purge clears it.</div>
+        </div>
+      </section>
+
+      <!-- 08 Scorecard -->
+      <section class="section rp-collapsible" id="scorecard" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="scorecard-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 08</span></div>
+            <h2>Readiness Scorecard</h2>
+            <p class="section-intro">Letter grades by area. The spread between the build and the funnel is the whole story.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true"><span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span><span class="rp-expand-label">Click to Expand</span></span>
+        </button>
+        <div id="scorecard-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="scorecard-grid">
+            <div class="scorecard-tile"><div class="scorecard-tile-top"><div class="scorecard-area">Build &amp; Code Quality</div><div class="scorecard-grade" data-tone="green">A-</div></div><p class="scorecard-summary">Next 16, clean components, no console noise, secure config.</p></div>
+            <div class="scorecard-tile"><div class="scorecard-tile-top"><div class="scorecard-area">Content &amp; IA</div><div class="scorecard-grade" data-tone="green">A-</div></div><p class="scorecard-summary">Unique per-trade/city copy, clean nav, consistent message.</p></div>
+            <div class="scorecard-tile"><div class="scorecard-tile-top"><div class="scorecard-area">Technical SEO</div><div class="scorecard-grade" data-tone="lime">B</div></div><p class="scorecard-summary">Strong metadata/schema; sitemap-blog, CSP, OG-image gaps.</p></div>
+            <div class="scorecard-tile"><div class="scorecard-tile-top"><div class="scorecard-area">Performance &amp; Assets</div><div class="scorecard-grade" data-tone="lime">B</div></div><p class="scorecard-summary">Light + optimized; one heavy image, raw logo, boilerplate.</p></div>
+            <div class="scorecard-tile"><div class="scorecard-tile-top"><div class="scorecard-area">Brand Cleanup</div><div class="scorecard-grade" data-tone="amber">C+</div></div><p class="scorecard-summary">Public site clean; restaurant/med-spa code lingers backstage.</p></div>
+            <div class="scorecard-tile"><div class="scorecard-tile-top"><div class="scorecard-area">Conversion &amp; Funnel</div><div class="scorecard-grade" data-tone="amber">C-</div></div><p class="scorecard-summary">Forms work; no trial provisioning, billing, or grader.</p></div>
+            <div class="scorecard-tile"><div class="scorecard-tile-top"><div class="scorecard-area">Compliance &amp; Legal</div><div class="scorecard-grade" data-tone="rose">D</div></div><p class="scorecard-summary">No SMS/TCPA; unverified stat; Terms wrong + guarantee conflict.</p></div>
+            <div class="scorecard-tile"><div class="scorecard-tile-top"><div class="scorecard-area">Off-site presence</div><div class="scorecard-grade" data-tone="rose">F</div></div><p class="scorecard-summary">No GBP/reviews/citations yet — expected pre-launch; day-one checklist.</p></div>
+          </div>
+          <div class="callout">Composite <strong>B- (72/100)</strong> excludes off-site presence (a day-one task, not a build failure). The fastest grade movement comes from the funnel + compliance fixes — neither requires new product work.</div>
+        </div>
+      </section>
+
+      <!-- 09 Action plan -->
+      <section class="section rp-collapsible" id="actions" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="actions-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 09</span></div>
+            <h2>Action Plan</h2>
+            <p class="section-intro">Highest-leverage first. Quick wins are hours; Build items are days.</p>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true"><span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span><span class="rp-expand-label">Click to Expand</span></span>
+        </button>
+        <div id="actions-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <table class="ap-table">
+            <thead><tr><th>#</th><th>Type</th><th>Action</th><th>Impact</th><th>When</th></tr></thead>
+            <tbody>
+              <tr><td class="ap-priority">01</td><td><span class="ap-category" data-cat="Build">Build</span></td><td class="ap-action">Decide sales-led vs self-serve, then make /signup do what it says — provision a trial + send credentials, or relabel it honestly to "request access".</td><td class="ap-impact">Closes the funnel; stops promising a trial nothing creates.</td><td class="ap-timeline">Week 1</td></tr>
+              <tr><td class="ap-priority">02</td><td><span class="ap-category" data-cat="Build">Build</span></td><td class="ap-action">Fix the legal/compliance layer: add SMS/TCPA + A2P opt-in/opt-out to Privacy; rewrite Terms for review automation; resolve refund-vs-guarantee; requalify the "4×" stat.</td><td class="ap-impact">Removes TCPA + FTC + contract exposure before any traffic.</td><td class="ap-timeline">Week 1</td></tr>
+              <tr><td class="ap-priority">03</td><td><span class="ap-category" data-cat="Quick win">Quick win</span></td><td class="ap-action">Add a homepage/feature block marketing the no-gating, fully-compliant angle.</td><td class="ap-impact">Turns a built-in into a headline differentiator.</td><td class="ap-timeline">Week 1</td></tr>
+              <tr><td class="ap-priority">04</td><td><span class="ap-category" data-cat="Quick win">Quick win</span></td><td class="ap-action">Add /blog to sitemap.ts; add a CSP header; run media-optimizer on the roofing image; delete boilerplate SVGs; fix logo &lt;img&gt;.</td><td class="ap-impact">Closes the SEO + perf + security finishing gaps.</td><td class="ap-timeline">Week 1</td></tr>
+              <tr><td class="ap-priority">05</td><td><span class="ap-category" data-cat="Build">Build</span></td><td class="ap-action">Build the free review-score grader lead magnet (page + endpoint) and wire it to lead capture.</td><td class="ap-impact">The niche's #1 demand-gen play; feeds the pipeline.</td><td class="ap-timeline">Weeks 2–3</td></tr>
+              <tr><td class="ap-priority">06</td><td><span class="ap-category" data-cat="Build">Build</span></td><td class="ap-action">Ship "X alternative" pages (vs NiceJob / Birdeye / Podium) and a real /pricing page.</td><td class="ap-impact">Captures high-intent comparison + pricing searches.</td><td class="ap-timeline">Weeks 2–3</td></tr>
+              <tr><td class="ap-priority">07</td><td><span class="ap-category" data-cat="Build">Build</span></td><td class="ap-action">Publish a 6–10 post blog cluster mapped to trade + "get more reviews" keywords; add 2–3 numbers-backed case studies.</td><td class="ap-impact">TOFU SEO engine + verifiable proof (FTC-safe).</td><td class="ap-timeline">Weeks 3–6</td></tr>
+              <tr><td class="ap-priority">08</td><td><span class="ap-category" data-cat="Build">Build</span></td><td class="ap-action">Purge backstage restaurant/med-spa code (constants, old nav/sections, portal/contact strings); add per-trade/city OG images.</td><td class="ap-impact">Clears brand debt; lifts social CTR.</td><td class="ap-timeline">Weeks 3–4</td></tr>
+              <tr><td class="ap-priority">09</td><td><span class="ap-category" data-cat="Build">Build</span></td><td class="ap-action">If self-serve: integrate Stripe (checkout, trial→paid, webhooks).</td><td class="ap-impact">Unlocks revenue without manual provisioning.</td><td class="ap-timeline">Weeks 4–6</td></tr>
+              <tr><td class="ap-priority">10</td><td><span class="ap-category" data-cat="Ongoing">Ongoing</span></td><td class="ap-action">Day-one off-site: claim GBP, seed first reviews/citations, list in CRM marketplaces, activate social with the two-niche message.</td><td class="ap-impact">Builds the off-site presence the product sells.</td><td class="ap-timeline">At launch</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 10 Method -->
+      <section class="section rp-collapsible" id="method" data-collapsible="section">
+        <button type="button" class="rp-collapsible-toggle" aria-expanded="false" aria-controls="method-body">
+          <div class="rp-collapsible-head">
+            <div class="section-num"><span>Section 10</span></div>
+            <h2>Method &amp; Caveats</h2>
+          </div>
+          <span class="rp-expand-indicator" aria-hidden="true"><span class="rp-expand-icon"><span class="rp-chev rp-chev-1"></span><span class="rp-chev rp-chev-2"></span></span><span class="rp-expand-label">Click to Expand</span></span>
+        </button>
+        <div id="method-body" class="rp-collapsible-body" hidden aria-hidden="true">
+          <div class="prose">
+            <p><strong>Method.</strong> Full read of the repo (<em>c:\Users\Mohsin\Parent-Site</em>) across four parallel audit passes — architecture/pages, technical SEO/metadata, performance/assets/backend, and content/conversion/compliance — with findings cross-checked against the codebase (routes, constants, schema, sitemap, next.config, components).</p>
+            <p><strong>No live measurement.</strong> No Lighthouse/PageSpeed field data, no GSC/analytics access. Performance notes are from asset weights + code, not runtime metrics. Grades are directional, scored by hand.</p>
+            <p><strong>Pre-launch framing.</strong> Off-site presence (GBP, reviews, citations) is correctly near-zero — that's a day-one launch task, not a build failure, and is excluded from the readiness composite.</p>
+            <p><strong>Companion docs.</strong> Market/competitor context: <em>docs/new-site/research/niche-analysis-2026-06.html</em>. Report skin: <em>components/report/report.css</em>.</p>
+          </div>
+          <div class="rp-foot"><strong>TableTurnerr — New-Site Audit.</strong> Internal, June 26 2026. Built in the house report skin.</div>
+        </div>
+      </section>
+
+    </main>
+
+    <aside class="rail">
+      <div class="side-block">
+        <div class="side-eyebrow"><span>Sections</span><span class="num">10</span></div>
+        <ul class="section-nav">
+          <li><a href="#summary" data-rail-link="summary"><span class="num">01</span><span>Executive Summary</span></a></li>
+          <li><a href="#architecture" data-rail-link="architecture"><span class="num">02</span><span>Architecture &amp; Pages</span></a></li>
+          <li><a href="#seo" data-rail-link="seo"><span class="num">03</span><span>Technical SEO</span></a></li>
+          <li><a href="#performance" data-rail-link="performance"><span class="num">04</span><span>Performance &amp; Assets</span></a></li>
+          <li><a href="#content" data-rail-link="content"><span class="num">05</span><span>Content / Conversion / Compliance</span></a></li>
+          <li><a href="#backend" data-rail-link="backend"><span class="num">06</span><span>Backend &amp; Missing</span></a></li>
+          <li><a href="#cleanup" data-rail-link="cleanup"><span class="num">07</span><span>Brand Cleanup</span></a></li>
+          <li><a href="#scorecard" data-rail-link="scorecard"><span class="num">08</span><span>Readiness Scorecard</span></a></li>
+          <li><a href="#actions" data-rail-link="actions"><span class="num">09</span><span>Action Plan</span></a></li>
+          <li><a href="#method" data-rail-link="method"><span class="num">10</span><span>Method &amp; Caveats</span></a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+</div>
+<script>
+(function () {
+  function bindCollapsible(root) {
+    var toggle = root.querySelector(".rp-collapsible-toggle");
+    var body = root.querySelector(".rp-collapsible-body");
+    if (!toggle || !body) return;
+    toggle.addEventListener("click", function () {
+      var isOpen = root.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      if (isOpen) { body.removeAttribute("hidden"); body.removeAttribute("aria-hidden"); }
+      else { body.setAttribute("hidden", ""); body.setAttribute("aria-hidden", "true"); }
+      var label = toggle.querySelector(".rp-expand-label");
+      if (label) label.textContent = isOpen ? "Click to Collapse" : "Click to Expand";
+    });
+  }
+  document.querySelectorAll('[data-collapsible="section"]').forEach(bindCollapsible);
+
+  var railLinks = Array.prototype.slice.call(document.querySelectorAll("[data-rail-link]"));
+  function syncActive() {
+    var y = window.scrollY + 200;
+    var current = railLinks[0] ? railLinks[0].getAttribute("data-rail-link") : null;
+    railLinks.forEach(function (a) {
+      var el = document.getElementById(a.getAttribute("data-rail-link"));
+      if (el && el.offsetTop <= y) current = a.getAttribute("data-rail-link");
+    });
+    railLinks.forEach(function (a) { a.classList.toggle("is-active", a.getAttribute("data-rail-link") === current); });
+  }
+  if (railLinks.length) { syncActive(); window.addEventListener("scroll", syncActive, { passive: true }); }
+})();
+</script>
+</body>
+</html>

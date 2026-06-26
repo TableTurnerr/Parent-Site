@@ -43,7 +43,11 @@ function FlipLink({
 export default function Footer({
   hideWatermark = false,
 }: { hideWatermark?: boolean } = {}) {
-  const pageLinks = [{ label: "Home", href: "/" }, ...NAV_LINKS];
+  const pageLinks = [
+    { label: "Home", href: "/" },
+    ...NAV_LINKS,
+    { label: "Pricing", href: "/pricing" },
+  ];
   return (
     <footer className="bg-black pt-16 md:pt-20 pb-8">
       <Container>

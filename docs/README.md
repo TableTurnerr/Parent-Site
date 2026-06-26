@@ -1,17 +1,21 @@
-# docs/
+# Docs
 
-Working documents for the TableTurnerr site (ParentSite): audits, SEO research, planning notes, and reference material. Not shipped with the app.
+Project documentation, split by site era.
 
-## Index
+```
+docs/
+├─ new-site/          ← CURRENT: TableTurnerr = review automation for home services
+│  ├─ research/       ← market/competitor research (niche analysis + raw verified data)
+│  └─ reports/        ← reports for the new site
+└─ old-site/          ← ARCHIVE: the previous restaurant + med-spa local-SEO site
+   ├─ blog-drafts/    ← old restaurant blog drafts
+   ├─ competitor-research-2026-06.{md,html}
+   ├─ content-strategy-2026-05-31.md
+   └─ site-audit-2026-05-30.md
+```
 
-| Document | What it is |
-|---|---|
-| [site-audit-2026-05-30.md](site-audit-2026-05-30.md) | Full site audit (SEO, performance/CWV, accessibility, visual/UX, content, CRO, link graph) + prioritized P0–P4 roadmap. Note: its "Texas-first" framing is superseded — TableTurnerr is a national agency; Texas is a keyword angle only. |
-| [content-strategy-2026-05-31.md](content-strategy-2026-05-31.md) | Blog content strategy: 5 pillars, 2–3/week cadence, per-post SEO checklist, and a 20-post starter calendar mapped to keywords + service links. |
+The full old site is also preserved on the `old-site` git branch. House client-report
+JSONs live in `reports-archive/` (gitignored), pushed to Supabase via `scripts/push-report.js`.
 
-## Conventions
-
-- **Naming:** `<type>-YYYY-MM-DD.md` (e.g. `site-audit-2026-05-30.md`, `keyword-research-2026-06-01.md`).
-- **What goes here:** audits, keyword research, content plans, migration/release notes, design direction docs.
-- **What does NOT go here:** `README.md` and `CLAUDE.md` stay at repo root (tooling/onboarding convention); code stays under `app/`; SQL migrations stay under `scripts/migrations/`.
-- Add a row to the Index table above whenever you add a doc.
+**Start here for the new site:** [`new-site/research/niche-analysis-2026-06.md`](new-site/research/niche-analysis-2026-06.md)
+(open `niche-analysis-2026-06.html` in a browser / Live Preview for the formatted version).

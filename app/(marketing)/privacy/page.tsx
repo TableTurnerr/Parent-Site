@@ -8,7 +8,7 @@ import { generateBreadcrumbSchema } from "@/app/lib/schema";
 export const metadata: Metadata = createPageMetadata({
   title: "Privacy Policy",
   description:
-    "TableTurnerr's privacy policy explains how we collect, use, and protect your personal information when you use our restaurant marketing services and website.",
+    "TableTurnerr's privacy policy explains how we collect, use, and protect your personal information when you use our marketing services and website.",
   path: "/privacy",
 });
 
@@ -78,9 +78,9 @@ export default function PrivacyPolicyPage() {
                   >
                     tableturnerr.com
                   </Link>{" "}
-                  and provides restaurant marketing services including website
-                  design, SEO, branding, Google Ads management, and Google
-                  Business Profile optimization. This Privacy Policy explains how
+                  and provides marketing services including website design, SEO,
+                  branding, Google Ads management, and Google Business Profile
+                  optimization. This Privacy Policy explains how
                   we collect, use, disclose, and safeguard your information when
                   you visit our website or engage our services.
                 </p>
@@ -97,7 +97,7 @@ export default function PrivacyPolicyPage() {
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
                     <strong className="text-charcoal">Contact forms:</strong>{" "}
-                    Name, email address, phone number, restaurant name, and any
+                    Name, email address, phone number, business name, and any
                     details you include in your message.
                   </li>
                   <li>
@@ -105,9 +105,9 @@ export default function PrivacyPolicyPage() {
                       Service engagements:
                     </strong>{" "}
                     Business information necessary to perform our marketing
-                    services, such as restaurant details, branding assets, menu
-                    content, and access credentials for platforms like Google
-                    Business Profile.
+                    services, such as business details, branding assets, content,
+                    and access credentials for platforms like Google Business
+                    Profile.
                   </li>
                   <li>
                     <strong className="text-charcoal">Blog comments:</strong>{" "}
@@ -153,7 +153,7 @@ export default function PrivacyPolicyPage() {
                     Respond to inquiries and provide customer support.
                   </li>
                   <li>
-                    Deliver and manage our restaurant marketing services.
+                    Deliver and manage our marketing services.
                   </li>
                   <li>
                     Send service-related communications, project updates, and

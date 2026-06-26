@@ -4,31 +4,9 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-      {
-        // Supabase Storage: blog featured images + inline uploads live here.
-        protocol: "https",
-        hostname: "ehmadjsryrsjjfwsmqqq.supabase.co",
-      },
-      {
-        // Any Supabase project host, future-proofing storage URLs.
+        // Supabase Storage: blog featured images + portal/admin uploads.
         protocol: "https",
         hostname: "*.supabase.co",
-      },
-      {
-        protocol: "http",
-        hostname: "psdb.tableturnerr.com",
-      },
-      {
-        protocol: "https",
-        hostname: "psdb.tableturnerr.com",
-      },
-      {
-        // Live homepage screenshots for the "Our Work" portfolio (thum.io).
-        protocol: "https",
-        hostname: "image.thum.io",
       },
     ],
     formats: ["image/avif", "image/webp"],
@@ -39,6 +17,27 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  async redirects() {
+    // 301s for the old restaurant/med-spa routes (and old tools) that were
+    // removed in the review-automation rebuild, so previously-indexed URLs and
+    // stray links don't 404. Most map to the homepage; trades/pricing map to the
+    // closest new equivalent.
+    return [
+      { source: "/services", destination: "/", permanent: true },
+      { source: "/services/:path*", destination: "/", permanent: true },
+      { source: "/medspa", destination: "/", permanent: true },
+      { source: "/restaurants", destination: "/", permanent: true },
+      { source: "/case-studies", destination: "/", permanent: true },
+      { source: "/locations/restaurants/:path*", destination: "/locations", permanent: true },
+      { source: "/pricing", destination: "/#pricing", permanent: true },
+      { source: "/pricing/:path*", destination: "/#pricing", permanent: true },
+      { source: "/search", destination: "/", permanent: true },
+      { source: "/review-calculator", destination: "/", permanent: true },
+      { source: "/tools", destination: "/", permanent: true },
+      { source: "/savings-calculator", destination: "/", permanent: true },
+      { source: "/menu-price-calculator", destination: "/", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {
@@ -48,14 +47,17 @@ const nextConfig: NextConfig = {
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
         ],
       },
       {
-        source: "/admin/:path*",
+        // Private app surfaces — never cache, never index.
+        source: "/(admin|portal)/:path*",
         headers: [
           { key: "X-Frame-Options", value: "DENY" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Cache-Control", value: "no-store, no-cache, must-revalidate" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
         ],
       },
       {
