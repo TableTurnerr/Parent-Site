@@ -1,4 +1,4 @@
-import { SITE_CONFIG, SOCIAL_LINKS, SERVICES } from "./constants";
+import { SITE_CONFIG, SOCIAL_LINKS } from "./constants";
 
 export function generateOrganizationSchema() {
   return {
@@ -123,16 +123,6 @@ export function generateCityServiceSchema(params: {
       },
     },
   };
-}
-
-export function generateAllServicesSchema() {
-  return SERVICES.map((service) =>
-    generateServiceSchema({
-      name: service.title,
-      description: service.description,
-      url: `${SITE_CONFIG.url}/services/${service.slug}`,
-    })
-  );
 }
 
 export function generateFAQSchema(
