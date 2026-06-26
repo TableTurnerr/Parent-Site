@@ -112,8 +112,8 @@ function EmptyState() {
         <Button href="/contact" variant="primary">
           Get a Free Consultation
         </Button>
-        <Button href="/services" variant="secondary">
-          View Our Services
+        <Button href="/signup" variant="secondary">
+          Start Free Trial
         </Button>
       </div>
       <div className="mt-14">

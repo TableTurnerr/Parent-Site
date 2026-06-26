@@ -35,8 +35,8 @@ export default function CTA() {
               <Button href="/contact" variant="primary-light" className="w-full sm:w-auto">
                 Get a Free Consultation
               </Button>
-              <Button href="/services" variant="secondary-light" className="w-full sm:w-auto">
-                View Our Services
+              <Button href="/signup" variant="secondary-light" className="w-full sm:w-auto">
+                Start Free Trial
               </Button>
             </div>
             </div>
