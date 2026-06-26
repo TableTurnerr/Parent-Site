@@ -200,23 +200,31 @@ function Trades() {
         </div>
         <Reveal className="mt-12 grid grid-cols-2 gap-5 md:grid-cols-4">
           {TRADES.map((t) => (
-            <Link key={t.t} href={t.href} className="card card-hover group flex flex-col overflow-hidden p-0">
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <Image
-                  src={t.img}
-                  alt={`${t.t} review automation`}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="flex flex-1 flex-col items-start p-6">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-soft text-primary">
+            <Link
+              key={t.t}
+              href={t.href}
+              className="group relative block aspect-[4/5] overflow-hidden rounded-2xl border border-line shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            >
+              <Image
+                src={t.img}
+                alt={`${t.t} review automation`}
+                fill
+                sizes="(max-width: 768px) 50vw, 25vw"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+              />
+              {/* scrim so the image blends into the label */}
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-gradient-to-t from-night via-night/55 to-night/5"
+              />
+              <div className="absolute inset-x-0 bottom-0 p-5">
+                <span className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/10 text-white backdrop-blur-md">
                   <t.icon className="h-5 w-5" />
                 </span>
-                <h3 className="mt-4 text-lg font-bold text-ink">{t.t}</h3>
-                <span className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                  See {t.t} reviews <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <h3 className="text-lg font-bold text-white">{t.t}</h3>
+                <span className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-white/85 transition-colors group-hover:text-white">
+                  See {t.t} reviews{" "}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </div>
             </Link>
