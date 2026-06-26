@@ -1,376 +1,116 @@
-import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import AnimatedElement from "@/app/components/ui/AnimatedElement";
-import BlurText from "@/app/components/ui/BlurText";
-import Button from "@/app/components/ui/Button";
-import Container from "@/app/components/ui/Container";
-import SectionLabel from "@/app/components/ui/SectionLabel";
-import NumberTicker from "@/app/components/ui/NumberTicker";
-import PencilCrossout from "@/app/components/ui/PencilCrossout";
-import CTA from "@/app/components/sections/CTA";
-import { fadeInUp, staggerContainer, scaleIn, fadeIn } from "@/app/lib/animations";
-import { CLIENTS, SITE_CONFIG } from "@/app/lib/constants";
-import { createPageMetadata } from "@/app/lib/metadata";
-import { generateOrganizationSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
+import type { Metadata } from "next";
+import { ArrowRight, Star, Target, Wrench, Zap } from "lucide-react";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "About TableTurnerr, the Local Business Growth Agency",
+export const metadata: Metadata = {
+  title: "About TableTurnerr",
   description:
-    "TableTurnerr is an SEO agency for local businesses. We run local SEO, build high-converting websites, and manage Google Ads so local businesses can compete with the big players and win, with deep experience in the restaurant industry.",
-  path: "/about",
-  keywords: [
-    "local SEO agency",
-    "about TableTurnerr",
-    "local business growth partner",
-    "small business digital marketing",
-    "local web design agency",
-  ],
-});
-
-const CLIENT_LOGOS: Record<string, { file: string; alt: string }> = {
-  "Grill Shack": {
-    file: "GrillShack.webp",
-    alt: "Grill Shack restaurant logo",
-  },
-  "Miss Mat Cafe": {
-    file: "MissMatCafe.webp",
-    alt: "Miss Mat Cafe restaurant logo",
-  },
-  Texbbq: {
-    file: "TexBBQ.webp",
-    alt: "TexBBQ restaurant logo",
-  },
-  "Qadeer Coffee": {
-    file: "QadeerCoffee.webp",
-    alt: "Qadeer Coffee restaurant logo",
-  },
+    "TableTurnerr is review automation built specifically for home-services pros — HVAC, roofing, plumbing and electrical. We turn finished jobs into 5-star reviews so the best companies get found and chosen.",
+  alternates: { canonical: "https://www.tableturnerr.com/about" },
 };
 
-const VALUE_CARDS = [
-  {
-    title: "Local-First",
-    description:
-      "Every strategy, website, and campaign is built to win in local search, where your next customer is actually looking for you.",
-  },
-  {
-    title: "Traffic-First Approach",
-    description:
-      "We are a traffic-first company. We build high-performing websites and then drive customers to them through aggressive organic SEO and paid Google Ads.",
-  },
-  {
-    title: "Long-Term Partnership",
-    description:
-      "Our relationship does not end at handoff. We offer ongoing services, advocate for our clients with tech partners, and provide objective, business-first advice.",
-  },
-  {
-    title: "Conversion-Obsessed",
-    description:
-      "We don't just send traffic. We build the website, reviews, and follow-up that turn clicks into booked, paying customers.",
-  },
-] as const;
-
-const GROWTH_STEPS = [
-  {
-    step: 1,
-    title: "The Foundation",
-    description:
-      "We build a highly-converting, SEO-optimized website and handle the branding you need to instantly scale your online presence and look established from day one.",
-  },
-  {
-    step: 2,
-    title: "The Transition",
-    description:
-      "We get you found where your customers are searching: local SEO, an optimized Google Business Profile, and a site built to convert, so the traffic and the customer relationship stay with you instead of a third-party platform.",
-  },
-  {
-    step: 3,
-    title: "The Scale",
-    description:
-      "With the foundation in place, we help you aggressively invest in revenue-driving channels: scaling Google Ads, deploying branding strategies, and implementing smart systems for capturing 5-star reviews and winning repeat customers.",
-  },
-] as const;
-
-const PARTNER_STATS: readonly {
-  value: number;
-  prefix?: string;
-  suffix: string;
-  decimalPlaces?: number;
-  label: string;
-  source: string;
-}[] = [
-  {
-    value: 92,
-    suffix: "%",
-    label: "Of consumers use a search engine to find a local business",
-    source: "Industry Data",
-  },
-  {
-    value: 90,
-    suffix: "%",
-    label: "Of consumers read reviews before choosing a local business",
-    source: "Industry Data",
-  },
-  {
-    value: 88,
-    suffix: "%",
-    label: "Of mobile local searches lead to a call or visit within a day",
-    source: "Google",
-  },
-  {
-    value: 5,
-    suffix: ":1",
-    label: "Return that local SEO and content marketing deliver over time",
-    source: "Industry Data",
-  },
+const VALUES = [
+  { icon: Wrench, t: "Built for the trades, not everyone", b: "We don't try to serve every business on earth. We go deep on home services, where reviews decide who gets the call." },
+  { icon: Zap, t: "Automation that just runs", b: "Set it once, connect your CRM, and it works in the background. Your team should be on the tools, not chasing reviews." },
+  { icon: Star, t: "Reviews that win real jobs", b: "Not vanity metrics. More recent 5-star reviews mean a higher map-pack rank and more booked, high-ticket work." },
+  { icon: Target, t: "No lock-in, no games", b: "Month-to-month, cancel anytime, and a results guarantee. We earn the renewal every month." },
 ];
 
 export default function AboutPage() {
-  const organizationSchema = generateOrganizationSchema();
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: SITE_CONFIG.url },
-    { name: "About", url: `${SITE_CONFIG.url}/about` },
-  ]);
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([organizationSchema, breadcrumbSchema]),
-        }}
-      />
-
-      {/* Breadcrumb */}
-      <div className="bg-cream pt-24 sm:pt-28 md:pt-36">
-        <Container>
-          <nav aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-warm-gray">
-              <li>
-                <Link
-                  href="/"
-                  className="hover:text-charcoal transition-colors"
-                >
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li>
-                <span className="text-charcoal font-medium">About</span>
-              </li>
-            </ol>
-          </nav>
-        </Container>
-      </div>
-
-      {/* Hero / Intro Section */}
-      <section className="bg-cream pt-10 pb-16 md:pt-14 md:pb-24">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            <AnimatedElement
-              variants={fadeInUp}
-              className="lg:col-span-7"
-            >
-              <p className="font-handwriting text-accent text-3xl md:text-4xl rotate-[-3deg] mb-3">
-                who we are
-              </p>
-              <h1 className="display-lg text-charcoal mb-6">
-                The local business growth agency
-              </h1>
-              <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl mb-8">
-                TableTurnerr is an SEO, website, and traffic-generation agency for
-                local businesses. We act as your outsourced digital team, building
-                a high-converting site on our proven framework and driving the
-                organic and paid traffic that helps you compete with the big
-                players. Our roots are in the restaurant industry, so we know how
-                to win in crowded local markets.
-              </p>
-              <Button href="/contact" variant="primary">
-                Get a Free Consultation
-              </Button>
-            </AnimatedElement>
-
-            <AnimatedElement
-              variants={scaleIn}
-              className="lg:col-span-5"
-            >
-              <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-[1.25rem] overflow-hidden">
-                <Image
-                  src="/images/usage/about-open-kitchen.jpg"
-                  alt="Chefs working in an open restaurant kitchen with pendant lighting"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  priority
-                />
-              </div>
-            </AnimatedElement>
-          </div>
-        </Container>
-      </section>
-
-      {/* Why We Exist Section */}
-      <section className="bg-cream-dark py-16 md:py-24">
-        <Container>
-          <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
-            <SectionLabel>Why TableTurnerr</SectionLabel>
-            <h2 className="font-display font-bold text-[clamp(1.75rem,4vw,3rem)] leading-[1.15] tracking-tight mt-4 max-w-4xl">
-              <BlurText text="Local marketing is a skewed game" delay={100} />
-              {" "}
-              <BlurText
-                text="Large chains have the capital to build powerful digital infrastructures, while"
-                className="text-warm-gray-light"
-                delay={500}
-              />
-              {" "}
-              <PencilCrossout
-                text="local businesses"
-                replacement="You"
-                className="text-warm-gray-light"
-                delay={1200}
-              />
-              {" "}
-              <BlurText
-                text="stay stuck."
-                className="text-warm-gray-light"
-                delay={2200}
-              />
-            </h2>
-          </AnimatedElement>
-
-          <AnimatedElement variants={staggerContainer}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-              {VALUE_CARDS.map((card) => (
-                <AnimatedElement key={card.title} variants={fadeInUp}>
-                  <div className="bg-cream rounded-[1.25rem] p-7 md:p-9 h-full border border-border">
-                    <h3 className="font-display font-semibold text-xl md:text-2xl text-charcoal mb-3">
-                      {card.title}
-                    </h3>
-                    <p className="text-warm-gray text-[1.125rem] leading-relaxed">
-                      {card.description}
-                    </p>
-                  </div>
-                </AnimatedElement>
-              ))}
-            </div>
-          </AnimatedElement>
-        </Container>
-      </section>
-
-      {/* The Growth Path Section */}
-      <section className="bg-cream py-16 md:py-24">
-        <Container>
-          <AnimatedElement variants={fadeInUp} className="mb-12 md:mb-16">
-            <SectionLabel>Our Approach</SectionLabel>
-            <h2 className="font-display font-bold text-[clamp(1.75rem,4vw,3rem)] leading-[1.15] tracking-tight text-charcoal mt-4 max-w-3xl mb-4">
-              <BlurText text="A Proven Three-Step Growth Roadmap" delay={0.1} />
-            </h2>
-            <p className="text-warm-gray text-lg md:text-xl leading-relaxed max-w-2xl">
-              While clients can pick and choose services, we recommend a proven
-              chronological roadmap to maximize digital growth and revenue.
+      {/* Hero */}
+      <section className="hero-wash relative overflow-hidden pt-36 pb-14 md:pt-44 md:pb-20">
+        <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
+        <div className="container-tt relative">
+          <div className="max-w-3xl">
+            <span className="eyebrow">About us</span>
+            <h1 className="display mt-6 text-ink">
+              The best home-services pros deserve to be the easiest to find.
+            </h1>
+            <p className="lead mt-6 max-w-2xl">
+              TableTurnerr is review automation built for one world: home services.
+              HVAC, roofing, plumbing, electrical. We help great companies turn the
+              work they already do into the 5-star reviews that win the next job.
             </p>
-          </AnimatedElement>
-
-          <AnimatedElement variants={staggerContainer}>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-6">
-              {GROWTH_STEPS.map((step) => (
-                <AnimatedElement key={step.step} variants={fadeInUp}>
-                  <div className="bg-cream-dark rounded-[1.25rem] p-7 md:p-9 h-full border border-border">
-                    <div className="flex items-center gap-3 mb-5">
-                      <span className="flex items-center justify-center w-10 h-10 rounded-full bg-charcoal text-cream font-display font-bold text-sm">
-                        {step.step}
-                      </span>
-                      <h3 className="font-display font-semibold text-xl md:text-2xl text-charcoal">
-                        {step.title}
-                      </h3>
-                    </div>
-                    <p className="text-warm-gray text-[1.125rem] leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                </AnimatedElement>
-              ))}
-            </div>
-          </AnimatedElement>
-        </Container>
+          </div>
+        </div>
       </section>
 
-      {/* Clients Section */}
-      <section className="bg-cream-dark py-16 md:py-24">
-        <Container>
-          <AnimatedElement variants={fadeInUp} className="text-center mb-12 md:mb-16">
-            <SectionLabel className="mb-4">Our Clients</SectionLabel>
-            <h2 className="font-display font-bold text-[clamp(1.75rem,4vw,3rem)] leading-[1.15] tracking-tight text-charcoal">
-              <BlurText text="Trusted by Local Businesses" delay={0.1} />
-            </h2>
-          </AnimatedElement>
-
-          <AnimatedElement variants={staggerContainer}>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
-              {CLIENTS.map((client) => {
-                const logo = CLIENT_LOGOS[client.name];
-                return (
-                  <AnimatedElement key={client.name} variants={fadeInUp}>
-                    <div className="bg-cream rounded-[1.25rem] p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center border border-border">
-                      {logo && (
-                        <div className="relative w-full h-20 md:h-24 mb-4 grayscale hover:grayscale-0 transition-all duration-300">
-                          <Image
-                            src={`/Client_Logos/${logo.file}`}
-                            alt={logo.alt}
-                            fill
-                            className="object-contain"
-                            sizes="(max-width: 768px) 50vw, 25vw"
-                          />
-                        </div>
-                      )}
-                      <p className="font-display text-sm md:text-base text-warm-gray text-center">
-                        {client.name}
-                      </p>
-                    </div>
-                  </AnimatedElement>
-                );
-              })}
+      {/* Story */}
+      <section className="section pt-0">
+        <div className="container-tt grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <span className="eyebrow">Why we exist</span>
+            <h2 className="display-2 mt-5 text-ink">Great work shouldn&apos;t stay invisible</h2>
+          </div>
+          <div className="lg:col-span-7">
+            <div className="space-y-4 text-ink-soft">
+              <p className="text-lg leading-relaxed">
+                Here&apos;s what we kept seeing: the best contractor in town,
+                doing careful, honest work all week, sitting below a louder
+                competitor on Google because that competitor simply had more
+                recent reviews.
+              </p>
+              <p className="leading-relaxed">
+                Homeowners don&apos;t see the quality of your work before they
+                call. They see your star rating, your review count, and how
+                recent those reviews are. Whoever wins that snapshot wins the
+                job, even when their work is worse.
+              </p>
+              <p className="leading-relaxed">
+                Asking every customer for a review by hand never scales. Techs
+                are busy, the moment passes, and the reviews never come. So we
+                built the thing that does it automatically, the second a job is
+                done, across every platform that matters. The result: the
+                companies that earn 5-star work finally look like it online.
+              </p>
             </div>
-          </AnimatedElement>
-        </Container>
+          </div>
+        </div>
       </section>
 
-      {/* Stats Strip — commission-free numbers */}
-      <section className="bg-charcoal py-16 md:py-20">
-        <Container>
-          <AnimatedElement variants={fadeIn} className="text-center mb-10 md:mb-14">
-            <SectionLabel className="text-warm-gray-light">
-              Why Commission-Free Wins
-            </SectionLabel>
-          </AnimatedElement>
-
-          <AnimatedElement variants={scaleIn}>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
-              {PARTNER_STATS.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <p className="font-display font-bold text-[clamp(1.75rem,4vw,3rem)] leading-none text-cream mb-2">
-                    {stat.prefix}
-                    <NumberTicker
-                      value={stat.value}
-                      decimalPlaces={stat.decimalPlaces ?? 0}
-                    />
-                    {stat.suffix}
-                  </p>
-                  <p className="text-warm-gray-light text-sm md:text-base leading-snug">
-                    {stat.label}
-                  </p>
-                  <p className="text-warm-gray/60 text-xs mt-1.5">
-                    Source: {stat.source}
-                  </p>
+      {/* Values */}
+      <section className="section bg-surface">
+        <div className="container-tt">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="eyebrow">What we believe</span>
+            <h2 className="display-2 mt-5 text-ink">How we think about the work</h2>
+          </div>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2">
+            {VALUES.map((v) => (
+              <div key={v.t} className="card flex gap-4 p-7">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
+                  <v.icon className="h-5 w-5" />
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold text-ink">{v.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{v.b}</p>
                 </div>
-              ))}
-            </div>
-          </AnimatedElement>
-        </Container>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* CTA */}
-      <CTA />
+      <section className="section">
+        <div className="container-tt">
+          <div className="relative overflow-hidden rounded-[1.75rem] bg-night px-7 py-14 text-center md:px-16 md:py-20">
+            <div aria-hidden className="hero-grid pointer-events-none absolute inset-0 opacity-60" />
+            <div className="relative mx-auto max-w-2xl">
+              <h2 className="display-2 text-white">See what review automation does for your shop</h2>
+              <p className="lead mt-4 text-white/70">
+                Connect your CRM and watch the reviews, and the calls, start rolling in. Free for 14 days.
+              </p>
+              <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+                <Link href="/signup" className="btn btn-light">Start free trial <ArrowRight className="h-4 w-4" /></Link>
+                <Link href="/contact" className="btn btn-outline-light">Book a demo</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
