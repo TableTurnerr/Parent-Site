@@ -512,6 +512,15 @@ function Comparison() {
             </div>
           ))}
         </Reveal>
+
+        <p className="mt-8 text-center text-sm text-ink-soft">
+          See how we compare to{" "}
+          <Link href="/alternatives/birdeye-alternative" className="font-semibold text-primary hover:underline">Birdeye</Link>,{" "}
+          <Link href="/alternatives/podium-alternative" className="font-semibold text-primary hover:underline">Podium</Link>,{" "}
+          <Link href="/alternatives/nicejob-alternative" className="font-semibold text-primary hover:underline">NiceJob</Link>{" "}
+          and{" "}
+          <Link href="/alternatives" className="font-semibold text-primary hover:underline">other review tools</Link>.
+        </p>
       </div>
     </section>
   );

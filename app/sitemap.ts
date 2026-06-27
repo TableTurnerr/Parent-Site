@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { TRADE_SLUGS } from "./lib/trades";
 import { INTEGRATION_SLUGS } from "./lib/integrations";
+import { ALTERNATIVE_SLUGS } from "./lib/alternatives";
 import { REVIEW_CITY_SLUGS } from "./lib/review-cities";
 import { getPublishedPostSlugs } from "./lib/blog";
 
@@ -37,6 +38,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Integrations
     entry("/integrations", 0.8),
     ...INTEGRATION_SLUGS.map((slug) => entry(`/integrations/${slug}`, 0.8)),
+    // Competitor alternatives (high-intent comparison pages)
+    entry("/alternatives", 0.8),
+    ...ALTERNATIVE_SLUGS.map((slug) => entry(`/alternatives/${slug}`, 0.8)),
     // Texas locations
     entry("/locations", 0.8),
     ...REVIEW_CITY_SLUGS.map((slug) => entry(`/locations/${slug}`, 0.7)),
