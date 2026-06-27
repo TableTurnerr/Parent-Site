@@ -9,7 +9,6 @@ import Image from "next/image";
 import MapPackClimb from "@/app/components/site/MapPackClimb";
 import Reveal from "@/app/components/site/Reveal";
 import Accordion from "@/app/components/site/Accordion";
-import WelcomePopup from "@/app/components/site/WelcomePopup";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 
@@ -230,6 +229,82 @@ function Trades() {
                 </span>
               </div>
             </Link>
+          ))}
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ── Personalized reviews ───────────────────────────────── */
+// To use real customer photos, drop them in public/images/personalized/ and set
+// `img` (e.g. "/images/personalized/jessica.webp"). Empty `img` shows the name sign.
+const SIGNS = [
+  { name: "Jessica", trade: "AC install", img: "" },
+  { name: "Marcus", trade: "Roof replacement", img: "" },
+  { name: "Diana", trade: "Panel upgrade", img: "" },
+  { name: "Carlos", trade: "Water heater", img: "" },
+];
+function Personalized() {
+  return (
+    <section className="section bg-surface">
+      <div className="container-tt grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div>
+          <span className="eyebrow">Personalized requests</span>
+          <h2 className="display-2 mt-5 text-ink">Reviews that feel personal, because they are</h2>
+          <p className="lead mt-4">
+            Every request goes out with the customer&apos;s name on it. Your crew can even snap a
+            quick photo holding a sign with their name, and we attach it to the ask. It lands like a
+            thank-you, not a form, and personal asks are the ones that actually get answered.
+          </p>
+          <ul className="mt-8 space-y-4">
+            {[
+              "Name-on-the-photo review requests",
+              "Sent the moment the job wraps",
+              "By text and email, with gentle reminders",
+            ].map((t) => (
+              <li key={t} className="flex items-start gap-3 text-ink-soft">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary">
+                  <Check className="h-4 w-4" />
+                </span>
+                <span className="text-[0.97rem] leading-relaxed">{t}</span>
+              </li>
+            ))}
+          </ul>
+          <Link href="/signup" className="btn btn-primary mt-9">
+            Start free trial <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        <Reveal className="grid grid-cols-2 gap-4 sm:gap-5">
+          {SIGNS.map((s, i) => (
+            <div
+              key={s.name}
+              className={`overflow-hidden rounded-2xl border border-line bg-white shadow-sm ${
+                i % 2 ? "sm:translate-y-6" : ""
+              }`}
+            >
+              <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-gradient-to-br from-night to-primary">
+                <div aria-hidden className="hero-grid absolute inset-0 opacity-25" />
+                {s.img ? (
+                  <Image
+                    src={s.img}
+                    alt={`${s.name}'s personalized review request`}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="relative -rotate-3 rounded-lg bg-white px-6 py-5 shadow-xl">
+                    <span className="font-hand text-4xl leading-none text-ink">{s.name}!</span>
+                  </div>
+                )}
+              </div>
+              <div className="flex items-center justify-between gap-2 px-3.5 py-2.5">
+                <span className="stars text-sm" aria-hidden>★★★★★</span>
+                <span className="truncate text-xs font-medium text-muted">{s.trade}</span>
+              </div>
+            </div>
           ))}
         </Reveal>
       </div>
@@ -480,11 +555,11 @@ export default function HomePage() {
       <How />
       <Comparison />
       <Trades />
+      <Personalized />
       <Testimonials />
       <Pricing />
       <FAQ />
       <FinalCTA />
-      <WelcomePopup />
     </>
   );
 }
