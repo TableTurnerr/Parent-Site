@@ -37,6 +37,11 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const len = req.headers.get("content-length");
+  if (len && Number(len) > 2_000_000) {
+    return NextResponse.json({ error: "Request body too large" }, { status: 413 });
+  }
+
   const { id } = await params;
   const supabase = await createClient();
 
