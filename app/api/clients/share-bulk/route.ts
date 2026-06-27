@@ -4,12 +4,19 @@ import { sendEmail } from "@/app/lib/email/send";
 import { renderShareEmail, renderMultiShareEmail } from "@/app/lib/email/templates";
 import { getSiteUrl } from "@/app/lib/email/client";
 import type { Database } from "@/app/lib/supabase/types";
+import { checkAndRecordRateLimit } from "@/app/lib/ingest/rateLimit";
 
 type NotificationInsert = Database["public"]["Tables"]["report_notifications"]["Insert"];
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_BODY_BYTES = 50_000;
 
 export async function POST(request: NextRequest) {
+  const len = request.headers.get("content-length");
+  if (len && Number(len) > MAX_BODY_BYTES) {
+    return NextResponse.json({ error: "Request body too large" }, { status: 413 });
+  }
+
   const body = await request.json().catch(() => ({}));
   const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
   const clientIds: string[] = Array.isArray(body.clientIds)
@@ -22,6 +29,9 @@ export async function POST(request: NextRequest) {
   if (clientIds.length === 0) {
     return NextResponse.json({ error: "No companies selected" }, { status: 400 });
   }
+  if (clientIds.length > 100) {
+    return NextResponse.json({ error: "Too many companies in one request (max 100)" }, { status: 400 });
+  }
 
   const supabase = await createClient();
 
@@ -30,6 +40,19 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Rate-limit per user: 20 share emails per hour across both share endpoints.
+  const rl = await checkAndRecordRateLimit(
+    user.id,
+    "share/bulk",
+    { max: 20, windowSec: 3600 },
+  );
+  if (!rl.ok) {
+    return NextResponse.json(
+      { error: "Too many share requests — try again later" },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
   }
 
   const { data: clients, error: clientsError } = await supabase
