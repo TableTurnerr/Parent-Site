@@ -34,6 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry("/privacy", 0.3, "yearly"),
     entry("/terms", 0.3, "yearly"),
     // Trades
+    entry("/trades", 0.8),
     ...TRADE_SLUGS.map((slug) => entry(`/trades/${slug}`, 0.9)),
     // Integrations
     entry("/integrations", 0.8),

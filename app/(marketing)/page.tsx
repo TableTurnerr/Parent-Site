@@ -231,6 +231,11 @@ function Trades() {
             </Link>
           ))}
         </Reveal>
+        <div className="mt-9 text-center">
+          <Link href="/trades" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
+            See all trades <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
       </div>
     </section>
   );
