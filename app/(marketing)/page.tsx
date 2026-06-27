@@ -68,7 +68,7 @@ function Hero() {
 
 /* ── Stat strip ─────────────────────────────────────────── */
 const STATS = [
-  { v: "4×", l: "more reviews in the first 90 days" },
+  { v: "Every job", l: "automatically asks the customer for a review" },
   { v: "≤24h", l: "to your first new reviews" },
   { v: "4", l: "review platforms, not just Google" },
   { v: "15 min", l: "to connect your CRM and launch" },
