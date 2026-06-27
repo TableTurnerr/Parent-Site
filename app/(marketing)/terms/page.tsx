@@ -8,11 +8,11 @@ import { generateBreadcrumbSchema } from "@/app/lib/schema";
 export const metadata: Metadata = createPageMetadata({
   title: "Terms of Service",
   description:
-    "Terms of Service for TableTurnerr's marketing services including website design, SEO, branding, and Google Ads management.",
+    "Terms of Service for TableTurnerr's review-automation software for home-service businesses, including subscription, the 90-day results guarantee, and SMS/messaging (TCPA) requirements.",
   path: "/terms",
 });
 
-const LAST_UPDATED = "April 1, 2026";
+const LAST_UPDATED = "June 27, 2026";
 
 export default function TermsOfServicePage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -77,172 +77,239 @@ export default function TermsOfServicePage() {
                   >
                     tableturnerr.com
                   </Link>{" "}
-                  (&quot;Site&quot;) or engaging our services, you agree to be
-                  bound by these Terms of Service (&quot;Terms&quot;). If you do
-                  not agree to these Terms, do not use our Site or services.
+                  (&quot;Site&quot;) or by creating an account for or using our
+                  software (the &quot;Service&quot;), you agree to be bound by
+                  these Terms of Service (&quot;Terms&quot;). If you do not agree
+                  to these Terms, do not use our Site or Service.
                 </p>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  2. Services
+                  2. The Service
                 </h2>
                 <p>
-                  TableTurnerr provides marketing services including but not
-                  limited to custom website design and development, search engine
-                  optimization (SEO), branding, Google Ads management, and Google
-                  Business Profile optimization. The
-                  specific scope, deliverables, timelines, and pricing for each
-                  engagement are defined in a separate service agreement or
-                  proposal between TableTurnerr and the client.
+                  TableTurnerr provides review-automation software for
+                  home-service businesses. The Service connects to your field
+                  service management or CRM platform and, after a job is
+                  completed, sends review requests to your customers by SMS and/or
+                  email, routes them to public review platforms (such as Google,
+                  Facebook, Yelp, and Angi), and reports the results in a
+                  dashboard. We are a software provider; we do not write, edit,
+                  filter, suppress, or gate the reviews your customers choose to
+                  leave. Specific features, usage limits, and pricing for your
+                  plan are described at signup or in your subscription.
                 </p>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  3. Use of the Website
+                  3. Accounts &amp; Free Trial
                 </h2>
                 <p className="mb-3">
-                  You agree to use this Site only for lawful purposes. You may
-                  not:
+                  You must provide accurate account information and are
+                  responsible for safeguarding your login credentials and for all
+                  activity under your account. You must be authorized to act on
+                  behalf of the business you register.
+                </p>
+                <p>
+                  We may offer a free trial. Unless stated otherwise, trials run
+                  for the stated period and require no credit card. At the end of
+                  a trial, the Service may pause until you start a paid
+                  subscription. Promotional offers (for example, introductory
+                  discount codes) apply only as described at the time of the
+                  offer.
+                </p>
+              </section>
+
+              <section>
+                <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
+                  4. Acceptable Use
+                </h2>
+                <p className="mb-3">
+                  You agree to use the Site and Service only for lawful purposes.
+                  You may not:
                 </p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
-                    Use the Site in any way that violates applicable laws or
-                    regulations.
+                    Use the Service in any way that violates applicable laws or
+                    regulations, including telemarketing, anti-spam, and consumer
+                    protection laws.
                   </li>
                   <li>
-                    Attempt to gain unauthorized access to any part of the Site,
-                    its servers, or any connected systems.
+                    Upload contact information for people who have not done
+                    business with you, or send messages to anyone who has not
+                    provided the consent described in Section 5.
                   </li>
                   <li>
-                    Introduce viruses, malware, or other harmful code.
+                    Offer, request, or provide any incentive in exchange for a
+                    review, or attempt to suppress, gate, or solicit only
+                    positive reviews.
                   </li>
                   <li>
-                    Scrape, harvest, or collect information from the Site through
-                    automated means without our written consent.
+                    Attempt to gain unauthorized access to the Service, its
+                    servers, or any connected systems, or introduce viruses,
+                    malware, or other harmful code.
                   </li>
                   <li>
-                    Reproduce, distribute, or create derivative works from our
-                    content without authorization.
+                    Scrape, harvest, resell, or create derivative works from the
+                    Service or its content without our written consent.
                   </li>
                 </ul>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  4. Intellectual Property
+                  5. SMS / Text Messaging &amp; TCPA Compliance
                 </h2>
                 <p className="mb-3">
-                  All content on this Site — including text, graphics, logos,
-                  images, designs, code, and overall layout — is the property of
-                  TableTurnerr or its licensors and is protected by copyright,
-                  trademark, and other intellectual property laws.
+                  The Service sends messages on your behalf to{" "}
+                  <strong className="text-charcoal">your own customers</strong>.
+                  You are the sender of those messages and are solely responsible
+                  for compliance with the Telephone Consumer Protection Act
+                  (TCPA), the CAN-SPAM Act, CTIA messaging guidelines, carrier
+                  A2P 10DLC registration requirements, and any other applicable
+                  law. By using the Service, you represent and warrant that:
                 </p>
-                <p>
-                  For client projects, intellectual property ownership and
-                  licensing terms are governed by the individual service
-                  agreement between TableTurnerr and the client. Unless
-                  otherwise stated in a service agreement, TableTurnerr retains
-                  ownership of all proprietary tools, templates, frameworks, and
-                  methodologies used in delivering services.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  5. Client Responsibilities
-                </h2>
-                <p className="mb-3">
-                  When engaging our services, you agree to:
-                </p>
-                <ul className="list-disc pl-5 space-y-2">
+                <ul className="list-disc pl-5 space-y-2 mb-3">
                   <li>
-                    Provide accurate and complete information necessary for us to
-                    perform the agreed-upon services.
+                    You have obtained the legally required prior express consent
+                    from each customer before any message is sent to them, and
+                    you can produce evidence of that consent on request.
                   </li>
                   <li>
-                    Grant timely access to platforms, accounts, and materials as
-                    required (e.g., Google Business Profile, hosting accounts,
-                    branding assets).
+                    You will only contact customers about transactions they have
+                    completed with you, and you will honor opt-out requests
+                    (including &quot;STOP&quot; replies) promptly.
                   </li>
                   <li>
-                    Review and provide feedback on deliverables within the
-                    timeframes outlined in your service agreement.
-                  </li>
-                  <li>
-                    Ensure that all content, images, and materials you provide to
-                    us do not infringe on the intellectual property rights of any
-                    third party.
+                    You will register your brand and campaign for A2P 10DLC where
+                    required, and provide accurate business information for that
+                    registration.
                   </li>
                 </ul>
-              </section>
-
-              <section>
-                <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  6. Payment Terms
-                </h2>
                 <p>
-                  Payment terms, including fees, schedules, and accepted methods,
-                  are specified in each client&apos;s service agreement or
-                  invoice. Unless otherwise stated, invoices are due upon
-                  receipt. Late payments may be subject to service suspension or
-                  additional fees as outlined in your agreement.
+                  Message and data rates may apply to your customers. Message
+                  frequency varies. The Service includes automated opt-out
+                  handling, but it does not replace your own legal obligations.
+                  You agree to indemnify TableTurnerr for any claim arising from
+                  messages sent through your account, including claims that the
+                  required consent was not obtained.
                 </p>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  7. Refund Policy
+                  6. Subscription &amp; Payment
+                </h2>
+                <p>
+                  The Service is billed as a recurring subscription. There are no
+                  long-term contracts: plans are month-to-month and you may
+                  cancel at any time, effective at the end of your current billing
+                  period. Fees are charged in advance for each billing period
+                  using the payment method on file. Unless required by law or
+                  stated otherwise in these Terms, fees already charged for a
+                  billing period are not prorated on cancellation. We may change
+                  pricing on renewal with reasonable advance notice.
+                </p>
+              </section>
+
+              <section>
+                <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
+                  7. 90-Day Results Guarantee
                 </h2>
                 <p className="mb-3">
-                  All payments made to TableTurnerr are final and
-                  non-refundable. We do not offer refunds on services that have
-                  been purchased or payments that have been processed.
-                </p>
-                <p className="mb-3">
-                  In rare exceptions, TableTurnerr may, at its sole discretion,
-                  issue a one-time courtesy refund. Such exceptions may include
-                  situations where a client has accidentally paid for the wrong
-                  service and has not yet used or received any deliverables for
-                  that service, or other circumstances that TableTurnerr deems
-                  appropriate on a case-by-case basis.
+                  We offer a results guarantee: if, after 90 days of active use,
+                  your business has not earned more reviews than it did in the 90
+                  days before you started, your next month of service is free.
+                  This is our complete and exclusive remedy under the guarantee.
                 </p>
                 <p>
-                  Courtesy refunds are not guaranteed, are limited to one per
-                  client, and are granted entirely at TableTurnerr&apos;s
-                  discretion. To request a refund, please contact us at{" "}
+                  The guarantee assumes the Service is connected to your CRM and
+                  actively sending review requests, that the customer contact data
+                  you provide is accurate, and that your account is in good
+                  standing. It applies to the recurring subscription fee for the
+                  following month and does not apply to one-time fees, taxes, or
+                  third-party charges (such as carrier messaging fees). To claim
+                  it, contact us at{" "}
                   <Link
                     href={`mailto:${SITE_CONFIG.email}`}
                     className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
                   >
                     {SITE_CONFIG.email}
-                  </Link>{" "}
-                  with details of your payment and the reason for your request.
+                  </Link>
+                  .
                 </p>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  8. Third-Party Platforms
+                  8. Customer Data &amp; Your Responsibilities
+                </h2>
+                <p className="mb-3">When using the Service, you agree to:</p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>
+                    Provide accurate, lawfully collected customer contact
+                    information and keep it up to date.
+                  </li>
+                  <li>
+                    Grant the access we need to connect your CRM or field service
+                    platform, and maintain those integrations.
+                  </li>
+                  <li>
+                    Be responsible, as the data controller, for the personal
+                    information of your customers that you load into or generate
+                    through the Service. We act as your service provider /
+                    processor for that data and handle it as described in our{" "}
+                    <Link
+                      href="/privacy"
+                      className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
+                    >
+                      Privacy Policy
+                    </Link>
+                    .
+                  </li>
+                </ul>
+              </section>
+
+              <section>
+                <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
+                  9. Intellectual Property
                 </h2>
                 <p>
-                  Our services may involve the use of third-party platforms and
-                  tools, including but not limited to Google Ads, Google Business
-                  Profile, online ordering and delivery systems, and various
-                  analytics and hosting providers. Your use of these platforms is subject to their
-                  respective terms of service and privacy policies. TableTurnerr
-                  is not responsible for the actions, availability, or policies
-                  of third-party services.
+                  The Service, the Site, and all related software, content,
+                  graphics, logos, and designs are the property of TableTurnerr or
+                  its licensors and are protected by intellectual property laws.
+                  We grant you a limited, non-exclusive, non-transferable right to
+                  use the Service during your subscription. The data you upload
+                  and the reviews your customers generate remain yours; you grant
+                  us the rights needed to operate the Service on your behalf.
                 </p>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  9. Disclaimers
+                  10. Third-Party Platforms
+                </h2>
+                <p>
+                  The Service integrates with third-party platforms, including but
+                  not limited to field service / CRM systems (such as Jobber,
+                  Housecall Pro, ServiceTitan, Workiz, and QuickBooks), review
+                  platforms (such as Google, Facebook, Yelp, and Angi), and SMS /
+                  email delivery providers and carriers. Your use of those
+                  platforms is subject to their own terms and policies.
+                  TableTurnerr is not responsible for the actions, availability,
+                  policies, or pricing of third-party services, and we may change
+                  supported integrations over time.
+                </p>
+              </section>
+
+              <section>
+                <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
+                  11. Disclaimers
                 </h2>
                 <p className="mb-3">
-                  The Site and services are provided on an &quot;as is&quot; and
+                  The Site and Service are provided on an &quot;as is&quot; and
                   &quot;as available&quot; basis. To the fullest extent permitted
                   by law, TableTurnerr disclaims all warranties, express or
                   implied, including but not limited to:
@@ -253,90 +320,92 @@ export default function TermsOfServicePage() {
                     purpose, and non-infringement.
                   </li>
                   <li>
-                    Guarantees of specific results from SEO, Google Ads, or any
-                    marketing campaign. Search engine rankings, traffic levels,
-                    and advertising performance depend on many factors outside
-                    our control.
+                    Guarantees of a specific number of reviews, ratings, ranking,
+                    or revenue. Results depend on factors outside our control,
+                    including your job volume, customer behavior, and the policies
+                    of third-party review platforms. The only guarantee we make is
+                    the one stated in Section 7.
                   </li>
                   <li>
-                    Uninterrupted or error-free operation of the Site.
+                    Uninterrupted or error-free operation of the Site or Service.
                   </li>
                 </ul>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  10. Limitation of Liability
+                  12. Limitation of Liability
                 </h2>
                 <p>
                   To the maximum extent permitted by applicable law, TableTurnerr
                   and its owners, employees, and contractors shall not be liable
                   for any indirect, incidental, special, consequential, or
                   punitive damages arising out of or related to your use of the
-                  Site or our services, regardless of the cause of action or
-                  theory of liability. Our total liability for any claim arising
-                  from or related to our services shall not exceed the total
-                  amount paid by you to TableTurnerr in the twelve (12) months
-                  preceding the claim.
+                  Site or Service, regardless of the cause of action or theory of
+                  liability. Our total liability for any claim arising from or
+                  related to the Service shall not exceed the total amount you paid
+                  to TableTurnerr in the twelve (12) months preceding the claim.
                 </p>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  11. Indemnification
+                  13. Indemnification
                 </h2>
                 <p>
                   You agree to indemnify and hold harmless TableTurnerr, its
                   owners, employees, and contractors from any claims, damages,
-                  losses, liabilities, and expenses (including legal fees)
-                  arising out of your use of the Site, your breach of these
-                  Terms, or any content or materials you provide to us that
-                  infringe on the rights of a third party.
+                  losses, liabilities, and expenses (including legal fees) arising
+                  out of your use of the Service, your breach of these Terms, the
+                  messages sent through your account, or any customer data or
+                  materials you provide.
                 </p>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  12. Termination
+                  14. Termination
                 </h2>
                 <p>
-                  We reserve the right to suspend or terminate your access to the
-                  Site at our sole discretion, without notice, for conduct that
-                  we believe violates these Terms or is harmful to other users or
-                  our business. Termination of services is governed by the terms
-                  outlined in your individual service agreement.
+                  You may cancel your subscription at any time from your account or
+                  by contacting us. We may suspend or terminate your access for
+                  conduct that violates these Terms, for non-payment, or for use
+                  that creates legal or carrier-compliance risk. On termination,
+                  your right to use the Service ends; we may delete your data after
+                  a reasonable retention period as described in our Privacy
+                  Policy.
                 </p>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  13. Governing Law
+                  15. Governing Law
                 </h2>
                 <p>
                   These Terms are governed by and construed in accordance with
-                  applicable law. Any disputes arising under or in connection
-                  with these Terms shall be resolved through good-faith
-                  negotiation, and if unresolved, through binding arbitration or
-                  in a court of competent jurisdiction.
+                  applicable law. Any disputes arising under or in connection with
+                  these Terms shall be resolved through good-faith negotiation,
+                  and if unresolved, through binding arbitration or in a court of
+                  competent jurisdiction.
                 </p>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  14. Changes to These Terms
+                  16. Changes to These Terms
                 </h2>
                 <p>
                   We may revise these Terms at any time by updating this page.
-                  Changes take effect immediately upon posting. Your continued
-                  use of the Site or services after any changes constitutes
-                  acceptance of the revised Terms. We encourage you to review
-                  this page periodically.
+                  Changes take effect upon posting. Your continued use of the Site
+                  or Service after any changes constitutes acceptance of the
+                  revised Terms. We encourage you to review this page
+                  periodically.
                 </p>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  15. Contact Us
+                  17. Contact Us
                 </h2>
                 <p>
                   If you have any questions about these Terms of Service, contact
@@ -356,26 +425,13 @@ export default function TermsOfServicePage() {
                     </Link>
                   </p>
                   <p>
-                    Phone (primary):{" "}
+                    Phone:{" "}
                     <Link
                       href={`tel:${SITE_CONFIG.phone.replace(/\s/g, "")}`}
                       className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
                     >
                       {SITE_CONFIG.phone}
                     </Link>
-                  </p>
-                  <p>
-                    Phone (secondary):{" "}
-                    <Link
-                      href="tel:+923281193038"
-                      className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
-                    >
-                      +92 328 1193038
-                    </Link>
-                  </p>
-                  <p>
-                    Address: Plot 118, Block E2, Johar Town, Lahore, Pakistan,
-                    54782
                   </p>
                 </div>
               </section>
