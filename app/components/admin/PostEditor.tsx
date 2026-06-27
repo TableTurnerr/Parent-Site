@@ -396,6 +396,7 @@ export default function PostEditor({
     startTransition(async () => {
       try {
         await deletePost(post.id);
+        router.push("/admin/posts");
       } catch (err) {
         reportActionError(err);
       }
