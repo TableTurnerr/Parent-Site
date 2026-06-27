@@ -8,7 +8,7 @@ import { generateBreadcrumbSchema } from "@/app/lib/schema";
 export const metadata: Metadata = createPageMetadata({
   title: "Privacy Policy",
   description:
-    "TableTurnerr's privacy policy explains how we collect, use, and protect your personal information when you use our marketing services and website.",
+    "TableTurnerr's privacy policy explains how we collect, use, and protect your personal information when you use our review-automation software and website, including SMS/text messaging data.",
   path: "/privacy",
 });
 
@@ -78,11 +78,11 @@ export default function PrivacyPolicyPage() {
                   >
                     tableturnerr.com
                   </Link>{" "}
-                  and provides marketing services including website design, SEO,
-                  branding, Google Ads management, and Google Business Profile
-                  optimization. This Privacy Policy explains how
-                  we collect, use, disclose, and safeguard your information when
-                  you visit our website or engage our services.
+                  and provides review-automation software for home-service
+                  businesses that sends review requests to their customers by SMS
+                  and email and reports the results. This Privacy Policy explains
+                  how we collect, use, disclose, and safeguard your information
+                  when you visit our website or use our software.
                 </p>
               </section>
 
@@ -101,13 +101,20 @@ export default function PrivacyPolicyPage() {
                     details you include in your message.
                   </li>
                   <li>
+                    <strong className="text-charcoal">Account &amp; usage:</strong>{" "}
+                    Business details and the credentials or authorization needed
+                    to connect your CRM or field service platform so the Service
+                    can operate.
+                  </li>
+                  <li>
                     <strong className="text-charcoal">
-                      Service engagements:
+                      Your customers&apos; contact data:
                     </strong>{" "}
-                    Business information necessary to perform our marketing
-                    services, such as business details, branding assets, content,
-                    and access credentials for platforms like Google Business
-                    Profile.
+                    To send review requests on your behalf, we process the
+                    customer names, phone numbers, and email addresses you provide
+                    or that flow in from your connected CRM. We handle this data
+                    as your service provider, on your instructions, and do not use
+                    it for our own marketing.
                   </li>
                   <li>
                     <strong className="text-charcoal">Blog comments:</strong>{" "}
@@ -153,7 +160,8 @@ export default function PrivacyPolicyPage() {
                     Respond to inquiries and provide customer support.
                   </li>
                   <li>
-                    Deliver and manage our marketing services.
+                    Provide, operate, and improve the Service, including sending
+                    review requests to your customers on your behalf.
                   </li>
                   <li>
                     Send service-related communications, project updates, and
@@ -192,11 +200,13 @@ export default function PrivacyPolicyPage() {
                   </li>
                   <li>
                     <strong className="text-charcoal">
-                      Partner platforms:
+                      Integrated platforms:
                     </strong>{" "}
-                    When delivering services, we may interact with platforms like
-                    Google Ads, Google Business Profile, and online ordering or
-                    delivery systems on your behalf and as authorized by you.
+                    To operate the Service, we exchange data with the platforms
+                    you authorize, such as your CRM or field service software
+                    (e.g., Jobber, Housecall Pro, ServiceTitan), review platforms
+                    (e.g., Google, Facebook, Yelp, Angi), and SMS/email delivery
+                    providers.
                   </li>
                   <li>
                     <strong className="text-charcoal">
