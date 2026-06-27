@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import {
   MessageSquareText, Repeat2, Trophy, BarChart3, Bot, Globe2,
   Wrench, Home, Droplets, Zap, Check, ArrowRight, ShieldCheck, Plug,
-  X, Quote,
+  X, Quote, BadgeCheck, EyeOff,
 } from "lucide-react";
 import Image from "next/image";
 import MapPackClimb from "@/app/components/site/MapPackClimb";
@@ -295,6 +295,41 @@ function Personalized() {
   );
 }
 
+/* ── Compliance / no gating ─────────────────────────────── */
+const COMPLIANCE = [
+  { icon: EyeOff, t: "No review gating", b: "We never filter or hide unhappy customers behind a private form. Everyone gets asked, and every review goes live." },
+  { icon: BadgeCheck, t: "FTC & Google compliant", b: "Review gating is banned by both. We keep you firmly on the right side of the rules, so your profile never gets penalized." },
+  { icon: MessageSquareText, t: "A2P-registered SMS", b: "Texts send from registered numbers that honor opt-outs, so your messages land and your number stays trusted." },
+];
+function Compliance() {
+  return (
+    <section className="section bg-night text-white">
+      <div className="container-tt">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="eyebrow border-white/15 bg-white/5 text-white">Honest by design</span>
+          <h2 className="display-2 mt-5 text-white">We never hide your bad reviews</h2>
+          <p className="lead mt-4 text-white/70">
+            Some tools quietly route unhappy customers to a private form. Google and the FTC ban
+            that, and it wrecks the trust reviews are supposed to build. We ask every customer and
+            let every review stand, the honest way that actually wins more work.
+          </p>
+        </div>
+        <Reveal className="mt-12 grid gap-5 md:grid-cols-3">
+          {COMPLIANCE.map((c) => (
+            <div key={c.t} className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-star">
+                <c.icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-5 text-lg font-bold text-white">{c.t}</h3>
+              <p className="mt-2.5 text-sm leading-relaxed text-white/65">{c.b}</p>
+            </div>
+          ))}
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 /* ── Pricing ────────────────────────────────────────────── */
 const PLANS = [
   { name: "Starter", price: "$99", per: "/mo", note: "Up to 50 review requests/mo", popular: false,
@@ -539,6 +574,7 @@ export default function HomePage() {
       <Comparison />
       <Trades />
       <Personalized />
+      <Compliance />
       <Testimonials />
       <Pricing />
       <FAQ />
