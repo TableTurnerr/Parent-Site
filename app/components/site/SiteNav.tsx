@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import PromoBar from "@/app/components/site/PromoBar";
@@ -41,10 +42,12 @@ export default function SiteNav() {
             }`}
           >
             <Link href="/" className="flex items-center gap-2.5 font-bold tracking-tight text-ink">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/logo.png"
                 alt="TableTurnerr logo"
+                width={32}
+                height={32}
+                priority
                 className={`rounded-md object-contain transition-all duration-300 ease-out ${
                   scrolled ? "h-7 w-7" : "h-8 w-8"
                 }`}
