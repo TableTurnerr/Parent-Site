@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Caveat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -29,6 +29,13 @@ const caveat = Caveat({
   display: "swap",
 });
 
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#11142b" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tableturnerr.com"),
