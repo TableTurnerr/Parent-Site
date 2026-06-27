@@ -25,7 +25,7 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
 
     const fd = new FormData(e.currentTarget);
     // Map our field names onto the action's expected fields.
-    fd.set("restaurant", String(fd.get("business") || ""));
+    fd.set("business_name", String(fd.get("business") || ""));
     fd.set("service", String(fd.get("trade") || ""));
     if (isTrial) {
       fd.set(

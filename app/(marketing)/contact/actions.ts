@@ -8,7 +8,7 @@ export type LeadResult = { ok: true } | { ok: false; error: string };
 const MAX = {
   name: 120,
   email: 200,
-  restaurant: 160,
+  business_name: 160,
   phone: 40,
   service: 80,
   message: 4000,
@@ -29,7 +29,7 @@ export async function submitLead(formData: FormData): Promise<LeadResult> {
 
   const name = clean(formData.get("name"), MAX.name);
   const email = clean(formData.get("email"), MAX.email);
-  const restaurant = clean(formData.get("restaurant"), MAX.restaurant);
+  const businessName = clean(formData.get("business_name"), MAX.business_name);
   const phone = clean(formData.get("phone"), MAX.phone);
   const service = clean(formData.get("service"), MAX.service);
   const message = clean(formData.get("message"), MAX.message);
@@ -48,7 +48,7 @@ export async function submitLead(formData: FormData): Promise<LeadResult> {
   const { error } = await supabase.from("contact_leads").insert({
     name,
     email,
-    restaurant: restaurant || null,
+    business_name: businessName || null,
     phone: phone || null,
     service: service || null,
     message,

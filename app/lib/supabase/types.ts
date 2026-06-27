@@ -47,7 +47,7 @@ export type Database = {
           id: string
           name: string
           email: string
-          restaurant: string | null
+          business_name: string | null
           phone: string | null
           service: string | null
           message: string
@@ -61,7 +61,7 @@ export type Database = {
           id?: string
           name: string
           email: string
-          restaurant?: string | null
+          business_name?: string | null
           phone?: string | null
           service?: string | null
           message: string
@@ -75,7 +75,7 @@ export type Database = {
           id?: string
           name?: string
           email?: string
-          restaurant?: string | null
+          business_name?: string | null
           phone?: string | null
           service?: string | null
           message?: string
