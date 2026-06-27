@@ -49,9 +49,7 @@ const nextConfig: NextConfig = {
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
           { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
           {
-            // Report-only first so it can't break anything — watch for violations,
-            // then promote to an enforcing Content-Security-Policy once it's clean.
-            key: "Content-Security-Policy-Report-Only",
+            key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
               "base-uri 'self'",
