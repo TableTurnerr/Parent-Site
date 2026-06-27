@@ -7,6 +7,12 @@ export async function GET(
 ) {
   const { id } = await params;
   const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   const { data, error } = await supabase
     .from("clients")
     .select("*")
@@ -22,6 +28,21 @@ export async function PATCH(
 ) {
   const { id } = await params;
   const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role, status")
+    .eq("id", user.id)
+    .single();
+  if (!profile || profile.status !== "approved" || profile.role === "client") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   const body = await request.json().catch(() => ({}));
 
   const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
