@@ -237,18 +237,10 @@ function Trades() {
 }
 
 /* ── Personalized reviews ───────────────────────────────── */
-// To use real customer photos, drop them in public/images/personalized/ and set
-// `img` (e.g. "/images/personalized/jessica.webp"). Empty `img` shows the name sign.
-const SIGNS = [
-  { name: "Jessica", trade: "AC install", img: "/images/personalized/jessica.webp" },
-  { name: "Marcus", trade: "Roof replacement", img: "" },
-  { name: "Diana", trade: "Panel upgrade", img: "" },
-  { name: "Carlos", trade: "Water heater", img: "" },
-];
 function Personalized() {
   return (
     <section className="section bg-surface">
-      <div className="container-tt grid gap-12 lg:grid-cols-2 lg:items-center">
+      <div className="container-tt grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
         <div>
           <span className="eyebrow">Personalized requests</span>
           <h2 className="display-2 mt-5 text-ink">Reviews that feel personal, because they are</h2>
@@ -276,36 +268,27 @@ function Personalized() {
           </Link>
         </div>
 
-        <Reveal className="grid grid-cols-2 gap-4 sm:gap-5">
-          {SIGNS.map((s, i) => (
-            <div
-              key={s.name}
-              className={`overflow-hidden rounded-2xl border border-line bg-white shadow-sm ${
-                i % 2 ? "sm:translate-y-6" : ""
-              }`}
-            >
-              <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-gradient-to-br from-night to-primary">
-                <div aria-hidden className="hero-grid absolute inset-0 opacity-25" />
-                {s.img ? (
-                  <Image
-                    src={s.img}
-                    alt={`${s.name}'s personalized review request`}
-                    fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="relative -rotate-3 rounded-lg bg-white px-6 py-5 shadow-xl">
-                    <span className="font-hand text-4xl leading-none text-ink">{s.name}!</span>
-                  </div>
-                )}
-              </div>
-              <div className="flex items-center justify-between gap-2 px-3.5 py-2.5">
-                <span className="stars text-sm" aria-hidden>★★★★★</span>
-                <span className="truncate text-xs font-medium text-muted">{s.trade}</span>
-              </div>
+        <Reveal className="relative mx-auto w-full max-w-md lg:mr-0">
+          <div className="overflow-hidden rounded-[1.5rem] border border-line shadow-[0_30px_70px_-35px_rgba(10,19,38,0.45)]">
+            <Image
+              src="/images/personalized/jessica.webp"
+              alt="A home-services crew holding a sign with their customer's name to make the review request personal"
+              width={760}
+              height={896}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          {/* floating review card */}
+          <div className="tt-float absolute -bottom-5 -left-3 w-[15rem] rounded-2xl border border-line bg-white p-4 shadow-lg sm:-left-6">
+            <div className="flex items-center gap-2">
+              <span className="stars text-sm" aria-hidden>★★★★★</span>
+              <span className="text-xs font-semibold text-muted">Google review</span>
             </div>
-          ))}
+            <p className="mt-1.5 text-sm leading-snug text-ink">
+              &ldquo;They asked for my review by name. Felt personal, not automated.&rdquo;
+            </p>
+            <p className="mt-1.5 text-xs font-medium text-muted">— Jessica, homeowner</p>
+          </div>
         </Reveal>
       </div>
     </section>
