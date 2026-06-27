@@ -240,7 +240,7 @@ function Trades() {
 // To use real customer photos, drop them in public/images/personalized/ and set
 // `img` (e.g. "/images/personalized/jessica.webp"). Empty `img` shows the name sign.
 const SIGNS = [
-  { name: "Jessica", trade: "AC install", img: "" },
+  { name: "Jessica", trade: "AC install", img: "/images/personalized/jessica.webp" },
   { name: "Marcus", trade: "Roof replacement", img: "" },
   { name: "Diana", trade: "Panel upgrade", img: "" },
   { name: "Carlos", trade: "Water heater", img: "" },
