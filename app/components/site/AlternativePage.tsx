@@ -2,8 +2,9 @@ import Link from "next/link";
 import { Check, X, ArrowRight, ShieldCheck, Scale } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
+import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateFAQSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
-import type { Alternative, Cell } from "@/app/lib/alternatives";
+import { ALL_ALTERNATIVES, type Alternative, type Cell } from "@/app/lib/alternatives";
 
 function CompareCell({ v }: { v: Cell }) {
   if (v === true) return <Check className="mx-auto h-5 w-5 text-success" />;
@@ -157,6 +158,20 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
           </div>
         </div>
       </section>
+
+      {/* Cross-links */}
+      <CrossLinks
+        title="Compare other tools"
+        links={[
+          ...ALL_ALTERNATIVES.filter((a) => a.slug !== alt.slug).map((a) => ({
+            href: `/alternatives/${a.slug}`,
+            label: `vs ${a.competitor}`,
+            sub: a.category,
+          })),
+          { href: "/trades", label: "Browse by trade", sub: "HVAC, roofing, plumbing & electrical" },
+          { href: "/integrations", label: "Integrations", sub: "Connect your field-service CRM" },
+        ]}
+      />
 
       {/* CTA */}
       <section className="section">

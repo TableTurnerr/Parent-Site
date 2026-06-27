@@ -2,8 +2,9 @@ import Link from "next/link";
 import { Check, ArrowRight, ShieldCheck, Plug, Zap } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
+import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateFAQSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
-import type { Integration } from "@/app/lib/integrations";
+import { INTEGRATIONS, type Integration } from "@/app/lib/integrations";
 
 export default function IntegrationPage({ integration }: { integration: Integration }) {
   const steps = [
@@ -130,6 +131,21 @@ export default function IntegrationPage({ integration }: { integration: Integrat
           </div>
         </div>
       </section>
+
+      {/* Cross-links */}
+      <CrossLinks
+        links={[
+          ...Object.values(INTEGRATIONS)
+            .filter((i) => i.slug !== integration.slug)
+            .map((i) => ({
+              href: `/integrations/${i.slug}`,
+              label: `${i.name} integration`,
+              sub: i.category,
+            })),
+          { href: "/trades", label: "Browse by trade", sub: "HVAC, roofing, plumbing & electrical" },
+          { href: "/alternatives", label: "Compare review tools", sub: "See how we stack up" },
+        ]}
+      />
 
       {/* CTA */}
       <section className="section">
