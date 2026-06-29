@@ -13,9 +13,11 @@ import JsonLd from "@/app/components/site/JsonLd";
 import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 
 export const metadata: Metadata = {
-  title: "TableTurnerr — Review Automation for Home Services",
+  // Absolute title so the root "%s | TableTurnerr" template doesn't double-brand
+  // the homepage. Keyword-first so the crawler reads the target phrase first.
+  title: { absolute: "Review Automation for Home Services | TableTurnerr" },
   description:
-    "Turn every finished job into 5-star reviews and more booked work. Review automation built for HVAC, roofing, plumbing & electrical pros. Multi-platform, technician leaderboards, map-pack rank tracking. Start a free trial.",
+    "Review automation for HVAC, roofing, plumbing & electrical pros. Turn every finished job into 5-star reviews across Google, Facebook, Yelp & Angi, climb the map pack, and get booked. 14-day free trial, no contracts.",
 };
 
 /* ── Hero ───────────────────────────────────────────────── */
@@ -26,17 +28,16 @@ function Hero() {
       <div className="container-tt relative pb-16 md:pb-24">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-10">
           <div>
-            <span className="eyebrow">Review automation for home services</span>
+            <span className="eyebrow">For HVAC, roofing, plumbing &amp; electrical pros</span>
             <h1 className="display mt-6 text-ink">
-              Turn finished jobs into{" "}
-              <span className="text-primary">5-star reviews</span> and more
-              booked work.
+              Review automation that turns finished jobs into{" "}
+              <span className="text-primary">5-star reviews</span>
             </h1>
             <p className="lead mt-6 max-w-xl">
               TableTurnerr automatically asks every customer for a review the
               moment the job is done, across Google, Facebook, Yelp and Angi, so
-              you climb the map pack and get chosen first. Built for HVAC,
-              roofing, plumbing and electrical pros.
+              you climb the map pack and get chosen first. Built for
+              home-service pros in HVAC, roofing, plumbing and electrical.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -130,7 +131,7 @@ function Features() {
       <div className="container-tt">
         <div className="max-w-2xl">
           <span className="eyebrow">Built for the trades</span>
-          <h2 className="display-2 mt-5 text-ink">Everything you need to own your local market</h2>
+          <h2 className="display-2 mt-5 text-ink">Everything you need to get more reviews and rank higher locally</h2>
           <p className="lead mt-4">Not a generic reputation tool with a home-services coat of paint. Built around how trades actually win work.</p>
         </div>
         <Reveal className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -160,7 +161,7 @@ function How() {
     <section id="how" className="section bg-night text-white">
       <div className="container-tt">
         <div className="max-w-2xl">
-          <span className="eyebrow border-white/15 bg-white/5 text-white">Set it once</span>
+          <span className="eyebrow border-white/15 bg-white/5 text-white">How review automation works</span>
           <h2 className="display-2 mt-5 text-white">Live in 15 minutes. Working on autopilot after that.</h2>
         </div>
         <Reveal className="mt-12 grid gap-5 md:grid-cols-3">
