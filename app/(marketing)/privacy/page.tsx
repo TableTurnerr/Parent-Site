@@ -8,7 +8,7 @@ import { generateBreadcrumbSchema } from "@/app/lib/schema";
 export const metadata: Metadata = createPageMetadata({
   title: "Privacy Policy",
   description:
-    "TableTurnerr's privacy policy explains how we collect, use, and protect your personal information when you use our review-automation software and website, including SMS/text messaging data.",
+    "TableTurnerr's privacy policy: how we collect, use, and protect your information when you use our review-automation software, including SMS/text messaging data.",
   path: "/privacy",
 });
 
@@ -382,26 +382,13 @@ export default function PrivacyPolicyPage() {
                     </Link>
                   </p>
                   <p>
-                    Phone (primary):{" "}
+                    Phone:{" "}
                     <Link
                       href={`tel:${SITE_CONFIG.phone.replace(/\s/g, "")}`}
                       className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
                     >
                       {SITE_CONFIG.phone}
                     </Link>
-                  </p>
-                  <p>
-                    Phone (secondary):{" "}
-                    <Link
-                      href="tel:+923281193038"
-                      className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
-                    >
-                      +92 328 1193038
-                    </Link>
-                  </p>
-                  <p>
-                    Address: Plot 118, Block E2, Johar Town, Lahore, Pakistan,
-                    54782
                   </p>
                 </div>
               </section>
