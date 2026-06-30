@@ -3,7 +3,7 @@ import { Check, X, ArrowRight, ShieldCheck, Scale } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import CrossLinks from "@/app/components/site/CrossLinks";
-import { generateFAQSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
+import { generateFAQSchema, generateBreadcrumbSchema, generateServiceSchema } from "@/app/lib/schema";
 import { ALL_ALTERNATIVES, type Alternative, type Cell } from "@/app/lib/alternatives";
 
 function CompareCell({ v }: { v: Cell }) {
@@ -20,6 +20,11 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
     <>
       <JsonLd
         data={[
+          generateServiceSchema({
+            name: "Review automation for home services",
+            description: alt.intro,
+            url: `${base}/alternatives/${alt.slug}`,
+          }),
           generateFAQSchema(alt.faqs.map((f) => ({ question: f.q, answer: f.a }))),
           generateBreadcrumbSchema([
             { name: "Home", url: base },

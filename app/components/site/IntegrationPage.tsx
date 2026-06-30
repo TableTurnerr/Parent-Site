@@ -3,7 +3,7 @@ import { Check, ArrowRight, ShieldCheck, Plug, Zap } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import CrossLinks from "@/app/components/site/CrossLinks";
-import { generateFAQSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
+import { generateFAQSchema, generateBreadcrumbSchema, generateServiceSchema } from "@/app/lib/schema";
 import { INTEGRATIONS, type Integration } from "@/app/lib/integrations";
 
 export default function IntegrationPage({ integration }: { integration: Integration }) {
@@ -18,6 +18,11 @@ export default function IntegrationPage({ integration }: { integration: Integrat
     <>
       <JsonLd
         data={[
+          generateServiceSchema({
+            name: `${integration.name} review automation integration`,
+            description: integration.blurb,
+            url: `${base}/integrations/${integration.slug}`,
+          }),
           generateFAQSchema(integration.faqs.map((f) => ({ question: f.q, answer: f.a }))),
           generateBreadcrumbSchema([
             { name: "Home", url: base },
