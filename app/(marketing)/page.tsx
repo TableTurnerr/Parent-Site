@@ -11,6 +11,7 @@ import Reveal from "@/app/components/site/Reveal";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
+import { PLANS } from "@/app/lib/pricing";
 
 export const metadata: Metadata = {
   // Absolute title so the root "%s | TableTurnerr" template doesn't double-brand
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
   title: { absolute: "Review Automation for Home Services | TableTurnerr" },
   description:
     "Review automation for HVAC, roofing, plumbing & electrical pros. Turn every finished job into 5-star reviews across Google, Facebook, Yelp & Angi, climb the map pack, and get booked. 14-day free trial, no contracts.",
+  alternates: { canonical: "https://www.tableturnerr.com" },
 };
 
 /* ── Hero ───────────────────────────────────────────────── */
@@ -337,14 +339,6 @@ function Compliance() {
 }
 
 /* ── Pricing ────────────────────────────────────────────── */
-const PLANS = [
-  { name: "Starter", price: "$99", per: "/mo", note: "Up to 50 review requests/mo", popular: false,
-    features: ["Google + Facebook reviews", "Review reactivation", "Automated text & email requests", "Review widgets", "Unlimited users"] },
-  { name: "Growth", price: "$179", per: "/mo", note: "Up to 150 review requests/mo", popular: true,
-    features: ["Everything in Starter", "Yelp + Angi routing", "Technician leaderboards", "AI requests & replies", "Auto social posts", "1-on-1 setup call"] },
-  { name: "Pro", price: "$299", per: "/mo", note: "Up to 400 review requests/mo", popular: false,
-    features: ["Everything in Growth", "Map-pack rank tracking", "Multi-location dashboard", "Monthly owner report", "Priority support"] },
-];
 function Pricing() {
   return (
     <section id="pricing" className="section bg-surface">
@@ -389,6 +383,11 @@ function Pricing() {
         </Reveal>
         <p className="mt-8 flex items-center justify-center gap-2 text-sm text-ink-soft">
           <ShieldCheck className="h-4 w-4 text-success" /> More reviews in 90 days or your next month is free.
+        </p>
+        <p className="mt-4 text-center text-sm text-ink-soft">
+          <Link href="/pricing" className="font-semibold text-primary hover:underline">
+            See full pricing details
+          </Link>
         </p>
       </div>
     </section>

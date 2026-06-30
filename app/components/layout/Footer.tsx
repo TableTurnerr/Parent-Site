@@ -13,7 +13,7 @@ import {
 const PRODUCT_LINKS = [
   { label: "Integrations", href: "/integrations" },
   { label: "Local SEO", href: "/seo" },
-  { label: "Pricing", href: "/#pricing" },
+  { label: "Pricing", href: "/pricing" },
 ] as const;
 
 function FlipLink({

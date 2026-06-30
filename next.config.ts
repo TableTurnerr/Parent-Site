@@ -29,8 +29,8 @@ const nextConfig: NextConfig = {
       { source: "/restaurants", destination: "/", permanent: true },
       { source: "/case-studies", destination: "/", permanent: true },
       { source: "/locations/restaurants/:path*", destination: "/locations", permanent: true },
-      { source: "/pricing", destination: "/#pricing", permanent: true },
-      { source: "/pricing/:path*", destination: "/#pricing", permanent: true },
+      // /pricing is now a real page; only redirect stray sub-paths to it.
+      { source: "/pricing/:path*", destination: "/pricing", permanent: true },
       { source: "/search", destination: "/", permanent: true },
       { source: "/review-calculator", destination: "/", permanent: true },
       { source: "/tools", destination: "/", permanent: true },

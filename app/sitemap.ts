@@ -28,6 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry("", 1.0, "weekly"),
     // Core marketing pages
     entry("/about", 0.7),
+    entry("/pricing", 0.8),
     entry("/seo", 0.6),
     entry("/signup", 0.8),
     entry("/contact", 0.7),

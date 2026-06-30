@@ -10,7 +10,7 @@ const LINKS = [
   { label: "Features", href: "/#features" },
   { label: "How it works", href: "/#how" },
   { label: "Trades", href: "/#trades" },
-  { label: "Pricing", href: "/#pricing" },
+  { label: "Pricing", href: "/pricing" },
 ];
 
 export default function SiteNav() {

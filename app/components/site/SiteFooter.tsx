@@ -7,7 +7,7 @@ const COLS = [
     links: [
       { label: "Features", href: "/#features" },
       { label: "How it works", href: "/#how" },
-      { label: "Pricing", href: "/#pricing" },
+      { label: "Pricing", href: "/pricing" },
       { label: "Integrations", href: "/integrations" },
       { label: "Compare", href: "/alternatives" },
       { label: "Texas locations", href: "/locations" },
