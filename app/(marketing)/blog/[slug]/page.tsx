@@ -6,10 +6,17 @@ import {
   generateArticleSchema,
   generateBreadcrumbSchema,
 } from "@/app/lib/schema";
-import { getPostBySlug, getPublishedPosts } from "@/app/lib/blog";
+import { getPostBySlug, getPublishedPosts, getPublishedPostSlugsForBuild } from "@/app/lib/blog";
 
 // Revalidate hourly; unknown slugs render on demand then cache.
 export const revalidate = 3600;
+
+// Pre-render every published post at build so a freshly published URL is live
+// the moment Google crawls it (rather than waiting for the first on-demand hit).
+export async function generateStaticParams() {
+  const posts = await getPublishedPostSlugsForBuild();
+  return posts.map((post) => ({ slug: post.slug }));
+}
 
 export async function generateMetadata({
   params,

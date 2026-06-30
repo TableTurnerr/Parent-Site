@@ -56,6 +56,28 @@ export async function getPublishedPostSlugs(): Promise<
   return data as { slug: string; updated_at: string }[];
 }
 
+/**
+ * Slugs for generateStaticParams at BUILD time. Uses the service-role client
+ * because build runs outside any request, so the cookie-based client throws
+ * ("cookies was called outside a request scope"). Returns [] on any error so a
+ * DB hiccup at build can't break the build — those posts just fall back to
+ * on-demand ISR rendering.
+ */
+export async function getPublishedPostSlugsForBuild(): Promise<{ slug: string }[]> {
+  try {
+    const supabase = await createAdminClient();
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("slug")
+      .eq("status", PUBLIC_FILTER.status)
+      .eq("visibility", PUBLIC_FILTER.visibility);
+    if (error || !data) return [];
+    return data as { slug: string }[];
+  } catch {
+    return [];
+  }
+}
+
 /** A single public post by slug, or null if not found / not public. */
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   const supabase = await createClient();

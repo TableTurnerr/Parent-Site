@@ -53,7 +53,7 @@ export default async function BlogPage() {
             <EmptyState />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {posts.map((post) => (
+              {posts.map((post, i) => (
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
@@ -65,6 +65,7 @@ export default async function BlogPage() {
                         src={post.featured_image}
                         alt={post.featured_image_alt ?? post.title}
                         fill
+                        priority={i === 0}
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
