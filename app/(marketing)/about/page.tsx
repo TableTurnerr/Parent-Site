@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { ArrowRight, Star, Target, Wrench, Zap } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About TableTurnerr",
+  title: { absolute: "About TableTurnerr" },
   description:
-    "TableTurnerr is review automation built specifically for home-services pros — HVAC, roofing, plumbing and electrical. We turn finished jobs into 5-star reviews so the best companies get found and chosen.",
+    "TableTurnerr is review automation built for home-service pros, HVAC, roofing, plumbing and electrical. We turn finished jobs into 5-star reviews so the best companies get found.",
   alternates: { canonical: "https://www.tableturnerr.com/about" },
 };
 

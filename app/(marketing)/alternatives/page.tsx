@@ -4,9 +4,9 @@ import { Scale, ArrowRight, ArrowUpRight } from "lucide-react";
 import { ALL_ALTERNATIVES } from "@/app/lib/alternatives";
 
 export const metadata: Metadata = {
-  title: "TableTurnerr Alternatives — Compare Review Tools for Home Services",
+  title: "Compare Review Automation Tools",
   description:
-    "See how TableTurnerr compares to Birdeye, NiceJob, Podium, GatherUp and PulseM for HVAC, roofing, plumbing and electrical pros — multi-platform review automation, technician leaderboards, and no contracts.",
+    "See how TableTurnerr compares to Birdeye, NiceJob, Podium, GatherUp and PulseM: multi-platform review automation for the trades, with no contracts.",
   alternates: { canonical: "https://www.tableturnerr.com/alternatives" },
 };
 
@@ -23,7 +23,7 @@ export default function AlternativesIndex() {
             </h1>
             <p className="lead mt-6 max-w-2xl">
               Most review tools are built for enterprise chains or general small
-              businesses. TableTurnerr is built for home-service trades — with
+              businesses. TableTurnerr is built for home-service trades, with
               multi-platform reviews, technician leaderboards, map-pack tracking,
               and no contracts. Here&apos;s how we stack up.
             </p>

@@ -17,7 +17,7 @@ export async function generateMetadata({
   if (!it) return {};
   return {
     title: `${it.name} Review Automation Integration`,
-    description: `${it.blurb} Connect ${it.name} to TableTurnerr and turn completed jobs into 5-star reviews automatically.`,
+    description: `Connect ${it.name} to TableTurnerr and turn every completed job into a 5-star review request across Google, Facebook, Yelp and Angi, automatically.`,
     alternates: { canonical: `https://www.tableturnerr.com/integrations/${it.slug}` },
   };
 }

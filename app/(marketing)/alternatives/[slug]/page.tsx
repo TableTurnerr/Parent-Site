@@ -16,7 +16,9 @@ export async function generateMetadata({
   const alt = getAlternative(slug);
   if (!alt) return {};
   return {
-    title: alt.metaTitle,
+    // metaTitle already includes "| TableTurnerr"; absolute stops the root
+    // template from appending the brand a second time.
+    title: { absolute: alt.metaTitle },
     description: alt.metaDescription,
     alternates: { canonical: `https://www.tableturnerr.com/alternatives/${alt.slug}` },
   };

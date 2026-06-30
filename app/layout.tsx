@@ -61,6 +61,10 @@ export const metadata: Metadata = {
     siteName: "TableTurnerr",
     locale: "en_US",
     type: "website",
+    title: "TableTurnerr — Review Automation for Home Services",
+    description:
+      "Review automation built for home-services pros. Turn every finished job into 5-star reviews across Google, Facebook, Yelp and Angi.",
+    url: "https://www.tableturnerr.com",
   },
   twitter: {
     card: "summary_large_image",
@@ -80,7 +84,7 @@ export const metadata: Metadata = {
   verification: {
     google: "M-0AZRyz9kqD2TwnHjOCO3R593wsaKNLCDZy0JiGFVs",
   },
-  category: "Marketing",
+  category: "Business Software",
 };
 
 export default function RootLayout({

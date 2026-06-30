@@ -8,7 +8,7 @@ import { generateBreadcrumbSchema } from "@/app/lib/schema";
 export const metadata: Metadata = createPageMetadata({
   title: "Terms of Service",
   description:
-    "Terms of Service for TableTurnerr's review-automation software for home-service businesses, including subscription, the 90-day results guarantee, and SMS/messaging (TCPA) requirements.",
+    "Terms of Service for TableTurnerr review-automation software: subscription terms, the 90-day results guarantee, and SMS/TCPA messaging requirements.",
   path: "/terms",
 });
 

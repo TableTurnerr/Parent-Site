@@ -4,9 +4,9 @@ import { Wrench, Home, Droplets, Zap, ArrowRight, ArrowUpRight } from "lucide-re
 import { TRADES } from "@/app/lib/trades";
 
 export const metadata: Metadata = {
-  title: "Review Automation by Trade — HVAC, Roofing, Plumbing & Electrical",
+  title: "Review Automation for Home-Service Trades",
   description:
-    "TableTurnerr is review automation built for home-service trades. See how it works for HVAC, roofing, plumbing and electrical pros — turn every completed job into 5-star reviews across Google, Facebook, Yelp & Angi.",
+    "Review automation for home-service trades. See how it works for HVAC, roofing, plumbing and electrical: turn completed jobs into 5-star reviews, automatically.",
   alternates: { canonical: "https://www.tableturnerr.com/trades" },
 };
 
@@ -33,7 +33,7 @@ export default function TradesIndex() {
             <p className="lead mt-6 max-w-2xl">
               Big-ticket home-service jobs live and die by reviews. TableTurnerr
               turns every completed job into fresh 5-star reviews across Google,
-              Facebook, Yelp and Angi — with technician leaderboards and map-pack
+              Facebook, Yelp and Angi, with technician leaderboards and map-pack
               tracking tuned to how your trade actually wins work.
             </p>
           </div>
@@ -70,7 +70,7 @@ export default function TradesIndex() {
           <div className="mt-10 rounded-2xl border border-line bg-surface p-7 text-center md:p-9">
             <h2 className="text-lg font-bold text-ink">Another home-service trade?</h2>
             <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-ink-soft">
-              Garage doors, pest control, landscaping, painting, cleaning and more —
+              Garage doors, pest control, landscaping, painting, cleaning and more:
               if you run jobs and want more reviews, TableTurnerr works for you too.
             </p>
             <Link href="/contact" className="btn btn-ghost mt-5">
