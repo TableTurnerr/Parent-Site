@@ -1,7 +1,9 @@
 "use server";
 
+import { after } from "next/server";
 import { headers } from "next/headers";
 import { createClient } from "@/app/lib/supabase/server";
+import { pushLeadToGHL } from "@/app/lib/ghl";
 
 export type LeadResult = { ok: true } | { ok: false; error: string };
 
@@ -40,6 +42,23 @@ export async function submitLead(formData: FormData): Promise<LeadResult> {
   if (!EMAIL_RE.test(email)) {
     return { ok: false, error: "Please enter a valid email address." };
   }
+
+  // Route the lead into GoHighLevel (our CRM) after the response is sent.
+  // Best-effort and independent of the Supabase write, so the lead still
+  // reaches the CRM even if our DB insert below fails. The trial form sets a
+  // "Free trial signup" message, which lets us tag intent in GHL.
+  const isTrial = message.startsWith("Free trial signup");
+  after(() =>
+    pushLeadToGHL({
+      name,
+      email,
+      phone,
+      businessName,
+      trade: service,
+      message,
+      source: isTrial ? "/signup" : "/contact",
+    }),
+  );
 
   const hdrs = await headers();
   const userAgent = hdrs.get("user-agent")?.slice(0, 300) ?? null;
