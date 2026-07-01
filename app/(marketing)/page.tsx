@@ -3,20 +3,23 @@ import type { Metadata } from "next";
 import {
   MessageSquareText, Repeat2, Trophy, BarChart3, Bot, Globe2,
   Wrench, Home, Droplets, Zap, Check, ArrowRight, ShieldCheck, Plug,
-  X, Quote,
+  X, Quote, BadgeCheck, EyeOff,
 } from "lucide-react";
 import Image from "next/image";
 import MapPackClimb from "@/app/components/site/MapPackClimb";
 import Reveal from "@/app/components/site/Reveal";
 import Accordion from "@/app/components/site/Accordion";
-import WelcomePopup from "@/app/components/site/WelcomePopup";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
+import { PLANS } from "@/app/lib/pricing";
 
 export const metadata: Metadata = {
-  title: "TableTurnerr — Review Automation for Home Services",
+  // Absolute title so the root "%s | TableTurnerr" template doesn't double-brand
+  // the homepage. Keyword-first so the crawler reads the target phrase first.
+  title: { absolute: "Review Automation for Home Services | TableTurnerr" },
   description:
-    "Turn every finished job into 5-star reviews and more booked work. Review automation built for HVAC, roofing, plumbing & electrical pros. Multi-platform, technician leaderboards, map-pack rank tracking. Start a free trial.",
+    "Review automation for HVAC, roofing, plumbing & electrical pros. Turn every finished job into 5-star reviews across Google, Facebook, Yelp & Angi, climb the map pack, and get booked. 14-day free trial, no contracts.",
+  alternates: { canonical: "https://www.tableturnerr.com" },
 };
 
 /* ── Hero ───────────────────────────────────────────────── */
@@ -27,17 +30,16 @@ function Hero() {
       <div className="container-tt relative pb-16 md:pb-24">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-10">
           <div>
-            <span className="eyebrow">Review automation for home services</span>
+            <span className="eyebrow">For HVAC, roofing, plumbing &amp; electrical pros</span>
             <h1 className="display mt-6 text-ink">
-              Turn finished jobs into{" "}
-              <span className="text-primary">5-star reviews</span> and more
-              booked work.
+              Review automation that turns finished jobs into{" "}
+              <span className="text-primary">5-star reviews</span>
             </h1>
             <p className="lead mt-6 max-w-xl">
               TableTurnerr automatically asks every customer for a review the
               moment the job is done, across Google, Facebook, Yelp and Angi, so
-              you climb the map pack and get chosen first. Built for HVAC,
-              roofing, plumbing and electrical pros.
+              you climb the map pack and get chosen first. Built for
+              home-service pros in HVAC, roofing, plumbing and electrical.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -69,7 +71,7 @@ function Hero() {
 
 /* ── Stat strip ─────────────────────────────────────────── */
 const STATS = [
-  { v: "4×", l: "more reviews in the first 90 days" },
+  { v: "Every job", l: "automatically asks the customer for a review" },
   { v: "≤24h", l: "to your first new reviews" },
   { v: "4", l: "review platforms, not just Google" },
   { v: "15 min", l: "to connect your CRM and launch" },
@@ -131,7 +133,7 @@ function Features() {
       <div className="container-tt">
         <div className="max-w-2xl">
           <span className="eyebrow">Built for the trades</span>
-          <h2 className="display-2 mt-5 text-ink">Everything you need to own your local market</h2>
+          <h2 className="display-2 mt-5 text-ink">Everything you need to get more reviews and rank higher locally</h2>
           <p className="lead mt-4">Not a generic reputation tool with a home-services coat of paint. Built around how trades actually win work.</p>
         </div>
         <Reveal className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -161,7 +163,7 @@ function How() {
     <section id="how" className="section bg-night text-white">
       <div className="container-tt">
         <div className="max-w-2xl">
-          <span className="eyebrow border-white/15 bg-white/5 text-white">Set it once</span>
+          <span className="eyebrow border-white/15 bg-white/5 text-white">How review automation works</span>
           <h2 className="display-2 mt-5 text-white">Live in 15 minutes. Working on autopilot after that.</h2>
         </div>
         <Reveal className="mt-12 grid gap-5 md:grid-cols-3">
@@ -232,20 +234,111 @@ function Trades() {
             </Link>
           ))}
         </Reveal>
+        <div className="mt-9 text-center">
+          <Link href="/trades" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
+            See all trades <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Personalized reviews ───────────────────────────────── */
+function Personalized() {
+  return (
+    <section className="section bg-surface">
+      <div className="container-tt grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div>
+          <span className="eyebrow">Personalized requests</span>
+          <h2 className="display-2 mt-5 text-ink">Reviews that feel personal, because they are</h2>
+          <p className="lead mt-4">
+            Every request goes out with the customer&apos;s name on it. Your crew can even snap a
+            quick photo holding a sign with their name, and we attach it to the ask. It lands like a
+            thank-you, not a form, and personal asks are the ones that actually get answered.
+          </p>
+          <ul className="mt-8 space-y-4">
+            {[
+              "Name-on-the-photo review requests",
+              "Sent the moment the job wraps",
+              "By text and email, with gentle reminders",
+            ].map((t) => (
+              <li key={t} className="flex items-start gap-3 text-ink-soft">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary">
+                  <Check className="h-4 w-4" />
+                </span>
+                <span className="text-[0.97rem] leading-relaxed">{t}</span>
+              </li>
+            ))}
+          </ul>
+          <Link href="/signup" className="btn btn-primary mt-9">
+            Start free trial <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        <Reveal className="relative mx-auto w-full max-w-md lg:mr-0">
+          <div className="overflow-hidden rounded-[1.5rem] border border-line shadow-[0_30px_70px_-35px_rgba(10,19,38,0.45)]">
+            <Image
+              src="/images/personalized/jessica.webp"
+              alt="A home-services crew holding a sign with their customer's name to make the review request personal"
+              width={760}
+              height={896}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          {/* floating review card */}
+          <div className="tt-float absolute -bottom-5 -left-3 w-[15rem] rounded-2xl border border-line bg-white p-4 shadow-lg sm:-left-6">
+            <div className="flex items-center gap-2">
+              <span className="stars text-sm" aria-hidden>★★★★★</span>
+              <span className="text-xs font-semibold text-muted">Google review</span>
+            </div>
+            <p className="mt-1.5 text-sm leading-snug text-ink">
+              &ldquo;They asked for my review by name. Felt personal, not automated.&rdquo;
+            </p>
+            <p className="mt-1.5 text-xs font-medium text-muted">— Jessica, homeowner</p>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ── Compliance / no gating ─────────────────────────────── */
+const COMPLIANCE = [
+  { icon: EyeOff, t: "No review gating", b: "We never filter or hide unhappy customers behind a private form. Everyone gets asked, and every review goes live." },
+  { icon: BadgeCheck, t: "FTC & Google compliant", b: "Review gating is banned by both. We keep you firmly on the right side of the rules, so your profile never gets penalized." },
+  { icon: MessageSquareText, t: "A2P-registered SMS", b: "Texts send from registered numbers that honor opt-outs, so your messages land and your number stays trusted." },
+];
+function Compliance() {
+  return (
+    <section className="section bg-night text-white">
+      <div className="container-tt">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="eyebrow border-white/15 bg-white/5 text-white">Honest by design</span>
+          <h2 className="display-2 mt-5 text-white">We never hide your bad reviews</h2>
+          <p className="lead mt-4 text-white/70">
+            Some tools quietly route unhappy customers to a private form. Google and the FTC ban
+            that, and it wrecks the trust reviews are supposed to build. We ask every customer and
+            let every review stand, the honest way that actually wins more work.
+          </p>
+        </div>
+        <Reveal className="mt-12 grid gap-5 md:grid-cols-3">
+          {COMPLIANCE.map((c) => (
+            <div key={c.t} className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-star">
+                <c.icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-5 text-lg font-bold text-white">{c.t}</h3>
+              <p className="mt-2.5 text-sm leading-relaxed text-white/65">{c.b}</p>
+            </div>
+          ))}
+        </Reveal>
       </div>
     </section>
   );
 }
 
 /* ── Pricing ────────────────────────────────────────────── */
-const PLANS = [
-  { name: "Starter", price: "$99", per: "/mo", note: "Up to 50 review requests/mo", popular: false,
-    features: ["Google + Facebook reviews", "Review reactivation", "Automated text & email requests", "Review widgets", "Unlimited users"] },
-  { name: "Growth", price: "$179", per: "/mo", note: "Up to 150 review requests/mo", popular: true,
-    features: ["Everything in Starter", "Yelp + Angi routing", "Technician leaderboards", "AI requests & replies", "Auto social posts", "1-on-1 setup call"] },
-  { name: "Pro", price: "$299", per: "/mo", note: "Up to 400 review requests/mo", popular: false,
-    features: ["Everything in Growth", "Map-pack rank tracking", "Multi-location dashboard", "Monthly owner report", "Priority support"] },
-];
 function Pricing() {
   return (
     <section id="pricing" className="section bg-surface">
@@ -290,6 +383,11 @@ function Pricing() {
         </Reveal>
         <p className="mt-8 flex items-center justify-center gap-2 text-sm text-ink-soft">
           <ShieldCheck className="h-4 w-4 text-success" /> More reviews in 90 days or your next month is free.
+        </p>
+        <p className="mt-4 text-center text-sm text-ink-soft">
+          <Link href="/pricing" className="font-semibold text-primary hover:underline">
+            See full pricing details
+          </Link>
         </p>
       </div>
     </section>
@@ -419,6 +517,15 @@ function Comparison() {
             </div>
           ))}
         </Reveal>
+
+        <p className="mt-8 text-center text-sm text-ink-soft">
+          See how we compare to{" "}
+          <Link href="/alternatives/birdeye-alternative" className="font-semibold text-primary hover:underline">Birdeye</Link>,{" "}
+          <Link href="/alternatives/podium-alternative" className="font-semibold text-primary hover:underline">Podium</Link>,{" "}
+          <Link href="/alternatives/nicejob-alternative" className="font-semibold text-primary hover:underline">NiceJob</Link>{" "}
+          and{" "}
+          <Link href="/alternatives" className="font-semibold text-primary hover:underline">other review tools</Link>.
+        </p>
       </div>
     </section>
   );
@@ -481,11 +588,12 @@ export default function HomePage() {
       <How />
       <Comparison />
       <Trades />
-      {/* <Testimonials /> disabled: placeholder/fabricated reviews */}
+      <Personalized />
+      <Compliance />
+      <Testimonials />
       <Pricing />
       <FAQ />
       <FinalCTA />
-      <WelcomePopup />
     </>
   );
 }

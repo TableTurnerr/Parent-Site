@@ -53,7 +53,7 @@ export default async function PortalDashboard() {
       <div>
         <h1 className="text-2xl font-bold text-[var(--color-charcoal)]">Your reports</h1>
         <p className="mt-1 text-sm text-[var(--color-warm-gray)]">
-          Monthly digital presence reports for your restaurants.
+          Monthly digital presence reports for your locations.
         </p>
       </div>
 

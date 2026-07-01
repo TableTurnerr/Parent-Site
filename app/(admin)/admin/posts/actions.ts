@@ -1,6 +1,6 @@
 "use server";
 
-import { createClient } from "@/app/lib/supabase/server";
+import { createClient, createAdminClient } from "@/app/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -265,24 +265,32 @@ export async function unschedulePost(postId: string) {
 }
 
 export async function deletePost(postId: string) {
-  const { supabase } = await verifyPostOwnership(postId);
+  // App-level authorization: author owns the post, or user is manager/admin.
+  await verifyPostOwnership(postId);
 
-  // Remove categories first
-  await supabase
-    .from("blog_post_categories")
-    .delete()
-    .eq("post_id", postId);
+  // Do the actual delete with the service-role client. The blog_posts DELETE
+  // RLS policy only permits role='admin', so an author deleting their own post
+  // would be silently filtered to 0 rows with NO error (Postgres returns
+  // success for an RLS-blocked delete) — the bug behind "confirm popup but
+  // nothing deletes". verifyPostOwnership has already enforced who may delete.
+  const admin = await createAdminClient();
 
-  const { error } = await supabase
+  // Remove category links first (FK), then the post.
+  await admin.from("blog_post_categories").delete().eq("post_id", postId);
+
+  const { data: deleted, error } = await admin
     .from("blog_posts")
     .delete()
-    .eq("id", postId);
+    .eq("id", postId)
+    .select("id");
 
   if (error) throw new Error(error.message);
+  if (!deleted || deleted.length === 0) {
+    throw new Error("Post could not be deleted. Please try again.");
+  }
 
   revalidatePath("/admin/posts");
   revalidatePath("/blog");
-  redirect("/admin/posts");
 }
 
 function isValidImageUrl(url: string): boolean {

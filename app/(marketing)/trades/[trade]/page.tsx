@@ -16,8 +16,8 @@ export async function generateMetadata({
   const t = getTrade(trade);
   if (!t) return {};
   return {
-    title: `${t.name} Review Automation — Get More 5-Star Reviews`,
-    description: `${t.heroSub} Review automation built for ${t.noun}s: multi-platform requests, technician leaderboards, and map-pack rank tracking.`,
+    title: `${t.name} Review Automation`,
+    description: `Review automation for your ${t.noun}. Turn every completed job into 5-star reviews across Google, Facebook, Yelp and Angi, automatically.`,
     alternates: { canonical: `https://www.tableturnerr.com/trades/${t.slug}` },
   };
 }

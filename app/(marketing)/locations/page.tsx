@@ -6,7 +6,7 @@ import { REVIEW_CITIES } from "@/app/lib/review-cities";
 export const metadata: Metadata = {
   title: "Texas Locations We Serve",
   description:
-    "Review automation for home-services businesses across Texas — Houston, Dallas, San Antonio, Austin, Fort Worth and more. Turn finished jobs into 5-star reviews and climb local search.",
+    "Review automation for home-service businesses across Texas: Houston, Dallas, San Antonio, Austin, Fort Worth and more. Turn finished jobs into 5-star reviews.",
   alternates: { canonical: "https://www.tableturnerr.com/locations" },
 };
 

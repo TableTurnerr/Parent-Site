@@ -14,10 +14,15 @@ export async function checkAndRecordRateLimit(
   route: string,
   options: { max?: number; windowSec?: number } = {},
 ): Promise<RateLimitResult> {
-  if (!ip) return { ok: true };
-
   const max = options.max ?? DEFAULT_MAX;
   const windowSec = options.windowSec ?? DEFAULT_WINDOW_SEC;
+
+  // In production, Vercel always sets x-forwarded-for. A missing IP is
+  // suspicious — fail closed rather than silently skip rate limiting.
+  if (!ip) {
+    if (process.env.NODE_ENV === "development") return { ok: true };
+    return { ok: false, retryAfter: windowSec };
+  }
   const cutoffIso = new Date(Date.now() - windowSec * 1000).toISOString();
 
   const admin = await createAdminClient();

@@ -122,10 +122,10 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-weight: 600;
-  font-size: 0.975rem;
-  padding: 0.85rem 1.4rem;
-  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.85rem 1.55rem;
+  border-radius: 0.625rem;
   transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
   white-space: nowrap;
   cursor: pointer;
@@ -134,15 +134,19 @@
 .btn-primary {
   background: var(--color-primary);
   color: var(--color-primary-ink);
-  box-shadow: 0 8px 24px -8px rgba(54, 64, 143, 0.6);
+  box-shadow: 0 10px 24px -8px rgba(54, 64, 143, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
-.btn-primary:hover { background: var(--color-primary-hover); }
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  box-shadow: 0 14px 30px -10px rgba(54, 64, 143, 0.62), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
 .btn-ghost {
   background: var(--color-bg);
   color: var(--color-ink);
-  border: 1px solid var(--color-line);
+  border: 1px solid var(--color-border-strong, var(--color-line));
+  box-shadow: 0 1px 2px rgba(10, 19, 38, 0.05);
 }
-.btn-ghost:hover { background: var(--color-surface); }
+.btn-ghost:hover { background: var(--color-surface); border-color: var(--color-ink); }
 .btn-light {
   background: #ffffff;
   color: var(--color-ink);
@@ -186,6 +190,7 @@
 
 /* ── Stars ── */
 .stars { color: var(--color-star); letter-spacing: 0.05em; }
+.font-hand { font-family: var(--font-caveat), ui-sans-serif, cursive; }
 
 /* ── Animations ── */
 @keyframes tt-float {

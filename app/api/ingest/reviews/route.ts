@@ -21,6 +21,11 @@ export async function POST(request: NextRequest) {
   const json = (body: unknown, status: number) =>
     NextResponse.json(body, { status, headers: corsH });
 
+  const len = request.headers.get("content-length");
+  if (len && Number(len) > 50_000) {
+    return json({ error: "Request body too large" }, 413);
+  }
+
   const ip = extractClientIp(request);
   const rl = await checkAndRecordRateLimit(ip, "ingest/reviews");
   if (!rl.ok) {
