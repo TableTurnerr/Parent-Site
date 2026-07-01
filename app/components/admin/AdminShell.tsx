@@ -24,6 +24,8 @@ import {
   Building2,
   Users,
   LayoutTemplate,
+  Activity,
+  ScrollText,
 } from "lucide-react";
 
 import type { UserRole } from "@/app/lib/supabase/types";
@@ -73,6 +75,8 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "System",
     items: [
+      { href: "/admin/status", label: "Status", icon: Activity, minRole: "manager" },
+      { href: "/admin/logs", label: "Logs", icon: ScrollText, minRole: "manager" },
       { href: "/admin/settings", label: "Settings", icon: Settings, minRole: "manager" },
     ],
   },
