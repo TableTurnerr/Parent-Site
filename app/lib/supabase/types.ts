@@ -12,6 +12,181 @@ export type Database = {
   }
   public: {
     Tables: {
+      alert_state: {
+        Row: {
+          alert_key: string
+          last_notified_at: string | null
+          last_value: Json
+          since: string
+          state: string
+          updated_at: string
+        }
+        Insert: {
+          alert_key: string
+          last_notified_at?: string | null
+          last_value?: Json
+          since?: string
+          state: string
+          updated_at?: string
+        }
+        Update: {
+          alert_key?: string
+          last_notified_at?: string | null
+          last_value?: Json
+          since?: string
+          state?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      monitored_services: {
+        Row: {
+          created_at: string
+          degraded_latency_ms: number
+          enabled: boolean
+          expected_interval_seconds: number | null
+          health_url: string | null
+          id: string
+          key: string
+          kind: Database["public"]["Enums"]["service_kind"]
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          degraded_latency_ms?: number
+          enabled?: boolean
+          expected_interval_seconds?: number | null
+          health_url?: string | null
+          id?: string
+          key: string
+          kind: Database["public"]["Enums"]["service_kind"]
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          degraded_latency_ms?: number
+          enabled?: boolean
+          expected_interval_seconds?: number | null
+          health_url?: string | null
+          id?: string
+          key?: string
+          kind?: Database["public"]["Enums"]["service_kind"]
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      service_heartbeats: {
+        Row: {
+          last_beat_at: string
+          meta: Json
+          service_id: string
+          service_key: string
+          status: string | null
+          updated_at: string
+          version: string | null
+        }
+        Insert: {
+          last_beat_at?: string
+          meta?: Json
+          service_id: string
+          service_key: string
+          status?: string | null
+          updated_at?: string
+          version?: string | null
+        }
+        Update: {
+          last_beat_at?: string
+          meta?: Json
+          service_id?: string
+          service_key?: string
+          status?: string | null
+          updated_at?: string
+          version?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_heartbeats_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: true
+            referencedRelation: "monitored_services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      system_logs: {
+        Row: {
+          context: Json
+          created_at: string
+          event: string | null
+          id: number
+          level: Database["public"]["Enums"]["log_level"]
+          message: string
+          service_key: string
+        }
+        Insert: {
+          context?: Json
+          created_at?: string
+          event?: string | null
+          id?: never
+          level?: Database["public"]["Enums"]["log_level"]
+          message: string
+          service_key: string
+        }
+        Update: {
+          context?: Json
+          created_at?: string
+          event?: string | null
+          id?: never
+          level?: Database["public"]["Enums"]["log_level"]
+          message?: string
+          service_key?: string
+        }
+        Relationships: []
+      }
+      uptime_checks: {
+        Row: {
+          checked_at: string
+          error: string | null
+          id: number
+          latency_ms: number | null
+          service_id: string
+          service_key: string
+          status: Database["public"]["Enums"]["uptime_status"]
+          status_code: number | null
+        }
+        Insert: {
+          checked_at?: string
+          error?: string | null
+          id?: never
+          latency_ms?: number | null
+          service_id: string
+          service_key: string
+          status: Database["public"]["Enums"]["uptime_status"]
+          status_code?: number | null
+        }
+        Update: {
+          checked_at?: string
+          error?: string | null
+          id?: never
+          latency_ms?: number | null
+          service_id?: string
+          service_key?: string
+          status?: Database["public"]["Enums"]["uptime_status"]
+          status_code?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "uptime_checks_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "monitored_services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blog_post_categories: {
         Row: {
           category_id: string
@@ -817,6 +992,9 @@ export type Database = {
     }
     Enums: {
       client_status: "prospect" | "client" | "template"
+      log_level: "debug" | "info" | "warn" | "error" | "fatal"
+      service_kind: "http" | "push"
+      uptime_status: "up" | "down" | "degraded"
       post_status: "draft" | "published" | "scheduled" | "archived"
       post_visibility: "public" | "unlisted" | "private" | "client_only"
       profile_status: "pending" | "approved" | "denied"
@@ -958,6 +1136,9 @@ export const Constants = {
   public: {
     Enums: {
       client_status: ["prospect", "client", "template"],
+      log_level: ["debug", "info", "warn", "error", "fatal"],
+      service_kind: ["http", "push"],
+      uptime_status: ["up", "down", "degraded"],
       post_status: ["draft", "published", "scheduled", "archived"],
       post_visibility: ["public", "unlisted", "private", "client_only"],
       profile_status: ["pending", "approved", "denied"],
