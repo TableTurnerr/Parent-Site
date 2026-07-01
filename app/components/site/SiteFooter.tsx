@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const COLS = [
   {
@@ -6,8 +7,9 @@ const COLS = [
     links: [
       { label: "Features", href: "/#features" },
       { label: "How it works", href: "/#how" },
-      { label: "Pricing", href: "/#pricing" },
+      { label: "Pricing", href: "/pricing" },
       { label: "Integrations", href: "/integrations" },
+      { label: "Compare", href: "/alternatives" },
       { label: "Texas locations", href: "/locations" },
     ],
   },
@@ -24,6 +26,7 @@ const COLS = [
     title: "Company",
     links: [
       { label: "About", href: "/about" },
+      { label: "Blog", href: "/blog" },
       { label: "Contact", href: "/contact" },
       { label: "SEO services", href: "/seo" },
       { label: "Privacy", href: "/privacy" },
@@ -39,8 +42,7 @@ export default function SiteFooter() {
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
             <Link href="/" className="flex items-center gap-2.5 text-lg font-bold tracking-tight text-ink">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.png" alt="TableTurnerr logo" className="h-8 w-8 rounded-lg object-contain" />
+              <Image src="/logo.png" alt="TableTurnerr logo" width={32} height={32} className="h-8 w-8 rounded-lg object-contain" />
               TableTurnerr
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">

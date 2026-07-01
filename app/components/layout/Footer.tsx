@@ -5,13 +5,15 @@ import { InteractiveHoverButton } from "@/app/components/ui/InteractiveHoverButt
 import {
   NAV_LINKS,
   SOCIAL_LINKS,
-  SERVICES,
+  TRADES,
   SITE_CONFIG,
 } from "@/app/lib/constants";
 
-// Free tools we offer. More easy-win tools land here over time.
-const TOOLS = [
-  { label: "Review Calculator", href: "/review-calculator" },
+// Product surfaces worth cross-linking from the footer.
+const PRODUCT_LINKS = [
+  { label: "Integrations", href: "/integrations" },
+  { label: "Local SEO", href: "/seo" },
+  { label: "Pricing", href: "/pricing" },
 ] as const;
 
 function FlipLink({
@@ -46,7 +48,6 @@ export default function Footer({
   const pageLinks = [
     { label: "Home", href: "/" },
     ...NAV_LINKS,
-    { label: "Pricing", href: "/pricing" },
   ];
   return (
     <footer className="bg-black pt-16 md:pt-20 pb-8">
@@ -90,31 +91,31 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* Column 3 — Services */}
+          {/* Column 3 — Trades */}
           <div>
             <h3 className="text-white text-sm font-medium uppercase tracking-wider mb-4">
-              Services
+              Trades
             </h3>
             <ul className="space-y-3">
-              {SERVICES.map((service) => (
-                <li key={service.slug}>
-                  <FlipLink href={`/services/${service.slug}`}>
-                    {service.title}
+              {TRADES.map((trade) => (
+                <li key={trade.slug}>
+                  <FlipLink href={`/trades/${trade.slug}`}>
+                    {trade.label}
                   </FlipLink>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 4 — Tools */}
+          {/* Column 4 — Product */}
           <div>
             <h3 className="text-white text-sm font-medium uppercase tracking-wider mb-4">
-              Tools
+              Product
             </h3>
             <ul className="space-y-3">
-              {TOOLS.map((tool) => (
-                <li key={tool.href}>
-                  <FlipLink href={tool.href}>{tool.label}</FlipLink>
+              {PRODUCT_LINKS.map((item) => (
+                <li key={item.href}>
+                  <FlipLink href={item.href}>{item.label}</FlipLink>
                 </li>
               ))}
             </ul>

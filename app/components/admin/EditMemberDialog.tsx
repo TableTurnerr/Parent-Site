@@ -37,8 +37,11 @@ export default function EditMemberDialog({
 
   const uploadFile = useCallback(
     async (file: File) => {
-      if (!file.type.startsWith("image/")) {
-        setError("Please upload an image file (JPEG, PNG, WebP).");
+      const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif", "image/gif"];
+      const ext = (file.name.split(".").pop() ?? "png").toLowerCase();
+      const BLOCKED_EXTS = ["svg", "svgz", "xml", "html", "htm", "js", "php"];
+      if (!ALLOWED_TYPES.includes(file.type) || BLOCKED_EXTS.includes(ext)) {
+        setError("Please upload a JPEG, PNG, WebP, or AVIF image. SVG files are not allowed.");
         return;
       }
       if (file.size > 5 * 1024 * 1024) {
@@ -50,7 +53,6 @@ export default function EditMemberDialog({
       setError(null);
       try {
         const supabase = createClient();
-        const ext = file.name.split(".").pop() ?? "png";
         const fileName = `${userId}-${Date.now()}.${ext}`;
         const filePath = `${userId}/${fileName}`;
 

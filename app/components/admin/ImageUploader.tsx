@@ -16,8 +16,11 @@ export default function ImageUploader({
 
   const uploadFile = useCallback(
     async (file: File) => {
-      if (!file.type.startsWith("image/")) {
-        alert("Please upload an image file (JPEG, PNG, WebP)");
+      const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif", "image/gif"];
+      const ext = (file.name.split(".").pop() ?? "").toLowerCase();
+      const BLOCKED_EXTS = ["svg", "svgz", "xml", "html", "htm", "js", "php"];
+      if (!ALLOWED_TYPES.includes(file.type) || BLOCKED_EXTS.includes(ext)) {
+        alert("Please upload a JPEG, PNG, WebP, or AVIF image. SVG files are not allowed.");
         return;
       }
       if (file.size > 5 * 1024 * 1024) {
@@ -28,7 +31,6 @@ export default function ImageUploader({
       setUploading(true);
       try {
         const supabase = createClient();
-        const ext = file.name.split(".").pop();
         const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
         const filePath = `posts/${fileName}`;
 

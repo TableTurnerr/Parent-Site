@@ -8,6 +8,12 @@ export async function GET(
 ) {
   const { id: clientId } = await params;
   const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   const { data, error } = await supabase
     .from("client_api_keys")
     .select("id, key_prefix, label, created_at, created_by, last_used_at, revoked_at")
@@ -27,6 +33,15 @@ export async function POST(
 
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role, status")
+    .eq("id", user.id)
+    .single();
+  if (!profile || profile.status !== "approved" || profile.role === "client") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
 
   const body = await request.json().catch(() => ({}));
   const label = typeof body.label === "string" ? body.label.trim() : "";

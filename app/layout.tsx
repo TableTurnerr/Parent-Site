@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Caveat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -30,6 +30,13 @@ const caveat = Caveat({
 });
 
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#11142b" },
+  ],
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tableturnerr.com"),
   title: {
@@ -54,6 +61,10 @@ export const metadata: Metadata = {
     siteName: "TableTurnerr",
     locale: "en_US",
     type: "website",
+    title: "TableTurnerr — Review Automation for Home Services",
+    description:
+      "Review automation built for home-services pros. Turn every finished job into 5-star reviews across Google, Facebook, Yelp and Angi.",
+    url: "https://www.tableturnerr.com",
   },
   twitter: {
     card: "summary_large_image",
@@ -73,7 +84,7 @@ export const metadata: Metadata = {
   verification: {
     google: "M-0AZRyz9kqD2TwnHjOCO3R593wsaKNLCDZy0JiGFVs",
   },
-  category: "Marketing",
+  category: "Business Software",
 };
 
 export default function RootLayout({

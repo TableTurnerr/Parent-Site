@@ -62,7 +62,20 @@ async function updateUserProfile(formData: FormData) {
   }
   if (typeof avatarUrlRaw === "string") {
     const trimmed = avatarUrlRaw.trim();
-    updates.avatar_url = trimmed.length > 0 ? trimmed : null;
+    if (trimmed.length === 0) {
+      updates.avatar_url = null;
+    } else {
+      // Only allow HTTPS URLs pointing to our Supabase storage bucket.
+      try {
+        const parsed = new URL(trimmed);
+        if (parsed.protocol !== "https:" || !parsed.hostname.endsWith(".supabase.co")) {
+          throw new Error("avatar_url must be an HTTPS Supabase storage URL");
+        }
+        updates.avatar_url = trimmed;
+      } catch {
+        throw new Error("Invalid avatar URL — must be an HTTPS Supabase storage URL");
+      }
+    }
   }
 
   if (Object.keys(updates).length === 0) return;

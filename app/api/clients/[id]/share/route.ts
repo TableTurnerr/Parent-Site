@@ -3,13 +3,20 @@ import { createClient, createAdminClient } from "@/app/lib/supabase/server";
 import { sendEmail } from "@/app/lib/email/send";
 import { renderShareEmail } from "@/app/lib/email/templates";
 import { getSiteUrl } from "@/app/lib/email/client";
+import { checkAndRecordRateLimit } from "@/app/lib/ingest/rateLimit";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_BODY_BYTES = 10_000;
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const len = request.headers.get("content-length");
+  if (len && Number(len) > MAX_BODY_BYTES) {
+    return NextResponse.json({ error: "Request body too large" }, { status: 413 });
+  }
+
   const { id: clientId } = await params;
   const body = await request.json().catch(() => ({}));
   const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
@@ -26,6 +33,19 @@ export async function POST(
   } = await supabase.auth.getUser();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Rate-limit per user to prevent email spam abuse: 20 share emails per hour.
+  const rl = await checkAndRecordRateLimit(
+    user.id,
+    "share/single",
+    { max: 20, windowSec: 3600 },
+  );
+  if (!rl.ok) {
+    return NextResponse.json(
+      { error: "Too many share requests — try again later" },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
   }
 
   const { data: client, error: clientError } = await supabase

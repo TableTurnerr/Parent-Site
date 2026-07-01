@@ -26,7 +26,7 @@ export default async function LeadsPage() {
 
   const { data: leads, error } = await supabase
     .from("contact_leads")
-    .select("id, name, email, restaurant, phone, service, message, status, created_at")
+    .select("id, name, email, business_name, phone, service, message, status, created_at")
     .order("created_at", { ascending: false });
 
   return (
@@ -69,9 +69,9 @@ export default async function LeadsPage() {
                   <span className="font-semibold text-[var(--color-charcoal)]">
                     {lead.name}
                   </span>
-                  {lead.restaurant && (
+                  {lead.business_name && (
                     <span className="text-sm text-[var(--color-warm-gray)]">
-                      · {lead.restaurant}
+                      · {lead.business_name}
                     </span>
                   )}
                   <span

@@ -4,9 +4,9 @@ import { Plug, ArrowRight, ArrowUpRight } from "lucide-react";
 import { INTEGRATIONS } from "@/app/lib/integrations";
 
 export const metadata: Metadata = {
-  title: "Integrations — Connect Your CRM",
+  title: "Integrations: Connect Your CRM",
   description:
-    "TableTurnerr connects to the tools home-services pros already use — Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks — to turn completed jobs into 5-star reviews automatically.",
+    "TableTurnerr connects to the tools you already run on, Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks, to turn completed jobs into 5-star reviews.",
   alternates: { canonical: "https://www.tableturnerr.com/integrations" },
 };
 
@@ -23,8 +23,8 @@ export default function IntegrationsIndex() {
             <h1 className="display mt-6 text-ink">Works with the tools you already run on</h1>
             <p className="lead mt-6 max-w-2xl">
               Connect your field-service software in about a minute. TableTurnerr watches for
-              completed jobs and turns each one into a 5-star review request, automatically —
-              no exports, no manual lists.
+              completed jobs and turns each one into a 5-star review request,
+              automatically. No exports, no manual lists.
             </p>
           </div>
         </div>
@@ -57,7 +57,7 @@ export default function IntegrationsIndex() {
             <div className="card flex h-full flex-col justify-center p-7">
               <h2 className="text-lg font-bold text-ink">Something else?</h2>
               <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-                We connect to thousands more tools through Zapier — and if you only invoice,
+                We connect to thousands more tools through Zapier, and if you only invoice,
                 QuickBooks works too. Tell us what you run on.
               </p>
               <Link href="/contact" className="btn btn-ghost mt-5 w-fit">

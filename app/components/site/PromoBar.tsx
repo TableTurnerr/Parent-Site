@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Flame } from "lucide-react";
+import { Flame, ArrowRight } from "lucide-react";
 
 /**
  * Hostinger-style urgency bar. On a visitor's first landing we stamp a deadline
@@ -49,8 +48,16 @@ export default function PromoBar() {
 
   const display = left === null ? "12:00:00" : fmt(left);
 
+  // Clicking the offer label opens the welcome/offer popup (any page).
+  const openPopup = () => window.dispatchEvent(new Event("tt:open-welcome"));
+
   return (
-    <div className="w-full bg-night text-white">
+    <button
+      type="button"
+      onClick={openPopup}
+      aria-label="Claim 30% off — open offer"
+      className="group block w-full cursor-pointer bg-night text-white transition-colors hover:bg-[#0d1326]"
+    >
       <div className="container-tt flex items-center justify-center gap-x-3 gap-y-1 py-2 text-sm">
         <Flame className="h-4 w-4 shrink-0 text-star" aria-hidden />
         <span className="font-semibold">
@@ -68,13 +75,10 @@ export default function PromoBar() {
             {display}
           </span>
         </span>
-        <Link
-          href="/signup"
-          className="ml-1 hidden rounded-full bg-primary px-3 py-1 text-xs font-bold text-white transition-colors hover:bg-primary-hover sm:inline-block"
-        >
-          Claim deal
-        </Link>
+        <span className="ml-1 hidden items-center gap-1 rounded-md bg-primary px-3 py-1 text-xs font-bold text-white transition-colors group-hover:bg-primary-hover sm:inline-flex">
+          Claim deal <ArrowRight className="h-3.5 w-3.5" />
+        </span>
       </div>
-    </div>
+    </button>
   );
 }

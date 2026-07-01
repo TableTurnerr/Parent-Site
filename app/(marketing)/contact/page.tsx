@@ -43,8 +43,8 @@ export default function ContactPage() {
             </ul>
             <p className="mt-9 text-sm text-ink-soft">
               Prefer email? Reach us at{" "}
-              <a href="mailto:hello@tableturnerr.com" className="font-semibold text-primary">
-                hello@tableturnerr.com
+              <a href="mailto:contact@tableturnerr.com" className="font-semibold text-primary">
+                contact@tableturnerr.com
               </a>
             </p>
           </div>

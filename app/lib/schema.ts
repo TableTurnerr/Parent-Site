@@ -3,7 +3,7 @@ import { SITE_CONFIG, SOCIAL_LINKS } from "./constants";
 export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": ["ProfessionalService", "MarketingAgency"],
+    "@type": ["Organization", "ProfessionalService"],
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
     logo: `${SITE_CONFIG.url}/logo.png`,
@@ -106,7 +106,7 @@ export function generateCityServiceSchema(params: {
     url: params.url,
     serviceType: params.serviceName,
     provider: {
-      "@type": ["ProfessionalService", "MarketingAgency"],
+      "@type": ["Organization", "ProfessionalService"],
       name: SITE_CONFIG.name,
       url: SITE_CONFIG.url,
       email: SITE_CONFIG.email,

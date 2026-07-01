@@ -5,18 +5,14 @@ import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
 import {
   NAV_LINKS,
-  INDUSTRY_LINKS,
-  SERVICES,
   SOCIAL_LINKS,
   SITE_CONFIG,
 } from "@/app/lib/constants";
 
 export default function MobileMenu({ overDark = false }: { overDark?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
@@ -24,7 +20,6 @@ export default function MobileMenu({ overDark = false }: { overDark?: boolean })
 
   useEffect(() => {
     setIsOpen(false);
-    setServicesOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -77,91 +72,20 @@ export default function MobileMenu({ overDark = false }: { overDark?: boolean })
 
           {/* ── Nav Links ── */}
           <nav className="flex-1 flex flex-col px-6 pt-2 overflow-y-auto">
-            {/* Industries — the two niche landing pages, surfaced up top */}
-            {INDUSTRY_LINKS.map((industry) => (
+            {NAV_LINKS.map((link) => (
               <div
-                key={industry.href}
-                className="border-b border-black/[0.08]"
+                key={link.href}
+                className="border-b border-black/[0.08] last:border-b-0"
               >
                 <Link
-                  href={industry.href}
+                  href={link.href}
                   onClick={toggle}
                   className="block py-4 font-display text-[17px] text-black"
                 >
-                  {industry.label}
+                  {link.label}
                 </Link>
               </div>
             ))}
-
-            {NAV_LINKS.map((link) => {
-              const hasSubPages = link.href === "/services";
-
-              return (
-                <div
-                  key={link.href}
-                  className="border-b border-black/[0.08] last:border-b-0"
-                >
-                  {hasSubPages ? (
-                    <>
-                      <div className="flex items-center justify-between">
-                        <Link
-                          href={link.href}
-                          onClick={toggle}
-                          className="flex-1 py-4 font-display text-[17px] text-black"
-                        >
-                          {link.label}
-                        </Link>
-                        <button
-                          onClick={() => setServicesOpen((p) => !p)}
-                          className="p-2 -mr-2 text-black/40 hover:text-black transition-colors"
-                          aria-label="Toggle services"
-                        >
-                          <ChevronDown
-                            className={`w-5 h-5 transition-transform duration-300 ${
-                              servicesOpen ? "rotate-180" : ""
-                            }`}
-                            strokeWidth={1.5}
-                          />
-                        </button>
-                      </div>
-
-                      <AnimatePresence>
-                        {servicesOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="pb-3 pl-4 flex flex-col">
-                              {SERVICES.map((service) => (
-                                <Link
-                                  key={service.slug}
-                                  href={`/services/${service.slug}`}
-                                  onClick={toggle}
-                                  className="py-2 text-[15px] text-black/45 hover:text-black transition-colors"
-                                >
-                                  {service.title}
-                                </Link>
-                              ))}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      onClick={toggle}
-                      className="block py-4 font-display text-[17px] text-black"
-                    >
-                      {link.label}
-                    </Link>
-                  )}
-                </div>
-              );
-            })}
           </nav>
 
           {/* ── Bottom: secondary links + CTA ── */}
@@ -195,11 +119,11 @@ export default function MobileMenu({ overDark = false }: { overDark?: boolean })
 
             {/* CTA */}
             <Link
-              href="/contact"
+              href="/signup"
               onClick={toggle}
               className="flex items-center justify-center gap-1.5 w-full py-3.5 bg-black hover:bg-black/90 rounded-full text-white text-sm font-semibold tracking-wide transition-colors"
             >
-              Get a free Report
+              Start free trial
               <svg
                 width="16"
                 height="16"
