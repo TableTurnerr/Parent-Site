@@ -396,6 +396,7 @@ export default function PostEditor({
     startTransition(async () => {
       try {
         await deletePost(post.id);
+        router.push("/admin/posts");
       } catch (err) {
         reportActionError(err);
       }
@@ -561,7 +562,13 @@ export default function PostEditor({
   }, []);
 
   const handleInlineImageUpload = useCallback(async (file: File) => {
-    if (!file.type.startsWith("image/")) return;
+    const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif", "image/gif"];
+    const ext = (file.name.split(".").pop() ?? "").toLowerCase();
+    const BLOCKED_EXTS = ["svg", "svgz", "xml", "html", "htm", "js", "php"];
+    if (!ALLOWED_TYPES.includes(file.type) || BLOCKED_EXTS.includes(ext)) {
+      alert("Please upload a JPEG, PNG, WebP, or AVIF image. SVG files are not allowed.");
+      return;
+    }
     if (file.size > 5 * 1024 * 1024) {
       alert("Image must be under 5MB");
       return;
@@ -570,7 +577,6 @@ export default function PostEditor({
     try {
       const { createClient } = await import("@/app/lib/supabase/client");
       const supabase = createClient();
-      const ext = file.name.split(".").pop();
       const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
       const filePath = `posts/${fileName}`;
       const { error } = await supabase.storage

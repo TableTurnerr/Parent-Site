@@ -29,8 +29,8 @@ const nextConfig: NextConfig = {
       { source: "/restaurants", destination: "/", permanent: true },
       { source: "/case-studies", destination: "/", permanent: true },
       { source: "/locations/restaurants/:path*", destination: "/locations", permanent: true },
-      { source: "/pricing", destination: "/#pricing", permanent: true },
-      { source: "/pricing/:path*", destination: "/#pricing", permanent: true },
+      // /pricing is now a real page; only redirect stray sub-paths to it.
+      { source: "/pricing/:path*", destination: "/pricing", permanent: true },
       { source: "/search", destination: "/", permanent: true },
       { source: "/review-calculator", destination: "/", permanent: true },
       { source: "/tools", destination: "/", permanent: true },
@@ -48,6 +48,22 @@ const nextConfig: NextConfig = {
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
           { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+          {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "base-uri 'self'",
+              "object-src 'none'",
+              "frame-ancestors 'self'",
+              "form-action 'self'",
+              "img-src 'self' data: blob: https:",
+              "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://va.vercel-scripts.com https://portalapi.tableturnerr.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "font-src 'self' data: https://fonts.gstatic.com",
+              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.googletagmanager.com https://www.google-analytics.com https://*.analytics.google.com https://vitals.vercel-insights.com",
+              "frame-src 'self' https://portalapi.tableturnerr.com",
+            ].join("; "),
+          },
         ],
       },
       {

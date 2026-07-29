@@ -25,7 +25,7 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
 
     const fd = new FormData(e.currentTarget);
     // Map our field names onto the action's expected fields.
-    fd.set("restaurant", String(fd.get("business") || ""));
+    fd.set("business_name", String(fd.get("business") || ""));
     fd.set("service", String(fd.get("trade") || ""));
     if (isTrial) {
       fd.set(
@@ -125,6 +125,20 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
         {isTrial
           ? "14-day free trial · no credit card required · cancel anytime"
           : "We'll never share your details. No spam, ever."}
+      </p>
+      <p className="mt-3 text-center text-[0.6875rem] leading-relaxed text-muted">
+        By submitting, you agree to be contacted by TableTurnerr by phone,
+        email, or text at the details provided about your inquiry. Consent is not
+        a condition of purchase; message &amp; data rates may apply, and you can
+        reply STOP to opt out. See our{" "}
+        <Link href="/privacy" className="underline underline-offset-2 hover:text-ink">
+          Privacy Policy
+        </Link>{" "}
+        and{" "}
+        <Link href="/terms" className="underline underline-offset-2 hover:text-ink">
+          Terms
+        </Link>
+        .
       </p>
     </form>
   );

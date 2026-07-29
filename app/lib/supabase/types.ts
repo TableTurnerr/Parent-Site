@@ -7,11 +7,188 @@ export type Json =
   | Json[]
 
 export type Database = {
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
+      alert_state: {
+        Row: {
+          alert_key: string
+          last_notified_at: string | null
+          last_value: Json
+          since: string
+          state: string
+          updated_at: string
+        }
+        Insert: {
+          alert_key: string
+          last_notified_at?: string | null
+          last_value?: Json
+          since?: string
+          state: string
+          updated_at?: string
+        }
+        Update: {
+          alert_key?: string
+          last_notified_at?: string | null
+          last_value?: Json
+          since?: string
+          state?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      monitored_services: {
+        Row: {
+          created_at: string
+          degraded_latency_ms: number
+          enabled: boolean
+          expected_interval_seconds: number | null
+          health_url: string | null
+          id: string
+          key: string
+          kind: Database["public"]["Enums"]["service_kind"]
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          degraded_latency_ms?: number
+          enabled?: boolean
+          expected_interval_seconds?: number | null
+          health_url?: string | null
+          id?: string
+          key: string
+          kind: Database["public"]["Enums"]["service_kind"]
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          degraded_latency_ms?: number
+          enabled?: boolean
+          expected_interval_seconds?: number | null
+          health_url?: string | null
+          id?: string
+          key?: string
+          kind?: Database["public"]["Enums"]["service_kind"]
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      service_heartbeats: {
+        Row: {
+          last_beat_at: string
+          meta: Json
+          service_id: string
+          service_key: string
+          status: string | null
+          updated_at: string
+          version: string | null
+        }
+        Insert: {
+          last_beat_at?: string
+          meta?: Json
+          service_id: string
+          service_key: string
+          status?: string | null
+          updated_at?: string
+          version?: string | null
+        }
+        Update: {
+          last_beat_at?: string
+          meta?: Json
+          service_id?: string
+          service_key?: string
+          status?: string | null
+          updated_at?: string
+          version?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_heartbeats_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: true
+            referencedRelation: "monitored_services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      system_logs: {
+        Row: {
+          context: Json
+          created_at: string
+          event: string | null
+          id: number
+          level: Database["public"]["Enums"]["log_level"]
+          message: string
+          service_key: string
+        }
+        Insert: {
+          context?: Json
+          created_at?: string
+          event?: string | null
+          id?: never
+          level?: Database["public"]["Enums"]["log_level"]
+          message: string
+          service_key: string
+        }
+        Update: {
+          context?: Json
+          created_at?: string
+          event?: string | null
+          id?: never
+          level?: Database["public"]["Enums"]["log_level"]
+          message?: string
+          service_key?: string
+        }
+        Relationships: []
+      }
+      uptime_checks: {
+        Row: {
+          checked_at: string
+          error: string | null
+          id: number
+          latency_ms: number | null
+          service_id: string
+          service_key: string
+          status: Database["public"]["Enums"]["uptime_status"]
+          status_code: number | null
+        }
+        Insert: {
+          checked_at?: string
+          error?: string | null
+          id?: never
+          latency_ms?: number | null
+          service_id: string
+          service_key: string
+          status: Database["public"]["Enums"]["uptime_status"]
+          status_code?: number | null
+        }
+        Update: {
+          checked_at?: string
+          error?: string | null
+          id?: never
+          latency_ms?: number | null
+          service_id?: string
+          service_key?: string
+          status?: Database["public"]["Enums"]["uptime_status"]
+          status_code?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "uptime_checks_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "monitored_services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blog_post_categories: {
         Row: {
           category_id: string
@@ -47,7 +224,7 @@ export type Database = {
           id: string
           name: string
           email: string
-          restaurant: string | null
+          business_name: string | null
           phone: string | null
           service: string | null
           message: string
@@ -61,7 +238,7 @@ export type Database = {
           id?: string
           name: string
           email: string
-          restaurant?: string | null
+          business_name?: string | null
           phone?: string | null
           service?: string | null
           message: string
@@ -75,7 +252,7 @@ export type Database = {
           id?: string
           name?: string
           email?: string
-          restaurant?: string | null
+          business_name?: string | null
           phone?: string | null
           service?: string | null
           message?: string
@@ -484,6 +661,51 @@ export type Database = {
           },
         ]
       }
+      contact_leads: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          phone: string | null
+          restaurant: string | null
+          service: string | null
+          source_path: string | null
+          status: string
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          phone?: string | null
+          restaurant?: string | null
+          service?: string | null
+          source_path?: string | null
+          status?: string
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          phone?: string | null
+          restaurant?: string | null
+          service?: string | null
+          source_path?: string | null
+          status?: string
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       ingest_rate_events: {
         Row: {
           created_at: string
@@ -545,6 +767,45 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      monitored_services: {
+        Row: {
+          created_at: string
+          degraded_latency_ms: number
+          enabled: boolean
+          expected_interval_seconds: number | null
+          health_url: string | null
+          id: string
+          key: string
+          kind: Database["public"]["Enums"]["service_kind"]
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          degraded_latency_ms?: number
+          enabled?: boolean
+          expected_interval_seconds?: number | null
+          health_url?: string | null
+          id?: string
+          key: string
+          kind: Database["public"]["Enums"]["service_kind"]
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          degraded_latency_ms?: number
+          enabled?: boolean
+          expected_interval_seconds?: number | null
+          health_url?: string | null
+          id?: string
+          key?: string
+          kind?: Database["public"]["Enums"]["service_kind"]
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -630,6 +891,44 @@ export type Database = {
           },
         ]
       }
+      service_heartbeats: {
+        Row: {
+          last_beat_at: string
+          meta: Json
+          service_id: string
+          service_key: string
+          status: string | null
+          updated_at: string
+          version: string | null
+        }
+        Insert: {
+          last_beat_at?: string
+          meta?: Json
+          service_id: string
+          service_key: string
+          status?: string | null
+          updated_at?: string
+          version?: string | null
+        }
+        Update: {
+          last_beat_at?: string
+          meta?: Json
+          service_id?: string
+          service_key?: string
+          status?: string | null
+          updated_at?: string
+          version?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_heartbeats_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: true
+            referencedRelation: "monitored_services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       site_form_submissions: {
         Row: {
           api_key_id: string | null
@@ -640,7 +939,7 @@ export type Database = {
           created_at: string
           form_type: string
           id: string
-          ip: unknown | null
+          ip: unknown
           location_id: string | null
           payload: Json
           read_at: string | null
@@ -659,7 +958,7 @@ export type Database = {
           created_at?: string
           form_type: string
           id?: string
-          ip?: unknown | null
+          ip?: unknown
           location_id?: string | null
           payload: Json
           read_at?: string | null
@@ -678,7 +977,7 @@ export type Database = {
           created_at?: string
           form_type?: string
           id?: string
-          ip?: unknown | null
+          ip?: unknown
           location_id?: string | null
           payload?: Json
           read_at?: string | null
@@ -726,7 +1025,7 @@ export type Database = {
           created_at: string
           feedback: string
           id: string
-          ip: unknown | null
+          ip: unknown
           location_id: string | null
           rating: number
           read_at: string | null
@@ -745,7 +1044,7 @@ export type Database = {
           created_at?: string
           feedback: string
           id?: string
-          ip?: unknown | null
+          ip?: unknown
           location_id?: string | null
           rating: number
           read_at?: string | null
@@ -764,7 +1063,7 @@ export type Database = {
           created_at?: string
           feedback?: string
           id?: string
-          ip?: unknown | null
+          ip?: unknown
           location_id?: string | null
           rating?: number
           read_at?: string | null
@@ -808,20 +1107,248 @@ export type Database = {
           },
         ]
       }
+      system_logs: {
+        Row: {
+          context: Json
+          created_at: string
+          event: string | null
+          id: number
+          level: Database["public"]["Enums"]["log_level"]
+          message: string
+          service_key: string
+        }
+        Insert: {
+          context?: Json
+          created_at?: string
+          event?: string | null
+          id?: never
+          level?: Database["public"]["Enums"]["log_level"]
+          message: string
+          service_key: string
+        }
+        Update: {
+          context?: Json
+          created_at?: string
+          event?: string | null
+          id?: never
+          level?: Database["public"]["Enums"]["log_level"]
+          message?: string
+          service_key?: string
+        }
+        Relationships: []
+      }
+      uptime_checks: {
+        Row: {
+          checked_at: string
+          error: string | null
+          id: number
+          latency_ms: number | null
+          service_id: string
+          service_key: string
+          status: Database["public"]["Enums"]["uptime_status"]
+          status_code: number | null
+        }
+        Insert: {
+          checked_at?: string
+          error?: string | null
+          id?: never
+          latency_ms?: number | null
+          service_id: string
+          service_key: string
+          status: Database["public"]["Enums"]["uptime_status"]
+          status_code?: number | null
+        }
+        Update: {
+          checked_at?: string
+          error?: string | null
+          id?: never
+          latency_ms?: number | null
+          service_id?: string
+          service_key?: string
+          status?: Database["public"]["Enums"]["uptime_status"]
+          status_code?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "uptime_checks_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "monitored_services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wireframe_content: {
+        Row: {
+          client_id: string
+          content: Json
+          id: string
+          updated_at: string
+          updated_by: string | null
+          version: number
+        }
+        Insert: {
+          client_id: string
+          content?: Json
+          id?: string
+          updated_at?: string
+          updated_by?: string | null
+          version?: number
+        }
+        Update: {
+          client_id?: string
+          content?: Json
+          id?: string
+          updated_at?: string
+          updated_by?: string | null
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wireframe_content_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: true
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wireframe_content_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wireframe_edit_locks: {
+        Row: {
+          acquired_at: string
+          client_id: string
+          display_name: string | null
+          last_heartbeat_at: string
+          profile_id: string
+        }
+        Insert: {
+          acquired_at?: string
+          client_id: string
+          display_name?: string | null
+          last_heartbeat_at?: string
+          profile_id: string
+        }
+        Update: {
+          acquired_at?: string
+          client_id?: string
+          display_name?: string | null
+          last_heartbeat_at?: string
+          profile_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wireframe_edit_locks_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: true
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wireframe_edit_locks_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wireframe_mcp_keys: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          key_hash: string
+          key_prefix: string
+          label: string
+          last_used_at: string | null
+          revoked_at: string | null
+          revoked_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          key_hash: string
+          key_prefix: string
+          label: string
+          last_used_at?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          key_hash?: string
+          key_prefix?: string
+          label?: string
+          last_used_at?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      acquire_wireframe_lock: {
+        Args: { p_client_id: string; p_display_name?: string }
+        Returns: {
+          acquired_at: string
+          client_id: string
+          display_name: string | null
+          last_heartbeat_at: string
+          profile_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "wireframe_edit_locks"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      heartbeat_wireframe_lock: {
+        Args: { p_client_id: string }
+        Returns: {
+          acquired_at: string
+          client_id: string
+          display_name: string | null
+          last_heartbeat_at: string
+          profile_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "wireframe_edit_locks"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      mint_wireframe_mcp_key: { Args: { p_label: string }; Returns: Json }
+      release_wireframe_lock: {
+        Args: { p_client_id: string }
+        Returns: boolean
+      }
+      revoke_wireframe_mcp_key: { Args: { p_id: string }; Returns: undefined }
     }
     Enums: {
       client_status: "prospect" | "client" | "template"
+      log_level: "debug" | "info" | "warn" | "error" | "fatal"
       post_status: "draft" | "published" | "scheduled" | "archived"
       post_visibility: "public" | "unlisted" | "private" | "client_only"
       profile_status: "pending" | "approved" | "denied"
+      service_kind: "http" | "push"
       site_review_status: "new" | "read" | "archived"
       site_submission_status: "new" | "read" | "archived"
+      uptime_status: "up" | "down" | "degraded"
       user_role:
         | "admin"
         | "author"
@@ -958,11 +1485,14 @@ export const Constants = {
   public: {
     Enums: {
       client_status: ["prospect", "client", "template"],
+      log_level: ["debug", "info", "warn", "error", "fatal"],
       post_status: ["draft", "published", "scheduled", "archived"],
       post_visibility: ["public", "unlisted", "private", "client_only"],
       profile_status: ["pending", "approved", "denied"],
+      service_kind: ["http", "push"],
       site_review_status: ["new", "read", "archived"],
       site_submission_status: ["new", "read", "archived"],
+      uptime_status: ["up", "down", "degraded"],
       user_role: [
         "admin",
         "author",

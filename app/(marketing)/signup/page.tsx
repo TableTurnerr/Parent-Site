@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Check, Star } from "lucide-react";
-import LeadForm from "@/app/components/site/LeadForm";
 
 export const metadata: Metadata = {
   title: "Start Your Free Trial",
@@ -22,8 +22,8 @@ export default function SignupPage() {
     <section className="hero-wash relative overflow-hidden pt-36 pb-20 md:pt-44">
       <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
       <div className="container-tt relative">
-        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="lg:pt-6">
+        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,0.86fr)_minmax(34rem,1.14fr)] lg:gap-14 xl:gap-20">
+          <div className="max-w-xl lg:sticky lg:top-32 lg:pb-8">
             <span className="eyebrow">Start free trial</span>
             <h1 className="display-2 mt-6 text-ink">
               Start collecting 5-star reviews this week
@@ -52,9 +52,39 @@ export default function SignupPage() {
             </div>
           </div>
 
-          <LeadForm variant="trial" />
+          <div className="card overflow-hidden bg-white shadow-[0_28px_70px_-42px_rgba(22,26,51,0.38)]">
+            <div className="border-b border-line bg-white px-6 py-5 sm:px-8">
+              <p className="text-sm font-semibold text-ink">Tell us about your business</p>
+              <p className="mt-1 text-sm leading-relaxed text-ink-soft">
+                Complete the short questionnaire to start your free trial.
+              </p>
+            </div>
+            <div className="bg-white">
+              <iframe
+                src="https://portalapi.tableturnerr.com/widget/form/IcHd4grlbI6g7iLvlc1g?contact_id={{contact.id}}"
+                className="block h-[2807px] w-full border-0"
+                id="inline-IcHd4grlbI6g7iLvlc1g"
+                data-layout='{"id":"INLINE"}'
+                data-trigger-type="alwaysShow"
+                data-trigger-value=""
+                data-activation-type="alwaysActivated"
+                data-activation-value=""
+                data-deactivation-type="neverDeactivate"
+                data-deactivation-value=""
+              data-form-name="1. ⭐Client Website Content Questionnaire✅"
+                data-height="2807"
+                data-layout-iframe-id="inline-IcHd4grlbI6g7iLvlc1g"
+                data-form-id="IcHd4grlbI6g7iLvlc1g"
+                title="Client Website Content Questionnaire"
+              />
+            </div>
+          </div>
         </div>
       </div>
+      <Script
+        src="https://portalapi.tableturnerr.com/js/form_embed.js"
+        strategy="afterInteractive"
+      />
     </section>
   );
 }

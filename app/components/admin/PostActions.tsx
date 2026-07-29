@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/app/lib/supabase/client";
+import { deletePost } from "@/app/(admin)/admin/posts/actions";
 import { Pencil, Trash2, Eye, MoreVertical } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
@@ -15,6 +15,7 @@ export default function PostActions({
 }) {
   const [open, setOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -31,19 +32,19 @@ export default function PostActions({
   const handleDelete = async () => {
     if (!confirm("Are you sure you want to delete this post?")) return;
     setDeleting(true);
-    const supabase = createClient();
-
-    // Delete junction table entries first
-    await supabase
-      .from("blog_post_categories")
-      .delete()
-      .eq("post_id", postId);
-
-    await supabase.from("blog_posts").delete().eq("id", postId);
-
-    router.refresh();
-    setDeleting(false);
-    setOpen(false);
+    setError(null);
+    try {
+      // Goes through the server action: it authorizes the delete and uses the
+      // service role to actually remove the row (the table's RLS only lets
+      // admins DELETE, which otherwise silently no-ops for authors).
+      await deletePost(postId);
+      setOpen(false);
+      router.refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not delete the post.");
+    } finally {
+      setDeleting(false);
+    }
   };
 
   return (
@@ -85,6 +86,9 @@ export default function PostActions({
             <Trash2 className="h-3.5 w-3.5" />
             {deleting ? "Deleting..." : "Delete"}
           </button>
+          {error && (
+            <p className="px-3 py-2 text-xs text-red-600">{error}</p>
+          )}
         </div>
       )}
     </div>

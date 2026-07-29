@@ -3,8 +3,9 @@ import Image from "next/image";
 import { Check, ArrowRight, ShieldCheck, Plug, Star } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
+import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateServiceSchema, generateFAQSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
-import type { Trade } from "@/app/lib/trades";
+import { TRADES, type Trade } from "@/app/lib/trades";
 
 const STEPS = [
   { n: "01", t: "Connect your CRM", b: "Link your field-service software in a couple of clicks. We import your customers." },
@@ -167,6 +168,22 @@ export default function TradePage({ trade }: { trade: Trade }) {
           </div>
         </div>
       </section>
+
+      {/* Cross-links */}
+      <CrossLinks
+        links={[
+          ...Object.values(TRADES)
+            .filter((t) => t.slug !== trade.slug)
+            .map((t) => ({
+              href: `/trades/${t.slug}`,
+              label: `${t.name} reviews`,
+              sub: `Review automation for your ${t.noun}`,
+            })),
+          { href: "/integrations", label: "Integrations", sub: "Connect your field-service CRM" },
+          { href: "/alternatives", label: "Compare review tools", sub: "See how we stack up" },
+          { href: "/locations", label: "Service areas", sub: "Texas cities we cover" },
+        ]}
+      />
 
       {/* CTA */}
       <section className="section">

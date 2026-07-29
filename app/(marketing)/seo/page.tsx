@@ -5,7 +5,7 @@ import { Check, ArrowRight, Search, MapPin, Globe, FileText } from "lucide-react
 export const metadata: Metadata = {
   title: "Local SEO for Home Services",
   description:
-    "Beyond review automation, TableTurnerr offers local SEO for home-services businesses: Google Business Profile optimization, local rankings, and website help for HVAC, roofing, plumbing and electrical pros.",
+    "Local SEO for home-service pros: Google Business Profile optimization, local-pack rankings, and websites that rank for HVAC, roofing, plumbing and electrical.",
   alternates: { canonical: "https://www.tableturnerr.com/seo" },
 };
 

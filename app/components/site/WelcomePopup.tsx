@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, Star, Gift, Check } from "lucide-react";
 import { submitLead } from "@/app/(marketing)/contact/actions";
@@ -27,13 +28,15 @@ function fmt(ms: number) {
 }
 
 export default function WelcomePopup() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [left, setLeft] = useState<number | null>(null);
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
 
-  // decide whether to show
+  // Auto-fire on the homepage only (arrival or return), with a cooldown.
   useEffect(() => {
+    if (pathname !== "/") return;
     const last = Number(sessionStorage.getItem(SEEN_KEY) || 0);
     if (Date.now() - last < COOLDOWN) return;
     const t = setTimeout(() => {
@@ -41,6 +44,13 @@ export default function WelcomePopup() {
       sessionStorage.setItem(SEEN_KEY, String(Date.now()));
     }, 1200);
     return () => clearTimeout(t);
+  }, [pathname]);
+
+  // Open on demand from anywhere (e.g. clicking the offer label) — any page.
+  useEffect(() => {
+    const onOpen = () => setOpen(true);
+    window.addEventListener("tt:open-welcome", onOpen);
+    return () => window.removeEventListener("tt:open-welcome", onOpen);
   }, []);
 
   // countdown (shared deadline)

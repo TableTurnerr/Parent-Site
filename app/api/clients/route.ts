@@ -3,6 +3,12 @@ import { createClient } from "@/app/lib/supabase/server";
 
 export async function GET() {
   const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   const { data, error } = await supabase
     .from("clients")
     .select("id, name, slug, url, primary_contact_email, created_at, updated_at")
