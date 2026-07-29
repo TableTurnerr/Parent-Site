@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import {
   MessageSquareText, Repeat2, Trophy, BarChart3, Bot, Globe2,
   Wrench, Home, Droplets, Zap, Check, ArrowRight, ShieldCheck, Plug,
-  X, Quote, BadgeCheck, EyeOff,
+  X, BadgeCheck, EyeOff,
 } from "lucide-react";
 import Image from "next/image";
 import MapPackClimb from "@/app/components/site/MapPackClimb";
@@ -590,7 +590,6 @@ export default function HomePage() {
       <Trades />
       <Personalized />
       <Compliance />
-      <Testimonials />
       <Pricing />
       <FAQ />
       <FinalCTA />
