@@ -5,52 +5,64 @@ export interface Plan {
   price: string;
   per: string;
   note: string;
+  description: string;
+  goal: string;
   popular: boolean;
   features: string[];
 }
 
 export const PLANS: Plan[] = [
   {
-    name: "Starter",
-    price: "$84",
+    name: "Review Booster",
+    price: "$80",
     per: "/mo",
-    note: "Up to 50 review requests/mo",
+    note: "Get more 5-star Google reviews automatically",
+    description:
+      "For businesses that already have customers but aren't collecting enough reviews.",
+    goal: "Turn more happy customers into 5-star reviews.",
     popular: false,
     features: [
-      "Google + Facebook reviews",
-      "Review reactivation",
-      "Automated text & email requests",
-      "Review widgets",
-      "Unlimited users",
+      "Automated review requests via SMS and email",
+      "Personalized image",
+      "CRM integration (Jobber, Housecall Pro, GorillaDesk and more)",
+      "Automated review responses",
     ],
   },
   {
-    name: "Growth",
-    price: "$150",
+    name: "Customer Growth System",
+    price: "$297",
     per: "/mo",
-    note: "Up to 100 review requests/mo",
+    note: "Your complete system to get more customers and build trust online",
+    description: "Everything in Review Booster, plus:",
+    goal: "Stop losing potential customers and turn more leads into booked jobs.",
     popular: true,
     features: [
-      "Everything in Starter",
-      "Yelp + Angi routing",
-      "Technician leaderboards",
-      "AI requests & replies",
-      "Auto social posts",
-      "1-on-1 setup call",
+      "AI-powered follow-ups",
+      "Missed-call text-back",
+      "Lead capture system",
+      "On-site SEO (20–30 pages)",
+      "Customer database / CRM",
+      "Automated follow-up campaigns",
+      "Appointment and estimate reminders",
+      "Reputation monitoring",
     ],
   },
   {
-    name: "Pro",
-    price: "$233",
+    name: "AI Growth Machine",
+    price: "$427",
     per: "/mo",
-    note: "Up to 300 review requests/mo",
+    note: "Your AI employee that works 24/7",
+    description: "Everything in Customer Growth System, plus:",
+    goal: "Never miss another customer opportunity.",
     popular: false,
     features: [
-      "Everything in Growth",
-      "Map-pack rank tracking",
-      "Multi-location dashboard",
-      "Monthly owner report",
-      "Priority support",
+      "AI receptionist (150 free minutes)",
+      "Instant customer-question answers",
+      "After-hours lead capture",
+      "Lead qualification",
+      "Automatic appointment booking",
+      "Common customer-request handling",
+      "Unlimited follow-up automation",
     ],
   },
 ];
@@ -59,7 +71,7 @@ export const PLANS: Plan[] = [
 export const PRICING_FAQS = [
   {
     q: "How much does review automation cost?",
-    a: "TableTurnerr starts at $84/mo for the Starter plan, $150/mo for Growth (our most popular), and $233/mo for Pro. Every plan is month-to-month with a 14-day free trial, no setup fees, and no contract.",
+    a: "TableTurnerr starts at $80/mo for Review Booster, $297/mo for Customer Growth System (our most popular), and $427/mo for AI Growth Machine. Every plan is month-to-month with a 14-day free trial, no setup fees, and no contract.",
   },
   {
     q: "Is there a contract or setup fee?",

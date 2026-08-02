@@ -8,9 +8,9 @@ import { generateFAQSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
 import { PLANS, PRICING_FAQS } from "@/app/lib/pricing";
 
 export const metadata: Metadata = {
-  title: "Review Automation Pricing from $84/mo",
+  title: "Review Automation Pricing from $80/mo",
   description:
-    "Simple, honest review-automation pricing for home-service pros. Plans from $84/mo, month-to-month, no contracts, 14-day free trial, 90-day results guarantee.",
+    "Simple, honest automation pricing for home-service pros. Plans from $80/mo, month-to-month, no contracts, 14-day free trial, and a 90-day results guarantee.",
   alternates: { canonical: "https://www.tableturnerr.com/pricing" },
 };
 
@@ -35,10 +35,10 @@ export default function PricingPage() {
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow">Pricing</span>
             <h1 className="display mt-6 text-ink">
-              Simple, honest review-automation pricing
+              Simple, honest growth-system pricing
             </h1>
             <p className="lead mt-6">
-              Plans from $84/mo for HVAC, roofing, plumbing and electrical pros.
+              Plans from $80/mo for HVAC, roofing, plumbing and electrical pros.
               Month-to-month, no setup fees, no contracts. Start with a 14-day
               free trial.
             </p>
@@ -66,6 +66,7 @@ export default function PricingPage() {
                   <span className="text-ink-soft">{p.per}</span>
                 </p>
                 <p className="mt-1 text-sm text-muted">{p.note}</p>
+                <p className="mt-4 text-sm leading-relaxed text-ink-soft">{p.description}</p>
                 <ul className="mt-6 flex-1 space-y-3">
                   {p.features.map((f) => (
                     <li key={f} className="flex items-start gap-2.5 text-sm text-ink-soft">
@@ -73,6 +74,9 @@ export default function PricingPage() {
                     </li>
                   ))}
                 </ul>
+                <p className="mt-6 border-t border-line pt-4 text-sm font-semibold leading-relaxed text-ink">
+                  <span className="text-primary">Goal: </span>{p.goal}
+                </p>
                 <Link
                   href="/signup"
                   className={`btn mt-7 w-full ${p.popular ? "btn-primary" : "btn-ghost"}`}
