@@ -62,3 +62,5 @@ reports-archive/
 
 # python
 __pycache__/
+.vercel
+.env*
