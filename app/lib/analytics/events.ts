@@ -1,0 +1,33 @@
+export const ANALYTICS_EVENTS = {
+  pageViewed: "page_viewed",
+  sectionViewed: "section_viewed",
+  sectionEngagement: "section_engagement",
+  scrollMilestone: "scroll_milestone_reached",
+  navigationClicked: "navigation_clicked",
+  outboundLinkClicked: "outbound_link_clicked",
+  faqOpened: "faq_opened",
+  faqClosed: "faq_closed",
+  featureCardOpened: "feature_card_opened",
+  featureCardClosed: "feature_card_closed",
+  primaryCtaClicked: "primary_cta_clicked",
+  secondaryCtaClicked: "secondary_cta_clicked",
+  pricingViewed: "pricing_viewed",
+  pricingPlanSelected: "pricing_plan_selected",
+  freeTrialStarted: "free_trial_started",
+  freeTrialCompleted: "free_trial_completed",
+  demoBookingStarted: "demo_booking_started",
+  demoBookingCompleted: "demo_booking_completed",
+  contactFormStarted: "contact_form_started",
+  contactFormSubmitted: "contact_form_submitted",
+  contactFormError: "contact_form_error",
+  promotionViewed: "promotion_viewed",
+  promotionClosed: "promotion_closed",
+  promotionClaimStarted: "promotion_claim_started",
+  promotionClaimCompleted: "promotion_claim_completed",
+  frontendError: "frontend_error",
+  webVitalRecorded: "web_vital_recorded",
+  resourceLoadError: "resource_load_error",
+} as const;
+
+export type AnalyticsEvent = (typeof ANALYTICS_EVENTS)[keyof typeof ANALYTICS_EVENTS];
+export type AnalyticsProperties = Record<string, string | number | boolean | null | undefined>;

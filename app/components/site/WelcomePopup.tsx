@@ -42,7 +42,7 @@ export default function WelcomePopup() {
     const t = setTimeout(() => {
       setOpen(true);
       sessionStorage.setItem(SEEN_KEY, String(Date.now()));
-    }, 1200);
+    }, 8000);
     return () => clearTimeout(t);
   }, [pathname]);
 

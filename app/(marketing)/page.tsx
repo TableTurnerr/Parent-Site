@@ -12,6 +12,7 @@ import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 import { PLANS } from "@/app/lib/pricing";
+import ProductBento from "@/app/components/site/ProductBento";
 
 export const metadata: Metadata = {
   // Absolute title so the root "%s | TableTurnerr" template doesn't double-brand
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 /* ── Hero ───────────────────────────────────────────────── */
 function Hero() {
   return (
-    <section className="hero-wash relative overflow-hidden pt-36 md:pt-44">
+    <section data-analytics-section="hero" className="hero-wash relative overflow-hidden pt-36 md:pt-44">
       <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
       <div className="container-tt relative pb-16 md:pb-24">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-10">
@@ -78,7 +79,7 @@ const STATS = [
 ];
 function Stats() {
   return (
-    <section className="border-y border-line bg-white">
+    <section data-analytics-section="results_metrics" className="border-y border-line bg-white">
       <div className="container-tt grid grid-cols-2 gap-8 py-10 md:grid-cols-4 md:py-12">
         {STATS.map((s) => (
           <div key={s.l} className="text-center md:text-left">
@@ -99,7 +100,7 @@ const PROBLEMS = [
 ];
 function Problem() {
   return (
-    <section className="section bg-surface">
+    <section data-analytics-section="reviews_gap" className="section bg-surface">
       <div className="container-tt">
         <div className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">The reviews gap</span>
@@ -119,6 +120,8 @@ function Problem() {
 }
 
 /* ── Features (our wedge vs ReviewHarvest) ──────────────── */
+// Kept as source copy for feature pages; homepage uses the richer interactive bento below.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const FEATURES = [
   { icon: Repeat2, t: "Review Reactivation", b: "Launch with a polite blast to your entire past-customer list. Most shops get a wave of fresh reviews in the first week." },
   { icon: Globe2, t: "Every platform, not just Google", b: "Route happy customers to Google, Facebook, Yelp and Angi, the places home-services buyers actually check." },
@@ -128,28 +131,7 @@ const FEATURES = [
   { icon: MessageSquareText, t: "Widgets & auto social posts", b: "Show your best reviews on your site and turn every 5-star into a branded Facebook and Instagram post automatically." },
 ];
 function Features() {
-  return (
-    <section id="features" className="section">
-      <div className="container-tt">
-        <div className="max-w-2xl">
-          <span className="eyebrow">Built for the trades</span>
-          <h2 className="display-2 mt-5 text-ink">Everything you need to get more reviews and rank higher locally</h2>
-          <p className="lead mt-4">Not a generic reputation tool with a home-services coat of paint. Built around how trades actually win work.</p>
-        </div>
-        <Reveal className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((f) => (
-            <div key={f.t} className="card card-hover p-7">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-soft text-primary">
-                <f.icon className="h-5 w-5" />
-              </span>
-              <h3 className="mt-5 text-lg font-bold text-ink">{f.t}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{f.b}</p>
-            </div>
-          ))}
-        </Reveal>
-      </div>
-    </section>
-  );
+  return <ProductBento />;
 }
 
 /* ── How it works ───────────────────────────────────────── */
@@ -160,7 +142,7 @@ const STEPS = [
 ];
 function How() {
   return (
-    <section id="how" className="section bg-night text-white">
+    <section id="how" data-analytics-section="how_it_works" className="section bg-night text-white">
       <div className="container-tt">
         <div className="max-w-2xl">
           <span className="eyebrow border-white/15 bg-white/5 text-white">How review automation works</span>
@@ -195,7 +177,7 @@ const TRADES = [
 ];
 function Trades() {
   return (
-    <section id="trades" className="section">
+    <section id="trades" data-analytics-section="trades" className="section">
       <div className="container-tt">
         <div className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Made for your trade</span>
@@ -341,7 +323,7 @@ function Compliance() {
 /* ── Pricing ────────────────────────────────────────────── */
 function Pricing() {
   return (
-    <section id="pricing" className="section bg-surface">
+    <section id="pricing" data-analytics-section="pricing" className="section bg-surface">
       <div className="container-tt">
         <div className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Simple, honest pricing</span>
@@ -365,6 +347,7 @@ function Pricing() {
                 <span className="text-ink-soft">{p.per}</span>
               </p>
               <p className="mt-1 text-sm text-muted">{p.note}</p>
+              <p className="mt-4 text-sm leading-relaxed text-ink-soft">{p.description}</p>
               <ul className="mt-6 flex-1 space-y-3">
                 {p.features.map((f) => (
                   <li key={f} className="flex items-start gap-2.5 text-sm text-ink-soft">
@@ -372,6 +355,9 @@ function Pricing() {
                   </li>
                 ))}
               </ul>
+              <p className="mt-6 border-t border-line pt-4 text-sm font-semibold leading-relaxed text-ink">
+                <span className="text-primary">Goal: </span>{p.goal}
+              </p>
               <Link
                 href="/signup"
                 className={`btn mt-7 w-full ${p.popular ? "btn-primary" : "btn-ghost"}`}

@@ -8,9 +8,9 @@
 
 @theme {
   /* Surfaces — clearly toned down (not white) so cards & detail pop */
-  --color-bg: #e8eaf2;           /* soft slate-gray page bg */
-  --color-surface: #dfe2ec;      /* deeper panel */
-  --color-surface-2: #d4d8e6;
+  --color-bg: #f7f8fc;           /* soft mist-gray page bg */
+  --color-surface: #eef0f7;      /* deeper panel */
+  --color-surface-2: #e5e8f2;
   --color-ink: #161a33;          /* deep navy — headings */
   --color-ink-soft: #4a5170;     /* slate — body */
   --color-muted: #888fa8;        /* captions */

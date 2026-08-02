@@ -41,7 +41,7 @@ export type Database = {
         }
         Relationships: []
       }
-      monitored_services: {
+      legacy_monitored_services: {
         Row: {
           created_at: string
           degraded_latency_ms: number
@@ -80,7 +80,7 @@ export type Database = {
         }
         Relationships: []
       }
-      service_heartbeats: {
+      legacy_service_heartbeats: {
         Row: {
           last_beat_at: string
           meta: Json
@@ -118,7 +118,7 @@ export type Database = {
           },
         ]
       }
-      system_logs: {
+      legacy_system_logs: {
         Row: {
           context: Json
           created_at: string
@@ -148,7 +148,7 @@ export type Database = {
         }
         Relationships: []
       }
-      uptime_checks: {
+      legacy_uptime_checks: {
         Row: {
           checked_at: string
           error: string | null
@@ -661,7 +661,7 @@ export type Database = {
           },
         ]
       }
-      contact_leads: {
+      legacy_contact_leads: {
         Row: {
           created_at: string
           email: string

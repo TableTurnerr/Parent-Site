@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Caveat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import AnalyticsProvider from "@/app/components/analytics/AnalyticsProvider";
+import ConsentManager from "@/app/components/analytics/ConsentManager";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateOrganizationSchema, generateWebSiteSchema } from "@/app/lib/schema";
 import "./globals.css";
@@ -20,12 +20,6 @@ const satoshi = localFont({
     },
   ],
   variable: "--font-satoshi",
-  display: "swap",
-});
-
-const caveat = Caveat({
-  subsets: ["latin"],
-  variable: "--font-caveat",
   display: "swap",
 });
 
@@ -93,20 +87,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${satoshi.variable} ${caveat.variable}`}>
-      <head>
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
+    <html lang="en" className={satoshi.variable}>
       {/* suppressHydrationWarning: browser extensions (e.g. Bitdefender) inject
           attributes like bis_register onto <body> before React hydrates. This
           suppresses warnings for body's OWN attributes only, not its children. */}
       <body className="font-body antialiased" suppressHydrationWarning>
         <JsonLd data={[generateOrganizationSchema(), generateWebSiteSchema()]} />
         {children}
+        <AnalyticsProvider />
+        <ConsentManager />
         <SpeedInsights />
         <Analytics />
-        <GoogleAnalytics gaId="G-35W3QYXVMG" />
       </body>
     </html>
   );

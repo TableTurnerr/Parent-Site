@@ -1,6 +1,6 @@
 {
   "name": "tableturnerr.com",
-  "version": "4.3",
+  "version": "4.4",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -23,6 +23,7 @@
     "lucide-react": "^0.577.0",
     "marked": "^18.0.2",
     "next": "16.1.6",
+    "posthog-js": "^1.409.5",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "resend": "^6.12.3",
