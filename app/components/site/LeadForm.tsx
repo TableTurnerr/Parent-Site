@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { Check, Loader2 } from "lucide-react";
 import { submitLead } from "@/app/(marketing)/contact/actions";
+import { capture } from "@/app/lib/analytics/client";
+import { ANALYTICS_EVENTS } from "@/app/lib/analytics/events";
 
 const TRADES = ["HVAC", "Roofing", "Plumbing", "Electrical", "Other home service"];
 
@@ -16,6 +18,7 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
   const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [started, setStarted] = useState(false);
   const isTrial = variant === "trial";
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -36,8 +39,8 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
 
     const res = await submitLead(fd);
     setLoading(false);
-    if (res.ok) setDone(true);
-    else setError(res.error);
+    if (res.ok) { capture(isTrial ? ANALYTICS_EVENTS.freeTrialCompleted : ANALYTICS_EVENTS.demoBookingCompleted, { form_type: variant }); setDone(true); }
+    else { capture(ANALYTICS_EVENTS.contactFormError, { form_type: variant, error_category: "submission_failed" }); setError(res.error); }
   }
 
   if (done) {
@@ -60,7 +63,7 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
   }
 
   return (
-    <form className="card p-7 md:p-8" onSubmit={onSubmit}>
+    <form className="card p-7 md:p-8" data-analytics-mask onFocus={() => { if (!started) { setStarted(true); capture(isTrial ? ANALYTICS_EVENTS.freeTrialStarted : ANALYTICS_EVENTS.demoBookingStarted, { form_type: variant }); capture(ANALYTICS_EVENTS.contactFormStarted, { form_type: variant }); } }} onSubmit={onSubmit}>
       {/* honeypot — hidden from real users, bots fill it */}
       <input
         type="text"

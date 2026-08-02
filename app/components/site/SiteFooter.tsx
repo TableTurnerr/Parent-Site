@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import ConsentManager from "@/app/components/analytics/ConsentManager";
 
 const COLS = [
   {
@@ -79,7 +80,7 @@ export default function SiteFooter() {
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} TableTurnerr. All rights reserved.</p>
-          <p>Review automation for HVAC, roofing, plumbing &amp; electrical pros.</p>
+          <div className="flex items-center gap-4"><p>Review automation for HVAC, roofing, plumbing &amp; electrical pros.</p><ConsentManager trigger /></div>
         </div>
       </div>
     </footer>

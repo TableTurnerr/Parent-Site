@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
+import { capture } from "@/app/lib/analytics/client";
+import { ANALYTICS_EVENTS } from "@/app/lib/analytics/events";
 
 /** Smoothly animated FAQ accordion (height + fade), one item open at a time. */
 export default function Accordion({ items }: { items: { q: string; a: string }[] }) {
@@ -16,7 +18,7 @@ export default function Accordion({ items }: { items: { q: string; a: string }[]
           <div key={it.q}>
             <button
               type="button"
-              onClick={() => setOpen(isOpen ? null : i)}
+              onClick={() => { setOpen(isOpen ? null : i); capture(isOpen ? ANALYTICS_EVENTS.faqClosed : ANALYTICS_EVENTS.faqOpened, { faq_index: i + 1 }); }}
               aria-expanded={isOpen}
               className="flex w-full items-center justify-between gap-4 py-5 text-left text-base font-semibold text-ink transition-colors hover:text-primary"
             >
