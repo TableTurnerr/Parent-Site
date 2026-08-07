@@ -34,15 +34,18 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tableturnerr.com"),
   title: {
-    default: "TableTurnerr — Review Automation for Home Services",
+    default: "Review Management Software for Home Services | TableTurnerr",
     template: "%s | TableTurnerr",
   },
   description:
-    "Review automation built for home-services pros. Turn every finished job into 5-star reviews across Google, Facebook, Yelp and Angi, climb the map pack, and get more booked work. Built for HVAC, roofing, plumbing and electrical. Start a free trial.",
+    "Home-service review management software for HVAC, roofing, plumbing and electrical pros. Request Google reviews after every completed job, improve local visibility, and win more calls.",
   keywords: [
-    "review automation",
+    "home service review management software",
     "review automation for home services",
     "get more Google reviews",
+    "plumbing review management software",
+    "HVAC review management software",
+    "roofing review management software",
     "HVAC reviews software",
     "roofing reviews software",
     "plumbing reviews",
@@ -55,9 +58,9 @@ export const metadata: Metadata = {
     siteName: "TableTurnerr",
     locale: "en_US",
     type: "website",
-    title: "TableTurnerr — Review Automation for Home Services",
+    title: "Review Management Software for Home Services | TableTurnerr",
     description:
-      "Review automation built for home-services pros. Turn every finished job into 5-star reviews across Google, Facebook, Yelp and Angi.",
+      "Home-service review management software for HVAC, roofing, plumbing and electrical pros. Request Google reviews after every completed job and win more calls.",
     url: "https://www.tableturnerr.com",
   },
   twitter: {

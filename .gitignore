@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/.pnpm-store/
 /.pnp
 .pnp.*
 .yarn/*
@@ -62,5 +63,3 @@ reports-archive/
 
 # python
 __pycache__/
-.vercel
-.env*

@@ -8,18 +8,16 @@ import { getPublishedPostSlugs } from "./lib/blog";
 const baseUrl = "https://www.tableturnerr.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date();
-
   const entry = (
     path: string,
     priority: number,
     changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = "monthly",
-    lastModified: Date = now
+    lastModified?: Date
   ): MetadataRoute.Sitemap[number] => ({
     url: `${baseUrl}${path}`,
-    lastModified,
     changeFrequency,
     priority,
+    ...(lastModified ? { lastModified } : {}),
   });
 
   const posts = await getPublishedPostSlugs();
@@ -49,7 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Blog
     entry("/blog", 0.7, "weekly"),
     ...posts.map((p) =>
-      entry(`/blog/${p.slug}`, 0.6, "monthly", p.updated_at ? new Date(p.updated_at) : now)
+      entry(`/blog/${p.slug}`, 0.6, "monthly", p.updated_at ? new Date(p.updated_at) : undefined)
     ),
   ];
 }
