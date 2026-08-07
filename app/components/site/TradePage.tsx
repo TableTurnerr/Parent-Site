@@ -67,7 +67,7 @@ export default function TradePage({ trade }: { trade: Trade }) {
               <div className="overflow-hidden rounded-[1.5rem] border border-line shadow-[0_30px_70px_-35px_rgba(10,19,38,0.45)]">
                 <Image
                   src={`/images/trades/${trade.slug}-review-automation.webp`}
-                  alt={`${trade.name} professional at work`}
+                  alt={`${trade.name} contractor using review management software`}
                   width={1200}
                   height={900}
                   priority
