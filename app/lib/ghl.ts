@@ -9,6 +9,11 @@ export interface GhlLead {
   message?: string;
   /** "/signup" for free-trial intent, "/contact" for a demo request. */
   source: string;
+  customerCareSmsConsent: boolean;
+  marketingSmsConsent: boolean;
+  customerCareSmsConsentedAt: string | null;
+  marketingSmsConsentedAt: string | null;
+  smsDisclosureVersion: string;
 }
 
 /**
@@ -49,6 +54,11 @@ export async function pushLeadToGHL(lead: GhlLead): Promise<void> {
         trade: lead.trade ?? "",
         message: lead.message ?? "",
         source: lead.source,
+        customer_care_sms_consent: lead.customerCareSmsConsent,
+        marketing_sms_consent: lead.marketingSmsConsent,
+        customer_care_sms_consented_at: lead.customerCareSmsConsentedAt,
+        marketing_sms_consented_at: lead.marketingSmsConsentedAt,
+        sms_disclosure_version: lead.smsDisclosureVersion,
         submittedAt: new Date().toISOString(),
       }),
     });

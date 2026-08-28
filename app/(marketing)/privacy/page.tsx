@@ -12,7 +12,7 @@ export const metadata: Metadata = createPageMetadata({
   path: "/privacy",
 });
 
-const LAST_UPDATED = "June 12, 2026";
+const LAST_UPDATED = "August 28, 2026";
 
 export default function PrivacyPolicyPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -70,7 +70,8 @@ export default function PrivacyPolicyPage() {
                   1. Introduction
                 </h2>
                 <p>
-                  TableTurnerr (&quot;we,&quot; &quot;us,&quot; or
+                  TABLETURNERR LLC, doing business as TableTurnerr
+                  (&quot;we,&quot; &quot;us,&quot; or
                   &quot;our&quot;) operates the website{" "}
                   <Link
                     href={SITE_CONFIG.url}
@@ -225,11 +226,62 @@ export default function PrivacyPolicyPage() {
                   </li>
                 </ul>
                 <p className="mt-4">
-                  No mobile information will be shared with third
-                  parties/affiliates for marketing/promotional purposes. All
-                  other categories exclude text messaging originator opt-in data
-                  and consent; this information will not be shared with any
-                  third parties.
+                  Our SMS-specific handling and sharing practices are described
+                  in the <a href="#sms-privacy" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">SMS and Mobile Information</a> section below.
+                </p>
+              </section>
+
+              <section id="sms-privacy" className="scroll-mt-28">
+                <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
+                  SMS and Mobile Information
+                </h2>
+                <p>
+                  If you opt in to receive text messages from TableTurnerr LLC,
+                  we collect and use your mobile number, consent record, message
+                  content, and messaging activity to provide the SMS program you
+                  requested. Depending on the consent you provide, messages may
+                  include inquiry responses, account and service updates,
+                  customer-support communications, and requests for honest
+                  feedback or reviews.
+                </p>
+                <p className="mt-4">
+                  Message frequency varies. Automated feedback or review-request
+                  sequences contain no more than three messages per service
+                  interaction. Message and data rates may apply. You may reply
+                  STOP to opt out or HELP for assistance.
+                </p>
+                <p className="mt-4">
+                  No mobile information will be shared with third parties or
+                  affiliates for marketing or promotional purposes. Information
+                  may be shared with subcontractors and service providers that
+                  support delivery of our messaging program, such as
+                  telecommunications carriers and messaging-platform providers,
+                  solely as necessary to provide those services on our behalf.
+                  All other use-case categories exclude text-message originator
+                  opt-in data and consent; this information will not be shared
+                  with third parties for their own marketing or promotional
+                  purposes.
+                </p>
+                <p className="mt-4">
+                  We retain SMS consent records and messaging activity for as
+                  long as reasonably necessary to provide the requested program,
+                  demonstrate compliance, resolve disputes, and satisfy legal
+                  obligations.
+                </p>
+                <p className="mt-4">
+                  Consent collected on this website authorizes only
+                  communications from TABLETURNERR LLC. It does not authorize an
+                  independent client to send messages under the client&apos;s own
+                  brand. Each client is responsible for its own brand and
+                  campaign registration, consent collection and records,
+                  disclosures, opt-out handling, and messaging compliance.
+                </p>
+                <p className="mt-4">
+                  A client&apos;s use of a TableTurnerr-managed account, TextGrid
+                  subaccount, or other messaging infrastructure does not transfer
+                  TableTurnerr website consent to that client. Client-specific
+                  consent must identify the relevant client or brand and the
+                  messaging program for which consent is obtained.
                 </p>
               </section>
 
