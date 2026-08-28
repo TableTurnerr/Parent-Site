@@ -17,9 +17,9 @@ import ProductBento from "@/app/components/site/ProductBento";
 export const metadata: Metadata = {
   // Absolute title so the root "%s | TableTurnerr" template doesn't double-brand
   // the homepage. Keyword-first so the crawler reads the target phrase first.
-  title: { absolute: "Review Automation for Home Services | TableTurnerr" },
+  title: { absolute: "Review Management Software for Home Services | TableTurnerr" },
   description:
-    "Review automation for HVAC, roofing, plumbing & electrical pros. Turn every finished job into 5-star reviews across Google, Facebook, Yelp & Angi, climb the map pack, and get booked. 14-day free trial, no contracts.",
+    "Home-service review management software for HVAC, roofing, plumbing & electrical pros. Request Google reviews after every completed job, improve local visibility, and win more calls. 14-day free trial.",
   alternates: { canonical: "https://www.tableturnerr.com" },
 };
 
@@ -33,7 +33,7 @@ function Hero() {
           <div>
             <span className="eyebrow">For HVAC, roofing, plumbing &amp; electrical pros</span>
             <h1 className="display mt-6 text-ink">
-              Review automation that turns finished jobs into{" "}
+              Review management software that turns finished jobs into{" "}
               <span className="text-primary">5-star reviews</span>
             </h1>
             <p className="lead mt-6 max-w-xl">
