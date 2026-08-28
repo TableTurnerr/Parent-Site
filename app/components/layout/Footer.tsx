@@ -153,7 +153,7 @@ export default function Footer({
         {/* ─── Bottom Bar ─── (watermark removed per design) */}
         <div className="mt-12 sm:mt-16 border-t border-neutral-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
           <p className="text-neutral-400 text-sm">
-            &copy; {new Date().getFullYear()} TableTurnerr. All rights reserved.
+            &copy; 2026 TableTurnerr LLC. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <FlipLink href="/login">Client Login</FlipLink>

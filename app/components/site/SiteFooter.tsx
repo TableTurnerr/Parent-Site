@@ -30,8 +30,8 @@ const COLS = [
       { label: "Blog", href: "/blog" },
       { label: "Contact", href: "/contact" },
       { label: "SEO services", href: "/seo" },
-      { label: "Privacy", href: "/privacy" },
-      { label: "Terms", href: "/terms" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
     ],
   },
 ];
@@ -39,11 +39,11 @@ const COLS = [
 export default function SiteFooter() {
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="container-tt py-14 md:py-16">
+      <div className="container-tt pt-18 pb-6 md:pt-20 md:pb-8">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
             <Link href="/" className="flex items-center gap-2.5 text-lg font-bold tracking-tight text-ink">
-              <Image src="/logo.png" alt="TableTurnerr logo" width={32} height={32} className="h-8 w-8 rounded-lg object-contain" />
+              <Image src="/logo.png" alt="TableTurnerr logo" width={32} height={32} className="h-8 w-8 object-contain" />
               TableTurnerr
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
@@ -79,7 +79,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} TableTurnerr. All rights reserved.</p>
+          <p>© 2026 TableTurnerr LLC. All rights reserved.</p>
           <div className="flex items-center gap-4"><p>Review automation for HVAC, roofing, plumbing &amp; electrical pros.</p><ConsentManager trigger /></div>
         </div>
       </div>

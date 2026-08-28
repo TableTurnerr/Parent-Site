@@ -850,7 +850,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
       {
         title: "Reviews & Reputation Built In",
         description:
-          "Automatically request Google reviews from happy customers at the right moment, and manage every review from inside the CRM, so your reputation grows on autopilot.",
+          "Automatically request honest Google reviews from eligible customers after a service interaction, and manage every review from inside the CRM, so your reputation grows on autopilot.",
       },
       {
         title: "Clear Reporting & Attribution",
