@@ -19,7 +19,7 @@ export const PLANS: Plan[] = [
     note: "Get more 5-star Google reviews automatically",
     description:
       "For businesses that already have customers but aren't collecting enough reviews.",
-    goal: "Turn more happy customers into 5-star reviews.",
+    goal: "Request honest reviews from every eligible customer.",
     popular: false,
     features: [
       "Automated review requests via SMS and email",

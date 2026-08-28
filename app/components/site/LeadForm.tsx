@@ -9,6 +9,44 @@ import { ANALYTICS_EVENTS } from "@/app/lib/analytics/events";
 
 const TRADES = ["HVAC", "Roofing", "Plumbing", "Electrical", "Other home service"];
 
+const CUSTOMER_CARE_DISCLOSURE = (
+  <>
+    By checking this box and submitting this form, I consent to receive recurring
+    customer-care text messages from TableTurnerr LLC at the number provided,
+    including messages about my inquiry, account, service updates, and support.
+    Message frequency varies based on account activity and support requests.
+    Message and data rates may apply. Reply HELP for help or STOP to opt out.
+    Consent is not a condition of purchase. View our {" "}
+    <Link href="/privacy" className="font-semibold text-primary underline underline-offset-2 hover:text-ink">
+      Privacy Policy
+    </Link>{" "}
+    and {" "}
+    <Link href="/terms#sms-terms" className="font-semibold text-primary underline underline-offset-2 hover:text-ink">
+      SMS Terms
+    </Link>
+    .
+  </>
+);
+
+const MARKETING_DISCLOSURE = (
+  <>
+    By checking this box and submitting this form, I consent to receive recurring
+    customer-engagement and marketing text messages from TableTurnerr LLC at the
+    number provided, including requests for honest feedback or reviews. Automated
+    feedback sequences contain no more than 3 messages per service interaction.
+    Message and data rates may apply. Reply HELP for help or STOP to opt out.
+    Consent is not a condition of purchase. View our {" "}
+    <Link href="/privacy" className="font-semibold text-primary underline underline-offset-2 hover:text-ink">
+      Privacy Policy
+    </Link>{" "}
+    and {" "}
+    <Link href="/terms#sms-terms" className="font-semibold text-primary underline underline-offset-2 hover:text-ink">
+      SMS Terms
+    </Link>
+    .
+  </>
+);
+
 /**
  * Shared lead form for /signup (trial) and /contact (demo). Submits to the
  * existing `submitLead` server action, which writes to the `contact_leads`
@@ -27,6 +65,7 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
     setLoading(true);
 
     const fd = new FormData(e.currentTarget);
+    fd.set("source_page_url", window.location.href);
     // Map our field names onto the action's expected fields.
     fd.set("business_name", String(fd.get("business") || ""));
     fd.set("service", String(fd.get("trade") || ""));
@@ -112,8 +151,27 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
       )}
 
       {error && (
-        <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>
+        <p role="alert" className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>
       )}
+
+      <fieldset className="mt-6 space-y-4" aria-describedby="sms-consent-scope">
+        <legend className="text-sm font-semibold text-ink">Optional SMS communication preferences</legend>
+        <ConsentCheckbox
+          id="customer-care-sms-consent"
+          name="customer_care_sms_consent"
+          disclosure={CUSTOMER_CARE_DISCLOSURE}
+        />
+        <ConsentCheckbox
+          id="marketing-sms-consent"
+          name="marketing_sms_consent"
+          disclosure={MARKETING_DISCLOSURE}
+        />
+        <p id="sms-consent-scope" className="text-sm leading-relaxed text-ink-soft">
+          These preferences apply only to communications from TABLETURNERR LLC;
+          they do not authorize independent client businesses to send messages
+          under their own brands.
+        </p>
+      </fieldset>
 
       <button type="submit" disabled={loading} className="btn btn-primary mt-6 w-full disabled:opacity-70">
         {loading ? (
@@ -124,26 +182,44 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
           "Book my demo"
         )}
       </button>
+      <p className="mt-3 text-center text-sm leading-relaxed text-ink-soft">
+        By submitting this form, you authorize TableTurnerr LLC to contact you by
+        phone or email regarding your inquiry. SMS messages will be sent only for
+        the categories you separately select above.
+      </p>
       <p className="mt-3 text-center text-xs text-muted">
         {isTrial
           ? "14-day free trial · no credit card required · cancel anytime"
           : "We'll never share your details. No spam, ever."}
       </p>
-      <p className="mt-3 text-center text-[0.6875rem] leading-relaxed text-muted">
-        By submitting, you agree to be contacted by TableTurnerr by phone,
-        email, or text at the details provided about your inquiry. Consent is not
-        a condition of purchase; message &amp; data rates may apply, and you can
-        reply STOP to opt out. See our{" "}
-        <Link href="/privacy" className="underline underline-offset-2 hover:text-ink">
-          Privacy Policy
-        </Link>{" "}
-        and{" "}
-        <Link href="/terms" className="underline underline-offset-2 hover:text-ink">
-          Terms
-        </Link>
-        .
-      </p>
     </form>
+  );
+}
+
+function ConsentCheckbox({
+  id,
+  name,
+  disclosure,
+}: {
+  id: string;
+  name: string;
+  disclosure: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-xl border border-line bg-surface p-4">
+      <div className="flex items-start gap-3">
+        <input
+          id={id}
+          name={name}
+          type="checkbox"
+          value="on"
+          className="mt-1 h-5 w-5 shrink-0 rounded border-line text-primary accent-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        />
+        <label htmlFor={id} className="cursor-pointer text-sm leading-relaxed text-ink-soft">
+          {disclosure}
+        </label>
+      </div>
+    </div>
   );
 }
 

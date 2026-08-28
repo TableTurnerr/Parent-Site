@@ -12,7 +12,7 @@ export const metadata: Metadata = createPageMetadata({
   path: "/terms",
 });
 
-const LAST_UPDATED = "June 27, 2026";
+const LAST_UPDATED = "August 28, 2026";
 
 export default function TermsOfServicePage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -139,7 +139,7 @@ export default function TermsOfServicePage() {
                   <li>
                     Upload contact information for people who have not done
                     business with you, or send messages to anyone who has not
-                    provided the consent described in Section 5.
+                    provided the consent described in Section 6.
                   </li>
                   <li>
                     Offer, request, or provide any incentive in exchange for a
@@ -158,9 +158,57 @@ export default function TermsOfServicePage() {
                 </ul>
               </section>
 
+              <section id="sms-terms" className="scroll-mt-28">
+                <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
+                  5. SMS Terms
+                </h2>
+                <h3 className="font-display font-medium text-lg text-charcoal mt-5 mb-2">
+                  TableTurnerr SMS Program
+                </h3>
+                <p>
+                  By separately opting in, you agree to receive recurring SMS or
+                  MMS messages from TableTurnerr LLC at the mobile number you
+                  provided. Depending on the consent you give, messages may
+                  include responses to your inquiry, account and service updates,
+                  customer-support communications, and requests for honest
+                  feedback or reviews.
+                </p>
+                <p className="mt-4">
+                  Message frequency varies based on your interactions with
+                  TableTurnerr. Automated feedback or review-request sequences
+                  contain no more than three messages per service interaction.
+                  Message and data rates may apply. Carriers are not liable for
+                  delayed or undelivered messages.
+                </p>
+                <p className="mt-4">
+                  You may opt out at any time by replying STOP. After sending
+                  STOP, you may receive one confirmation message and will receive
+                  no further messages from that program unless you opt in again.
+                  For assistance, reply HELP, email {" "}
+                  <Link href="mailto:contact@tableturnerr.com" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">contact@tableturnerr.com</Link>,
+                  or call +1 (808) 559-9006.
+                </p>
+                <p className="mt-4">
+                  Consent to receive text messages is not a condition of
+                  purchasing any goods or services.
+                </p>
+                <p className="mt-4">
+                  TableTurnerr does not sell or share mobile numbers, SMS opt-in
+                  data, or consent with third parties or affiliates for their
+                  marketing or promotional purposes. Service providers may process
+                  this information only as necessary to provide messaging and
+                  related support services on our behalf.
+                </p>
+                <p className="mt-4">
+                  For information about how TableTurnerr handles personal
+                  information, see our Privacy Policy at {" "}
+                  <Link href="https://www.tableturnerr.com/privacy" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">https://www.tableturnerr.com/privacy</Link>.
+                </p>
+              </section>
+
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  5. SMS / Text Messaging &amp; TCPA Compliance
+                  6. Client Messaging &amp; Compliance Responsibilities
                 </h2>
                 <p className="mb-3">
                   The Service sends messages on your behalf to{" "}
@@ -196,11 +244,31 @@ export default function TermsOfServicePage() {
                   messages sent through your account, including claims that the
                   required consent was not obtained.
                 </p>
+                <p className="mt-4">
+                  Independent client businesses must not rely on TableTurnerr&apos;s
+                  website consent for their own messaging. Each client must obtain
+                  consent under its own brand and maintain its own compliant
+                  records and disclosures. A client account, subaccount, or other
+                  messaging infrastructure does not replace client-level
+                  compliance and does not make TableTurnerr website consent valid
+                  for client messaging.
+                </p>
+                <p className="mt-4">Each independent client remains responsible for:</p>
+                <ul className="list-disc pl-5 space-y-2 mt-3">
+                  <li>Its own A2P Brand registration.</li>
+                  <li>Its own Campaign registration.</li>
+                  <li>Its own consent disclosure.</li>
+                  <li>Its own Privacy Policy and SMS Terms.</li>
+                  <li>Its own consent records.</li>
+                  <li>Its own registered sending number or campaign assignment.</li>
+                  <li>Its own STOP and HELP handling.</li>
+                  <li>Its own compliance with applicable law, carrier rules, CTIA guidance, and A2P 10DLC requirements.</li>
+                </ul>
               </section>
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  6. Subscription &amp; Payment
+                  7. Subscription &amp; Payment
                 </h2>
                 <p>
                   The Service is billed as a recurring subscription. There are no
@@ -216,7 +284,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  7. 90-Day Results Guarantee
+                  8. 90-Day Results Guarantee
                 </h2>
                 <p className="mb-3">
                   We offer a results guarantee: if, after 90 days of active use,
@@ -244,7 +312,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  8. Customer Data &amp; Your Responsibilities
+                  9. Customer Data &amp; Your Responsibilities
                 </h2>
                 <p className="mb-3">When using the Service, you agree to:</p>
                 <ul className="list-disc pl-5 space-y-2">
@@ -274,7 +342,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  9. Intellectual Property
+                  10. Intellectual Property
                 </h2>
                 <p>
                   The Service, the Site, and all related software, content,
@@ -289,7 +357,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  10. Third-Party Platforms
+                  11. Third-Party Platforms
                 </h2>
                 <p>
                   The Service integrates with third-party platforms, including but
@@ -306,7 +374,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  11. Disclaimers
+                  12. Disclaimers
                 </h2>
                 <p className="mb-3">
                   The Site and Service are provided on an &quot;as is&quot; and
@@ -334,7 +402,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  12. Limitation of Liability
+                  13. Limitation of Liability
                 </h2>
                 <p>
                   To the maximum extent permitted by applicable law, TableTurnerr
@@ -350,7 +418,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  13. Indemnification
+                  14. Indemnification
                 </h2>
                 <p>
                   You agree to indemnify and hold harmless TableTurnerr, its
@@ -364,7 +432,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  14. Termination
+                  15. Termination
                 </h2>
                 <p>
                   You may cancel your subscription at any time from your account or
@@ -379,7 +447,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  15. Governing Law
+                  16. Governing Law
                 </h2>
                 <p>
                   These Terms are governed by and construed in accordance with
@@ -392,7 +460,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  16. Changes to These Terms
+                  17. Changes to These Terms
                 </h2>
                 <p>
                   We may revise these Terms at any time by updating this page.
@@ -405,7 +473,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  17. Contact Us
+                  18. Contact Us
                 </h2>
                 <p>
                   If you have any questions about these Terms of Service, contact

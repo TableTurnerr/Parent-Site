@@ -229,7 +229,17 @@ export type Database = {
           service: string | null
           message: string
           source_path: string | null
+          source_page_url: string | null
+          ip_address: string | null
           user_agent: string | null
+          customer_care_sms_consent: boolean
+          marketing_sms_consent: boolean
+          customer_care_sms_consented_at: string | null
+          marketing_sms_consented_at: string | null
+          sms_disclosure_version: string | null
+          customer_care_sms_disclosure: string | null
+          marketing_sms_disclosure: string | null
+          form_submitted_at: string
           status: string
           created_at: string
           updated_at: string
@@ -243,7 +253,17 @@ export type Database = {
           service?: string | null
           message: string
           source_path?: string | null
+          source_page_url?: string | null
+          ip_address?: string | null
           user_agent?: string | null
+          customer_care_sms_consent?: boolean
+          marketing_sms_consent?: boolean
+          customer_care_sms_consented_at?: string | null
+          marketing_sms_consented_at?: string | null
+          sms_disclosure_version?: string | null
+          customer_care_sms_disclosure?: string | null
+          marketing_sms_disclosure?: string | null
+          form_submitted_at?: string
           status?: string
           created_at?: string
           updated_at?: string
@@ -257,7 +277,17 @@ export type Database = {
           service?: string | null
           message?: string
           source_path?: string | null
+          source_page_url?: string | null
+          ip_address?: string | null
           user_agent?: string | null
+          customer_care_sms_consent?: boolean
+          marketing_sms_consent?: boolean
+          customer_care_sms_consented_at?: string | null
+          marketing_sms_consented_at?: string | null
+          sms_disclosure_version?: string | null
+          customer_care_sms_disclosure?: string | null
+          marketing_sms_disclosure?: string | null
+          form_submitted_at?: string
           status?: string
           created_at?: string
           updated_at?: string

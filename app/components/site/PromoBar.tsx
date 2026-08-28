@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Flame, ArrowRight } from "lucide-react";
 
 /**
@@ -48,14 +49,10 @@ export default function PromoBar() {
 
   const display = left === null ? "12:00:00" : fmt(left);
 
-  // Clicking the offer label opens the welcome/offer popup (any page).
-  const openPopup = () => window.dispatchEvent(new Event("tt:open-welcome"));
-
   return (
-    <button
-      type="button"
-      onClick={openPopup}
-      aria-label="Claim 30% off — open offer"
+    <Link
+      href="/signup"
+      aria-label="Claim 30% off — start your free trial"
       className="group block w-full cursor-pointer bg-night text-white transition-colors hover:bg-[#0d1326]"
     >
       <div className="container-tt flex items-center justify-center gap-x-3 gap-y-1 py-2 text-sm">
@@ -79,6 +76,6 @@ export default function PromoBar() {
           Claim deal <ArrowRight className="h-3.5 w-3.5" />
         </span>
       </div>
-    </button>
+    </Link>
   );
 }
