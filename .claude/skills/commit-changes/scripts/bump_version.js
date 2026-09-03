@@ -2,11 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 const filePath = process.argv[2];
-const bumpType = process.argv[3]; // 'patch' or 'major'
-const normalize = process.argv[4] === 'true';
+const bumpType = process.argv[3]; // 'patch', 'minor', or 'major'
 
 if (!filePath || !bumpType) {
-  console.error('Usage: node bump_version.js <filePath> <patch|major> [normalize]');
+  console.error('Usage: node bump_version.js <filePath> <patch|minor|major>');
   process.exit(1);
 }
 
@@ -49,17 +48,22 @@ try {
       process.exit(1);
     }
 
-    // Handle normalization to X.Y
+    // Content changes use semantic patch bumps: X.Y.Z -> X.Y.(Z+1).
     let parts = version.split('.').map(Number);
-    if (normalize || parts.length > 2) {
-      parts = [parts[0] || 1, parts[1] || 0];
-    }
+    while (parts.length < 3) parts.push(0);
 
     if (bumpType === 'major') {
       parts[0] += 1;
       parts[1] = 0;
-    } else if (bumpType === 'patch') {
+      parts[2] = 0;
+    } else if (bumpType === 'minor') {
       parts[1] += 1;
+      parts[2] = 0;
+    } else if (bumpType === 'patch') {
+      parts[2] += 1;
+    } else {
+      console.error(`Unsupported bump type: ${bumpType}`);
+      process.exit(1);
     }
 
     const newVersion = parts.join('.');

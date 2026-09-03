@@ -1,0 +1,54 @@
+name: SEO Content Governance
+
+on:
+  pull_request:
+    branches:
+      - main
+      - release
+
+permissions:
+  contents: read
+
+jobs:
+  governance:
+    name: SEO Content Governance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate pull-request commits and version bump
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+          pattern='^(feat|fix|docs|chore|refactor|test|style|perf|build|ci)(\([A-Za-z0-9 _.-]+\))?: .+$'
+
+          while IFS= read -r subject; do
+            if ! [[ "$subject" =~ $pattern ]]; then
+              echo "Commit message does not follow the project convention: $subject"
+              exit 1
+            fi
+          done < <(git log --format=%s "$base..$head")
+
+          base_version="$(git show "$base:package.json" | node -pe 'JSON.parse(require("fs").readFileSync(0, "utf8")).version')"
+          head_version="$(node -pe 'require("./package.json").version')"
+          node - "$base_version" "$head_version" <<'NODE'
+          const [base, head] = process.argv.slice(2);
+          const parse = (value, allowLegacy = false) => {
+            if (allowLegacy && /^\d+\.\d+$/.test(value)) {
+              return [...value.split('.').map(Number), 0];
+            }
+            if (!/^\d+\.\d+\.\d+$/.test(value)) {
+              throw new Error(`Version must use X.Y.Z; received ${value}`);
+            }
+            return value.split('.').map(Number);
+          };
+          const [baseMajor, baseMinor, basePatch] = parse(base, true);
+          const [headMajor, headMinor, headPatch] = parse(head);
+          if (headMajor !== baseMajor || headMinor !== baseMinor || headPatch <= basePatch) {
+            throw new Error(`Version must preserve major/minor and increase patch: ${base} -> ${head}`);
+          }
+          NODE
