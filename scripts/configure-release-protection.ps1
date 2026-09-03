@@ -37,8 +37,21 @@ $protection = @{
 
 $tempPath = Join-Path $env:TEMP "tableturnerr-release-protection.json"
 try {
-  Set-Content -LiteralPath $tempPath -Value $protection -Encoding utf8
-  gh api --method PUT "repos/$Repository/branches/release/protection" --input $tempPath
+  # Windows PowerShell's Set-Content -Encoding utf8 adds a byte-order mark.
+  # GitHub's JSON endpoint rejects that leading marker, so write UTF-8 explicitly
+  # without one and verify the resulting file before sending it.
+  $utf8WithoutBom = [System.Text.UTF8Encoding]::new($false)
+  [System.IO.File]::WriteAllText($tempPath, $protection, $utf8WithoutBom)
+  $null = Get-Content -LiteralPath $tempPath -Raw | ConvertFrom-Json
+  $bytes = [System.IO.File]::ReadAllBytes($tempPath)
+  if ($bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF) {
+    throw "Release-protection JSON unexpectedly contains a UTF-8 byte-order mark."
+  }
+
+  gh api --method PUT "repos/$Repository/branches/release/protection" `
+    -H "Accept: application/vnd.github+json" `
+    -H "X-GitHub-Api-Version: 2022-11-28" `
+    --input $tempPath
   if ($LASTEXITCODE -ne 0) {
     throw "GitHub rejected the release protection update. Confirm repository-owner permissions and workflow permissions."
   }
