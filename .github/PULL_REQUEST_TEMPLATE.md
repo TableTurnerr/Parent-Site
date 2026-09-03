@@ -1,6 +1,6 @@
 ## Summary
 
-- 
+-
 
 ## SEO/content checklist
 
@@ -12,4 +12,4 @@
 
 ## Verification
 
-- 
+-
