@@ -23,14 +23,16 @@ Typical allowed files are marketing pages, blog posts, marketing components, met
 
 Do not edit `.env*`, secrets, package dependencies, database migrations, API routes, auth, payment flows, analytics settings, Vercel configuration, or unrelated administrative/client portal code without explicit approval from a technical owner.
 
-## Required Git workflow
+## Local preview and publication workflow
 
 1. Start from an up-to-date `main` branch and create `seo/<short-topic>`. Do not make content commits on `main` or `release`.
-2. Make focused conventional commits: `docs(SEO): ...`, `feat(Marketing): ...`, or `fix(Marketing): ...`. Do not use generic messages such as `update site`.
-3. Every completed request requires one root-version bump. `package.json` must use `X.Y.Z`; preserve the first two numbers and increase the last one. Keep it in a final commit by itself: `chore(version): bump root version to vX.Y.Z`.
-4. Validate with `pnpm lint` and `pnpm build` when the local environment is configured. Summarize any failure honestly in the PR.
-5. Push the SEO branch and open a PR to `main` using the repository template. Do not merge by bypassing checks or branch protection.
-6. Production promotion is a separate PR from `main` to `release`. Never push to `release`, force-push, or use `--admin` to merge it.
+2. Make the requested changes locally without staging, committing, pushing, or changing the version. Start or reuse the single local preview with `powershell -ExecutionPolicy Bypass -File scripts/start-seo-preview.ps1`; give the manager its `PREVIEW_URL` (`http://localhost:3000` by default). Do not launch `pnpm dev` separately or choose another port unless the manager asks.
+3. Summarize the local changes and validation result, then wait for a clear instruction such as “Publish these changes” or “Submit this for review.” “Looks good” or a request to make another adjustment is not permission to publish. Update the same local preview while revisions are requested.
+4. Only after that explicit confirmation, make focused conventional commits: `docs(SEO): ...`, `feat(Marketing): ...`, or `fix(Marketing): ...`. Do not use generic messages such as `update site`.
+5. Every published request requires one root-version bump. `package.json` must use `X.Y.Z`; preserve the first two numbers and increase the last one. Keep it in a final commit by itself: `chore(version): bump root version to vX.Y.Z`.
+6. Validate with `pnpm lint` and `pnpm build` when the local environment is configured. Summarize any failure honestly in the PR.
+7. Push the SEO branch and open a PR to `main` using the repository template. Do not merge by bypassing checks or branch protection. In this workflow, “publish” means submit this PR for review; it never means merge or deploy.
+8. Production promotion is a separate PR from `main` to `release`, created only when explicitly requested. Never push to `release`, force-push, or use `--admin` to merge it.
 
 ## SEO quality checklist
 
