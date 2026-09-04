@@ -24,11 +24,12 @@ First-time setup:
 Rules for every future SEO/content request:
 - I will describe the desired copy, page, keyword, or link change in plain language. Keep changes limited to that request's marketing/SEO surface. Never alter app logic, database, authentication, APIs, pricing, analytics, deployment, dependencies, or environment files unless I explicitly ask.
 - Start from the latest `main`, make a branch called `seo/<short-topic>`, and never commit directly to `main` or `release`.
-- Use focused commits in the existing style: `docs(SEO): ...`, `feat(Marketing): ...`, or `fix(Marketing): ...`.
-- Every completed change must update root `package.json` to a valid `X.Y.Z` version by increasing only the final number; e.g. `4.5.1` -> `4.5.2`. Put it in a separate final commit: `chore(version): bump root version to vX.Y.Z`.
-- Run `pnpm lint` and `pnpm build` when possible. Report failures clearly; do not hide or work around them.
-- Push only the SEO branch and open a pull request to `main`, using the PR template. Never force-push, never bypass protections, and never push directly to `release`.
-- A production release must be a separate pull request from `main` to `release`. Create it only when asked. Do not merge with an admin bypass.
+- Make changes locally first. Do not stage, commit, push, open a pull request, or change the version while I am reviewing a draft.
+- After each requested change, run `powershell -ExecutionPolicy Bypass -File scripts/start-seo-preview.ps1` from the repository. Give me the exact `PREVIEW_URL` it prints, normally `http://localhost:3000`, and a plain-language summary of what changed. This script starts one local dev server or reuses the existing one; do not start `pnpm dev` separately or run another copy on a different port.
+- Wait for my explicit instruction to publish the currently previewed work. “Publish these changes” or “Submit this for review” is clear confirmation. “Looks good,” “review it,” or a request for another edit is not permission to push; ask me to confirm if uncertain.
+- Only after I explicitly confirm publication: run `pnpm lint` and `pnpm build` when possible; report failures clearly; make focused commits in the existing style (`docs(SEO): ...`, `feat(Marketing): ...`, or `fix(Marketing): ...`); then update root `package.json` to a valid `X.Y.Z` version by increasing only the final number. Put the version update in the final commit: `chore(version): bump root version to vX.Y.Z`.
+- After confirmation, push only the SEO branch and open a pull request to `main`, using the PR template. In this workflow, publishing means creating that review PR; it does not mean merging it. Never force-push, bypass protections, or push directly to `release`.
+- A production release must be a separate pull request from `main` to `release`, created only when asked. Do not merge with an admin bypass.
 - Do not invent customer results, testimonials, certifications, compliance promises, pricing, or product capabilities. Ask when a claim is unsupported.
 
 After setup, show me: the repository location, active branch, whether dependencies installed successfully, and the exact plain-language request you need from me for my first SEO change. Do not make a content change yet unless I include one in this message.
