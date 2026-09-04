@@ -8,6 +8,14 @@ import { NextResponse, type NextRequest } from "next/server";
 // 308'd to the main app host.
 const AUTH_HOST = process.env.NEXT_PUBLIC_AUTH_HOST; // e.g. "auth.tableturnerr.com"
 const APP_HOST = process.env.NEXT_PUBLIC_APP_HOST; // e.g. "tableturnerr.com"
+// This host appears in Search Console and must never compete with the public
+// site. Keep the list configurable for any future non-production environment.
+const NOINDEX_HOSTS = new Set(
+  (process.env.SEO_NOINDEX_HOSTS ?? "staging.tableturnerr.com")
+    .split(",")
+    .map((value) => value.trim().toLowerCase())
+    .filter(Boolean)
+);
 
 const AUTH_ALLOWED_PATHS = new Set(["/login"]);
 const AUTH_ALLOWED_PREFIXES = ["/api/auth/"];
@@ -61,7 +69,16 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(callbackUrl);
   }
 
-  return await updateSession(request);
+  const response = await updateSession(request);
+
+  // robots.txt only controls crawling; it does not reliably remove an already
+  // discovered URL from Google. The response header prevents staging pages
+  // from being indexed while leaving the environment usable for QA.
+  if (NOINDEX_HOSTS.has(host)) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+  }
+
+  return response;
 }
 
 export const config = {

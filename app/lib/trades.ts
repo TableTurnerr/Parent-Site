@@ -3,6 +3,8 @@ export interface Trade {
   name: string;          // "HVAC"
   noun: string;          // "HVAC company"
   query: string;         // map-pack search query
+  seoTitle: string;      // primary, search-intent-led page title
+  metaDescription: string;
   heroTitle: string;
   heroSub: string;
   pains: { t: string; b: string }[];
@@ -16,7 +18,10 @@ export const TRADES: Record<string, Trade> = {
     name: "HVAC",
     noun: "HVAC company",
     query: "hvac near me",
-    heroTitle: "More 5-star reviews for your HVAC business",
+    seoTitle: "HVAC Review Management Software",
+    metaDescription:
+      "HVAC review management software that automatically requests Google reviews after every completed job. Build a stronger local reputation and win more HVAC calls.",
+    heroTitle: "HVAC review management software that wins more calls",
     heroSub:
       "When a homeowner's AC dies in July, they call whoever ranks first with the most recent reviews. TableTurnerr turns every install, repair, and tune-up into a fresh review, automatically.",
     pains: [
@@ -41,7 +46,10 @@ export const TRADES: Record<string, Trade> = {
     name: "Roofing",
     noun: "roofing company",
     query: "roofers near me",
-    heroTitle: "More 5-star reviews for your roofing company",
+    seoTitle: "Roofing Review Management Software",
+    metaDescription:
+      "Roofing review management software that automatically requests Google reviews after every completed job. Build trust, improve local visibility, and win more roofing jobs.",
+    heroTitle: "Roofing review management software that wins more jobs",
     heroSub:
       "A roof is one of the biggest checks a homeowner ever writes. They pick the roofer with the proof. TableTurnerr turns every completed roof into a review that wins the next one.",
     pains: [
@@ -66,7 +74,10 @@ export const TRADES: Record<string, Trade> = {
     name: "Plumbing",
     noun: "plumbing company",
     query: "plumbers near me",
-    heroTitle: "More 5-star reviews for your plumbing business",
+    seoTitle: "Plumbing Review Management Software",
+    metaDescription:
+      "Plumbing review management software that automatically requests Google reviews after every completed job. Get more recent reviews, improve local visibility, and win more calls.",
+    heroTitle: "Plumbing review management software that wins more calls",
     heroSub:
       "Plumbing is urgent and local. Homeowners search, scan the reviews, and call. TableTurnerr makes sure your name is the one with the most recent 5-stars at the top.",
     pains: [
@@ -91,7 +102,10 @@ export const TRADES: Record<string, Trade> = {
     name: "Electrical",
     noun: "electrical company",
     query: "electricians near me",
-    heroTitle: "More 5-star reviews for your electrical business",
+    seoTitle: "Electrician Review Management Software",
+    metaDescription:
+      "Electrician review management software that automatically requests Google reviews after every completed job. Build trust, improve local visibility, and win more electrical jobs.",
+    heroTitle: "Electrician review management software that wins more calls",
     heroSub:
       "Homeowners trust electricians with safety and big upgrades. Reviews are how they decide who to trust. TableTurnerr turns every job into proof that wins the next one.",
     pains: [
