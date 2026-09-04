@@ -1,5 +1,13 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Non-technical SEO manager workflow
+
+SEO and marketing-content changes can be safely requested through a local AI coding agent. The agent rules are in [`AGENTS.md`](AGENTS.md), and the detailed operating skill is [`.claude/skills/non-technical-seo-changes/SKILL.md`](.claude/skills/non-technical-seo-changes/SKILL.md).
+
+For a teammate's first machine setup, including cloning this repository and installing all JavaScript and Python dependencies, copy [Non Technical SEO Start Off Prompt](docs/Non%20Technical%20SEO%20Start%20Off%20Prompt.md) into their AI agent.
+
+Workflow: SEO branch → local preview and manager confirmation → PR to `main` → PR from `main` to production `release`. The agent starts or reuses the single local preview with [`scripts/start-seo-preview.ps1`](scripts/start-seo-preview.ps1), then reports `http://localhost:3000` for the manager to review. Nothing is committed, pushed, or version-bumped until the manager explicitly asks to publish the previewed work. Publication creates a review PR only; production remains a separate, explicitly requested `main` → `release` PR. Each published change receives a standalone semantic patch-version commit (`X.Y.Z` → `X.Y.(Z+1)`) and GitHub checks validate commit messages and version progression. The release branch must be protected with the included [release-protection script](scripts/configure-release-protection.ps1); this needs a repository owner to authenticate GitHub CLI once.
+
 ## Getting Started
 
 First, run the development server:

@@ -31,7 +31,7 @@ Run `git status` and `git diff` to identify all changed files. Group these files
 
 ### 3. Determine Bump Type
 
-Decide on the bump type for this phase: `patch` (default for most changes), `major`, or `none`.
+For this site, every completed content or code request requires a `patch` bump: preserve the major and minor numbers and increase the final semantic-version segment (`X.Y.Z` -> `X.Y.(Z+1)`). Use `minor` or `major` only when the requester explicitly requires it.
 
 ### 4. Execute Objective-Based Commits (Code Only)
 
@@ -52,14 +52,14 @@ After all functional changes are committed, perform a single, final commit for a
 
 1. **Apply Bumps**: Run `bump_version.js` for the root and all modified components.
    ```bash
-   node .claude/skills/commit-changes/scripts/bump_version.js apps/dashboard/package.json patch true
+   node .claude/skills/commit-changes/scripts/bump_version.js package.json patch
    ```
    For the Local CRM Agent (.csproj, semver X.Y.Z):
    ```bash
    node .claude/skills/commit-changes/scripts/bump_version.js tools/local-CRM-Agent/src/LocalCrmAgent/LocalCrmAgent.csproj patch
    ```
 2. **Stage all version files**: `git add package.json apps/dashboard/package.json ...`
-3. **Generate commit message**: `chore(version): bump versions to [Root New Version] ([Component1] vX.Y, [Component2] vA.B)`
+3. **Generate commit message**: `chore(version): bump root version to vX.Y.Z`
 4. **Commit** using a heredoc for the message.
 
 ### 6. Merge to Release (Optional)
@@ -68,16 +68,16 @@ This step runs ONLY if the user's invocation parameters contain the literal phra
 
 If version bumping was skipped in step 5 (e.g., user said "no bump"), this step still runs — it operates independently of the bump decision.
 
-1. **Push development**: Push the current `development` branch to origin so the PR has the latest commits.
+1. **Push main**: Push the current `main` branch to origin so the PR has the latest commits.
    ```bash
-   git push origin development
+   git push origin main
    ```
 2. **Ensure release branch exists on remote**: Check with `git ls-remote --heads origin release`. If missing, abort this step and report the issue — do NOT auto-create the release branch.
-3. **Create the PR** from `development` → `release` using `gh`:
+3. **Create the PR** from `main` → `release` using `gh`:
    - **Title**: Reuse the version-bump commit summary if a bump occurred (e.g., `chore(release): bump versions to [Root New Version] ([Component1] vX.Y)`). If no bump occurred, use `chore(release): merge development into release`.
    - **Body**: Brief summary of the commits added in this skill invocation (one bullet per objective-based commit from step 4, plus the bump commit if any). Use a heredoc for formatting.
    ```bash
-   gh pr create --base release --head development --title "..." --body "$(cat <<'EOF'
+   gh pr create --base release --head main --title "..." --body "$(cat <<'EOF'
    ## Summary
    - <bullet per commit>
 
@@ -86,14 +86,13 @@ If version bumping was skipped in step 5 (e.g., user said "no bump"), this step 
    EOF
    )"
    ```
-4. **Merge the PR**: Immediately merge using a merge commit (preserves the development history on release):
+4. **Merge the PR** through the normal protected-branch flow:
    ```bash
-   gh pr merge --merge --delete-branch=false --admin
+   gh pr merge --merge --delete-branch=false
    ```
    - Use `--merge` (NOT `--squash` or `--rebase`) so each commit lands on release individually.
-   - Use `--delete-branch=false` so the development branch is preserved.
-   - Use `--admin` to bypass branch protection rules (required for the `release` branch policy).
-5. **Report**: Print the PR URL and merge confirmation. Do NOT switch the local working branch — leave the user on `development`.
+   - Do not bypass branch protection; required checks and PR rules must pass.
+5. **Report**: Print the PR URL and merge confirmation. Do NOT switch the local working branch — leave the user on `main`.
 
 ## Guidelines
 
