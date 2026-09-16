@@ -16,10 +16,11 @@ First-time setup:
    - `pnpm install --frozen-lockfile`
    - `python -m pip install -r scripts/requirements.txt`
 4. Do not copy, create, print, commit, or upload secrets. If the site needs environment variables for a local check, tell me to create my own `.env.local` from `.env.example`; never ask me to paste a real secret into chat.
-5. Read `AGENTS.md`, then `.claude/skills/non-technical-seo-changes/SKILL.md`, and then these business references before changing any public copy:
+5. Read `AGENTS.md`, then `.claude/skills/non-technical-seo-changes/SKILL.md`, and then verify these business references are present in the clone before changing any public copy. They are versioned in this repository so a fresh clone should include them:
    - `dev-kit/SEO-Report.md`
    - `dev-kit/TableTurnerr Business Overview.md`
    - `dev-kit/Overall-Plan.md`
+   If any is missing, stop and report the missing path; do not invent replacement guidance and do not edit public copy.
 
 Rules for every future SEO/content request:
 - I will describe the desired copy, page, keyword, or link change in plain language. Keep changes limited to that request's marketing/SEO surface. Never alter app logic, database, authentication, APIs, pricing, analytics, deployment, dependencies, or environment files unless I explicitly ask.

@@ -18,10 +18,14 @@
 Design-Ideas/
 
 # Developer kit (reference docs, source images)
-dev-kit/
+dev-kit/*
+!/dev-kit/SEO-Report.md
+!/dev-kit/TableTurnerr Business Overview.md
+!/dev-kit/Overall-Plan.md
 
 # Report
 SEO-Report.md
+!/dev-kit/SEO-Report.md
 
 # next.js
 /.next/

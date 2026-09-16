@@ -136,3 +136,6 @@ Claude runs `python scripts/grader_cli.py fetch --slug <slug>` to pull both MDs 
 | `Missing dependency: rich` / `playwright` | `pip install -r scripts/requirements.txt`. |
 | `Missing NEXT_PUBLIC_SUPABASE_URL` on push | Add Supabase env vars to `.env.local`. |
 | `Report not found for slug` on edit | Slug doesn't exist — use `/generate-client-report` for new clients. |
+## Non-technical SEO manager workflow
+
+The repository supports content and SEO updates by a non-technical teammate using a local AI coding agent. The three approved business references used to ground public copy are versioned at `dev-kit/SEO-Report.md`, `dev-kit/TableTurnerr Business Overview.md`, and `dev-kit/Overall-Plan.md`, so they are available after a normal clone. The agent must make changes locally, start or reuse the single preview at `http://localhost:3000`, and wait for an explicit “Publish these changes” or “Submit this for review” instruction before committing or opening a PR. See [Non Technical SEO Start Off Prompt](docs/Non%20Technical%20SEO%20Start%20Off%20Prompt.md) for first-time setup and the complete operating rules.
