@@ -10,7 +10,7 @@ import "./globals.css";
 
 const impactVerificationMeta = {
   name: "impact-site-verification",
-  value: "0fe496a2-1a12-4e5d-b7ea-6ec67ffc5581",
+  value: "d7e8569b-ce38-4585-9b40-55eb18394c38",
 };
 
 const satoshi = localFont({
