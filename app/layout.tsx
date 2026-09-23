@@ -91,6 +91,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={satoshi.variable}>
+      <head>
+        <meta
+          name="impact-site-verification"
+          value="0fe496a2-1a12-4e5d-b7ea-6ec67ffc5581"
+        />
+      </head>
       {/* suppressHydrationWarning: browser extensions (e.g. Bitdefender) inject
           attributes like bis_register onto <body> before React hydrates. This
           suppresses warnings for body's OWN attributes only, not its children. */}
