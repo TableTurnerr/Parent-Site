@@ -6,8 +6,8 @@ import {
   X, BadgeCheck, EyeOff,
 } from "lucide-react";
 import Image from "next/image";
-import MapPackClimb from "@/app/components/site/MapPackClimb";
 import Reveal from "@/app/components/site/Reveal";
+import VslPlayer from "@/app/components/site/VslPlayer";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
@@ -29,40 +29,38 @@ function Hero() {
     <section data-analytics-section="hero" className="hero-wash relative overflow-hidden pt-36 md:pt-44">
       <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
       <div className="container-tt relative pb-16 md:pb-24">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-10">
-          <div>
-            <span className="eyebrow">For HVAC, roofing, plumbing &amp; electrical pros</span>
-            <h1 className="display mt-6 text-ink">
-              Review management software that turns finished jobs into{" "}
-              <span className="text-primary">5-star reviews</span>
-            </h1>
-            <p className="lead mt-6 max-w-xl">
-              TableTurnerr automatically asks every customer for a review the
-              moment the job is done, across Google, Facebook, Yelp and Angi, so
-              you climb the map pack and get chosen first. Built for
-              home-service pros in HVAC, roofing, plumbing and electrical.
-            </p>
+        <div className="mx-auto max-w-4xl text-center">
+          <span className="eyebrow">For HVAC, roofing, plumbing &amp; electrical pros</span>
+          <h1 className="display mt-6 text-ink">
+            Review management software that turns finished jobs into{" "}
+            <span className="text-primary">5-star reviews</span>
+          </h1>
+          <p className="lead mx-auto mt-6 max-w-3xl">
+            TableTurnerr automatically asks every customer for a review the
+            moment the job is done, across Google, Facebook, Yelp and Angi, so
+            you climb the map pack and get chosen first. Built for
+            home-service pros in HVAC, roofing, plumbing and electrical.
+          </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/signup" className="btn btn-primary">
-                Start free trial <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link href="/#how" className="btn btn-ghost">
-                See how it works
-              </Link>
-            </div>
-
-            <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-soft">
-              {["14-day free trial", "No contracts", "Setup in 15 minutes"].map((t) => (
-                <li key={t} className="inline-flex items-center gap-2">
-                  <Check className="h-4 w-4 text-success" /> {t}
-                </li>
-              ))}
-            </ul>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link href="/signup" className="btn btn-primary">
+              Start free trial <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href="/#how" className="btn btn-ghost">
+              See how it works
+            </Link>
           </div>
 
-          <div className="lg:pl-6">
-            <MapPackClimb />
+          <ul className="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-ink-soft">
+            {["14-day free trial", "No contracts", "Setup in 15 minutes"].map((t) => (
+              <li key={t} className="inline-flex items-center gap-2">
+                <Check className="h-4 w-4 text-success" /> {t}
+              </li>
+            ))}
+          </ul>
+
+          <div className="relative mx-auto mt-12 max-w-5xl md:mt-14">
+            <VslPlayer />
           </div>
         </div>
       </div>
