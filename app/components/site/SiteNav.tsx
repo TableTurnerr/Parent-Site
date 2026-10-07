@@ -4,18 +4,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import PromoBar from "@/app/components/site/PromoBar";
+import ThemeToggleButton from "@/app/components/ui/ThemeToggleButton";
+import { useMarketingTheme } from "@/app/components/site/MarketingThemeProvider";
 
 const LINKS = [
-  { label: "Features", href: "/#features" },
+  { label: "Features", href: "/features" },
   { label: "How it works", href: "/#how" },
-  { label: "Trades", href: "/#trades" },
+  { label: "Industries", href: "/industries" },
   { label: "Pricing", href: "/pricing" },
 ];
 
 export default function SiteNav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, toggle } = useMarketingTheme();
 
   // Simple bar flush to the top; condense its padding + lift a shadow on scroll.
   useEffect(() => {
@@ -68,22 +70,26 @@ export default function SiteNav() {
             </div>
 
             <div className="hidden items-center gap-2.5 md:flex">
-              <Link href="/login" className="btn btn-ghost px-4 py-2 text-sm">
+              <ThemeToggleButton theme={theme} onToggle={toggle} />
+              <a href="https://portal.tableturnerr.com/" className="btn btn-ghost px-4 py-2 text-sm">
                 Sign in
-              </Link>
+              </a>
               <Link href="/signup" className="btn btn-primary px-5 py-2 text-sm">
                 Start free trial
               </Link>
             </div>
 
-            <button
-              type="button"
-              aria-label="Menu"
-              onClick={() => setOpen((o) => !o)}
-              className="flex h-9 w-9 items-center justify-center rounded-md border border-line text-ink md:hidden"
-            >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
+            <div className="flex items-center gap-2 md:hidden">
+              <ThemeToggleButton theme={theme} onToggle={toggle} />
+              <button
+                type="button"
+                aria-label="Menu"
+                onClick={() => setOpen((o) => !o)}
+                className="flex h-9 w-9 items-center justify-center rounded-md border border-line text-ink"
+              >
+                {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+            </div>
           </nav>
 
           {open && (
@@ -100,9 +106,9 @@ export default function SiteNav() {
                   </Link>
                 ))}
                 <div className="mt-2 flex flex-col gap-2 border-t border-line pt-3">
-                  <Link href="/login" className="btn btn-ghost w-full" onClick={() => setOpen(false)}>
+                  <a href="https://portal.tableturnerr.com/" className="btn btn-ghost w-full" onClick={() => setOpen(false)}>
                     Sign in
-                  </Link>
+                  </a>
                   <Link href="/signup" className="btn btn-primary w-full" onClick={() => setOpen(false)}>
                     Start free trial
                   </Link>
@@ -112,9 +118,6 @@ export default function SiteNav() {
           )}
         </div>
       </div>
-
-      {/* Offer label sits UNDER the header */}
-      <PromoBar />
     </header>
   );
 }

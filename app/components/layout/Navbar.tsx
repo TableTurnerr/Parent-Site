@@ -35,7 +35,7 @@ export default function Navbar({
     <header
       className={`fixed left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
         isShrunk ? "top-3 sm:top-4 px-3 sm:px-4 md:px-6" : "top-0 px-0"
-      } ${isStatic ? "bg-[#F7F3ED] border-b border-border" : ""}`}
+      } ${isStatic ? "bg-[var(--color-cream)] border-b border-border" : ""}`}
     >
       <nav
         className={`mx-auto ${isStatic ? "" : "transition-all duration-500 ease-in-out"} ${

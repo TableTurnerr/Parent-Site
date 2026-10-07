@@ -205,7 +205,7 @@
 
 /* ── Stars ── */
 .stars { color: var(--color-star); letter-spacing: 0.05em; }
-.font-hand { font-family: var(--font-caveat), ui-sans-serif, cursive; }
+.font-hand { font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive; }
 
 /* ── Animations ── */
 @keyframes tt-float {
@@ -271,6 +271,13 @@
   color: var(--color-ink-soft);
 }
 
+/* `.lead` is intentionally a semantic body-copy helper. Give it an explicit
+   foreground when it appears in a navy CTA or process section so its base
+   light-surface token cannot reduce contrast in either theme. */
+.bg-night .lead {
+  color: rgba(255, 255, 255, 0.75);
+}
+
 /* indigo accent gradient text (marketing BlurText + admin accents) */
 .text-accent-gradient {
   background: linear-gradient(100deg, var(--color-accent), color-mix(in oklab, var(--color-accent) 70%, #a78bfa));
@@ -296,6 +303,26 @@
 
 .dark {
   color: #f5f6f8;
+  color-scheme: dark;
+
+  /* Marketing palette — the public site uses semantic `bg-*`, `text-*`, and
+     `border-*` tokens, so these values keep all of its pages cohesive in
+     dark mode without changing their layout or content hierarchy. */
+  --color-bg: #0d1120;
+  --color-surface: #151b30;
+  --color-surface-2: #202944;
+  --color-ink: #f4f6ff;
+  --color-ink-soft: #c4cce0;
+  --color-muted: #9da9c6;
+  --color-line: #303b5c;
+  --color-primary: #aeb8ff;
+  --color-primary-hover: #c6ceff;
+  --color-primary-ink: #11162b;
+  --color-primary-soft: #232e5c;
+  --color-star: #fbbf24;
+  --color-success: #4ade80;
+  --color-night: #090d1d;
+  --color-night-2: #121a36;
 
   /* Brand tokens flipped for dark surfaces */
   --color-cream: #101319;         /* app background */
@@ -315,6 +342,23 @@
 /* Surface utilities used across admin pages that don't map to a token. */
 .dark .bg-white { background-color: var(--card); }
 .dark .hover\:bg-white:hover { background-color: var(--card); }
+
+/* Several marketing illustrations use translucent white panels in light mode.
+   Give them the same dark surface treatment while preserving the translucent
+   white overlays used intentionally inside the already-dark sections. */
+.dark .bg-white\/60 { background-color: rgb(23 26 33 / 0.78); }
+.dark .bg-white\/70 { background-color: rgb(23 26 33 / 0.84); }
+.dark .bg-white\/80 { background-color: rgb(23 26 33 / 0.88); }
+.dark .bg-white\/85 { background-color: rgb(23 26 33 / 0.90); }
+.dark .bg-white\/90 { background-color: rgb(23 26 33 / 0.94); }
+.dark .bg-white\/95 { background-color: rgb(13 17 32 / 0.95); }
+.dark .hover\:bg-white\/60:hover { background-color: rgb(32 41 68 / 0.92); }
+.dark .border-white { border-color: var(--color-line); }
+.dark .bg-\[\#eef0ff\] { background-color: #1d2646; }
+
+.dark input,
+.dark select,
+.dark textarea { color-scheme: dark; }
 
 /* Primary buttons use the named `bg-charcoal` class (a near-black surface in
    light mode). On dark surfaces a near-black button vanishes, so promote it to
@@ -439,3 +483,10 @@
 .dark .bg-teal-50 { background-color: rgba(20, 184, 166, 0.12); }
 .dark .bg-teal-100 { background-color: rgba(20, 184, 166, 0.18); }
 .dark .text-teal-700 { color: #5eead4; }
+
+/* Visible keyboard focus is especially important once a page offers a theme
+   switch. Keep it consistent on both light and dark backgrounds. */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}

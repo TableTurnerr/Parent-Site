@@ -7,6 +7,7 @@ import {
   NO_FLASH_THEME_SCRIPT,
   useThemeMode,
 } from "@/app/components/ui/themeMode";
+import ThemeToggleButton from "@/app/components/ui/ThemeToggleButton";
 
 function LoginForm() {
   const searchParams = useSearchParams();
@@ -182,15 +183,20 @@ function LoginSkeleton() {
 
 export default function LoginClient() {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  useThemeMode(wrapperRef);
+  const { theme, toggle } = useThemeMode(wrapperRef);
   return (
     <>
       <script dangerouslySetInnerHTML={{ __html: NO_FLASH_THEME_SCRIPT }} />
       <div
         ref={wrapperRef}
         suppressHydrationWarning
-        className="flex min-h-screen items-center justify-center bg-[var(--color-cream)] px-6 py-12"
+        className="relative flex min-h-screen items-center justify-center bg-[var(--color-cream)] px-6 py-12"
       >
+        <ThemeToggleButton
+          theme={theme}
+          onToggle={toggle}
+          className="absolute right-5 top-5"
+        />
         <Suspense fallback={<LoginSkeleton />}>
           <LoginForm />
         </Suspense>
