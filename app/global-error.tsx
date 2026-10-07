@@ -38,14 +38,16 @@ const PALETTES: Record<Mode, {
 
 function readThemeCookie(): Mode | null {
   if (typeof document === "undefined") return null;
-  const m = document.cookie.match(/(?:^|; )admin-theme=([^;]*)/);
+  const m =
+    document.cookie.match(/(?:^|; )theme=([^;]*)/) ??
+    document.cookie.match(/(?:^|; )admin-theme=([^;]*)/);
   if (!m) return null;
   const v = decodeURIComponent(m[1]);
   return v === "dark" || v === "light" ? v : null;
 }
 
 function writeThemeCookie(theme: Mode) {
-  document.cookie = `admin-theme=${theme}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
+  document.cookie = `theme=${theme}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
 }
 
 export default function GlobalError({
@@ -89,7 +91,7 @@ export default function GlobalError({
         />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var m=document.cookie.match(/(?:^|; )admin-theme=([^;]*)/);var t=m?decodeURIComponent(m[1]):null;if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`,
+            __html: `(function(){try{var m=document.cookie.match(/(?:^|; )(?:theme|admin-theme)=([^;]*)/);var t=m?decodeURIComponent(m[1]):null;if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`,
           }}
         />
       </head>

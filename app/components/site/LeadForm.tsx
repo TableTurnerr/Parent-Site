@@ -72,7 +72,7 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
     if (isTrial) {
       fd.set(
         "message",
-        `Free trial signup (LAUNCH30). Trade: ${fd.get("trade") || "n/a"}.`
+        `Free trial signup. Trade: ${fd.get("trade") || "n/a"}.`
       );
     }
 
@@ -93,7 +93,7 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
         </h3>
         <p className="mt-2 text-sm text-ink-soft">
           {isTrial
-            ? "Check your inbox to finish setting up your 14-day free trial. Use code LAUNCH30 for 30% off your first 3 months."
+            ? "Check your inbox to finish setting up your 14-day free trial."
             : "We'll reach out within one business day to book your demo."}
         </p>
         <Link href="/" className="btn btn-ghost mt-6">Back to home</Link>

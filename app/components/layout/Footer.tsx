@@ -5,7 +5,7 @@ import { InteractiveHoverButton } from "@/app/components/ui/InteractiveHoverButt
 import {
   NAV_LINKS,
   SOCIAL_LINKS,
-  TRADES,
+  INDUSTRIES,
   SITE_CONFIG,
 } from "@/app/lib/constants";
 
@@ -91,15 +91,15 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* Column 3 — Trades */}
+          {/* Column 3 — Industries */}
           <div>
             <h3 className="text-white text-sm font-medium uppercase tracking-wider mb-4">
-              Trades
+              Industries
             </h3>
             <ul className="space-y-3">
-              {TRADES.map((trade) => (
+              {INDUSTRIES.map((trade) => (
                 <li key={trade.slug}>
-                  <FlipLink href={`/trades/${trade.slug}`}>
+                  <FlipLink href={`/industries/${trade.slug}`}>
                     {trade.label}
                   </FlipLink>
                 </li>
@@ -156,7 +156,7 @@ export default function Footer({
             &copy; 2026 TableTurnerr LLC. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <FlipLink href="/login">Client Login</FlipLink>
+            <FlipLink href="https://portal.tableturnerr.com/">Client Login</FlipLink>
             <FlipLink href="/privacy">Privacy Policy</FlipLink>
             <FlipLink href="/terms">Terms of Service</FlipLink>
           </div>

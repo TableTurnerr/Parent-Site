@@ -41,7 +41,7 @@ interface AdminUser {
   role: UserRole;
 }
 
-const THEME_COOKIE = "admin-theme";
+const THEME_COOKIE = "theme";
 const THEME_COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
 
 type NavItem = { href: string; label: string; icon: typeof LayoutDashboard; minRole: UserRole };

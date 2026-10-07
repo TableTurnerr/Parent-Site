@@ -1,17 +1,10 @@
-export interface Trade {
-  slug: string;
-  name: string;          // "HVAC"
-  noun: string;          // "HVAC company"
-  query: string;         // map-pack search query
-  seoTitle: string;      // primary, search-intent-led page title
-  metaDescription: string;
-  heroTitle: string;
-  heroSub: string;
-  pains: { t: string; b: string }[];
-  outcomes: string[];
-  faqs: { q: string; a: string }[];
-}
+// Compatibility exports for the previous /trades route family. New code should
+// import from ./industries; these aliases let existing bookmarked route assets
+// continue to compile while the pages issue permanent redirects.
+export { INDUSTRIES as TRADES, INDUSTRY_SLUGS as TRADE_SLUGS, getIndustry as getTrade } from "./industries";
+export type { Industry as Trade } from "./industries";
 
+/*
 export const TRADES: Record<string, Trade> = {
   hvac: {
     slug: "hvac",
@@ -129,3 +122,4 @@ export const TRADES: Record<string, Trade> = {
 
 export const TRADE_SLUGS = Object.keys(TRADES);
 export const getTrade = (slug: string): Trade | undefined => TRADES[slug];
+*/

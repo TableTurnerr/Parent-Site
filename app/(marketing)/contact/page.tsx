@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Mail, MessageSquare, CalendarClock } from "lucide-react";
-import LeadForm from "@/app/components/site/LeadForm";
 
 export const metadata: Metadata = {
   title: "Contact & Demo",
@@ -20,17 +20,19 @@ export default function ContactPage() {
     <section className="hero-wash relative overflow-hidden pt-36 pb-20 md:pt-44">
       <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
       <div className="container-tt relative">
-        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="lg:pt-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-12">
+          <div className="mx-auto max-w-4xl text-center">
             <span className="eyebrow">Book a demo</span>
-            <h1 className="display-2 mt-6 text-ink">Let&apos;s get your reviews growing</h1>
-            <p className="lead mt-5 max-w-lg">
-              Tell us about your business and we&apos;ll show you exactly how
-              TableTurnerr would work for your trade. Most demos take 20 minutes.
+            <h1 className="display-2 mt-6 text-ink">Let&apos;s get your business growing</h1>
+            <p className="lead mx-auto mt-5 max-w-2xl">
+              The conversation is completely free. Discuss anything about your
+              business, whether you work with us or not, and get practical advice
+              and reports. If we can help directly, we&apos;ll set you up with a
+              14-day free trial.
             </p>
-            <ul className="mt-9 space-y-6">
+            <ul className="mx-auto mt-9 grid max-w-5xl gap-8 text-center md:grid-cols-3">
               {POINTS.map((p) => (
-                <li key={p.t} className="flex gap-4">
+                <li key={p.t} className="flex flex-col items-center gap-3">
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
                     <p.icon className="h-5 w-5" />
                   </span>
@@ -49,9 +51,28 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <LeadForm variant="contact" />
+          <div className="card overflow-hidden bg-white shadow-[0_28px_70px_-42px_rgba(22,26,51,0.38)]">
+            <div className="border-b border-line bg-white px-6 py-5 text-center sm:px-8">
+              <p className="text-sm font-semibold text-ink">Book a meeting</p>
+              <p className="mt-1 text-sm leading-relaxed text-ink-soft">
+                Choose a time that works for you and tell us a little about your business.
+              </p>
+            </div>
+            <iframe
+              src="https://portalapi.tableturnerr.com/widget/booking/7XjGkrWZli9ej3gQme8H"
+              allow="payment"
+              className="block w-full overflow-hidden border-0"
+              id="7XjGkrWZli9ej3gQme8H_1791336244784"
+              scrolling="no"
+              title="Book a TableTurnerr appointment"
+            />
+          </div>
         </div>
       </div>
+      <Script
+        src="https://portalapi.tableturnerr.com/js/form_embed.js"
+        strategy="afterInteractive"
+      />
     </section>
   );
 }

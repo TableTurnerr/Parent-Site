@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 const VALUES = [
-  { icon: Wrench, t: "Built for the trades, not everyone", b: "We don't try to serve every business on earth. We go deep on home services, where reviews decide who gets the call." },
+  { icon: Wrench, t: "Built for home-service industries", b: "We don't try to serve every business on earth. We go deep on home services, where reviews decide who gets the call." },
   { icon: Zap, t: "Automation that just runs", b: "Set it once, connect your CRM, and it works in the background. Your team should be on the tools, not chasing reviews." },
   { icon: Star, t: "Reviews that win real jobs", b: "Not vanity metrics. More recent 5-star reviews mean a higher map-pack rank and more booked, high-ticket work." },
   { icon: Target, t: "No lock-in, no games", b: "Month-to-month, cancel anytime, and a results guarantee. We earn the renewal every month." },
