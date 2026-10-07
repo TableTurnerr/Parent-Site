@@ -3,7 +3,7 @@ import { Check, ArrowRight, ShieldCheck, MapPin } from "lucide-react";
 import MapPackClimb from "@/app/components/site/MapPackClimb";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateCityServiceSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
-import { TRADES } from "@/app/lib/trades";
+import { INDUSTRIES } from "@/app/lib/industries";
 import { REVIEW_CITIES, type ReviewCity } from "@/app/lib/review-cities";
 
 const STEPS = [
@@ -14,7 +14,7 @@ const STEPS = [
 
 export default function CityPage({ city }: { city: ReviewCity }) {
   const nearby = REVIEW_CITIES.filter((c) => c.slug !== city.slug).slice(0, 6);
-  const trades = Object.values(TRADES);
+  const industries = Object.values(INDUSTRIES);
   const base = "https://www.tableturnerr.com";
 
   return (
@@ -94,18 +94,18 @@ export default function CityPage({ city }: { city: ReviewCity }) {
         </div>
       </section>
 
-      {/* Trades */}
+      {/* Industries */}
       <section className="section">
         <div className="container-tt">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow">Trades we serve in {city.name}</span>
-            <h2 className="display-2 mt-5 text-ink">Built for {city.name}&apos;s home-services trades</h2>
+            <span className="eyebrow">Industries we serve in {city.name}</span>
+            <h2 className="display-2 mt-5 text-ink">Built for {city.name}&apos;s home-service industries</h2>
           </div>
           <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
-            {trades.map((t) => (
+            {industries.map((t) => (
               <Link
                 key={t.slug}
-                href={`/trades/${t.slug}`}
+                href={`/industries/${t.slug}`}
                 className="card card-hover group flex items-center justify-between p-5"
               >
                 <span className="font-bold text-ink">{t.name}</span>
