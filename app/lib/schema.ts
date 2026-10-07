@@ -9,7 +9,7 @@ export function generateOrganizationSchema() {
     logo: `${SITE_CONFIG.url}/logo.png`,
     image: `${SITE_CONFIG.url}/logo.png`,
     description:
-      "TableTurnerr is review automation for home-services businesses, turning completed jobs into 5-star reviews across Google, Facebook, Yelp and Angi for HVAC, roofing, plumbing and electrical pros.",
+      "TableTurnerr is review automation for home-service businesses, turning completed jobs into customer feedback across Google, Facebook, Yelp and Angi for a range of home-service industries.",
     email: SITE_CONFIG.email,
     telephone: SITE_CONFIG.phone,
     priceRange: "$$",
@@ -35,6 +35,9 @@ export function generateOrganizationSchema() {
       "Roofing marketing",
       "Plumbing marketing",
       "Electrical contractor marketing",
+      "Home-service review management",
+      "Landscape marketing",
+      "Cleaning business marketing",
     ],
     contactPoint: {
       "@type": "ContactPoint",

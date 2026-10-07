@@ -4,7 +4,7 @@ import Image from "next/image";
 import Container from "@/app/components/ui/Container";
 import Button from "@/app/components/ui/Button";
 import PageHero from "@/app/components/sections/PageHero";
-import { TRADES, SITE_CONFIG } from "@/app/lib/constants";
+import { INDUSTRIES, SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
 import { getPublishedPosts, formatPostDate } from "@/app/lib/blog";
@@ -107,7 +107,7 @@ function EmptyState() {
     <div className="max-w-2xl">
       <p className="text-warm-gray text-lg leading-relaxed mb-8">
         New articles are on the way. In the meantime, see how review automation
-        works for your trade or start a free trial.
+        works for your industry or start a free trial.
       </p>
       <div className="flex flex-col sm:flex-row gap-3">
         <Button href="/contact" variant="primary">
@@ -119,13 +119,13 @@ function EmptyState() {
       </div>
       <div className="mt-14">
         <h2 className="font-display font-semibold text-lg text-charcoal mb-5">
-          Review automation for your trade
+          Review automation for your industry
         </h2>
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {TRADES.map((trade) => (
+          {INDUSTRIES.map((trade) => (
             <li key={trade.slug}>
               <Link
-                href={`/trades/${trade.slug}`}
+                href={`/industries/${trade.slug}`}
                 className="block rounded-xl border border-border bg-cream-dark px-5 py-4 text-charcoal hover:border-charcoal/30 transition-colors"
               >
                 {trade.label}
