@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { Logo } from "@/app/components/ui/Logo";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import ThemeToggleButton from "@/app/components/ui/ThemeToggleButton";
@@ -44,15 +44,11 @@ export default function SiteNav() {
             }`}
           >
             <Link href="/" className="flex items-center gap-2.5 font-bold tracking-tight text-ink">
-              <Image
-                src="/logo.png"
-                alt="TableTurnerr logo"
-                width={32}
-                height={32}
-                priority
-                className={`rounded-md object-contain transition-all duration-300 ease-out ${
-                  scrolled ? "h-7 w-7" : "h-8 w-8"
-                }`}
+              <Logo
+                aria-hidden="true"
+                className={`text-ink transition-all duration-300 ease-out ${
+                  scrolled ? "h-7" : "h-8"
+                } w-auto`}
               />
               <span className="text-lg">TableTurnerr</span>
             </Link>

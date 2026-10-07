@@ -162,11 +162,15 @@
   box-shadow: 0 1px 2px rgba(10, 19, 38, 0.05);
 }
 .btn-ghost:hover { background: var(--color-surface); border-color: var(--color-ink); }
+/* White surface stays white in dark mode, so the label colour is fixed too
+   (--color-ink flips to near-white under .dark and would vanish on white). */
 .btn-light {
   background: #ffffff;
-  color: var(--color-ink);
+  color: #161a33;
 }
-.btn-light:hover { background: var(--color-surface-2); }
+/* Fixed light shade, not --color-surface-2 (flips to dark navy under .dark,
+   which would put the navy label on a near-navy background). */
+.btn-light:hover { background: #e5e8f2; }
 .btn-outline-light {
   background: transparent;
   color: #ffffff;

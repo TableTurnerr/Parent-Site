@@ -46,7 +46,7 @@ export default function NotFound() {
       {/* Minimal header */}
       <header className="w-full px-6 md:px-10 py-6 flex items-center justify-between">
         <Link href="/" aria-label="Back to home">
-          <Logo className="h-7 w-auto text-charcoal dark:text-white hover:text-charcoal-light dark:hover:text-white/80 transition-colors" />
+          <Logo className="h-7 w-auto text-charcoal hover:text-charcoal-light transition-colors" />
         </Link>
         <ThemeToggleButton theme={theme} onToggle={toggle} />
       </header>

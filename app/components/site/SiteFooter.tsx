@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { Logo } from "@/app/components/ui/Logo";
 import ConsentManager from "@/app/components/analytics/ConsentManager";
 
 const COLS = [
@@ -44,7 +44,7 @@ export default function SiteFooter() {
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
             <Link href="/" className="flex items-center gap-2.5 text-lg font-bold tracking-tight text-ink">
-              <Image src="/logo.png" alt="TableTurnerr logo" width={32} height={32} className="h-8 w-8 object-contain" />
+              <Logo aria-hidden="true" className="h-8 w-auto text-ink" />
               TableTurnerr
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
