@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import {
   MessageSquareText, Repeat2, Trophy, BarChart3, Bot, Globe2,
   Wrench, Home, Droplets, Zap, Check, ArrowRight, ShieldCheck, Plug,
-  X, BadgeCheck, EyeOff,
+  BadgeCheck, EyeOff,
 } from "lucide-react";
 import Image from "next/image";
 import Reveal from "@/app/components/site/Reveal";
@@ -166,24 +166,24 @@ function How() {
   );
 }
 
-/* ── Trades ─────────────────────────────────────────────── */
-const TRADES = [
-  { icon: Wrench, t: "HVAC", href: "/trades/hvac", img: "/images/trades/hvac-review-automation.webp" },
-  { icon: Home, t: "Roofing", href: "/trades/roofing", img: "/images/trades/roofing-review-automation.webp" },
-  { icon: Droplets, t: "Plumbing", href: "/trades/plumbing", img: "/images/trades/plumbing-review-automation.webp" },
-  { icon: Zap, t: "Electrical", href: "/trades/electrical", img: "/images/trades/electrical-review-automation.webp" },
+/* ── Industries ─────────────────────────────────────────── */
+const INDUSTRIES = [
+  { icon: Wrench, t: "HVAC", href: "/industries/hvac", img: "/images/trades/hvac-review-automation.webp" },
+  { icon: Home, t: "Roofing", href: "/industries/roofing", img: "/images/trades/roofing-review-automation.webp" },
+  { icon: Droplets, t: "Plumbing", href: "/industries/plumbing", img: "/images/trades/plumbing-review-automation.webp" },
+  { icon: Zap, t: "Electrical", href: "/industries/electrical", img: "/images/trades/electrical-review-automation.webp" },
 ];
-function Trades() {
+function Industries() {
   return (
-    <section id="trades" data-analytics-section="trades" className="section">
+    <section id="industries" data-analytics-section="industries" className="section">
       <div className="container-tt">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="eyebrow">Made for your trade</span>
-          <h2 className="display-2 mt-5 text-ink">Big-ticket trades, big-ticket reviews</h2>
-          <p className="lead mt-4">One bad month of reviews can cost a high-ticket trade real jobs. We focus where reviews matter most.</p>
+          <span className="eyebrow">Made for your industry</span>
+          <h2 className="display-2 mt-5 text-ink">Home-service industries where reviews win work</h2>
+          <p className="lead mt-4">One quiet month of customer feedback can cost a home-service business real jobs. We focus where visible proof matters most.</p>
         </div>
         <Reveal className="mt-12 grid grid-cols-2 gap-5 md:grid-cols-4">
-          {TRADES.map((t) => (
+          {INDUSTRIES.map((t) => (
             <Link
               key={t.t}
               href={t.href}
@@ -215,8 +215,8 @@ function Trades() {
           ))}
         </Reveal>
         <div className="mt-9 text-center">
-          <Link href="/trades" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
-            See all trades <ArrowRight className="h-4 w-4" />
+          <Link href="/industries" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
+            See all industries <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
@@ -453,68 +453,6 @@ function TrustMarquee() {
   );
 }
 
-/* ── Comparison (our wedge vs typical review tools) ─────── */
-const COMPARE = [
-  { f: "Google reviews", us: true, them: true },
-  { f: "Facebook, Yelp & Angi too", us: true, them: false },
-  { f: "Technician leaderboards", us: true, them: false },
-  { f: "Map-pack rank tracking", us: true, them: false },
-  { f: "Review reactivation of past customers", us: true, them: "partial" as const },
-  { f: "Built for big-ticket trades", us: true, them: false },
-  { f: "Free review-score grader", us: true, them: false },
-  { f: "No contracts, cancel anytime", us: true, them: false },
-  { f: "90-day results guarantee", us: true, them: false },
-];
-function Cell({ v }: { v: boolean | "partial" }) {
-  if (v === "partial")
-    return <span className="text-xs font-semibold text-muted">Some</span>;
-  return v ? (
-    <Check className="mx-auto h-5 w-5 text-success" />
-  ) : (
-    <X className="mx-auto h-5 w-5 text-muted/50" />
-  );
-}
-function Comparison() {
-  return (
-    <section className="section bg-surface">
-      <div className="container-tt">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="eyebrow">Why TableTurnerr</span>
-          <h2 className="display-2 mt-5 text-ink">Most review tools stop at Google. We don&apos;t.</h2>
-          <p className="lead mt-4">A side-by-side look at what you get with us versus a typical review tool.</p>
-        </div>
-
-        <Reveal className="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border border-line bg-white">
-          <div className="grid grid-cols-[1fr_auto_auto] items-center gap-x-4 border-b border-line bg-surface/60 px-5 py-4 text-sm font-semibold text-ink sm:gap-x-8 sm:px-7">
-            <span>Feature</span>
-            <span className="w-20 text-center text-primary sm:w-28">TableTurnerr</span>
-            <span className="w-20 text-center text-muted sm:w-28">Other tools</span>
-          </div>
-          {COMPARE.map((row, i) => (
-            <div
-              key={row.f}
-              className={`grid grid-cols-[1fr_auto_auto] items-center gap-x-4 px-5 py-3.5 text-sm sm:gap-x-8 sm:px-7 ${i % 2 ? "bg-surface/30" : ""}`}
-            >
-              <span className="text-ink-soft">{row.f}</span>
-              <span className="w-20 sm:w-28"><Cell v={row.us} /></span>
-              <span className="w-20 sm:w-28"><Cell v={row.them} /></span>
-            </div>
-          ))}
-        </Reveal>
-
-        <p className="mt-8 text-center text-sm text-ink-soft">
-          See how we compare to{" "}
-          <Link href="/alternatives/birdeye-alternative" className="font-semibold text-primary hover:underline">Birdeye</Link>,{" "}
-          <Link href="/alternatives/podium-alternative" className="font-semibold text-primary hover:underline">Podium</Link>,{" "}
-          <Link href="/alternatives/nicejob-alternative" className="font-semibold text-primary hover:underline">NiceJob</Link>{" "}
-          and{" "}
-          <Link href="/alternatives" className="font-semibold text-primary hover:underline">other review tools</Link>.
-        </p>
-      </div>
-    </section>
-  );
-}
-
 /* ── Testimonials — DISABLED (placeholder/fabricated reviews; restore when real customer quotes exist) ──
 const TESTIMONIALS = [
   { quote: "We went from 60-something Google reviews to over 200 in three months. The phone rings more, plain and simple.", name: "Mike R.", role: "Owner, HVAC", loc: "Round Rock, TX" },
@@ -570,8 +508,7 @@ export default function HomePage() {
       <Problem />
       <Features />
       <How />
-      <Comparison />
-      <Trades />
+      <Industries />
       <Personalized />
       <Compliance />
       <Pricing />
