@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { TRADE_SLUGS } from "./lib/trades";
+import { INDUSTRY_SLUGS } from "./lib/industries";
+import { FEATURE_SLUGS } from "./lib/features";
 import { INTEGRATION_SLUGS } from "./lib/integrations";
 import { ALTERNATIVE_SLUGS } from "./lib/alternatives";
 import { REVIEW_CITY_SLUGS } from "./lib/review-cities";
@@ -32,9 +33,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry("/contact", 0.7),
     entry("/privacy", 0.3, "yearly"),
     entry("/terms", 0.3, "yearly"),
-    // Trades
-    entry("/trades", 0.8),
-    ...TRADE_SLUGS.map((slug) => entry(`/trades/${slug}`, 0.9)),
+    // Industry and feature hubs
+    entry("/industries", 0.8),
+    ...INDUSTRY_SLUGS.map((slug) => entry(`/industries/${slug}`, 0.9)),
+    entry("/features", 0.8),
+    ...FEATURE_SLUGS.map((slug) => entry(`/features/${slug}`, 0.8)),
     // Integrations
     entry("/integrations", 0.8),
     ...INTEGRATION_SLUGS.map((slug) => entry(`/integrations/${slug}`, 0.8)),

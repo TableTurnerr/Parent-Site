@@ -33,7 +33,11 @@ export default async function AdminLayout({
     .eq("id", user.id)
     .single();
 
-  const themeCookie = (await cookies()).get("admin-theme")?.value;
+  const cookieStore = await cookies();
+  // Continue respecting an existing preference from before the site-wide cookie
+  // was introduced, while new changes use the shared `theme` cookie.
+  const themeCookie =
+    cookieStore.get("theme")?.value ?? cookieStore.get("admin-theme")?.value;
   const initialTheme =
     themeCookie === "dark" ? "dark" : themeCookie === "light" ? "light" : null;
 

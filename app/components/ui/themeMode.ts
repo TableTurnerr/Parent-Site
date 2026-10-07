@@ -4,12 +4,15 @@ import { useCallback, useEffect, useState, type RefObject } from "react";
 
 export type ThemeMode = "light" | "dark";
 
-const COOKIE_NAME = "admin-theme";
+const COOKIE_NAME = "theme";
+const LEGACY_COOKIE_NAME = "admin-theme";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
 function readThemeCookie(): ThemeMode | null {
   if (typeof document === "undefined") return null;
-  const match = document.cookie.match(/(?:^|; )admin-theme=([^;]*)/);
+  const match =
+    document.cookie.match(new RegExp(`(?:^|; )${COOKIE_NAME}=([^;]*)`)) ??
+    document.cookie.match(new RegExp(`(?:^|; )${LEGACY_COOKIE_NAME}=([^;]*)`));
   if (!match) return null;
   const value = decodeURIComponent(match[1]);
   return value === "dark" || value === "light" ? value : null;
@@ -27,7 +30,7 @@ export interface ThemeControls {
 
 /**
  * Applies the resolved `dark` class to the element held in `ref`. Resolves
- * via `admin-theme` cookie first (user choice), then `prefers-color-scheme`
+ * via the site-wide `theme` cookie first (user choice), then `prefers-color-scheme`
  * (system default). Subscribes to system-preference changes when no cookie
  * is set so the page tracks the OS in real time.
  *
@@ -85,4 +88,4 @@ export function useThemeMode(ref: RefObject<HTMLElement | null>): ThemeControls 
  * Inline script that runs synchronously before hydration to apply the
  * resolved `dark` class to its next sibling element.
  */
-export const NO_FLASH_THEME_SCRIPT = `(function(){try{var s=document.currentScript;var el=s&&s.nextElementSibling;if(!el)return;var m=document.cookie.match(/(?:^|; )${COOKIE_NAME}=([^;]*)/);var t=m?decodeURIComponent(m[1]):null;if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}el.classList.toggle('dark',t==='dark');}catch(e){}})();`;
+export const NO_FLASH_THEME_SCRIPT = `(function(){try{var s=document.currentScript;var el=s&&s.nextElementSibling;if(!el)return;var m=document.cookie.match(/(?:^|; )${COOKIE_NAME}=([^;]*)/)||document.cookie.match(/(?:^|; )${LEGACY_COOKIE_NAME}=([^;]*)/);var t=m?decodeURIComponent(m[1]):null;if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}el.classList.toggle('dark',t==='dark');}catch(e){}})();`;

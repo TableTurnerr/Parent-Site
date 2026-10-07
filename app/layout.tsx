@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     template: "%s | TableTurnerr",
   },
   description:
-    "Home-service review management software for HVAC, roofing, plumbing and electrical pros. Request Google reviews after every completed job, improve local visibility, and win more calls.",
+    "Home-service review management software for HVAC, roofing, plumbing, electrical and other service industries. Request reviews after completed jobs, improve local visibility, and win more calls.",
   keywords: [
     "home service review management software",
     "review automation for home services",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     type: "website",
     title: "Review Management Software for Home Services | TableTurnerr",
     description:
-      "Home-service review management software for HVAC, roofing, plumbing and electrical pros. Request Google reviews after every completed job and win more calls.",
+      "Home-service review management software for a range of service industries. Request reviews after completed jobs and win more calls.",
     url: "https://www.tableturnerr.com",
   },
   twitter: {

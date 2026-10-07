@@ -205,7 +205,7 @@
 
 /* ── Stars ── */
 .stars { color: var(--color-star); letter-spacing: 0.05em; }
-.font-hand { font-family: var(--font-caveat), ui-sans-serif, cursive; }
+.font-hand { font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive; }
 
 /* ── Animations ── */
 @keyframes tt-float {
@@ -271,6 +271,13 @@
   color: var(--color-ink-soft);
 }
 
+/* `.lead` is intentionally a semantic body-copy helper. Give it an explicit
+   foreground when it appears in a navy CTA or process section so its base
+   light-surface token cannot reduce contrast in either theme. */
+.bg-night .lead {
+  color: rgba(255, 255, 255, 0.75);
+}
+
 /* indigo accent gradient text (marketing BlurText + admin accents) */
 .text-accent-gradient {
   background: linear-gradient(100deg, var(--color-accent), color-mix(in oklab, var(--color-accent) 70%, #a78bfa));
@@ -296,6 +303,26 @@
 
 .dark {
   color: #f5f6f8;
+  color-scheme: dark;
+
+  /* Marketing palette — the public site uses semantic `bg-*`, `text-*`, and
+     `border-*` tokens, so these values keep all of its pages cohesive in
+     dark mode without changing their layout or content hierarchy. */
+  --color-bg: #0d1120;
+  --color-surface: #151b30;
+  --color-surface-2: #202944;
+  --color-ink: #f4f6ff;
+  --color-ink-soft: #c4cce0;
+  --color-muted: #9da9c6;
+  --color-line: #303b5c;
+  --color-primary: #aeb8ff;
+  --color-primary-hover: #c6ceff;
+  --color-primary-ink: #11162b;
+  --color-primary-soft: #232e5c;
+  --color-star: #fbbf24;
+  --color-success: #4ade80;
+  --color-night: #090d1d;
+  --color-night-2: #121a36;
 
   /* Brand tokens flipped for dark surfaces */
   --color-cream: #101319;         /* app background */
@@ -315,6 +342,23 @@
 /* Surface utilities used across admin pages that don't map to a token. */
 .dark .bg-white { background-color: var(--card); }
 .dark .hover\:bg-white:hover { background-color: var(--card); }
+
+/* Several marketing illustrations use translucent white panels in light mode.
+   Give them the same dark surface treatment while preserving the translucent
+   white overlays used intentionally inside the already-dark sections. */
+.dark .bg-white\/60 { background-color: rgb(23 26 33 / 0.78); }
+.dark .bg-white\/70 { background-color: rgb(23 26 33 / 0.84); }
+.dark .bg-white\/80 { background-color: rgb(23 26 33 / 0.88); }
+.dark .bg-white\/85 { background-color: rgb(23 26 33 / 0.90); }
+.dark .bg-white\/90 { background-color: rgb(23 26 33 / 0.94); }
+.dark .bg-white\/95 { background-color: rgb(13 17 32 / 0.95); }
+.dark .hover\:bg-white\/60:hover { background-color: rgb(32 41 68 / 0.92); }
+.dark .border-white { border-color: var(--color-line); }
+.dark .bg-\[\#eef0ff\] { background-color: #1d2646; }
+
+.dark input,
+.dark select,
+.dark textarea { color-scheme: dark; }
 
 /* Primary buttons use the named `bg-charcoal` class (a near-black surface in
    light mode). On dark surfaces a near-black button vanishes, so promote it to
@@ -439,3 +483,52 @@
 .dark .bg-teal-50 { background-color: rgba(20, 184, 166, 0.12); }
 .dark .bg-teal-100 { background-color: rgba(20, 184, 166, 0.18); }
 .dark .text-teal-700 { color: #5eead4; }
+
+/* ── Homepage feature-bento (ProductBento) ──
+   The card tones are built from `from-*`/`via-*`/`to-*` gradient-stop utilities,
+   which set --tw-gradient-* custom properties rather than background-color, so
+   they need their own overrides distinct from the `bg-*` ones above. Without
+   these the cards kept their light pastel gradients while `text-ink` flipped
+   to near-white, leaving white text on a light background. */
+.dark .from-violet-50 { --tw-gradient-from: rgba(139, 92, 246, 0.16); }
+.dark .to-indigo-50 { --tw-gradient-to: rgba(99, 102, 241, 0.2); }
+.dark .from-amber-50 { --tw-gradient-from: rgba(245, 158, 11, 0.12); }
+.dark .to-orange-50 { --tw-gradient-to: rgba(249, 115, 22, 0.18); }
+.dark .from-fuchsia-50 { --tw-gradient-from: rgba(217, 70, 239, 0.14); }
+.dark .to-violet-50 { --tw-gradient-to: rgba(139, 92, 246, 0.2); }
+.dark .from-emerald-50 { --tw-gradient-from: rgba(16, 185, 129, 0.12); }
+.dark .to-sky-50 { --tw-gradient-to: rgba(14, 165, 233, 0.18); }
+.dark .from-blue-50 { --tw-gradient-from: rgba(59, 130, 246, 0.12); }
+.dark .to-cyan-50 { --tw-gradient-to: rgba(6, 182, 212, 0.18); }
+.dark .from-cyan-50 { --tw-gradient-from: rgba(6, 182, 212, 0.12); }
+.dark .to-blue-50 { --tw-gradient-to: rgba(59, 130, 246, 0.18); }
+.dark .from-rose-50 { --tw-gradient-from: rgba(244, 63, 94, 0.12); }
+.dark .from-lime-50 { --tw-gradient-from: rgba(132, 204, 22, 0.12); }
+.dark .to-lime-50 { --tw-gradient-to: rgba(132, 204, 22, 0.18); }
+.dark .to-emerald-50 { --tw-gradient-to: rgba(16, 185, 129, 0.18); }
+.dark .via-white { --tw-gradient-via: rgba(255, 255, 255, 0.04); }
+
+/* Mini demo-card borders inside each bento tile */
+.dark .border-violet-100 { border-color: rgba(139, 92, 246, 0.35); }
+.dark .border-fuchsia-100 { border-color: rgba(217, 70, 239, 0.35); }
+.dark .border-blue-100 { border-color: rgba(59, 130, 246, 0.35); }
+.dark .border-cyan-100 { border-color: rgba(6, 182, 212, 0.35); }
+.dark .border-rose-100 { border-color: rgba(244, 63, 94, 0.35); }
+.dark .border-lime-100 { border-color: rgba(132, 204, 22, 0.35); }
+.dark .border-emerald-100 { border-color: rgba(16, 185, 129, 0.35); }
+.dark .border-white\/50 { border-color: rgba(245, 246, 248, 0.18); }
+
+/* Mini demo-card accent fills/text inside each bento tile */
+.dark .bg-cyan-50 { background-color: rgba(6, 182, 212, 0.12); }
+.dark .bg-lime-50 { background-color: rgba(132, 204, 22, 0.12); }
+.dark .bg-lime-100 { background-color: rgba(132, 204, 22, 0.18); }
+.dark .bg-orange-100 { background-color: rgba(249, 115, 22, 0.18); }
+.dark .text-rose-600 { color: #fda4af; }
+.dark .text-orange-600 { color: #fdba74; }
+
+/* Visible keyboard focus is especially important once a page offers a theme
+   switch. Keep it consistent on both light and dark backgrounds. */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}

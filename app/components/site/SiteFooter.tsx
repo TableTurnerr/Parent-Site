@@ -6,7 +6,7 @@ const COLS = [
   {
     title: "Product",
     links: [
-      { label: "Features", href: "/#features" },
+      { label: "Features", href: "/features" },
       { label: "How it works", href: "/#how" },
       { label: "Pricing", href: "/pricing" },
       { label: "Integrations", href: "/integrations" },
@@ -15,12 +15,13 @@ const COLS = [
     ],
   },
   {
-    title: "Trades",
+    title: "Industries",
     links: [
-      { label: "HVAC", href: "/trades/hvac" },
-      { label: "Roofing", href: "/trades/roofing" },
-      { label: "Plumbing", href: "/trades/plumbing" },
-      { label: "Electrical", href: "/trades/electrical" },
+      { label: "HVAC", href: "/industries/hvac" },
+      { label: "Roofing", href: "/industries/roofing" },
+      { label: "Plumbing", href: "/industries/plumbing" },
+      { label: "Electrical", href: "/industries/electrical" },
+      { label: "All industries", href: "/industries" },
     ],
   },
   {
@@ -80,7 +81,7 @@ export default function SiteFooter() {
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center">
           <p>© 2026 TableTurnerr LLC. All rights reserved.</p>
-          <div className="flex items-center gap-4"><p>Review automation for HVAC, roofing, plumbing &amp; electrical pros.</p><ConsentManager trigger /></div>
+          <div className="flex items-center gap-4"><p>Review automation for home-service industries.</p><ConsentManager trigger /></div>
         </div>
       </div>
     </footer>

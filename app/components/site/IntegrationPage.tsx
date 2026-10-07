@@ -147,7 +147,7 @@ export default function IntegrationPage({ integration }: { integration: Integrat
               label: `${i.name} integration`,
               sub: i.category,
             })),
-          { href: "/trades", label: "Browse by trade", sub: "HVAC, roofing, plumbing & electrical" },
+          { href: "/industries", label: "Browse industries", sub: "Find the workflow for your home-service team" },
           { href: "/alternatives", label: "Compare review tools", sub: "See how we stack up" },
         ]}
       />

@@ -9,7 +9,7 @@ export interface CrossLink {
 
 /**
  * Compact "keep exploring" grid that interlinks the marketing clusters
- * (trades, integrations, alternatives, locations). Dropped near the bottom of
+ * (industries, integrations, alternatives, locations). Dropped near the bottom of
  * each leaf page so the link graph is a dense mesh, not a hub-and-spoke with
  * dead-end leaves — every page passes equity to its siblings and neighbours.
  */

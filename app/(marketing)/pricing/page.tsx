@@ -125,7 +125,7 @@ export default function PricingPage() {
       {/* Cross-links */}
       <CrossLinks
         links={[
-          { href: "/trades", label: "Browse by trade", sub: "HVAC, roofing, plumbing & electrical" },
+          { href: "/industries", label: "Browse industries", sub: "Find the workflow for your home-service team" },
           { href: "/integrations", label: "Integrations", sub: "Connect your field-service CRM" },
           { href: "/alternatives", label: "Compare review tools", sub: "See how we stack up" },
         ]}

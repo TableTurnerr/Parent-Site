@@ -173,7 +173,7 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
             label: `vs ${a.competitor}`,
             sub: a.category,
           })),
-          { href: "/trades", label: "Browse by trade", sub: "HVAC, roofing, plumbing & electrical" },
+          { href: "/industries", label: "Browse industries", sub: "Find the workflow for your home-service team" },
           { href: "/integrations", label: "Integrations", sub: "Connect your field-service CRM" },
         ]}
       />

@@ -1,6 +1,6 @@
 "use client";
 
-import { Play } from "lucide-react";
+import { Play, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -32,6 +32,11 @@ export default function VslPlayer() {
     void video.play();
   }
 
+  function closeFloatingPlayer() {
+    videoRef.current?.pause();
+    setIsFloating(false);
+  }
+
   return (
     <div ref={anchorRef} className="relative aspect-video">
       <motion.div
@@ -61,11 +66,9 @@ export default function VslPlayer() {
               }}
               onPause={() => {
                 setIsPlaying(false);
-                setIsFloating(false);
               }}
               onEnded={() => {
                 setIsPlaying(false);
-                setIsFloating(false);
               }}
             >
               <source src="/videos/tableturnerr-vsl.webm" type="video/webm" />
@@ -80,6 +83,17 @@ export default function VslPlayer() {
                 className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/35 bg-primary text-white shadow-[0_12px_30px_rgba(10,19,38,0.4)] transition duration-200 hover:scale-105 hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:h-20 sm:w-20"
               >
                 <Play className="ml-1 h-7 w-7 fill-current sm:h-8 sm:w-8" aria-hidden />
+              </button>
+            )}
+
+            {isFloating && (
+              <button
+                type="button"
+                onClick={closeFloatingPlayer}
+                aria-label="Close floating video player and return to the page"
+                className="absolute right-2 top-2 flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-ink/85 text-white shadow-md backdrop-blur transition hover:scale-105 hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                <X className="h-4 w-4" aria-hidden />
               </button>
             )}
           </div>
