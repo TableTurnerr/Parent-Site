@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import SignupBookingWidget from "@/app/components/site/SignupBookingWidget";
 
 export const metadata: Metadata = {
   title: "Start Your Free Trial",
@@ -27,24 +28,7 @@ export default function SignupPage() {
             </p>
           </div>
 
-          <div className="card overflow-hidden bg-white shadow-[0_28px_70px_-42px_rgba(22,26,51,0.38)]">
-            <div className="border-b border-line bg-white px-6 py-5 text-center sm:px-8">
-              <p className="text-sm font-semibold text-ink">Book a meeting</p>
-              <p className="mt-1 text-sm leading-relaxed text-ink-soft">
-                Choose a time that works for you and tell us a little about your business.
-              </p>
-            </div>
-            <div className="bg-white">
-              <iframe
-                src="https://portalapi.tableturnerr.com/widget/booking/7XjGkrWZli9ej3gQme8H"
-                allow="payment"
-                className="block w-full overflow-hidden border-0"
-                id="7XjGkrWZli9ej3gQme8H_1791336244784"
-                scrolling="no"
-                title="Book a TableTurnerr appointment"
-              />
-            </div>
-          </div>
+          <SignupBookingWidget />
         </div>
       </div>
       <Script
