@@ -22,7 +22,7 @@ export default function ContactPage() {
       <div className="container-tt relative">
         <div className="mx-auto flex max-w-6xl flex-col gap-12">
           <div className="mx-auto max-w-4xl text-center">
-            <span className="eyebrow">Book a demo</span>
+            <span className="eyebrow">Contact us</span>
             <h1 className="display-2 mt-6 text-ink">Let&apos;s get your business growing</h1>
             <p className="lead mx-auto mt-5 max-w-2xl">
               The conversation is completely free. Discuss anything about your
@@ -53,18 +53,30 @@ export default function ContactPage() {
 
           <div className="card overflow-hidden bg-white shadow-[0_28px_70px_-42px_rgba(22,26,51,0.38)]">
             <div className="border-b border-line bg-white px-6 py-5 text-center sm:px-8">
-              <p className="text-sm font-semibold text-ink">Book a meeting</p>
+              <p className="text-sm font-semibold text-ink">Send us a message</p>
               <p className="mt-1 text-sm leading-relaxed text-ink-soft">
-                Choose a time that works for you and tell us a little about your business.
+                Tell us a little about your business and how we can help.
               </p>
             </div>
             <iframe
-              src="https://portalapi.tableturnerr.com/widget/booking/7XjGkrWZli9ej3gQme8H"
-              allow="payment"
+              src="https://portalapi.tableturnerr.com/widget/form/UJ4bQeq0WRkMgfhD5fzE"
+              style={{ width: "100%", height: "100%", border: "none", borderRadius: "8px" }}
               className="block w-full overflow-hidden border-0"
-              id="7XjGkrWZli9ej3gQme8H_1791336244784"
-              scrolling="no"
-              title="Book a TableTurnerr appointment"
+              id="inline-UJ4bQeq0WRkMgfhD5fzE"
+              data-layout="{'id':'INLINE'}"
+              data-trigger-type="alwaysShow"
+              data-trigger-value=""
+              data-activation-type="alwaysActivated"
+              data-activation-value=""
+              data-deactivation-type="neverDeactivate"
+              data-deactivation-value=""
+              data-form-name="Contact Form"
+              data-height="945"
+              data-layout-iframe-id="inline-UJ4bQeq0WRkMgfhD5fzE"
+              data-form-id="UJ4bQeq0WRkMgfhD5fzE"
+              data-cookie-consent="true"
+              data-cookie-consent-provider="auto"
+              title="Contact Form"
             />
           </div>
         </div>
