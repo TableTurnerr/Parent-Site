@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check, ShieldCheck, Star } from "lucide-react";
+import { ArrowRight, Check, Star } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
 import CrossLinks from "@/app/components/site/CrossLinks";
 import JsonLd from "@/app/components/site/JsonLd";
@@ -161,7 +161,7 @@ export default function IndustryPage({ industry }: { industry: Industry }) {
         tradePath={doneTrade?.path ?? "/marketing"}
         label={doneTrade ? `Done-for-you ${doneTrade.name.toLowerCase()} marketing plan` : "Marketing plans by trade"}
       />
-      <section className="section"><div className="container-tt"><div className="relative overflow-hidden rounded-[1.75rem] bg-night px-7 py-14 text-center md:px-16 md:py-20"><div aria-hidden className="hero-grid pointer-events-none absolute inset-0 opacity-60" /><div className="relative mx-auto max-w-2xl"><div className="stars mb-5 text-2xl" aria-hidden>★★★★★</div><h2 className="display-2 text-white">Give every completed {industry.name.toLowerCase()} job a chance to build trust</h2><p className="lead mt-4 text-white/70">Connect your workflow, start your review automation, and keep the proof moving. Free for 14 days.</p><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/signup" className="btn btn-light">Start free trial <ArrowRight className="h-4 w-4" /></Link><Link href="/contact" className="btn btn-outline-light">Book a demo</Link></div><p className="mt-6 flex items-center justify-center gap-2 text-sm text-white/60"><ShieldCheck className="h-4 w-4 text-success" />More reviews in 90 days or your next month is free.</p></div></div></div></section>
+      <section className="section"><div className="container-tt"><div className="relative overflow-hidden rounded-[1.75rem] bg-night px-7 py-14 text-center md:px-16 md:py-20"><div aria-hidden className="hero-grid pointer-events-none absolute inset-0 opacity-60" /><div className="relative mx-auto max-w-2xl"><div className="stars mb-5 text-2xl" aria-hidden>★★★★★</div><h2 className="display-2 text-white">Give every completed {industry.name.toLowerCase()} job a chance to build trust</h2><p className="lead mt-4 text-white/70">Connect your workflow, start your review automation, and keep the proof moving. Free for 14 days.</p><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/signup" className="btn btn-light">Start free trial <ArrowRight className="h-4 w-4" /></Link><Link href="/contact" className="btn btn-outline-light">Book a demo</Link></div></div></div></div></section>
     </>
   );
 }

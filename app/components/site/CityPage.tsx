@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Check, ArrowRight, ShieldCheck, MapPin } from "lucide-react";
+import { Check, ArrowRight, MapPin } from "lucide-react";
 import MapPackClimb from "@/app/components/site/MapPackClimb";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateCityServiceSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
@@ -170,9 +170,6 @@ export default function CityPage({ city }: { city: ReviewCity }) {
                 <Link href="/signup" className="btn btn-light">Start free trial <ArrowRight className="h-4 w-4" /></Link>
                 <Link href="/contact" className="btn btn-outline-light">Book a demo</Link>
               </div>
-              <p className="mt-6 flex items-center justify-center gap-2 text-sm text-white/60">
-                <ShieldCheck className="h-4 w-4 text-success" /> More reviews in 90 days or your next month is free.
-              </p>
             </div>
           </div>
         </div>

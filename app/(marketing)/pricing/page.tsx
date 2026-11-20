@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Check, ArrowRight, ShieldCheck } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import CrossLinks from "@/app/components/site/CrossLinks";
@@ -137,9 +137,6 @@ export default function PricingPage() {
           </div>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 text-sm text-ink-soft sm:flex-row sm:gap-6">
-            <span className="inline-flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-success" /> More reviews in 90 days or your next month is free.
-            </span>
             <span className="inline-flex items-center gap-2">
               <Check className="h-4 w-4 text-success" /> 14-day free trial, no credit card required.
             </span>

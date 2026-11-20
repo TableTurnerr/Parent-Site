@@ -75,7 +75,7 @@ export const PRICING_FAQS = [
   },
   {
     q: "Is there a contract or setup fee?",
-    a: "No. Every plan is month-to-month and you can cancel anytime. There are no setup fees and no long-term commitment, and we back it with a 90-day results guarantee.",
+    a: "No. Every plan is month-to-month and you can cancel anytime. There are no setup fees and no long-term commitment.",
   },
   {
     q: "What counts as a review request?",

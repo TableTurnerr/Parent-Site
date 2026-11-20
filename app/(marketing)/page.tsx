@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import {
   MessageSquareText, Repeat2, Trophy, BarChart3, Bot, Globe2,
-  Wrench, Home, Droplets, Zap, Check, ArrowRight, ShieldCheck, Plug,
+  Wrench, Home, Droplets, Zap, Check, ArrowRight, Plug,
   BadgeCheck, EyeOff,
 } from "lucide-react";
 import Image from "next/image";
@@ -370,10 +370,7 @@ function Pricing() {
             </div>
           ))}
         </Reveal>
-        <p className="mt-8 flex items-center justify-center gap-2 text-sm text-ink-soft">
-          <ShieldCheck className="h-4 w-4 text-success" /> More reviews in 90 days or your next month is free.
-        </p>
-        <p className="mt-4 text-center text-sm text-ink-soft">
+                <p className="mt-4 text-center text-sm text-ink-soft">
           <Link href="/pricing" className="font-semibold text-primary hover:underline">
             See full pricing details
           </Link>
