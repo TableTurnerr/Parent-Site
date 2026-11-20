@@ -13,7 +13,7 @@ export function GET() {
   const body = [
     "# TableTurnerr",
     "",
-    "> TableTurnerr is a small, owner-run online marketing agency for US home-service businesses (HVAC, plumbing, roofing, electrical, handyman and more), with its own software behind the work. Done for you, month to month: Google Business Profile management, local SEO, contractor websites, Google review generation, missed-call text-back and AI-search visibility. Owners who prefer to run it themselves can use the self-serve review and growth software from $80/mo. Every engagement starts with a free Google Maps audit.",
+    "> TableTurnerr is a small, owner-run online marketing agency for US home-service businesses (HVAC, plumbing, roofing, electrical, handyman and more), with its own software behind the work. Done for you, month to month: websites and local SEO, Google Business Profile management, Google review generation, CRM and automations, seasonal campaigns, missed-call text-back and AI-search visibility. Owners who prefer to run it themselves can use the self-serve review and growth software from $80/mo. Every engagement starts with a free Google Maps audit.",
     "",
     `Contact: ${SITE_CONFIG.email} · ${SITE_CONFIG.phone}`,
     "",
@@ -21,7 +21,7 @@ export function GET() {
     line("/", "Home", "Done-for-you online marketing and review software for home-service businesses."),
     line(AUDIT_PATH, "Free Google Maps audit", "Ranking heatmap, top 5 competitors, AI-assistant visibility and a homepage check, free."),
     line("/services", "Done-for-you services", "Everything we run for home-service businesses, month to month."),
-    line("/pricing", "Pricing", "Done-for-you marketing quoted after the free audit, or software plans from $80/mo."),
+    line("/pricing", "Pricing", "Custom done-for-you plans: around $100-300/mo for one or two services, about $500/mo for the full program, about $750/mo with ads and more attention. Quoted after the free audit. Self-serve software from $80/mo."),
     line("/about", "About", "Who we are, how we work and our rules (no fake reviews, no review gating)."),
     line("/features", "Software features"),
     `- [Video: ${VSL.title}](${vslWatchUrl}): 6-minute overview of what we do and what it costs.`,

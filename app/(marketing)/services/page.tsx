@@ -117,7 +117,7 @@ export default function Page() {
       <NextSteps
         items={[
           ["/marketing", "Marketing plans by trade", "How homeowners search for your trade, and what we'd do first."],
-          ["/pricing", "Pricing", "Done-for-you work alongside self-serve software plans from $80/mo."],
+          ["/pricing", "Pricing", "Custom plans: about $100–300/mo for one or two services, about $500/mo for the full program, about $750/mo with ads."],
           ["/about", "How we work", "A small, owner-run team with clear rules: no fake reviews, no review gating."],
         ]}
       />
