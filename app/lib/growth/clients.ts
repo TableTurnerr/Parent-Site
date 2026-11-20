@@ -17,8 +17,7 @@ export const TEXAS_CLIENTS: Client[] = [
     type: "Iraqi bakery and breakfast café",
     city: "Richardson",
     state: "TX",
-    // Their own domain (al-baghdady.com) redirected to an unrelated spam site on 2026-11-20, so link the site we run.
-    url: "https://al-baghdady.tableturnerr.com",
+    url: "https://www.albaghdadybakery.com",
     whatWeDo: "We build and run their website.",
     fact: "Nearly 1,900 customer reviews",
   },
