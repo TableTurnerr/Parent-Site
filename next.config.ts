@@ -23,16 +23,23 @@ const nextConfig: NextConfig = {
     // stray links don't 404. Most map to the homepage; trades/pricing map to the
     // closest new equivalent.
     return [
-      { source: "/services", destination: "/", permanent: true },
-      { source: "/services/:path*", destination: "/", permanent: true },
+      // /services is a real hub again (done-for-you services); only the old
+      // restaurant-era service pages still go home.
+      {
+        source:
+          "/services/:slug(restaurant-branding|restaurant-seo|restaurant-website-design|google-ads|commission-free-deliveries|google-business-profile-optimization)/:rest*",
+        destination: "/",
+        permanent: true,
+      },
       { source: "/medspa", destination: "/", permanent: true },
       { source: "/restaurants", destination: "/", permanent: true },
       { source: "/case-studies", destination: "/", permanent: true },
       { source: "/locations/restaurants/:path*", destination: "/locations", permanent: true },
       // /pricing is now a real page; only redirect stray sub-paths to it.
-      { source: "/pricing/:path*", destination: "/pricing", permanent: true },
+      // `:path+` (one or more segments): `:path*` also matched /pricing itself and looped.
+      { source: "/pricing/:path+", destination: "/pricing", permanent: true },
       { source: "/search", destination: "/", permanent: true },
-      { source: "/review-calculator", destination: "/", permanent: true },
+      { source: "/review-calculator", destination: "/guides/how-many-google-reviews-to-rank", permanent: true },
       { source: "/tools", destination: "/", permanent: true },
       { source: "/savings-calculator", destination: "/", permanent: true },
       { source: "/menu-price-calculator", destination: "/", permanent: true },

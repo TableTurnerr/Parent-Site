@@ -33,7 +33,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     slug: "birdeye-alternative",
     competitor: "Birdeye",
     category: "Enterprise reputation platform",
-    metaTitle: "Birdeye Alternative for Home Services | TableTurnerr",
+    metaTitle: "Birdeye Alternatives for Home Services (2026) | TableTurnerr",
     metaDescription:
       "A Birdeye alternative built for home-service shops, not enterprise chains. Flat, month-to-month review automation for HVAC, roofing, plumbing and electrical.",
     tagline: "The Birdeye alternative built for home-service shops",
@@ -90,7 +90,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     slug: "nicejob-alternative",
     competitor: "NiceJob",
     category: "Review software",
-    metaTitle: "NiceJob Alternative for Home Services | TableTurnerr",
+    metaTitle: "NiceJob Alternatives for Home Services (2026) | TableTurnerr",
     metaDescription:
       "A NiceJob alternative for the trades: multi-platform review automation with technician leaderboards, map-pack tracking, and a strict no-gating policy.",
     tagline: "A NiceJob alternative made for the trades",
@@ -146,7 +146,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     slug: "podium-alternative",
     competitor: "Podium",
     category: "SMB messaging & reviews",
-    metaTitle: "Podium Alternative for Home Services | TableTurnerr",
+    metaTitle: "Podium Alternatives for Home Services (2026) | TableTurnerr",
     metaDescription:
       "A focused Podium alternative for home services: review automation that turns completed jobs into 5-star reviews across Google, Facebook, Yelp and Angi.",
     tagline: "The Podium alternative focused on reviews that win jobs",
@@ -202,7 +202,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     slug: "gatherup-alternative",
     competitor: "GatherUp",
     category: "Reputation software",
-    metaTitle: "GatherUp Alternative for Home Services | TableTurnerr",
+    metaTitle: "GatherUp Alternatives for Home Services (2026) | TableTurnerr",
     metaDescription:
       "A GatherUp alternative built for the trades: home-service review automation with technician leaderboards, map-pack tracking, and flat monthly pricing.",
     tagline: "A GatherUp alternative built around the trades",
@@ -258,7 +258,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     slug: "pulsem-alternative",
     competitor: "PulseM",
     category: "Technician-centric reviews",
-    metaTitle: "PulseM Alternative for Home Services | TableTurnerr",
+    metaTitle: "PulseM Alternatives for Home Services (2026) | TableTurnerr",
     metaDescription:
       "A PulseM alternative with flat pricing, not per technician: home-service review automation with leaderboards, map-pack tracking, and multi-platform reach.",
     tagline: "A PulseM alternative that doesn't charge per technician",

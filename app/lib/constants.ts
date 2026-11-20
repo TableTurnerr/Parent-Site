@@ -38,6 +38,7 @@ export const TRADES = INDUSTRIES;
 export const SOCIAL_LINKS = [
   { platform: "Instagram", href: "https://www.instagram.com/tableturnerr/", label: "Follow us on Instagram" },
   { platform: "LinkedIn", href: "https://www.linkedin.com/company/tableturnerr", label: "Connect on LinkedIn" },
+  { platform: "YouTube", href: "https://www.youtube.com/@TableTurnerr", label: "Watch us on YouTube" },
 ] as const;
 
 export const SITE_CONFIG = {

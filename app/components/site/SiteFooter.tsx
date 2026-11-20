@@ -25,6 +25,16 @@ const COLS = [
     ],
   },
   {
+    title: "Done for you",
+    links: [
+      { label: "Free Google Maps audit", href: "/free-google-maps-audit" },
+      { label: "Marketing by trade", href: "/marketing" },
+      { label: "Services", href: "/services" },
+      { label: "Guides", href: "/guides" },
+      { label: "Results", href: "/results" },
+    ],
+  },
+  {
     title: "Company",
     links: [
       { label: "About", href: "/about" },
@@ -56,7 +66,7 @@ export default function SiteFooter() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-8">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 md:col-span-8">
             {COLS.map((col) => (
               <div key={col.title}>
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
