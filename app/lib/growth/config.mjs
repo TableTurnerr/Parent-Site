@@ -41,9 +41,12 @@ export const site = {
   // States where you already have clients. Used in copy as plain fact, no client names.
   clientStates: ['Washington', 'Oregon', 'California', 'Utah', 'New Mexico', 'Hawaii'],
 
-  // Owners shown on About / homepage. Add photo paths once you have headshots.
+  // Owners shown on /about (E-E-A-T: who is giving this advice?). The "Who you'll work with" cards only appear
+  // once EVERY owner has a real name and a bio, so no placeholder ever shows on the live site.
+  // TODO (owner): fill in the first co-owner's name, both bios (2-3 sentences in your own words: background,
+  // why you started TableTurnerr, what you handle for clients), and headshot paths under /public/images/team/.
   owners: [
-    { name: 'TODO: your name', role: 'Co-owner', photo: '' },
-    { name: 'Hashaam', role: 'Co-owner', photo: '' },
+    { name: 'TODO: your name', role: 'Co-owner', photo: '', bio: '' },
+    { name: 'Hashaam', role: 'Co-owner', photo: '', bio: '' },
   ],
 };

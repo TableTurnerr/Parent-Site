@@ -68,7 +68,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' data: https://fonts.gstatic.com",
               "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://vitals.vercel-insights.com https://us.i.posthog.com https://us-assets.i.posthog.com",
-              "frame-src 'self' https://portalapi.tableturnerr.com",
+              "frame-src 'self' https://portalapi.tableturnerr.com https://www.youtube-nocookie.com",
             ].join("; "),
           },
         ],

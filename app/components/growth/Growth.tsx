@@ -2,7 +2,10 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, Check, Star } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
-import { AUDIT_PATH, growthSite, plain, topics, trades, type Guide, type Pair } from "@/app/lib/growth";
+import JsonLd from "@/app/components/site/JsonLd";
+import VideoPlayer from "@/app/components/growth/VideoPlayer";
+import { vslSchema } from "@/app/lib/growth/video";
+import { AUDIT_PATH, growthSite, plain, topics, trades, type Guide, type Link3, type Pair } from "@/app/lib/growth";
 
 /** Trusted, first-party HTML from app/lib/growth content files. */
 export function Html({ html, className = "" }: { html: string; className?: string }) {
@@ -29,7 +32,7 @@ export function Crumbs({ items }: { items: Pair[] }) {
 
 export function AuditButtons({ light = false }: { light?: boolean }) {
   return (
-    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+    <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
       <Link href={AUDIT_PATH} className={`btn ${light ? "btn-light" : "btn-primary"}`}>
         Get your free Google Maps audit <ArrowRight className="h-4 w-4" />
       </Link>
@@ -172,3 +175,74 @@ export function FaqSection({ faq, heading = "Questions owners ask us" }: { faq: 
 }
 
 export const faqSchemaItems = (faq: Pair[]) => faq.map(([q, a]) => ({ question: plain(q), answer: plain(a) }));
+
+/** The explainer video (click-to-play facade) with its VideoObject schema. Use once per page. */
+export function VideoSection({
+  eyebrow = "Watch first",
+  title = "How we get home-service businesses chosen on Google, and what it costs",
+  intro = "A 6-minute walkthrough from the owner: reviews, one inbox for calls and texts, missed-call text-back, staying active online, what's in your free audit and pricing.",
+  surface = false,
+}: { eyebrow?: string; title?: string; intro?: string; surface?: boolean }) {
+  return (
+    <section className={`section ${surface ? "bg-surface" : ""}`} data-analytics-section="vsl">
+      <JsonLd data={vslSchema()} />
+      <div className="container-tt grid items-center gap-10 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <span className="eyebrow">{eyebrow}</span>
+          <h2 className="display-2 mt-5 text-ink">{title}</h2>
+          <p className="lead mt-4">{intro}</p>
+          <AuditButtons />
+        </div>
+        <div className="min-w-0 lg:col-span-7"><VideoPlayer /></div>
+      </div>
+    </section>
+  );
+}
+
+/** Done-for-you bridge on the software pages (industries, integrations, alternatives, features): the free audit
+ *  plus the matching done-for-you page, so no software page is a dead end for owners who'd rather not DIY. */
+export function DoneForYouBand({ tradePath, label }: { tradePath?: string; label?: string }) {
+  return (
+    <section className="section pt-0" data-analytics-section="done_for_you_bridge">
+      <div className="container-tt">
+        <div className="card grid gap-8 p-7 md:p-10 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-7">
+            <span className="eyebrow">Rather we run it for you?</span>
+            <h2 className="mt-4 text-2xl font-bold text-ink md:text-3xl">Software, or a team that does the marketing for you</h2>
+            <p className="mt-3 leading-relaxed text-ink-soft">
+              TableTurnerr is also a done-for-you marketing agency for home-service businesses. We run your Google Business
+              Profile, review generation, local SEO, website and missed-call text-back on our own software, month to month.
+              Start with a free Google Maps audit to see where you stand against the top competitors near you.
+            </p>
+            <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+              {tradePath && <li><Link href={tradePath} className="text-primary hover:underline">{label ?? "Marketing plan for your trade"}</Link></li>}
+              <li><Link href="/services" className="text-primary hover:underline">Done-for-you services</Link></li>
+              <li><Link href="/results/presidential-roofing" className="text-primary hover:underline">Client result: 27 to 43 reviews in 20 days</Link></li>
+            </ul>
+          </div>
+          <div className="lg:col-span-5"><AuditButtons /></div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** End-of-page next steps so no page is a dead end. */
+export function NextSteps({ items }: { items: Link3[] }) {
+  return (
+    <section className="section bg-surface" data-analytics-section="next_steps">
+      <div className="container-tt">
+        <SectionHead title="Where to go next" />
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {items.map(([href, h, p]) => (
+            <Link key={href} href={href} className="card card-hover group flex h-full flex-col p-6">
+              <span className="text-lg font-bold text-ink">{h}</span>
+              <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">{p}</span>
+              <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Go <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
