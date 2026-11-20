@@ -11,6 +11,8 @@ const LINKS = [
   { label: "Features", href: "/features" },
   { label: "How it works", href: "/#how" },
   { label: "Industries", href: "/industries" },
+  { label: "Services", href: "/services" },
+  { label: "Guides", href: "/guides" },
   { label: "Pricing", href: "/pricing" },
 ];
 
@@ -53,7 +55,7 @@ export default function SiteNav() {
               <span className="text-lg">TableTurnerr</span>
             </Link>
 
-            <div className="hidden items-center gap-8 md:flex">
+            <div className="hidden items-center gap-5 md:flex lg:gap-8">
               {LINKS.map((l) => (
                 <Link
                   key={l.label}
