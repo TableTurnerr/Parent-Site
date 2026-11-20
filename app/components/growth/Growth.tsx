@@ -5,6 +5,7 @@ import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import VideoPlayer from "@/app/components/growth/VideoPlayer";
 import { vslSchema } from "@/app/lib/growth/video";
+import type { Client } from "@/app/lib/growth/clients";
 import { AUDIT_PATH, growthSite, plain, topics, trades, type Guide, type Link3, type Pair } from "@/app/lib/growth";
 
 /** Trusted, first-party HTML from app/lib/growth content files. */
@@ -241,6 +242,35 @@ export function NextSteps({ items }: { items: Link3[] }) {
               <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Go <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
             </Link>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Named clients (see app/lib/growth/clients.ts), with an optional line tying them to the page's city. */
+export function ClientProof({ clients, title, intro }: { clients: Client[]; title: string; intro?: string }) {
+  return (
+    <section className="section" data-analytics-section="client_proof">
+      <div className="container-tt">
+        <SectionHead eyebrow="Who we work with" title={title} intro={intro} />
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {clients.map((c) => (
+            <div key={c.name} className="card flex flex-col p-6">
+              <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">{c.type} · {c.city}, {c.state}</span>
+              <span className="mt-2 text-lg font-bold text-ink">{c.name}</span>
+              {c.fact && <span className="mt-1 font-semibold text-primary">{c.fact}</span>}
+              <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">{c.whatWeDo}</span>
+              <a href={c.url} target="_blank" rel="noopener" className="mt-4 text-sm font-semibold text-primary hover:underline">Visit their site</a>
+            </div>
+          ))}
+          <Link href="/results/presidential-roofing" className="card card-hover group flex flex-col p-6">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">Roofing contractor · Syracuse, UT</span>
+            <span className="mt-2 text-lg font-bold text-ink">Presidential Roofing</span>
+            <span className="mt-1 font-semibold text-primary">27 to 43 Google reviews in 20 days</span>
+            <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">Review requests to past customers and after every job.</span>
+            <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read the case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+          </Link>
         </div>
       </div>
     </section>

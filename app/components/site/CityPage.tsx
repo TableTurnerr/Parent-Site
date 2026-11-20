@@ -4,7 +4,8 @@ import MapPackClimb from "@/app/components/site/MapPackClimb";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateCityServiceSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
 import { INDUSTRIES } from "@/app/lib/industries";
-import { DoneForYouBand } from "@/app/components/growth/Growth";
+import { ClientProof, DoneForYouBand, TradeChips } from "@/app/components/growth/Growth";
+import { DFW_SLUGS, TEXAS_CLIENTS } from "@/app/lib/growth/clients";
 import { REVIEW_CITIES, type ReviewCity } from "@/app/lib/review-cities";
 
 const STEPS = [
@@ -57,13 +58,13 @@ export default function CityPage({ city }: { city: ReviewCity }) {
               </h1>
               <p className="lead mt-6 max-w-xl">{city.intro}</p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/signup" className="btn btn-primary">
-                  Start free trial <ArrowRight className="h-4 w-4" />
+                <Link href="/free-google-maps-audit" className="btn btn-primary">
+                  Get your free Google Maps audit <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href="/contact" className="btn btn-ghost">Book a demo</Link>
+                <Link href="/signup" className="btn btn-ghost">Start a free trial</Link>
               </div>
               <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-soft">
-                {["14-day free trial", "No contracts", "Setup in 15 minutes"].map((t) => (
+                {["Done for you or self-serve", "No contracts", "Texas clients in Richardson and Dallas"].map((t) => (
                   <li key={t} className="inline-flex items-center gap-2">
                     <Check className="h-4 w-4 text-success" /> {t}
                   </li>
@@ -95,6 +96,14 @@ export default function CityPage({ city }: { city: ReviewCity }) {
         </div>
       </section>
 
+      <ClientProof
+        clients={TEXAS_CLIENTS}
+        title={DFW_SLUGS.has(city.slug) ? `Texas clients right here in Dallas–Fort Worth` : "Texas businesses we already work with"}
+        intro={DFW_SLUGS.has(city.slug)
+          ? `Our Texas clients are in Richardson and Dallas, in the same metro as ${city.name}. We know how crowded DFW's map results are.`
+          : `Our Texas clients are in Richardson and Dallas. For ${city.name}, we start the same way: a free Google Maps audit of where you rank against the top competitors in town.`}
+      />
+
       {/* Industries */}
       <section className="section">
         <div className="container-tt">
@@ -114,6 +123,8 @@ export default function CityPage({ city }: { city: ReviewCity }) {
               </Link>
             ))}
           </div>
+          <p className="mt-10 text-center text-sm font-semibold text-ink">Rather we run it for you? Done-for-you marketing plans by trade:</p>
+          <div className="flex justify-center"><TradeChips /></div>
         </div>
       </section>
 

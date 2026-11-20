@@ -2,11 +2,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { MapPin, ArrowRight } from "lucide-react";
 import { REVIEW_CITIES } from "@/app/lib/review-cities";
+import { AuditBand, ClientProof } from "@/app/components/growth/Growth";
+import { TEXAS_CLIENTS } from "@/app/lib/growth/clients";
 
 export const metadata: Metadata = {
-  title: "Texas Locations We Serve",
+  title: "Home-Service Marketing in Texas: Cities We Serve",
   description:
-    "Review automation for home-service businesses across Texas: Houston, Dallas, San Antonio, Austin, Fort Worth and more. Turn finished jobs into 5-star reviews.",
+    "Google reviews, map-pack visibility and done-for-you marketing for Texas home-service businesses in Houston, Dallas, San Antonio, Austin and more. Free Maps audit.",
   alternates: { canonical: "https://www.tableturnerr.com/locations" },
 };
 
@@ -18,12 +20,12 @@ export default function LocationsIndex() {
         <div className="container-tt relative">
           <div className="max-w-3xl">
             <span className="eyebrow">Locations</span>
-            <h1 className="display mt-6 text-ink">Review automation across Texas</h1>
+            <h1 className="display mt-6 text-ink">Home-service marketing across Texas</h1>
             <p className="lead mt-6 max-w-2xl">
-              We launched in Texas, where home-services competition is fierce and reviews
-              decide who gets the call. Pick your city to see how TableTurnerr helps local
-              HVAC, roofing, plumbing and electrical pros climb the map pack, and if you&apos;re
-              outside these markets, reach out anyway, we&apos;re expanding fast.
+              Texas home-services competition is fierce, and reviews decide who gets the
+              call. We already work with Texas businesses in Richardson and Dallas. Pick your
+              city to see the local market, or start with a free Google Maps audit of where you
+              rank against the top competitors in town.
             </p>
           </div>
         </div>
@@ -53,6 +55,8 @@ export default function LocationsIndex() {
           </div>
         </div>
       </section>
+      <ClientProof clients={TEXAS_CLIENTS} title="Texas businesses we already work with" />
+      <AuditBand title="See where you rank in your Texas market" />
     </>
   );
 }

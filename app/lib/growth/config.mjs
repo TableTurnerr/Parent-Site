@@ -40,7 +40,7 @@ export const site = {
   indexNowKey: "957102cb81f38a2c15316c5a9a94d5be",
 
   // States where you already have clients. Used in copy as plain fact, no client names.
-  clientStates: ['Washington', 'Oregon', 'California', 'Utah', 'New Mexico', 'Hawaii'],
+  clientStates: ['Washington', 'Oregon', 'California', 'Utah', 'Texas', 'New Mexico', 'Hawaii'],
 
   // Owners shown on /about (E-E-A-T: who is giving this advice?). The "Who you'll work with" cards only appear
   // once EVERY owner has a real name and a bio, so no placeholder ever shows on the live site.
