@@ -4,6 +4,7 @@ import MapPackClimb from "@/app/components/site/MapPackClimb";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateCityServiceSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
 import { INDUSTRIES } from "@/app/lib/industries";
+import { DoneForYouBand } from "@/app/components/growth/Growth";
 import { REVIEW_CITIES, type ReviewCity } from "@/app/lib/review-cities";
 
 const STEPS = [
@@ -153,6 +154,7 @@ export default function CityPage({ city }: { city: ReviewCity }) {
         </div>
       </section>
 
+      <DoneForYouBand tradePath="/marketing" label="Marketing plans by trade" />
       {/* CTA */}
       <section className="section pt-0">
         <div className="container-tt">

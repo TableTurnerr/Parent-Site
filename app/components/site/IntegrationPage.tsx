@@ -4,6 +4,7 @@ import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateFAQSchema, generateBreadcrumbSchema, generateServiceSchema } from "@/app/lib/schema";
+import { DoneForYouBand } from "@/app/components/growth/Growth";
 import { INTEGRATIONS, type Integration } from "@/app/lib/integrations";
 
 export default function IntegrationPage({ integration }: { integration: Integration }) {
@@ -152,6 +153,7 @@ export default function IntegrationPage({ integration }: { integration: Integrat
         ]}
       />
 
+      <DoneForYouBand tradePath="/marketing" label="Marketing plans by trade" />
       {/* CTA */}
       <section className="section">
         <div className="container-tt">

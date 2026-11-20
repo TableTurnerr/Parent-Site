@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import JsonLd from "@/app/components/site/JsonLd";
-import { AuditBand, GrowthHero, SectionHead } from "@/app/components/growth/Growth";
+import { AuditBand, GrowthHero, NextSteps, SectionHead } from "@/app/components/growth/Growth";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
 import { results } from "@/app/lib/growth";
 
@@ -42,6 +42,14 @@ export default function Page() {
         </div>
       </section>
       <AuditBand title="Want results like these?" />
+      <NextSteps
+        items={[
+          ["/services", "Done-for-you services", "Google Business Profile, reviews, local SEO, websites and missed-call text-back."],
+          ["/marketing", "Marketing plans by trade", "How homeowners search for your trade, and what we'd do first."],
+          ["/about", "How we work", "A small, owner-run team with clear rules: no fake reviews, no review gating."],
+        ]}
+      />
+
     </>
   );
 }

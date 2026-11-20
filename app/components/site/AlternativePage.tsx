@@ -4,6 +4,7 @@ import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateFAQSchema, generateBreadcrumbSchema, generateServiceSchema } from "@/app/lib/schema";
+import { DoneForYouBand } from "@/app/components/growth/Growth";
 import { ALL_ALTERNATIVES, type Alternative, type Cell } from "@/app/lib/alternatives";
 
 function CompareCell({ v }: { v: Cell }) {
@@ -178,6 +179,7 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
         ]}
       />
 
+      <DoneForYouBand tradePath="/marketing" label="Marketing plans by trade" />
       {/* CTA */}
       <section className="section">
         <div className="container-tt">

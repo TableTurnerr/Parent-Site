@@ -5,6 +5,7 @@ import CrossLinks from "@/app/components/site/CrossLinks";
 import JsonLd from "@/app/components/site/JsonLd";
 import { INDUSTRIES } from "@/app/lib/industries";
 import type { ProductFeature } from "@/app/lib/features";
+import { DoneForYouBand } from "@/app/components/growth/Growth";
 import { generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 
 export default function FeaturePage({ feature }: { feature: ProductFeature }) {
@@ -34,6 +35,7 @@ export default function FeaturePage({ feature }: { feature: ProductFeature }) {
 
       <CrossLinks title="Keep exploring" links={[{ href: "/features", label: "All features", sub: "See every TableTurnerr and FieldTask capability" }, { href: "/industries", label: "All industries", sub: "Find your home-service workflow" }, { href: "/integrations", label: "Integrations", sub: "Connect the tools your team uses" }]} />
 
+      <DoneForYouBand tradePath="/marketing" label="Marketing plans by trade" />
       <section className="section"><div className="container-tt"><div className="relative overflow-hidden rounded-[1.75rem] bg-night px-7 py-14 text-center md:px-16 md:py-20"><div aria-hidden className="hero-grid pointer-events-none absolute inset-0 opacity-60" /><div className="relative mx-auto max-w-2xl"><h2 className="display-2 text-white">See {feature.title.toLowerCase()} in your workflow</h2><p className="lead mt-4 text-white/70">Start with a free trial or let us show you how this capability fits your team.</p><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/signup" className="btn btn-light">Start free trial <ArrowRight className="h-4 w-4" /></Link><Link href="/contact" className="btn btn-outline-light">Book a demo</Link></div><p className="mt-6 flex items-center justify-center gap-2 text-sm text-white/60"><ShieldCheck className="h-4 w-4 text-success" />14 days free, with no contracts.</p></div></div></div></section>
     </>
   );
