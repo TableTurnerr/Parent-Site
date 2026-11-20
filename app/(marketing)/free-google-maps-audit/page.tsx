@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Check } from "lucide-react";
 import JsonLd from "@/app/components/site/JsonLd";
-import { Crumbs, FaqSection, SectionHead, faqSchemaItems } from "@/app/components/growth/Growth";
+import Link from "next/link";
+import { CardGrid, Crumbs, FaqSection, GuideCards, NextSteps, SectionHead, VideoSection, faqSchemaItems } from "@/app/components/growth/Growth";
 import { generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
-import { AUDIT_PATH, growthSite, type Pair } from "@/app/lib/growth";
+import { AUDIT_PATH, getGuide, growthSite, type Guide, type Pair } from "@/app/lib/growth";
 
 const base = "https://www.tableturnerr.com";
 const description =
@@ -36,7 +37,18 @@ const faq: Pair[] = [
   ["Is the audit really free?", "Yes. You keep the report whether you work with us or not."],
   ["How long does it take?", "We usually prepare it within a business day or two, then walk you through it in about 15 minutes."],
   ["Do I need to give you access to anything?", "No. Everything in the audit comes from public information on Google and your website."],
+  ["What should I have ready?", "One to three searches you want to show up for (for example \"roofer near me\" or \"AC repair Spokane\") and the main town you serve. That's it."],
+  ["Is this a sales call?", "It's a walkthrough of your report, owner to owner. If we can help, we'll say how and what it costs. If we can't, we'll tell you that too."],
+  ["Who is it for?", "Owners of US home-service businesses: HVAC, plumbing, roofing, electrical, handyman, fencing, tree service, remodeling, landscaping and similar trades."],
 ];
+
+const NEXT: Pair[] = [
+  ["Request the audit", "Fill in the short form. Add the searches you want to show up for if you know them."],
+  ["We build your report", "Ranking heatmap, top competitors, AI-assistant check and a homepage check, usually within a business day or two."],
+  ["15-minute walkthrough", "We go through it with you on a call, owner to owner, and point out what to fix first. You keep the report."],
+];
+
+const AUDIT_GUIDES = ["how-to-rank-higher-on-google-maps", "how-many-google-reviews-to-rank", "google-business-profile-suspended"];
 
 export default function Page() {
   const embed = growthSite.auditFormEmbed;
@@ -96,6 +108,18 @@ export default function Page() {
           </div>
         </div>
       </section>
+      <section className="section">
+        <div className="container-tt">
+          <SectionHead eyebrow="How it works" title="What happens after you ask for it" />
+          <CardGrid items={NEXT} numbered />
+        </div>
+      </section>
+      <VideoSection
+        surface
+        eyebrow="Before you book"
+        title="See what we'll walk you through"
+        intro="A 6-minute video from the owner: how reviews, call capture and staying active online make you the obvious choice in your area, what's in the free audit report (from 4:11) and what working with us costs (from 5:11)."
+      />
       <section id="example-report" className="section scroll-mt-24 bg-surface">
         <div className="container-tt">
           <SectionHead
@@ -118,6 +142,20 @@ export default function Page() {
         </div>
       </section>
       <FaqSection faq={faq} heading="Quick answers" />
+      <section className="section">
+        <div className="container-tt">
+          <SectionHead title="Read while you wait" intro="The guides behind what the audit checks." />
+          <GuideCards list={AUDIT_GUIDES.map(getGuide).filter((g): g is Guide => Boolean(g))} />
+          <p className="mt-8"><Link href="#request" className="btn btn-primary">Request your free audit</Link></p>
+        </div>
+      </section>
+      <NextSteps
+        items={[
+          ["/results/presidential-roofing", "See a client result", "How a Utah roofer went from 27 to 43 Google reviews in 20 days."],
+          ["/services", "What we do after the audit", "Google Business Profile, reviews, local SEO, websites and missed-call text-back, done for you."],
+          ["/about", "Who's behind it", "A small, owner-run team. When you call, you talk to an owner."],
+        ]}
+      />
     </>
   );
 }
