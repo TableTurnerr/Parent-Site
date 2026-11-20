@@ -10,6 +10,7 @@ import { guides as guides1 } from "./guides.mjs";
 import { guides2 } from "./guides2.mjs";
 import { services as servicesRaw } from "./services.mjs";
 import { results as resultsRaw } from "./results.mjs";
+import { combos as combosRaw } from "./combos.mjs";
 import { site as siteRaw } from "./config.mjs";
 import {
   SITE_UPDATED as SITE_UPDATED_RAW,
@@ -130,3 +131,13 @@ export function tradeForIndustry(industrySlug: string): Trade | undefined {
   const slug = INDUSTRY_TO_TRADE[industrySlug];
   return slug ? getTrade(slug) : undefined;
 }
+
+/** Trade + service pages (/marketing/<trade>/<service>), see combos.mjs. */
+export interface Combo {
+  trade: string; service: string; path: string; title: string; description: string; h1: string; lede: string;
+  why: string; tactics: Pair[]; faq: Pair[];
+}
+export const combos = combosRaw as Combo[];
+export const getCombo = (trade: string, service: string) => combos.find((c) => c.trade === trade && c.service === service);
+export const combosForTrade = (trade: string) => combos.filter((c) => c.trade === trade);
+export const combosForService = (service: string) => combos.filter((c) => c.service === service);

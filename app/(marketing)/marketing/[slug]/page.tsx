@@ -7,7 +7,7 @@ import {
   AuditBand, CardGrid, FaqSection, Glance, GrowthHero, GuideCards, Html, SectionHead, TradeChips, faqSchemaItems,
 } from "@/app/components/growth/Growth";
 import { generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
-import { AUDIT_PATH, FSM, getTrade, guidesForTrade, plain, servicesForTrade, trades, withToc } from "@/app/lib/growth";
+import { AUDIT_PATH, FSM, combosForTrade, getTrade, guidesForTrade, plain, servicesForTrade, trades, withToc } from "@/app/lib/growth";
 
 const base = "https://www.tableturnerr.com";
 
@@ -81,6 +81,20 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         <div className="container-tt">
           <SectionHead title={`Our plan for ${t.plural}`} intro={t.planIntro} />
           <CardGrid items={t.plan} numbered cols={2} />
+          {combosForTrade(t.slug).length > 0 && (
+            <>
+              <h3 className="mt-12 text-lg font-bold text-ink">{t.name} marketing, service by service</h3>
+              <div className="mt-5 grid gap-4 md:grid-cols-3">
+                {combosForTrade(t.slug).map((c) => (
+                  <Link key={c.path} href={c.path} className="card card-hover group flex h-full flex-col p-6">
+                    <span className="text-lg font-bold text-ink">{c.title}</span>
+                    <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">{c.lede}</span>
+                    <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+                  </Link>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </section>
 

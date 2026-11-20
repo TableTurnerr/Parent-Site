@@ -1,6 +1,6 @@
 // /llms.txt: a plain-text map of the site for AI assistants (https://llmstxt.org). Built from the same data as the pages.
 import { INDUSTRIES, INDUSTRY_SLUGS } from "@/app/lib/industries";
-import { AUDIT_PATH, guides, plain, results, services, trades } from "@/app/lib/growth";
+import { AUDIT_PATH, combos, guides, plain, results, services, trades } from "@/app/lib/growth";
 import { SITE_CONFIG } from "@/app/lib/constants";
 import { VSL, vslWatchUrl } from "@/app/lib/growth/video";
 
@@ -31,6 +31,9 @@ export function GET() {
     "",
     "## Done-for-you services",
     ...services.map((s) => line(s.path, s.short, s.description)),
+    "",
+    "## Services by trade",
+    ...combos.map((c) => line(c.path, c.title, c.description)),
     "",
     "## Guides",
     ...guides.map((g) => line(g.path, g.h1, g.description)),
