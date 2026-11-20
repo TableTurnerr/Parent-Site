@@ -80,9 +80,10 @@ export default function AboutPage() {
           ["What we do", <span key="s">{services.map((s, i) => <span key={s.slug}>{i > 0 && ", "}<Link href={s.path} className="font-semibold text-primary">{s.short}</Link></span>)}, plus visibility in AI assistants like ChatGPT.</span>],
           ["Who we work with", <span key="t">{trades.length} home-service trades including HVAC, plumbing, roofing, electrical, handyman and fencing. <Link href="/marketing" className="font-semibold text-primary">See all trades</Link>.</span>],
           ["Where", `Clients in ${clientStatesText}. We work with businesses anywhere in the US.`],
+          ["Reviews", <a key="tp" href={growthSite.trustpilotUrl} className="font-semibold text-primary" target="_blank" rel="noopener noreferrer">TableTurnerr on Trustpilot</a>],
           ["How we work", "Done for you, month to month, by the rules: no fake reviews, no review gating."],
           r ? ["Results", <Link key="r" href={r.path} className="font-semibold text-primary">{r.client}: {r.reviewsBefore} to {r.reviewsAfter} Google reviews in {r.days} days</Link>] : null,
-          ["Contact", <span key="c"><a href={`mailto:${growthSite.email}`} className="font-semibold text-primary">{growthSite.email}</a> · <a href={growthSite.bookingUrl} className="font-semibold text-primary">book a 15-minute call</a></span>],
+          ["Contact", <span key="c"><a href={`tel:${growthSite.phoneE164}`} className="font-semibold text-primary">{growthSite.phoneDisplay}</a> · <a href={`mailto:${growthSite.email}`} className="font-semibold text-primary">{growthSite.email}</a> · <a href={growthSite.bookingUrl} className="font-semibold text-primary">book a 15-minute call</a></span>],
         ]}
       />
 

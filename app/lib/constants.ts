@@ -39,6 +39,7 @@ export const SOCIAL_LINKS = [
   { platform: "Instagram", href: "https://www.instagram.com/tableturnerr/", label: "Follow us on Instagram" },
   { platform: "LinkedIn", href: "https://www.linkedin.com/company/tableturnerr", label: "Connect on LinkedIn" },
   { platform: "YouTube", href: "https://www.youtube.com/@TableTurnerr", label: "Watch us on YouTube" },
+  { platform: "Trustpilot", href: "https://www.trustpilot.com/review/tableturnerr.com", label: "Read our reviews on Trustpilot" },
 ] as const;
 
 export const SITE_CONFIG = {
@@ -46,5 +47,5 @@ export const SITE_CONFIG = {
   url: "https://www.tableturnerr.com",
   tagline: "Done-for-you online marketing for home-service businesses, with our own software behind it.",
   email: "contact@tableturnerr.com",
-  phone: "+1 (808) 559-9006",
+  phone: "+1 (332) 333-1008",
 } as const;

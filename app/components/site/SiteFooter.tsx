@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/app/components/ui/Logo";
 import ConsentManager from "@/app/components/analytics/ConsentManager";
+import { SITE_CONFIG, SOCIAL_LINKS } from "@/app/lib/constants";
 
 const COLS = [
   {
@@ -71,6 +72,18 @@ export default function SiteFooter() {
             <Link href="/free-google-maps-audit" className="btn btn-primary mt-6 text-sm">
               Get a free Google Maps audit
             </Link>
+            <p className="mt-5 text-sm text-ink-soft">
+              <a href={`tel:${SITE_CONFIG.phone.replace(/[^+d]/g, "")}`} className="font-semibold text-ink hover:text-primary">{SITE_CONFIG.phone}</a>
+              {" · "}
+              <a href={`mailto:${SITE_CONFIG.email}`} className="hover:text-ink">{SITE_CONFIG.email}</a>
+            </p>
+            <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+              {SOCIAL_LINKS.map((l) => (
+                <li key={l.platform}>
+                  <a href={l.href} aria-label={l.label} target="_blank" rel="noopener noreferrer" className="text-ink-soft hover:text-ink">{l.platform}</a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 md:col-span-8">

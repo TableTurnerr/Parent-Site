@@ -4,10 +4,9 @@ export const site = {
   origin: 'https://www.tableturnerr.com',
   email: 'contact@tableturnerr.com',
 
-  // TODO: your 332 business line in E.164 and display form, e.g. '+13325550123' / '(332) 555-0123'.
-  // While empty, pages show "Book a 15-minute call" instead.
-  phoneE164: '',
-  phoneDisplay: '',
+  // Main business line (confirmed by the owner 2026-11-20).
+  phoneE164: '+13323331008',
+  phoneDisplay: '(332) 333-1008',
 
   // Booking calendar (GoHighLevel widget, same one the old /signup page used).
   bookingUrl: "https://portalapi.tableturnerr.com/widget/bookings/tableturnerr",
@@ -19,16 +18,18 @@ export const site = {
   // Client portal (the "Sign in" link on the old site).
   clientLoginUrl: "https://portal.tableturnerr.com/",
 
-  // TODO: your Trustpilot review page URL (open your Trustpilot business page and copy the address).
-  // While empty, no Trustpilot link is shown.
-  trustpilotUrl: "",
+  // Trustpilot business page (verified 2026-11-20).
+  trustpilotUrl: "https://www.trustpilot.com/review/tableturnerr.com",
 
   // Other places TableTurnerr exists online. Paste full URLs as you set them up. These go into the
   // Organization schema as sameAs, which helps Google and AI assistants connect the brand across sites.
   profiles: {
+    // No Google Business Profile yet (2026-11-20). Add the URL here once one exists.
     googleBusinessProfile: "",
     // Found via Bing 2026-11-16. Update the LinkedIn "About" text: it still says "helps restaurants".
     linkedin: "https://www.linkedin.com/company/tableturnerr",
+    // TODO: facebook.com/tableturnerr showed "This content isn't available" when logged out on 2026-11-20.
+    // Paste the public Page URL once it's visible to everyone.
     facebook: "",
     youtube: "https://www.youtube.com/@TableTurnerr",
     instagram: "https://www.instagram.com/tableturnerr",
