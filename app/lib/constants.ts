@@ -44,7 +44,7 @@ export const SOCIAL_LINKS = [
 export const SITE_CONFIG = {
   name: "TableTurnerr",
   url: "https://www.tableturnerr.com",
-  tagline: "Review automation for home services — turn finished jobs into 5-star reviews.",
+  tagline: "Done-for-you online marketing for home-service businesses, with our own software behind it.",
   email: "contact@tableturnerr.com",
   phone: "+1 (808) 559-9006",
 } as const;

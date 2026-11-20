@@ -8,12 +8,13 @@ import ThemeToggleButton from "@/app/components/ui/ThemeToggleButton";
 import { useMarketingTheme } from "@/app/components/site/MarketingThemeProvider";
 
 const LINKS = [
-  { label: "Features", href: "/features" },
-  { label: "How it works", href: "/#how" },
-  { label: "Industries", href: "/industries" },
   { label: "Services", href: "/services" },
+  { label: "Who we help", href: "/marketing" },
+  { label: "Results", href: "/results" },
   { label: "Guides", href: "/guides" },
+  { label: "Software", href: "/features" },
   { label: "Pricing", href: "/pricing" },
+  { label: "About", href: "/about" },
 ];
 
 export default function SiteNav() {
@@ -72,8 +73,8 @@ export default function SiteNav() {
               <a href="https://portal.tableturnerr.com/" className="btn btn-ghost px-4 py-2 text-sm">
                 Sign in
               </a>
-              <Link href="/signup" className="btn btn-primary px-5 py-2 text-sm">
-                Start free trial
+              <Link href="/free-google-maps-audit" className="btn btn-primary whitespace-nowrap px-5 py-2 text-sm">
+                Free audit
               </Link>
             </div>
 
@@ -107,8 +108,8 @@ export default function SiteNav() {
                   <a href="https://portal.tableturnerr.com/" className="btn btn-ghost w-full" onClick={() => setOpen(false)}>
                     Sign in
                   </a>
-                  <Link href="/signup" className="btn btn-primary w-full" onClick={() => setOpen(false)}>
-                    Start free trial
+                  <Link href="/free-google-maps-audit" className="btn btn-primary w-full" onClick={() => setOpen(false)}>
+                    Get a free Google Maps audit
                   </Link>
                 </div>
               </div>

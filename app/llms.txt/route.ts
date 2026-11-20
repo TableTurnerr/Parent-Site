@@ -2,6 +2,7 @@
 import { INDUSTRIES, INDUSTRY_SLUGS } from "@/app/lib/industries";
 import { AUDIT_PATH, guides, plain, results, services, trades } from "@/app/lib/growth";
 import { SITE_CONFIG } from "@/app/lib/constants";
+import { VSL, vslWatchUrl } from "@/app/lib/growth/video";
 
 export const dynamic = "force-static";
 
@@ -12,16 +13,18 @@ export function GET() {
   const body = [
     "# TableTurnerr",
     "",
-    "> TableTurnerr helps home-service businesses (HVAC, plumbing, roofing, electrical and more) win more calls from Google. Review automation software that sends review requests after every job, plus done-for-you marketing: Google Business Profile management, review generation, local SEO, websites and missed-call text-back.",
+    "> TableTurnerr is a small, owner-run online marketing agency for US home-service businesses (HVAC, plumbing, roofing, electrical, handyman and more), with its own software behind the work. Done for you, month to month: Google Business Profile management, local SEO, contractor websites, Google review generation, missed-call text-back and AI-search visibility. Owners who prefer to run it themselves can use the self-serve review and growth software from $80/mo. Every engagement starts with a free Google Maps audit.",
     "",
     `Contact: ${SITE_CONFIG.email} · ${SITE_CONFIG.phone}`,
     "",
     "## Start here",
-    line("/", "Home", "Review automation for home-service pros."),
+    line("/", "Home", "Done-for-you online marketing and review software for home-service businesses."),
     line(AUDIT_PATH, "Free Google Maps audit", "Ranking heatmap, top 5 competitors, AI-assistant visibility and a homepage check, free."),
-    line("/pricing", "Pricing"),
-    line("/features", "Features"),
-    line("/about", "About"),
+    line("/services", "Done-for-you services", "Everything we run for home-service businesses, month to month."),
+    line("/pricing", "Pricing", "Done-for-you marketing quoted after the free audit, or software plans from $80/mo."),
+    line("/about", "About", "Who we are, how we work and our rules (no fake reviews, no review gating)."),
+    line("/features", "Software features"),
+    `- [Video: ${VSL.title}](${vslWatchUrl}): 6-minute overview of what we do and what it costs.`,
     "",
     "## Marketing by trade",
     ...trades.map((t) => line(t.path, t.title.replace(/ \| TableTurnerr$/, ""), t.description)),

@@ -1,5 +1,5 @@
-// Homepage sections for the done-for-you side of the business. They sit below the hero/VSL and the
-// software sections; nothing above them changes.
+// Homepage sections for the done-for-you (agency) side of the business. They sit right below the hero/VSL,
+// stats and integrations strip; the hero itself never changes.
 import Link from "next/link";
 import { ArrowRight, Check, MapPin } from "lucide-react";
 import { AUDIT_PATH, getGuide, growthSite, results, services, trades, type Guide } from "@/app/lib/growth";
@@ -46,11 +46,12 @@ export function HomeDoneForYou() {
     <section data-analytics-section="done_for_you" className="section">
       <div className="container-tt">
         <div className="max-w-2xl">
-          <span className="eyebrow">Rather we do it for you?</span>
-          <h2 className="display-2 mt-5 text-ink">Done-for-you marketing for home-service businesses</h2>
+          <span className="eyebrow">Done for you</span>
+          <h2 className="display-2 mt-5 text-ink">An online marketing agency for home-service businesses</h2>
           <p className="lead mt-4">
-            Don&apos;t want to run software yourself? We&apos;ll handle your Google profile, reviews, local SEO and website.
-            Month to month, and you talk to an owner, not a rep.
+            Most owners don&apos;t want another dashboard. We do the work on our own software: your Google Business
+            Profile, reviews, local SEO, website and missed calls, plus making sure AI assistants like ChatGPT can find
+            you. Month to month, and you talk to an owner, not a rep.
           </p>
         </div>
 

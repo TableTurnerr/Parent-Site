@@ -4,40 +4,45 @@ import ConsentManager from "@/app/components/analytics/ConsentManager";
 
 const COLS = [
   {
-    title: "Product",
-    links: [
-      { label: "Features", href: "/features" },
-      { label: "How it works", href: "/#how" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "Integrations", href: "/integrations" },
-      { label: "Compare", href: "/alternatives" },
-      { label: "Texas locations", href: "/locations" },
-    ],
-  },
-  {
-    title: "Industries",
-    links: [
-      { label: "HVAC", href: "/industries/hvac" },
-      { label: "Roofing", href: "/industries/roofing" },
-      { label: "Plumbing", href: "/industries/plumbing" },
-      { label: "Electrical", href: "/industries/electrical" },
-      { label: "All industries", href: "/industries" },
-    ],
-  },
-  {
     title: "Done for you",
     links: [
       { label: "Free Google Maps audit", href: "/free-google-maps-audit" },
-      { label: "Marketing by trade", href: "/marketing" },
-      { label: "Services", href: "/services" },
-      { label: "Guides", href: "/guides" },
+      { label: "Google Business Profile", href: "/services/google-business-profile" },
+      { label: "Review generation", href: "/services/review-generation" },
+      { label: "Local SEO", href: "/services/local-seo" },
+      { label: "Contractor websites", href: "/services/contractor-websites" },
+      { label: "Missed-call text-back", href: "/services/missed-call-text-back" },
+      { label: "All services", href: "/services" },
+    ],
+  },
+  {
+    title: "Who we help",
+    links: [
+      { label: "HVAC", href: "/marketing/hvac" },
+      { label: "Plumbing", href: "/marketing/plumbing" },
+      { label: "Roofing", href: "/marketing/roofing" },
+      { label: "Electricians", href: "/marketing/electricians" },
+      { label: "Handyman", href: "/marketing/handyman" },
+      { label: "All trades", href: "/marketing" },
       { label: "Results", href: "/results" },
+    ],
+  },
+  {
+    title: "Software",
+    links: [
+      { label: "Features", href: "/features" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Integrations", href: "/integrations" },
+      { label: "Compare", href: "/alternatives" },
+      { label: "Review software by industry", href: "/industries" },
+      { label: "Texas locations", href: "/locations" },
     ],
   },
   {
     title: "Company",
     links: [
       { label: "About", href: "/about" },
+      { label: "Guides", href: "/guides" },
       { label: "Blog", href: "/blog" },
       { label: "Contact", href: "/contact" },
       { label: "SEO services", href: "/seo" },
@@ -58,11 +63,13 @@ export default function SiteFooter() {
               TableTurnerr
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
-              Review automation built for home-services pros. Turn finished jobs
-              into 5-star reviews and more booked work, automatically.
+              A done-for-you online marketing agency for home-service businesses,
+              with our own software behind it: Google Business Profile, local SEO,
+              websites, review generation, missed-call text-back and AI-search
+              visibility. Month to month.
             </p>
-            <Link href="/signup" className="btn btn-primary mt-6 text-sm">
-              Start free trial
+            <Link href="/free-google-maps-audit" className="btn btn-primary mt-6 text-sm">
+              Get a free Google Maps audit
             </Link>
           </div>
 
@@ -91,7 +98,7 @@ export default function SiteFooter() {
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center">
           <p>© 2026 TableTurnerr LLC. All rights reserved.</p>
-          <div className="flex items-center gap-4"><p>Review automation for home-service industries.</p><ConsentManager trigger /></div>
+          <div className="flex items-center gap-4"><p>Online marketing for home-service businesses.</p><ConsentManager trigger /></div>
         </div>
       </div>
     </footer>

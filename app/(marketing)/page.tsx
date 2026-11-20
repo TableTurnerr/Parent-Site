@@ -14,13 +14,14 @@ import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 import { PLANS } from "@/app/lib/pricing";
 import ProductBento from "@/app/components/site/ProductBento";
 import { HomeCaseStudy, HomeDoneForYou } from "@/app/components/growth/HomeSections";
+import { growthSite } from "@/app/lib/growth";
 
 export const metadata: Metadata = {
   // Absolute title so the root "%s | TableTurnerr" template doesn't double-brand
   // the homepage. Keyword-first so the crawler reads the target phrase first.
-  title: { absolute: "Review Management Software for Home Services | TableTurnerr" },
+  title: { absolute: "Home-Service Marketing Agency & Review Software | TableTurnerr" },
   description:
-    "Home-service review management software for HVAC, roofing, plumbing & electrical pros. Request Google reviews after every completed job, improve local visibility, and win more calls. 14-day free trial.",
+    "Done-for-you marketing for home-service pros: Google profile, local SEO, reviews, websites and missed-call text-back, on our own software. Get a free Maps audit.",
   alternates: { canonical: "https://www.tableturnerr.com" },
 };
 
@@ -72,7 +73,7 @@ function Hero() {
 /* ── Stat strip ─────────────────────────────────────────── */
 const STATS = [
   { v: "Every job", l: "automatically asks the customer for a review" },
-  { v: "≤24h", l: "to your first new reviews" },
+  { v: "27→43", l: "Google reviews in 20 days for a Utah roofing client" },
   { v: "4", l: "review platforms, not just Google" },
   { v: "15 min", l: "to connect your CRM and launch" },
 ];
@@ -252,8 +253,8 @@ function Personalized() {
               </li>
             ))}
           </ul>
-          <Link href="/signup" className="btn btn-primary mt-9">
-            Start free trial <ArrowRight className="h-4 w-4" />
+          <Link href="/free-google-maps-audit" className="btn btn-primary mt-9">
+            Get your free Google Maps audit <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
@@ -270,13 +271,12 @@ function Personalized() {
           {/* floating review card */}
           <div className="tt-float absolute -bottom-5 -left-3 w-[15rem] rounded-2xl border border-line bg-white p-4 shadow-lg sm:-left-6">
             <div className="flex items-center gap-2">
-              <span className="stars text-sm" aria-hidden>★★★★★</span>
-              <span className="text-xs font-semibold text-muted">Google review</span>
+              <MessageSquareText className="h-4 w-4 text-primary" aria-hidden />
+              <span className="text-xs font-semibold text-muted">Example review request</span>
             </div>
             <p className="mt-1.5 text-sm leading-snug text-ink">
-              &ldquo;They asked for my review by name. Felt personal, not automated.&rdquo;
+              &ldquo;Hi Jessica, thanks for choosing us today! Would you mind sharing a quick Google review?&rdquo;
             </p>
-            <p className="mt-1.5 text-xs font-medium text-muted">— Jessica, homeowner</p>
           </div>
         </Reveal>
       </div>
@@ -325,9 +325,13 @@ function Pricing() {
     <section id="pricing" data-analytics-section="pricing" className="section bg-surface">
       <div className="container-tt">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="eyebrow">Simple, honest pricing</span>
-          <h2 className="display-2 mt-5 text-ink">Pick a plan. Cancel anytime.</h2>
-          <p className="lead mt-4">14-day free trial. No setup fees, no contracts, no surprises.</p>
+          <span className="eyebrow">Run it yourself</span>
+          <h2 className="display-2 mt-5 text-ink">Software plans. Cancel anytime.</h2>
+          <p className="lead mt-4">
+            14-day free trial. No setup fees, no contracts, no surprises. Rather
+            have us do it?{" "}
+            <Link href="/free-google-maps-audit" className="font-semibold text-primary hover:underline">Start with a free audit</Link>.
+          </p>
         </div>
         <Reveal className="mt-12 grid gap-6 lg:grid-cols-3">
           {PLANS.map((p) => (
@@ -381,7 +385,9 @@ function Pricing() {
 
 /* ── FAQ ────────────────────────────────────────────────── */
 const FAQS = [
-  { q: "How fast will I see new reviews?", a: "Most shops see their first new reviews within 24 hours of launching review reactivation, with a steady stream from new jobs after that." },
+  { q: "Is TableTurnerr software or a marketing agency?", a: "Both. We're a done-for-you online marketing agency for home-service businesses, and we built our own software to do the work: Google Business Profile, local SEO, websites, review generation and missed-call text-back. Most owners have us run it; you can also run the software yourself." },
+  { q: "What does the free Google Maps audit include?", a: "A ranking heatmap across your service area, your top 5 competitors' ratings and review counts next to yours, whether AI assistants like ChatGPT recommend you, a homepage check, and what to fix first. We walk you through it on a short call and you keep the report." },
+  { q: "How fast will I see new reviews?", a: "Usually as soon as the past-customer campaign goes out. For example, Presidential Roofing in Utah went from 27 to 43 Google reviews in 20 days, and new jobs keep the reviews coming after that." },
   { q: "Which platforms do you collect reviews on?", a: "Google, Facebook, Yelp and Angi, the places home-services customers actually check before they call. Most tools only do Google." },
   { q: "Does it work with my software?", a: "Yes. We connect natively to Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks, plus thousands more through Zapier." },
   { q: "Do I need a contract?", a: "No. Start with a 14-day free trial, no credit card required, and cancel anytime from your dashboard in a couple of clicks." },
@@ -413,19 +419,23 @@ function FinalCTA() {
           <div aria-hidden className="hero-grid pointer-events-none absolute inset-0 opacity-60" />
           <div className="relative mx-auto max-w-2xl">
             <div className="stars mb-5 text-2xl" aria-hidden>★★★★★</div>
-            <h2 className="display-2 text-white">Start collecting reviews this week</h2>
+            <h2 className="display-2 text-white">See exactly why competitors get the call</h2>
             <p className="lead mt-4 text-white/70">
-              Connect your CRM, launch reactivation, and watch the reviews and
-              the calls roll in. Free for 14 days.
+              Get a free Google Maps audit: where you rank across your service
+              area, how you compare to the top competitors near you, and what to
+              fix first. Owner to owner, and you keep the report.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <Link href="/signup" className="btn btn-light">
-                Start free trial <ArrowRight className="h-4 w-4" />
+              <Link href="/free-google-maps-audit" className="btn btn-light">
+                Get your free audit <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/contact" className="btn btn-outline-light">
-                Book a demo
-              </Link>
+              <a href={growthSite.bookingUrl} className="btn btn-outline-light">
+                Book a 15-minute call
+              </a>
             </div>
+            <p className="mt-6 text-sm text-white/60">
+              Rather run it yourself? <Link href="/signup" className="font-semibold text-white underline">Start a 14-day free trial</Link> of the software.
+            </p>
           </div>
         </div>
       </div>
@@ -500,20 +510,27 @@ export default function HomePage() {
               "Turn every finished job into 5-star reviews across Google, Facebook, Yelp and Angi. Built for HVAC, roofing, plumbing and electrical pros.",
             url: "https://www.tableturnerr.com",
           }),
+          generateServiceSchema({
+            name: "Done-for-you marketing for home-service businesses",
+            description:
+              "Google Business Profile management, local SEO, contractor websites, Google review generation and missed-call text-back, run for you on TableTurnerr's own software. Month to month.",
+            url: "https://www.tableturnerr.com/services",
+          }),
           generateFAQSchema(FAQS.map((f) => ({ question: f.q, answer: f.a }))),
         ]}
       />
       <Hero />
       <Stats />
       <TrustMarquee />
+      {/* Agency offer first: done-for-you services + free audit, then proof, then the software story. */}
+      <HomeDoneForYou />
+      <HomeCaseStudy />
       <Problem />
       <Features />
       <How />
-      <HomeCaseStudy />
       <Industries />
       <Personalized />
       <Compliance />
-      <HomeDoneForYou />
       <Pricing />
       <FAQ />
       <FinalCTA />
