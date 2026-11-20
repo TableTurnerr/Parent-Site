@@ -27,23 +27,32 @@ export const metadata: Metadata = {
 };
 
 /* ── Hero ───────────────────────────────────────────────── */
+// What a client gets, shown as chips above the fold so the page reads "agency", not "review tool".
+const HERO_SERVICES = ["Websites & SEO", "Google Business Profile", "Reviews", "CRM & automations", "Seasonal campaigns", "Ads"];
 function Hero() {
   return (
     <section data-analytics-section="hero" className="hero-wash relative overflow-hidden pt-36 md:pt-44">
       <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
       <div className="container-tt relative pb-16 md:pb-24">
         <div className="mx-auto max-w-4xl text-center">
-          <span className="eyebrow">Marketing agency for home-service businesses</span>
+          <span className="eyebrow">Done-for-you marketing for home-service businesses</span>
           <h1 className="display mt-6 text-ink">
-            We run the marketing that keeps your{" "}
-            <span className="text-primary">phone ringing</span>
+            Be the first business homeowners call,{" "}
+            <span className="text-primary">and the one they call back</span>
           </h1>
           <p className="lead mx-auto mt-6 max-w-3xl">
-            Website and SEO, Google Business Profile, reviews, a CRM with
-            automations, and seasonal campaigns, all done for you by a small,
-            owner-run team on our own software. For HVAC, roofing, plumbing,
-            electrical and other home-service businesses.
+            One owner-run team handles your whole marketing: the website and SEO
+            that get you found, the reviews that get you chosen, and the CRM,
+            automations and seasonal campaigns that keep jobs coming back.
           </p>
+
+          <ul aria-label="What we run for you" className="mx-auto mt-7 flex max-w-4xl flex-wrap justify-center gap-2">
+            {HERO_SERVICES.map((s) => (
+              <li key={s} className="rounded-full border border-line bg-bg/70 px-3.5 py-1.5 text-sm font-medium text-ink-soft backdrop-blur">
+                {s}
+              </li>
+            ))}
+          </ul>
 
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link href="/free-google-maps-audit" className="btn btn-primary">
@@ -55,7 +64,7 @@ function Hero() {
           </div>
 
           <ul className="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-ink-soft">
-            {["Done for you", "Month to month", "You talk to an owner"].map((t) => (
+            {[`Clients in ${growthSite.clientStates.length} states`, "Month to month, no contracts", "You talk to an owner, not a rep"].map((t) => (
               <li key={t} className="inline-flex items-center gap-2">
                 <Check className="h-4 w-4 text-success" /> {t}
               </li>
