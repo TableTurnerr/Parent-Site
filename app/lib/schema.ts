@@ -9,7 +9,7 @@ export function generateOrganizationSchema() {
     logo: `${SITE_CONFIG.url}/logo.png`,
     image: `${SITE_CONFIG.url}/logo.png`,
     description:
-      "TableTurnerr is review automation for home-service businesses, turning completed jobs into customer feedback across Google, Facebook, Yelp and Angi for a range of home-service industries.",
+      "TableTurnerr is a done-for-you online marketing agency for US home-service businesses (HVAC, plumbing, roofing, electrical, handyman and more), with its own software behind the work: Google Business Profile management, local SEO, contractor websites, Google review generation, missed-call text-back and AI-search visibility. Month to month. Starts with a free Google Maps audit.",
     email: SITE_CONFIG.email,
     telephone: SITE_CONFIG.phone,
     priceRange: "$$",
@@ -17,15 +17,22 @@ export function generateOrganizationSchema() {
       "@type": "Country",
       name: "United States",
     },
+    slogan: "We make home-service businesses look like the best choice on Google.",
     serviceType: [
-      "Review Automation",
-      "Online Reputation Management",
-      "Review Management Software",
+      "Home-service marketing",
+      "Google Business Profile management",
       "Local SEO",
+      "Contractor website design",
+      "Google review generation",
+      "Missed-call text-back and AI receptionist",
+      "Review management software",
     ],
     knowsAbout: [
       "Review automation",
       "Online reputation management",
+      "AI search visibility",
+      "Contractor websites",
+      "Missed-call text-back",
       "Google reviews",
       "Local SEO",
       "Google Business Profile optimization",
@@ -167,7 +174,7 @@ export function generateArticleSchema(article: {
     author: {
       "@type": "Organization",
       name: article.authorName ?? SITE_CONFIG.name,
-      url: SITE_CONFIG.url,
+      url: `${SITE_CONFIG.url}/about`,
     },
     publisher: {
       "@type": "Organization",

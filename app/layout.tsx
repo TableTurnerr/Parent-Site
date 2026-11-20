@@ -39,11 +39,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tableturnerr.com"),
   title: {
-    default: "Review Management Software for Home Services | TableTurnerr",
+    default: "Home-Service Marketing Agency & Review Software | TableTurnerr",
     template: "%s | TableTurnerr",
   },
   description:
-    "Home-service review management software for HVAC, roofing, plumbing, electrical and other service industries. Request reviews after completed jobs, improve local visibility, and win more calls.",
+    "Done-for-you online marketing for home-service businesses: Google Business Profile, local SEO, websites, Google reviews and missed-call text-back, run on our own software. Get a free Google Maps audit.",
   keywords: [
     "home service review management software",
     "review automation for home services",
@@ -63,9 +63,9 @@ export const metadata: Metadata = {
     siteName: "TableTurnerr",
     locale: "en_US",
     type: "website",
-    title: "Review Management Software for Home Services | TableTurnerr",
+    title: "Home-Service Marketing Agency & Review Software | TableTurnerr",
     description:
-      "Home-service review management software for a range of service industries. Request reviews after completed jobs and win more calls.",
+      "Done-for-you online marketing for home-service businesses, with our own review and call-capture software behind it. Get a free Google Maps audit.",
     url: "https://www.tableturnerr.com",
   },
   twitter: {

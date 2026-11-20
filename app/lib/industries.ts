@@ -303,6 +303,25 @@ export const INDUSTRIES: Record<string, Industry> = {
   }),
 };
 
+// Search Console (Aug-Nov 2026): these pages had hundreds of impressions for "hvac software reviews",
+// "plumber review management (platform)" and "electrician review management" but 0 clicks. Titles now lead with
+// the phrase people type and the descriptions say what they get, including the done-for-you option.
+const SEO_OVERRIDES: Record<string, Pick<Industry, "seoTitle" | "metaDescription">> = {
+  hvac: {
+    seoTitle: "HVAC Review Software for More Google Reviews",
+    metaDescription: "HVAC review software that asks every customer for a Google review after each job, connected to ServiceTitan, Housecall Pro or Jobber. Self-serve or done for you.",
+  },
+  plumbing: {
+    seoTitle: "Plumber Review Management Software & Platform",
+    metaDescription: "Review management for plumbers: automatic Google review requests after every job, follow-ups and replies, connected to your job software. Self-serve or done for you.",
+  },
+  electrical: {
+    seoTitle: "Electrician Review Management Software & Service",
+    metaDescription: "Electrician review management: a Google review request after every job, with follow-ups, connected to your job software. Run it yourself or have us run it.",
+  },
+};
+for (const [slug, o] of Object.entries(SEO_OVERRIDES)) if (INDUSTRIES[slug]) Object.assign(INDUSTRIES[slug], o);
+
 export const INDUSTRY_SLUGS = Object.keys(INDUSTRIES);
 
 export function getIndustry(slug: string): Industry | undefined {

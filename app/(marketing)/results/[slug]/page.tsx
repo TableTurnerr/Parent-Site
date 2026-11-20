@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Check } from "lucide-react";
 import JsonLd from "@/app/components/site/JsonLd";
-import { AuditBand, Crumbs } from "@/app/components/growth/Growth";
+import { AuditBand, Crumbs, NextSteps } from "@/app/components/growth/Growth";
 import { generateArticleSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
 import { getResult, results, trades } from "@/app/lib/growth";
 
@@ -81,6 +81,14 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         </div>
       </section>
       <AuditBand title={`Where would you be in ${r.days} days?`} text="Our free audit shows your review count and Maps ranking next to the top competitors in your area, and how many reviews it would take to pass them." />
+      <NextSteps
+        items={[
+          ["/services/review-generation", "How our review generation works", "Requests after every job, a past-customer campaign, and nothing that breaks Google's rules."],
+          ["/guides/how-many-google-reviews-to-rank", "How many reviews do you need?", "What it takes to pass the businesses above you in the map pack."],
+          [trade?.path ?? "/marketing", trade ? "Roofing marketing plan" : "Marketing plans by trade", "How homeowners search for your trade, and what we'd do first."],
+        ]}
+      />
+
     </>
   );
 }

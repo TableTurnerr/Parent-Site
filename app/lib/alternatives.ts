@@ -54,7 +54,6 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       { f: "Technician leaderboards", us: true, them: "partial" },
       { f: "Map-pack rank tracking", us: true, them: true },
       { f: "Never gates or filters reviews", us: true, them: true },
-      { f: "90-day results guarantee", us: true, them: false },
     ],
     reasons: [
       {
@@ -81,7 +80,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       },
       {
         q: "Do I have to sign a contract?",
-        a: "No. TableTurnerr is month-to-month and you can cancel anytime. We also back it with a 90-day results guarantee: more reviews in 90 days or your next month is free.",
+        a: "No. TableTurnerr is month-to-month and you can cancel anytime.",
       },
     ],
   },
@@ -110,7 +109,6 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       { f: "Never routes unhappy customers to a private form", us: true, them: "partial" },
       { f: "Connects to Jobber, Housecall Pro & ServiceTitan", us: true, them: true },
       { f: "Month-to-month, no contract", us: true, them: true },
-      { f: "90-day results guarantee", us: true, them: false },
     ],
     reasons: [
       {
@@ -137,7 +135,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       },
       {
         q: "Can I switch from NiceJob easily?",
-        a: "Yes. Connect your CRM, we import your customers, and review requests start on your next completed job. It's month-to-month with a 90-day results guarantee.",
+        a: "Yes. Connect your CRM, we import your customers, and review requests start on your next completed job. It's month-to-month.",
       },
     ],
   },
@@ -166,7 +164,6 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       { f: "Map-pack rank tracking", us: true, them: false },
       { f: "Triggered automatically by completed jobs", us: true, them: "partial" },
       { f: "Month-to-month, no contract", us: true, them: false },
-      { f: "90-day results guarantee", us: true, them: false },
     ],
     reasons: [
       {
@@ -193,7 +190,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       },
       {
         q: "How quickly can I get started?",
-        a: "About a minute to connect your CRM. We import your customers and start sending review requests on your next completed job, month-to-month with a 90-day results guarantee.",
+        a: "About a minute to connect your CRM. We import your customers and start sending review requests on your next completed job, month-to-month.",
       },
     ],
   },
@@ -222,7 +219,6 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       { f: "Connects to Jobber, Housecall Pro & ServiceTitan", us: true, them: "partial" },
       { f: "Flat price, no per-location math", us: true, them: false },
       { f: "Month-to-month, no contract", us: true, them: true },
-      { f: "90-day results guarantee", us: true, them: false },
     ],
     reasons: [
       {
@@ -249,7 +245,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       },
       {
         q: "Is there a contract?",
-        a: "No. TableTurnerr is month-to-month and backed by a 90-day results guarantee: more reviews in 90 days or your next month is free.",
+        a: "No. TableTurnerr is month-to-month and you can cancel anytime.",
       },
     ],
   },
@@ -278,7 +274,6 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       { f: "Works beyond a single CRM", us: true, them: "partial" },
       { f: "Built specifically for home-service trades", us: true, them: true },
       { f: "Month-to-month, no contract", us: true, them: true },
-      { f: "90-day results guarantee", us: true, them: false },
     ],
     reasons: [
       {

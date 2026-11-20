@@ -115,7 +115,6 @@ export const TRADES: Record<string, Trade> = {
     faqs: [
       { q: "Can I showcase reviews on my website?", a: "Yes. Drop-in review widgets display your best reviews on your site, and we can auto-post every 5-star to Facebook and Instagram." },
       { q: "Which platforms do you collect on?", a: "Google, Facebook, Yelp and Angi, the places homeowners actually check before hiring an electrician." },
-      { q: "Is there a guarantee?", a: "Yes. More reviews in 90 days or your next month is free." },
     ],
   },
 };

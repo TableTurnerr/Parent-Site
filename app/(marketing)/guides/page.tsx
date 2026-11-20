@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/app/components/site/JsonLd";
-import { AuditBand, GrowthHero, GuideCards, SectionHead } from "@/app/components/growth/Growth";
+import { AuditBand, GrowthHero, GuideCards, NextSteps, SectionHead } from "@/app/components/growth/Growth";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
 import { guides, services, slugify, topics, trades } from "@/app/lib/growth";
 
@@ -53,6 +53,14 @@ export default function Page() {
         </div>
       </section>
       <AuditBand />
+      <NextSteps
+        items={[
+          ["/services", "Done-for-you services", "Google Business Profile, reviews, local SEO, websites and missed-call text-back."],
+          ["/marketing", "Marketing plans by trade", "How homeowners search for your trade, and what we'd do first."],
+          ["/results/presidential-roofing", "See a client result", "How a Utah roofer went from 27 to 43 Google reviews in 20 days."],
+        ]}
+      />
+
     </>
   );
 }

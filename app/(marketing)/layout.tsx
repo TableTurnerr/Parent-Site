@@ -1,6 +1,7 @@
 import SiteNav from "@/app/components/site/SiteNav";
 import SiteFooter from "@/app/components/site/SiteFooter";
 import MarketingThemeProvider from "@/app/components/site/MarketingThemeProvider";
+import StickyCta from "@/app/components/growth/StickyCta";
 
 export default function MarketingLayout({
   children,
@@ -15,6 +16,7 @@ export default function MarketingLayout({
       <SiteNav />
       <main id="main">{children}</main>
       <SiteFooter />
+      <StickyCta />
     </MarketingThemeProvider>
   );
 }

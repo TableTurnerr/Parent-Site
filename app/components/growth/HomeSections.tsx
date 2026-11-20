@@ -1,8 +1,8 @@
-// Homepage sections for the done-for-you side of the business. They sit below the hero/VSL and the
-// software sections; nothing above them changes.
+// Homepage sections for the done-for-you (agency) side of the business. They sit right below the hero/VSL,
+// stats and integrations strip.
 import Link from "next/link";
 import { ArrowRight, Check, MapPin } from "lucide-react";
-import { AUDIT_PATH, getGuide, growthSite, results, services, trades, type Guide } from "@/app/lib/growth";
+import { AUDIT_PATH, getGuide, growthSite, results, trades, type Guide } from "@/app/lib/growth";
 
 /** Real client result (Presidential Roofing) with the numbers, linking to the case study. */
 export function HomeCaseStudy() {
@@ -37,6 +37,19 @@ export function HomeCaseStudy() {
   );
 }
 
+/** Everything in the full program. Items with a page link to it; the rest are part of the Professional and Premier plans. */
+const PROGRAM: { t: string; d: string; href?: string; note?: string }[] = [
+  { t: "Websites built to rank", d: "Fast on a phone, a page for every service and town you cover, and click-to-call where people decide.", href: "/services/contractor-websites" },
+  { t: "Local SEO", d: "Show up for the searches that bring jobs, in every town you serve, on Google and in AI assistants.", href: "/services/local-seo" },
+  { t: "Google Business Profile", d: "Categories, services, photos and weekly posts, so you climb the map pack.", href: "/services/google-business-profile" },
+  { t: "Google reviews", d: "A request after every job, a past-customer campaign, and a reply to every review.", href: "/services/review-generation" },
+  { t: "CRM and automations", d: "Every lead, call, text and message in one place, with follow-ups and estimate reminders that run on their own.", href: "/features/crm-contact-import-and-lead-management" },
+  { t: "Missed-call text-back and AI receptionist", d: "The homeowner who calls while you're on a job gets an answer, not voicemail.", href: "/services/missed-call-text-back" },
+  { t: "Seasonal campaigns", d: "Tune-up reminders, holiday offers and win-back texts to past customers, so slow months stay busy.", note: "Included in the Professional plan" },
+  { t: "Social content", d: "Regular posts on Google, Facebook, Instagram and TikTok, so you always look open for business.", note: "Included in the Professional plan" },
+  { t: "Paid ads", d: "Google and Facebook ads on top, when you want to grow faster.", note: "Premier plan" },
+];
+
 const FEATURED_GUIDES = ["how-to-rank-higher-on-google-maps", "how-many-google-reviews-to-rank", "contractor-seo-cost"];
 
 /** Free audit, done-for-you services, marketing plans by trade and a few guides. */
@@ -46,11 +59,12 @@ export function HomeDoneForYou() {
     <section data-analytics-section="done_for_you" className="section">
       <div className="container-tt">
         <div className="max-w-2xl">
-          <span className="eyebrow">Rather we do it for you?</span>
-          <h2 className="display-2 mt-5 text-ink">Done-for-you marketing for home-service businesses</h2>
+          <span className="eyebrow">Done for you</span>
+          <h2 className="display-2 mt-5 text-ink">Your whole marketing department, run for you</h2>
           <p className="lead mt-4">
-            Don&apos;t want to run software yourself? We&apos;ll handle your Google profile, reviews, local SEO and website.
-            Month to month, and you talk to an owner, not a rep.
+            Reviews are one piece. We run everything that gets a home-service business found, chosen and booked again:
+            your website and SEO, Google profile, reviews, CRM and automations, seasonal campaigns and ads. It all runs on
+            our own software, so nothing falls between five different vendors. Month to month, and you talk to an owner.
           </p>
         </div>
 
@@ -72,13 +86,21 @@ export function HomeDoneForYou() {
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
-            {services.map((s) => (
-              <Link key={s.slug} href={s.path} className="card card-hover group flex flex-col p-6">
-                <span className="font-bold text-ink">{s.short}</span>
-                <span className="mt-1.5 flex-1 text-sm leading-relaxed text-ink-soft">{s.description}</span>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
-              </Link>
-            ))}
+            {PROGRAM.map((p) =>
+              p.href ? (
+                <Link key={p.t} href={p.href} className="card card-hover group flex flex-col p-6">
+                  <span className="font-bold text-ink">{p.t}</span>
+                  <span className="mt-1.5 flex-1 text-sm leading-relaxed text-ink-soft">{p.d}</span>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+                </Link>
+              ) : (
+                <div key={p.t} className="card flex flex-col p-6">
+                  <span className="font-bold text-ink">{p.t}</span>
+                  <span className="mt-1.5 flex-1 text-sm leading-relaxed text-ink-soft">{p.d}</span>
+                  <Link href="/pricing" className="mt-4 text-sm font-medium text-muted hover:text-ink">{p.note}</Link>
+                </div>
+              ),
+            )}
             <Link href="/services" className="card card-hover group flex flex-col justify-center p-6">
               <span className="font-bold text-ink">All services</span>
               <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">See everything we do <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>

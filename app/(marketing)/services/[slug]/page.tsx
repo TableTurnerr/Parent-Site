@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 import JsonLd from "@/app/components/site/JsonLd";
 import {
   AuditBand, CardGrid, FaqSection, Glance, GrowthHero, GuideCards, Html, SectionHead, TradeChips, faqSchemaItems,
 } from "@/app/components/growth/Growth";
 import { generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
-import { FSM, getService, guidesInTopic, plain, serviceTopics, services, topics, withToc } from "@/app/lib/growth";
+import { FSM, combosForService, getService, guidesInTopic, plain, serviceTopics, services, topics, withToc } from "@/app/lib/growth";
 
 const base = "https://www.tableturnerr.com";
 
@@ -29,6 +31,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   if (!s) notFound();
   const topic = serviceTopics[s.slug];
   const topicGuides = topic ? guidesInTopic(topic).slice(0, 8) : [];
+  const byTrade = combosForService(s.slug);
 
   return (
     <>
@@ -81,7 +84,19 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       )}
       <section className="section bg-surface">
         <div className="container-tt">
-          <SectionHead title="Who we do this for" intro="Plans written for each trade:" />
+          <SectionHead title="Who we do this for" intro={byTrade.length > 0 ? `${s.short}, written for specific trades:` : "Plans written for each trade:"} />
+          {byTrade.length > 0 && (
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {byTrade.map((c) => (
+                <Link key={c.path} href={c.path} className="card card-hover group flex h-full flex-col p-6">
+                  <span className="text-lg font-bold text-ink">{c.title}</span>
+                  <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">{c.lede}</span>
+                  <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+                </Link>
+              ))}
+            </div>
+          )}
+          {byTrade.length > 0 && <h3 className="mt-12 text-lg font-bold text-ink">Full marketing plans by trade</h3>}
           <TradeChips />
         </div>
       </section>

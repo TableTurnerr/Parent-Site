@@ -16,8 +16,8 @@ export async function generateMetadata({
   const c = getReviewCity(city);
   if (!c) return {};
   return {
-    title: `Review Automation in ${c.name}, ${c.stateCode}`,
-    description: `Get more 5-star reviews for your ${c.name} home-services business. ${c.intro}`,
+    title: `Home-Service Marketing in ${c.name}, ${c.stateCode}`,
+    description: `More Google reviews and map-pack visibility for ${c.name} home-service businesses, done for you or self-serve. Get a free Google Maps audit.`,
     alternates: { canonical: `https://www.tableturnerr.com/locations/${c.slug}` },
   };
 }
