@@ -25,6 +25,7 @@ const COLS = [
       { label: "Electricians", href: "/marketing/electricians" },
       { label: "Handyman", href: "/marketing/handyman" },
       { label: "All trades", href: "/marketing" },
+      { label: "Restaurants & cafés", href: "/restaurants" },
       { label: "Results", href: "/results" },
     ],
   },

@@ -23,18 +23,22 @@ const nextConfig: NextConfig = {
     // stray links don't 404. Most map to the homepage; trades/pricing map to the
     // closest new equivalent.
     return [
-      // /services is a real hub again (done-for-you services); only the old
-      // restaurant-era service pages still go home.
+      // Old restaurant-era city pages: send each to the closest live page instead of the
+      // homepage (Google treats redirects to an unrelated homepage as soft 404s).
+      {
+        source: "/services/google-business-profile-optimization/:rest*",
+        destination: "/services/google-business-profile",
+        permanent: true,
+      },
       {
         source:
-          "/services/:slug(restaurant-branding|restaurant-seo|restaurant-website-design|google-ads|commission-free-deliveries|google-business-profile-optimization)/:rest*",
-        destination: "/",
+          "/services/:slug(restaurant-branding|restaurant-seo|restaurant-website-design|google-ads|commission-free-deliveries)/:rest*",
+        destination: "/restaurants",
         permanent: true,
       },
       { source: "/medspa", destination: "/", permanent: true },
-      { source: "/restaurants", destination: "/", permanent: true },
-      { source: "/case-studies", destination: "/", permanent: true },
-      { source: "/locations/restaurants/:path*", destination: "/locations", permanent: true },
+      { source: "/case-studies", destination: "/results", permanent: true },
+      { source: "/locations/restaurants/:path*", destination: "/restaurants", permanent: true },
       // /pricing is now a real page; only redirect stray sub-paths to it.
       // `:path+` (one or more segments): `:path*` also matched /pricing itself and looped.
       { source: "/pricing/:path+", destination: "/pricing", permanent: true },
