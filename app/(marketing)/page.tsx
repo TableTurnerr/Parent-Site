@@ -13,6 +13,7 @@ import JsonLd from "@/app/components/site/JsonLd";
 import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 import { PLANS } from "@/app/lib/pricing";
 import ProductBento from "@/app/components/site/ProductBento";
+import { HomeCaseStudy, HomeDoneForYou } from "@/app/components/growth/HomeSections";
 
 export const metadata: Metadata = {
   // Absolute title so the root "%s | TableTurnerr" template doesn't double-brand
@@ -508,9 +509,11 @@ export default function HomePage() {
       <Problem />
       <Features />
       <How />
+      <HomeCaseStudy />
       <Industries />
       <Personalized />
       <Compliance />
+      <HomeDoneForYou />
       <Pricing />
       <FAQ />
       <FinalCTA />

@@ -5,6 +5,7 @@ import { INTEGRATION_SLUGS } from "./lib/integrations";
 import { ALTERNATIVE_SLUGS } from "./lib/alternatives";
 import { REVIEW_CITY_SLUGS } from "./lib/review-cities";
 import { getPublishedPostSlugs } from "./lib/blog";
+import { guides, results, services, trades } from "./lib/growth";
 
 const baseUrl = "https://www.tableturnerr.com";
 
@@ -47,6 +48,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Texas locations
     entry("/locations", 0.8),
     ...REVIEW_CITY_SLUGS.map((slug) => entry(`/locations/${slug}`, 0.7)),
+    // Done-for-you marketing by trade, services, guides, results and the free audit
+    entry("/free-google-maps-audit", 0.9),
+    entry("/marketing", 0.8),
+    ...trades.map((t) => entry(t.path, 0.9)),
+    entry("/services", 0.8),
+    ...services.map((s) => entry(s.path, 0.8)),
+    entry("/guides", 0.8, "weekly"),
+    ...guides.map((g) => entry(g.path, 0.7, "monthly", new Date(`${g.article.updated ?? g.article.date}T12:00:00Z`))),
+    entry("/results", 0.7),
+    ...results.map((r) => entry(r.path, 0.7)),
     // Blog
     entry("/blog", 0.7, "weekly"),
     ...posts.map((p) =>
