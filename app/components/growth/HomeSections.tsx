@@ -37,7 +37,7 @@ export function HomeCaseStudy() {
   );
 }
 
-/** Everything in the full program. Items with a page link to it; the rest are part of the Growth and Aggressive plans. */
+/** Everything in the full program. Items with a page link to it; the rest are part of the Professional and Premier plans. */
 const PROGRAM: { t: string; d: string; href?: string; note?: string }[] = [
   { t: "Websites built to rank", d: "Fast on a phone, a page for every service and town you cover, and click-to-call where people decide.", href: "/services/contractor-websites" },
   { t: "Local SEO", d: "Show up for the searches that bring jobs, in every town you serve, on Google and in AI assistants.", href: "/services/local-seo" },
@@ -45,9 +45,9 @@ const PROGRAM: { t: string; d: string; href?: string; note?: string }[] = [
   { t: "Google reviews", d: "A request after every job, a past-customer campaign, and a reply to every review.", href: "/services/review-generation" },
   { t: "CRM and automations", d: "Every lead, call, text and message in one place, with follow-ups and estimate reminders that run on their own.", href: "/features/crm-contact-import-and-lead-management" },
   { t: "Missed-call text-back and AI receptionist", d: "The homeowner who calls while you're on a job gets an answer, not voicemail.", href: "/services/missed-call-text-back" },
-  { t: "Seasonal campaigns", d: "Tune-up reminders, holiday offers and win-back texts to past customers, so slow months stay busy.", note: "Included in the Growth plan" },
-  { t: "Social content", d: "Regular posts on Google, Facebook, Instagram and TikTok, so you always look open for business.", note: "Included in the Growth plan" },
-  { t: "Paid ads", d: "Google and Facebook ads on top, when you want to grow faster.", note: "Aggressive plan" },
+  { t: "Seasonal campaigns", d: "Tune-up reminders, holiday offers and win-back texts to past customers, so slow months stay busy.", note: "Included in the Professional plan" },
+  { t: "Social content", d: "Regular posts on Google, Facebook, Instagram and TikTok, so you always look open for business.", note: "Included in the Professional plan" },
+  { t: "Paid ads", d: "Google and Facebook ads on top, when you want to grow faster.", note: "Premier plan" },
 ];
 
 const FEATURED_GUIDES = ["how-to-rank-higher-on-google-maps", "how-many-google-reviews-to-rank", "contractor-seo-cost"];

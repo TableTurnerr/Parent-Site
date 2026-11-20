@@ -69,7 +69,8 @@ export const PLANS: Plan[] = [
 
 // Done-for-you pricing: custom per client, in three rough bands. These match what the owner says in the VSL
 // (5:11, "Pricing"): ~$100–300 for one or a few things, ~$500 for everything to get to the next level, ~$750 when
-// it's maxed out with ads. The final number is set after the free audit.
+// it's maxed out with ads. On 2026-11-20 the owner moved the top level to ~$1,000 and added after-hours AI answering.
+// The final number is set after the free audit.
 export interface Tier {
   name: string;
   price: string;
@@ -81,7 +82,7 @@ export interface Tier {
 
 export const DFY_TIERS: Tier[] = [
   {
-    name: "Focused",
+    name: "Starter",
     price: "$100–300",
     per: "/mo",
     forWho: "You need one or two things done well, not a full program.",
@@ -92,7 +93,7 @@ export const DFY_TIERS: Tier[] = [
     ],
   },
   {
-    name: "Growth",
+    name: "Professional",
     price: "About $500",
     per: "/mo",
     forWho: "You want everything that gets your business to the next level, handled.",
@@ -108,13 +109,14 @@ export const DFY_TIERS: Tier[] = [
     ],
   },
   {
-    name: "Aggressive",
-    price: "About $750",
+    name: "Premier",
+    price: "About $1,000",
     per: "/mo",
     forWho: "You want to grow fast and want more of our attention.",
     features: [
-      "Everything in Growth",
+      "Everything in Professional",
       "Paid ads on top",
+      "After-hours AI answering service, so night and weekend calls get answered and booked",
       "More keywords and towns targeted",
       "More of our time: closer check-ins and faster changes",
     ],
@@ -125,7 +127,7 @@ export const DFY_TIERS: Tier[] = [
 export const PRICING_FAQS = [
   {
     q: "How much does TableTurnerr cost?",
-    a: "It depends on what your business needs. Most clients pay $100–300/mo for one or a few things (just reviews, just a website), about $500/mo for the full program, or about $750/mo when we add ads and more attention. We set the exact price after the free Google Maps audit.",
+    a: "It depends on what your business needs. Most clients pay $100–300/mo for one or a few things (just reviews, just a website), about $500/mo for the full program, or about $1,000/mo when we add ads, an after-hours AI answering service and more attention. We set the exact price after the free Google Maps audit.",
   },
   {
     q: "Why isn't there one fixed price?",

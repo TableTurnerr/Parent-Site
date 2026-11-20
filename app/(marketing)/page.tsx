@@ -392,7 +392,7 @@ const FAQS = [
   { q: "How fast will I see new reviews?", a: "Usually as soon as the past-customer campaign goes out. For example, Presidential Roofing in Utah went from 27 to 43 Google reviews in 20 days, and new jobs keep the reviews coming after that." },
   { q: "Which platforms do you collect reviews on?", a: "Google, Facebook, Yelp and Angi, the places home-services customers actually check before they call. Most tools only do Google." },
   { q: "Does it work with my software?", a: "Yes. We connect natively to Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks, plus thousands more through Zapier." },
-  { q: "How much does it cost?", a: "It's custom, based on what your business needs. Just reviews or just a website is around $100–300/mo. The full program (website and SEO, Google profile, reviews, CRM and automations, content and seasonal campaigns) is about $500/mo. Adding ads and more of our attention is about $750/mo. We set the price after the free audit." },
+  { q: "How much does it cost?", a: "It's custom, based on what your business needs. Just reviews or just a website is around $100–300/mo. The full program (website and SEO, Google profile, reviews, CRM and automations, content and seasonal campaigns) is about $500/mo. Adding ads, an after-hours AI answering service and more of our attention is about $1,000/mo. We set the price after the free audit." },
   { q: "Do I need a contract?", a: "No. Every plan is month to month. If you'd rather run the software yourself, there's a 14-day free trial, no credit card required." },
   { q: "Can my techs get credit for their reviews?", a: "Yes. Technician leaderboards attribute each review to the person who did the job, which is a great way to motivate your crew." },
 ];

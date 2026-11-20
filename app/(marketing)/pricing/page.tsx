@@ -20,7 +20,7 @@ const FACTORS = [
 export const metadata: Metadata = {
   title: "Pricing: Custom Home-Service Marketing Plans",
   description:
-    "Done-for-you marketing: around $100–300/mo for one or two services, about $500/mo for the full program, about $750/mo with ads. Custom quote after a free audit.",
+    "Custom done-for-you marketing: $100–300/mo for one or two services, about $500/mo for the full program, about $1,000/mo with ads and after-hours AI answering.",
   alternates: { canonical: "https://www.tableturnerr.com/pricing" },
 };
 
