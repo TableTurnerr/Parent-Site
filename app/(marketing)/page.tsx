@@ -13,6 +13,7 @@ import JsonLd from "@/app/components/site/JsonLd";
 import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 import { PLANS } from "@/app/lib/pricing";
 import ProductBento from "@/app/components/site/ProductBento";
+import { PricingNote, PricingTiers } from "@/app/components/growth/PricingTiers";
 import { HomeCaseStudy, HomeDoneForYou } from "@/app/components/growth/HomeSections";
 import { growthSite } from "@/app/lib/growth";
 
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
   // the homepage. Keyword-first so the crawler reads the target phrase first.
   title: { absolute: "Home-Service Marketing Agency & Review Software | TableTurnerr" },
   description:
-    "Done-for-you marketing for home-service pros: Google profile, local SEO, reviews, websites and missed-call text-back, on our own software. Get a free Maps audit.",
+    "Done-for-you marketing for home-service businesses: websites and SEO, Google profile, reviews, CRM, automations and seasonal campaigns. Get a free Maps audit.",
   alternates: { canonical: "https://www.tableturnerr.com" },
 };
 
@@ -32,29 +33,29 @@ function Hero() {
       <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
       <div className="container-tt relative pb-16 md:pb-24">
         <div className="mx-auto max-w-4xl text-center">
-          <span className="eyebrow">For HVAC, roofing, plumbing &amp; electrical pros</span>
+          <span className="eyebrow">Marketing agency for home-service businesses</span>
           <h1 className="display mt-6 text-ink">
-            Review management software that turns finished jobs into{" "}
-            <span className="text-primary">5-star reviews</span>
+            We run the marketing that keeps your{" "}
+            <span className="text-primary">phone ringing</span>
           </h1>
           <p className="lead mx-auto mt-6 max-w-3xl">
-            TableTurnerr automatically asks every customer for a review the
-            moment the job is done, across Google, Facebook, Yelp and Angi, so
-            you climb the map pack and get chosen first. Built for
-            home-service pros in HVAC, roofing, plumbing and electrical.
+            Website and SEO, Google Business Profile, reviews, a CRM with
+            automations, and seasonal campaigns, all done for you by a small,
+            owner-run team on our own software. For HVAC, roofing, plumbing,
+            electrical and other home-service businesses.
           </p>
 
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href="/signup" className="btn btn-primary">
-              Start free trial <ArrowRight className="h-4 w-4" />
+            <Link href="/free-google-maps-audit" className="btn btn-primary">
+              Get your free Google Maps audit <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/#how" className="btn btn-ghost">
-              See how it works
-            </Link>
+            <a href={growthSite.bookingUrl} className="btn btn-ghost">
+              Book a 15-minute call
+            </a>
           </div>
 
           <ul className="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-ink-soft">
-            {["14-day free trial", "No contracts", "Setup in 15 minutes"].map((t) => (
+            {["Done for you", "Month to month", "You talk to an owner"].map((t) => (
               <li key={t} className="inline-flex items-center gap-2">
                 <Check className="h-4 w-4 text-success" /> {t}
               </li>
@@ -72,10 +73,10 @@ function Hero() {
 
 /* ── Stat strip ─────────────────────────────────────────── */
 const STATS = [
-  { v: "Every job", l: "automatically asks the customer for a review" },
+  { v: "1 team", l: "for your website, SEO, Google profile, reviews, CRM and campaigns" },
   { v: "27→43", l: "Google reviews in 20 days for a Utah roofing client" },
-  { v: "4", l: "review platforms, not just Google" },
-  { v: "15 min", l: "to connect your CRM and launch" },
+  { v: "Free", l: "Google Maps audit before you spend anything" },
+  { v: "0", l: "contracts. Month to month, every plan" },
 ];
 function Stats() {
   return (
@@ -94,17 +95,17 @@ function Stats() {
 
 /* ── Problem ────────────────────────────────────────────── */
 const PROBLEMS = [
-  { t: "Your best jobs leave no proof", b: "You do great work all week, but only a handful of customers ever leave a review, so it never shows online." },
-  { t: "Asking is awkward and gets forgotten", b: "Your techs are busy. Chasing customers for reviews after a job falls off the list every single time." },
-  { t: "The competition ranks above you", b: "Whoever has the most recent 5-star reviews wins the map pack and the call, even when your work is better." },
+  { t: "Homeowners can't find you", b: "A thin Google profile, a website that doesn't rank and too few recent reviews, so the louder competitor gets the call." },
+  { t: "Leads slip through the cracks", b: "Calls go to voicemail while you're on a job, estimates never get a follow-up, and nobody tracks where leads went." },
+  { t: "Past customers forget you", b: "No tune-up reminders, no seasonal offers, no reason to call you back, so repeat work goes to whoever reached them first." },
 ];
 function Problem() {
   return (
-    <section data-analytics-section="reviews_gap" className="section bg-surface">
+    <section data-analytics-section="marketing_gap" className="section bg-surface">
       <div className="container-tt">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="eyebrow">The reviews gap</span>
-          <h2 className="display-2 mt-5 text-ink">Great work that nobody can see isn&apos;t winning you jobs</h2>
+          <span className="eyebrow">Where jobs get lost</span>
+          <h2 className="display-2 mt-5 text-ink">Great work isn&apos;t enough if nobody finds you, and nobody follows up</h2>
         </div>
         <Reveal className="mt-12 grid gap-5 md:grid-cols-3">
           {PROBLEMS.map((p) => (
@@ -136,17 +137,17 @@ function Features() {
 
 /* ── How it works ───────────────────────────────────────── */
 const STEPS = [
-  { n: "01", t: "Connect your CRM", b: "Link Jobber, Housecall Pro, ServiceTitan, Workiz or QuickBooks in a couple of clicks. We import your customers." },
-  { n: "02", t: "Launch reactivation", b: "We message your past customers gradually and start requesting reviews from every new completed job automatically." },
-  { n: "03", t: "Climb & get booked", b: "Reviews roll in across platforms, your map-pack rank rises, and more of the right calls start coming in." },
+  { n: "01", t: "Free Google Maps audit", b: "We map where you rank across your service area, compare you with your top competitors and show you what's missing." },
+  { n: "02", t: "A plan built for your business", b: "You might not need a new website, or SEO, or reviews. We only quote what will move the needle, and set it all up for you." },
+  { n: "03", t: "We run it every month", b: "Content, reviews, campaigns and follow-ups keep running. You get a plain-English report on rankings, reviews and calls." },
 ];
 function How() {
   return (
     <section id="how" data-analytics-section="how_it_works" className="section bg-night text-white">
       <div className="container-tt">
         <div className="max-w-2xl">
-          <span className="eyebrow border-white/15 bg-white/5 text-white">How review automation works</span>
-          <h2 className="display-2 mt-5 text-white">Live in 15 minutes. Working on autopilot after that.</h2>
+          <span className="eyebrow border-white/15 bg-white/5 text-white">How working with us works</span>
+          <h2 className="display-2 mt-5 text-white">Audit first. Then we do the work, every month.</h2>
         </div>
         <Reveal className="mt-12 grid gap-5 md:grid-cols-3">
           {STEPS.map((s) => (
@@ -170,10 +171,10 @@ function How() {
 
 /* ── Industries ─────────────────────────────────────────── */
 const INDUSTRIES = [
-  { icon: Wrench, t: "HVAC", href: "/industries/hvac", img: "/images/trades/hvac-review-automation.webp" },
-  { icon: Home, t: "Roofing", href: "/industries/roofing", img: "/images/trades/roofing-review-automation.webp" },
-  { icon: Droplets, t: "Plumbing", href: "/industries/plumbing", img: "/images/trades/plumbing-review-automation.webp" },
-  { icon: Zap, t: "Electrical", href: "/industries/electrical", img: "/images/trades/electrical-review-automation.webp" },
+  { icon: Wrench, t: "HVAC", href: "/marketing/hvac", img: "/images/trades/hvac-review-automation.webp" },
+  { icon: Home, t: "Roofing", href: "/marketing/roofing", img: "/images/trades/roofing-review-automation.webp" },
+  { icon: Droplets, t: "Plumbing", href: "/marketing/plumbing", img: "/images/trades/plumbing-review-automation.webp" },
+  { icon: Zap, t: "Electrical", href: "/marketing/electricians", img: "/images/trades/electrical-review-automation.webp" },
 ];
 function Industries() {
   return (
@@ -181,8 +182,8 @@ function Industries() {
       <div className="container-tt">
         <div className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Made for your industry</span>
-          <h2 className="display-2 mt-5 text-ink">Home-service industries where reviews win work</h2>
-          <p className="lead mt-4">One quiet month of customer feedback can cost a home-service business real jobs. We focus where visible proof matters most.</p>
+          <h2 className="display-2 mt-5 text-ink">Marketing plans written for your trade</h2>
+          <p className="lead mt-4">Homeowners search differently for a roofer than for a plumber. Each plan starts from how your customers actually look for you.</p>
         </div>
         <Reveal className="mt-12 grid grid-cols-2 gap-5 md:grid-cols-4">
           {INDUSTRIES.map((t) => (
@@ -193,7 +194,7 @@ function Industries() {
             >
               <Image
                 src={t.img}
-                alt={`${t.t} review automation`}
+                alt={`${t.t} marketing`}
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
@@ -209,7 +210,7 @@ function Industries() {
                 </span>
                 <h3 className="text-lg font-bold text-white">{t.t}</h3>
                 <span className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-white/85 transition-colors group-hover:text-white">
-                  See {t.t} reviews{" "}
+                  See the {t.t} plan{" "}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </div>
@@ -217,8 +218,8 @@ function Industries() {
           ))}
         </Reveal>
         <div className="mt-9 text-center">
-          <Link href="/industries" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
-            See all industries <ArrowRight className="h-4 w-4" />
+          <Link href="/marketing" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
+            See all 17 trades <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
@@ -232,7 +233,7 @@ function Personalized() {
     <section className="section bg-surface">
       <div className="container-tt grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
         <div>
-          <span className="eyebrow">Personalized requests</span>
+          <span className="eyebrow">Reviews, done properly</span>
           <h2 className="display-2 mt-5 text-ink">Reviews that feel personal, because they are</h2>
           <p className="lead mt-4">
             Every request goes out with the customer&apos;s name on it. Your crew can even snap a
@@ -325,15 +326,19 @@ function Pricing() {
     <section id="pricing" data-analytics-section="pricing" className="section bg-surface">
       <div className="container-tt">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="eyebrow">Run it yourself</span>
-          <h2 className="display-2 mt-5 text-ink">Software plans. Cancel anytime.</h2>
+          <span className="eyebrow">Pricing</span>
+          <h2 className="display-2 mt-5 text-ink">Priced around what your business needs</h2>
           <p className="lead mt-4">
-            14-day free trial. No setup fees, no contracts, no surprises. Rather
-            have us do it?{" "}
-            <Link href="/free-google-maps-audit" className="font-semibold text-primary hover:underline">Start with a free audit</Link>.
+            Three rough levels, then a custom quote after your free audit. Month to month.
           </p>
         </div>
-        <Reveal className="mt-12 grid gap-6 lg:grid-cols-3">
+        <Reveal className="mt-12">
+          <PricingTiers />
+        </Reveal>
+        <PricingNote />
+        {/* Self-serve software plans, kept below the done-for-you levels. */}
+        <h3 className="mt-16 text-center text-lg font-bold text-ink">Prefer to run the software yourself?</h3>
+        <Reveal className="mt-6 grid gap-6 lg:grid-cols-3">
           {PLANS.map((p) => (
             <div
               key={p.name}
@@ -382,12 +387,13 @@ function Pricing() {
 
 /* ── FAQ ────────────────────────────────────────────────── */
 const FAQS = [
-  { q: "Is TableTurnerr software or a marketing agency?", a: "Both. We're a done-for-you online marketing agency for home-service businesses, and we built our own software to do the work: Google Business Profile, local SEO, websites, review generation and missed-call text-back. Most owners have us run it; you can also run the software yourself." },
+  { q: "Is TableTurnerr software or a marketing agency?", a: "A marketing agency first. We're a done-for-you team for home-service businesses, and we built our own software to do the work: websites and SEO, Google Business Profile, reviews, CRM and automations, seasonal campaigns and missed-call text-back. If you'd rather run the software yourself, you can." },
   { q: "What does the free Google Maps audit include?", a: "A ranking heatmap across your service area, your top 5 competitors' ratings and review counts next to yours, whether AI assistants like ChatGPT recommend you, a homepage check, and what to fix first. We walk you through it on a short call and you keep the report." },
   { q: "How fast will I see new reviews?", a: "Usually as soon as the past-customer campaign goes out. For example, Presidential Roofing in Utah went from 27 to 43 Google reviews in 20 days, and new jobs keep the reviews coming after that." },
   { q: "Which platforms do you collect reviews on?", a: "Google, Facebook, Yelp and Angi, the places home-services customers actually check before they call. Most tools only do Google." },
   { q: "Does it work with my software?", a: "Yes. We connect natively to Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks, plus thousands more through Zapier." },
-  { q: "Do I need a contract?", a: "No. Start with a 14-day free trial, no credit card required, and cancel anytime from your dashboard in a couple of clicks." },
+  { q: "How much does it cost?", a: "It's custom, based on what your business needs. Just reviews or just a website is around $100–300/mo. The full program (website and SEO, Google profile, reviews, CRM and automations, content and seasonal campaigns) is about $500/mo. Adding ads and more of our attention is about $750/mo. We set the price after the free audit." },
+  { q: "Do I need a contract?", a: "No. Every plan is month to month. If you'd rather run the software yourself, there's a 14-day free trial, no credit card required." },
   { q: "Can my techs get credit for their reviews?", a: "Yes. Technician leaderboards attribute each review to the person who did the job, which is a great way to motivate your crew." },
 ];
 function FAQ() {
@@ -502,16 +508,16 @@ export default function HomePage() {
       <JsonLd
         data={[
           generateServiceSchema({
-            name: "Review Automation for Home Services",
+            name: "Done-for-you marketing for home-service businesses",
             description:
-              "Turn every finished job into 5-star reviews across Google, Facebook, Yelp and Angi. Built for HVAC, roofing, plumbing and electrical pros.",
+              "Websites and local SEO, Google Business Profile management, Google review generation, CRM and automations, seasonal campaigns and missed-call text-back, run for you on TableTurnerr's own software. Month to month.",
             url: "https://www.tableturnerr.com",
           }),
           generateServiceSchema({
-            name: "Done-for-you marketing for home-service businesses",
+            name: "Review Automation for Home Services",
             description:
-              "Google Business Profile management, local SEO, contractor websites, Google review generation and missed-call text-back, run for you on TableTurnerr's own software. Month to month.",
-            url: "https://www.tableturnerr.com/services",
+              "Turn every finished job into 5-star reviews across Google, Facebook, Yelp and Angi. Built for HVAC, roofing, plumbing and electrical pros.",
+            url: "https://www.tableturnerr.com/features",
           }),
           generateFAQSchema(FAQS.map((f) => ({ question: f.q, answer: f.a }))),
         ]}
@@ -519,10 +525,10 @@ export default function HomePage() {
       <Hero />
       <Stats />
       <TrustMarquee />
-      {/* Agency offer first: done-for-you services + free audit, then proof, then the software story. */}
+      {/* Problem, then the full done-for-you program + free audit, then proof, then the software story. */}
+      <Problem />
       <HomeDoneForYou />
       <HomeCaseStudy />
-      <Problem />
       <Features />
       <How />
       <Industries />
