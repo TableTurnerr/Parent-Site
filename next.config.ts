@@ -36,6 +36,19 @@ const nextConfig: NextConfig = {
         destination: "/restaurants",
         permanent: true,
       },
+      // Old /trades/<slug> pages (software-era): send each to its done-for-you trade plan so it doesn't compete
+      // with /marketing/<trade>. Industry slugs that differ from trade slugs are mapped first; industries with no
+      // trade plan fall back to their software page.
+      { source: "/trades", destination: "/marketing", permanent: true },
+      { source: "/trades/electrical", destination: "/marketing/electricians", permanent: true },
+      { source: "/trades/lawn-care", destination: "/marketing/landscaping", permanent: true },
+      { source: "/trades/cleaning", destination: "/marketing/cleaning-services", permanent: true },
+      {
+        source: "/trades/:slug(handyman|fence-companies|hvac|roofing|plumbing|tree-service|remodeling|landscaping|garage-door-repair|pressure-washing|holiday-lighting|painting|pest-control|cleaning-services|deck-builders|concrete-contractors|electricians)",
+        destination: "/marketing/:slug",
+        permanent: true,
+      },
+      { source: "/trades/:slug", destination: "/industries/:slug", permanent: true },
       { source: "/medspa", destination: "/", permanent: true },
       { source: "/case-studies", destination: "/results", permanent: true },
       { source: "/locations/restaurants/:path*", destination: "/restaurants", permanent: true },
