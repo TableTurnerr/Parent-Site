@@ -8,11 +8,11 @@ import { generateBreadcrumbSchema } from "@/app/lib/schema";
 export const metadata: Metadata = createPageMetadata({
   title: "Terms of Service",
   description:
-    "Terms of Service for TableTurnerr review-automation software: subscription terms, the 90-day results guarantee, and SMS/TCPA messaging requirements.",
+    "Terms of Service for TableTurnerr review-automation software: subscription terms and SMS/TCPA messaging requirements.",
   path: "/terms",
 });
 
-const LAST_UPDATED = "August 28, 2026";
+const LAST_UPDATED = "November 20, 2026";
 
 export default function TermsOfServicePage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -284,35 +284,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  8. 90-Day Results Guarantee
-                </h2>
-                <p className="mb-3">
-                  We offer a results guarantee: if, after 90 days of active use,
-                  your business has not earned more reviews than it did in the 90
-                  days before you started, your next month of service is free.
-                  This is our complete and exclusive remedy under the guarantee.
-                </p>
-                <p>
-                  The guarantee assumes the Service is connected to your CRM and
-                  actively sending review requests, that the customer contact data
-                  you provide is accurate, and that your account is in good
-                  standing. It applies to the recurring subscription fee for the
-                  following month and does not apply to one-time fees, taxes, or
-                  third-party charges (such as carrier messaging fees). To claim
-                  it, contact us at{" "}
-                  <Link
-                    href={`mailto:${SITE_CONFIG.email}`}
-                    className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
-                  >
-                    {SITE_CONFIG.email}
-                  </Link>
-                  .
-                </p>
-              </section>
-
-              <section>
-                <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  9. Customer Data &amp; Your Responsibilities
+                  8. Customer Data &amp; Your Responsibilities
                 </h2>
                 <p className="mb-3">When using the Service, you agree to:</p>
                 <ul className="list-disc pl-5 space-y-2">
@@ -342,7 +314,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  10. Intellectual Property
+                  9. Intellectual Property
                 </h2>
                 <p>
                   The Service, the Site, and all related software, content,
@@ -357,7 +329,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  11. Third-Party Platforms
+                  10. Third-Party Platforms
                 </h2>
                 <p>
                   The Service integrates with third-party platforms, including but
@@ -374,7 +346,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  12. Disclaimers
+                  11. Disclaimers
                 </h2>
                 <p className="mb-3">
                   The Site and Service are provided on an &quot;as is&quot; and
@@ -391,8 +363,7 @@ export default function TermsOfServicePage() {
                     Guarantees of a specific number of reviews, ratings, ranking,
                     or revenue. Results depend on factors outside our control,
                     including your job volume, customer behavior, and the policies
-                    of third-party review platforms. The only guarantee we make is
-                    the one stated in Section 7.
+                    of third-party review platforms.
                   </li>
                   <li>
                     Uninterrupted or error-free operation of the Site or Service.
@@ -402,7 +373,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  13. Limitation of Liability
+                  12. Limitation of Liability
                 </h2>
                 <p>
                   To the maximum extent permitted by applicable law, TableTurnerr
@@ -418,7 +389,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  14. Indemnification
+                  13. Indemnification
                 </h2>
                 <p>
                   You agree to indemnify and hold harmless TableTurnerr, its
@@ -432,7 +403,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  15. Termination
+                  14. Termination
                 </h2>
                 <p>
                   You may cancel your subscription at any time from your account or
@@ -447,7 +418,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  16. Governing Law
+                  15. Governing Law
                 </h2>
                 <p>
                   These Terms are governed by and construed in accordance with
@@ -460,7 +431,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  17. Changes to These Terms
+                  16. Changes to These Terms
                 </h2>
                 <p>
                   We may revise these Terms at any time by updating this page.
@@ -473,7 +444,7 @@ export default function TermsOfServicePage() {
 
               <section>
                 <h2 className="font-display font-semibold text-xl text-charcoal mb-3">
-                  18. Contact Us
+                  17. Contact Us
                 </h2>
                 <p>
                   If you have any questions about these Terms of Service, contact

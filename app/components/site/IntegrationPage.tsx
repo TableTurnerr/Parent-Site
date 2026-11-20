@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { Check, ArrowRight, ShieldCheck, Plug, Zap } from "lucide-react";
+import { Check, ArrowRight, Plug, Zap } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateFAQSchema, generateBreadcrumbSchema, generateServiceSchema } from "@/app/lib/schema";
+import { DoneForYouBand } from "@/app/components/growth/Growth";
 import { INTEGRATIONS, type Integration } from "@/app/lib/integrations";
 
 export default function IntegrationPage({ integration }: { integration: Integration }) {
@@ -152,6 +153,7 @@ export default function IntegrationPage({ integration }: { integration: Integrat
         ]}
       />
 
+      <DoneForYouBand tradePath="/marketing" label="Marketing plans by trade" />
       {/* CTA */}
       <section className="section">
         <div className="container-tt">
@@ -167,9 +169,6 @@ export default function IntegrationPage({ integration }: { integration: Integrat
                 <Link href="/signup" className="btn btn-light">Start free trial <ArrowRight className="h-4 w-4" /></Link>
                 <Link href="/contact" className="btn btn-outline-light">Book a demo</Link>
               </div>
-              <p className="mt-6 flex items-center justify-center gap-2 text-sm text-white/60">
-                <ShieldCheck className="h-4 w-4 text-success" /> More reviews in 90 days or your next month is free.
-              </p>
             </div>
           </div>
         </div>

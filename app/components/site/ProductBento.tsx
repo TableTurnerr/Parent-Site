@@ -85,7 +85,7 @@ export default function ProductBento() {
   return <section id="features" className="section overflow-hidden bg-white">
     <div className="container-tt">
       <div className="grid gap-6 lg:grid-cols-[.85fr_1.15fr] lg:items-end">
-        <div><span className="eyebrow">Built for home-service industries</span><h2 className="display-2 mt-5">Everything you need to own your local market.</h2></div>
+        <div><span className="eyebrow">The software behind the work</span><h2 className="display-2 mt-5">Everything you need to own your local market.</h2></div>
         <p className="lead max-w-xl lg:pb-1">Turn completed jobs and past customers into a steady flow of reviews, stronger local rankings, and more booked work—all on autopilot. Need a CRM too? We can import your contacts, organize every lead, and give your team a mobile app for work on the go.</p>
       </div>
       <div className="mt-12 space-y-4">

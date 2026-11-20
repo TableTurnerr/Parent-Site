@@ -1,116 +1,186 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, Star, Target, Wrench, Zap } from "lucide-react";
+import { Check } from "lucide-react";
+import JsonLd from "@/app/components/site/JsonLd";
+import {
+  AuditBand, CardGrid, FaqSection, Glance, GrowthHero, NextSteps, SectionHead, VideoSection, faqSchemaItems,
+} from "@/app/components/growth/Growth";
+import { generateBreadcrumbSchema, generateFAQSchema } from "@/app/lib/schema";
+import { AUDIT_PATH, FSM, clientStatesText, growthSite, ownersReady, results, services, trades, type Pair } from "@/app/lib/growth";
+
+const base = "https://www.tableturnerr.com";
+const title = "About TableTurnerr: Owner-Run Home-Service Marketing";
+const description =
+  "TableTurnerr is a small, owner-run online marketing agency for home-service businesses, with its own software behind the work. Meet the team, how we work and our rules.";
 
 export const metadata: Metadata = {
-  title: { absolute: "About TableTurnerr" },
-  description:
-    "TableTurnerr is review automation built for home-service pros, HVAC, roofing, plumbing and electrical. We turn finished jobs into 5-star reviews so the best companies get found.",
-  alternates: { canonical: "https://www.tableturnerr.com/about" },
+  title: { absolute: `${title} | TableTurnerr` },
+  description,
+  alternates: { canonical: `${base}/about` },
+  openGraph: { title, description, url: `${base}/about`, type: "website" },
 };
 
-const VALUES = [
-  { icon: Wrench, t: "Built for home-service industries", b: "We don't try to serve every business on earth. We go deep on home services, where reviews decide who gets the call." },
-  { icon: Zap, t: "Automation that just runs", b: "Set it once, connect your CRM, and it works in the background. Your team should be on the tools, not chasing reviews." },
-  { icon: Star, t: "Reviews that win real jobs", b: "Not vanity metrics. More recent 5-star reviews mean a higher map-pack rank and more booked, high-ticket work." },
-  { icon: Target, t: "No lock-in, no games", b: "Month-to-month, cancel anytime, and a results guarantee. We earn the renewal every month." },
+// How we work: the same order every engagement follows. Each step is something we actually do (see the
+// audit page, the services and the monthly client reports in /report).
+const METHOD: Pair[] = [
+  ["Audit before we pitch", "Every engagement starts with a free Google Maps audit: a ranking heatmap across your service area, your top 5 competitors' ratings and review counts, an AI-assistant check (ChatGPT, Claude, Gemini, Grok, Meta AI, Perplexity) and a homepage check. You see the gap before you spend anything."],
+  ["Fix the foundation", "Google Business Profile first: the right primary and secondary categories, every service you offer, service areas, hours, photos and a steady stream of posts. It's the fastest lever for map-pack visibility."],
+  ["Turn finished jobs into reviews", `Review requests go to every customer after every job, connected to ${FSM}, with a past-customer campaign to start. No gating, no incentives, nothing that puts your profile at risk.`],
+  ["Make the website earn the call", "A page for each profitable service and the towns you serve, fast on a phone, with your reviews and click-to-call where people decide."],
+  ["Catch every lead", "Missed-call text-back and an AI receptionist answer the homeowner who calls while you're on a roof, so the job doesn't go to the next name on the map."],
+  ["Report in plain English", "A monthly report on reviews, rankings and calls, not vanity metrics. Month to month, so we earn the next month every month."],
+];
+
+const RULES = [
+  ["No fake or bought reviews, no review gating", "Every customer is asked and every review goes live. Google and the FTC both ban the alternatives."],
+  ["No keyword-stuffed business names", "It can get a profile suspended. We use categories, services and content instead."],
+  ["No made-up numbers", "Results on this site come from clients' public Google profiles and are shared with their permission."],
+  ["You stay the owner of your Google profile", "We're added as a manager. The profile, and every review on it, stays yours."],
+];
+
+const faq: Pair[] = [
+  ["Is TableTurnerr software or an agency?", "Both, but you don't have to run anything. We're a small marketing company that does the work for you on our own software: Google profile, reviews, website, local SEO and call capture. If you'd rather run the software yourself, there are self-serve plans on the pricing page."],
+  ["Who will I actually talk to?", "One of the owners. We don't hand you to a sales rep or an offshore account manager."],
+  ["Which businesses do you work with?", `US home-service businesses: ${trades.slice(0, 8).map((t) => t.name.toLowerCase()).join(", ")} and more. We have clients in ${clientStatesText}.`],
+  ["Do you require a contract?", "No. Month to month."],
+  ["How do I start?", "Request a free Google Maps audit. We build the report, walk you through it on a short call and tell you honestly whether we can help."],
 ];
 
 export default function AboutPage() {
+  const r = results[0];
+  const crumbs: Pair[] = [["/", "Home"], ["/about", "About"]];
   return (
     <>
-      {/* Hero */}
-      <section className="hero-wash relative overflow-hidden pt-36 pb-14 md:pt-44 md:pb-20">
-        <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
-        <div className="container-tt relative">
-          <div className="max-w-3xl">
-            <span className="eyebrow">About us</span>
-            <h1 className="display mt-6 text-ink">
-              The best home-services pros deserve to be the easiest to find.
-            </h1>
-            <p className="lead mt-6 max-w-2xl">
-              TableTurnerr is review automation built for one world: home services.
-              HVAC, roofing, plumbing, electrical. We help great companies turn the
-              work they already do into the 5-star reviews that win the next job.
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            name: title,
+            description,
+            url: `${base}/about`,
+            about: { "@type": "Organization", name: "TableTurnerr", url: base },
+          },
+          generateFAQSchema(faqSchemaItems(faq)),
+          generateBreadcrumbSchema([{ name: "Home", url: base }, { name: "About", url: `${base}/about` }]),
+        ]}
+      />
+
+      <GrowthHero
+        crumbs={crumbs}
+        eyebrow="About us"
+        h1="A small, owner-run marketing team for home-service businesses"
+        lede="We make roofers, plumbers, HVAC companies, electricians and other home-service businesses look like the best choice on Google, and we do the work for you. When you call, you talk to an owner: the same people who built the software and run your account."
+      />
+
+      <Glance
+        heading="TableTurnerr at a glance"
+        rows={[
+          ["What we are", "A small, owner-run online marketing agency for US home-service businesses, with our own software behind the work."],
+          ["What we do", <span key="s">{services.map((s, i) => <span key={s.slug}>{i > 0 && ", "}<Link href={s.path} className="font-semibold text-primary">{s.short}</Link></span>)}, plus visibility in AI assistants like ChatGPT.</span>],
+          ["Who we work with", <span key="t">{trades.length} home-service trades including HVAC, plumbing, roofing, electrical, handyman and fencing. <Link href="/marketing" className="font-semibold text-primary">See all trades</Link>.</span>],
+          ["Where", `Clients in ${clientStatesText}. We work with businesses anywhere in the US.`],
+          ["Reviews", <a key="tp" href={growthSite.trustpilotUrl} className="font-semibold text-primary" target="_blank" rel="noopener noreferrer">TableTurnerr on Trustpilot</a>],
+          ["How we work", "Done for you, month to month, by the rules: no fake reviews, no review gating."],
+          r ? ["Results", <Link key="r" href={r.path} className="font-semibold text-primary">{r.client}: {r.reviewsBefore} to {r.reviewsAfter} Google reviews in {r.days} days</Link>] : null,
+          ["Contact", <span key="c"><a href={`tel:${growthSite.phoneE164}`} className="font-semibold text-primary">{growthSite.phoneDisplay}</a> · <a href={`mailto:${growthSite.email}`} className="font-semibold text-primary">{growthSite.email}</a> · <a href={growthSite.bookingUrl} className="font-semibold text-primary">book a 15-minute call</a></span>],
+        ]}
+      />
+
+      <section className="section">
+        <div className="container-tt grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <span className="eyebrow">Why we exist</span>
+            <h2 className="display-2 mt-5 text-ink">Great work shouldn&apos;t lose to a better-looking Google profile</h2>
+          </div>
+          <div className="space-y-4 text-ink-soft lg:col-span-7">
+            <p className="text-lg leading-relaxed">
+              We kept seeing the same thing: the best contractor in town, doing careful, honest work all week, losing jobs to a
+              louder competitor with more recent reviews and a better Google profile.
+            </p>
+            <p className="leading-relaxed">
+              Homeowners can&apos;t see the quality of your work before they call. They see the map, three businesses, the stars,
+              the review count, and whether anyone picks up the phone. Whoever wins that snapshot wins the job.
+            </p>
+            <p className="leading-relaxed">
+              So we built the software and the process to fix it, and we run it for you: your Google Business Profile, your
+              reviews, your website, local SEO and the calls you&apos;d otherwise miss. Most owners we work with don&apos;t want
+              another dashboard. They want the phone to ring with the right jobs.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Story */}
-      <section className="section pt-0">
-        <div className="container-tt grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <span className="eyebrow">Why we exist</span>
-            <h2 className="display-2 mt-5 text-ink">Great work shouldn&apos;t stay invisible</h2>
-          </div>
-          <div className="lg:col-span-7">
-            <div className="space-y-4 text-ink-soft">
-              <p className="text-lg leading-relaxed">
-                Here&apos;s what we kept seeing: the best contractor in town,
-                doing careful, honest work all week, sitting below a louder
-                competitor on Google because that competitor simply had more
-                recent reviews.
-              </p>
-              <p className="leading-relaxed">
-                Homeowners don&apos;t see the quality of your work before they
-                call. They see your star rating, your review count, and how
-                recent those reviews are. Whoever wins that snapshot wins the
-                job, even when their work is worse.
-              </p>
-              <p className="leading-relaxed">
-                Asking every customer for a review by hand never scales. Techs
-                are busy, the moment passes, and the reviews never come. So we
-                built the thing that does it automatically, the second a job is
-                done, across every platform that matters. The result: the
-                companies that earn 5-star work finally look like it online.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values */}
       <section className="section bg-surface">
         <div className="container-tt">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow">What we believe</span>
-            <h2 className="display-2 mt-5 text-ink">How we think about the work</h2>
-          </div>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2">
-            {VALUES.map((v) => (
-              <div key={v.t} className="card flex gap-4 p-7">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
-                  <v.icon className="h-5 w-5" />
-                </span>
-                <div>
-                  <h3 className="text-lg font-bold text-ink">{v.t}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{v.b}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <SectionHead
+            eyebrow="How we work"
+            title="The same six steps, in the same order, for every client"
+            intro="Marketing for a home-service business isn't a mystery. It's a short list of things done properly and kept up every month."
+          />
+          <CardGrid items={METHOD} numbered />
+          <p className="mt-8 text-sm text-ink-soft">
+            Want to see step one on your own business? <Link href={AUDIT_PATH} className="font-semibold text-primary">Get the free Google Maps audit</Link>, or read how we think about it in our <Link href="/guides" className="font-semibold text-primary">guides for owners</Link>.
+          </p>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section">
-        <div className="container-tt">
-          <div className="relative overflow-hidden rounded-[1.75rem] bg-night px-7 py-14 text-center md:px-16 md:py-20">
-            <div aria-hidden className="hero-grid pointer-events-none absolute inset-0 opacity-60" />
-            <div className="relative mx-auto max-w-2xl">
-              <h2 className="display-2 text-white">See what review automation does for your shop</h2>
-              <p className="lead mt-4 text-white/70">
-                Connect your CRM and watch the reviews, and the calls, start rolling in. Free for 14 days.
-              </p>
-              <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                <Link href="/signup" className="btn btn-light">Start free trial <ArrowRight className="h-4 w-4" /></Link>
-                <Link href="/contact" className="btn btn-outline-light">Book a demo</Link>
-              </div>
-            </div>
+      <VideoSection
+        eyebrow="Hear it from the owner"
+        title="What we do for local businesses, in 6 minutes"
+        intro="The same walkthrough we give on calls: reviews, one inbox for calls and texts, automations like missed-call text-back, staying active online, the free audit report and what it costs."
+      />
+
+      <section className="section bg-surface">
+        <div className="container-tt grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <span className="eyebrow">Our rules</span>
+            <h2 className="display-2 mt-5 text-ink">Nothing that puts your Google profile at risk</h2>
+            <p className="lead mt-4">Shortcuts in local marketing tend to end in a suspended profile. We don&apos;t take them.</p>
           </div>
+          <ul className="space-y-5 lg:col-span-7">
+            {RULES.map(([h, p]) => (
+              <li key={h} className="flex gap-3">
+                <Check className="mt-1 h-5 w-5 shrink-0 text-success" />
+                <div><p className="font-bold text-ink">{h}</p><p className="mt-1 text-sm leading-relaxed text-ink-soft">{p}</p></div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
+
+      {ownersReady && (
+        <section className="section">
+          <div className="container-tt">
+            <SectionHead eyebrow="The team" title="Who you'll work with" />
+            <div className="mt-10 grid gap-5 md:grid-cols-2">
+              {growthSite.owners.map((o) => (
+                <div key={o.name} className="card flex gap-5 p-7">
+                  {o.photo && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={o.photo} alt={`${o.name}, ${o.role} of TableTurnerr`} width={96} height={96} className="h-24 w-24 shrink-0 rounded-full object-cover" />
+                  )}
+                  <div>
+                    <p className="text-lg font-bold text-ink">{o.name}</p>
+                    <p className="text-sm text-muted">{o.role}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-ink-soft">{o.bio}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <AuditBand title="Talk to an owner, starting with a free audit" />
+      <FaqSection faq={faq} />
+      <NextSteps
+        items={[
+          ["/services", "What we do", "Google Business Profile, reviews, local SEO, websites and missed-call text-back, done for you."],
+          ["/marketing", "Marketing plans by trade", `How homeowners search for ${trades.length} trades, and what we'd do first for each.`],
+          ["/guides", "Guides for owners", "Straight answers on Google Maps rankings, reviews and getting more calls."],
+        ]}
+      />
     </>
   );
 }

@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   description:
     "Start your 14-day free trial of TableTurnerr review automation. No credit card required. Built for HVAC, roofing, plumbing and electrical pros.",
   alternates: { canonical: "https://www.tableturnerr.com/signup" },
+  // Bing ranked /signup second for the brand, above every real page (ROADMAP 2026-11-16). It's a utility
+  // page, so keep it out of search results but let crawlers follow its links.
+  robots: { index: false, follow: true },
 };
 
 export default function SignupPage() {

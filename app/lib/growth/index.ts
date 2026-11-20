@@ -10,6 +10,7 @@ import { guides as guides1 } from "./guides.mjs";
 import { guides2 } from "./guides2.mjs";
 import { services as servicesRaw } from "./services.mjs";
 import { results as resultsRaw } from "./results.mjs";
+import { combos as combosRaw } from "./combos.mjs";
 import { site as siteRaw } from "./config.mjs";
 import {
   SITE_UPDATED as SITE_UPDATED_RAW,
@@ -54,9 +55,16 @@ function toGuides(value: unknown): unknown {
 }
 
 export const SITE_UPDATED: string = SITE_UPDATED_RAW;
+export interface Owner { name: string; role: string; photo: string; bio: string }
 export const growthSite = siteRaw as {
-  bookingUrl: string; auditFormEmbed: string; clientStates: string[]; indexNowKey: string;
+  bookingUrl: string; auditFormEmbed: string; clientStates: string[]; indexNowKey: string; email: string;
+  phoneE164: string; phoneDisplay: string;
+  owners: Owner[]; profiles: Record<string, string>; trustpilotUrl: string;
 };
+/** True once every owner has a real name and bio (see config.mjs). */
+export const ownersReady = growthSite.owners.every((o) => o.name && !o.name.startsWith("TODO") && o.bio);
+/** "Washington, Oregon, ... and Hawaii" */
+export const clientStatesText = growthSite.clientStates.join(", ").replace(/, ([^,]*)$/, " and $1");
 export const topics = toGuides(topicsRaw) as Record<string, Topic>;
 export const serviceTopics = serviceTopicsRaw as Record<string, string>;
 
@@ -112,3 +120,24 @@ export const plain = (s: string) => s.replace(/<[^>]+>/g, "").replace(/&amp;/g, 
 
 export const FSM = "Jobber, Housecall Pro, ServiceTitan and Workiz";
 export const AUDIT_PATH = "/free-google-maps-audit";
+
+/** Software industry slug (/industries/<slug>) to its done-for-you trade page (/marketing/<slug>), where one exists. */
+const INDUSTRY_TO_TRADE: Record<string, string> = {
+  hvac: "hvac", roofing: "roofing", plumbing: "plumbing", electrical: "electricians", handyman: "handyman",
+  "garage-door-repair": "garage-door-repair", "pest-control": "pest-control", landscaping: "landscaping",
+  "lawn-care": "landscaping", cleaning: "cleaning-services", painting: "painting", "pressure-washing": "pressure-washing",
+};
+export function tradeForIndustry(industrySlug: string): Trade | undefined {
+  const slug = INDUSTRY_TO_TRADE[industrySlug];
+  return slug ? getTrade(slug) : undefined;
+}
+
+/** Trade + service pages (/marketing/<trade>/<service>), see combos.mjs. */
+export interface Combo {
+  trade: string; service: string; path: string; title: string; description: string; h1: string; lede: string;
+  why: string; tactics: Pair[]; faq: Pair[];
+}
+export const combos = combosRaw as Combo[];
+export const getCombo = (trade: string, service: string) => combos.find((c) => c.trade === trade && c.service === service);
+export const combosForTrade = (trade: string) => combos.filter((c) => c.trade === trade);
+export const combosForService = (service: string) => combos.filter((c) => c.service === service);

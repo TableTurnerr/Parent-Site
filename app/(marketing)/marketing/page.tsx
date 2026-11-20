@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import JsonLd from "@/app/components/site/JsonLd";
-import { AuditBand, GrowthHero, SectionHead } from "@/app/components/growth/Growth";
+import { AuditBand, GrowthHero, NextSteps, SectionHead } from "@/app/components/growth/Growth";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
 import { trades } from "@/app/lib/growth";
 import { INDUSTRIES } from "@/app/lib/industries";
@@ -54,6 +54,14 @@ export default function Page() {
         </section>
       )}
       <AuditBand />
+      <NextSteps
+        items={[
+          ["/services", "Done-for-you services", "Google Business Profile, reviews, local SEO, websites and missed-call text-back."],
+          ["/results/presidential-roofing", "See a client result", "How a Utah roofer went from 27 to 43 Google reviews in 20 days."],
+          ["/guides", "Guides for owners", "Straight answers on Google Maps rankings, reviews and getting more calls."],
+        ]}
+      />
+
     </>
   );
 }

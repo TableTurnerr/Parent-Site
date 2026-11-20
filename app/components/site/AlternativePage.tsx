@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { Check, X, ArrowRight, ShieldCheck, Scale } from "lucide-react";
+import { Check, X, ArrowRight, Scale } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateFAQSchema, generateBreadcrumbSchema, generateServiceSchema } from "@/app/lib/schema";
+import { DoneForYouBand } from "@/app/components/growth/Growth";
 import { ALL_ALTERNATIVES, type Alternative, type Cell } from "@/app/lib/alternatives";
 
 function CompareCell({ v }: { v: Cell }) {
@@ -57,7 +58,7 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
               <Link href="/contact" className="btn btn-ghost">Book a demo</Link>
             </div>
             <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-soft">
-              {["Live the same day", "No contracts", "90-day results guarantee"].map((t) => (
+              {["Live the same day", "No contracts", "Done-for-you option"].map((t) => (
                 <li key={t} className="inline-flex items-center gap-2">
                   <Check className="h-4 w-4 text-success" /> {t}
                 </li>
@@ -178,6 +179,7 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
         ]}
       />
 
+      <DoneForYouBand tradePath="/marketing" label="Marketing plans by trade" />
       {/* CTA */}
       <section className="section">
         <div className="container-tt">
@@ -196,9 +198,6 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
                 <Link href="/signup" className="btn btn-light">Start free trial <ArrowRight className="h-4 w-4" /></Link>
                 <Link href="/contact" className="btn btn-outline-light">Book a demo</Link>
               </div>
-              <p className="mt-6 flex items-center justify-center gap-2 text-sm text-white/60">
-                <ShieldCheck className="h-4 w-4 text-success" /> More reviews in 90 days or your next month is free.
-              </p>
             </div>
           </div>
         </div>
