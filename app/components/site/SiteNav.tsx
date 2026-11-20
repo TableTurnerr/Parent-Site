@@ -55,19 +55,19 @@ export default function SiteNav() {
               <span className="text-lg">TableTurnerr</span>
             </Link>
 
-            <div className="hidden items-center gap-5 md:flex lg:gap-8">
+            <div className="hidden items-center gap-5 lg:flex xl:gap-8">
               {LINKS.map((l) => (
                 <Link
                   key={l.label}
                   href={l.href}
-                  className="text-sm font-semibold text-ink-soft transition-colors hover:text-ink"
+                  className="whitespace-nowrap text-sm font-semibold text-ink-soft transition-colors hover:text-ink"
                 >
                   {l.label}
                 </Link>
               ))}
             </div>
 
-            <div className="hidden items-center gap-2.5 md:flex">
+            <div className="hidden items-center gap-2.5 lg:flex">
               <ThemeToggleButton theme={theme} onToggle={toggle} />
               <a href="https://portal.tableturnerr.com/" className="btn btn-ghost px-4 py-2 text-sm">
                 Sign in
@@ -77,7 +77,7 @@ export default function SiteNav() {
               </Link>
             </div>
 
-            <div className="flex items-center gap-2 md:hidden">
+            <div className="flex items-center gap-2 lg:hidden">
               <ThemeToggleButton theme={theme} onToggle={toggle} />
               <button
                 type="button"
@@ -91,7 +91,7 @@ export default function SiteNav() {
           </nav>
 
           {open && (
-            <div className="border-t border-line pb-4 md:hidden">
+            <div className="border-t border-line pb-4 lg:hidden">
               <div className="flex flex-col gap-1 pt-3">
                 {LINKS.map((l) => (
                   <Link
