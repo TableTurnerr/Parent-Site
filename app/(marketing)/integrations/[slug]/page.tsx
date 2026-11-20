@@ -16,8 +16,9 @@ export async function generateMetadata({
   const it = getIntegration(slug);
   if (!it) return {};
   return {
-    title: `${it.name} Review Automation Integration`,
-    description: `Connect ${it.name} to TableTurnerr and turn every completed job into a 5-star review request across Google, Facebook, Yelp and Angi, automatically.`,
+    // Matches how owners search ("what review software integrates with Workiz" ranked #5.6 with 0 clicks in GSC).
+    title: `Review Software That Integrates With ${it.name}`,
+    description: `TableTurnerr integrates with ${it.name}: every completed job triggers a Google review request by text or email, with follow-ups. Self-serve or done for you.`,
     alternates: { canonical: `https://www.tableturnerr.com/integrations/${it.slug}` },
   };
 }
