@@ -3,6 +3,7 @@ import { INDUSTRIES, INDUSTRY_SLUGS } from "@/app/lib/industries";
 import { AUDIT_PATH, combos, guides, plain, results, services, trades } from "@/app/lib/growth";
 import { SITE_CONFIG } from "@/app/lib/constants";
 import { VSL, vslWatchUrl } from "@/app/lib/growth/video";
+import { tools } from "@/app/lib/growth/tools";
 
 export const dynamic = "force-static";
 
@@ -37,6 +38,10 @@ export function GET() {
     "",
     "## Guides",
     ...guides.map((g) => line(g.path, g.h1, g.description)),
+    "",
+    "## Free tools",
+    line("/tools", "Free marketing tools for home-service businesses"),
+    ...tools.map((t) => line(t.path, t.name, t.description)),
     "",
     "## Results",
     ...results.map((r) => line(r.path, `${r.client}: ${r.reviewsBefore} to ${r.reviewsAfter} Google reviews in ${r.days} days`)),
