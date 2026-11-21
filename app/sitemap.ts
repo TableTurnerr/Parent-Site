@@ -6,6 +6,7 @@ import { ALTERNATIVE_SLUGS } from "./lib/alternatives";
 import { REVIEW_CITY_SLUGS } from "./lib/review-cities";
 import { getPublishedPostSlugs } from "./lib/blog";
 import { combos, guides, results, services, trades } from "./lib/growth";
+import { tools } from "./lib/growth/tools";
 
 const baseUrl = "https://www.tableturnerr.com";
 
@@ -56,6 +57,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...combos.map((c) => entry(c.path, 0.7)),
     entry("/guides", 0.8, "weekly"),
     ...guides.map((g) => entry(g.path, 0.7, "monthly", new Date(`${g.article.updated ?? g.article.date}T12:00:00Z`))),
+    entry("/tools", 0.8),
+    ...tools.map((t) => entry(t.path, 0.8)),
     entry("/results", 0.7),
     entry("/restaurants", 0.5),
     ...results.map((r) => entry(r.path, 0.7)),
