@@ -6,6 +6,7 @@ import JsonLd from "@/app/components/site/JsonLd";
 import VideoPlayer from "@/app/components/growth/VideoPlayer";
 import { vslSchema } from "@/app/lib/growth/video";
 import type { Client } from "@/app/lib/growth/clients";
+import type { Tool } from "@/app/lib/growth/tools";
 import { AUDIT_PATH, growthSite, plain, topics, trades, type Guide, type Link3, type Pair } from "@/app/lib/growth";
 
 /** Trusted, first-party HTML from app/lib/growth content files. */
@@ -271,6 +272,29 @@ export function ClientProof({ clients, title, intro }: { clients: Client[]; titl
             <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">Review requests to past customers and after every job.</span>
             <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read the case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
           </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** "Try the free tool" strip on service and guide pages that have a matching calculator or template (tools.ts RELATED). */
+export function ToolCallout({ items }: { items: Tool[] }) {
+  if (!items.length) return null;
+  return (
+    <section className="pb-4 pt-12" data-analytics-section="tool_callout">
+      <div className="container-tt">
+        <div className={`grid gap-4 ${items.length > 1 ? "md:grid-cols-2" : ""}`}>
+          {items.map((t) => (
+            <Link key={t.slug} href={t.path} className="card card-hover group flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+              <span>
+                <span className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Free tool</span>
+                <span className="mt-1.5 block text-lg font-bold text-ink">{t.name}</span>
+                <span className="mt-1 block text-sm leading-relaxed text-ink-soft">{t.card}</span>
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold text-primary">Open it <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

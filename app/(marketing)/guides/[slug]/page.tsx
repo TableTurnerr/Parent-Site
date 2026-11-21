@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { toolsForPage } from "@/app/lib/growth/tools";
 import JsonLd from "@/app/components/site/JsonLd";
-import { AuditBand, Crumbs, FaqSection, GuideCards, Html, InlineHtml, SectionHead, TradeChips, faqSchemaItems } from "@/app/components/growth/Growth";
+import { AuditBand, Crumbs, FaqSection, ToolCallout, GuideCards, Html, InlineHtml, SectionHead, TradeChips, faqSchemaItems } from "@/app/components/growth/Growth";
 import { generateArticleSchema, generateBreadcrumbSchema, generateFAQSchema } from "@/app/lib/schema";
 import { getGuide, guides, plain, relatedGuides, services, slugify, topics, withToc } from "@/app/lib/growth";
 
@@ -79,6 +80,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           </div>
         </section>
       </article>
+      <ToolCallout items={toolsForPage(g.path)} />
       <AuditBand title={g.ctaTitle} />
       <FaqSection faq={g.faq} heading="Quick answers" />
       {related.length > 0 && (

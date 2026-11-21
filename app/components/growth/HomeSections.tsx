@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, Check, MapPin } from "lucide-react";
 import { AUDIT_PATH, getGuide, growthSite, results, trades, type Guide } from "@/app/lib/growth";
+import { tools } from "@/app/lib/growth/tools";
 
 /** Real client result (Presidential Roofing) with the numbers, linking to the case study. */
 export function HomeCaseStudy() {
@@ -132,6 +133,14 @@ export function HomeDoneForYou() {
               ))}
             </ul>
             <Link href="/guides" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">All guides <ArrowRight className="h-4 w-4" /></Link>
+            <h3 className="mt-10 text-xl font-bold text-ink">Free tools</h3>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {tools.map((t) => (
+                <li key={t.slug}>
+                  <Link href={t.path} className="inline-block rounded-full border border-line bg-bg px-3.5 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:border-primary hover:text-ink">{t.name}</Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
