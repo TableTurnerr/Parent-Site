@@ -182,7 +182,7 @@ export function RoiCalculator() {
     <Shell
       inputs={
         <>
-          <Input id="roi-cost" label="Monthly marketing cost" value={cost} onChange={setCost} step={50} prefix="$" hint="Our full program is around $500/mo. Use any agency's quote." />
+          <Input id="roi-cost" label="Monthly marketing cost" value={cost} onChange={setCost} step={50} prefix="$" hint="Our plans run $97–497/mo. Use any agency's quote." />
           <div className="grid gap-5 sm:grid-cols-2">
             <Input id="roi-ticket" label="Average job value" value={ticket} onChange={setTicket} step={50} prefix="$" />
             <Input id="roi-margin" label="Gross margin per job" value={margin} onChange={setMargin} max={100} suffix="%" />

@@ -7,6 +7,7 @@ import { REVIEW_CITY_SLUGS } from "./lib/review-cities";
 import { getPublishedPostSlugs } from "./lib/blog";
 import { combos, guides, results, services, trades } from "./lib/growth";
 import { tools } from "./lib/growth/tools";
+import { SITE_UPDATED } from "./lib/growth";
 
 const baseUrl = "https://www.tableturnerr.com";
 
@@ -20,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}${path}`,
     changeFrequency,
     priority,
-    ...(lastModified ? { lastModified } : {}),
+    lastModified: lastModified ?? new Date(SITE_UPDATED),
   });
 
   const posts = await getPublishedPostSlugs();
@@ -62,6 +63,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry("/results", 0.7),
     entry("/restaurants", 0.5),
     ...results.map((r) => entry(r.path, 0.7)),
+    entry("/results/seasons-taiwanese-eatery", 0.6),
     // Blog
     entry("/blog", 0.7, "weekly"),
     ...posts.map((p) =>

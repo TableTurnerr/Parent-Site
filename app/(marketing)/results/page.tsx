@@ -12,7 +12,7 @@ const base = "https://www.tableturnerr.com";
 
 export const metadata: Metadata = {
   title: "Client Results",
-  description: "Real results from home-service businesses we work with: Google review growth, Maps rankings and more calls, shared with each client's permission.",
+  description: "Real results from businesses we work with: Google review growth, Maps rankings, more calls and more customers, shared with each client's permission.",
   alternates: { canonical: `${base}/results` },
 };
 
@@ -40,6 +40,13 @@ export default function Page() {
                 <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read the case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
               </Link>
             ))}
+            <Link href="/results/seasons-taiwanese-eatery" className="card card-hover group flex flex-col p-7">
+              <span className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Restaurant · Honolulu, Hawaii</span>
+              <span className="mt-3 text-xl font-bold text-ink">Seasons Taiwanese Eatery</span>
+              <span className="mt-4 font-display text-4xl font-bold text-ink">500+</span>
+              <span className="mt-1 text-sm text-ink-soft">customers brought in (2025), with video</span>
+              <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read the case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+            </Link>
           </div>
         </div>
       </section>

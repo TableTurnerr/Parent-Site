@@ -56,7 +56,7 @@ function toGuides(value: unknown): unknown {
 }
 
 export const SITE_UPDATED: string = SITE_UPDATED_RAW;
-export interface Owner { name: string; role: string; photo: string; bio: string }
+export interface Owner { name: string; role: string; photo: string; bio: string; links: { label: string; href: string }[] }
 export const growthSite = siteRaw as {
   bookingUrl: string; auditFormEmbed: string; clientStates: string[]; indexNowKey: string; email: string;
   phoneE164: string; phoneDisplay: string; businessesServed: string;

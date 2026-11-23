@@ -2,7 +2,7 @@
 // Every guide belongs to at least one topic. Each topic has a pillar (a service page) that the guides link up to,
 // and the pillar links back down to its guides. Trade pages link to the guides most useful to that trade.
 
-export const SITE_UPDATED = '2026-11-16';
+export const SITE_UPDATED = '2026-11-23';
 
 export const topics = {
   maps: { name: 'Google Maps & Business Profile', pillar: '/services/google-business-profile',
