@@ -3,6 +3,7 @@ import SiteFooter from "@/app/components/site/SiteFooter";
 import MarketingThemeProvider from "@/app/components/site/MarketingThemeProvider";
 import StickyCta from "@/app/components/growth/StickyCta";
 import AuditGate from "@/app/components/growth/AuditGate";
+import CallWidget from "@/app/components/growth/CallWidget";
 
 export default function MarketingLayout({
   children,
@@ -19,6 +20,7 @@ export default function MarketingLayout({
       <SiteFooter />
       <StickyCta />
       <AuditGate />
+      <CallWidget />
     </MarketingThemeProvider>
   );
 }

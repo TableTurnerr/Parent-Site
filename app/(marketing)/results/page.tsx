@@ -1,3 +1,5 @@
+import { ClientWall } from "@/app/components/growth/Proof";
+import { CallNowBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -41,7 +43,9 @@ export default function Page() {
           </div>
         </div>
       </section>
+      <ClientWall title="Every business we work with" />
       <AuditBand title="Want results like these?" />
+      <CallNowBand title="Want to be next on this page? Call us" />
       <NextSteps
         items={[
           ["/services", "Done-for-you services", "Google Business Profile, reviews, local SEO, websites and missed-call text-back."],

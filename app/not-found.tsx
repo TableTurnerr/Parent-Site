@@ -141,11 +141,11 @@ export default function NotFound() {
           </Link>
 
           <Link
-            href="/signup"
+            href="/free-google-maps-audit"
             className="group flex items-center gap-2.5 border border-charcoal/20 text-charcoal rounded-full px-7 py-3.5 font-medium text-sm hover:border-charcoal/50 transition-colors"
           >
             <Compass className="w-4 h-4" />
-            Start Free Trial
+            Get a Free Audit
           </Link>
 
           <Link

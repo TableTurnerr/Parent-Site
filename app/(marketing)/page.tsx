@@ -1,3 +1,5 @@
+import { ClientWall, HeroProof, HomeResult } from "@/app/components/growth/Proof";
+import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
@@ -11,16 +13,15 @@ import VslPlayer from "@/app/components/site/VslPlayer";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
-import { PLANS } from "@/app/lib/pricing";
 import ProductBento from "@/app/components/site/ProductBento";
 import { PricingNote, PricingTiers } from "@/app/components/growth/PricingTiers";
-import { HomeCaseStudy, HomeDoneForYou } from "@/app/components/growth/HomeSections";
+import { HomeDoneForYou } from "@/app/components/growth/HomeSections";
 import { growthSite } from "@/app/lib/growth";
 
 export const metadata: Metadata = {
   // Absolute title so the root "%s | TableTurnerr" template doesn't double-brand
   // the homepage. Keyword-first so the crawler reads the target phrase first.
-  title: { absolute: "Home-Service Marketing Agency & Review Software | TableTurnerr" },
+  title: { absolute: "Home-Service Marketing Agency: Websites, SEO & Reviews | TableTurnerr" },
   description:
     "Done-for-you marketing for home-service businesses: websites and SEO, Google profile, reviews, CRM, automations and seasonal campaigns. Get a free Maps audit.",
   alternates: { canonical: "https://www.tableturnerr.com" },
@@ -35,15 +36,15 @@ function Hero() {
       <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
       <div className="container-tt relative pb-16 md:pb-24">
         <div className="mx-auto max-w-4xl text-center">
-          <span className="eyebrow">Done-for-you marketing for home-service businesses</span>
+          <HeroProof />
           <h1 className="display mt-6 text-ink">
-            Be the first business homeowners call,{" "}
-            <span className="text-primary">and the one they call back</span>
+            We get home-service businesses{" "}
+            <span className="text-primary">more calls from Google</span>
           </h1>
           <p className="lead mx-auto mt-6 max-w-3xl">
-            One owner-run team handles your whole marketing: the website and SEO
-            that get you found, the reviews that get you chosen, and the CRM,
-            automations and seasonal campaigns that keep jobs coming back.
+            We build your website, run your Google profile, bring in reviews and
+            follow up with every lead, so homeowners find you first and pick you
+            over the competition. Done for you, month to month.
           </p>
 
           <ul aria-label="What we run for you" className="mx-auto mt-7 flex max-w-4xl flex-wrap justify-center gap-2">
@@ -64,7 +65,7 @@ function Hero() {
           </div>
 
           <ul className="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-ink-soft">
-            {[`Clients in ${growthSite.clientStates.length} states`, "Month to month, no contracts", "You talk to an owner, not a rep"].map((t) => (
+            {[`${growthSite.businessesServed} businesses served`, "Month to month, no contracts", "You talk to an owner, not a rep"].map((t) => (
               <li key={t} className="inline-flex items-center gap-2">
                 <Check className="h-4 w-4 text-success" /> {t}
               </li>
@@ -82,21 +83,26 @@ function Hero() {
 
 /* ── Stat strip ─────────────────────────────────────────── */
 const STATS = [
-  { v: "1 team", l: "for your website, SEO, Google profile, reviews, CRM and campaigns" },
-  { v: "27→43", l: "Google reviews in 20 days for a Utah roofing client" },
-  { v: "Free", l: "Google Maps audit before you spend anything" },
-  { v: "0", l: "contracts. Month to month, every plan" },
+  { v: `${growthSite.businessesServed}`, l: "businesses served since we started" },
+  { v: "27 → 43", l: "Google reviews in 20 days for a Utah roofer" },
+  { v: `${growthSite.clientStates.length}`, l: "states where we have clients today" },
+  { v: "0", l: "long-term contracts. Month to month" },
 ];
 function Stats() {
   return (
-    <section data-analytics-section="results_metrics" className="border-y border-line bg-white">
-      <div className="container-tt grid grid-cols-2 gap-8 py-10 md:grid-cols-4 md:py-12">
-        {STATS.map((s) => (
-          <div key={s.l} className="text-center md:text-left">
-            <p className="font-display text-3xl font-bold text-ink md:text-4xl">{s.v}</p>
-            <p className="mt-1.5 text-sm leading-snug text-ink-soft">{s.l}</p>
-          </div>
-        ))}
+    <section data-analytics-section="results_metrics" className="pb-6 pt-2 md:pb-10">
+      <div className="container-tt">
+        <dl className="grid grid-cols-2 overflow-hidden rounded-[1.5rem] border border-line bg-surface md:grid-cols-4">
+          {STATS.map((s, i) => (
+            <div
+              key={s.l}
+              className={`flex flex-col items-center justify-center px-4 py-7 text-center md:px-6 md:py-9 ${i % 2 === 1 ? "border-l border-line" : ""} ${i >= 2 ? "border-t border-line md:border-t-0" : ""} ${i === 2 ? "md:border-l" : ""}`}
+            >
+              <dt className="order-2 mt-2 max-w-[13rem] text-sm leading-snug text-ink-soft">{s.l}</dt>
+              <dd className="order-1 font-display text-4xl font-bold tracking-tight text-ink md:text-5xl">{s.v}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );
@@ -345,46 +351,7 @@ function Pricing() {
           <PricingTiers />
         </Reveal>
         <PricingNote />
-        {/* Self-serve software plans, kept below the done-for-you levels. */}
-        <h3 className="mt-16 text-center text-lg font-bold text-ink">Prefer to run the software yourself?</h3>
-        <Reveal className="mt-6 grid gap-6 lg:grid-cols-3">
-          {PLANS.map((p) => (
-            <div
-              key={p.name}
-              className={`card relative flex flex-col p-7 ${p.popular ? "border-primary shadow-[0_30px_70px_-40px_rgba(54,64,143,0.5)] ring-1 ring-primary" : ""}`}
-            >
-              {p.popular && (
-                <span className="absolute -top-3 left-7 rounded-full bg-primary px-3 py-1 text-xs font-bold text-white">
-                  Most popular
-                </span>
-              )}
-              <h3 className="text-lg font-bold text-ink">{p.name}</h3>
-              <p className="mt-3">
-                <span className="font-display text-4xl font-bold text-ink">{p.price}</span>
-                <span className="text-ink-soft">{p.per}</span>
-              </p>
-              <p className="mt-1 text-sm text-muted">{p.note}</p>
-              <p className="mt-4 text-sm leading-relaxed text-ink-soft">{p.description}</p>
-              <ul className="mt-6 flex-1 space-y-3">
-                {p.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2.5 text-sm text-ink-soft">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" /> {f}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 border-t border-line pt-4 text-sm font-semibold leading-relaxed text-ink">
-                <span className="text-primary">Goal: </span>{p.goal}
-              </p>
-              <Link
-                href="/signup"
-                className={`btn mt-7 w-full ${p.popular ? "btn-primary" : "btn-ghost"}`}
-              >
-                Start free trial
-              </Link>
-            </div>
-          ))}
-        </Reveal>
-                <p className="mt-4 text-center text-sm text-ink-soft">
+        <p className="mt-4 text-center text-sm text-ink-soft">
           <Link href="/pricing" className="font-semibold text-primary hover:underline">
             See full pricing details
           </Link>
@@ -396,13 +363,13 @@ function Pricing() {
 
 /* ── FAQ ────────────────────────────────────────────────── */
 const FAQS = [
-  { q: "Is TableTurnerr software or a marketing agency?", a: "A marketing agency first. We're a done-for-you team for home-service businesses, and we built our own software to do the work: websites and SEO, Google Business Profile, reviews, CRM and automations, seasonal campaigns and missed-call text-back. If you'd rather run the software yourself, you can." },
+  { q: "Is TableTurnerr software or a marketing agency?", a: "A marketing agency first. We're a done-for-you team for home-service businesses, and we built our own software to do the work: websites and SEO, Google Business Profile, reviews, CRM and automations, seasonal campaigns and missed-call text-back. The software is included, so there's nothing extra to buy." },
   { q: "What does the free Google Maps audit include?", a: "A ranking heatmap across your service area, your top 5 competitors' ratings and review counts next to yours, whether AI assistants like ChatGPT recommend you, a homepage check, and what to fix first. We walk you through it on a short call and you keep the report." },
   { q: "How fast will I see new reviews?", a: "Usually as soon as the past-customer campaign goes out. For example, Presidential Roofing in Utah went from 27 to 43 Google reviews in 20 days, and new jobs keep the reviews coming after that." },
   { q: "Which platforms do you collect reviews on?", a: "Google, Facebook, Yelp and Angi, the places home-services customers actually check before they call. Most tools only do Google." },
   { q: "Does it work with my software?", a: "Yes. We connect natively to Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks, plus thousands more through Zapier." },
   { q: "How much does it cost?", a: "It's custom, based on what your business needs. Just reviews or just a website is around $100–300/mo. The full program (website and SEO, Google profile, reviews, CRM and automations, content and seasonal campaigns) is about $500/mo. Adding ads, an after-hours AI answering service and more of our attention is about $1,000/mo. We set the price after the free audit." },
-  { q: "Do I need a contract?", a: "No. Every plan is month to month. If you'd rather run the software yourself, there's a 14-day free trial, no credit card required." },
+  { q: "Do I need a contract?", a: "No. Every plan is month to month, so you can scale up, scale down or stop." },
   { q: "Can my techs get credit for their reviews?", a: "Yes. Technician leaderboards attribute each review to the person who did the job, which is a great way to motivate your crew." },
 ];
 function FAQ() {
@@ -445,9 +412,6 @@ function FinalCTA() {
                 Book a 15-minute call
               </a>
             </div>
-            <p className="mt-6 text-sm text-white/60">
-              Rather run it yourself? <Link href="/signup" className="font-semibold text-white underline">Start a 14-day free trial</Link> of the software.
-            </p>
           </div>
         </div>
       </div>
@@ -456,21 +420,47 @@ function FinalCTA() {
 }
 
 /* ── Trust marquee ──────────────────────────────────────── */
-const TRUST = ["Jobber", "Housecall Pro", "ServiceTitan", "Workiz", "QuickBooks", "Zapier", "Google", "Facebook", "Yelp", "Angi"];
+// Logos from each company's own site icon (public/images/tools). Links go to our integration page where one exists.
+const TRUST: { name: string; logo: string; href?: string }[] = [
+  { name: "Jobber", logo: "jobber", href: "/integrations/jobber" },
+  { name: "Housecall Pro", logo: "housecall-pro", href: "/integrations/housecall-pro" },
+  { name: "ServiceTitan", logo: "servicetitan", href: "/integrations/servicetitan" },
+  { name: "Workiz", logo: "workiz", href: "/integrations/workiz" },
+  { name: "QuickBooks", logo: "quickbooks", href: "/integrations/quickbooks" },
+  { name: "Zapier", logo: "zapier" },
+  { name: "Google", logo: "google" },
+  { name: "Facebook", logo: "facebook" },
+  { name: "Yelp", logo: "yelp" },
+  { name: "Angi", logo: "angi" },
+];
+function TrustChip({ t, hidden = false }: { t: (typeof TRUST)[number]; hidden?: boolean }) {
+  const inner = (
+    <>
+      <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg bg-[#fff] ring-1 ring-black/5">
+        <Image src={`/images/tools/${t.logo}.webp`} alt="" fill sizes="32px" className="object-contain p-0.5" />
+      </span>
+      <span className="whitespace-nowrap text-sm font-semibold text-ink-soft">{t.name}</span>
+    </>
+  );
+  const cls = "flex items-center gap-2.5 rounded-full border border-line bg-bg py-1.5 pl-1.5 pr-4 transition-colors hover:border-primary";
+  return t.href
+    ? <Link href={t.href} className={cls} tabIndex={hidden ? -1 : undefined}>{inner}</Link>
+    : <span className={cls}>{inner}</span>;
+}
 function TrustMarquee() {
   return (
-    <section className="border-b border-line bg-white py-8">
-      <div className="container-tt">
-        <p className="text-center text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-          Connects with the tools you already run your business on
-        </p>
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-          {TRUST.map((name) => (
-            <span key={name} className="whitespace-nowrap text-lg font-bold text-ink/35">
-              {name}
-            </span>
+    <section className="border-b border-line py-8" data-analytics-section="tools_strip">
+      <p className="container-tt text-center text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+        Works with the tools you already run your business on
+      </p>
+      <div className="tt-marquee-wrap mt-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] motion-reduce:overflow-x-auto">
+        <ul className="tt-marquee flex w-max gap-3 pr-3">
+          {[...TRUST, ...TRUST].map((t, i) => (
+            <li key={`${t.name}-${i}`} aria-hidden={i >= TRUST.length || undefined}>
+              <TrustChip t={t} hidden={i >= TRUST.length} />
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
@@ -533,17 +523,20 @@ export default function HomePage() {
       />
       <Hero />
       <Stats />
+      <ClientWall />
       <TrustMarquee />
       {/* Problem, then the full done-for-you program + free audit, then proof, then the software story. */}
       <Problem />
       <HomeDoneForYou />
-      <HomeCaseStudy />
+      <HomeResult />
+      <BookCallBand />
       <Features />
       <How />
       <Industries />
       <Personalized />
       <Compliance />
       <Pricing />
+      <CallNowBand />
       <FAQ />
       <FinalCTA />
     </>

@@ -99,7 +99,7 @@ export const combos = [
     ],
     faq: [
       ['How many reviews do I need to compete?', 'It depends on your area. The free audit shows the review counts of the top plumbers near you, so you know the number to beat. Our guide on how many reviews you need explains the rest.'],
-      ['Is this the same as your review software?', 'It runs on the same software, but we set it up and run it for you. If you\'d rather run it yourself, see our plumber review management software page.'],
+      ['Is this the same as your review software?', 'It runs on the same software, but we set it up and run it for you.'],
     ],
   },
   {

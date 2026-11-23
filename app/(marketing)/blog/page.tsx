@@ -107,14 +107,14 @@ function EmptyState() {
     <div className="max-w-2xl">
       <p className="text-warm-gray text-lg leading-relaxed mb-8">
         New articles are on the way. In the meantime, see how review automation
-        works for your industry or start a free trial.
+        works for your industry or get a free Google Maps audit.
       </p>
       <div className="flex flex-col sm:flex-row gap-3">
         <Button href="/contact" variant="primary">
           Book a Demo
         </Button>
-        <Button href="/signup" variant="secondary">
-          Start Free Trial
+        <Button href="/free-google-maps-audit" variant="secondary">
+          Get a Free Audit
         </Button>
       </div>
       <div className="mt-14">
