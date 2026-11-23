@@ -9,8 +9,8 @@ export const topics = {
     intro: 'How the map pack works, what moves your ranking, and how to keep your profile safe.' },
   reviews: { name: 'Google reviews', pillar: '/services/review-generation',
     intro: 'How many reviews you need, how to get them from the software you already use, and what breaks Google\'s rules.' },
-  seo: { name: 'Local SEO, websites & ads', pillar: '/services/local-seo',
-    intro: 'What local SEO costs, what to do yourself, and where paid ads fit.' },
+  seo: { name: 'Local SEO, AI search, websites & ads', pillar: '/services/local-seo',
+    intro: 'What local SEO costs, how to show up in AI answers, what to do yourself, and where paid ads fit.' },
   trades: { name: 'Marketing ideas by trade', pillar: '/marketing',
     intro: 'Practical plans written for one trade at a time.' },
 };
@@ -28,13 +28,14 @@ export const guideTopics = {
   'best-review-software-for-contractors': ['reviews'],
   'electrician-review-management': ['reviews', 'trades'],
   'contractor-seo-cost': ['seo'],
+  'how-to-get-recommended-by-chatgpt': ['seo', 'maps'],
   'handyman-marketing-ideas': ['trades'],
   'fence-company-marketing-guide': ['trades'],
 };
 
 // service slug -> topic its guides come from
 export const serviceTopics = {
-  'google-business-profile': 'maps', 'review-generation': 'reviews', 'local-seo': 'seo',
+  'google-business-profile': 'maps', 'review-generation': 'reviews', 'local-seo': 'seo', 'ai-search-optimization': 'seo',
   'contractor-websites': 'seo', 'missed-call-text-back': 'maps',
 };
 
@@ -55,7 +56,6 @@ export const defaultTradeGuides = ['how-to-rank-higher-on-google-maps', 'how-man
 // Old pages that compete with a new page for the same search. 301 them so signals consolidate on one URL.
 // Internal links in the kept old pages are rewritten to the new URL too, so nothing links through a redirect.
 export const consolidate = {
-  '/seo': '/services/local-seo',
   '/industries': '/marketing',
   '/industries/handyman': '/marketing/handyman',
   '/industries/hvac': '/marketing/hvac',

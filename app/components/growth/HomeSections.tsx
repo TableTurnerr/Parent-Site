@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, Check, MapPin } from "lucide-react";
 import { AUDIT_PATH, getGuide, growthSite, results, trades, type Guide } from "@/app/lib/growth";
+import { tools } from "@/app/lib/growth/tools";
 
 /** Real client result (Presidential Roofing) with the numbers, linking to the case study. */
 export function HomeCaseStudy() {
@@ -40,7 +41,8 @@ export function HomeCaseStudy() {
 /** Everything in the full program. Items with a page link to it; the rest are part of the Professional and Premier plans. */
 const PROGRAM: { t: string; d: string; href?: string; note?: string }[] = [
   { t: "Websites built to rank", d: "Fast on a phone, a page for every service and town you cover, and click-to-call where people decide.", href: "/services/contractor-websites" },
-  { t: "Local SEO", d: "Show up for the searches that bring jobs, in every town you serve, on Google and in AI assistants.", href: "/services/local-seo" },
+  { t: "Local SEO", d: "Show up for the searches that bring jobs, in every town you serve, on Google.", href: "/services/local-seo" },
+  { t: "AI search (AEO)", d: "Get named when homeowners ask ChatGPT, Gemini or Google's AI answers who to hire.", href: "/services/ai-search-optimization" },
   { t: "Google Business Profile", d: "Categories, services, photos and weekly posts, so you climb the map pack.", href: "/services/google-business-profile" },
   { t: "Google reviews", d: "A request after every job, a past-customer campaign, and a reply to every review.", href: "/services/review-generation" },
   { t: "CRM and automations", d: "Every lead, call, text and message in one place, with follow-ups and estimate reminders that run on their own.", href: "/features/crm-contact-import-and-lead-management" },
@@ -132,6 +134,14 @@ export function HomeDoneForYou() {
               ))}
             </ul>
             <Link href="/guides" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">All guides <ArrowRight className="h-4 w-4" /></Link>
+            <h3 className="mt-10 text-xl font-bold text-ink">Free tools</h3>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {tools.map((t) => (
+                <li key={t.slug}>
+                  <Link href={t.path} className="inline-block rounded-full border border-line bg-bg px-3.5 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:border-primary hover:text-ink">{t.name}</Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

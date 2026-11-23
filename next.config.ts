@@ -56,8 +56,8 @@ const nextConfig: NextConfig = {
       // `:path+` (one or more segments): `:path*` also matched /pricing itself and looped.
       { source: "/pricing/:path+", destination: "/pricing", permanent: true },
       { source: "/search", destination: "/", permanent: true },
-      { source: "/review-calculator", destination: "/guides/how-many-google-reviews-to-rank", permanent: true },
-      { source: "/tools", destination: "/", permanent: true },
+      // /tools is a real page again (free calculators and templates); the old review calculator maps to its replacement.
+      { source: "/review-calculator", destination: "/tools/google-review-calculator", permanent: true },
       { source: "/savings-calculator", destination: "/", permanent: true },
       { source: "/menu-price-calculator", destination: "/", permanent: true },
     ];

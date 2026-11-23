@@ -103,6 +103,7 @@ export const DFY_TIERS: Tier[] = [
       "Google Business Profile kept active with posts and photos",
       "Content on Google, Facebook, Instagram and TikTok",
       "Local SEO and service pages for the towns you serve",
+      "AI search optimization (AEO), so ChatGPT, Gemini and Google's AI answers can recommend you",
       "CRM with follow-ups, estimate reminders and missed-call text-back",
       "Seasonal campaigns to past customers",
       "Or a custom mix built around your audit",
