@@ -40,6 +40,9 @@ export const site = {
   indexNowKey: "957102cb81f38a2c15316c5a9a94d5be",
 
   // States where you already have clients. Used in copy as plain fact, no client names.
+  // Total businesses served since we started (confirmed by the owner 2026-11-23). Most are past clients.
+  businessesServed: '50+',
+
   clientStates: ['Washington', 'Oregon', 'California', 'Utah', 'Texas', 'New Mexico', 'Hawaii'],
 
   // Owners shown on /about (E-E-A-T: who is giving this advice?). The "Who you'll work with" cards only appear

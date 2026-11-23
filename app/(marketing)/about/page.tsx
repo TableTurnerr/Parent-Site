@@ -1,3 +1,5 @@
+import { ClientWall } from "@/app/components/growth/Proof";
+import { CallNowBand } from "@/app/components/growth/ContactCtas";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Check } from "lucide-react";
@@ -79,6 +81,7 @@ export default function AboutPage() {
           ["What we are", "A small, owner-run online marketing agency for US home-service businesses, with our own software behind the work."],
           ["What we do", <span key="s">{services.map((s, i) => <span key={s.slug}>{i > 0 && ", "}<Link href={s.path} className="font-semibold text-primary">{s.short}</Link></span>)}, plus visibility in AI assistants like ChatGPT.</span>],
           ["Who we work with", <span key="t">{trades.length} home-service trades including HVAC, plumbing, roofing, electrical, handyman and fencing. <Link href="/marketing" className="font-semibold text-primary">See all trades</Link>.</span>],
+          ["Clients", `${growthSite.businessesServed} businesses served since we started.`],
           ["Where", `Clients in ${clientStatesText}. We work with businesses anywhere in the US.`],
           ["Reviews", <a key="tp" href={growthSite.trustpilotUrl} className="font-semibold text-primary" target="_blank" rel="noopener noreferrer">TableTurnerr on Trustpilot</a>],
           ["How we work", "Done for you, month to month, by the rules: no fake reviews, no review gating."],
@@ -172,8 +175,10 @@ export default function AboutPage() {
         </section>
       )}
 
+      <ClientWall surface />
       <AuditBand title="Talk to an owner, starting with a free audit" />
       <FaqSection faq={faq} />
+      <CallNowBand />
       <NextSteps
         items={[
           ["/services", "What we do", "Google Business Profile, reviews, local SEO, websites and missed-call text-back, done for you."],

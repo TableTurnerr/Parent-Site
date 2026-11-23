@@ -59,7 +59,7 @@ export const SITE_UPDATED: string = SITE_UPDATED_RAW;
 export interface Owner { name: string; role: string; photo: string; bio: string }
 export const growthSite = siteRaw as {
   bookingUrl: string; auditFormEmbed: string; clientStates: string[]; indexNowKey: string; email: string;
-  phoneE164: string; phoneDisplay: string;
+  phoneE164: string; phoneDisplay: string; businessesServed: string;
   owners: Owner[]; profiles: Record<string, string>; trustpilotUrl: string;
 };
 /** True once every owner has a real name and bio (see config.mjs). */
