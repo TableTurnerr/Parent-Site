@@ -48,7 +48,7 @@ const COLS = [
       { label: "Free tools", href: "/tools" },
       { label: "Blog", href: "/blog" },
       { label: "Contact", href: "/contact" },
-      { label: "SEO services", href: "/seo" },
+      { label: "SEO & AEO services", href: "/seo" },
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
     ],

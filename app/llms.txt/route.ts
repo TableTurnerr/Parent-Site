@@ -22,6 +22,7 @@ export function GET() {
     line("/", "Home", "Done-for-you online marketing and review software for home-service businesses."),
     line(AUDIT_PATH, "Free Google Maps audit", "Ranking heatmap, top 5 competitors, AI-assistant visibility and a homepage check, free."),
     line("/services", "Done-for-you services", "Everything we run for home-service businesses, month to month."),
+    line("/seo", "SEO & AEO", "Local SEO plus answer engine optimization: get found on Google and recommended by ChatGPT, Gemini, Perplexity and Google AI answers."),
     line("/pricing", "Pricing", "Custom done-for-you plans: around $100-300/mo for one or two services, about $500/mo for the full program, about $1,000/mo with ads, after-hours AI answering and more attention. Quoted after the free audit. Self-serve software from $80/mo."),
     line("/about", "About", "Who we are, how we work and our rules (no fake reviews, no review gating)."),
     line("/features", "Software features"),

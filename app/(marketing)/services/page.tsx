@@ -84,8 +84,8 @@ export default function Page() {
               </Link>
             ))}
             <Link href="/seo" className="card card-hover group flex h-full flex-col p-6">
-              <span className="text-lg font-bold text-ink">SEO services</span>
-              <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">Our full SEO offer for home-service businesses.</span>
+              <span className="text-lg font-bold text-ink">SEO & AEO</span>
+              <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">Get found on Google and recommended by ChatGPT and other AI assistants, as one program.</span>
               <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
             </Link>
           </div>

@@ -30,7 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Core marketing pages
     entry("/about", 0.7),
     entry("/pricing", 0.8),
-    entry("/seo", 0.6),
+    entry("/seo", 0.9),
     entry("/contact", 0.7),
     entry("/privacy", 0.3, "yearly"),
     entry("/terms", 0.3, "yearly"),
