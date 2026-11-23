@@ -41,7 +41,8 @@ export function HomeCaseStudy() {
 /** Everything in the full program. Items with a page link to it; the rest are part of the Professional and Premier plans. */
 const PROGRAM: { t: string; d: string; href?: string; note?: string }[] = [
   { t: "Websites built to rank", d: "Fast on a phone, a page for every service and town you cover, and click-to-call where people decide.", href: "/services/contractor-websites" },
-  { t: "Local SEO", d: "Show up for the searches that bring jobs, in every town you serve, on Google and in AI assistants.", href: "/services/local-seo" },
+  { t: "Local SEO", d: "Show up for the searches that bring jobs, in every town you serve, on Google.", href: "/services/local-seo" },
+  { t: "AI search (AEO)", d: "Get named when homeowners ask ChatGPT, Gemini or Google's AI answers who to hire.", href: "/services/ai-search-optimization" },
   { t: "Google Business Profile", d: "Categories, services, photos and weekly posts, so you climb the map pack.", href: "/services/google-business-profile" },
   { t: "Google reviews", d: "A request after every job, a past-customer campaign, and a reply to every review.", href: "/services/review-generation" },
   { t: "CRM and automations", d: "Every lead, call, text and message in one place, with follow-ups and estimate reminders that run on their own.", href: "/features/crm-contact-import-and-lead-management" },

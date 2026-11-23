@@ -152,6 +152,7 @@ const RELATED: Record<string, ToolSlug[]> = {
   "/guides/servicetitan-review-requests": ["review-request-templates"],
   "/guides/workiz-google-reviews": ["review-request-templates"],
   "/guides/electrician-review-management": ["review-request-templates", "google-review-calculator"],
+  "/guides/how-to-get-recommended-by-chatgpt": ["review-request-templates"],
 };
 
 export const toolsForPage = (path: string): Tool[] => (RELATED[path] ?? []).map((s) => getTool(s)).filter((t): t is Tool => Boolean(t));
