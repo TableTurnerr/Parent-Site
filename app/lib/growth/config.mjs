@@ -47,10 +47,35 @@ export const site = {
 
   // Owners shown on /about (E-E-A-T: who is giving this advice?). The "Who you'll work with" cards only appear
   // once EVERY owner has a real name and a bio, so no placeholder ever shows on the live site.
-  // TODO (owner): fill in the first co-owner's name, both bios (2-3 sentences in your own words: background,
-  // why you started TableTurnerr, what you handle for clients), and headshot paths under /public/images/team/.
+  // Names, roles and profile links confirmed by the owner on 2026-11-23. Bios are a first draft for the owners to
+  // edit. Headshots go under /public/images/team/ (leave photo empty to show initials).
   owners: [
-    { name: 'TODO: your name', role: 'Co-owner', photo: '', bio: '' },
-    { name: 'Hashaam', role: 'Co-owner', photo: '', bio: '' },
+    {
+      name: 'Nooh Ali Hassan',
+      role: 'Founder & CEO',
+      photo: '',
+      bio: 'Nooh founded TableTurnerr and runs it as CEO. He leads strategy and client relationships, so he is usually the owner you talk to on the first call and whenever your plan changes.',
+      links: [
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nooh-ali-hassan' },
+        { label: 'Instagram', href: 'https://www.instagram.com/noohsalehh/' },
+      ],
+    },
+    {
+      name: 'Hashaam Zahid',
+      role: 'Co-founder & CTO',
+      photo: '',
+      bio: "Hashaam is TableTurnerr's CTO. He builds and runs the software behind the work: review automation, the CRM, missed-call text-back, AI answering and the websites we build for clients.",
+      links: [
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/hashaam-zahid-440080264/' },
+        { label: 'Instagram', href: 'https://www.instagram.com/hashaam_zahid/' },
+      ],
+    },
+    {
+      name: 'Mikael',
+      role: 'Chief Morale Officer (age 1)',
+      photo: '',
+      bio: "Our youngest team member. He doesn't take client calls yet, but he reviews every snack, approves every nap and keeps morale at 100%.",
+      links: [],
+    },
   ],
 };
