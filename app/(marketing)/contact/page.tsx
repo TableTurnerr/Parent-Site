@@ -1,22 +1,37 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Mail, MessageSquare, CalendarClock } from "lucide-react";
+import JsonLd from "@/app/components/site/JsonLd";
+import { generateBreadcrumbSchema } from "@/app/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Contact & Demo",
+  title: "Contact TableTurnerr: Call, Email or Book a Call",
   description:
-    "Book a demo or talk to the TableTurnerr team about review automation for your home-services business.",
+    "Talk to an owner at TableTurnerr: call (332) 333-1008, email contact@tableturnerr.com or book a 15-minute call about marketing for your home-service business or restaurant.",
   alternates: { canonical: "https://www.tableturnerr.com/contact" },
 };
 
 const POINTS = [
-  { icon: CalendarClock, t: "See it on your business", b: "We'll show you what review reactivation would pull from your past customers." },
-  { icon: MessageSquare, t: "Ask anything", b: "Integrations, pricing, multi-location, switching from another tool, all fair game." },
+  { icon: CalendarClock, t: "See it on your business", b: "We'll show you where you rank on Google Maps and what's holding you back." },
+  { icon: MessageSquare, t: "Ask anything", b: "Pricing, websites, reviews, your Google profile, AI search, all fair game." },
   { icon: Mail, t: "No pressure", b: "It's a working session, not a hard sell. You'll leave knowing if we're a fit." },
 ];
 
 export default function ContactPage() {
   return (
+    <>
+    <JsonLd
+      data={[
+        {
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          name: "Contact TableTurnerr",
+          url: "https://www.tableturnerr.com/contact",
+          about: { "@id": "https://www.tableturnerr.com/#organization" },
+        },
+        generateBreadcrumbSchema([{ name: "Home", url: "https://www.tableturnerr.com" }, { name: "Contact", url: "https://www.tableturnerr.com/contact" }]),
+      ]}
+    />
     <section className="hero-wash relative overflow-hidden pt-36 pb-20 md:pt-44">
       <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
       <div className="container-tt relative">
@@ -86,5 +101,6 @@ export default function ContactPage() {
         strategy="afterInteractive"
       />
     </section>
+    </>
   );
 }

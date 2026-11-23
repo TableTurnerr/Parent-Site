@@ -7,8 +7,8 @@ import JsonLd from "@/app/components/site/JsonLd";
 import {
   AuditBand, CardGrid, FaqSection, Glance, GrowthHero, NextSteps, SectionHead, VideoSection, faqSchemaItems,
 } from "@/app/components/growth/Growth";
-import { generateBreadcrumbSchema, generateFAQSchema } from "@/app/lib/schema";
-import { AUDIT_PATH, FSM, clientStatesText, growthSite, ownersReady, results, services, trades, type Pair } from "@/app/lib/growth";
+import { FOUNDERS, generateBreadcrumbSchema, generateFAQSchema } from "@/app/lib/schema";
+import { AUDIT_PATH, FSM, clientStatesText, growthSite, ownersReady, results, services, SITE_UPDATED, trades, type Pair } from "@/app/lib/growth";
 
 const base = "https://www.tableturnerr.com";
 const title = "About TableTurnerr: Owner-Run Home-Service Marketing";
@@ -61,7 +61,9 @@ export default function AboutPage() {
             name: title,
             description,
             url: `${base}/about`,
-            about: { "@type": "Organization", name: "TableTurnerr", url: base },
+            about: { "@id": `${base}/#organization` },
+            mainEntity: FOUNDERS,
+            dateModified: SITE_UPDATED,
           },
           generateFAQSchema(faqSchemaItems(faq)),
           generateBreadcrumbSchema([{ name: "Home", url: base }, { name: "About", url: `${base}/about` }]),
@@ -156,17 +158,26 @@ export default function AboutPage() {
         <section className="section">
           <div className="container-tt">
             <SectionHead eyebrow="The team" title="Who you'll work with" />
-            <div className="mt-10 grid gap-5 md:grid-cols-2">
+            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {growthSite.owners.map((o) => (
                 <div key={o.name} className="card flex gap-5 p-7">
-                  {o.photo && (
+                  {o.photo ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={o.photo} alt={`${o.name}, ${o.role} of TableTurnerr`} width={96} height={96} className="h-24 w-24 shrink-0 rounded-full object-cover" />
+                  ) : (
+                    <span aria-hidden className="grid h-20 w-20 shrink-0 place-items-center rounded-full bg-primary-soft font-display text-2xl font-bold text-primary">
+                      {o.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
+                    </span>
                   )}
                   <div>
                     <p className="text-lg font-bold text-ink">{o.name}</p>
                     <p className="text-sm text-muted">{o.role}</p>
                     <p className="mt-3 text-sm leading-relaxed text-ink-soft">{o.bio}</p>
+                    {o.links.length > 0 && <p className="mt-3 flex gap-4 text-sm">
+                      {o.links.map((l) => (
+                        <a key={l.href} href={l.href} target="_blank" rel="noopener me" className="font-semibold text-primary hover:underline">{l.label}</a>
+                      ))}
+                    </p>}
                   </div>
                 </div>
               ))}

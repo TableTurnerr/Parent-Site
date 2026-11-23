@@ -205,17 +205,15 @@ export function HomeResult() {
   if (!r) return null;
   return (
     <section className="bg-surface py-14 md:py-16" data-analytics-section="case_study">
-      <JsonLd data={clientShortSchema()} />
       <div className="container-tt grid items-center gap-10 md:grid-cols-12">
-        <div className="md:col-span-4 lg:col-span-3"><ShortPlayer compact /></div>
-        <div className="md:col-span-8 lg:col-span-5">
+        <div className="md:col-span-7">
           <span className="eyebrow">Real result</span>
           <h2 className="mt-4 text-2xl font-bold text-ink md:text-4xl">
             How we took a Utah roofer from {r.reviewsBefore} to {r.reviewsAfter} Google reviews in {r.days} days
           </h2>
           <p className="mt-3 max-w-2xl text-ink-soft">
             Adrian at {r.client} never asked for reviews himself, so we did it for him: a request to past customers and one
-            after every new job, paced so Google doesn&apos;t flag it. Hear him tell it in the clip.
+            after every new job, paced so Google doesn&apos;t flag it. Here&apos;s what that looks like on autopilot.
           </p>
           <dl className="mt-6 flex flex-wrap gap-x-10 gap-y-4">
             {[[`${r.reviewsBefore} → ${r.reviewsAfter}`, "Google reviews"], [`+${r.pct}%`, "more reviews"], [`${r.days} days`, "start to finish"]].map(([v, l]) => (
@@ -232,7 +230,7 @@ export function HomeResult() {
             </a>
           </div>
         </div>
-        <div className="md:col-span-12 lg:col-span-4"><AutopilotThread /></div>
+        <div className="md:col-span-5"><AutopilotThread /></div>
       </div>
     </section>
   );

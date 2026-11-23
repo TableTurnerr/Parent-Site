@@ -1,51 +1,95 @@
 import { SITE_CONFIG, SOCIAL_LINKS } from "./constants";
 
+const ORG_ID = `${SITE_CONFIG.url}/#organization`;
+
+/** Founders, shared by the Organization schema and the /about page (confirmed by the owner on 2026-11-23). */
+export const FOUNDERS = [
+  {
+    "@type": "Person",
+    "@id": `${SITE_CONFIG.url}/about#nooh-ali-hassan`,
+    name: "Nooh Ali Hassan",
+    jobTitle: "Founder & CEO",
+    worksFor: { "@id": ORG_ID },
+    sameAs: ["https://www.linkedin.com/in/nooh-ali-hassan", "https://www.instagram.com/noohsalehh/"],
+  },
+  {
+    "@type": "Person",
+    "@id": `${SITE_CONFIG.url}/about#hashaam-zahid`,
+    name: "Hashaam Zahid",
+    jobTitle: "Co-founder & CTO",
+    worksFor: { "@id": ORG_ID },
+    sameAs: ["https://www.linkedin.com/in/hashaam-zahid-440080264/", "https://www.instagram.com/hashaam_zahid/"],
+  },
+];
+
+/** The four fixed monthly prices (see app/lib/pricing.ts), as an offer catalog AI answers can quote exactly. */
+const PRICE_OFFERS: [string, number, string][] = [
+  ["Reviews", 97, "Google review requests after every job, replies to every review, connected to your CRM, FSM or invoicing software."],
+  ["Starter", 297, "Reviews plus an SEO and AEO optimized website, or Google Business Profile management with social posting."],
+  ["Growth", 397, "Reviews, an SEO and AEO optimized website, and Google Business Profile management with social posting."],
+  ["Complete", 497, "Everything: website, Google profile, reviews, local SEO, AI search (AEO), missed-call text-back, AI answering, CRM follow-ups and seasonal campaigns."],
+];
+
 export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": ["Organization", "ProfessionalService"],
+    "@id": ORG_ID,
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
     logo: `${SITE_CONFIG.url}/logo.png`,
     image: `${SITE_CONFIG.url}/logo.png`,
     description:
-      "TableTurnerr is a done-for-you online marketing agency for US home-service businesses (HVAC, plumbing, roofing, electrical, handyman and more), with its own software behind the work: Google Business Profile management, local SEO, contractor websites, Google review generation, missed-call text-back and AI-search visibility. Month to month. Starts with a free Google Maps audit.",
+      "TableTurnerr is a done-for-you online marketing agency for US home-service businesses (HVAC, plumbing, roofing, electrical, landscaping, tree service and more) and local restaurants. We build SEO and AEO optimized websites, manage Google Business Profiles, generate Google reviews, and run CRM follow-ups, missed-call text-back and AI answering on our own software. Plans from $97/mo, month to month, starting with a free Google Maps audit.",
     email: SITE_CONFIG.email,
     telephone: SITE_CONFIG.phone,
-    priceRange: "$$",
-    areaServed: {
-      "@type": "Country",
-      name: "United States",
-    },
-    slogan: "We make home-service businesses look like the best choice on Google.",
+    priceRange: "$97-$497/mo",
+    areaServed: { "@type": "Country", name: "United States" },
+    slogan: "We get home-service businesses more calls from Google.",
+    founder: FOUNDERS.map((p) => ({ "@id": p["@id"] })),
+    employee: FOUNDERS,
     serviceType: [
       "Home-service marketing",
+      "Restaurant marketing",
       "Google Business Profile management",
       "Local SEO",
+      "AI search optimization (AEO)",
       "Contractor website design",
       "Google review generation",
-      "Missed-call text-back and AI receptionist",
-      "Review management software",
+      "Missed-call text-back",
+      "AI answering service",
+      "CRM and follow-up automation",
     ],
     knowsAbout: [
-      "Review automation",
-      "Online reputation management",
-      "AI search visibility",
-      "Contractor websites",
-      "Missed-call text-back",
-      "Google reviews",
       "Local SEO",
+      "AI search optimization",
+      "Answer engine optimization",
       "Google Business Profile optimization",
       "Map pack ranking",
+      "Google reviews",
+      "Online reputation management",
+      "Contractor websites",
+      "Missed-call text-back",
+      "AI receptionists",
       "Home services marketing",
       "HVAC marketing",
       "Roofing marketing",
       "Plumbing marketing",
       "Electrical contractor marketing",
-      "Home-service review management",
       "Landscape marketing",
-      "Cleaning business marketing",
+      "Restaurant marketing",
     ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Done-for-you marketing plans",
+      itemListElement: PRICE_OFFERS.map(([name, price, description]) => ({
+        "@type": "Offer",
+        name,
+        description,
+        url: `${SITE_CONFIG.url}/pricing`,
+        priceSpecification: { "@type": "UnitPriceSpecification", price, priceCurrency: "USD", unitCode: "MON", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } },
+      })),
+    },
     contactPoint: {
       "@type": "ContactPoint",
       email: SITE_CONFIG.email,

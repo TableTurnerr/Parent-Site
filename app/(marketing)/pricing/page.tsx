@@ -11,17 +11,17 @@ import { VideoSection } from "@/app/components/growth/Growth";
 import { PricingNote, PricingTiers } from "@/app/components/growth/PricingTiers";
 import { AUDIT_PATH, growthSite } from "@/app/lib/growth";
 
-// What moves a quote between the three levels (same three things the owner names on calls and in the VSL).
+// What every plan shares.
 const FACTORS = [
-  ["What you need", "You might already have a good website, or plenty of reviews. The audit shows the gaps, and we only quote for those."],
-  ["How fast you want to grow", "More keywords, more towns and paid ads take more work. Steady growth costs less than an aggressive push."],
-  ["How much attention you want", "Some owners want a monthly report. Others want closer check-ins and changes made the same week."],
+  ["Month to month", "No contract. Move up a plan, move down or stop whenever you want."],
+  ["You talk to an owner", "No account-manager shuffle. The people who run the work are the people you call."],
+  ["Software included", "Review automation, CRM and AI tools are built in. Nothing extra to buy, set up or learn."],
 ];
 
 export const metadata: Metadata = {
-  title: "Pricing: Custom Home-Service Marketing Plans",
+  title: "Pricing: Home-Service Marketing Plans from $97/mo",
   description:
-    "Custom done-for-you marketing: $100–300/mo for one or two services, about $500/mo for the full program, about $1,000/mo with ads and after-hours AI answering.",
+    "Done-for-you marketing for home-service businesses, from $97/mo. Pick what you need and see your price: reviews, website, posting, local SEO, AEO and AI answering. Month to month.",
   alternates: { canonical: "https://www.tableturnerr.com/pricing" },
 };
 
@@ -45,10 +45,10 @@ export default function PricingPage() {
         <div className="container-tt relative pb-10 md:pb-14">
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow">Pricing</span>
-            <h1 className="display mt-6 text-ink">Custom pricing, built around how you want to grow</h1>
+            <h1 className="display mt-6 text-ink">Pick what you need. See your price.</h1>
             <p className="lead mt-6">
-              Every business is at a different point, so there&apos;s no one-size package. Here are the three rough levels
-              our clients fall into. We set your exact price after a free Google Maps audit. Month to month, no contract.
+              Google reviews are always included. Add a website, posting, or the full growth engine, and the price updates as
+              you go. Four fixed prices, no hidden extras, month to month.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Link href={AUDIT_PATH} className="btn btn-primary">Get your free Google Maps audit <ArrowRight className="h-4 w-4" /></Link>
@@ -72,8 +72,8 @@ export default function PricingPage() {
       <section className="section bg-surface">
         <div className="container-tt">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow">How we price</span>
-            <h2 className="display-2 mt-5 text-ink">Three things decide your price</h2>
+            <span className="eyebrow">On every plan</span>
+            <h2 className="display-2 mt-5 text-ink">What you get with any plan</h2>
           </div>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {FACTORS.map(([h, p]) => (
@@ -92,9 +92,9 @@ export default function PricingPage() {
 
       <VideoSection
         surface
-        eyebrow="What it costs"
-        title="Hear how pricing works, from the owner"
-        intro="A 6-minute walkthrough of what we do for local businesses, with pricing at 5:11. Use the chapter list to jump straight to it."
+        eyebrow="How we work"
+        title="Hear how we work, from the owner"
+        intro="A 6-minute walkthrough of what we do for local businesses and how the work runs month to month."
       />
 
       {/* FAQ */}

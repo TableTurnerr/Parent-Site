@@ -66,30 +66,95 @@ export const PODCAST = {
 };
 export const podcastWatchUrl = `https://www.youtube.com/watch?v=${PODCAST.id}`;
 
-export const CLIENT_SHORT = {
+export interface Short {
+  id: string;
+  title: string;
+  description: string;
+  uploadDate: string;
+  durationIso: string;
+  durationLabel: string;
+  /** Plain-text summary of what is said, shown under the player so search and AI tools can read it. */
+  summary?: string[];
+}
+
+/** Adrian (Presidential Roofing) on getting 15 reviews in 10 days. Used on the case study page. */
+export const CLIENT_SHORT: Short = {
   id: "NouwRzgB5uI",
   title: "How this Roofer got 15 reviews in 10 days",
   description:
     "How this roofer got 15 new reviews in 10 days. Adrian never asked for reviews himself, so we did it for him, and slowed it down so Google doesn't flag it.",
   uploadDate: "2026-11-20T08:05:51-08:00",
   durationIso: "PT55S",
+  durationLabel: "0:55",
 };
-export const shortThumb = `https://i.ytimg.com/vi/${CLIENT_SHORT.id}/oar2.jpg`;
-export const shortEmbedUrl = `https://www.youtube-nocookie.com/embed/${CLIENT_SHORT.id}`;
-export const shortWatchUrl = `https://www.youtube.com/shorts/${CLIENT_SHORT.id}`;
 
-/** VideoObject JSON-LD for the client short (the video embedded on the page). */
-export function clientShortSchema() {
+/** Adrian on going from 27 reviews in 4.5 years to the first roofer on Google in his area. Homepage hero.
+ *  (The YouTube title says "#1 on YouTube"; its own description says Google, which is what he talks about.) */
+export const HERO_SHORT: Short = {
+  id: "fc-hVwQU8pY",
+  title: "How this roofer from Syracuse, Utah got to #1 on Google",
+  description:
+    "27 reviews in 4.5 years. Now he's the first roofer that shows up in his area. Adrian from Presidential Roofing on what changed once his Google profile was handled for him.",
+  uploadDate: "2026-11-19T20:45:55-08:00",
+  durationIso: "PT63S",
+  durationLabel: "1:03",
+  summary: [
+    "Adrian runs Presidential Roofing in Syracuse, Utah. In 4.5 years the business had collected 27 Google reviews.",
+    "TableTurnerr asked his past customers for reviews and followed up, made his website SEO and AEO optimized, optimized his Google Business Profile, and posted content on his profile and social media.",
+    "Today he is the first roofer that shows up on Google Maps and search in his area.",
+  ],
+};
+
+export const shortThumbFor = (s: Short) => `https://i.ytimg.com/vi/${s.id}/oar2.jpg`;
+export const shortEmbedFor = (s: Short) => `https://www.youtube-nocookie.com/embed/${s.id}`;
+export const shortWatchFor = (s: Short) => `https://www.youtube.com/shorts/${s.id}`;
+export const shortThumb = shortThumbFor(CLIENT_SHORT);
+export const shortEmbedUrl = shortEmbedFor(CLIENT_SHORT);
+export const shortWatchUrl = shortWatchFor(CLIENT_SHORT);
+
+/** VideoObject JSON-LD for a short embedded on the page. */
+export function clientShortSchema(s: Short = CLIENT_SHORT) {
   return {
     "@context": "https://schema.org",
     "@type": "VideoObject",
-    name: CLIENT_SHORT.title,
-    description: CLIENT_SHORT.description,
-    thumbnailUrl: [shortThumb, `https://i.ytimg.com/vi/${CLIENT_SHORT.id}/hqdefault.jpg`],
-    uploadDate: CLIENT_SHORT.uploadDate,
-    duration: CLIENT_SHORT.durationIso,
-    embedUrl: `https://www.youtube.com/embed/${CLIENT_SHORT.id}`,
-    url: shortWatchUrl,
+    name: s.title,
+    description: s.description,
+    thumbnailUrl: [shortThumbFor(s), `https://i.ytimg.com/vi/${s.id}/hqdefault.jpg`],
+    uploadDate: s.uploadDate,
+    duration: s.durationIso,
+    embedUrl: `https://www.youtube.com/embed/${s.id}`,
+    url: shortWatchFor(s),
     publisher: { "@type": "Organization", name: "TableTurnerr", url: "https://www.tableturnerr.com" },
   };
 }
+
+
+/** Seasons Taiwanese Eatery (Honolulu), a 2025 restaurant client. Both shorts are from the TableTurnerr channel. */
+export const SEASONS_SHORTS: Short[] = [
+  {
+    id: "3W_OM_NEq9E",
+    title: "The secret behind this Hawaiian restaurant's digital marketing",
+    description:
+      "The secret behind Seasons Taiwanese Eatery's digital marketing: testing every day what resonates with their audience, and staying connected with customers so the restaurant stays top of mind.",
+    uploadDate: "2025-05-15T12:30:04-07:00",
+    durationIso: "PT57S",
+    durationLabel: "0:57",
+    summary: [
+      "The secret behind Seasons Taiwanese Eatery's digital marketing: a young, hardworking team testing something new every day.",
+      "We kept what resonated with their audience, dropped what didn't, and stayed in touch with customers so the restaurant stayed top of mind.",
+    ],
+  },
+  {
+    id: "n_GDuz5cL9o",
+    title: "Check out the marketing of this restaurant in Honolulu",
+    description:
+      "How a small family-run restaurant in Honolulu got 500+ customers: a new search-optimized website, a plan for more Google reviews, outreach to 1,500+ potential customers and influencer marketing.",
+    uploadDate: "2025-07-10T18:18:59-07:00",
+    durationIso: "PT62S",
+    durationLabel: "1:02",
+    summary: [
+      "A small family-run restaurant in Honolulu brought in 500+ customers through digital marketing.",
+      "The work: a new search-optimized website, a plan to get more Google reviews, outreach to 1,500+ potential customers, influencer marketing and content shoots.",
+    ],
+  },
+];

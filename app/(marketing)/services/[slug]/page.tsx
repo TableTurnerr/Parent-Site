@@ -12,6 +12,16 @@ import {
 import { generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 import { FSM, combosForService, getService, guidesInTopic, plain, serviceTopics, services, topics, withToc } from "@/app/lib/growth";
 
+
+// Which plan includes each service (four fixed prices, see app/lib/pricing.ts). Shown as a plain-text answer for search and AI tools.
+const SERVICE_PRICE: Record<string, string> = {
+  "review-generation": "From $97/mo, on every plan",
+  "contractor-websites": "From $297/mo (Starter), included in every plan from there up",
+  "google-business-profile": "From $297/mo (Starter), included in every plan from there up",
+  "local-seo": "Part of the Complete plan, $497/mo with everything included",
+  "ai-search-optimization": "Part of the Complete plan, $497/mo with everything included",
+  "missed-call-text-back": "Part of the Complete plan, $497/mo, together with the AI answering service",
+};
 const base = "https://www.tableturnerr.com";
 
 export function generateStaticParams() {
@@ -57,6 +67,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           ["How it works", <ol key="s" className="list-decimal pl-5">{s.steps.map(([h, d]) => <li key={h}><strong>{plain(h)}:</strong> {plain(d)}</li>)}</ol>],
           ["Who it's for", "US home-service businesses: roofers, HVAC, plumbers, electricians, handymen, fence companies, landscapers and more."],
           ["Works with", `${FSM}.`],
+          ["Price", <span key="p">{SERVICE_PRICE[s.slug] ?? "Plans from $97/mo"}. See the <Link href="/pricing" className="font-semibold text-primary">pricing calculator</Link>.</span>],
           ["Terms", "Done for you, month to month."],
         ]}
       />
