@@ -4,6 +4,7 @@ import MarketingThemeProvider from "@/app/components/site/MarketingThemeProvider
 import StickyCta from "@/app/components/growth/StickyCta";
 import AuditGate from "@/app/components/growth/AuditGate";
 import CallWidget from "@/app/components/growth/CallWidget";
+import Clarity from "@/app/components/analytics/Clarity";
 
 export default function MarketingLayout({
   children,
@@ -21,6 +22,7 @@ export default function MarketingLayout({
       <StickyCta />
       <AuditGate />
       <CallWidget />
+      <Clarity />
     </MarketingThemeProvider>
   );
 }
