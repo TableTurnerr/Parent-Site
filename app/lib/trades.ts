@@ -59,7 +59,7 @@ export const TRADES: Record<string, Trade> = {
     faqs: [
       { q: "Can I attribute reviews to a specific crew or foreman?", a: "Yes. Technician leaderboards let you see which crews are earning the most 5-star reviews, which is a great way to motivate the team." },
       { q: "What about insurance and storm-restoration jobs?", a: "Those customers are some of your happiest. We time the request for after the job is signed off, so you capture that goodwill as public proof." },
-      { q: "Do I need a contract?", a: "No. Start with a 14-day free trial, no credit card required, and cancel anytime from your dashboard." },
+      { q: "Do I need a contract?", a: "No. Every plan is month to month, so you can scale up, scale down or stop." },
     ],
   },
   plumbing: {

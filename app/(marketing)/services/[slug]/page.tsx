@@ -1,3 +1,5 @@
+import { ClientLogoStrip } from "@/app/components/growth/Proof";
+import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -58,6 +60,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           ["Terms", "Done for you, month to month."],
         ]}
       />
+      <ClientLogoStrip />
       <section className="section">
         <div className="container-tt">
           <SectionHead title="What's included" intro={s.includedIntro} />
@@ -73,9 +76,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       <section className="section">
         <div className="container-tt max-w-3xl"><Html html={withToc(s.deepDive).html} /></div>
       </section>
+      <BookCallBand />
       <ToolCallout items={toolsForPage(s.path)} />
       <AuditBand />
       <FaqSection faq={s.faq} />
+      <CallNowBand />
       {topicGuides.length > 0 && (
         <section className="section">
           <div className="container-tt">

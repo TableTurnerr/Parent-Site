@@ -88,8 +88,10 @@ export const DFY_TIERS: Tier[] = [
     forWho: "You need one or two things done well, not a full program.",
     features: [
       "Pick what you need: Google reviews, a website, or your Google Business Profile",
-      "Set up and run for you",
-      "Monthly report in plain English",
+      "Review requests by text and email after every job, with a personalized photo of you or your crew",
+      "Connects to Jobber, Housecall Pro or GorillaDesk, so requests go out on their own",
+      "Replies to every review, written for you",
+      "Set up and run for you, with a monthly report in plain English",
     ],
   },
   {
@@ -99,14 +101,14 @@ export const DFY_TIERS: Tier[] = [
     forWho: "You want everything that gets your business to the next level, handled.",
     highlight: "Full program",
     features: [
-      "Review requests after every job, and replies to every review",
+      "Everything in Starter",
       "Google Business Profile kept active with posts and photos",
-      "Content on Google, Facebook, Instagram and TikTok",
-      "Local SEO and service pages for the towns you serve",
+      "Local SEO, with 20–30 service and town pages on your website",
       "AI search optimization (AEO), so ChatGPT, Gemini and Google's AI answers can recommend you",
-      "CRM with follow-ups, estimate reminders and missed-call text-back",
-      "Seasonal campaigns to past customers",
-      "Or a custom mix built around your audit",
+      "CRM with AI follow-ups, appointment reminders and estimate reminders",
+      "Missed-call text-back and website lead capture, so no lead goes cold",
+      "Reputation monitoring, with an alert when a bad review lands",
+      "Content on Google, Facebook, Instagram and TikTok, plus seasonal campaigns to past customers",
     ],
   },
   {
@@ -117,14 +119,15 @@ export const DFY_TIERS: Tier[] = [
     features: [
       "Everything in Professional",
       "Paid ads on top",
-      "After-hours AI answering service, so night and weekend calls get answered and booked",
+      "AI receptionist that answers after-hours calls, qualifies the lead and books the job",
+      "Unlimited follow-up automation",
       "More keywords and towns targeted",
       "More of our time: closer check-ins and faster changes",
     ],
   },
 ];
 
-// Pricing-page FAQs: done-for-you pricing first, then the self-serve software.
+// Pricing-page FAQs.
 export const PRICING_FAQS = [
   {
     q: "How much does TableTurnerr cost?",
@@ -143,19 +146,11 @@ export const PRICING_FAQS = [
     a: "No. Done-for-you work is month to month, so you can scale up, scale down or stop.",
   },
   {
-    q: "Can I run the software myself instead?",
-    a: "Yes. Self-serve software plans start at $80/mo (Review Booster), with Customer Growth System at $297/mo and AI Growth Machine at $427/mo. All come with a 14-day free trial, no credit card required.",
+    q: "Is the software included?",
+    a: "Yes. The review automation, CRM, missed-call text-back and AI tools we built are part of every plan. We set them up and run them, so there's nothing extra to buy or learn.",
   },
   {
-    q: "On the software plans, what counts as a review request?",
-    a: "A review request is one customer you ask for a review (by text and email, including gentle reminders to that same person). Your plan's monthly limit is the number of customers you can ask each month.",
-  },
-  {
-    q: "What if I need more review requests on the software?",
-    a: "Move up a plan anytime, or contact us for higher-volume and multi-location pricing. You only pay for the tier you need, and changes take effect immediately.",
-  },
-  {
-    q: "Is there a free trial?",
-    a: "For the self-serve software, yes: 14 days, no credit card required, so you can connect your CRM and see reviews come in before you pay. Done-for-you work starts with the free Google Maps audit instead.",
+    q: "Does it work with my job software?",
+    a: "Yes. We connect to Jobber, Housecall Pro and GorillaDesk, so review requests and follow-ups go out when a job is marked done.",
   },
 ];

@@ -1,3 +1,5 @@
+import { ClientLogoStrip } from "@/app/components/growth/Proof";
+import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -27,7 +29,7 @@ const STEPS: Pair[] = [
 
 const faq: Pair[] = [
   ["Can I pick just one service?", "Yes. Many owners start with their Google Business Profile and review generation, then add a website or call capture later."],
-  ["Do I have to learn any software?", "No. We run everything on our own software. If you'd rather run it yourself, there are self-serve plans on the pricing page."],
+  ["Do I have to learn any software?", "No. We run everything on our own software."],
   ["Does it work with my job software?", `Yes. Review requests connect to ${FSM}, or we can work from a customer list if you don't use one.`],
   ["Do you require a contract?", "No. Month to month."],
   ["How much does it cost?", "It depends on which services you need and how competitive your area is. We'll give you a straight price on the audit call. The video on this page also covers pricing."],
@@ -71,6 +73,7 @@ export default function Page() {
           ["First step", <span key="a">A <Link href={AUDIT_PATH} className="font-semibold text-primary">free Google Maps audit</Link> of your business against the top competitors near you.</span>],
         ]}
       />
+      <ClientLogoStrip />
 
       <section className="section">
         <div className="container-tt">
@@ -104,8 +107,10 @@ export default function Page() {
         </div>
       </section>
 
+      <BookCallBand />
       <AuditBand />
       <FaqSection faq={faq} />
+      <CallNowBand />
 
       <section className="section">
         <div className="container-tt">

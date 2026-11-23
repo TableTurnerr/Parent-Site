@@ -84,11 +84,11 @@ export default function IndustryPage({ industry }: { industry: Industry }) {
               <h1 className="display mt-6 text-ink">{industry.heroTitle}</h1>
               <p className="lead mt-6 max-w-xl">{industry.heroSub}</p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/signup" className="btn btn-primary">Start free trial <ArrowRight className="h-4 w-4" /></Link>
-                <Link href="/features" className="btn btn-ghost">Explore features</Link>
+                <Link href="/free-google-maps-audit" className="btn btn-primary">Get your free audit <ArrowRight className="h-4 w-4" /></Link>
+                <a href="tel:+13323331008" className="btn btn-ghost">Call (332) 333-1008</a>
               </div>
               <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-soft">
-                {["14-day free trial", "No contracts", "Setup in 15 minutes"].map((item) => (
+                {["Free Google Maps audit", "No contracts", "Done for you"].map((item) => (
                   <li key={item} className="inline-flex items-center gap-2"><Check className="h-4 w-4 text-success" />{item}</li>
                 ))}
               </ul>
@@ -161,7 +161,7 @@ export default function IndustryPage({ industry }: { industry: Industry }) {
         tradePath={doneTrade?.path ?? "/marketing"}
         label={doneTrade ? `Done-for-you ${doneTrade.name.toLowerCase()} marketing plan` : "Marketing plans by trade"}
       />
-      <section className="section"><div className="container-tt"><div className="relative overflow-hidden rounded-[1.75rem] bg-night px-7 py-14 text-center md:px-16 md:py-20"><div aria-hidden className="hero-grid pointer-events-none absolute inset-0 opacity-60" /><div className="relative mx-auto max-w-2xl"><div className="stars mb-5 text-2xl" aria-hidden>★★★★★</div><h2 className="display-2 text-white">Give every completed {industry.name.toLowerCase()} job a chance to build trust</h2><p className="lead mt-4 text-white/70">Connect your workflow, start your review automation, and keep the proof moving. Free for 14 days.</p><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/signup" className="btn btn-light">Start free trial <ArrowRight className="h-4 w-4" /></Link><Link href="/contact" className="btn btn-outline-light">Book a demo</Link></div></div></div></div></section>
+      <section className="section"><div className="container-tt"><div className="relative overflow-hidden rounded-[1.75rem] bg-night px-7 py-14 text-center md:px-16 md:py-20"><div aria-hidden className="hero-grid pointer-events-none absolute inset-0 opacity-60" /><div className="relative mx-auto max-w-2xl"><div className="stars mb-5 text-2xl" aria-hidden>★★★★★</div><h2 className="display-2 text-white">Give every completed {industry.name.toLowerCase()} job a chance to build trust</h2><p className="lead mt-4 text-white/70">We connect your workflow, run your review automation and keep the proof moving. Start with a free audit.</p><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/free-google-maps-audit" className="btn btn-light">Get your free audit <ArrowRight className="h-4 w-4" /></Link><a href="https://portalapi.tableturnerr.com/widget/bookings/tableturnerr" className="btn btn-outline-light">Book a 15-minute call</a></div></div></div></div></section>
     </>
   );
 }

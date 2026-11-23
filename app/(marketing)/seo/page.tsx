@@ -1,5 +1,7 @@
 // /seo: the SEO + AEO hub. Sells both together and hands off to the two service pages
 // (/services/local-seo and /services/ai-search-optimization), which hold the detail.
+import { ClientLogoStrip } from "@/app/components/growth/Proof";
+import { BookCallBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Bot, MapPin, Search } from "lucide-react";
@@ -65,6 +67,7 @@ export default function Page() {
           ["Terms", "Month to month. Starts with a free Google Maps audit that also checks whether AI assistants recommend you."],
         ]}
       />
+      <ClientLogoStrip />
       <section className="section">
         <div className="container-tt">
           <SectionHead eyebrow="Where homeowners look" title="Three places to show up, one program" />
@@ -118,6 +121,7 @@ export default function Page() {
           </div>
         </section>
       )}
+      <BookCallBand title="Want to know if SEO or AEO is worth it for you? Book 15 minutes" />
       <FaqSection faq={faq} />
       <AuditBand title="See if Google and ChatGPT recommend you" text="Your free audit shows where you rank on Google Maps across your service area, your top competitors, and whether ChatGPT, Claude, Gemini, Grok, Meta AI and Perplexity name you. Free, and you keep the report." />
       <NextSteps

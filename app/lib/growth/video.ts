@@ -52,3 +52,44 @@ export function vslSchema() {
     })),
   };
 }
+
+// Client podcast with Adrian Alvarez of Presidential Roofing, and a short cut from it. Titles, dates and lengths
+// were taken from the public YouTube pages on 2026-11-23.
+export const PODCAST = {
+  id: "-mXFO9ErT40",
+  title: "How this 2M+ Roofer Gets All His Work From Referrals (No Door Knocking) | Presidential Roofing",
+  description:
+    "Adrian Alvarez runs Presidential Roofing in Syracuse, Utah, and gets all his work from referrals: no cold calling, no door knocking, no storm chasing. We talk about treating every client like a VIP, hiring through people he trusts, referral groups, storm chasers and warranties, the quality details that earn referrals, and going from 27 Google reviews to #1 on Google.",
+  uploadDate: "2026-11-19T20:15:31-08:00",
+  durationIso: "PT24M58S",
+  durationLabel: "25 min",
+};
+export const podcastWatchUrl = `https://www.youtube.com/watch?v=${PODCAST.id}`;
+
+export const CLIENT_SHORT = {
+  id: "NouwRzgB5uI",
+  title: "How this Roofer got 15 reviews in 10 days",
+  description:
+    "How this roofer got 15 new reviews in 10 days. Adrian never asked for reviews himself, so we did it for him, and slowed it down so Google doesn't flag it.",
+  uploadDate: "2026-11-20T08:05:51-08:00",
+  durationIso: "PT55S",
+};
+export const shortThumb = `https://i.ytimg.com/vi/${CLIENT_SHORT.id}/oar2.jpg`;
+export const shortEmbedUrl = `https://www.youtube-nocookie.com/embed/${CLIENT_SHORT.id}`;
+export const shortWatchUrl = `https://www.youtube.com/shorts/${CLIENT_SHORT.id}`;
+
+/** VideoObject JSON-LD for the client short (the video embedded on the page). */
+export function clientShortSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: CLIENT_SHORT.title,
+    description: CLIENT_SHORT.description,
+    thumbnailUrl: [shortThumb, `https://i.ytimg.com/vi/${CLIENT_SHORT.id}/hqdefault.jpg`],
+    uploadDate: CLIENT_SHORT.uploadDate,
+    duration: CLIENT_SHORT.durationIso,
+    embedUrl: `https://www.youtube.com/embed/${CLIENT_SHORT.id}`,
+    url: shortWatchUrl,
+    publisher: { "@type": "Organization", name: "TableTurnerr", url: "https://www.tableturnerr.com" },
+  };
+}

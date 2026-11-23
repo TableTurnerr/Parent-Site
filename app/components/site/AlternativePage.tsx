@@ -52,8 +52,8 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
             <h1 className="display mt-6 text-ink">{alt.tagline}</h1>
             <p className="lead mt-6">{alt.intro}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/signup" className="btn btn-primary">
-                Start free trial <ArrowRight className="h-4 w-4" />
+              <Link href="/free-google-maps-audit" className="btn btn-primary">
+                Get your free audit <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/contact" className="btn btn-ghost">Book a demo</Link>
             </div>
@@ -191,12 +191,12 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
                 See why shops switch from {alt.competitor}
               </h2>
               <p className="lead mt-4 text-white/70">
-                Connect your CRM and start collecting reviews this week. Free for
-                14 days, no contracts, cancel anytime.
+                We set it up and run it for you. Start with a free Google Maps audit.
+                Month to month, no contracts.
               </p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                <Link href="/signup" className="btn btn-light">Start free trial <ArrowRight className="h-4 w-4" /></Link>
-                <Link href="/contact" className="btn btn-outline-light">Book a demo</Link>
+                <Link href="/free-google-maps-audit" className="btn btn-light">Get your free audit <ArrowRight className="h-4 w-4" /></Link>
+                <a href="https://portalapi.tableturnerr.com/widget/bookings/tableturnerr" className="btn btn-outline-light">Book a 15-minute call</a>
               </div>
             </div>
           </div>

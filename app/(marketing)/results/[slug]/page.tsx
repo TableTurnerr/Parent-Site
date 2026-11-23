@@ -1,3 +1,4 @@
+import { ClientPodcast } from "@/app/components/growth/Proof";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -80,6 +81,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           </p>
         </div>
       </section>
+      {r.slug === "presidential-roofing" && <ClientPodcast caseStudyLink={false} />}
       <AuditBand title={`Where would you be in ${r.days} days?`} text="Our free audit shows your review count and Maps ranking next to the top competitors in your area, and how many reviews it would take to pass them." />
       <NextSteps
         items={[

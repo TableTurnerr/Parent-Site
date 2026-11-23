@@ -2,7 +2,7 @@
 import { INDUSTRIES, INDUSTRY_SLUGS } from "@/app/lib/industries";
 import { AUDIT_PATH, combos, guides, plain, results, services, trades } from "@/app/lib/growth";
 import { SITE_CONFIG } from "@/app/lib/constants";
-import { VSL, vslWatchUrl } from "@/app/lib/growth/video";
+import { PODCAST, VSL, podcastWatchUrl, vslWatchUrl } from "@/app/lib/growth/video";
 import { tools } from "@/app/lib/growth/tools";
 
 export const dynamic = "force-static";
@@ -14,16 +14,16 @@ export function GET() {
   const body = [
     "# TableTurnerr",
     "",
-    "> TableTurnerr is a small, owner-run online marketing agency for US home-service businesses (HVAC, plumbing, roofing, electrical, handyman and more), with its own software behind the work. Done for you, month to month: websites and local SEO, Google Business Profile management, Google review generation, CRM and automations, seasonal campaigns, missed-call text-back and AI-search visibility. Owners who prefer to run it themselves can use the self-serve review and growth software from $80/mo. Every engagement starts with a free Google Maps audit.",
+    "> TableTurnerr is a small, owner-run online marketing agency for US home-service businesses (HVAC, plumbing, roofing, electrical, handyman and more), with its own software behind the work. Done for you, month to month: websites and local SEO, Google Business Profile management, Google review generation, CRM and automations, seasonal campaigns, missed-call text-back and AI-search visibility. Every engagement starts with a free Google Maps audit. We have served 50+ businesses since we started.",
     "",
     `Contact: ${SITE_CONFIG.email} · ${SITE_CONFIG.phone}`,
     "",
     "## Start here",
-    line("/", "Home", "Done-for-you online marketing and review software for home-service businesses."),
+    line("/", "Home", "Done-for-you online marketing for home-service businesses: websites, SEO and AEO, Google Business Profile, reviews, CRM and automations."),
     line(AUDIT_PATH, "Free Google Maps audit", "Ranking heatmap, top 5 competitors, AI-assistant visibility and a homepage check, free."),
     line("/services", "Done-for-you services", "Everything we run for home-service businesses, month to month."),
     line("/seo", "SEO & AEO", "Local SEO plus answer engine optimization: get found on Google and recommended by ChatGPT, Gemini, Perplexity and Google AI answers."),
-    line("/pricing", "Pricing", "Custom done-for-you plans: around $100-300/mo for one or two services, about $500/mo for the full program, about $1,000/mo with ads, after-hours AI answering and more attention. Quoted after the free audit. Self-serve software from $80/mo."),
+    line("/pricing", "Pricing", "Custom done-for-you plans: around $100-300/mo for one or two services, about $500/mo for the full program, about $1,000/mo with ads, after-hours AI answering and more attention. Quoted after the free audit. Our software (review automation, CRM, AI follow-ups) is included in every plan."),
     line("/about", "About", "Who we are, how we work and our rules (no fake reviews, no review gating)."),
     line("/features", "Software features"),
     `- [Video: ${VSL.title}](${vslWatchUrl}): 6-minute overview of what we do and what it costs.`,
@@ -45,6 +45,7 @@ export function GET() {
     ...tools.map((t) => line(t.path, t.name, t.description)),
     "",
     "## Results",
+    `- [Podcast: ${PODCAST.title}](${podcastWatchUrl}): ${PODCAST.durationLabel} interview with our client Adrian Alvarez of Presidential Roofing.`,
     ...results.map((r) => line(r.path, `${r.client}: ${r.reviewsBefore} to ${r.reviewsAfter} Google reviews in ${r.days} days`)),
     "",
     "## Review software by industry",

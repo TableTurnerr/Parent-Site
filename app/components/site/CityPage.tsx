@@ -61,7 +61,7 @@ export default function CityPage({ city }: { city: ReviewCity }) {
                 <Link href="/free-google-maps-audit" className="btn btn-primary">
                   Get your free Google Maps audit <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href="/signup" className="btn btn-ghost">Start a free trial</Link>
+                <a href="tel:+13323331008" className="btn btn-ghost">Call (332) 333-1008</a>
               </div>
               <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-soft">
                 {["Done for you or self-serve", "No contracts", "Texas clients in Richardson and Dallas"].map((t) => (
@@ -175,11 +175,11 @@ export default function CityPage({ city }: { city: ReviewCity }) {
               <div className="stars mb-5 text-2xl" aria-hidden>★★★★★</div>
               <h2 className="display-2 text-white">Become {city.name}&apos;s most-reviewed home-services company</h2>
               <p className="lead mt-4 text-white/70">
-                Connect your CRM and start turning {city.name} jobs into 5-star reviews. Free for 14 days.
+                We turn your {city.name} jobs into 5-star reviews for you. Start with a free Google Maps audit.
               </p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                <Link href="/signup" className="btn btn-light">Start free trial <ArrowRight className="h-4 w-4" /></Link>
-                <Link href="/contact" className="btn btn-outline-light">Book a demo</Link>
+                <Link href="/free-google-maps-audit" className="btn btn-light">Get your free audit <ArrowRight className="h-4 w-4" /></Link>
+                <a href="https://portalapi.tableturnerr.com/widget/bookings/tableturnerr" className="btn btn-outline-light">Book a 15-minute call</a>
               </div>
             </div>
           </div>
