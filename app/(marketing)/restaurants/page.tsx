@@ -65,6 +65,17 @@ export default function Page() {
         ]}
       />
       <ClientProof clients={TEXAS_CLIENTS} title="Restaurants we work with" />
+      <section className="section pt-0">
+        <div className="container-tt">
+          <Link href="/results/seasons-taiwanese-eatery" className="card card-hover flex flex-col gap-2 p-6 sm:flex-row sm:items-center sm:justify-between">
+            <span>
+              <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-primary">Case study · Honolulu</span>
+              <span className="mt-1 block text-lg font-bold text-ink">How Seasons Taiwanese Eatery brought in 500+ customers</span>
+            </span>
+            <span className="text-sm font-semibold text-primary">Watch and read →</span>
+          </Link>
+        </div>
+      </section>
       <section className="section bg-surface">
         <div className="container-tt">
           <SectionHead title="What we do for restaurants" />
