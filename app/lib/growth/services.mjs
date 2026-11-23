@@ -38,6 +38,45 @@ export const services = [
     ],
   },
   {
+    slug: 'ai-search-optimization', short: 'AI search optimization (AEO)',
+    path: '/services/ai-search-optimization',
+    title: 'AI Search Optimization (AEO) for Contractors | TableTurnerr',
+    description: 'Answer engine optimization for home-service businesses: get named when homeowners ask ChatGPT, Google AI Mode, Gemini, Perplexity or Copilot who to hire.',
+    eyebrow: 'AEO / AI search',
+    h1: 'Get recommended when homeowners ask AI who to hire',
+    lede: 'More homeowners now ask ChatGPT, Google\x27s AI answers, Gemini, Perplexity or Copilot for "the best roofer near me" instead of scrolling results. Answer engine optimization (AEO) makes your business one of the names those assistants can find, trust and repeat.',
+    includedIntro: 'Done for you, alongside your local SEO. Every plan starts with an AI visibility check in your free audit.',
+    included: [
+      ['AI visibility check', 'We ask ChatGPT, Claude, Gemini, Grok, Meta AI and Perplexity who they recommend for your trade and town, and show you who gets named instead of you.'],
+      ['Answer-first pages', 'Service and FAQ pages that answer the exact questions homeowners ask, in plain sentences an assistant can quote: what you do, where, how fast and what it costs.'],
+      ['Consistent business facts everywhere', 'Your name, phone, services, hours and service area made identical on your site, Google, Bing Places, Apple Business Connect, Yelp, Facebook and the directories AI assistants read.'],
+      ['Reviews that say something', 'Review requests after every job, so you get recent, detailed reviews on Google and the other sites assistants check.'],
+      ['Schema and crawler access', 'LocalBusiness, Service and FAQ markup, a clean sitemap and llms.txt, and making sure AI search crawlers (OAI-SearchBot, PerplexityBot, Claude-SearchBot, Bingbot) are not blocked.'],
+      ['Mentions on other sites', 'Getting you listed and mentioned where assistants look for "best of" answers: local directories, trade associations, supplier and manufacturer dealer pages, and local news.'],
+    ],
+    steps: [
+      ['Check', 'We run the AI visibility check and your Google Maps audit, and show you where you are and aren\x27t named.'],
+      ['Fix', 'We clean up your business facts across the web, rewrite key pages answer-first and add the markup.'],
+      ['Track', 'Each month we re-ask the same questions on each assistant and report who gets recommended, alongside your calls and rankings.'],
+    ],
+    deepDive: `
+<h2>What is AEO?</h2>
+<p>Answer engine optimization (AEO), also called generative engine optimization (GEO) or AI search optimization, is the work of getting your business named and cited in AI-written answers. When someone asks "who's a good HVAC company in Plano?", the assistant reads a handful of web sources, picks a few businesses and explains why. AEO is about being one of them.</p>
+<h2>How AI assistants pick a local business</h2>
+<p>Each assistant uses its own mix of sources. Google's AI Overviews, AI Mode and Gemini draw on Google's own index and Business Profiles; Google says <a href="https://developers.google.com/search/docs/appearance/ai-features" rel="noopener">no special markup is needed</a> beyond normal SEO. ChatGPT search uses OpenAI's own crawler and partner data, Microsoft Copilot leans on Bing and Bing Places, and Perplexity runs its own crawler. What they have in common: they favor businesses whose facts match across many sources, that have plenty of recent reviews, and that are mentioned on other trusted sites.</p>
+<h2>AEO and local SEO are the same foundation</h2>
+<p>Almost everything that helps you show up in AI answers also helps you rank on Google: a complete Business Profile, steady reviews, clear service pages and consistent listings. That's why we run AEO together with <a href="/services/local-seo">local SEO</a> and <a href="/services/google-business-profile">Google Business Profile management</a> rather than as a separate trick.</p>
+<h2>What we won't promise</h2>
+<p>Nobody controls what an AI assistant says, and answers change from one question to the next. Anyone who guarantees "#1 in ChatGPT" is guessing. We promise the work, a monthly check across the assistants, and honest reporting on whether you're being named.</p>`,
+    faq: [
+      ['What is the difference between SEO and AEO?', 'SEO gets your pages to rank in Google\x27s results. AEO gets your business named inside AI answers from ChatGPT, Google AI Mode, Gemini, Perplexity and Copilot. They share the same foundation (reviews, a strong Google profile, clear pages, consistent listings), and AEO adds answer-first content, wider listings and mentions on the sites assistants read.'],
+      ['Can you guarantee ChatGPT will recommend my business?', 'No. AI answers vary and nobody controls them. We do the work that makes you easy for assistants to find and trust, and we check every month whether you\x27re being named.'],
+      ['How do I know if AI assistants recommend me now?', 'Your free audit includes an AI visibility check: we ask ChatGPT, Claude, Gemini, Grok, Meta AI and Perplexity who they recommend for your trade and town.'],
+      ['How long does AEO take?', 'Fixing listings and pages takes a few weeks. Assistants pick up changes on their own schedule, so expect a few months before you see consistent mentions.'],
+      ['Is AEO included in your plans?', 'AI search work is part of the Professional and Premier plans, together with local SEO. We scope it after the free audit.'],
+    ],
+  },
+  {
     slug: 'google-business-profile', short: 'Google Business Profile',
     path: '/services/google-business-profile',
     title: 'Google Business Profile Management for Contractors | TableTurnerr',

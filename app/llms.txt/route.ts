@@ -3,6 +3,7 @@ import { INDUSTRIES, INDUSTRY_SLUGS } from "@/app/lib/industries";
 import { AUDIT_PATH, combos, guides, plain, results, services, trades } from "@/app/lib/growth";
 import { SITE_CONFIG } from "@/app/lib/constants";
 import { VSL, vslWatchUrl } from "@/app/lib/growth/video";
+import { tools } from "@/app/lib/growth/tools";
 
 export const dynamic = "force-static";
 
@@ -21,6 +22,7 @@ export function GET() {
     line("/", "Home", "Done-for-you online marketing and review software for home-service businesses."),
     line(AUDIT_PATH, "Free Google Maps audit", "Ranking heatmap, top 5 competitors, AI-assistant visibility and a homepage check, free."),
     line("/services", "Done-for-you services", "Everything we run for home-service businesses, month to month."),
+    line("/seo", "SEO & AEO", "Local SEO plus answer engine optimization: get found on Google and recommended by ChatGPT, Gemini, Perplexity and Google AI answers."),
     line("/pricing", "Pricing", "Custom done-for-you plans: around $100-300/mo for one or two services, about $500/mo for the full program, about $1,000/mo with ads, after-hours AI answering and more attention. Quoted after the free audit. Self-serve software from $80/mo."),
     line("/about", "About", "Who we are, how we work and our rules (no fake reviews, no review gating)."),
     line("/features", "Software features"),
@@ -37,6 +39,10 @@ export function GET() {
     "",
     "## Guides",
     ...guides.map((g) => line(g.path, g.h1, g.description)),
+    "",
+    "## Free tools",
+    line("/tools", "Free marketing tools for home-service businesses"),
+    ...tools.map((t) => line(t.path, t.name, t.description)),
     "",
     "## Results",
     ...results.map((r) => line(r.path, `${r.client}: ${r.reviewsBefore} to ${r.reviewsAfter} Google reviews in ${r.days} days`)),

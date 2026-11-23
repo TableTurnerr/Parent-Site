@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import { toolsForPage } from "@/app/lib/growth/tools";
 import JsonLd from "@/app/components/site/JsonLd";
 import {
-  AuditBand, CardGrid, FaqSection, Glance, GrowthHero, GuideCards, Html, SectionHead, TradeChips, faqSchemaItems,
+  AuditBand, CardGrid, FaqSection, ToolCallout, Glance, GrowthHero, GuideCards, Html, SectionHead, TradeChips, faqSchemaItems,
 } from "@/app/components/growth/Growth";
 import { generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 import { FSM, combosForService, getService, guidesInTopic, plain, serviceTopics, services, topics, withToc } from "@/app/lib/growth";
@@ -72,6 +73,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       <section className="section">
         <div className="container-tt max-w-3xl"><Html html={withToc(s.deepDive).html} /></div>
       </section>
+      <ToolCallout items={toolsForPage(s.path)} />
       <AuditBand />
       <FaqSection faq={s.faq} />
       {topicGuides.length > 0 && (

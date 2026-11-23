@@ -2,7 +2,7 @@
 
 import { after } from "next/server";
 import { headers } from "next/headers";
-import { createClient } from "@/app/lib/supabase/server";
+import { createAdminClient, createClient } from "@/app/lib/supabase/server";
 import { pushLeadToGHL } from "@/app/lib/ghl";
 
 export type LeadResult = { ok: true } | { ok: false; error: string };
@@ -127,4 +127,91 @@ export async function submitLead(formData: FormData): Promise<LeadResult> {
   }
 
   return { ok: true };
+}
+
+export type InstantAuditResult =
+  | { ok: true; url: string | null }
+  | { ok: false; error: string };
+
+/** Instant audits a month before we stop sending people to the self-serve tool (each scan costs us). */
+const INSTANT_AUDIT_MONTHLY_CAP = 90;
+const LIGHT_AUDIT_URL = "https://audit.seo.tableturnerr.com/light-audit/search";
+const INSTANT_AUDIT_MESSAGE = "Instant Google Maps audit request";
+
+/**
+ * Free-audit popup: business name + phone, then the self-serve light audit. The lead goes to GHL and contact_leads
+ * first. Once this month's instant audits reach the cap, the lead is still saved but no tool link is returned, so the
+ * team runs that audit by hand instead.
+ */
+export async function startInstantAudit(formData: FormData): Promise<InstantAuditResult> {
+  if (clean(formData.get("company_website"), 100)) return { ok: true, url: null };
+
+  const businessName = clean(formData.get("business_name"), MAX.business_name);
+  const phone = normalizePhone(clean(formData.get("phone"), MAX.phone));
+  if (!businessName || phone.replace(/\D/g, "").length < 10) {
+    return { ok: false, error: "Please add your business name and a phone number we can reach you on." };
+  }
+
+  const customerCareSmsConsent = formData.get("customer_care_sms_consent") === "on";
+  const submittedAt = new Date().toISOString();
+  const hdrs = await headers();
+  const sourcePageUrl = clean(formData.get("source_page_url"), 2048) || hdrs.get("referer")?.slice(0, 2048) || null;
+
+  // Count this month's instant-audit leads (service role: anon can't read contact_leads). If the count fails,
+  // fail open so a real owner is never blocked by our bookkeeping.
+  let capped = false;
+  try {
+    const monthStart = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), 1)).toISOString();
+    const { count } = await (await createAdminClient())
+      .from("contact_leads")
+      .select("id", { count: "exact", head: true })
+      .eq("message", INSTANT_AUDIT_MESSAGE)
+      .gte("form_submitted_at", monthStart);
+    capped = (count ?? 0) >= INSTANT_AUDIT_MONTHLY_CAP;
+  } catch (e) {
+    console.error("[instant-audit] monthly count failed:", e instanceof Error ? e.message : e);
+  }
+
+  after(() =>
+    pushLeadToGHL({
+      name: businessName,
+      email: "",
+      phone,
+      businessName,
+      trade: "",
+      message: capped ? `${INSTANT_AUDIT_MESSAGE} (monthly limit reached: run by hand)` : INSTANT_AUDIT_MESSAGE,
+      source: "/free-google-maps-audit",
+      customerCareSmsConsent,
+      marketingSmsConsent: false,
+      customerCareSmsConsentedAt: customerCareSmsConsent ? submittedAt : null,
+      marketingSmsConsentedAt: null,
+      smsDisclosureVersion: SMS_DISCLOSURE_VERSION,
+    }),
+  );
+
+  const supabase = await createClient();
+  const { error } = await supabase.from("contact_leads").insert({
+    name: businessName,
+    email: "",
+    business_name: businessName,
+    phone,
+    service: null,
+    message: INSTANT_AUDIT_MESSAGE,
+    source_path: "/free-google-maps-audit",
+    source_page_url: sourcePageUrl,
+    ip_address: getClientIp(hdrs),
+    user_agent: hdrs.get("user-agent")?.slice(0, 300) ?? null,
+    customer_care_sms_consent: customerCareSmsConsent,
+    marketing_sms_consent: false,
+    customer_care_sms_consented_at: customerCareSmsConsent ? submittedAt : null,
+    marketing_sms_consented_at: null,
+    sms_disclosure_version: SMS_DISCLOSURE_VERSION,
+    customer_care_sms_disclosure: CUSTOMER_CARE_SMS_DISCLOSURE,
+    marketing_sms_disclosure: MARKETING_SMS_DISCLOSURE,
+    form_submitted_at: submittedAt,
+  });
+  // The GHL push above already has the lead, so a failed insert is logged, not shown to the owner.
+  if (error) console.error("[instant-audit] lead insert failed:", error.message);
+
+  return { ok: true, url: capped ? null : LIGHT_AUDIT_URL };
 }
