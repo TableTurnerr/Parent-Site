@@ -230,6 +230,7 @@
   to { transform: translateX(-50%); }
 }
 .tt-marquee { animation: tt-marquee 32s linear infinite; }
+.tt-marquee-wrap:hover .tt-marquee, .tt-marquee-wrap:focus-within .tt-marquee { animation-play-state: paused; }
 
 /* drifting aurora glow for the dark hero */
 @keyframes tt-aurora {
