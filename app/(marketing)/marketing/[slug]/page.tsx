@@ -1,3 +1,5 @@
+import { ClientLogoStrip } from "@/app/components/growth/Proof";
+import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -59,6 +61,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           ["First step", <span key="a">A <Link href={AUDIT_PATH} className="font-semibold text-primary">free Google Maps audit</Link> comparing you with the top competitors near you.</span>],
         ]}
       />
+      <ClientLogoStrip />
 
       <section className="section">
         <div className="container-tt">
@@ -102,8 +105,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         <div className="container-tt max-w-3xl"><Html html={deep.html} /></div>
       </section>
 
+      <BookCallBand title={`Want to talk through the plan for your ${t.name.toLowerCase()} business? Book 15 minutes`} />
       <AuditBand title={t.ctaTitle} />
       <FaqSection faq={t.faq} />
+      <CallNowBand />
 
       <section className="section">
         <div className="container-tt">
@@ -126,9 +131,6 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           </div>
           <h3 className="mt-12 text-lg font-bold text-ink">Marketing plans for other trades</h3>
           <TradeChips except={t.path} />
-          <p className="mt-6 text-sm text-ink-soft">
-            Prefer to run it yourself? See <Link href="/industries" className="font-semibold text-primary">review automation software by industry</Link>.
-          </p>
         </div>
       </section>
     </>
