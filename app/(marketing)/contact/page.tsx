@@ -27,8 +27,8 @@ export default function ContactPage() {
             <p className="lead mx-auto mt-5 max-w-2xl">
               The conversation is completely free. Discuss anything about your
               business, whether you work with us or not, and get practical advice
-              and reports. If we can help directly, we&apos;ll set you up with a
-              14-day free trial.
+              and reports. If we can help directly, we&apos;ll show you exactly
+              what we&apos;d do and what it costs.
             </p>
             <ul className="mx-auto mt-9 grid max-w-5xl gap-8 text-center md:grid-cols-3">
               {POINTS.map((p) => (

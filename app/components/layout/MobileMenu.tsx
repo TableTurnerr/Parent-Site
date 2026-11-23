@@ -119,11 +119,11 @@ export default function MobileMenu({ overDark = false }: { overDark?: boolean })
 
             {/* CTA */}
             <Link
-              href="/signup"
+              href="/free-google-maps-audit"
               onClick={toggle}
               className="flex items-center justify-center gap-1.5 w-full py-3.5 bg-black hover:bg-black/90 rounded-full text-white text-sm font-semibold tracking-wide transition-colors"
             >
-              Start free trial
+              Get a free audit
               <svg
                 width="16"
                 height="16"

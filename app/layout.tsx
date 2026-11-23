@@ -39,7 +39,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tableturnerr.com"),
   title: {
-    default: "Home-Service Marketing Agency & Review Software | TableTurnerr",
+    default: "Home-Service Marketing Agency: Websites, SEO & Reviews | TableTurnerr",
     template: "%s | TableTurnerr",
   },
   description:
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     siteName: "TableTurnerr",
     locale: "en_US",
     type: "website",
-    title: "Home-Service Marketing Agency & Review Software | TableTurnerr",
+    title: "Home-Service Marketing Agency: Websites, SEO & Reviews | TableTurnerr",
     description:
       "Done-for-you online marketing for home-service businesses, with our own review and call-capture software behind it. Get a free Google Maps audit.",
     url: "https://www.tableturnerr.com",

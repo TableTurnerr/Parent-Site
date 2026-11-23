@@ -25,8 +25,8 @@ export default function CTA() {
               <Button href="/contact" variant="primary-light" className="w-full sm:w-auto">
                 Get a Free Consultation
               </Button>
-              <Button href="/signup" variant="secondary-light" className="w-full sm:w-auto">
-                Start Free Trial
+              <Button href="/free-google-maps-audit" variant="secondary-light" className="w-full sm:w-auto">
+                Get a Free Audit
               </Button>
             </div>
             </div>
