@@ -1,11 +1,12 @@
+import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Check, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateFAQSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
-import { PLANS, PRICING_FAQS } from "@/app/lib/pricing";
+import { PRICING_FAQS } from "@/app/lib/pricing";
 import { VideoSection } from "@/app/components/growth/Growth";
 import { PricingNote, PricingTiers } from "@/app/components/growth/PricingTiers";
 import { AUDIT_PATH, growthSite } from "@/app/lib/growth";
@@ -65,6 +66,8 @@ export default function PricingPage() {
         </div>
       </section>
 
+      <BookCallBand title="Want a straight quote? Book a 15-minute call" />
+
       {/* What sets the price */}
       <section className="section bg-surface">
         <div className="container-tt">
@@ -83,42 +86,6 @@ export default function PricingPage() {
           <p className="mt-8 text-center text-sm text-ink-soft">
             See <Link href="/services" className="font-semibold text-primary">everything we do</Link>, or the{" "}
             <Link href="/marketing" className="font-semibold text-primary">marketing plan for your trade</Link>.
-          </p>
-        </div>
-      </section>
-
-      {/* Self-serve software */}
-      <section id="plans" className="section scroll-mt-24">
-        <div className="container-tt">
-          <div className="mx-auto mb-10 max-w-2xl text-center">
-            <span className="eyebrow">Do it yourself</span>
-            <h2 className="display-2 mt-5 text-ink">Prefer to run the software yourself?</h2>
-            <p className="lead mt-4">The same review automation, CRM and AI tools we use for clients, for teams that want to run it in-house. 14-day free trial, no credit card required.</p>
-          </div>
-          <div className="grid gap-6 lg:grid-cols-3">
-            {PLANS.map((p) => (
-              <div key={p.name} className="card relative flex flex-col p-7">
-                <h3 className="text-lg font-bold text-ink">{p.name}</h3>
-                <p className="mt-3">
-                  <span className="font-display text-4xl font-bold text-ink">{p.price}</span>
-                  <span className="text-ink-soft">{p.per}</span>
-                </p>
-                <p className="mt-1 text-sm text-muted">{p.note}</p>
-                <p className="mt-4 text-sm leading-relaxed text-ink-soft">{p.description}</p>
-                <ul className="mt-6 flex-1 space-y-3">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 text-sm text-ink-soft">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" /> {f}
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/signup" className="btn btn-ghost mt-7 w-full">Start free trial</Link>
-              </div>
-            ))}
-          </div>
-          <p className="mt-6 text-center text-sm text-muted">
-            Need higher volume or multiple locations?{" "}
-            <Link href="/contact" className="font-semibold text-primary hover:underline">Talk to us</Link>.
           </p>
         </div>
       </section>
@@ -145,6 +112,8 @@ export default function PricingPage() {
           </div>
         </div>
       </section>
+
+      <CallNowBand title="Rather just ask what it would cost? Call us" />
 
       <CrossLinks
         links={[
