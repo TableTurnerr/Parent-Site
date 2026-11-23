@@ -37,7 +37,7 @@ const COMPARE: [string, string, string][] = [
 const faq: Pair[] = [
   ["What is the difference between SEO and AEO?", "SEO gets your website and Google profile to rank in Google. AEO (answer engine optimization) gets your business named inside AI answers from ChatGPT, Google AI Mode, Gemini, Perplexity and Copilot. They share the same foundation, so we run them together."],
   ["Do I need both?", "For most home-service businesses, yes. Google still sends most local calls, but more homeowners now ask an AI assistant first. The same work (reviews, a strong profile, clear pages, consistent listings) helps both, so doing them together costs little extra."],
-  ["How much do SEO and AEO cost?", "Local SEO and AEO are part of our Professional plan, which is about $500 a month for the full program. If you only want one piece, it can be less. We quote after the free audit, month to month."],
+  ["How much do SEO and AEO cost?", "Local SEO and AEO are part of our Complete plan at $497/mo, together with your website, Google profile, reviews, missed-call text-back and AI answering. Month to month, no contract."],
   ["How long until I see results?", "Profile, review and listing fixes can move things in weeks. New pages usually take 2 to 4 months to rank, and AI assistants pick up changes on their own schedule, so expect a few months for steady mentions."],
   ["Can you guarantee rankings or ChatGPT mentions?", "No. Nobody controls Google's rankings or what an AI assistant says. We commit to the work, show you exactly what we did and report the results every month."],
 ];
@@ -63,7 +63,7 @@ export default function Page() {
         rows={[
           ["What it is", "Local SEO (Google Maps and search) plus answer engine optimization (AEO) for AI assistants, run as one program for home-service businesses."],
           ["What's included", "Google Business Profile, service and town pages, technical fixes, citations, review generation, consistent listings across the web, schema and a monthly AI visibility check."],
-          ["What it costs", <span key="p">Part of the Professional plan, about $500/mo for the full program. See <Link href="/pricing" className="font-semibold text-primary">pricing</Link>.</span>],
+          ["What it costs", <span key="p">Part of the Complete plan, $497/mo with everything included. See <Link href="/pricing" className="font-semibold text-primary">pricing</Link>.</span>],
           ["Terms", "Month to month. Starts with a free Google Maps audit that also checks whether AI assistants recommend you."],
         ]}
       />
@@ -128,7 +128,7 @@ export default function Page() {
         items={[
           ["/guides/how-to-get-recommended-by-chatgpt", "Get recommended by ChatGPT", "Where each AI assistant looks, and the 10-step checklist we use."],
           ["/guides/contractor-seo-cost", "What contractor SEO costs", "Typical prices, what you should get and the red flags."],
-          ["/pricing", "Pricing", "Starter, Professional and Premier, month to month."],
+          ["/pricing", "Pricing", "Reviews $97, Starter $297, Growth $397 and Complete $497, month to month."],
         ]}
       />
     </>

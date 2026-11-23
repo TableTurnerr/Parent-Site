@@ -73,7 +73,7 @@ export const services = [
       ['Can you guarantee ChatGPT will recommend my business?', 'No. AI answers vary and nobody controls them. We do the work that makes you easy for assistants to find and trust, and we check every month whether you\x27re being named.'],
       ['How do I know if AI assistants recommend me now?', 'Your free audit includes an AI visibility check: we ask ChatGPT, Claude, Gemini, Grok, Meta AI and Perplexity who they recommend for your trade and town.'],
       ['How long does AEO take?', 'Fixing listings and pages takes a few weeks. Assistants pick up changes on their own schedule, so expect a few months before you see consistent mentions.'],
-      ['Is AEO included in your plans?', 'AI search work is part of the Professional and Premier plans, together with local SEO. We scope it after the free audit.'],
+      ['Is AEO included in your plans?', 'Yes, on the Complete plan ($497/mo), together with local SEO, your website, Google profile, reviews and follow-up.'],
     ],
   },
   {
