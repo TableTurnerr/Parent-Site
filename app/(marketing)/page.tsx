@@ -9,7 +9,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Reveal from "@/app/components/site/Reveal";
-import VslPlayer from "@/app/components/site/VslPlayer";
+import ShortPlayer from "@/app/components/growth/ShortPlayer";
+import { HERO_SHORT, clientShortSchema } from "@/app/lib/growth/video";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
 
 /* ── Hero ───────────────────────────────────────────────── */
 // What a client gets, shown as chips above the fold so the page reads "agency", not "review tool".
-const HERO_SERVICES = ["Websites & SEO", "Google Business Profile", "Reviews", "CRM & automations", "Seasonal campaigns", "Ads"];
+const HERO_SERVICES = ["Websites & SEO", "Google Business Profile", "Reviews", "CRM & automations", "Seasonal campaigns", "AI answering"];
 function Hero() {
   return (
     <section data-analytics-section="hero" className="hero-wash relative overflow-hidden pt-36 md:pt-44">
@@ -72,8 +73,13 @@ function Hero() {
             ))}
           </ul>
 
-          <div className="relative mx-auto mt-12 max-w-5xl md:mt-14">
-            <VslPlayer />
+          {/* Real client, real result: Adrian (Presidential Roofing, Utah) in his own words. */}
+          <div className="relative mx-auto mt-12 max-w-[20rem] md:mt-14">
+            <JsonLd data={clientShortSchema(HERO_SHORT)} />
+            <ShortPlayer video={HERO_SHORT} summary />
+            <p className="mt-4 text-sm text-ink-soft">
+              <span className="font-semibold text-ink">Adrian, Presidential Roofing (Utah)</span>: from 27 reviews in 4.5 years to the first roofer on Google in his area
+            </p>
           </div>
         </div>
       </div>
@@ -242,64 +248,6 @@ function Industries() {
   );
 }
 
-/* ── Personalized reviews ───────────────────────────────── */
-function Personalized() {
-  return (
-    <section className="section bg-surface">
-      <div className="container-tt grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
-        <div>
-          <span className="eyebrow">Reviews, done properly</span>
-          <h2 className="display-2 mt-5 text-ink">Reviews that feel personal, because they are</h2>
-          <p className="lead mt-4">
-            Every request goes out with the customer&apos;s name on it. Your crew can even snap a
-            quick photo holding a sign with their name, and we attach it to the ask. It lands like a
-            thank-you, not a form, and personal asks are the ones that actually get answered.
-          </p>
-          <ul className="mt-8 space-y-4">
-            {[
-              "Name-on-the-photo review requests",
-              "Sent the moment the job wraps",
-              "By text and email, with gentle reminders",
-            ].map((t) => (
-              <li key={t} className="flex items-start gap-3 text-ink-soft">
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary">
-                  <Check className="h-4 w-4" />
-                </span>
-                <span className="text-[0.97rem] leading-relaxed">{t}</span>
-              </li>
-            ))}
-          </ul>
-          <Link href="/free-google-maps-audit" className="btn btn-primary mt-9">
-            Get your free Google Maps audit <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-
-        <Reveal className="relative mx-auto w-full max-w-md lg:mr-0">
-          <div className="overflow-hidden rounded-[1.5rem] border border-line shadow-[0_30px_70px_-35px_rgba(10,19,38,0.45)]">
-            <Image
-              src="/images/personalized/jessica.webp"
-              alt="A home-services crew holding a sign with their customer's name to make the review request personal"
-              width={760}
-              height={896}
-              className="h-full w-full object-cover"
-            />
-          </div>
-          {/* floating review card */}
-          <div className="tt-float absolute -bottom-5 -left-3 w-[15rem] rounded-2xl border border-line bg-white p-4 shadow-lg sm:-left-6">
-            <div className="flex items-center gap-2">
-              <MessageSquareText className="h-4 w-4 text-primary" aria-hidden />
-              <span className="text-xs font-semibold text-muted">Example review request</span>
-            </div>
-            <p className="mt-1.5 text-sm leading-snug text-ink">
-              &ldquo;Hi Jessica, thanks for choosing us today! Would you mind sharing a quick Google review?&rdquo;
-            </p>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 /* ── Compliance / no gating ─────────────────────────────── */
 const COMPLIANCE = [
   { icon: EyeOff, t: "No review gating", b: "We never filter or hide unhappy customers behind a private form. Everyone gets asked, and every review goes live." },
@@ -342,9 +290,9 @@ function Pricing() {
       <div className="container-tt">
         <div className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Pricing</span>
-          <h2 className="display-2 mt-5 text-ink">Priced around what your business needs</h2>
+          <h2 className="display-2 mt-5 text-ink">Pick what you need. See your price.</h2>
           <p className="lead mt-4">
-            Three rough levels, then a custom quote after your free audit. Month to month.
+            Four fixed prices, from $97/mo. Month to month, no contract.
           </p>
         </div>
         <Reveal className="mt-12">
@@ -368,7 +316,7 @@ const FAQS = [
   { q: "How fast will I see new reviews?", a: "Usually as soon as the past-customer campaign goes out. For example, Presidential Roofing in Utah went from 27 to 43 Google reviews in 20 days, and new jobs keep the reviews coming after that." },
   { q: "Which platforms do you collect reviews on?", a: "Google, Facebook, Yelp and Angi, the places home-services customers actually check before they call. Most tools only do Google." },
   { q: "Does it work with my software?", a: "Yes. We connect natively to Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks, plus thousands more through Zapier." },
-  { q: "How much does it cost?", a: "It's custom, based on what your business needs. Just reviews or just a website is around $100–300/mo. The full program (website and SEO, Google profile, reviews, CRM and automations, content and seasonal campaigns) is about $500/mo. Adding ads, an after-hours AI answering service and more of our attention is about $1,000/mo. We set the price after the free audit." },
+  { q: "How much does it cost?", a: "Reviews only is $97/mo. Reviews plus a website, or plus Google Business Profile management and social posting, is $297/mo. Reviews, website and Google profile management together is $397/mo. Complete is $497/mo: everything, including local SEO, AI search (AEO), missed-call text-back, an after-hours AI answering service and CRM follow-ups. Month to month." },
   { q: "Do I need a contract?", a: "No. Every plan is month to month, so you can scale up, scale down or stop." },
   { q: "Can my techs get credit for their reviews?", a: "Yes. Technician leaderboards attribute each review to the person who did the job, which is a great way to motivate your crew." },
 ];
@@ -533,7 +481,6 @@ export default function HomePage() {
       <Features />
       <How />
       <Industries />
-      <Personalized />
       <Compliance />
       <Pricing />
       <CallNowBand />
