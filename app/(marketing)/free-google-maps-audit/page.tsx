@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Script from "next/script";
-import { Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import { OpenAuditButton } from "@/app/components/growth/AuditGate";
 import JsonLd from "@/app/components/site/JsonLd";
-import Link from "next/link";
 import { CardGrid, Crumbs, FaqSection, GuideCards, NextSteps, SectionHead, VideoSection, faqSchemaItems } from "@/app/components/growth/Growth";
 import { generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 import { AUDIT_PATH, getGuide, growthSite, type Guide, type Pair } from "@/app/lib/growth";
@@ -35,24 +34,23 @@ const shots: [string, number, number, string, string, string][] = [
 
 const faq: Pair[] = [
   ["Is the audit really free?", "Yes. You keep the report whether you work with us or not."],
-  ["How long does it take?", "We usually prepare it within a business day or two, then walk you through it in about 15 minutes."],
+  ["How long does it take?", "The instant scan takes a couple of minutes: you pick your business, up to 3 searches and your area. For the full report with competitors, the AI-assistant check and the homepage check, we walk you through it in about 15 minutes."],
   ["Do I need to give you access to anything?", "No. Everything in the audit comes from public information on Google and your website."],
   ["What should I have ready?", "One to three searches you want to show up for (for example \"roofer near me\" or \"AC repair Spokane\") and the main town you serve. That's it."],
+  ["Why do you ask for my phone number?", "So a real person can walk you through your results and answer questions. We don't share it, and we don't add you to a call list."],
   ["Is this a sales call?", "It's a walkthrough of your report, owner to owner. If we can help, we'll say how and what it costs. If we can't, we'll tell you that too."],
   ["Who is it for?", "Owners of US home-service businesses: HVAC, plumbing, roofing, electrical, handyman, fencing, tree service, remodeling, landscaping and similar trades."],
 ];
 
 const NEXT: Pair[] = [
-  ["Request the audit", "Fill in the short form. Add the searches you want to show up for if you know them."],
-  ["We build your report", "Ranking heatmap, top competitors, AI-assistant check and a homepage check, usually within a business day or two."],
-  ["15-minute walkthrough", "We go through it with you on a call, owner to owner, and point out what to fix first. You keep the report."],
+  ["Tell us who you are", "Your business name and phone number. It takes ten seconds."],
+  ["Run the instant scan", "Pick your business, up to 3 searches you want to show up for and your area. You see where you rank, street by street."],
+  ["Full report and walkthrough", "We add your top competitors, the AI-assistant check and a homepage check, then go through it with you on a 15-minute call, owner to owner. You keep the report."],
 ];
 
 const AUDIT_GUIDES = ["how-to-rank-higher-on-google-maps", "how-many-google-reviews-to-rank", "google-business-profile-suspended"];
 
 export default function Page() {
-  const embed = growthSite.auditFormEmbed;
-  const formId = embed.split("/").pop() ?? "";
 
   return (
     <>
@@ -71,7 +69,7 @@ export default function Page() {
             <div>
               <span className="eyebrow">Free, no obligation</span>
               <h1 className="display mt-6 text-ink">See exactly why competitors get the call</h1>
-              <p className="lead mt-6">We&apos;ll build a custom report on your Google presence and walk you through it on a short call, owner to owner. You keep the report whether you work with us or not.</p>
+              <p className="lead mt-6">Run an instant scan of where you rank on Google Maps across your service area, then we<p className="lead mt-6">We&apos;ll build a custom report on your Google presence and walk you through it on a short call, owner to owner. You keep the report whether you work with us or not.</p>apos;ll walk you through the full report on a short call, owner to owner. You keep the report whether you work with us or not.</p>
               <h2 className="mt-8 text-xl font-bold text-ink">What&apos;s in the report</h2>
               <ul className="mt-4 space-y-3">
                 {checks.map((c) => (
@@ -80,29 +78,17 @@ export default function Page() {
               </ul>
               <p className="mt-6"><a href="#example-report" className="font-semibold text-primary hover:underline">See a real example report</a></p>
             </div>
-            <div id="request" className="card scroll-mt-28 p-5 md:p-7">
-              <h2 className="text-xl font-bold text-ink">Request your audit</h2>
-              <iframe
-                src={embed}
-                id={`inline-${formId}`}
-                className="mt-4 w-full rounded-lg border-0"
-                style={{ height: 1122 }}
-                data-layout="{'id':'INLINE'}"
-                data-trigger-type="alwaysShow"
-                data-trigger-value=""
-                data-activation-type="alwaysActivated"
-                data-activation-value=""
-                data-deactivation-type="neverDeactivate"
-                data-deactivation-value=""
-                data-form-name="Appointment Form"
-                data-height="1122"
-                data-layout-iframe-id={`inline-${formId}`}
-                data-form-id={formId}
-                title="Free Google Maps audit request form"
-              />
-              <Script src="https://portalapi.tableturnerr.com/js/form_embed.js" strategy="afterInteractive" />
-              <p className="mt-3 text-sm text-muted">
-                Prefer to pick a time now? <a href={growthSite.bookingUrl} className="font-semibold text-primary">Book a 15-minute call</a>.
+            <div id="request" className="card scroll-mt-28 p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-ink">Start your free audit</h2>
+              <p className="mt-3 leading-relaxed text-ink-soft">Enter your business name and phone, then run the instant scan: your Google Maps ranking across your service area for up to 3 searches.</p>
+              <ul className="mt-5 space-y-2.5 text-sm text-ink-soft">
+                {["Free, no credit card", "Results in a couple of minutes", "A person walks you through the full report"].map((t) => (
+                  <li key={t} className="flex gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />{t}</li>
+                ))}
+              </ul>
+              <OpenAuditButton className="btn btn-primary mt-7 w-full">Start my free audit <ArrowRight className="h-4 w-4" /></OpenAuditButton>
+              <p className="mt-4 text-sm text-muted">
+                Prefer to talk first? <a href={growthSite.bookingUrl} className="font-semibold text-primary">Book a 15-minute call</a>.
               </p>
             </div>
           </div>
@@ -138,7 +124,7 @@ export default function Page() {
               </figure>
             ))}
           </div>
-          <p className="mt-8"><a href="#request" className="btn btn-primary">Get your free audit</a></p>
+          <p className="mt-8"><OpenAuditButton>Start my free audit <ArrowRight className="h-4 w-4" /></OpenAuditButton></p>
         </div>
       </section>
       <FaqSection faq={faq} heading="Quick answers" />
@@ -146,7 +132,7 @@ export default function Page() {
         <div className="container-tt">
           <SectionHead title="Read while you wait" intro="The guides behind what the audit checks." />
           <GuideCards list={AUDIT_GUIDES.map(getGuide).filter((g): g is Guide => Boolean(g))} />
-          <p className="mt-8"><Link href="#request" className="btn btn-primary">Request your free audit</Link></p>
+          <p className="mt-8"><OpenAuditButton>Start my free audit <ArrowRight className="h-4 w-4" /></OpenAuditButton></p>
         </div>
       </section>
       <NextSteps

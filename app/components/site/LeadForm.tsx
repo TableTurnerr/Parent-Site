@@ -9,7 +9,7 @@ import { ANALYTICS_EVENTS } from "@/app/lib/analytics/events";
 
 const TRADES = ["HVAC", "Roofing", "Plumbing", "Electrical", "Other home service"];
 
-const CUSTOMER_CARE_DISCLOSURE = (
+export const CUSTOMER_CARE_DISCLOSURE = (
   <>
     By checking this box and submitting this form, I consent to receive recurring
     customer-care text messages from TableTurnerr LLC at the number provided,
@@ -196,7 +196,7 @@ export default function LeadForm({ variant }: { variant: "trial" | "contact" }) 
   );
 }
 
-function ConsentCheckbox({
+export function ConsentCheckbox({
   id,
   name,
   disclosure,
