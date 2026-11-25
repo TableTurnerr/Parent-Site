@@ -2,8 +2,13 @@
 // math, and hands off to the free Google Maps audit. Pattern borrowed from Jobber's /free-tools, Housecall Pro's graders
 // and Owner.com's restaurant grader: a free tool earns links and searches that a sales page never will.
 import type { Link3, Pair } from "@/app/lib/growth";
+import { tools2 } from "@/app/lib/growth/tools2";
 
-export type ToolSlug = "google-review-calculator" | "missed-call-calculator" | "marketing-roi-calculator" | "review-request-templates";
+export type ToolSlug =
+  | "google-review-calculator" | "missed-call-calculator" | "marketing-roi-calculator" | "review-request-templates"
+  | "job-price-calculator" | "hourly-rate-calculator" | "maintenance-plan-calculator" | "cost-per-lead-calculator"
+  | "estimate-template" | "invoice-template" | "contractor-text-templates" | "phone-scripts" | "google-review-link-generator"
+  | "lead-response-calculator" | "google-business-description-generator" | "missed-call-text-templates" | "review-response-templates";
 
 export interface Tool {
   slug: ToolSlug;
@@ -17,13 +22,15 @@ export interface Tool {
   lede: string;
   /** One line for the hub card. */
   card: string;
+  /** Heading of the method section (templates and makers aren't math). */
+  heading?: string;
   /** How the numbers are worked out, shown under the tool. */
   method: Pair[];
   faq: Pair[];
   next: Link3[];
 }
 
-export const tools: Tool[] = [
+const tools1: Tool[] = [
   {
     slug: "google-review-calculator",
     path: "/tools/google-review-calculator",
@@ -136,20 +143,51 @@ export const tools: Tool[] = [
   },
 ];
 
+export const tools: Tool[] = [...tools1, ...tools2];
+
 export const getTool = (slug: string) => tools.find((t) => t.slug === slug);
 
 /** Pages that link to a matching free tool just above their audit band. Keyed by page path. */
 const RELATED: Record<string, ToolSlug[]> = {
   "/services/review-generation": ["google-review-calculator", "review-request-templates"],
-  "/services/missed-call-text-back": ["missed-call-calculator"],
+  "/services/missed-call-text-back": ["missed-call-calculator", "missed-call-text-templates"],
   "/services/local-seo": ["marketing-roi-calculator"],
-  "/services/google-business-profile": ["google-review-calculator"],
-  "/services/crm-automation": ["missed-call-calculator", "marketing-roi-calculator"],
+  "/services/google-business-profile": ["google-business-description-generator", "google-review-link-generator"],
+  "/services/crm-automation": ["missed-call-calculator", "contractor-text-templates"],
+  "/services/online-booking": ["contractor-text-templates", "phone-scripts"],
+  "/services/estimates-invoices-payments": ["estimate-template", "invoice-template"],
+  "/services/maintenance-plans": ["maintenance-plan-calculator", "job-price-calculator"],
+  "/services/email-sms-campaigns": ["contractor-text-templates", "review-request-templates"],
+  "/services/unified-inbox": ["lead-response-calculator", "missed-call-text-templates"],
+  "/services/call-tracking": ["cost-per-lead-calculator", "marketing-roi-calculator"],
+  "/services/social-media-posting": ["google-business-description-generator", "review-response-templates"],
+  "/guides/gohighlevel-for-contractors": ["lead-response-calculator", "contractor-text-templates"],
+  "/guides/gohighlevel-vs-jobber": ["lead-response-calculator"],
+  "/guides/gohighlevel-vs-housecall-pro": ["lead-response-calculator"],
+  "/guides/crm-vs-field-service-software": ["lead-response-calculator"],
+  "/guides/missed-call-text-back-vs-ai-receptionist": ["missed-call-calculator", "missed-call-text-templates"],
+  "/guides/online-booking-for-home-services": ["contractor-text-templates"],
+  "/guides/text-to-pay-for-contractors": ["invoice-template", "contractor-text-templates"],
+  "/guides/contractor-deposits": ["estimate-template", "job-price-calculator"],
+  "/guides/how-to-sell-maintenance-plans": ["maintenance-plan-calculator", "hourly-rate-calculator"],
+  "/guides/a2p-10dlc-for-contractors": ["contractor-text-templates", "missed-call-text-templates"],
+  "/guides/is-review-gating-allowed": ["review-response-templates", "review-request-templates"],
+  "/guides/google-business-profile-service-area": ["google-business-description-generator", "google-review-link-generator"],
+  "/guides/angi-vs-thumbtack-vs-local-services-ads": ["cost-per-lead-calculator", "lead-response-calculator"],
+  "/guides/win-back-past-customers": ["contractor-text-templates"],
+  "/guides/home-service-marketing-calendar": ["contractor-text-templates", "phone-scripts"],
+  "/guides/contractor-referral-program": ["cost-per-lead-calculator"],
+  "/guides/how-to-get-more-hvac-customers": ["maintenance-plan-calculator", "missed-call-text-templates"],
+  "/guides/how-to-get-more-roofing-customers": ["estimate-template", "google-review-calculator"],
+  "/guides/best-invoicing-software-for-contractors": ["invoice-template", "estimate-template"],
+  "/guides/how-to-keep-track-of-customers": ["hourly-rate-calculator"],
+  "/guides/google-business-profile-suspended": ["google-business-description-generator"],
+  "/guides/local-services-ads-vs-google-ads": ["cost-per-lead-calculator"],
   "/guides/how-to-get-more-google-reviews": ["google-review-calculator", "review-request-templates"],
   "/guides/ask-past-customers-for-google-reviews": ["review-request-templates", "google-review-calculator"],
-  "/guides/google-review-qr-code-and-nfc-cards": ["review-request-templates"],
-  "/guides/how-to-follow-up-on-an-estimate": ["marketing-roi-calculator"],
-  "/guides/ai-receptionist-for-contractors": ["missed-call-calculator"],
+  "/guides/google-review-qr-code-and-nfc-cards": ["google-review-link-generator", "review-request-templates"],
+  "/guides/how-to-follow-up-on-an-estimate": ["estimate-template", "contractor-text-templates"],
+  "/guides/ai-receptionist-for-contractors": ["missed-call-calculator", "phone-scripts"],
   "/guides/best-crm-for-plumbers": ["missed-call-calculator"],
   "/guides/how-to-get-more-plumbing-customers": ["google-review-calculator", "missed-call-calculator"],
   "/guides/how-many-google-reviews-to-rank": ["google-review-calculator", "review-request-templates"],
