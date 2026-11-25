@@ -44,7 +44,7 @@ export default function IntegrationPage({ integration }: { integration: Integrat
             <span className="font-medium text-ink">{integration.name}</span>
           </nav>
 
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-10">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-10">
             <div>
               <span className="eyebrow">{integration.category} · Integration</span>
               <h1 className="display mt-6 text-ink">{integration.tagline}</h1>

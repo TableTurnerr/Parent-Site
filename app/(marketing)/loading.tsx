@@ -34,7 +34,7 @@ export default function MarketingLoading() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
           <div className="space-y-3 mb-12">
             <div className="h-4 w-24 rounded bg-border/60" />
-            <div className="h-9 w-80 rounded-lg bg-border/50" />
+            <div className="h-9 w-80 max-w-full rounded-lg bg-border/50" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {Array.from({ length: 6 }).map((_, i) => (
