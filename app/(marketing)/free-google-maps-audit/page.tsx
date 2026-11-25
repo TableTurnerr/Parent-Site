@@ -8,7 +8,7 @@ import { AUDIT_PATH, getGuide, growthSite, type Guide, type Pair } from "@/app/l
 
 const base = "https://www.tableturnerr.com";
 const description =
-  "Free Google Maps audit for home-service businesses: see where you rank across your service area and how your reviews and profile compare to the top competitors near you.";
+  "Free Google Maps audit for home-service businesses: see where you rank across your service area and how your reviews compare to the top competitors near you.";
 
 export const metadata: Metadata = {
   title: "Free Google Maps Audit for Contractors",

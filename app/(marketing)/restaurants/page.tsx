@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageTitle } from "@/app/lib/metadata";
 import Link from "next/link";
 import JsonLd from "@/app/components/site/JsonLd";
 import {
@@ -18,7 +19,7 @@ const description =
   "Websites, Google Business Profile and review growth for independent restaurants, bakeries and cafés, done for you. Texas clients in Richardson and Dallas.";
 
 export const metadata: Metadata = {
-  title,
+  title: pageTitle(title),
   description,
   alternates: { canonical: `${base}${path}` },
   openGraph: { title: `${title} | TableTurnerr`, description, url: `${base}${path}` },

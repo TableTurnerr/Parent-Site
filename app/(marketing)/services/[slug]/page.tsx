@@ -1,6 +1,7 @@
 import { ClientLogoStrip } from "@/app/components/growth/Proof";
 import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
+import { pageTitle } from "@/app/lib/metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
@@ -20,6 +21,7 @@ const SERVICE_PRICE: Record<string, string> = {
   "google-business-profile": "From $297/mo (Starter), included in every plan from there up",
   "local-seo": "Part of the Complete plan, $497/mo with everything included",
   "ai-search-optimization": "Part of the Complete plan, $497/mo with everything included",
+  "crm-automation": "Part of the Complete plan, $497/mo with everything included",
   "missed-call-text-back": "Part of the Complete plan, $497/mo, together with the AI answering service",
 };
 const base = "https://www.tableturnerr.com";
@@ -32,7 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const s = getService((await params).slug);
   if (!s) return {};
   return {
-    title: s.title.replace(/\s*\|\s*TableTurnerr$/, ""),
+    title: pageTitle(s.title.replace(/\s*\|\s*TableTurnerr$/, "")),
     description: s.description,
     alternates: { canonical: `${base}${s.path}` },
     openGraph: { title: s.title, description: s.description, url: `${base}${s.path}`, type: "website" },

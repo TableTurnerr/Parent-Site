@@ -28,6 +28,11 @@ export default function NfcCard({ dim = false }: { dim?: boolean }) {
     return () => window.clearTimeout(t);
   }, [flipped, paused, i]);
 
+  // Fetch the next card while this one shows its back, so the swap never flashes.
+  useEffect(() => {
+    if (flipped) new window.Image().src = CARDS[(i + 1) % CARDS.length].front;
+  }, [flipped, i]);
+
   const c = CARDS[i];
   const face = "absolute inset-0 overflow-hidden rounded-[0.9rem] shadow-[0_18px_40px_-18px_rgba(0,0,0,0.65)] [backface-visibility:hidden]";
   return (
@@ -43,21 +48,18 @@ export default function NfcCard({ dim = false }: { dim?: boolean }) {
         className="tt-nfc-float relative block aspect-[1296/816] w-full cursor-pointer rounded-[0.9rem] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
       >
         <span
-          className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(.2,.8,.2,1)] [transform-style:preserve-3d]"
-          style={{ transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)" }}
+          className={`absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(.2,.8,.2,1)] [transform-style:preserve-3d] ${flipped ? "[transform:rotateY(180deg)]" : "[transform:rotateY(0deg)]"}`}
         >
           <span className={face}>
-            <img src={c.front} alt={`${c.name} custom review card, front`} width={864} height={544} className="h-full w-full object-cover" />
+            <img src={c.front} alt={`${c.name} custom review card, front`} width={864} height={544} loading="lazy" decoding="async" className="h-full w-full object-cover" />
             <span aria-hidden className="tt-nfc-sheen pointer-events-none absolute inset-0" />
           </span>
           <span className={`${face} [transform:rotateY(180deg)]`}>
-            <img src={c.back} alt={`${c.name} review card, tap or scan side`} width={864} height={544} className="h-full w-full object-cover" />
+            <img src={c.back} alt={`${c.name} review card, tap or scan side`} width={864} height={544} loading="lazy" decoding="async" className="h-full w-full object-cover" />
             <span aria-hidden className="tt-nfc-sheen pointer-events-none absolute inset-0" />
           </span>
         </span>
       </button>
-      {/* Preload the next card so the swap never flashes. */}
-      <link rel="preload" as="image" href={CARDS[(i + 1) % CARDS.length].front} />
     </div>
   );
 }

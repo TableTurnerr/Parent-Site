@@ -106,6 +106,8 @@ export const HERO_SHORT: Short = {
 };
 
 export const shortThumbFor = (s: Short) => `https://i.ytimg.com/vi/${s.id}/oar2.jpg`;
+/** Same picture, about 40% smaller; for the page. The JPEG above stays in the video schema. */
+export const shortThumbWebpFor = (s: Short) => `https://i.ytimg.com/vi_webp/${s.id}/oar2.webp`;
 export const shortEmbedFor = (s: Short) => `https://www.youtube-nocookie.com/embed/${s.id}`;
 export const shortWatchFor = (s: Short) => `https://www.youtube.com/shorts/${s.id}`;
 export const shortThumb = shortThumbFor(CLIENT_SHORT);

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageTitle } from "@/app/lib/metadata";
 import { notFound } from "next/navigation";
 import IndustryPage from "@/app/components/site/IndustryPage";
 import { getIndustry, INDUSTRY_SLUGS } from "@/app/lib/industries";
@@ -11,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ industry:
   const { industry } = await params;
   const item = getIndustry(industry);
   if (!item) return {};
-  return { title: item.seoTitle, description: item.metaDescription, alternates: { canonical: `https://www.tableturnerr.com/industries/${item.slug}` } };
+  return { title: pageTitle(item.seoTitle), description: item.metaDescription, alternates: { canonical: `https://www.tableturnerr.com/industries/${item.slug}` } };
 }
 
 export default async function Page({ params }: { params: Promise<{ industry: string }> }) {

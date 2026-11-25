@@ -49,11 +49,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <h1 className="display mt-6 text-ink">{h1}</h1>
             <p className="lead mt-6">{r.person} runs {r.client}, a {r.trade.toLowerCase()} in {r.location}. The work was good. The Google profile just didn&apos;t show it.</p>
           </div>
-          <div className="mt-10 grid max-w-3xl grid-cols-3 gap-4">
+          <div className="mt-10 grid max-w-3xl grid-cols-3 gap-2.5 sm:gap-4">
             {[[String(r.reviewsBefore), "reviews when we started"], [String(r.reviewsAfter), `reviews ${r.days} days later`], [`+${r.pct}%`, "more reviews"]].map(([v, l]) => (
-              <div key={l} className="card p-5">
-                <p className="font-display text-3xl font-bold text-ink md:text-4xl">{v}</p>
-                <p className="mt-1 text-sm text-ink-soft">{l}</p>
+              <div key={l} className="card min-w-0 p-2.5 min-[375px]:p-3.5 sm:p-5">
+                <p className="font-display text-xl font-bold text-ink min-[375px]:text-2xl sm:text-3xl md:text-4xl">{v}</p>
+                <p className="mt-1 text-xs text-ink-soft sm:text-sm">{l}</p>
               </div>
             ))}
           </div>

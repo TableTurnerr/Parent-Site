@@ -1,14 +1,15 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { pageTitle } from "@/app/lib/metadata";
 import { MapPin, ArrowRight } from "lucide-react";
 import { REVIEW_CITIES } from "@/app/lib/review-cities";
 import { AuditBand, ClientProof } from "@/app/components/growth/Growth";
 import { TEXAS_CLIENTS } from "@/app/lib/growth/clients";
 
 export const metadata: Metadata = {
-  title: "Home-Service Marketing in Texas: Cities We Serve",
+  title: pageTitle("Home-Service Marketing in Texas: Cities We Serve"),
   description:
-    "Google reviews, map-pack visibility and done-for-you marketing for Texas home-service businesses in Houston, Dallas, San Antonio, Austin and more. Free Maps audit.",
+    "Google reviews, Maps visibility and done-for-you marketing for Texas home-service businesses in Houston, Dallas, San Antonio, Austin and more. Free audit.",
   alternates: { canonical: "https://www.tableturnerr.com/locations" },
 };
 

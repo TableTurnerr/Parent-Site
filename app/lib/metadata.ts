@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { SITE_CONFIG } from "./constants";
 
+/** Adds the brand only when the whole title still fits what Google shows (about 60 characters). */
+export function pageTitle(title: string): { absolute: string } {
+  const full = `${title} | ${SITE_CONFIG.name}`;
+  return { absolute: full.length <= 60 ? full : title };
+}
+
 export function createPageMetadata({
   title,
   description,

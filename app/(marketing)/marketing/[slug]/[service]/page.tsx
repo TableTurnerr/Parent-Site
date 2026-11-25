@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageTitle } from "@/app/lib/metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import JsonLd from "@/app/components/site/JsonLd";
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const c = getCombo(slug, service);
   if (!c) return {};
   return {
-    title: c.title,
+    title: pageTitle(c.title),
     description: c.description,
     alternates: { canonical: `${base}${c.path}` },
     openGraph: { title: `${c.title} | TableTurnerr`, description: c.description, url: `${base}${c.path}`, type: "website" },

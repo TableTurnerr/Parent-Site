@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageTitle } from "@/app/lib/metadata";
 import Link from "next/link";
 import JsonLd from "@/app/components/site/JsonLd";
 import { AuditBand, GrowthHero, GuideCards, NextSteps, SectionHead } from "@/app/components/growth/Growth";
@@ -8,8 +9,8 @@ import { guides, services, slugify, topics, trades } from "@/app/lib/growth";
 const base = "https://www.tableturnerr.com";
 
 export const metadata: Metadata = {
-  title: "Guides for Home-Service Owners: Google Maps, Reviews & SEO",
-  description: "Practical guides for contractors: ranking on Google Maps, getting more Google reviews from Jobber, Housecall Pro and ServiceTitan, and what local SEO costs.",
+  title: pageTitle("Guides for Home-Service Owners: Reviews, CRM & Google Maps"),
+  description: "Practical guides for contractors: get more Google reviews, choose a CRM or invoicing software, follow up on estimates and rank higher on Google Maps.",
   alternates: { canonical: `${base}/guides` },
 };
 
@@ -21,7 +22,7 @@ export default function Page() {
         crumbs={[["/", "Home"], ["/guides", "Guides"]]}
         eyebrow="Guides"
         h1="Straight answers for home-service owners"
-        lede="How Google Maps rankings work, how to get more reviews from the software you already use, and what marketing really costs. Written for owners, not marketers."
+        lede="How to get more Google reviews, pick a CRM, follow up on estimates and show up on Google Maps. Written for owners, not marketers."
         trust={false}
       >
         <ul className="mt-8 flex flex-wrap gap-2">
@@ -55,7 +56,7 @@ export default function Page() {
       <AuditBand />
       <NextSteps
         items={[
-          ["/services", "Done-for-you services", "Google Business Profile, reviews, local SEO, websites and missed-call text-back."],
+          ["/services", "Done-for-you services", "Google Business Profile, reviews, local SEO, websites, missed-call text-back and CRM follow-up."],
           ["/marketing", "Marketing plans by trade", "How homeowners search for your trade, and what we'd do first."],
           ["/results/presidential-roofing", "See a client result", "How a Utah roofer went from 27 to 43 Google reviews in 20 days."],
         ]}

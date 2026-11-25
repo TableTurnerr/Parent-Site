@@ -138,7 +138,7 @@ export default function IndustryPage({ industry }: { industry: Industry }) {
         <div className="container-tt grid gap-12 lg:grid-cols-2 lg:items-center">
           <div><span className="eyebrow border-white/15 bg-white/5 text-white">One connected workflow</span><h2 className="display-2 mt-5 text-white">From finished work to visible proof</h2><p className="lead mt-4 text-white/70">Keep the review request connected to the work your team is already completing, then use the feedback to support the next booking.</p></div>
           <div className="space-y-5">
-            {STEPS.map((step) => <div key={step.n} className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5"><span className="font-display text-sm font-bold text-primary">{step.n}</span><div><h3 className="font-bold text-white">{step.t}</h3><p className="mt-1 text-sm leading-relaxed text-white/65">{step.b}</p></div></div>)}
+            {STEPS.map((step) => <div key={step.n} className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5"><span className="font-display text-sm font-bold text-white/70">{step.n}</span><div><h3 className="font-bold text-white">{step.t}</h3><p className="mt-1 text-sm leading-relaxed text-white/65">{step.b}</p></div></div>)}
           </div>
         </div>
       </section>

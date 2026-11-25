@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import EmailLink from "@/app/components/site/EmailLink";
+import { pageTitle } from "@/app/lib/metadata";
 import Script from "next/script";
 import { Mail, MessageSquare, CalendarClock } from "lucide-react";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Contact TableTurnerr: Call, Email or Book a Call",
+  title: pageTitle("Contact TableTurnerr: Call, Email or Book a Call"),
   description:
-    "Talk to an owner at TableTurnerr: call (332) 333-1008, email contact@tableturnerr.com or book a 15-minute call about marketing for your home-service business or restaurant.",
+    "Talk to an owner at TableTurnerr: call (332) 333-1008, email us or book a 15-minute call about marketing for your home-service business or restaurant.",
   alternates: { canonical: "https://www.tableturnerr.com/contact" },
 };
 
@@ -60,9 +62,7 @@ export default function ContactPage() {
             </ul>
             <p className="mt-9 text-sm text-ink-soft">
               Prefer email? Reach us at{" "}
-              <a href="mailto:contact@tableturnerr.com" className="font-semibold text-primary">
-                contact@tableturnerr.com
-              </a>
+              <EmailLink className="font-semibold text-primary" />
             </p>
           </div>
 

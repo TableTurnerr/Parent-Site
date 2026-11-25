@@ -138,7 +138,7 @@ export default function CityPage({ city }: { city: ReviewCity }) {
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {STEPS.map((s) => (
               <div key={s.n} className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
-                <p className="font-display text-sm font-bold text-primary">{s.n}</p>
+                <p className="font-display text-sm font-bold text-white/70">{s.n}</p>
                 <h3 className="mt-4 text-xl font-bold text-white">{s.t}</h3>
                 <p className="mt-2.5 text-sm leading-relaxed text-white/65">{s.b}</p>
               </div>

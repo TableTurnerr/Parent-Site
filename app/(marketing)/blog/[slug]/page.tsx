@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 import BlogPostView from "@/app/components/blog/BlogPostView";
 import { SITE_CONFIG } from "@/app/lib/constants";
@@ -22,7 +22,7 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+}, parent: ResolvingMetadata): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
@@ -51,7 +51,8 @@ export async function generateMetadata({
       siteName: SITE_CONFIG.name,
       ...(post.published_at ? { publishedTime: post.published_at } : {}),
       modifiedTime: post.updated_at,
-      ...(ogImage ? { images: [{ url: ogImage }] } : {}),
+      // Posts without their own picture use the blog's share image.
+      images: ogImage ? [{ url: ogImage }] : (await parent).openGraph?.images,
     },
     twitter: {
       card: "summary_large_image",

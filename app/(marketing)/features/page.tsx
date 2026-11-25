@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { pageTitle } from "@/app/lib/metadata";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FEATURES } from "@/app/lib/features";
 
 export const metadata: Metadata = {
-  title: "Home-Service Review Automation & Field Operations Features",
+  title: pageTitle("Home-Service Review Automation & Field Operations Features"),
   description:
-    "Explore TableTurnerr review automation and FieldTask operations features for home-service businesses: review requests, local visibility, dispatch, work orders and invoicing.",
+    "Review automation and FieldTask operations features for home-service businesses: review requests, local visibility, dispatch, work orders and invoicing.",
   alternates: { canonical: "https://www.tableturnerr.com/features" },
 };
 

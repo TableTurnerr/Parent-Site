@@ -3,7 +3,7 @@
 // only after a click, same approach as VideoPlayer.
 import { useState } from "react";
 import { Play } from "lucide-react";
-import { CLIENT_SHORT, shortEmbedFor, shortThumbFor, type Short } from "@/app/lib/growth/video";
+import { CLIENT_SHORT, shortEmbedFor, shortThumbWebpFor, type Short } from "@/app/lib/growth/video";
 
 export default function ShortPlayer({ compact = false, video = CLIENT_SHORT, summary = false }: { compact?: boolean; video?: Short; summary?: boolean }) {
   const [playing, setPlaying] = useState(false);
@@ -23,7 +23,7 @@ export default function ShortPlayer({ compact = false, video = CLIENT_SHORT, sum
         <button type="button" onClick={() => setPlaying(true)} className="group absolute inset-0 h-full w-full cursor-pointer" aria-label={`Play video: ${video.title} (${video.durationLabel})`}>
           {/* Remote YouTube thumbnail; next/image would need a remotePatterns change for i.ytimg.com. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={shortThumbFor(video)} alt="" width={1080} height={1920} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" />
+          <img src={shortThumbWebpFor(video)} alt={`Video: ${video.title}`} width={1080} height={1920} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" />
           <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-night/80 via-transparent to-transparent" />
           <span aria-hidden className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[#fff] text-[#0a1326] shadow-xl transition-transform group-hover:scale-110">
             <Play className="ml-1 h-7 w-7 fill-current" />

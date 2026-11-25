@@ -7,7 +7,7 @@ import {
   Wrench, Home, Droplets, Zap, Check, ArrowRight, Plug,
   BadgeCheck, EyeOff,
 } from "lucide-react";
-import Image from "next/image";
+import PlainImage from "@/app/components/site/PlainImage";
 import Reveal from "@/app/components/site/Reveal";
 import ShortPlayer from "@/app/components/growth/ShortPlayer";
 import { HERO_SHORT, clientShortSchema } from "@/app/lib/growth/video";
@@ -22,7 +22,7 @@ import { growthSite } from "@/app/lib/growth";
 export const metadata: Metadata = {
   // Absolute title so the root "%s | TableTurnerr" template doesn't double-brand
   // the homepage. Keyword-first so the crawler reads the target phrase first.
-  title: { absolute: "Home-Service Marketing Agency: Websites, SEO & Reviews | TableTurnerr" },
+  title: { absolute: "Home-Service Marketing Agency, SEO and Reviews | TableTurnerr" },
   description:
     "Done-for-you marketing for home-service businesses: websites and SEO, Google profile, reviews, CRM, automations and seasonal campaigns. Get a free Maps audit.",
   alternates: { canonical: "https://www.tableturnerr.com" },
@@ -173,7 +173,7 @@ function How() {
         <Reveal className="mt-12 grid gap-5 md:grid-cols-3">
           {STEPS.map((s) => (
             <div key={s.n} className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
-              <p className="font-display text-sm font-bold text-primary">{s.n}</p>
+              <p className="font-display text-sm font-bold text-white/70">{s.n}</p>
               <h3 className="mt-4 text-xl font-bold text-white">{s.t}</h3>
               <p className="mt-2.5 text-sm leading-relaxed text-white/65">{s.b}</p>
             </div>
@@ -213,12 +213,13 @@ function Industries() {
               href={t.href}
               className="group relative block aspect-[4/5] overflow-hidden rounded-2xl border border-line shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              <Image
+              <PlainImage
                 src={t.img}
                 alt={`${t.t} marketing`}
-                fill
+                width={400}
+                height={500}
                 sizes="(max-width: 768px) 50vw, 25vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
               {/* scrim so the image blends into the label */}
               <div
@@ -385,7 +386,7 @@ function TrustChip({ t, hidden = false }: { t: (typeof TRUST)[number]; hidden?: 
   const inner = (
     <>
       <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg bg-[#fff] ring-1 ring-black/5">
-        <Image src={`/images/tools/${t.logo}.webp`} alt="" fill sizes="32px" className="object-contain p-0.5" />
+        <PlainImage src={`/images/tools/${t.logo}.webp`} alt={`${t.name} logo`} width={32} height={32} className="h-full w-full object-contain p-0.5" />
       </span>
       <span className="whitespace-nowrap text-sm font-semibold text-ink-soft">{t.name}</span>
     </>
