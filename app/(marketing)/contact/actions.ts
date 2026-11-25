@@ -234,14 +234,15 @@ const ownerInboxes = () =>
   );
 
 /**
- * First-10-reviews offer popup: business name + phone, so an owner can call them. The lead goes three ways at once:
- * an email to the owners, the CRM and contact_leads. The visitor only sees success if at least one took it.
+ * First-10-reviews offer popup, after our GHL form was submitted (GHL already has the contact): emails the owners so they
+ * can call, and saves our own copy to contact_leads.
  */
 export async function claimReviewOffer(formData: FormData): Promise<LeadResult> {
   if (clean(formData.get("company_website"), 100)) return { ok: true };
   if (!reviewOfferActive()) return { ok: false, error: "Sorry, this offer has ended." };
 
   const businessName = clean(formData.get("business_name"), MAX.business_name).replace(/\s+/g, " ");
+  const person = clean(formData.get("name"), MAX.name);
   const phone = normalizePhone(clean(formData.get("phone"), MAX.phone));
   const digits = phone.replace(/\D/g, "");
   if (!businessName || digits.length < 10 || digits.length > 15) {
@@ -264,35 +265,22 @@ export async function claimReviewOffer(formData: FormData): Promise<LeadResult> 
   const when = new Date(submittedAt).toLocaleString("en-US", { timeZone: "America/New_York", dateStyle: "medium", timeStyle: "short" });
   const rows: [string, string][] = [
     ["Business", businessName],
+    ["Name", person || "not given"],
     ["Phone", phone],
     ["Page", sourcePageUrl ?? "unknown"],
     ["Time", `${when} ET`],
   ];
   const subject = `Call now: ${businessName} wants the 10 free reviews offer`;
-  const text = `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\nThey asked for a call. They did not opt in to texts.`;
+  const text = `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\nThey asked for a call. The full form, with the texting consent they gave, is in GoHighLevel.`;
   const html = `<div style="font-family:system-ui,sans-serif;color:#111827"><h2>New offer claim: 10 free reviews</h2>${rows
     .map(([k, v]) => `<p style="margin:0 0 6px"><strong>${k}:</strong> ${k === "Phone" ? `<a href="tel:${escapeHtml(v)}">${escapeHtml(v)}</a>` : escapeHtml(v)}</p>`)
-    .join("")}<p>They asked for a call. They did not opt in to texts.</p></div>`;
+    .join("")}<p>They asked for a call. The full form, with the texting consent they gave, is in GoHighLevel.</p></div>`;
   const supabase = await createClient();
 
-  const [email, crm, db] = await Promise.allSettled([
+  const [email, db] = await Promise.allSettled([
     Promise.all(ownerInboxes().map((to) => sendEmail({ to, subject, text, html }))),
-    pushLeadToGHL({
-      name: businessName,
-      email: "",
-      phone,
-      businessName,
-      trade: "",
-      message,
-      source: REVIEW_OFFER_SOURCE,
-      customerCareSmsConsent: false,
-      marketingSmsConsent: false,
-      customerCareSmsConsentedAt: null,
-      marketingSmsConsentedAt: null,
-      smsDisclosureVersion: SMS_DISCLOSURE_VERSION,
-    }),
     supabase.from("contact_leads").insert({
-      name: businessName,
+      name: person || businessName,
       email: "",
       business_name: businessName,
       phone,
@@ -314,12 +302,11 @@ export async function claimReviewOffer(formData: FormData): Promise<LeadResult> 
   ]);
 
   const emailed = email.status === "fulfilled" && email.value.some((r) => r.ok);
-  const pushed = crm.status === "fulfilled" && crm.value;
   const saved = db.status === "fulfilled" && !db.value.error;
   if (!emailed) console.error("[review-offer] owner email failed");
   if (!saved) console.error("[review-offer] lead insert failed:", db.status === "fulfilled" ? db.value.error?.message : db.reason);
 
-  if (!emailed && !pushed && !saved) {
+  if (!emailed && !saved) {
     return { ok: false, error: "That didn't go through. Please call us at (332) 333-1008 and mention the offer." };
   }
   return { ok: true };
