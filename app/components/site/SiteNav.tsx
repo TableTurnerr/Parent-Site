@@ -37,7 +37,7 @@ const Desc = ({ t }: { t: string }) => <span className="mt-0.5 block text-xs fon
 function ServicesPanel({ close }: { close: () => void }) {
   return (
     <div className="grid gap-8 lg:grid-cols-12">
-      <div className="grid gap-8 sm:grid-cols-3 lg:col-span-9">
+      <div className="grid gap-8 sm:grid-cols-2 lg:col-span-9 lg:grid-cols-4">
         {SERVICE_GROUPS.map((g) => (
           <div key={g.title}>
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">{g.title}</p>

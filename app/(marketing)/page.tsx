@@ -22,7 +22,7 @@ import { growthSite } from "@/app/lib/growth";
 export const metadata: Metadata = {
   // Absolute title so the root "%s | TableTurnerr" template doesn't double-brand
   // the homepage. Keyword-first so the crawler reads the target phrase first.
-  title: { absolute: "Home-Service Marketing Agency, SEO and Reviews | TableTurnerr" },
+  title: { absolute: "Home-Service Marketing Agency, SEO & Reviews | TableTurnerr" },
   description:
     "Done-for-you marketing for home-service businesses: websites and SEO, Google profile, reviews, CRM, automations and seasonal campaigns. Get a free Maps audit.",
   alternates: { canonical: "https://www.tableturnerr.com" },

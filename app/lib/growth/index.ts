@@ -11,7 +11,9 @@ import { guides2 } from "./guides2.mjs";
 import { guides3 } from "./guides3.mjs";
 import { guides4 } from "./guides4.mjs";
 import { guides5 } from "./guides5.mjs";
+import { guides6 } from "./guides6.mjs";
 import { services as servicesRaw } from "./services.mjs";
+import { services2 } from "./services2.mjs";
 import { results as resultsRaw } from "./results.mjs";
 import { combos as combosRaw } from "./combos.mjs";
 import { site as siteRaw } from "./config.mjs";
@@ -72,8 +74,8 @@ export const topics = toGuides(topicsRaw) as Record<string, Topic>;
 export const serviceTopics = serviceTopicsRaw as Record<string, string>;
 
 export const trades: Trade[] = toGuides([...trades1, ...trades2]) as Trade[];
-export const services: Service[] = toGuides(servicesRaw) as Service[];
-export const guides: Guide[] = (toGuides([...guides4, ...guides5, ...guides1, ...guides2, ...guides3]) as Omit<Guide, "topics">[]).map((g: Omit<Guide, "topics">) => ({
+export const services: Service[] = toGuides([...servicesRaw, ...services2]) as Service[];
+export const guides: Guide[] = (toGuides([...guides6, ...guides4, ...guides5, ...guides1, ...guides2, ...guides3]) as Omit<Guide, "topics">[]).map((g: Omit<Guide, "topics">) => ({
   ...g,
   topics: (guideTopics as Record<string, string[]>)[g.slug] ?? ["trades"],
 })) as Guide[];

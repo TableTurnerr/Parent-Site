@@ -4,6 +4,8 @@
 import { AUDIT_PATH, growthSite, guides, plain, results, services, SITE_UPDATED } from "@/app/lib/growth";
 import { DFY_TIERS, PRICING_FAQS } from "@/app/lib/pricing";
 import { SITE_CONFIG } from "@/app/lib/constants";
+import { CAPABILITIES, NOT_FOR } from "@/app/lib/growth/capabilities";
+import { GLOSSARY } from "@/app/lib/growth/glossary";
 import { HERO_SHORT, SEASONS_SHORTS } from "@/app/lib/growth/video";
 
 export const dynamic = "force-static";
@@ -45,12 +47,20 @@ export function GET() {
       ...s.faq.map(([q, a]) => `Q: ${plain(q)}\nA: ${plain(a)}`),
     ].join("\n")),
     "",
+    `## Everything we set up (${base}/services/everything-we-set-up)`,
+    ...CAPABILITIES.map((g) => [`### ${g.title}`, ...g.items.map(([name, what, , note]) => `- ${name}: ${what}.${note ? ` Good to know: ${note}` : ""}`)].join("\n")),
+    "### What we don't replace",
+    ...NOT_FOR.map(([h, p]) => `- ${h}: ${p}`),
+    "",
     "## Client results",
     ...results.map((r) => `- ${r.client} (${r.trade}, ${r.location}): ${r.reviewsBefore} to ${r.reviewsAfter} Google reviews in ${r.days} days. ${base}${r.path}`),
     `- Seasons Taiwanese Eatery (restaurant, Honolulu, 2025): 500+ customers brought in; 1,500+ locals reached directly. ${base}/results/seasons-taiwanese-eatery`,
     "",
     "## Videos (what is said)",
     ...[HERO_SHORT, ...SEASONS_SHORTS].map((v) => `### ${v.title} (https://www.youtube.com/shorts/${v.id})\n${(v.summary ?? [v.description]).join(" ")}`),
+    "",
+    `## Glossary (${base}/glossary)`,
+    ...GLOSSARY.flatMap((g) => g.terms).map(([t, d]) => `- ${t}: ${d}`),
     "",
     "## Guides",
     ...guides.map((g) => `- ${plain(g.h1)}: ${plain(g.description)} ${base}${g.path}`),

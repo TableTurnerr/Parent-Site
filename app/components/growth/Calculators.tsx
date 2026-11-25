@@ -8,11 +8,11 @@ import { ArrowRight, Check, Copy } from "lucide-react";
 // Kept local: importing the growth index here would pull all the content data into the client bundle.
 const AUDIT_PATH = "/free-google-maps-audit";
 
-const usd = (n: number) => (Number.isFinite(n) ? n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }) : "-");
-const num = (n: number) => (Number.isFinite(n) ? Math.round(n).toLocaleString("en-US") : "-");
-const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, Number.isFinite(n) ? n : lo));
+export const usd = (n: number) => (Number.isFinite(n) ? n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }) : "-");
+export const num = (n: number) => (Number.isFinite(n) ? Math.round(n).toLocaleString("en-US") : "-");
+export const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, Number.isFinite(n) ? n : lo));
 
-function Input({ id, label, value, onChange, step = 1, min = 0, max, suffix, prefix, hint }: {
+export function Input({ id, label, value, onChange, step = 1, min = 0, max, suffix, prefix, hint }: {
   id: string; label: string; value: number; onChange: (v: number) => void; step?: number; min?: number; max?: number; suffix?: string; prefix?: string; hint?: string;
 }) {
   return (
@@ -38,7 +38,7 @@ function Input({ id, label, value, onChange, step = 1, min = 0, max, suffix, pre
   );
 }
 
-function Stat({ value, label, big = false }: { value: string; label: string; big?: boolean }) {
+export function Stat({ value, label, big = false }: { value: string; label: string; big?: boolean }) {
   return (
     <div className="min-w-0 rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5">
       <p className={`font-display font-bold text-white ${big ? "text-3xl sm:text-4xl xl:text-5xl" : "text-2xl sm:text-3xl lg:text-2xl xl:text-3xl"}`}>{value}</p>
@@ -47,7 +47,7 @@ function Stat({ value, label, big = false }: { value: string; label: string; big
   );
 }
 
-function Shell({ inputs, results, summary }: { inputs: ReactNode; results: ReactNode; summary: ReactNode }) {
+export function Shell({ inputs, results, summary }: { inputs: ReactNode; results: ReactNode; summary: ReactNode }) {
   return (
     <div className="grid gap-5 lg:grid-cols-12" data-analytics-section="free_tool">
       <form className="card grid content-start gap-5 p-6 md:p-8 lg:col-span-6" onSubmit={(e) => e.preventDefault()} aria-label="Your numbers">
@@ -210,7 +210,9 @@ export function RoiCalculator() {
   );
 }
 
-const TEMPLATES: { group: string; items: { name: string; when: string; text: string }[] }[] = [
+export interface TemplateGroup { group: string; items: { name: string; when: string; text: string }[] }
+
+const TEMPLATES: TemplateGroup[] = [
   {
     group: "Text messages",
     items: [
@@ -236,12 +238,12 @@ const TEMPLATES: { group: string; items: { name: string; when: string; text: str
   },
 ];
 
-function CopyButton({ text }: { text: string }) {
+export function CopyButton({ text }: { text: string }) {
   const [done, setDone] = useState(false);
   return (
     <button
       type="button"
-      className="btn btn-ghost px-3 py-1.5 text-xs"
+      className="btn btn-ghost !px-3 !py-1.5 !text-xs"
       onClick={async () => {
         try { await navigator.clipboard.writeText(text); setDone(true); setTimeout(() => setDone(false), 1800); } catch { /* clipboard blocked: text is selectable */ }
       }}
@@ -252,9 +254,13 @@ function CopyButton({ text }: { text: string }) {
 }
 
 export function ReviewTemplates() {
+  return <TemplateList groups={TEMPLATES} />;
+}
+
+export function TemplateList({ groups }: { groups: TemplateGroup[] }) {
   return (
     <div className="space-y-12" data-analytics-section="free_tool">
-      {TEMPLATES.map((g) => (
+      {groups.map((g) => (
         <div key={g.group}>
           <h2 className="text-2xl font-bold text-ink">{g.group}</h2>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
