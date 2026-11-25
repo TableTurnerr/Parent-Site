@@ -1,5 +1,7 @@
 export const ANALYTICS_EVENTS = {
   pageViewed: "page_viewed",
+  /** PostHog's own page view, which fills its Web analytics dashboard. */
+  webPageview: "$pageview",
   sectionViewed: "section_viewed",
   sectionEngagement: "section_engagement",
   scrollMilestone: "scroll_milestone_reached",
