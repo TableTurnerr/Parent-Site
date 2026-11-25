@@ -6,7 +6,7 @@ import { INTEGRATIONS } from "@/app/lib/integrations";
 export const metadata: Metadata = {
   title: "Integrations: Connect Your CRM",
   description:
-    "TableTurnerr connects to the tools you already run on, Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks, to turn completed jobs into 5-star reviews.",
+    "TableTurnerr connects to the tools you already run on, Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks, to turn completed jobs into review requests.",
   alternates: { canonical: "https://www.tableturnerr.com/integrations" },
 };
 
@@ -23,7 +23,7 @@ export default function IntegrationsIndex() {
             <h1 className="display mt-6 text-ink">Works with the tools you already run on</h1>
             <p className="lead mt-6 max-w-2xl">
               Connect your field-service software in about a minute. TableTurnerr watches for
-              completed jobs and turns each one into a 5-star review request,
+              completed jobs and turns each one into a review request,
               automatically. No exports, no manual lists.
             </p>
           </div>
