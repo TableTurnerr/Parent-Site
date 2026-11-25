@@ -23,7 +23,7 @@ export const DFY_TIERS: Tier[] = [
     price: 97,
     forWho: "More 5-star Google reviews, on autopilot.",
     features: [
-      "Review requests by text and email after every job, with a personalized photo of you or your crew",
+      "We ask for honest reviews from every eligible customer after each job, by text and email, with a personalized photo of you or your crew",
       "Replies to every review, written for you",
       "Integrates with your CRM, FSM, or invoicing/accounting software, so requests go out on their own",
     ],

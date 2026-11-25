@@ -13,7 +13,7 @@ import { AUDIT_PATH, FSM, clientStatesText, getGuide, services, type Guide, type
 
 const base = "https://www.tableturnerr.com";
 const description =
-  "Done-for-you marketing for home-service businesses: Google Business Profile, reviews, local SEO, contractor websites and missed-call text-back. Month to month.";
+  "Done-for-you marketing and CRM for home-service businesses: Google, reviews, SEO, websites, call answering, online booking, payments and follow-up.";
 
 export const metadata: Metadata = {
   title: pageTitle("Done-For-You Marketing Services for Contractors"),
@@ -33,7 +33,7 @@ const faq: Pair[] = [
   ["Do I have to learn any software?", "No. We run everything on our own software."],
   ["Does it work with my job software?", `Yes. Review requests connect to ${FSM}, or we can work from a customer list if you don't use one.`],
   ["Do you require a contract?", "No. Month to month."],
-  ["How much does it cost?", "It depends on which services you need and how competitive your area is. We'll give you a straight price on the audit call. The video on this page also covers pricing."],
+  ["How much does it cost?", "Four fixed prices, month to month: Reviews $97, Starter $297, Growth $397 and Complete $497. Some add-ons, such as payments or hiring pages, depend on your setup, so we confirm what's included in writing before you start."],
 ];
 
 const PILLAR_GUIDES = ["how-to-rank-higher-on-google-maps", "best-review-software-for-contractors", "contractor-seo-cost"];
@@ -87,6 +87,11 @@ export default function Page() {
                 <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
               </Link>
             ))}
+            <Link href="/services/everything-we-set-up" className="card card-hover group flex h-full flex-col border-primary/40 p-6">
+              <span className="text-lg font-bold text-ink">The full list</span>
+              <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">Everything we can set up for your business, with an example and the catch for each.</span>
+              <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">See everything <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+            </Link>
             <Link href="/seo" className="card card-hover group flex h-full flex-col p-6">
               <span className="text-lg font-bold text-ink">SEO & AEO</span>
               <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">Get found on Google and recommended by ChatGPT and other AI assistants, as one program.</span>

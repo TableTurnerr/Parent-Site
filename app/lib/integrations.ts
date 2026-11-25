@@ -13,7 +13,7 @@ export const INTEGRATIONS: Record<string, Integration> = {
     slug: "jobber",
     name: "Jobber",
     category: "Field-service CRM",
-    tagline: "Turn every closed Jobber job into a 5-star review",
+    tagline: "Ask for a review after every closed Jobber job",
     blurb:
       "Connect Jobber once and TableTurnerr watches for completed jobs, then automatically asks each customer for a review at the perfect moment. No exports, no manual lists, no chasing.",
     syncs: [
