@@ -12,10 +12,10 @@ import { AUDIT_PATH, guidesInTopic, type Pair } from "@/app/lib/growth";
 
 const base = "https://www.tableturnerr.com";
 const description =
-  "SEO and AEO for home-service businesses: rank on Google Maps and in search, and get recommended by ChatGPT, Gemini, Perplexity and Google's AI answers. Done for you, month to month.";
+  "SEO and AEO for home-service businesses: rank on Google Maps and in search, and get recommended by ChatGPT, Gemini and Google's AI answers. Done for you.";
 
 export const metadata: Metadata = {
-  title: { absolute: "SEO & AEO Services for Home-Service Businesses | TableTurnerr" },
+  title: "SEO & AEO for Home-Service Businesses",
   description,
   alternates: { canonical: `${base}/seo` },
   openGraph: { title: "SEO & AEO Services for Home-Service Businesses", description, url: `${base}/seo` },

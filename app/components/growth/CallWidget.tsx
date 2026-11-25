@@ -24,6 +24,8 @@ export default function CallWidget() {
     try { seen = sessionStorage.getItem(SEEN_KEY) === "1"; } catch {}
     if (seen) return;
     const t = window.setTimeout(() => {
+      // Don't stack this on a visitor who just got the offer popup.
+      try { if (sessionStorage.getItem("tt-offer-shown") === "1") return; } catch {}
       if (window.innerWidth < 1024 || document.querySelector("dialog[open]")) return;
       setOpen(true);
       try { sessionStorage.setItem(SEEN_KEY, "1"); } catch {}

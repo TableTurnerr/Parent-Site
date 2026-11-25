@@ -136,7 +136,7 @@ export const FEATURES: Record<string, ProductFeature> = {
   "crm-contact-import-and-lead-management": {
     slug: "crm-contact-import-and-lead-management",
     title: "CRM setup & contact import",
-    seoTitle: "CRM Setup, Contact Import and Lead Management for Home Services",
+    seoTitle: "CRM Setup, Contact Import & Leads for Home Services",
     metaDescription:
       "No CRM yet? TableTurnerr can import your contacts into a CRM setup that keeps leads, conversations and follow-up in one place, with mobile access for your team.",
     description:
@@ -194,7 +194,7 @@ export const FEATURES: Record<string, ProductFeature> = {
     title: "Time tracking & invoicing",
     seoTitle: "Time Tracking and Invoicing for Home Services",
     metaDescription:
-      "Track field time and create invoices from completed jobs with FieldTask for HighLevel.",
+      "Track crew time in the field and create invoices from completed home-service jobs with FieldTask for HighLevel.",
     description:
       "Track time in the field, send invoices from completed jobs, and keep the paperwork moving.",
     detail:

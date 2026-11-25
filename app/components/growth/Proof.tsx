@@ -2,7 +2,7 @@
 // A click on a client goes to their website (most of which we built) or, for Presidential Roofing, our case study.
 import fs from "node:fs";
 import path from "node:path";
-import Image from "next/image";
+import PlainImage from "@/app/components/site/PlainImage";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, ArrowUpRight, Check, Play } from "lucide-react";
@@ -23,7 +23,7 @@ function Mark({ c, className }: { c: PortfolioClient; className: string }) {
   return (
     <span className={`relative flex items-center justify-center overflow-hidden rounded-xl ring-1 ring-black/5 ${c.darkLogo ? "bg-[#11142b]" : "bg-[#fff]"} ${className}`}>
       {c.logo ? (
-        <Image src={c.logo} alt={`${c.name} logo`} fill sizes="200px" className="object-contain p-2.5" />
+        <PlainImage src={c.logo} alt={`${c.name} logo`} width={200} height={100} className="absolute inset-0 h-full w-full object-contain p-2.5" />
       ) : (
         <span aria-hidden className="grid h-12 w-12 place-items-center rounded-full bg-night text-base font-bold tracking-wide text-white">{initials(c.name)}</span>
       )}
@@ -149,7 +149,7 @@ export function HeroProof() {
       <span className="flex -space-x-2.5" aria-hidden>
         {faces.map((c) => (
           <span key={c.name} className={`relative h-8 w-8 overflow-hidden rounded-full ring-2 ring-bg ${c.darkLogo ? "bg-[#11142b]" : "bg-[#fff]"}`}>
-            <Image src={c.logo!} alt="" fill sizes="32px" className="object-contain p-0.5" />
+            <PlainImage src={c.logo!} alt={`${c.name} logo`} width={32} height={32} className="h-full w-full object-contain p-0.5" />
           </span>
         ))}
       </span>
@@ -179,7 +179,7 @@ function AutopilotThread() {
         <div className="ml-auto max-w-[88%] overflow-hidden rounded-2xl rounded-br-sm bg-primary/15 text-ink">
           {hasRequestPhoto && (
             <span className="relative block aspect-[1278/883]">
-              <Image src={REQUEST_PHOTO} alt="Selfie of Adrian from Presidential Roofing on the customer's roof, captioned 'Hey Frank!'" fill sizes="20rem" className="object-cover" />
+              <PlainImage src={REQUEST_PHOTO} alt="Selfie of Adrian from Presidential Roofing on the customer's roof, captioned 'Hey Frank!'" width={320} height={221} className="absolute inset-0 h-full w-full object-cover" />
             </span>
           )}
           <p className="px-3 py-2">
@@ -193,7 +193,7 @@ function AutopilotThread() {
         </p>
         <p className="ml-auto max-w-[88%] rounded-2xl rounded-br-sm bg-primary/15 px-3 py-2 text-ink">
           Thank you, Frank, for the kind review! We&apos;re glad you&apos;re happy with the new roof.
-          <span className="mt-1 block text-[0.7rem] text-muted">Reply posted on Google</span>
+          <span className="mt-1 block text-[0.7rem] text-ink-soft">Reply posted on Google</span>
         </p>
       </div>
     </div>

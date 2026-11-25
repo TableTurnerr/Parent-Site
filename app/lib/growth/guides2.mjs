@@ -24,7 +24,7 @@ ${extra}
 <li><strong>Personalize it.</strong> Mention the tech and the job: "Thanks for having Mike out to fix your water heater today."</li>
 </ul>
 <h2>Don\'t forget past customers</h2>
-<p>Your ${tool} client list probably holds hundreds of customers who were never asked. A single, polite request to everyone from the last year or two is often the fastest review boost you\'ll get. That\'s how our client <a href="/results/presidential-roofing">Presidential Roofing</a> got a big part of its jump from 27 to 43 reviews in 20 days.</p>
+<p>Your ${tool} client list probably holds hundreds of customers who were never asked. A single, polite request to everyone from the last year or two is often the fastest review boost you\'ll get. That\'s how our client <a href="/results/presidential-roofing">Presidential Roofing</a> got a big part of its jump from 27 to 43 reviews in 20 days. Here are <a href="/guides/ask-past-customers-for-google-reviews">the messages and a 7-day plan</a>.</p>
 <h2>Stay inside Google\'s rules</h2>
 <p>Under ${POLICY}, you can\'t selectively ask only happy customers (review gating) or offer discounts or gifts in exchange for reviews. Ask everyone, the same way.</p>
 <h2>When software isn\'t enough</h2>

@@ -2,9 +2,10 @@
 // contact column, so everything an owner looks for is one click away. Shares its data with the header menus.
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
+import EmailLink from "@/app/components/site/EmailLink";
 import { Logo } from "@/app/components/ui/Logo";
 import ConsentManager from "@/app/components/analytics/ConsentManager";
-import { SITE_CONFIG, SOCIAL_LINKS } from "@/app/lib/constants";
+import { SOCIAL_LINKS } from "@/app/lib/constants";
 import {
   AUDIT_HREF, BOOKING_URL, COMPANY_LINKS, PHONE_DISPLAY, PHONE_E164, RESOURCE_LINKS, SERVICE_GROUPS, SIGN_IN_URL, TRADE_LINKS, type NavItem,
 } from "@/app/lib/site-nav";
@@ -27,7 +28,7 @@ function FooterLink({ l }: { l: NavItem }) {
 
 export default function SiteFooter() {
   return (
-    <footer className="border-t border-line bg-surface">
+    <footer className="border-t border-line bg-surface" itemScope itemType="https://schema.org/WPFooter">
       <div className="container-tt pt-14 pb-6 md:pt-16 md:pb-8">
         {/* CTA row */}
         <div className="flex flex-col gap-6 border-b border-line pb-10 md:flex-row md:items-center md:justify-between">
@@ -62,7 +63,7 @@ export default function SiteFooter() {
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">Talk to us</p>
             <ul className="mt-4 space-y-3 text-sm">
               <li><a href={`tel:${PHONE_E164}`} className="inline-flex items-center gap-2 font-semibold text-ink hover:text-primary"><Phone className="h-4 w-4" aria-hidden /> {PHONE_DISPLAY}</a></li>
-              <li><a href={`mailto:${SITE_CONFIG.email}`} className="inline-flex items-center gap-2 text-ink-soft hover:text-ink"><Mail className="h-4 w-4" aria-hidden /> {SITE_CONFIG.email}</a></li>
+              <li className="flex items-center gap-2 text-ink-soft"><Mail className="h-4 w-4" aria-hidden /> <EmailLink className="hover:text-ink" /></li>
               <li><a href={BOOKING_URL} className="font-semibold text-primary hover:underline">Book a 15-minute call</a></li>
             </ul>
             <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-1 text-sm">

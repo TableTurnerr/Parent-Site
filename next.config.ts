@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   compress: true,
+  // Next ships polyfills (Array.at, Object.hasOwn...) that every browser it supports already has.
+  turbopack: {},
+  webpack: (config, { isServer }) => {
+    if (!isServer) config.resolve.alias["../build/polyfills/polyfill-module"] = false;
+    return config;
+  },
   poweredByHeader: false,
   reactStrictMode: true,
   async redirects() {

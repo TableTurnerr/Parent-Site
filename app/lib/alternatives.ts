@@ -199,7 +199,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     slug: "gatherup-alternative",
     competitor: "GatherUp",
     category: "Reputation software",
-    metaTitle: "GatherUp Alternatives for Home Services (2026) | TableTurnerr",
+    metaTitle: "GatherUp Alternatives for Home Services (2026)",
     metaDescription:
       "A GatherUp alternative built for the trades: home-service review automation with technician leaderboards, map-pack tracking, and flat monthly pricing.",
     tagline: "A GatherUp alternative built around the trades",

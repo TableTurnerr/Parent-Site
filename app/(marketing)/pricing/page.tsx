@@ -1,6 +1,7 @@
 import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { pageTitle } from "@/app/lib/metadata";
 import { ArrowRight } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
@@ -19,9 +20,9 @@ const FACTORS = [
 ];
 
 export const metadata: Metadata = {
-  title: "Pricing: Home-Service Marketing Plans from $97/mo",
+  title: pageTitle("Home-Service Marketing Pricing from $97/mo"),
   description:
-    "Done-for-you marketing for home-service businesses, from $97/mo. Pick what you need and see your price: reviews, website, posting, local SEO, AEO and AI answering. Month to month.",
+    "Done-for-you marketing for home-service businesses from $97/mo. Pick what you need and see your price: reviews, website, local SEO, AI answering and more.",
   alternates: { canonical: "https://www.tableturnerr.com/pricing" },
 };
 

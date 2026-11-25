@@ -214,4 +214,41 @@ export const services = [
       ['What if the caller has an emergency?', 'We set up rules so urgent calls are forwarded to you or your on-call tech immediately.'],
     ],
   },
+  {
+    slug: 'crm-automation', short: 'CRM & follow-up automation',
+    path: '/services/crm-automation',
+    title: 'CRM & Follow-Up Automation for Contractors | TableTurnerr',
+    description: 'A done-for-you CRM for home-service businesses: every lead, call and text in one inbox, with estimate and appointment follow-ups that run themselves.',
+    eyebrow: 'CRM & follow-up',
+    h1: 'A CRM that follows up while you\'re on the job',
+    lede: 'Most owners don\'t lose jobs on price. They lose them because nobody called back. We set up the CRM, move your customers in, write the follow-ups and keep it running, so no lead or estimate is forgotten.',
+    includedIntro: 'Set up and run for you. You keep working the way you work now.',
+    included: [
+      ['Your customers, imported', 'We move your contacts out of your phone, spreadsheet or old software into one clean list.'],
+      ['One inbox', 'Leads, calls and texts in one place, with a mobile app for the truck.'],
+      ['Estimate follow-up', 'Quiet estimates get friendly reminders that stop as soon as the customer replies.'],
+      ['Appointment reminders', 'Automatic reminders before each visit, so fewer people forget.'],
+      ['Seasonal campaigns', 'Tune-up and maintenance reminders to past customers before your busy season.'],
+      ['Reviews after every job', 'A finished job starts a review request, sent to every customer.'],
+    ],
+    steps: [
+      ['Map', 'On a short call we find where leads slip today: missed calls, estimates, callbacks or old customers.'],
+      ['Build', 'We import your customers, connect your job or invoicing software and write the messages in your voice.'],
+      ['Run', 'Follow-ups go out on their own. You get a message when a real person needs you.'],
+    ],
+    deepDive: `
+<h2>Do you need a CRM or job software?</h2>
+<p>Job software such as Jobber or Housecall Pro runs the work: schedule, dispatch, quotes and invoices. A CRM with follow-up runs the relationship: who called, who went quiet and who\'s due. If you already have job software you like, keep it. We connect to it. <a href="/guides/best-crm-for-home-service-business">Here\'s how to choose between them.</a></p>
+<h2>No CRM yet?</h2>
+<p>Plenty of good businesses run on a phone and a notebook. Start with <a href="/guides/how-to-keep-track-of-customers">a simple customer list</a>. When callbacks start slipping, we\'ll import it and take it from there.</p>
+<h2>Texting the right way</h2>
+<p>Business texting in the US needs carrier registration (10DLC), permission from the customer and an easy way to opt out. We handle the registration and build opt-outs in. You tell us who you have permission to message.</p>`,
+    faq: [
+      ['Do I have to leave Jobber or Housecall Pro?', 'No. We connect to the job software you already use.'],
+      ['Can you move my customers from a spreadsheet or my phone?', 'Yes. Send us what you have and we import it.'],
+      ['Will the messages sound like a robot?', 'No. We write them in your voice and you approve them. A reply goes to a real person.'],
+      ['How much does it cost?', 'CRM and follow-ups are part of the Complete plan at $497 a month, with everything else included and no long contract.'],
+      ['Does it send invoices?', 'Most clients keep invoicing in the software they already use, and we connect to it. If you need invoices from completed jobs, ask us about our FieldTask tools.'],
+    ],
+  },
 ].map((s) => ({ ...s, crumbs: [['/', 'Home'], ['/services', 'Services'], [s.path, s.short]] }));

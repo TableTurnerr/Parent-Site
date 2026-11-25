@@ -100,7 +100,7 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
           </div>
 
           <div className="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border border-line bg-white">
-            <div className="grid grid-cols-[1fr_auto_auto] items-center gap-x-4 border-b border-line bg-surface/60 px-5 py-4 text-sm font-semibold text-ink sm:gap-x-8 sm:px-7">
+            <div className="grid grid-cols-[1fr_auto_auto] items-center gap-x-3 border-b border-line bg-surface/60 px-4 py-4 text-sm font-semibold text-ink sm:gap-x-8 sm:px-7">
               <span>Feature</span>
               <span className="w-20 text-center text-primary sm:w-28">TableTurnerr</span>
               <span className="w-20 text-center text-muted sm:w-28">{alt.competitor}</span>
@@ -108,7 +108,7 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
             {alt.compare.map((row, i) => (
               <div
                 key={row.f}
-                className={`grid grid-cols-[1fr_auto_auto] items-center gap-x-4 px-5 py-3.5 text-sm sm:gap-x-8 sm:px-7 ${i % 2 ? "bg-surface/30" : ""}`}
+                className={`grid grid-cols-[1fr_auto_auto] items-center gap-x-3 px-4 py-3.5 text-sm sm:gap-x-8 sm:px-7 ${i % 2 ? "bg-surface/30" : ""}`}
               >
                 <span className="text-ink-soft">{row.f}</span>
                 <span className="w-20 text-center sm:w-28"><CompareCell v={row.us} /></span>

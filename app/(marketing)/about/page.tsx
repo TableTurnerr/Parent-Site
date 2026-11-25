@@ -2,6 +2,8 @@ import { ClientWall } from "@/app/components/growth/Proof";
 import { CallNowBand } from "@/app/components/growth/ContactCtas";
 import Link from "next/link";
 import type { Metadata } from "next";
+import EmailLink from "@/app/components/site/EmailLink";
+import { pageTitle } from "@/app/lib/metadata";
 import { Check } from "lucide-react";
 import JsonLd from "@/app/components/site/JsonLd";
 import {
@@ -13,10 +15,10 @@ import { AUDIT_PATH, FSM, clientStatesText, growthSite, ownersReady, results, se
 const base = "https://www.tableturnerr.com";
 const title = "About TableTurnerr: Owner-Run Home-Service Marketing";
 const description =
-  "TableTurnerr is a small, owner-run online marketing agency for home-service businesses, with its own software behind the work. Meet the team, how we work and our rules.";
+  "TableTurnerr is a small, owner-run marketing agency for home-service businesses, with its own software. Meet the team, how we work and our rules.";
 
 export const metadata: Metadata = {
-  title: { absolute: `${title} | TableTurnerr` },
+  title: pageTitle(title),
   description,
   alternates: { canonical: `${base}/about` },
   openGraph: { title, description, url: `${base}/about`, type: "website" },
@@ -88,7 +90,7 @@ export default function AboutPage() {
           ["Reviews", <a key="tp" href={growthSite.trustpilotUrl} className="font-semibold text-primary" target="_blank" rel="noopener noreferrer">TableTurnerr on Trustpilot</a>],
           ["How we work", "Done for you, month to month, by the rules: no fake reviews, no review gating."],
           r ? ["Results", <Link key="r" href={r.path} className="font-semibold text-primary">{r.client}: {r.reviewsBefore} to {r.reviewsAfter} Google reviews in {r.days} days</Link>] : null,
-          ["Contact", <span key="c"><a href={`tel:${growthSite.phoneE164}`} className="font-semibold text-primary">{growthSite.phoneDisplay}</a> · <a href={`mailto:${growthSite.email}`} className="font-semibold text-primary">{growthSite.email}</a> · <a href={growthSite.bookingUrl} className="font-semibold text-primary">book a 15-minute call</a></span>],
+          ["Contact", <span key="c"><a href={`tel:${growthSite.phoneE164}`} className="font-semibold text-primary">{growthSite.phoneDisplay}</a> · <EmailLink className="font-semibold text-primary" /> · <a href={growthSite.bookingUrl} className="font-semibold text-primary">book a 15-minute call</a></span>],
         ]}
       />
 
@@ -160,7 +162,7 @@ export default function AboutPage() {
             <SectionHead eyebrow="The team" title="Who you'll work with" />
             <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {growthSite.owners.map((o) => (
-                <div key={o.name} className="card flex gap-5 p-7">
+                <div key={o.name} className="card flex flex-col gap-5 p-6 sm:flex-row sm:p-7">
                   {o.photo ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={o.photo} alt={`${o.name}, ${o.role} of TableTurnerr`} width={96} height={96} className="h-24 w-24 shrink-0 rounded-full object-cover" />

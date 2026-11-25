@@ -4,7 +4,8 @@ export default function JsonLd({ data }: { data: object | object[] }) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(payload) }}
+      // Emails keep their value but not a plain "@" (JSON parsers decode \u0040), so harvesters don't find them.
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(payload).replace(/(\w)@(\w)/g, "$1\\u0040$2") }}
     />
   );
 }

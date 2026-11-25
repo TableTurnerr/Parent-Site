@@ -2,13 +2,15 @@
 // Every guide belongs to at least one topic. Each topic has a pillar (a service page) that the guides link up to,
 // and the pillar links back down to its guides. Trade pages link to the guides most useful to that trade.
 
-export const SITE_UPDATED = '2026-11-23';
+export const SITE_UPDATED = '2026-11-24';
 
 export const topics = {
   maps: { name: 'Google Maps & Business Profile', pillar: '/services/google-business-profile',
     intro: 'How the map pack works, what moves your ranking, and how to keep your profile safe.' },
   reviews: { name: 'Google reviews', pillar: '/services/review-generation',
     intro: 'How many reviews you need, how to get them from the software you already use, and what breaks Google\'s rules.' },
+  crm: { name: 'CRM, invoicing & follow-up', pillar: '/services/crm-automation',
+    intro: 'How to choose a CRM or invoicing software, keep track of customers, and follow up so estimates and calls don\'t go cold.' },
   seo: { name: 'Local SEO, AI search, websites & ads', pillar: '/services/local-seo',
     intro: 'What local SEO costs, how to show up in AI answers, what to do yourself, and where paid ads fit.' },
   trades: { name: 'Marketing ideas by trade', pillar: '/marketing',
@@ -29,6 +31,18 @@ export const guideTopics = {
   'electrician-review-management': ['reviews', 'trades'],
   'contractor-seo-cost': ['seo'],
   'how-to-get-recommended-by-chatgpt': ['seo', 'maps'],
+  'how-to-get-more-google-reviews': ['reviews', 'maps'],
+  'ask-past-customers-for-google-reviews': ['reviews'],
+  'google-reviews-not-showing-up': ['reviews', 'maps'],
+  'google-review-qr-code-and-nfc-cards': ['reviews'],
+  'best-crm-for-home-service-business': ['crm'],
+  'best-crm-for-plumbers': ['crm', 'trades'],
+  'how-to-keep-track-of-customers': ['crm'],
+  'jobber-vs-housecall-pro': ['crm'],
+  'best-invoicing-software-for-contractors': ['crm'],
+  'how-to-follow-up-on-an-estimate': ['crm'],
+  'ai-receptionist-for-contractors': ['crm'],
+  'how-to-get-more-plumbing-customers': ['trades', 'maps'],
   'handyman-marketing-ideas': ['trades'],
   'fence-company-marketing-guide': ['trades'],
 };
@@ -36,22 +50,22 @@ export const guideTopics = {
 // service slug -> topic its guides come from
 export const serviceTopics = {
   'google-business-profile': 'maps', 'review-generation': 'reviews', 'local-seo': 'seo', 'ai-search-optimization': 'seo',
-  'contractor-websites': 'seo', 'missed-call-text-back': 'maps',
+  'contractor-websites': 'seo', 'missed-call-text-back': 'crm', 'crm-automation': 'crm',
 };
 
 // trade slug -> guide slugs to feature on that trade page (most relevant first)
 export const tradeGuides = {
-  handyman: ['handyman-marketing-ideas', 'how-to-rank-higher-on-google-maps', 'jobber-google-reviews'],
+  handyman: ['handyman-marketing-ideas', 'how-to-keep-track-of-customers', 'how-to-rank-higher-on-google-maps'],
   'fence-companies': ['fence-company-marketing-guide', 'how-to-rank-higher-on-google-maps', 'how-many-google-reviews-to-rank'],
-  hvac: ['servicetitan-review-requests', 'local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank'],
-  plumbing: ['local-services-ads-vs-google-ads', 'housecall-pro-google-reviews', 'how-to-rank-higher-on-google-maps'],
+  hvac: ['ask-past-customers-for-google-reviews', 'ai-receptionist-for-contractors', 'local-services-ads-vs-google-ads'],
+  plumbing: ['how-to-get-more-plumbing-customers', 'best-crm-for-plumbers', 'ask-past-customers-for-google-reviews'],
   'garage-door-repair': ['local-services-ads-vs-google-ads', 'google-business-profile-suspended', 'how-to-rank-higher-on-google-maps'],
-  roofing: ['how-many-google-reviews-to-rank', 'contractor-seo-cost', 'how-to-rank-higher-on-google-maps'],
+  roofing: ['ask-past-customers-for-google-reviews', 'how-to-follow-up-on-an-estimate', 'how-to-rank-higher-on-google-maps'],
   'pest-control': ['local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank', 'workiz-google-reviews'],
   electricians: ['electrician-review-management', 'local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank'],
   'deck-builders': ['fence-company-marketing-guide', 'contractor-seo-cost', 'how-to-rank-higher-on-google-maps'],
 };
-export const defaultTradeGuides = ['how-to-rank-higher-on-google-maps', 'how-many-google-reviews-to-rank', 'best-review-software-for-contractors'];
+export const defaultTradeGuides = ['how-to-rank-higher-on-google-maps', 'ask-past-customers-for-google-reviews', 'best-crm-for-home-service-business'];
 
 // Old pages that compete with a new page for the same search. 301 them so signals consolidate on one URL.
 // Internal links in the kept old pages are rewritten to the new URL too, so nothing links through a redirect.

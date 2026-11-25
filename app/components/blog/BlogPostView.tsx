@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import Container from "@/app/components/ui/Container";
-import CTA from "@/app/components/sections/CTA";
+import { AuditBand } from "@/app/components/growth/Growth";
+import { BookCallBand } from "@/app/components/growth/ContactCtas";
 import ReadingProgress from "@/app/components/blog/ReadingProgress";
 import ArticleShare from "@/app/components/blog/ArticleShare";
 import ArticleToc from "@/app/components/blog/ArticleToc";
@@ -143,14 +144,14 @@ export default function BlogPostView({
                     Grow your business
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-warm-gray">
-                    Want more customers from local search? Get a free consultation
-                    and we will map out the plan.
+                    Want more reviews and calls? Book a 15-minute call with an
+                    owner and we&apos;ll tell you what we&apos;d fix first.
                   </p>
                   <Link
                     href="/contact"
-                    className="mt-4 inline-flex items-center justify-center rounded-full bg-charcoal px-5 py-2.5 text-sm font-medium text-cream transition-colors hover:bg-charcoal-light"
+                    className="btn btn-primary mt-4 text-sm"
                   >
-                    Get a free consultation
+                    Book a call
                   </Link>
                 </div>
               </div>
@@ -207,7 +208,8 @@ export default function BlogPostView({
         </section>
       )}
 
-      <CTA />
+      <BookCallBand />
+      <AuditBand />
     </>
   );
 }

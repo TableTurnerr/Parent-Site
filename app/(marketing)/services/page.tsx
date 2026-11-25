@@ -1,6 +1,7 @@
 import { ClientLogoStrip } from "@/app/components/growth/Proof";
 import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
+import { pageTitle } from "@/app/lib/metadata";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import JsonLd from "@/app/components/site/JsonLd";
@@ -12,10 +13,10 @@ import { AUDIT_PATH, FSM, clientStatesText, getGuide, services, type Guide, type
 
 const base = "https://www.tableturnerr.com";
 const description =
-  "Done-for-you marketing for home-service businesses: Google Business Profile management, review generation, local SEO, contractor websites and missed-call text-back. Month to month.";
+  "Done-for-you marketing for home-service businesses: Google Business Profile, reviews, local SEO, contractor websites and missed-call text-back. Month to month.";
 
 export const metadata: Metadata = {
-  title: "Done-For-You Marketing Services for Contractors",
+  title: pageTitle("Done-For-You Marketing Services for Contractors"),
   description,
   alternates: { canonical: `${base}/services` },
   openGraph: { title: "Done-for-you marketing services for home-service businesses", description, url: `${base}/services` },

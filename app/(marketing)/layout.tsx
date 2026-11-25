@@ -4,6 +4,7 @@ import MarketingThemeProvider from "@/app/components/site/MarketingThemeProvider
 import StickyCta from "@/app/components/growth/StickyCta";
 import AuditGate from "@/app/components/growth/AuditGate";
 import CallWidget from "@/app/components/growth/CallWidget";
+import OfferPopup from "@/app/components/growth/OfferPopup";
 import Clarity from "@/app/components/analytics/Clarity";
 
 export default function MarketingLayout({
@@ -17,11 +18,12 @@ export default function MarketingLayout({
         Skip to content
       </a>
       <SiteNav />
-      <main id="main">{children}</main>
+      <main id="main" itemScope itemType="https://schema.org/WebPage">{children}</main>
       <SiteFooter />
       <StickyCta />
       <AuditGate />
       <CallWidget />
+      <OfferPopup />
       <Clarity />
     </MarketingThemeProvider>
   );

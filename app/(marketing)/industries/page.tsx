@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { pageTitle } from "@/app/lib/metadata";
 import Link from "next/link";
 import { ArrowRight, Wrench } from "lucide-react";
 import { INDUSTRIES } from "@/app/lib/industries";
 
 export const metadata: Metadata = {
-  title: "Review Management Software by Home-Service Industry",
+  title: pageTitle("Review Management Software by Home-Service Industry"),
   description:
     "See how TableTurnerr review management software fits HVAC, plumbing, roofing, electrical, landscaping, cleaning and more home-service industries.",
   alternates: { canonical: "https://www.tableturnerr.com/industries" },

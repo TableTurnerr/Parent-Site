@@ -3,6 +3,9 @@ import type { AnalyticsEvent, AnalyticsProperties } from "./events";
 const SENSITIVE_QUERY_KEYS = /token|code|email|id|key|secret|password|auth|session/i;
 let posthog: typeof import("posthog-js").default | null = null;
 let initializing: Promise<void> | null = null;
+/** Events from the moment before the SDK finished loading (the first page view is always one of them). */
+let pending: { event: string; properties: AnalyticsProperties; timestamp: Date }[] = [];
+let paused = false;
 
 export function analyticsEnabled() {
   return process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true" &&
@@ -19,7 +22,7 @@ export function sanitizeUrl(value: string) {
   } catch { return "/"; }
 }
 
-export async function startAnalytics(replayAllowed: boolean) {
+export async function startAnalytics() {
   if (!analyticsEnabled() || !process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN) return;
   if (!initializing) {
     initializing = import("posthog-js").then(({ default: sdk }) => {
@@ -27,26 +30,34 @@ export async function startAnalytics(replayAllowed: boolean) {
       sdk.init(process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN!, {
         api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
         defaults: "2026-05-30",
-        capture_pageview: false,
+        capture_pageview: false, // sent by AnalyticsProvider, so private pages stay out
+        capture_pageleave: true,
+        disable_session_recording: true, // recordings are Microsoft Clarity's job
         autocapture: false,
         capture_exceptions: true,
         persistence: "localStorage+cookie",
-        session_recording: { maskAllInputs: true, maskTextSelector: "[data-analytics-mask]" },
         sanitize_properties: (properties) => properties,
       });
     });
   }
+  paused = false;
   await initializing;
-  posthog?.opt_in_capturing();
-  if (replayAllowed) posthog?.startSessionRecording(); else posthog?.stopSessionRecording();
+  if (paused) return; // consent was withdrawn while it loaded
+  posthog?.opt_in_capturing({ captureEventName: false });
+  for (const { event, properties, timestamp } of pending) posthog?.capture(event, properties, { timestamp });
+  pending = [];
 }
 
 export function stopAnalytics() {
+  paused = true;
+  pending = [];
   posthog?.opt_out_capturing();
-  posthog?.stopSessionRecording();
 }
 
 export function capture(event: AnalyticsEvent, properties: AnalyticsProperties = {}) {
-  if (!posthog) return;
-  posthog.capture(event, { ...properties, page_path: sanitizeUrl(window.location.href) });
+  const props = { ...properties, page_path: sanitizeUrl(window.location.href) };
+  if (posthog) posthog.capture(event, props);
+  else if (initializing && !paused && pending.length < 50) {
+    pending.push({ event, properties: { ...props, $current_url: window.location.href, $pathname: window.location.pathname }, timestamp: new Date() });
+  }
 }

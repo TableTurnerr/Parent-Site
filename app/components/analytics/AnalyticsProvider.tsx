@@ -25,8 +25,8 @@ export default function AnalyticsProvider() {
   const [consent, setConsent] = useState<Consent | null>(null);
   const pageRef = useRef("");
   useEffect(() => { setConsent(readConsent()); const handler = () => setConsent(readConsent()); window.addEventListener("tt-consent-changed", handler); return () => window.removeEventListener("tt-consent-changed", handler); }, []);
-  useEffect(() => { if (consent?.analytics) void startAnalytics(consent.replay); else stopAnalytics(); }, [consent]);
-  useEffect(() => { if (!consent?.analytics || pageRef.current === pathname) return; pageRef.current = pathname; capture(ANALYTICS_EVENTS.pageViewed, { page_title: document.title, viewport_category: innerWidth < 768 ? "mobile" : innerWidth < 1200 ? "tablet" : "desktop", ...attribution() }); }, [pathname, consent]);
+  useEffect(() => { if (consent?.analytics) void startAnalytics(); else stopAnalytics(); }, [consent]);
+  useEffect(() => { if (!consent?.analytics || pageRef.current === pathname) return; pageRef.current = pathname; if (!/^\/(admin|portal|report|login)(\/|$)/.test(pathname)) capture(ANALYTICS_EVENTS.webPageview); capture(ANALYTICS_EVENTS.pageViewed, { page_title: document.title, viewport_category: innerWidth < 768 ? "mobile" : innerWidth < 1200 ? "tablet" : "desktop", ...attribution() }); }, [pathname, consent]);
   useEffect(() => {
     if (!consent?.analytics) return;
     const click = (event: MouseEvent) => {

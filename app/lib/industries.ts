@@ -34,7 +34,7 @@ function makeIndustry(input: Omit<Industry, "seoTitle" | "metaDescription" | "ou
   return {
     ...input,
     seoTitle: `${input.name} Review Management Software`,
-    metaDescription: `Review management software for ${input.name} businesses. Request customer reviews after completed jobs, improve local visibility, and turn great work into proof for the next customer.`,
+    metaDescription: `Review management software for ${input.name.toLowerCase()} businesses: ask for a Google review after every job, follow up and get found by more local customers.`,
     outcomes: [
       "Review requests after completed jobs",
       "Google, Facebook, Yelp and Angi review coverage",
@@ -309,11 +309,11 @@ export const INDUSTRIES: Record<string, Industry> = {
 const SEO_OVERRIDES: Record<string, Pick<Industry, "seoTitle" | "metaDescription">> = {
   hvac: {
     seoTitle: "HVAC Review Software for More Google Reviews",
-    metaDescription: "HVAC review software that asks every customer for a Google review after each job, connected to ServiceTitan, Housecall Pro or Jobber. Self-serve or done for you.",
+    metaDescription: "HVAC review software that asks every customer for a Google review after each job, connected to ServiceTitan, Housecall Pro or Jobber. DIY or done for you.",
   },
   plumbing: {
     seoTitle: "Plumber Review Management Software & Platform",
-    metaDescription: "Review management for plumbers: automatic Google review requests after every job, follow-ups and replies, connected to your job software. Self-serve or done for you.",
+    metaDescription: "Review management for plumbers: automatic Google review requests after every job, follow-ups and replies, connected to your job software. DIY or done for you.",
   },
   electrical: {
     seoTitle: "Electrician Review Management Software & Service",
