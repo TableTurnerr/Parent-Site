@@ -2,27 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import Container from "@/app/components/ui/Container";
-import Button from "@/app/components/ui/Button";
-import PageHero from "@/app/components/sections/PageHero";
-import { INDUSTRIES, SITE_CONFIG } from "@/app/lib/constants";
+import { SITE_CONFIG } from "@/app/lib/constants";
 import { createPageMetadata } from "@/app/lib/metadata";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
 import { getPublishedPosts, formatPostDate } from "@/app/lib/blog";
+import { AuditBand, GrowthHero, GuideCards, SectionHead } from "@/app/components/growth/Growth";
+import { guides } from "@/app/lib/growth";
 
 // Revalidate hourly so newly published posts appear without a redeploy.
 export const revalidate = 3600;
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Marketing Blog for Local Businesses",
+  title: "Contractor Marketing Blog: Reviews & CRM",
   description:
-    "Marketing, local SEO, and Google Ads insights for local businesses. Practical tips and strategies to get found and win more customers.",
+    "Articles for home-service owners: get more Google reviews, choose a CRM or invoicing software, follow up on estimates and show up on Google Maps.",
   path: "/blog",
-  keywords: [
-    "local business marketing blog",
-    "local SEO tips",
-    "small business marketing ideas",
-    "how to market a local business",
-  ],
+  keywords: ["contractor marketing blog", "get more google reviews", "crm for contractors", "local SEO tips"],
 });
 
 export default async function BlogPage() {
@@ -40,18 +35,17 @@ export default async function BlogPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <PageHero
-        eyebrow="fresh from the pass"
-        title="Local marketing insights"
-        description="Practical advice on local SEO, Google Ads, and marketing, written to help local businesses grow online and win more customers."
-        breadcrumb={[{ label: "Home", href: "/" }, { label: "Blog" }]}
+      <GrowthHero
+        crumbs={[["/", "Home"], ["/blog", "Blog"]]}
+        eyebrow="The TableTurnerr blog"
+        h1="More reviews, more calls, fewer lost jobs"
+        lede="Practical articles for home-service owners on Google reviews, CRM and invoicing software, follow-up and showing up on Google Maps."
+        trust={false}
       />
 
-      <section className="bg-cream pb-20 md:pb-28">
+      {posts.length > 0 && (
+      <section className="bg-cream py-16 md:py-24">
         <Container>
-          {posts.length === 0 ? (
-            <EmptyState />
-          ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {posts.map((post, i) => (
                 <Link
@@ -95,45 +89,18 @@ export default async function BlogPage() {
                 </Link>
               ))}
             </div>
-          )}
         </Container>
       </section>
-    </>
-  );
-}
+      )}
 
-function EmptyState() {
-  return (
-    <div className="max-w-2xl">
-      <p className="text-warm-gray text-lg leading-relaxed mb-8">
-        New articles are on the way. In the meantime, see how review automation
-        works for your industry or get a free Google Maps audit.
-      </p>
-      <div className="flex flex-col sm:flex-row gap-3">
-        <Button href="/contact" variant="primary">
-          Book a Demo
-        </Button>
-        <Button href="/free-google-maps-audit" variant="secondary">
-          Get a Free Audit
-        </Button>
-      </div>
-      <div className="mt-14">
-        <h2 className="font-display font-semibold text-lg text-charcoal mb-5">
-          Review automation for your industry
-        </h2>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {INDUSTRIES.map((trade) => (
-            <li key={trade.slug}>
-              <Link
-                href={`/industries/${trade.slug}`}
-                className="block rounded-xl border border-border bg-cream-dark px-5 py-4 text-charcoal hover:border-charcoal/30 transition-colors"
-              >
-                {trade.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+      <section className="section bg-surface">
+        <div className="container-tt">
+          <SectionHead title="Latest articles" intro="Step by step, with messages you can copy." />
+          <GuideCards list={guides.slice(0, 12)} />
+          <p className="mt-8"><Link href="/guides" className="font-semibold text-primary">See all {guides.length} guides</Link></p>
+        </div>
+      </section>
+      <AuditBand />
+    </>
   );
 }
