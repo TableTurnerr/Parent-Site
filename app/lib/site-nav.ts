@@ -39,6 +39,7 @@ export const SERVICE_GROUPS: NavGroup[] = [
     title: "Never miss a job",
     items: [
       { label: "Missed-call text-back & AI receptionist", href: "/services/missed-call-text-back", desc: "Every missed call gets a text in seconds" },
+      { label: "CRM & follow-up", href: "/services/crm-automation", desc: "Estimates and leads followed up automatically" },
       { label: "Review & growth software", href: "/features", desc: "The CRM, review and AI tools behind the work" },
     ],
   },
@@ -65,7 +66,7 @@ export const TRADE_LINKS: NavItem[] = [
 ];
 
 export const RESOURCE_LINKS: NavItem[] = [
-  { label: "Guides", href: "/guides", desc: "Plain-English marketing guides for owners" },
+  { label: "Guides", href: "/guides", desc: "Reviews, CRM, Google Maps and follow-up, explained" },
   { label: "Free tools", href: "/tools", desc: "Review, missed-call and ROI calculators" },
   { label: "Client results", href: "/results", desc: "Real numbers from real clients" },
   { label: "Podcast", href: "https://www.youtube.com/@TableTurnerr", desc: "Owners on how they grew, on YouTube" },

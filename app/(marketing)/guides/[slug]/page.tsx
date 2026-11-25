@@ -1,3 +1,4 @@
+import { BookCallBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -81,8 +82,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         </section>
       </article>
       <ToolCallout items={toolsForPage(g.path)} />
-      <AuditBand title={g.ctaTitle} />
+      <BookCallBand title={g.ctaTitle} />
       <FaqSection faq={g.faq} heading="Quick answers" />
+      <AuditBand />
       {related.length > 0 && (
         <section className="section">
           <div className="container-tt">

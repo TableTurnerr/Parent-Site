@@ -13,7 +13,7 @@ export const combos = [
   {
     trade: 'hvac', service: 'google-business-profile',
     title: 'Google Business Profile for HVAC Companies',
-    description: 'Google Business Profile management for HVAC companies: categories, services, seasonal posts and photos so you show up for AC repair and furnace searches. Done for you.',
+    description: 'Google Business Profile management for HVAC companies: categories, services, seasonal posts and photos so you show up for AC repair and furnace searches.',
     h1: 'Google Business Profile management for HVAC companies',
     lede: 'When an AC dies in July, homeowners don\'t browse. They search, look at the three businesses on the map and call one. Your Google Business Profile decides whether that\'s you.',
     why: '<p>HVAC searches are seasonal and urgent: "AC repair near me" in summer, "furnace repair" the first cold week. Google picks the map results largely from how relevant, close and prominent your profile looks for that exact search.</p><p>Most HVAC profiles we audit list one category and a handful of services, so they only show up for their name and "HVAC contractor", not for the repair searches that actually ring the phone.</p>',
@@ -38,7 +38,7 @@ export const combos = [
     tactics: [
       ['A request after every job', 'Connected to ServiceTitan, Housecall Pro or Jobber, so a request goes out when the job is marked complete, by text and email.'],
       ['Past-customer campaign', 'A short, personal message to last season\'s customers to start the flow, with one reminder.'],
-      ['Tech names in the message', 'Requests mention the technician, which makes them personal and means reviews often name your techs.'],
+      ['Personal, not generic', 'Requests mention the technician who came out and the job they did, so customers recognise who is asking.'],
       ['Every review answered', 'Replies within a day or two, including the rare unhappy customer, written in your voice.'],
     ],
     faq: [
@@ -49,7 +49,7 @@ export const combos = [
   {
     trade: 'hvac', service: 'contractor-websites',
     title: 'HVAC Website Design That Gets Calls',
-    description: 'HVAC website design for home-service companies: fast on a phone, a page per service and town, reviews and click-to-call where homeowners decide. Built and run for you.',
+    description: 'HVAC website design: fast on a phone, a page per service and town, reviews and click-to-call where homeowners decide. Built and run for you.',
     h1: 'HVAC website design built to get calls, not compliments',
     lede: 'Most HVAC sites look fine and say nothing: a homepage, an "about us" and a contact form. Homeowners with a broken AC want to see that you fix their problem in their town, and a button to call you.',
     why: '<p>Your website backs up your Google profile. When someone clicks through from the map, they check three things in seconds: do you do this, do you serve my area, and can I reach you now.</p><p>Separate pages for AC repair, furnace repair, heat pumps and each town you serve also give Google more reasons to show you for those searches.</p>',
@@ -69,7 +69,7 @@ export const combos = [
   {
     trade: 'plumbing', service: 'google-business-profile',
     title: 'Google Business Profile for Plumbers',
-    description: 'Google Business Profile management for plumbers: the right categories, every service, emergency hours and photos so you show up for "plumber near me". Done for you.',
+    description: 'Google Business Profile management for plumbers: the right categories, every service, emergency hours and photos so you show up for "plumber near me".',
     h1: 'Google Business Profile management for plumbers',
     lede: 'A burst pipe doesn\'t wait for a comparison spreadsheet. Homeowners search "plumber near me", tap one of the three businesses on the map and call. Your profile is what gets you into that three.',
     why: '<p>Plumbing searches are often emergencies, and many happen outside business hours. Profiles with accurate hours, emergency service clearly listed and recent reviews tend to win those calls.</p><p>Plumbing also covers very different jobs: drains, water heaters, repiping, sewer lines. Each one is its own search, and your profile should show you do it.</p>',
@@ -87,7 +87,7 @@ export const combos = [
   {
     trade: 'plumbing', service: 'review-generation',
     title: 'Google Review Generation for Plumbers',
-    description: 'More Google reviews for plumbing companies: a request after every job, a past-customer campaign and replies to every review, connected to your job software. Done for you.',
+    description: 'More Google reviews for plumbing companies: a request after every job, a past-customer campaign and replies to every review. Done for you.',
     h1: 'More Google reviews for plumbers, without chasing customers',
     lede: 'Plumbing customers are relieved when you leave, which is the perfect moment to ask for a review. Your crew is already driving to the next job. We make sure the ask still happens.',
     why: '<p>When a homeowner compares plumbers on the map, review count, rating and how recent the reviews are do a lot of the deciding. A plumber with steady new reviews looks busy and trusted; one whose last review is from last year looks risky.</p><p>The fix isn\'t complicated: ask every customer, at the right time, in a way that takes them 30 seconds. It just has to happen on every job.</p>',
@@ -105,7 +105,7 @@ export const combos = [
   {
     trade: 'plumbing', service: 'contractor-websites',
     title: 'Plumbing Website Design for More Calls',
-    description: 'Plumbing website design: fast, mobile-first sites with a page per service and town, reviews and tap-to-call, so Google visitors turn into booked jobs. Built and run for you.',
+    description: 'Plumbing website design: fast, mobile-first sites with a page per service and town, reviews and tap-to-call, so Google visitors turn into booked jobs.',
     h1: 'Plumbing websites that turn searches into booked jobs',
     lede: 'Someone with water on the floor is on their phone. They need to see in five seconds that you handle their problem, in their town, and how to call you. Most plumbing sites make them hunt for it.',
     why: '<p>Your Google profile gets the click; your website closes it. For plumbers that means speed, a big call button and a clear list of what you do.</p><p>A page for each service (drain cleaning, water heaters, sewer lines) and each town you serve also helps you show up in more of the searches that matter.</p>',
@@ -125,7 +125,7 @@ export const combos = [
   {
     trade: 'roofing', service: 'google-business-profile',
     title: 'Google Business Profile for Roofers',
-    description: 'Google Business Profile management for roofing contractors: categories, services, project photos and posts so you show up for roof repair and replacement searches. Done for you.',
+    description: 'Google Business Profile management for roofers: categories, services, project photos and posts so you show up for roof repair and replacement searches.',
     h1: 'Google Business Profile management for roofing contractors',
     lede: 'Roof replacement is a big, rare purchase. Homeowners compare roofers carefully, and the comparison usually starts on the Google map: photos, reviews, and whether you look like a real, established company.',
     why: '<p>Roofing profiles live and die on photos and reviews. Before-and-after shots of real roofs do more for trust than any slogan, and they show Google the profile is active.</p><p>Roofing searches also split into repair, replacement, storm damage and inspections, and your profile should show up for each one you want.</p>',
@@ -181,7 +181,7 @@ export const combos = [
   {
     trade: 'electricians', service: 'google-business-profile',
     title: 'Google Business Profile for Electricians',
-    description: 'Google Business Profile management for electricians: categories, services like panel upgrades and EV chargers, photos and posts so you show up in the map pack. Done for you.',
+    description: 'Google Business Profile management for electricians: categories, services like panel upgrades and EV chargers, photos and posts so you show up on Maps.',
     h1: 'Google Business Profile management for electricians',
     lede: 'Homeowners searching for an electrician want two things: someone licensed, and someone who can come soon. Your Google profile has to show both before they scroll past.',
     why: '<p>Electrical work spans small repairs to big projects: outlets and breakers, panel upgrades, EV charger installs, generators, lighting. Each is a separate search, and most electrician profiles only show up for their name and "electrician".</p><p>A complete profile with the right services, real photos and recent reviews is how you show up for the jobs you actually want.</p>',
@@ -199,7 +199,7 @@ export const combos = [
   {
     trade: 'electricians', service: 'review-generation',
     title: 'Google Reviews for Electricians',
-    description: 'More Google reviews for electricians: a request after every job, past-customer campaign and replies to every review, connected to your job software. Done for you.',
+    description: 'More Google reviews for electricians: a request after every job, a past-customer campaign and replies to every review. Done for you, month to month.',
     h1: 'More Google reviews for electricians',
     lede: 'Electrical work is invisible when it\'s done right, so customers forget to mention it. A short, personal request right after the job turns that quiet satisfaction into a review.',
     why: '<p>Homeowners can\'t judge electrical work themselves, so they rely on what other homeowners say: was the electrician on time, clean, clear about the price, and did it work. Reviews answer exactly those questions.</p><p>Steady new reviews also help you show up in the map pack, which is where most "electrician near me" calls start.</p>',
@@ -237,7 +237,7 @@ export const combos = [
   {
     trade: 'handyman', service: 'google-business-profile',
     title: 'Google Business Profile for Handymen',
-    description: 'Google Business Profile management for handyman businesses: categories, a full service list, photos and posts so you show up for the small jobs people search for. Done for you.',
+    description: 'Google Business Profile management for handyman businesses: categories, a full service list, photos and posts so you show up for small-job searches.',
     h1: 'Google Business Profile management for handyman businesses',
     lede: 'Handyman searches are endless and specific: "mount TV", "fix drywall", "install ceiling fan". A profile that only says "handyman" misses most of them.',
     why: '<p>Handyman businesses do dozens of different jobs, and homeowners search for the job, not the trade. Listing each service you do is one of the simplest ways to show up for more of those searches.</p><p>Handyman work is also very local and repeat-driven, so recent reviews and an active profile matter a lot.</p>',
@@ -255,7 +255,7 @@ export const combos = [
   {
     trade: 'handyman', service: 'review-generation',
     title: 'Google Reviews for Handyman Businesses',
-    description: 'More Google reviews for handyman businesses: a quick request after every job, a past-customer campaign and replies to every review. Done for you, month to month.',
+    description: 'More Google reviews for handyman businesses: a quick request after every job, a past-customer campaign and replies to every review. Done for you.',
     h1: 'More Google reviews for handyman businesses',
     lede: 'Handymen finish lots of small jobs for happy customers, which should mean lots of reviews. It doesn\'t, because nobody asks. A request after every job changes that fast.',
     why: '<p>For a handyman, trust is the whole sale: you\'re in someone\'s home. Reviews that mention punctuality, tidiness and fair prices are what make a homeowner pick you over the next name.</p><p>Because handyman jobs are frequent and quick, a request after each one builds reviews faster than in most trades.</p>',

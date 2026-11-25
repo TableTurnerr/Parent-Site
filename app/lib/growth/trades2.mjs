@@ -36,7 +36,7 @@ export const trades2 = [
     plan: [
       ['A profile that looks unmistakably real', 'Accurate service area, real hours (including whether you do after-hours calls), photos of your people and trucks, and services for each common repair.'],
       ['Never miss the urgent call', 'Missed-call text-back replies within seconds, and an AI receptionist can book or route after-hours calls so the job doesn\'t go to the next listing.'],
-      ['Reviews that name the tech', 'Requests go out right after the visit. Reviews that say "Mike replaced both springs in an hour" build trust in a category full of skeptics.'],
+      ['Reviews right after the visit', 'Requests go out right after the visit. Fresh reviews that describe the actual repair build trust in a category full of skeptics.'],
       ['Replacement and opener pages', 'Separate pages for new doors and openers with styles, price ranges and photos, aimed at the higher-ticket buyer who researches first.'],
     ],
     deepDive: `

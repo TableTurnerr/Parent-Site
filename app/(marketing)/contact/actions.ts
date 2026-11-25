@@ -4,6 +4,10 @@ import { after } from "next/server";
 import { headers } from "next/headers";
 import { createAdminClient, createClient } from "@/app/lib/supabase/server";
 import { pushLeadToGHL } from "@/app/lib/ghl";
+import { sendEmail } from "@/app/lib/email/send";
+import { SITE_CONFIG } from "@/app/lib/constants";
+import { checkAndRecordRateLimit } from "@/app/lib/ingest/rateLimit";
+import { REVIEW_OFFER_SOURCE, reviewOfferActive } from "@/app/lib/review-offer";
 
 export type LeadResult = { ok: true } | { ok: false; error: string };
 
@@ -139,20 +143,16 @@ const LIGHT_AUDIT_URL = "https://audit.seo.tableturnerr.com/light-audit/search";
 const INSTANT_AUDIT_MESSAGE = "Instant Google Maps audit request";
 
 /**
- * Free-audit popup: business name + phone, then the self-serve light audit. The lead goes to GHL and contact_leads
- * first. Once this month's instant audits reach the cap, the lead is still saved but no tool link is returned, so the
- * team runs that audit by hand instead.
+ * Free-audit popup, after our GHL form was submitted (GHL already has the contact): saves the lead to contact_leads and
+ * counts it. Once this month's instant audits reach the cap no tool link is returned, and the CRM is told to run that
+ * audit by hand.
  */
 export async function startInstantAudit(formData: FormData): Promise<InstantAuditResult> {
   if (clean(formData.get("company_website"), 100)) return { ok: true, url: null };
 
   const businessName = clean(formData.get("business_name"), MAX.business_name);
+  const contactName = clean(formData.get("name"), MAX.name);
   const phone = normalizePhone(clean(formData.get("phone"), MAX.phone));
-  if (!businessName || phone.replace(/\D/g, "").length < 10) {
-    return { ok: false, error: "Please add your business name and a phone number we can reach you on." };
-  }
-
-  const customerCareSmsConsent = formData.get("customer_care_sms_consent") === "on";
   const submittedAt = new Date().toISOString();
   const hdrs = await headers();
   const sourcePageUrl = clean(formData.get("source_page_url"), 2048) || hdrs.get("referer")?.slice(0, 2048) || null;
@@ -172,46 +172,155 @@ export async function startInstantAudit(formData: FormData): Promise<InstantAudi
     console.error("[instant-audit] monthly count failed:", e instanceof Error ? e.message : e);
   }
 
-  after(() =>
-    pushLeadToGHL({
-      name: businessName,
-      email: "",
-      phone,
-      businessName,
-      trade: "",
-      message: capped ? `${INSTANT_AUDIT_MESSAGE} (monthly limit reached: run by hand)` : INSTANT_AUDIT_MESSAGE,
-      source: "/free-google-maps-audit",
-      customerCareSmsConsent,
-      marketingSmsConsent: false,
-      customerCareSmsConsentedAt: customerCareSmsConsent ? submittedAt : null,
-      marketingSmsConsentedAt: null,
-      smsDisclosureVersion: SMS_DISCLOSURE_VERSION,
-    }),
-  );
+  if (capped) {
+    after(() =>
+      pushLeadToGHL({
+        name: contactName || businessName,
+        email: "",
+        phone,
+        businessName,
+        trade: "",
+        message: `${INSTANT_AUDIT_MESSAGE} (monthly limit reached: run by hand)`,
+        source: "/free-google-maps-audit",
+        customerCareSmsConsent: false,
+        marketingSmsConsent: false,
+        customerCareSmsConsentedAt: null,
+        marketingSmsConsentedAt: null,
+        smsDisclosureVersion: SMS_DISCLOSURE_VERSION,
+      }),
+    );
+  }
 
   const supabase = await createClient();
   const { error } = await supabase.from("contact_leads").insert({
-    name: businessName,
+    name: contactName || businessName || "Audit form lead",
     email: "",
-    business_name: businessName,
-    phone,
+    business_name: businessName || null,
+    phone: phone || null,
     service: null,
     message: INSTANT_AUDIT_MESSAGE,
     source_path: "/free-google-maps-audit",
     source_page_url: sourcePageUrl,
     ip_address: getClientIp(hdrs),
     user_agent: hdrs.get("user-agent")?.slice(0, 300) ?? null,
-    customer_care_sms_consent: customerCareSmsConsent,
+    // Text consent for this form is recorded in GHL.
+    customer_care_sms_consent: false,
     marketing_sms_consent: false,
-    customer_care_sms_consented_at: customerCareSmsConsent ? submittedAt : null,
+    customer_care_sms_consented_at: null,
     marketing_sms_consented_at: null,
     sms_disclosure_version: SMS_DISCLOSURE_VERSION,
     customer_care_sms_disclosure: CUSTOMER_CARE_SMS_DISCLOSURE,
     marketing_sms_disclosure: MARKETING_SMS_DISCLOSURE,
     form_submitted_at: submittedAt,
   });
-  // The GHL push above already has the lead, so a failed insert is logged, not shown to the owner.
+  // GHL already has the lead, so a failed insert is logged, not shown to the owner.
   if (error) console.error("[instant-audit] lead insert failed:", error.message);
 
   return { ok: true, url: capped ? null : LIGHT_AUDIT_URL };
+}
+
+const escapeHtml = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+/** The owners' inboxes: the team and alert addresses already set in production, plus the public contact address. */
+const ownerInboxes = () =>
+  Array.from(
+    new Set(
+      [process.env.TABLETURNERR_TEAM_EMAIL, process.env.ALERT_EMAIL_TO, SITE_CONFIG.email]
+        .flatMap((v) => (v ?? "").split(","))
+        .map((v) => v.trim().toLowerCase())
+        .filter(Boolean),
+    ),
+  );
+
+/**
+ * First-10-reviews offer popup: business name + phone, so an owner can call them. The lead goes three ways at once:
+ * an email to the owners, the CRM and contact_leads. The visitor only sees success if at least one took it.
+ */
+export async function claimReviewOffer(formData: FormData): Promise<LeadResult> {
+  if (clean(formData.get("company_website"), 100)) return { ok: true };
+  if (!reviewOfferActive()) return { ok: false, error: "Sorry, this offer has ended." };
+
+  const businessName = clean(formData.get("business_name"), MAX.business_name).replace(/\s+/g, " ");
+  const phone = normalizePhone(clean(formData.get("phone"), MAX.phone));
+  const digits = phone.replace(/\D/g, "");
+  if (!businessName || digits.length < 10 || digits.length > 15) {
+    return { ok: false, error: "Please add your business name and a phone number we can call." };
+  }
+
+  const hdrs = await headers();
+  const ip = getClientIp(hdrs);
+  // Each submission emails the owners, so cap repeats. Fail open if the check itself breaks.
+  try {
+    const limit = await checkAndRecordRateLimit(ip, "review-offer", { max: 5, windowSec: 3600 });
+    if (!limit.ok) return { ok: false, error: "Too many tries. Please call us at (332) 333-1008 and mention the offer." };
+  } catch (e) {
+    console.error("[review-offer] rate limit check failed:", e instanceof Error ? e.message : e);
+  }
+
+  const submittedAt = new Date().toISOString();
+  const sourcePageUrl = clean(formData.get("source_page_url"), 2048) || hdrs.get("referer")?.slice(0, 2048) || null;
+  const message = "First 10 reviews free offer (popup). Call them.";
+  const when = new Date(submittedAt).toLocaleString("en-US", { timeZone: "America/New_York", dateStyle: "medium", timeStyle: "short" });
+  const rows: [string, string][] = [
+    ["Business", businessName],
+    ["Phone", phone],
+    ["Page", sourcePageUrl ?? "unknown"],
+    ["Time", `${when} ET`],
+  ];
+  const subject = `Call now: ${businessName} wants the 10 free reviews offer`;
+  const text = `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\nThey asked for a call. They did not opt in to texts.`;
+  const html = `<div style="font-family:system-ui,sans-serif;color:#111827"><h2>New offer claim: 10 free reviews</h2>${rows
+    .map(([k, v]) => `<p style="margin:0 0 6px"><strong>${k}:</strong> ${k === "Phone" ? `<a href="tel:${escapeHtml(v)}">${escapeHtml(v)}</a>` : escapeHtml(v)}</p>`)
+    .join("")}<p>They asked for a call. They did not opt in to texts.</p></div>`;
+  const supabase = await createClient();
+
+  const [email, crm, db] = await Promise.allSettled([
+    Promise.all(ownerInboxes().map((to) => sendEmail({ to, subject, text, html }))),
+    pushLeadToGHL({
+      name: businessName,
+      email: "",
+      phone,
+      businessName,
+      trade: "",
+      message,
+      source: REVIEW_OFFER_SOURCE,
+      customerCareSmsConsent: false,
+      marketingSmsConsent: false,
+      customerCareSmsConsentedAt: null,
+      marketingSmsConsentedAt: null,
+      smsDisclosureVersion: SMS_DISCLOSURE_VERSION,
+    }),
+    supabase.from("contact_leads").insert({
+      name: businessName,
+      email: "",
+      business_name: businessName,
+      phone,
+      service: null,
+      message,
+      source_path: REVIEW_OFFER_SOURCE,
+      source_page_url: sourcePageUrl,
+      ip_address: ip,
+      user_agent: hdrs.get("user-agent")?.slice(0, 300) ?? null,
+      customer_care_sms_consent: false,
+      marketing_sms_consent: false,
+      customer_care_sms_consented_at: null,
+      marketing_sms_consented_at: null,
+      sms_disclosure_version: SMS_DISCLOSURE_VERSION,
+      customer_care_sms_disclosure: CUSTOMER_CARE_SMS_DISCLOSURE,
+      marketing_sms_disclosure: MARKETING_SMS_DISCLOSURE,
+      form_submitted_at: submittedAt,
+    }),
+  ]);
+
+  const emailed = email.status === "fulfilled" && email.value.some((r) => r.ok);
+  const pushed = crm.status === "fulfilled" && crm.value;
+  const saved = db.status === "fulfilled" && !db.value.error;
+  if (!emailed) console.error("[review-offer] owner email failed");
+  if (!saved) console.error("[review-offer] lead insert failed:", db.status === "fulfilled" ? db.value.error?.message : db.reason);
+
+  if (!emailed && !pushed && !saved) {
+    return { ok: false, error: "That didn't go through. Please call us at (332) 333-1008 and mention the offer." };
+  }
+  return { ok: true };
 }

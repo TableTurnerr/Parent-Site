@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageTitle } from "@/app/lib/metadata";
 import Link from "next/link";
 import { ArrowRight, Calculator, MapPin, MessageSquareText, PhoneMissed, Star } from "lucide-react";
 import JsonLd from "@/app/components/site/JsonLd";
@@ -10,7 +11,7 @@ import { tools, type ToolSlug } from "@/app/lib/growth/tools";
 const base = "https://www.tableturnerr.com";
 
 export const metadata: Metadata = {
-  title: { absolute: "Free Marketing Tools for Home-Service Businesses | TableTurnerr" },
+  title: pageTitle("Free Marketing Tools for Home-Service Businesses"),
   description:
     "Free calculators and templates for contractors: Google review goals, what missed calls cost you, marketing break-even, and review request texts you can copy.",
   alternates: { canonical: `${base}/tools` },

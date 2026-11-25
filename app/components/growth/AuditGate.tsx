@@ -1,17 +1,19 @@
 "use client";
 // Free-audit popup. Any click on a plain link to the audit page (nav button, CTAs, tool results) or an
-// <OpenAuditButton> opens this instead: business name + phone, then the self-serve light audit tool.
+// <OpenAuditButton> opens this instead: our GoHighLevel form, then (once it's submitted) the self-serve light audit tool.
 // The audit page itself stays reachable by URL (search traffic), with its example report and its own start button.
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Check, Loader2, MapPin, X } from "lucide-react";
+import { Check, Loader2, MapPin, X } from "lucide-react";
 import { startInstantAudit } from "@/app/(marketing)/contact/actions";
-import { ConsentCheckbox, CUSTOMER_CARE_DISCLOSURE } from "@/app/components/site/LeadForm";
 import { capture } from "@/app/lib/analytics/client";
 import { ANALYTICS_EVENTS } from "@/app/lib/analytics/events";
 
 const AUDIT_PATH = "/free-google-maps-audit";
 const OPEN_EVENT = "tt:open-audit";
+const FORM_ORIGIN = "https://portalapi.tableturnerr.com";
+const FORM_URL = `${FORM_ORIGIN}/widget/form/HCKpJORvNtjWDsLCXFKu`;
+const AUDIT_TOOL_URL = "https://audit.seo.tableturnerr.com/light-audit/search";
 
 export function openAuditGate() {
   window.dispatchEvent(new Event(OPEN_EVENT));
@@ -23,12 +25,16 @@ export function OpenAuditButton({ className = "btn btn-primary", children }: { c
 
 export default function AuditGate() {
   const ref = useRef<HTMLDialogElement>(null);
+  const frame = useRef<HTMLIFrameElement>(null);
+  const contact = useRef<Record<string, unknown>>({});
+  const sent = useRef(false);
+  const [opened, setOpened] = useState(false); // the content and form load on first open, not with every page
+  const [ready, setReady] = useState(false); // GHL's form has drawn itself (it can take several seconds)
   const [state, setState] = useState<"form" | "sending" | "manual">("form");
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const open = () => {
-      setError(null);
+      setOpened(true);
       setState((s) => (s === "sending" ? s : "form"));
       if (!ref.current?.open) ref.current?.showModal();
       capture(ANALYTICS_EVENTS.contactFormStarted, { form_type: "instant_audit" });
@@ -52,23 +58,51 @@ export default function AuditGate() {
     };
   }, []);
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setError(null);
-    setState("sending");
-    const fd = new FormData(e.currentTarget);
-    fd.set("source_page_url", window.location.href);
-    const res = await startInstantAudit(fd);
-    if (!res.ok) {
+  // GHL's form tells the parent page when it has been submitted: first the contact's details ("_ud"), then a message
+  // keyed "embedded_iframe_…" that is only sent after GHL accepted the submission.
+  useEffect(() => {
+    const onMessage = async (e: MessageEvent) => {
+      if (e.origin !== FORM_ORIGIN || !frame.current || e.source !== frame.current.contentWindow || !Array.isArray(e.data)) return;
+      const [action, key, value] = e.data as unknown[];
+      if (action === "iframeLoaded") setReady(true);
+      if (action !== "set-sticky-contacts" || typeof key !== "string") return;
+      if (key === "_ud") {
+        try { contact.current = JSON.parse(String(value)) ?? {}; } catch { contact.current = {}; }
+        return;
+      }
+      if (!key.startsWith("embedded_iframe_") || sent.current) return;
+      sent.current = true;
+      setState("sending");
+      capture(ANALYTICS_EVENTS.contactFormSubmitted, { form_type: "instant_audit" });
+      const fd = new FormData();
+      const c = contact.current;
+      // In this form "first name" is the business with its city, and "last name" the person.
+      fd.set("business_name", String(c.first_name ?? c.company_name ?? ""));
+      fd.set("name", String(c.last_name ?? ""));
+      fd.set("phone", String(c.phone ?? ""));
+      fd.set("source_page_url", window.location.href);
+      // GHL already has the lead, so our own bookkeeping never holds the visitor up.
+      const res = await Promise.race([
+        startInstantAudit(fd).catch(() => null),
+        new Promise<null>((resolve) => window.setTimeout(() => resolve(null), 4000)),
+      ]);
+      if (res && res.ok && !res.url) setState("manual");
+      else window.location.assign(AUDIT_TOOL_URL);
+    };
+    // Coming back from the audit tool with the browser's Back button: don't leave "Opening your audit…" on screen.
+    const onShow = (e: PageTransitionEvent) => {
+      if (!e.persisted) return;
+      sent.current = false;
       setState("form");
-      setError(res.error);
-      capture(ANALYTICS_EVENTS.contactFormError, { form_type: "instant_audit", error_category: "validation" });
-      return;
-    }
-    capture(ANALYTICS_EVENTS.contactFormSubmitted, { form_type: "instant_audit", instant: Boolean(res.url) });
-    if (res.url) window.location.assign(res.url);
-    else setState("manual");
-  }
+      ref.current?.close();
+    };
+    window.addEventListener("message", onMessage);
+    window.addEventListener("pageshow", onShow);
+    return () => {
+      window.removeEventListener("message", onMessage);
+      window.removeEventListener("pageshow", onShow);
+    };
+  }, []);
 
   return (
     <dialog
@@ -81,7 +115,7 @@ export default function AuditGate() {
         <button type="button" onClick={() => ref.current?.close()} className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full text-muted hover:bg-surface hover:text-ink" aria-label="Close">
           <X className="h-5 w-5" />
         </button>
-        {state === "manual" ? (
+        {!opened ? null : state === "manual" ? (
           <div className="py-4 text-center">
             <span className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-success/15 text-success"><Check className="h-6 w-6" /></span>
             <h2 id="audit-gate-title" className="mt-4 text-xl font-bold">Got it. We&apos;ll run your audit for you.</h2>
@@ -91,36 +125,38 @@ export default function AuditGate() {
             <Link href={`${AUDIT_PATH}#example-report`} className="btn btn-ghost mt-6" onClick={() => ref.current?.close()}>See an example report</Link>
           </div>
         ) : (
-          <form onSubmit={onSubmit} data-analytics-mask>
+          <div>
             <MapPin className="h-7 w-7 text-primary" aria-hidden />
             <h2 id="audit-gate-title" className="mt-3 pr-8 text-2xl font-bold">Run your free Google Maps audit</h2>
             <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-              See where you rank across your service area and who&apos;s beating you, in a couple of minutes. Tell us who you are and we&apos;ll take you straight to it.
+              See where you rank across your service area and who&apos;s beating you. Submit the form and we&apos;ll take you straight to it.
             </p>
-            <input type="text" name="company_website" tabIndex={-1} autoComplete="off" aria-hidden className="absolute left-[-9999px] h-0 w-0 opacity-0" />
-            <div className="mt-5 grid gap-4">
-              <div>
-                <label htmlFor="ag-business" className="text-sm font-medium">Business name</label>
-                <input id="ag-business" name="business_name" required maxLength={160} autoComplete="organization" placeholder="Smith Roofing" className="mt-2 w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-primary" />
-              </div>
-              <div>
-                <label htmlFor="ag-phone" className="text-sm font-medium">Phone</label>
-                <input id="ag-phone" name="phone" type="tel" required maxLength={40} autoComplete="tel" placeholder="(555) 123-4567" className="mt-2 w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-primary" />
-              </div>
+            {/* Tall enough for the whole form, so only the popup scrolls. */}
+            <div className="relative -mx-3 mt-4 h-[64.5rem] overflow-hidden rounded-xl bg-white sm:mx-0 sm:h-[50rem]">
+              <iframe
+                ref={frame}
+                id="audit-gate-form"
+                src={FORM_URL}
+                title="Free Google Maps audit form"
+                className="absolute inset-0 h-full w-full border-0"
+                data-clarity-mask="true"
+              />
+              {!ready && (
+                <p role="status" className="pointer-events-none absolute inset-x-0 top-16 flex items-center justify-center gap-2 text-sm font-semibold text-[#161a33]">
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> Loading the form…
+                </p>
+              )}
+              {state === "sending" && (
+                <p role="status" className="absolute inset-0 flex items-center justify-center gap-2 bg-white text-sm font-semibold text-[#161a33]">
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> Opening your audit…
+                </p>
+              )}
             </div>
-            {error && <p role="alert" className="mt-4 rounded-lg bg-red-500/10 px-3 py-2 text-sm text-red-600">{error}</p>}
-            <details className="mt-4 text-sm">
-              <summary className="cursor-pointer text-ink-soft">Text message preferences (optional)</summary>
-              <div className="mt-3"><ConsentCheckbox id="ag-sms" name="customer_care_sms_consent" disclosure={CUSTOMER_CARE_DISCLOSURE} /></div>
-            </details>
-            <button type="submit" disabled={state === "sending"} className="btn btn-primary mt-5 w-full disabled:opacity-70">
-              {state === "sending" ? <><Loader2 className="h-4 w-4 animate-spin" /> Starting…</> : <>Start my free audit <ArrowRight className="h-4 w-4" /></>}
-            </button>
             <p className="mt-3 text-center text-xs leading-relaxed text-muted">
-              Free. By continuing you agree that TableTurnerr LLC may call you about your audit. We never share your number.{" "}
+              Form not loading? Call <a href="tel:+13323331008" className="font-semibold text-primary">(332) 333-1008</a>.{" "}
               <Link href={`${AUDIT_PATH}#example-report`} className="font-semibold text-primary" onClick={() => ref.current?.close()}>See an example report</Link>
             </p>
-          </form>
+          </div>
         )}
       </div>
     </dialog>

@@ -28,7 +28,7 @@ export default function ScrollRow({ label, children, compact = false }: { label:
       <ul
         ref={ref}
         aria-label={label}
-        className={`-mx-4 flex snap-x snap-mandatory ${compact ? "gap-3" : "gap-4"} overflow-x-auto scroll-smooth px-4 pb-2 [scrollbar-width:none] sm:-mx-6 sm:px-6 [&::-webkit-scrollbar]:hidden`}
+        className={`-mx-4 flex snap-x snap-mandatory ${compact ? "gap-3" : "gap-4"} overflow-x-auto scroll-smooth px-4 pb-2 [scrollbar-width:none] md:-mx-6 md:px-6 [&::-webkit-scrollbar]:hidden`}
       >
         {children}
       </ul>

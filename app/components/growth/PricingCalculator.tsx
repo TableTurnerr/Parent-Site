@@ -89,9 +89,9 @@ export default function PricingCalculator({ initial = ["website"] }: { initial?:
             {DFY_TIERS.map((t) => (
               <li
                 key={t.id}
-                className={`rounded-xl border px-2 py-2 text-center ${t.id === tier.id ? "border-primary bg-primary text-white" : "border-line text-ink-soft"}`}
+                className={`min-w-0 rounded-xl border px-0.5 py-2 text-center sm:px-2 ${t.id === tier.id ? "border-primary bg-primary text-white" : "border-line text-ink-soft"}`}
               >
-                <span className="block text-[11px] font-semibold leading-tight">{t.name}</span>
+                <span className="block text-[10px] font-semibold leading-tight sm:text-[11px]">{t.name}</span>
                 <span className="block text-sm font-bold">${t.price}</span>
               </li>
             ))}

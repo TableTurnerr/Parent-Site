@@ -1,6 +1,7 @@
 import { ClientLogoStrip } from "@/app/components/growth/Proof";
 import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
+import { pageTitle } from "@/app/lib/metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!t) return {};
   const title = t.title.replace(/\s*\|\s*TableTurnerr$/, "");
   return {
-    title,
+    title: pageTitle(title),
     description: t.description,
     alternates: { canonical: `${base}${t.path}` },
     openGraph: { title: t.title, description: t.description, url: `${base}${t.path}`, type: "website" },

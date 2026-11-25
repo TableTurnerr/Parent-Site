@@ -33,7 +33,7 @@ export default function VideoPlayer({ showChapters = true }: { showChapters?: bo
           >
             {/* Remote YouTube thumbnail; next/image would need a remotePatterns change for i.ytimg.com. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={vslThumb} alt="" width={1280} height={720} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" />
+            <img src={vslThumb} alt={`Video: ${VSL.title}`} width={1280} height={720} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" />
             <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-night/70 via-night/10 to-transparent" />
             <span aria-hidden className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-night shadow-xl transition-transform group-hover:scale-110 md:h-20 md:w-20">
               <Play className="ml-1 h-7 w-7 fill-current md:h-8 md:w-8" />

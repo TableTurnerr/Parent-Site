@@ -14,10 +14,10 @@ const base = "https://www.tableturnerr.com";
 const path = "/results/seasons-taiwanese-eatery";
 const h1 = "How a family-run Honolulu restaurant brought in 500+ customers";
 const description =
-  "Seasons Taiwanese Eatery, a small family-run restaurant in Honolulu, brought in 500+ customers with a new search-optimized website, a Google review plan, outreach to 1,500+ locals and influencer content.";
+  "How Seasons Taiwanese Eatery, a family-run Honolulu restaurant, brought in 500+ customers with a new website, a Google review plan and local outreach.";
 
 export const metadata: Metadata = {
-  title: { absolute: "Seasons Taiwanese Eatery: 500+ Customers for a Honolulu Restaurant" },
+  title: { absolute: "Seasons Taiwanese Eatery: 500+ Customers in Honolulu" },
   description,
   alternates: { canonical: `${base}${path}` },
   openGraph: { title: h1, description, url: `${base}${path}`, type: "article" },
@@ -59,11 +59,11 @@ export default function Page() {
               it was there. In 2025 we ran their digital marketing, and the videos below show what that looked like.
             </p>
           </div>
-          <div className="mt-10 grid max-w-3xl grid-cols-3 gap-4">
+          <div className="mt-10 grid max-w-3xl grid-cols-3 gap-2.5 sm:gap-4">
             {STATS.map(([v, l]) => (
-              <div key={l} className="card p-5">
-                <p className="font-display text-3xl font-bold text-ink md:text-4xl">{v}</p>
-                <p className="mt-1 text-sm text-ink-soft">{l}</p>
+              <div key={l} className="card min-w-0 p-2.5 min-[375px]:p-3.5 sm:p-5">
+                <p className="font-display text-xl font-bold text-ink min-[375px]:text-2xl sm:text-3xl md:text-4xl">{v}</p>
+                <p className="mt-1 text-xs text-ink-soft sm:text-sm">{l}</p>
               </div>
             ))}
           </div>

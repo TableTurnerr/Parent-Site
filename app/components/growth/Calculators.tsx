@@ -40,8 +40,8 @@ function Input({ id, label, value, onChange, step = 1, min = 0, max, suffix, pre
 
 function Stat({ value, label, big = false }: { value: string; label: string; big?: boolean }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-      <p className={`font-display font-bold text-white ${big ? "text-4xl md:text-5xl" : "text-3xl"}`}>{value}</p>
+    <div className="min-w-0 rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5">
+      <p className={`font-display font-bold text-white ${big ? "text-3xl sm:text-4xl xl:text-5xl" : "text-2xl sm:text-3xl lg:text-2xl xl:text-3xl"}`}>{value}</p>
       <p className="mt-1.5 text-sm text-white/70">{label}</p>
     </div>
   );

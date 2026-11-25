@@ -1,32 +1,30 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 /**
- * Lightweight scroll-reveal wrapper: fades + lifts content into view once.
- * Honors prefers-reduced-motion (renders statically). `delay` staggers siblings.
+ * Lightweight scroll-reveal wrapper: fades + lifts content into view once (styles: .tt-reveal in globals.css).
+ * Content stays visible with reduced motion or without JavaScript. `delay` (seconds) staggers siblings.
  */
-export default function Reveal({
-  children,
-  className,
-  delay = 0,
-}: {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
+export default function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      setShown(true);
+      io.disconnect();
+    }, { rootMargin: "-80px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 26 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const, delay }}
-    >
+    <div ref={ref} className={`tt-reveal ${shown ? "is-in" : ""} ${className}`} style={delay ? { transitionDelay: `${delay}s` } : undefined}>
       {children}
-    </motion.div>
+    </div>
   );
 }
