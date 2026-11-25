@@ -15,6 +15,7 @@ import { FSM, combosForService, getService, guidesInTopic, plain, serviceTopics,
 
 
 // Which plan includes each service (four fixed prices, see app/lib/pricing.ts). Shown as a plain-text answer for search and AI tools.
+const ON_CRM = "Runs on the CRM in the Complete plan, $497/mo. We confirm what's included, and any usage or processing fees, in writing before you start";
 const SERVICE_PRICE: Record<string, string> = {
   "review-generation": "From $97/mo, on every plan",
   "contractor-websites": "From $297/mo (Starter), included in every plan from there up",
@@ -23,6 +24,14 @@ const SERVICE_PRICE: Record<string, string> = {
   "ai-search-optimization": "Part of the Complete plan, $497/mo with everything included",
   "crm-automation": "Part of the Complete plan, $497/mo with everything included",
   "missed-call-text-back": "Part of the Complete plan, $497/mo, together with the AI answering service",
+  "email-sms-campaigns": "Seasonal campaigns are part of the Complete plan, $497/mo. Carrier and message fees depend on volume",
+  "social-media-posting": "Comes with Google Business Profile management, from $297/mo",
+  "online-booking": ON_CRM,
+  "estimates-invoices-payments": ON_CRM,
+  "maintenance-plans": ON_CRM,
+  "unified-inbox": ON_CRM,
+  "call-tracking": ON_CRM,
+  "hiring-pages": ON_CRM,
 };
 const base = "https://www.tableturnerr.com";
 
@@ -118,6 +127,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           )}
           {byTrade.length > 0 && <h3 className="mt-12 text-lg font-bold text-ink">Full marketing plans by trade</h3>}
           <TradeChips />
+          <p className="mt-8 text-sm text-ink-soft">See <Link href="/services/everything-we-set-up" className="font-semibold text-primary">everything we set up</Link>, or look up a word in the <Link href="/glossary" className="font-semibold text-primary">glossary</Link>.</p>
         </div>
       </section>
     </>

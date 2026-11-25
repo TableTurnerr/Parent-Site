@@ -16,8 +16,6 @@ const COLS: { title: string; links: NavItem[] }[] = [
   { title: "Resources", links: RESOURCE_LINKS },
   { title: "Company", links: [...COMPANY_LINKS, { label: "SEO & AEO services", href: "/seo" }, { label: "All services", href: "/services" }] },
 ];
-// "Never miss a job" holds only two links; give it the free audit as well.
-COLS[2] = { ...COLS[2], links: [...COLS[2].links, { label: "Free Google Maps audit", href: AUDIT_HREF }] };
 
 function FooterLink({ l }: { l: NavItem }) {
   const cls = "text-sm text-ink-soft transition-colors hover:text-ink";
@@ -38,7 +36,7 @@ export default function SiteFooter() {
               TableTurnerr
             </Link>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-ink-soft">
-              Done-for-you marketing for home-service businesses. 50+ businesses served. Month to month, and you talk to an owner.
+              Done-for-you marketing and CRM for home-service businesses. 50+ businesses served. Month to month, and you talk to an owner.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
@@ -49,7 +47,7 @@ export default function SiteFooter() {
 
         {/* Link columns + contact */}
         <div className="grid gap-10 pt-10 lg:grid-cols-12">
-          <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:col-span-9">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:col-span-9 lg:grid-cols-4">
             {COLS.map((col) => (
               <div key={col.title}>
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">{col.title}</p>
