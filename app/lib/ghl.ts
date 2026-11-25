@@ -29,14 +29,15 @@ export interface GhlLead {
  *   outage can't affect the visitor's form submission.
  * - This is purely additive: the lead is still written to Supabase
  *   `contact_leads` as the source of truth, so nothing is lost if GHL is down.
+ * - Resolves true only when GHL accepted the lead.
  */
-export async function pushLeadToGHL(lead: GhlLead): Promise<void> {
+export async function pushLeadToGHL(lead: GhlLead): Promise<boolean> {
   const url = process.env.GHL_LEAD_WEBHOOK_URL;
   if (!url) {
     if (process.env.NODE_ENV !== "production") {
       console.warn("[ghl] GHL_LEAD_WEBHOOK_URL unset; skipping GHL push");
     }
-    return;
+    return false;
   }
 
   try {
@@ -65,10 +66,12 @@ export async function pushLeadToGHL(lead: GhlLead): Promise<void> {
     if (!res.ok) {
       console.error(`[ghl] webhook responded ${res.status}`);
     }
+    return res.ok;
   } catch (err) {
     console.error(
       "[ghl] lead push failed:",
       err instanceof Error ? err.message : err,
     );
+    return false;
   }
 }
