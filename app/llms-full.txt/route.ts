@@ -2,7 +2,7 @@
 // answer questions about TableTurnerr in one file: who we are, who runs it, prices, services, results and FAQs.
 // Built from the same data as the pages, so it never drifts from what the site says.
 import { AUDIT_PATH, growthSite, guides, plain, results, services, SITE_UPDATED } from "@/app/lib/growth";
-import { DFY_TIERS, PRICING_FAQS } from "@/app/lib/pricing";
+import { pricingMarkdown } from "@/app/lib/pricing-text";
 import { SITE_CONFIG } from "@/app/lib/constants";
 import { CAPABILITIES, NOT_FOR } from "@/app/lib/growth/capabilities";
 import { GLOSSARY } from "@/app/lib/growth/glossary";
@@ -25,19 +25,13 @@ export function GET() {
     `- What we do: SEO and AEO optimized websites, Google Business Profile management, Google review generation, local SEO, AI search optimization (AEO), CRM follow-ups, missed-call text-back, an after-hours AI answering service and seasonal campaigns, run for clients on our own software.`,
     `- Who we serve: HVAC, plumbing, roofing, electrical, handyman, landscaping, tree service and other home-service businesses, plus local restaurants. Clients in ${growthSite.clientStates.join(", ")}.`,
     `- Track record: ${growthSite.businessesServed} businesses served since we started.`,
-    `- Terms: month to month, no contract. No paid ads. Every engagement starts with a free Google Maps audit (${base}${AUDIT_PATH}).`,
+    `- Terms: no contracts, move up or down any time, 2 months free when paid yearly. Google Ads and Local Services Ads only on the Partner package. Custom packages and single services are priced on a call. Every engagement starts with a free Google Maps audit (${base}${AUDIT_PATH}).`,
     `- New clients get free custom NFC Google review cards with their logo: customers tap the card with a phone, or scan its QR code, and land on the Google review page.`,
     "",
     "## Team",
     ...team.map((o) => `- ${o.name}, ${o.role}. ${o.bio} Profiles: ${o.links.map((l) => l.href).join(", ")}`),
     "",
-    "## Pricing (fixed, per month)",
-    ...DFY_TIERS.map((t) => `### ${t.name}: $${t.price}/mo\n${t.forWho}\n${t.features.map((f) => `- ${f}`).join("\n")}`),
-    "",
-    `Pricing page with a calculator: ${base}/pricing`,
-    "",
-    "## Pricing questions",
-    ...PRICING_FAQS.map((f) => `Q: ${f.q}\nA: ${f.a}`),
+    pricingMarkdown(base, growthSite.phoneDisplay).replace(/^# TableTurnerr pricing/, "## Pricing"),
     "",
     "## Services",
     ...services.map((s) => [
