@@ -1,4 +1,4 @@
-import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
+import { CallNowBand } from "@/app/components/growth/ContactCtas";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { pageTitle } from "@/app/lib/metadata";
@@ -7,22 +7,28 @@ import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateFAQSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
-import { PRICING_FAQS } from "@/app/lib/pricing";
+import { PLANS, PRICING_FAQS, PRICING_TERMS, DEMO_PHONE_DISPLAY } from "@/app/lib/pricing";
+
+// Prices as structured data, so search and AI tools can read each package price.
+const OFFERS = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  name: "TableTurnerr pricing",
+  url: "https://www.tableturnerr.com/pricing",
+  itemListElement: [
+    ...PLANS.map((p) => ({ "@type": "Offer", name: `${p.name} package`, description: p.adds.join("; "), price: p.price, priceCurrency: "USD",
+      priceSpecification: { "@type": "UnitPriceSpecification", price: p.price, priceCurrency: "USD", unitCode: "MON", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } })),
+  ],
+};
+import AiAnsweringDemo from "@/app/components/growth/AiAnsweringDemo";
 import { VideoSection } from "@/app/components/growth/Growth";
-import { PricingNote, PricingTiers } from "@/app/components/growth/PricingTiers";
+import { CustomPricingBar, PlanCards, PricingNote } from "@/app/components/growth/PricingTiers";
 import { AUDIT_PATH, growthSite } from "@/app/lib/growth";
 
-// What every plan shares.
-const FACTORS = [
-  ["Month to month", "No contract. Move up a plan, move down or stop whenever you want."],
-  ["You talk to an owner", "No account-manager shuffle. The people who run the work are the people you call."],
-  ["Software included", "Review automation, CRM and AI tools are built in. Nothing extra to buy, set up or learn."],
-];
-
 export const metadata: Metadata = {
-  title: pageTitle("Home-Service Marketing Pricing from $97/mo"),
+  title: pageTitle("Pricing: 5 Simple Packages from $97/mo"),
   description:
-    "Done-for-you marketing for home-service businesses from $97/mo. Pick what you need and see your price: reviews, website, local SEO, AI answering and more.",
+    "Five simple packages for home-service businesses, from $97/mo for reviews to $1,797/mo with ads and strategy. AI answering included from $597/mo. Need something different? Call us for custom pricing. No contracts.",
   alternates: { canonical: "https://www.tableturnerr.com/pricing" },
 };
 
@@ -32,6 +38,7 @@ export default function PricingPage() {
     <>
       <JsonLd
         data={[
+          OFFERS,
           generateFAQSchema(PRICING_FAQS.map((f) => ({ question: f.q, answer: f.a }))),
           generateBreadcrumbSchema([
             { name: "Home", url: base },
@@ -46,38 +53,49 @@ export default function PricingPage() {
         <div className="container-tt relative pb-10 md:pb-14">
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow">Pricing</span>
-            <h1 className="display mt-6 text-ink">Pick what you need. See your price.</h1>
+            <h1 className="display mt-6 text-ink">Five simple packages.</h1>
             <p className="lead mt-6">
-              Google reviews are always included. Add a website, posting, or the full growth engine, and the price updates as
-              you go. Four fixed prices, no hidden extras, month to month.
+              Each package includes everything in the one before it, from $97 to $1,797 a month. No contracts. Need something
+              different? Call us for custom pricing.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <Link href={AUDIT_PATH} className="btn btn-primary">Get your free Google Maps audit <ArrowRight className="h-4 w-4" /></Link>
-              <a href={growthSite.bookingUrl} className="btn btn-ghost">Book a 15-minute call</a>
+              <a href={growthSite.bookingUrl} className="btn btn-primary">Book a call <ArrowRight className="h-4 w-4" /></a>
+              <a href={`tel:${growthSite.phoneE164}`} className="btn btn-ghost">Call {growthSite.phoneDisplay}</a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Done-for-you levels */}
-      <section className="section pt-0">
+      {/* The packages */}
+      <section className="section pt-0" id="plans">
         <div className="container-tt">
-          <PricingTiers />
+          <PlanCards />
           <PricingNote />
+          <CustomPricingBar />
         </div>
       </section>
 
-      <BookCallBand title="Want a straight quote? Book a 15-minute call" />
+      {/* AI answering */}
+      <section className="section bg-surface" id="ai-answering">
+        <div className="container-tt">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="eyebrow">AI answering service</span>
+            <h2 className="display-2 mt-5 text-ink">See what your AI receptionist looks like</h2>
+            <p className="lead mt-4">It answers in your business name, books the job and texts you a summary. Call <span className="whitespace-nowrap">{DEMO_PHONE_DISPLAY}</span> to hear it yourself.</p>
+          </div>
+          <div className="mt-12"><AiAnsweringDemo /></div>
+        </div>
+      </section>
 
-      {/* What sets the price */}
-      <section className="section bg-surface">
+      {/* Terms */}
+      <section className="section">
         <div className="container-tt">
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow">On every plan</span>
-            <h2 className="display-2 mt-5 text-ink">What you get with any plan</h2>
+            <h2 className="display-2 mt-5 text-ink">No contracts. Move up or down any time.</h2>
           </div>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {FACTORS.map(([h, p]) => (
+            {PRICING_TERMS.map(([h, p]) => (
               <div key={h} className="card p-7">
                 <h3 className="text-lg font-bold text-ink">{h}</h3>
                 <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">{p}</p>
@@ -85,8 +103,9 @@ export default function PricingPage() {
             ))}
           </div>
           <p className="mt-8 text-center text-sm text-ink-soft">
-            See <Link href="/services" className="font-semibold text-primary">everything we do</Link>, or the{" "}
-            <Link href="/marketing" className="font-semibold text-primary">marketing plan for your trade</Link>.
+            See <Link href="/services" className="font-semibold text-primary">everything we do</Link>, the{" "}
+            <Link href="/marketing" className="font-semibold text-primary">marketing plan for your trade</Link>, or the{" "}
+            <a href="/pricing.md" className="font-semibold text-primary">plain-text price list</a>.
           </p>
         </div>
       </section>

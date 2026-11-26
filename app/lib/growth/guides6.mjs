@@ -218,7 +218,7 @@ export const guides6 = [
 <p><strong>Text-back fires on every missed call</strong> unless you add rules, so suppliers and your spouse get it too. And calls must reach the number the system watches: if your cell carrier's voicemail picks up first, nothing is sent.</p>
 <p><strong>AI can be wrong.</strong> Tell it what not to say: prices you can't keep, safety advice, promises on arrival time. Tell callers it's an assistant.</p>
 <h2>Put numbers on it</h2>
-<p>Use the <a href="/tools/missed-call-calculator">missed call calculator</a> with your phone log, then copy a <a href="/tools/missed-call-text-templates">missed-call text for your trade</a>. We set up <a href="/services/missed-call-text-back">both text-back and an AI receptionist</a> on the Complete plan.</p>`,
+<p>Use the <a href="/tools/missed-call-calculator">missed call calculator</a> with your phone log, then copy a <a href="/tools/missed-call-text-templates">missed-call text for your trade</a>. We set up <a href="/services/missed-call-text-back">missed-call text-back</a> ({{PRICE:textback}}) and an <a href="/services/ai-answering-service">AI receptionist</a> ({{PRICE:ai}}). Call {{DEMO}} to hear the receptionist.</p>`,
     faq: [
       ["What is missed call text back?", "A text sent automatically, within seconds, to someone whose call you missed. It asks what they need, so the conversation starts before they call someone else."],
       ["Is missed call text back legal?", "Replying about a service someone just called you for is generally treated differently from marketing, but carriers still require the number to be registered and opt-outs honored. Don't add those callers to marketing lists. Ask a lawyer about your situation."],

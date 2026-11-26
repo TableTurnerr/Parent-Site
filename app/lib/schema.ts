@@ -43,7 +43,7 @@ export function generateOrganizationSchema() {
       "TableTurnerr is a done-for-you online marketing agency for US home-service businesses (HVAC, plumbing, roofing, electrical, landscaping, tree service and more) and local restaurants. We build SEO and AEO optimized websites, manage Google Business Profiles, generate Google reviews, and run CRM follow-ups, missed-call text-back and AI answering on our own software. Plans from $97/mo, month to month, starting with a free Google Maps audit.",
     email: SITE_CONFIG.email,
     telephone: SITE_CONFIG.phone,
-    priceRange: "$97-$497/mo",
+    priceRange: "$97-$1,797/mo",
     areaServed: { "@type": "Country", name: "United States" },
     slogan: "We get home-service businesses more calls from Google.",
     founder: FOUNDERS.map((p) => ({ "@id": p["@id"] })),

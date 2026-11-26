@@ -10,29 +10,13 @@ import JsonLd from "@/app/components/site/JsonLd";
 import {
   AuditBand, CardGrid, FaqSection, ToolCallout, Glance, GrowthHero, GuideCards, Html, SectionHead, TradeChips, faqSchemaItems,
 } from "@/app/components/growth/Growth";
+import { ON_CRM_PRICE, SERVICE_PRICE } from "@/app/lib/pricing";
+import AiAnsweringDemo from "@/app/components/growth/AiAnsweringDemo";
 import { generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 import { FSM, combosForService, getService, guidesInTopic, plain, serviceTopics, services, topics, withToc } from "@/app/lib/growth";
 
 
-// Which plan includes each service (four fixed prices, see app/lib/pricing.ts). Shown as a plain-text answer for search and AI tools.
-const ON_CRM = "Runs on the CRM in the Complete plan, $497/mo. We confirm what's included, and any usage or processing fees, in writing before you start";
-const SERVICE_PRICE: Record<string, string> = {
-  "review-generation": "From $97/mo, on every plan",
-  "contractor-websites": "From $297/mo (Starter), included in every plan from there up",
-  "google-business-profile": "From $297/mo (Starter), included in every plan from there up",
-  "local-seo": "Part of the Complete plan, $497/mo with everything included",
-  "ai-search-optimization": "Part of the Complete plan, $497/mo with everything included",
-  "crm-automation": "Part of the Complete plan, $497/mo with everything included",
-  "missed-call-text-back": "Part of the Complete plan, $497/mo, together with the AI answering service",
-  "email-sms-campaigns": "Seasonal campaigns are part of the Complete plan, $497/mo. Carrier and message fees depend on volume",
-  "social-media-posting": "Comes with Google Business Profile management, from $297/mo",
-  "online-booking": ON_CRM,
-  "estimates-invoices-payments": ON_CRM,
-  "maintenance-plans": ON_CRM,
-  "unified-inbox": ON_CRM,
-  "call-tracking": ON_CRM,
-  "hiring-pages": ON_CRM,
-};
+// Price line per service comes from app/lib/pricing.ts (one source for every page).
 const base = "https://www.tableturnerr.com";
 
 export function generateStaticParams() {
@@ -78,10 +62,18 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           ["How it works", <ol key="s" className="list-decimal pl-5">{s.steps.map(([h, d]) => <li key={h}><strong>{plain(h)}:</strong> {plain(d)}</li>)}</ol>],
           ["Who it's for", "US home-service businesses: roofers, HVAC, plumbers, electricians, handymen, fence companies, landscapers and more."],
           ["Works with", `${FSM}.`],
-          ["Price", <span key="p">{SERVICE_PRICE[s.slug] ?? "Plans from $97/mo"}. See the <Link href="/pricing" className="font-semibold text-primary">pricing calculator</Link>.</span>],
+          ["Price", <span key="p">{SERVICE_PRICE[s.slug] ?? ON_CRM_PRICE}. See the <Link href="/pricing" className="font-semibold text-primary">pricing calculator</Link>.</span>],
           ["Terms", "Done for you, month to month."],
         ]}
       />
+      {(s.slug === "ai-answering-service" || s.slug === "missed-call-text-back") && (
+        <section className="section bg-surface" id="demo">
+          <div className="container-tt">
+            <SectionHead title="See and hear it" intro="A sample call for your trade, the text you get afterwards, and our live demo line. Then work out your monthly cost." />
+            <div className="mt-10"><AiAnsweringDemo /></div>
+          </div>
+        </section>
+      )}
       <ClientLogoStrip />
       <section className="section">
         <div className="container-tt">

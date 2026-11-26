@@ -78,7 +78,7 @@ const tools1: Tool[] = [
     faq: [
       ["What share of homeowners call back after a missed call?", "It varies by trade and by how urgent the job is. Emergency calls (no heat, a leak) almost never wait; they call the next listing. Planned work is more patient. Use your own phone log if you can; the calculator lets you set the share that don't call back."],
       ["What is missed-call text-back?", "When you can't answer, the caller gets a text from your business number within seconds: sorry we missed you, what do you need help with? Most people answer a text, so the lead stays with you instead of going to the next company."],
-      ["Is an answering service better than text-back?", "An answering service or AI receptionist covers after-hours and busy days with a live answer. Text-back is cheaper and catches the calls you miss while working. Many businesses use both. Both are part of our $497/mo Complete plan."],
+      ["Is an answering service better than text-back?", "An answering service or AI receptionist covers after-hours and busy days with a live answer. Text-back is cheaper and catches the calls you miss while working. Many businesses use both. Text-back comes in every package from $97/mo, and AI answering comes in our $597/mo Growth package."],
     ],
     next: [
       ["/services/missed-call-text-back", "Missed-call text-back", "Every missed call gets a text back in seconds, from your business number."],
@@ -108,7 +108,7 @@ const tools1: Tool[] = [
       ["How do I know which jobs came from marketing?", "Ask every new customer how they found you, use a tracking number on your Google profile and website, and check the calls and messages report in your Google Business Profile each month. We send a plain monthly report with calls, messages, reviews and rankings."],
     ],
     next: [
-      ["/pricing", "What our plans cost", "Reviews $97, Starter $297, Growth $397 and Complete $497, month to month."],
+      ["/pricing", "What our packages cost", "Five packages: Reviews $97, Starter $297, Growth $597, Complete $797 and Partner $1,797 a month, no contracts. Custom pricing on a call."],
       ["/guides/contractor-seo-cost", "What contractor SEO costs", "Typical prices, what you get at each level and what to avoid."],
       ["/tools/google-review-calculator", "Google review calculator", "How many reviews you need to pass the competitors near you."],
     ],
