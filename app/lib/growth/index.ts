@@ -12,11 +12,16 @@ import { guides3 } from "./guides3.mjs";
 import { guides4 } from "./guides4.mjs";
 import { guides5 } from "./guides5.mjs";
 import { guides6 } from "./guides6.mjs";
+import { guides7 } from "./guides7.mjs";
 import { services as servicesRaw } from "./services.mjs";
 import { services2 } from "./services2.mjs";
+import { services3 } from "./services3.mjs";
 import { results as resultsRaw } from "./results.mjs";
-import { combos as combosRaw } from "./combos.mjs";
+import { combos as combos1 } from "./combos.mjs";
+import { combos2 } from "./combos2.mjs";
+import { combos3 } from "./combos3.mjs";
 import { site as siteRaw } from "./config.mjs";
+import { fillPriceTokens } from "../pricing";
 import {
   SITE_UPDATED as SITE_UPDATED_RAW,
   topics as topicsRaw,
@@ -59,6 +64,14 @@ function toGuides(value: unknown): unknown {
   return JSON.parse(JSON.stringify(value).replace(/"\/blog(?=[\/#"])/g, '"/guides').replace(/\\"\/blog(?=[\/#])/g, '\\"/guides'));
 }
 
+/** Replace {{PRICE:key}} and {{DEMO}} tokens in every string, so prices live only in app/lib/pricing.ts. */
+function withPrices<T>(value: T): T {
+  if (typeof value === "string") return fillPriceTokens(value) as T;
+  if (Array.isArray(value)) return value.map(withPrices) as T;
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, withPrices(v)])) as T;
+  return value;
+}
+
 export const SITE_UPDATED: string = SITE_UPDATED_RAW;
 export interface Owner { name: string; role: string; photo: string; bio: string; links: { label: string; href: string }[] }
 export const growthSite = siteRaw as {
@@ -73,9 +86,9 @@ export const clientStatesText = growthSite.clientStates.join(", ").replace(/, ([
 export const topics = toGuides(topicsRaw) as Record<string, Topic>;
 export const serviceTopics = serviceTopicsRaw as Record<string, string>;
 
-export const trades: Trade[] = toGuides([...trades1, ...trades2]) as Trade[];
-export const services: Service[] = toGuides([...servicesRaw, ...services2]) as Service[];
-export const guides: Guide[] = (toGuides([...guides6, ...guides4, ...guides5, ...guides1, ...guides2, ...guides3]) as Omit<Guide, "topics">[]).map((g: Omit<Guide, "topics">) => ({
+export const trades: Trade[] = withPrices(toGuides([...trades1, ...trades2])) as Trade[];
+export const services: Service[] = withPrices(toGuides([...servicesRaw, ...services2, ...services3])) as Service[];
+export const guides: Guide[] = (withPrices(toGuides([...guides7, ...guides6, ...guides4, ...guides5, ...guides1, ...guides2, ...guides3])) as Omit<Guide, "topics">[]).map((g: Omit<Guide, "topics">) => ({
   ...g,
   topics: (guideTopics as Record<string, string[]>)[g.slug] ?? ["trades"],
 })) as Guide[];
@@ -142,7 +155,7 @@ export interface Combo {
   trade: string; service: string; path: string; title: string; description: string; h1: string; lede: string;
   why: string; tactics: Pair[]; faq: Pair[];
 }
-export const combos = combosRaw as Combo[];
+export const combos = withPrices([...combos1, ...combos2, ...combos3]) as Combo[];
 export const getCombo = (trade: string, service: string) => combos.find((c) => c.trade === trade && c.service === service);
 export const combosForTrade = (trade: string) => combos.filter((c) => c.trade === trade);
 export const combosForService = (service: string) => combos.filter((c) => c.service === service);

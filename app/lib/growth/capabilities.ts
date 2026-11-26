@@ -90,5 +90,5 @@ export const NOT_FOR: [string, string][] = [
   ["Dispatch boards and route planning", "Keep Jobber, Housecall Pro, ServiceTitan or Workiz for running jobs. We add leads, follow-up, reviews and campaigns around them. Dispatch inside our CRM needs FieldTask, a separate add-on."],
   ["Job costing, payroll and truck stock", "That's field-service or accounting software."],
   ["Bookkeeping", "QuickBooks, or whatever your accountant uses."],
-  ["Paid ads", "We don't run ads. Everything here works without an ad budget."],
+  ["Paid ads", "Google Ads and Local Services Ads management on the Partner package, with ad spend billed separately. Everything else here works without an ad budget."],
 ];

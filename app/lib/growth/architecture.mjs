@@ -12,7 +12,7 @@ export const topics = {
   crm: { name: 'CRM, invoicing & follow-up', pillar: '/services/crm-automation',
     intro: 'How to choose a CRM or invoicing software, keep track of customers, and follow up so estimates and calls don\'t go cold.' },
   calls: { name: 'Calls & texting', pillar: '/services/missed-call-text-back',
-    intro: 'Answer more calls, text customers the right way, and choose between text-back, AI and an answering service.' },
+    intro: 'Answer more calls, text customers the right way, and choose between text-back, AI and an answering service, with real prices.' },
   booking: { name: 'Booking & getting paid', pillar: '/services/online-booking',
     intro: 'Online booking, deposits, text-to-pay and maintenance plans, without wrecking your schedule.' },
   repeat: { name: 'Repeat work & referrals', pillar: '/services/email-sms-campaigns',
@@ -70,26 +70,32 @@ export const guideTopics = {
   'how-to-get-more-plumbing-customers': ['trades', 'maps'],
   'handyman-marketing-ideas': ['trades'],
   'fence-company-marketing-guide': ['trades'],
+  'ai-receptionist-cost': ['calls', 'booking'],
+  'missed-call-text-back-cost': ['calls'],
+  'best-ai-receptionist-for-contractors': ['calls', 'booking', 'crm'],
+  'answering-service-cost': ['calls'],
+  'google-business-profile-management-cost': ['maps', 'reviews', 'seo'],
+  'contractor-website-cost': ['seo', 'maps'],
 };
 
 // service slug -> topic its guides come from
 export const serviceTopics = {
   'google-business-profile': 'maps', 'review-generation': 'reviews', 'local-seo': 'seo', 'ai-search-optimization': 'seo',
-  'contractor-websites': 'seo', 'missed-call-text-back': 'calls', 'crm-automation': 'crm',
+  'contractor-websites': 'seo', 'missed-call-text-back': 'calls', 'ai-answering-service': 'calls', 'crm-automation': 'crm',
   'online-booking': 'booking', 'estimates-invoices-payments': 'booking', 'maintenance-plans': 'booking',
   'email-sms-campaigns': 'repeat', 'unified-inbox': 'calls', 'call-tracking': 'calls', 'social-media-posting': 'maps',
 };
 
 // trade slug -> guide slugs to feature on that trade page (most relevant first)
 export const tradeGuides = {
-  handyman: ['handyman-marketing-ideas', 'how-to-keep-track-of-customers', 'how-to-rank-higher-on-google-maps'],
+  handyman: ['handyman-marketing-ideas', 'how-to-keep-track-of-customers', 'how-to-rank-higher-on-google-maps', 'missed-call-text-back-cost'],
   'fence-companies': ['fence-company-marketing-guide', 'how-to-rank-higher-on-google-maps', 'how-many-google-reviews-to-rank'],
-  hvac: ['how-to-get-more-hvac-customers', 'how-to-sell-maintenance-plans', 'ask-past-customers-for-google-reviews'],
-  plumbing: ['how-to-get-more-plumbing-customers', 'best-crm-for-plumbers', 'ask-past-customers-for-google-reviews'],
-  'garage-door-repair': ['local-services-ads-vs-google-ads', 'google-business-profile-suspended', 'how-to-rank-higher-on-google-maps'],
-  roofing: ['how-to-get-more-roofing-customers', 'ask-past-customers-for-google-reviews', 'how-to-follow-up-on-an-estimate'],
-  'pest-control': ['local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank', 'workiz-google-reviews'],
-  electricians: ['electrician-review-management', 'local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank'],
+  hvac: ['how-to-get-more-hvac-customers', 'how-to-sell-maintenance-plans', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost'],
+  plumbing: ['how-to-get-more-plumbing-customers', 'best-crm-for-plumbers', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost'],
+  'garage-door-repair': ['local-services-ads-vs-google-ads', 'google-business-profile-suspended', 'how-to-rank-higher-on-google-maps', 'best-ai-receptionist-for-contractors'],
+  roofing: ['how-to-get-more-roofing-customers', 'ask-past-customers-for-google-reviews', 'how-to-follow-up-on-an-estimate', 'contractor-website-cost'],
+  'pest-control': ['local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank', 'workiz-google-reviews', 'answering-service-cost'],
+  electricians: ['electrician-review-management', 'local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank', 'ai-receptionist-cost'],
   'deck-builders': ['fence-company-marketing-guide', 'contractor-seo-cost', 'how-to-rank-higher-on-google-maps'],
 };
 export const defaultTradeGuides = ['how-to-rank-higher-on-google-maps', 'ask-past-customers-for-google-reviews', 'best-crm-for-home-service-business'];

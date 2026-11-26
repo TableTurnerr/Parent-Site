@@ -33,7 +33,7 @@ const EXAMPLES: Pair[] = [
 const faq: Pair[] = [
   ["Do I get all of this at once?", "No. We start with the thing costing you the most, usually missed calls, reviews or slow follow-up, and add pieces when you need them."],
   ["What software does it run on?", "Our CRM is built on HighLevel, with our own review software alongside it. You don't need a HighLevel account or any training."],
-  ["Is everything included in the plans?", "Reviews are $97 a month, and Complete at $497 covers the website, Google profile, local and AI search, missed-call text-back, AI answering with 150 minutes, CRM, follow-ups and seasonal campaigns. Some items here, such as payments, plans or hiring pages, depend on your setup, so we confirm what's included, and any carrier, usage or card fees, in writing before you start."],
+  ["Is everything included in the plans?", "Reviews are $97 a month. The Complete package at $797 covers the website, Google profile, local and AI search, missed-call text-back, AI answering with 150 minutes, CRM, follow-ups and seasonal campaigns; Starter ($297) and Growth ($597) add these step by step, and Partner ($1,797) adds ads and strategy. Some items here, such as payments, plans or hiring pages, depend on your setup, so we confirm what's included, and any carrier, usage or card fees, in writing before you start."],
   ["Do I have to leave Jobber or Housecall Pro?", `No. We work around ${FSM}. They run the job. We handle finding customers, answering, following up and reviews.`],
   ["Who owns the data?", "You do. Your customers, reviews, domain and content stay yours, and you can export your contacts if you leave."],
 ];
@@ -69,7 +69,7 @@ export default function Page() {
           ["What it is", "Marketing, a CRM and automations for home-service companies, set up and run for you."],
           ["Built on", "HighLevel for the CRM, plus our own review software. No training needed."],
           ["Works with", `${FSM}, QuickBooks, or no software at all.`],
-          ["Price", <span key="p">From $97 a month for reviews to $497 for Complete, month to month. See <Link href="/pricing" className="font-semibold text-primary">pricing</Link>.</span>],
+          ["Price", <span key="p">From $97 a month for reviews to $1,797 for Partner, no contracts. Custom pricing on a call. See <Link href="/pricing" className="font-semibold text-primary">pricing</Link>.</span>],
           ["Not included", "Dispatch, routes, job costing, payroll, bookkeeping and paid ads."],
           ["First step", <span key="f">A <Link href="/free-google-maps-audit" className="font-semibold text-primary">free Google Maps audit</Link>, then one call about what to fix first.</span>],
         ]}
