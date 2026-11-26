@@ -33,7 +33,7 @@ const faq: Pair[] = [
   ["Do I have to learn any software?", "No. We run everything on our own software."],
   ["Does it work with my job software?", `Yes. Review requests connect to ${FSM}, or we can work from a customer list if you don't use one.`],
   ["Do you require a contract?", "No. Month to month."],
-  ["How much does it cost?", "Four fixed prices, month to month: Reviews $97, Starter $297, Growth $397 and Complete $497. Some add-ons, such as payments or hiring pages, depend on your setup, so we confirm what's included in writing before you start."],
+  ["How much does it cost?", "Five packages, each with everything in the one before it: Reviews $97, Starter $297, Growth $597, Complete $797 and Partner $1,797 a month, no contracts. Need something different? We price custom packages and single services (from $49 a month) on a call. Some add-ons, such as payments or hiring pages, depend on your setup, so we confirm what's included in writing before you start."],
 ];
 
 const PILLAR_GUIDES = ["how-to-rank-higher-on-google-maps", "best-review-software-for-contractors", "contractor-seo-cost"];
@@ -128,7 +128,7 @@ export default function Page() {
       <NextSteps
         items={[
           ["/marketing", "Marketing plans by trade", "How homeowners search for your trade, and what we'd do first."],
-          ["/pricing", "Pricing", "Reviews $97, Starter $297, Growth $397 and Complete $497, month to month."],
+          ["/pricing", "Pricing", "Five packages: Reviews $97, Starter $297, Growth $597, Complete $797 and Partner $1,797 a month, no contracts. Custom pricing on a call, single services from $49."],
           ["/about", "How we work", "A small, owner-run team with clear rules: no fake reviews, no review gating."],
         ]}
       />

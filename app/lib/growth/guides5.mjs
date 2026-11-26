@@ -56,7 +56,7 @@ export const guides5 = [
 <h2>When you don't need a CRM yet</h2>
 <p>If you do a handful of jobs a month and reply to everyone the same day, keep a spreadsheet. Here's <a href="/guides/how-to-keep-track-of-customers">a simple one that works</a>. Move up when you notice one of these: you forgot to call someone back, two people called the same lead, or you can't say how many estimates are still open.</p>
 <h2>Our take</h2>
-<p>We run a marketing CRM for our clients, so we're biased. If scheduling is what's killing you, buy field-service software first. If leads are leaking, our <a href="/services/crm-automation">done-for-you CRM and follow-up</a> is part of the $497 a month Complete plan, and it connects to the job software you already use.</p>`,
+<p>We run a marketing CRM for our clients, so we're biased. If scheduling is what's killing you, buy field-service software first. If leads are leaking, our <a href="/services/crm-automation">done-for-you CRM and follow-up</a> is {{PRICE:crm}}, and it connects to the job software you already use.</p>`,
     faq: [
       ["What is the best CRM for a small home service business?", "It depends on the problem. For scheduling, dispatch and invoicing, look at field-service software such as Jobber or Housecall Pro. For missed calls, follow-up and reviews, look at a marketing CRM. Many small businesses connect one of each."],
       ["Is Jobber a CRM?", "Jobber includes a client manager along with scheduling, quoting and invoicing, so it covers the basics of a CRM. Automatic quote follow-ups and two-way texting depend on the plan."],
@@ -392,7 +392,7 @@ export const guides5 = [
 <h2>Is it worth it for you?</h2>
 <p>Count the calls you missed last month and how many left no voicemail. Put them in the free <a href="/tools/missed-call-calculator">missed call calculator</a>. If one or two saved jobs a month cover the cost, try it.</p>
 <h2>How we do it</h2>
-<p>Our <a href="/services/missed-call-text-back">missed-call text-back and AI answering</a> comes set up for you in the $497 a month Complete plan, with 150 minutes a month included, on your existing number. Leads go into your <a href="/services/crm-automation">CRM with follow-up</a>, so nobody has to copy anything.</p>`,
+<p>Our <a href="/services/missed-call-text-back">missed-call text-back and AI answering</a> is {{PRICE:ai}}. It runs on your existing number, and you can hear it on our demo line, {{DEMO}}. Leads go into your <a href="/services/crm-automation">CRM with follow-up</a>, so nobody has to copy anything.</p>`,
     faq: [
       ["How much does an AI receptionist cost per month?", "Entry plans we checked in November 2026 were $49 to $99 a month as add-ons to contractor software. Cost rises with minutes, setup and integrations."],
       ["Can an AI receptionist book appointments?", "Many can, if they connect to your calendar or job software. Otherwise they take the details and text you."],
@@ -447,7 +447,7 @@ export const guides5 = [
 <tr><td>Google Ads</td><td>Shown next to other ads</td><td>Your page and phones are ready</td></tr>
 <tr><td>Shared lead sites</td><td>Often several plumbers</td><td>To fill an empty week</td></tr>
 </table>
-<p>We don't run ads ourselves. If you're weighing them up, read <a href="/guides/local-services-ads-vs-google-ads">Local Services Ads vs Google Ads</a>.</p>
+<p>We manage Google Ads and Local Services Ads only on our Partner package. If you're weighing them up, read <a href="/guides/local-services-ads-vs-google-ads">Local Services Ads vs Google Ads</a>.</p>
 <h2>Track one number</h2>
 <p>Ask every caller how they found you and write it down. After 60 days you'll know which of these to do more of. Here's <a href="/guides/how-to-keep-track-of-customers">a simple way to track it</a>.</p>
 <h2>Want help?</h2>
