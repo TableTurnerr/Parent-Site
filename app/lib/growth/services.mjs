@@ -184,7 +184,7 @@ export const services = [
     slug: 'missed-call-text-back', short: 'Missed-call text-back',
     path: '/services/missed-call-text-back',
     title: 'Missed-Call Text-Back for Contractors | TableTurnerr',
-    description: 'Stop losing jobs to missed calls: every missed call gets a text in seconds, from your number. $49/mo on its own, or add a 24/7 AI receptionist.',
+    description: 'Stop losing jobs to missed calls: every missed call gets a text in seconds, from your number. Included in every package from $97/mo, or add a 24/7 AI receptionist.',
     eyebrow: 'Never miss a call',
     h1: 'Every missed call gets an answer in seconds',
     lede: 'When you\'re on a roof or under a sink, you can\'t answer. The homeowner doesn\'t wait. They call the next business on Google. Missed-call text-back and an AI receptionist make sure they hear from you first.',

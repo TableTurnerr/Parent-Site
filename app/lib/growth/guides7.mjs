@@ -80,7 +80,7 @@ export const guides7 = [
 <tr><td>Jobber Receptionist</td><td>$99 + Jobber plan</td><td>$99 + Jobber plan</td><td>$99 + Jobber plan</td></tr>
 <tr><td>Smith.ai</td><td>$334.50</td><td>$915</td><td>$1,965</td></tr>
 <tr><td>PATLive (human)</td><td>$189</td><td>$479</td><td>$938</td></tr>
-<tr><td>TableTurnerr (AI answering on its own)</td><td>{{PRICE:aiAt100}}</td><td>{{PRICE:aiAt300}}</td><td>{{PRICE:aiAt600}}</td></tr>
+<tr><td>TableTurnerr (Growth package)</td><td>{{PRICE:aiAt100}}</td><td>{{PRICE:aiAt300}}</td><td>{{PRICE:aiAt600}}</td></tr>
 </table>
 <p>How we got the harder ones: Smith.ai at 33 calls is $300 plus 3 extra calls at $11.50. At 100 calls it's the $810 plan plus 10 calls at $10.50. At 200 calls it's $810 plus 110 calls at $10.50, which is still under the $2,100 plan. PATLive at 600 minutes is the $759 plan plus 100 minutes at $1.79. Goodcall at 200 callers is cheaper on the $129 plan than $79 plus 100 extra callers.</p>
 <p>Ours is {{PRICE:ai}}. So 100 minutes fits inside what's included, 300 minutes adds 150 extra minutes and 600 adds 450.</p>

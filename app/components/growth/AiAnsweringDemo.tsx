@@ -3,7 +3,7 @@
 // the live demo line, and a minutes calculator. Sample calls are illustrations (not recordings) and say so.
 import { useState } from "react";
 import { PhoneCall, MessageSquareText, CalendarCheck } from "lucide-react";
-import { AI_MINUTE_RATE, DEMO_PHONE_DISPLAY, DEMO_PHONE_E164, STANDALONE, planById } from "@/app/lib/pricing";
+import { AI_MINUTE_RATE, DEMO_PHONE_DISPLAY, DEMO_PHONE_E164, planById } from "@/app/lib/pricing";
 
 type Sample = { trade: string; time: string; lines: [who: "ai" | "caller", text: string][]; summary: string };
 
@@ -42,10 +42,9 @@ export default function AiAnsweringDemo() {
   const [i, setI] = useState(0);
   const [minutes, setMinutes] = useState(300);
   const s = SAMPLES[i];
-  const ai = STANDALONE.find((x) => x.id === "ai")!;
   const rows = [
-    { name: "AI answering on its own", base: ai.price, inc: 150 },
     { name: `${planById("growth").name} package`, base: planById("growth").price, inc: planById("growth").aiMinutes, note: "with reviews, website, GBP, CRM" },
+    { name: `${planById("complete").name} package`, base: planById("complete").price, inc: planById("complete").aiMinutes, note: "plus local SEO and AI search" },
     { name: `${planById("partner").name} package`, base: planById("partner").price, inc: planById("partner").aiMinutes, note: "with everything, ads and strategy" },
   ].map((r) => ({ ...r, total: r.base + Math.max(0, minutes - r.inc) * AI_MINUTE_RATE }));
 
@@ -93,7 +92,7 @@ export default function AiAnsweringDemo() {
           </label>
           <input id="demo-minutes" type="range" min={0} max={1500} step={25} value={minutes} onChange={(e) => setMinutes(+e.target.value)} className="mt-3 w-full accent-[var(--color-primary)]" />
           <table className="mt-5 w-full text-sm">
-            <thead><tr className="text-left text-xs uppercase tracking-wide text-muted"><th className="pb-2 font-semibold">Option</th><th className="pb-2 font-semibold">Included</th><th className="pb-2 text-right font-semibold">Per month</th></tr></thead>
+            <thead><tr className="text-left text-xs uppercase tracking-wide text-muted"><th className="pb-2 font-semibold">Package</th><th className="pb-2 font-semibold">Included</th><th className="pb-2 text-right font-semibold">Per month</th></tr></thead>
             <tbody>
               {rows.map((r) => (
                 <tr key={r.name} className="border-t border-line">
@@ -104,7 +103,7 @@ export default function AiAnsweringDemo() {
               ))}
             </tbody>
           </table>
-          <p className="mt-3 text-xs text-muted">Extra minutes are ${AI_MINUTE_RATE.toFixed(2)} each on every option. Calls average 2 to 4 minutes.</p>
+          <p className="mt-3 text-xs text-muted">Extra minutes are ${AI_MINUTE_RATE.toFixed(2)} each on every package. Calls average 2 to 4 minutes.</p>
         </div>
       </div>
     </div>

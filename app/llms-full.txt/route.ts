@@ -25,7 +25,7 @@ export function GET() {
     `- What we do: SEO and AEO optimized websites, Google Business Profile management, Google review generation, local SEO, AI search optimization (AEO), CRM follow-ups, missed-call text-back, an after-hours AI answering service and seasonal campaigns, run for clients on our own software.`,
     `- Who we serve: HVAC, plumbing, roofing, electrical, handyman, landscaping, tree service and other home-service businesses, plus local restaurants. Clients in ${growthSite.clientStates.join(", ")}.`,
     `- Track record: ${growthSite.businessesServed} businesses served since we started.`,
-    `- Terms: no contracts, move up or down any time, 2 months free when paid yearly. Google Ads and Local Services Ads only on the Partner package. Custom packages and single services are priced on a call. Every engagement starts with a free Google Maps audit (${base}${AUDIT_PATH}).`,
+    `- Terms: no contracts, move up or down any time, 2 months free when paid yearly. Google Ads and Local Services Ads only on the Partner package. Packages are fixed; anything different is a custom price on a call. Every engagement starts with a free Google Maps audit (${base}${AUDIT_PATH}).`,
     `- New clients get free custom NFC Google review cards with their logo: customers tap the card with a phone, or scan its QR code, and land on the Google review page.`,
     "",
     "## Team",

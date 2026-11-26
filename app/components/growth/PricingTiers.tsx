@@ -1,13 +1,6 @@
-import Link from "next/link";
 import { ArrowRight, Check, MessageSquare, Phone, PhoneCall } from "lucide-react";
 import { growthSite } from "@/app/lib/growth";
-import { PLANS, STANDALONE, yearlyPrice, type Plan } from "@/app/lib/pricing";
-import PricingCalculator from "./PricingCalculator";
-
-/** Pricing on the homepage and /pricing: the pick-what-you-need calculator that lands on a package (see PLANS). */
-export function PricingTiers() {
-  return <PricingCalculator />;
-}
+import { PLANS, yearlyPrice, type Plan } from "@/app/lib/pricing";
 
 function Feature({ children, strong = false }: { children: React.ReactNode; strong?: boolean }) {
   return (
@@ -80,9 +73,8 @@ export function PlanCards() {
   );
 }
 
-/** Full-width bar: contact us for custom pricing, with single-service starting prices. */
+/** Full-width bar: packages are fixed; anything different is a custom price, by phone or on a booked call. */
 export function CustomPricingBar() {
-  const singles = STANDALONE.filter((s) => s.id !== "reviews");
   return (
     <div className="mt-8 rounded-3xl border-2 border-primary bg-primary-soft/40 p-6 sm:p-8" id="custom">
       <div className="grid items-center gap-6 lg:grid-cols-12">
@@ -90,36 +82,25 @@ export function CustomPricingBar() {
           <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-primary">
             <MessageSquare className="h-4 w-4" aria-hidden /> Custom pricing
           </p>
-          <h3 className="mt-2 text-2xl font-bold text-ink">Need something different? We&apos;ll build your package.</h3>
+          <h3 className="mt-2 text-2xl font-bold text-ink">Need something different? Contact us for custom pricing.</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-            Just one service, a different mix, or more than one location. Tell us what you need and we&apos;ll price it up or
-            down for you. Single services start at:
+            Tell us about your business and we&apos;ll give you a price that fits it.
           </p>
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {singles.map((s) => (
-              <li key={s.id}>
-                <Link href={s.href} className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1 text-xs text-ink-soft transition-colors hover:border-primary hover:text-ink">
-                  {s.name} <strong className="text-ink">${s.price}/mo</strong>
-                </Link>
-              </li>
-            ))}
-          </ul>
         </div>
         <div className="flex flex-col gap-2.5 lg:col-span-5">
-          <a href={growthSite.bookingUrl} className="btn btn-primary w-full">
-            Book a call for custom pricing <ArrowRight className="h-4 w-4" />
-          </a>
-          <a href={`tel:${growthSite.phoneE164}`} className="btn btn-ghost w-full">
+          <a href={`tel:${growthSite.phoneE164}`} className="btn btn-primary w-full">
             <Phone className="h-4 w-4" aria-hidden /> Call us: {growthSite.phoneDisplay}
           </a>
-          <Link href="/contact" className="text-center text-sm font-semibold text-primary hover:underline">Or send us a message</Link>
+          <a href={growthSite.bookingUrl} className="btn btn-ghost w-full">
+            Book a call <ArrowRight className="h-4 w-4" />
+          </a>
         </div>
       </div>
     </div>
   );
 }
 
-/** One line under the calculator: the terms. */
+/** One line under the packages: the terms. */
 export function PricingNote() {
   return (
     <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-relaxed text-ink-soft">

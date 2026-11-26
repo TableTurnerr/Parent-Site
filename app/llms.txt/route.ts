@@ -26,7 +26,7 @@ export function GET() {
     line("/services", "Done-for-you services", "Everything we run for home-service businesses, month to month."),
     line("/services/everything-we-set-up", "Everything we set up", "The full list of what we set up for home-service companies, with an example and the limits of each, and what we don't replace."),
     line("/seo", "SEO & AEO", "Local SEO plus answer engine optimization: get found on Google and recommended by ChatGPT, Gemini, Perplexity and Google AI answers."),
-    line("/pricing", "Pricing", "Five packages, each with everything in the one before: Reviews $97, Starter $297, Growth $597 (adds 24/7 AI answering, 150 min), Complete $797 and Partner $1,797 a month. Custom packages priced on a call. Single services from $49: AI answering $197/mo with 150 min then $0.40/min, missed-call text-back $49/mo. No contracts, 2 months free yearly."),
+    line("/pricing", "Pricing", "Five packages, each with everything in the one before: Reviews $97, Starter $297, Growth $597 (adds 24/7 AI answering, 150 min), Complete $797 and Partner $1,797 a month. Extra AI minutes $0.40. Packages are fixed; custom pricing on a call. No contracts, 2 months free yearly."),
     `- [Price list in Markdown](${base}/pricing.md): every plan and single-service price as a table, with worked AI-minute examples.`,
     line("/services/ai-answering-service", "AI answering service", "24/7 AI receptionist for home-service businesses. Live demo line: (270) 207-9006."),
     line("/about", "About", "Who we are, how we work and our rules (no fake reviews, no review gating)."),

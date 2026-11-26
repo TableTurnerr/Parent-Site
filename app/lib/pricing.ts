@@ -1,10 +1,9 @@
 // Single source of truth for pricing, shared by the homepage pricing section, the /pricing page, the pricing
 // calculator, service pages, /pricing.md and llms-full.txt. Plain data (no server imports) so client components can use it.
 //
-// Packages: the owner's seven plans (2026-11-25) were regrouped on 2026-11-26 into five packages, the way the site
-// priced them before (each includes everything in the one before it). Single services are still sold on their own and
-// shown in the custom-pricing bar; on a call we tailor the package up or down. Content files use {{PRICE:<key>}} tokens
-// (see PRICE_TEXT below), so a price change here updates every page.
+// Packages only (owner, 2026-11-26): five fixed packages, each includes everything in the one before it. Nothing is
+// sold piece by piece and there's no pick-and-choose; anyone who needs something different calls or books a call for a
+// custom price. Content files use {{PRICE:<key>}} tokens (see PRICE_TEXT below), so a price change here updates every page.
 
 export const AI_MINUTE_RATE = 0.4;
 export const DEMO_PHONE_E164 = "+12702079006";
@@ -97,51 +96,33 @@ export const PLANS: Plan[] = [
 export const planById = (id: Plan["id"]) => PLANS.find((p) => p.id === id)!;
 export const yearlyPrice = (p: Plan) => p.price * 10;
 
-/** One service on its own. `plan` is the first plan that includes it. */
-export interface Standalone {
-  id: string;
-  name: string;
-  price: number;
-  note: string;
-  plan: Plan["id"];
-  href: string;
-}
-
-export const STANDALONE: Standalone[] = [
-  { id: "ai", name: "AI answering service", price: 197, note: "24/7, 150 minutes included, then $0.40 a minute", plan: "growth", href: "/services/ai-answering-service" },
-  { id: "textback", name: "Missed-call text-back", price: 49, note: "Every missed call gets a text in seconds", plan: "reviews", href: "/services/missed-call-text-back" },
-  { id: "reviews", name: "Review automation", price: 97, note: "The Reviews plan: requests, AI replies, text-back, NFC cards", plan: "reviews", href: "/services/review-generation" },
-  { id: "gbp", name: "Google Business Profile management", price: 147, note: "Weekly posts, photos, services and Q&A", plan: "starter", href: "/services/google-business-profile" },
-  { id: "website", name: "Website", price: 197, note: "Built for Google and AI search, hosting and edits included", plan: "starter", href: "/services/contractor-websites" },
-  { id: "crm", name: "CRM, follow-ups and campaigns", price: 197, note: "Estimate reminders, AI follow-ups, seasonal campaigns", plan: "growth", href: "/services/crm-automation" },
-  { id: "seo", name: "Local SEO and AI search", price: 397, note: "4 new service-and-town pages a month, plus AEO", plan: "complete", href: "/services/local-seo" },
-];
-
-const sa = (id: string) => STANDALONE.find((s) => s.id === id)!;
 const usd = (n: number) => `$${n.toLocaleString("en-US")}`;
-const fromPlan = (id: Plan["id"]) => `the ${usd(planById(id).price)} ${planById(id).name} plan`;
+const pkg = (id: Plan["id"]) => `our ${usd(planById(id).price)}/mo ${planById(id).name} package`;
+/** "$597 a month as part of our Growth package", for prose that reads "It costs ...". */
+const costs = (id: Plan["id"]) => `${usd(planById(id).price)} a month as part of our ${planById(id).name} package`;
+const CUSTOM = "Need something different? Call us for custom pricing";
 
 /**
  * Text that replaces {{PRICE:<key>}} in content files (services, trade pages, guides). Written to read naturally after
- * "It costs ..." or "... is ...". Keep these in sync with the plans above; they're generated, so they normally are.
+ * "It costs ..." or "... is ...". Packages only: nothing is sold piece by piece; custom pricing is on a call.
  */
 export const PRICE_TEXT: Record<string, string> = {
-  ai: `${usd(sa("ai").price)} a month on its own with 150 minutes included, then $0.40 a minute, and it's included in plans from ${usd(planById("growth").price)} a month`,
-  aiShort: `${usd(sa("ai").price)}/mo incl. 150 min, then $0.40/min`,
-  textback: `${usd(sa("textback").price)} a month on its own, and it's included in every plan from ${fromPlan("reviews")}`,
-  reviews: `${usd(planById("reviews").price)} a month on the Reviews plan, which also includes missed-call text-back`,
-  gbp: `${usd(sa("gbp").price)} a month on its own, and it's included in plans from ${fromPlan("starter")}`,
-  social: `included with Google Business Profile management, from ${fromPlan("starter")}`,
-  website: `${usd(sa("website").price)} a month on its own with hosting and edits, and it's included in plans from ${fromPlan("starter")}`,
-  campaigns: `${usd(sa("crm").price)} a month on its own together with the CRM and follow-ups, and it's included in plans from ${fromPlan("growth")}`,
-  crm: `${usd(sa("crm").price)} a month on its own with follow-ups and seasonal campaigns, and it's included in plans from ${fromPlan("growth")}`,
-  seo: `${usd(sa("seo").price)} a month on its own for 4 new pages a month plus AI search work, and it's included in ${fromPlan("complete")}`,
-  aeo: `part of local SEO and AI search, ${usd(sa("seo").price)} a month on its own, and it's included in ${fromPlan("complete")}`,
-  ads: `managed on ${fromPlan("partner")}, with ad spend billed separately`,
+  ai: `${costs("growth")}, with 150 AI answering minutes included and $0.40 for each extra minute`,
+  aiShort: `${usd(planById("growth").price)}/mo Growth package, 150 min incl., then $0.40/min`,
+  textback: `${costs("reviews")}, which also includes review automation, and it's in every package`,
+  reviews: `${costs("reviews")}, which also includes missed-call text-back`,
+  gbp: `${costs("starter")}, together with your website and social posting`,
+  social: `included with Google Business Profile management in ${pkg("starter")}`,
+  website: `${costs("starter")}, with hosting, edits, Google Business Profile management and social posting included`,
+  campaigns: `${costs("growth")}, together with the CRM, follow-ups and 24/7 AI answering`,
+  crm: `${costs("growth")}, with follow-ups, seasonal campaigns and 24/7 AI answering included`,
+  seo: `${costs("complete")}: 4 new service-and-town pages a month plus AI search work`,
+  aeo: `${costs("complete")}, together with local SEO pages`,
+  ads: `managed in ${pkg("partner")}, with ad spend billed separately`,
   minute: "$0.40",
-  // Standalone AI answering total at a given number of minutes, e.g. {{PRICE:aiAt300}} -> "$257".
-  ...Object.fromEntries([100, 200, 300, 600, 1000].map((m) => [`aiAt${m}`, usd(Math.round(sa("ai").price + Math.max(0, m - 150) * AI_MINUTE_RATE))])),
-  plans: `from ${usd(PLANS[0].price)} to ${usd(PLANS[PLANS.length - 1].price)} a month, month to month`,
+  // Growth package total at a given number of AI minutes, e.g. {{PRICE:aiAt300}} -> "$657".
+  ...Object.fromEntries([100, 200, 300, 600, 1000].map((m) => [`aiAt${m}`, usd(Math.round(planById("growth").price + Math.max(0, m - planById("growth").aiMinutes) * AI_MINUTE_RATE))])),
+  plans: `five packages from ${usd(PLANS[0].price)} to ${usd(PLANS[PLANS.length - 1].price)} a month, month to month`,
 };
 
 const DEMO_LINK = `<a href="tel:${DEMO_PHONE_E164}">${DEMO_PHONE_DISPLAY}</a>`;
@@ -155,56 +136,19 @@ export function fillPriceTokens(s: string, html = true): string {
 
 /** Price line shown on each service page, by service slug. */
 export const SERVICE_PRICE: Record<string, string> = {
-  "ai-answering-service": `${usd(sa("ai").price)}/mo on its own with 150 minutes included, then $0.40 a minute. Included from ${fromPlan("growth")}`,
-  "missed-call-text-back": `${usd(sa("textback").price)}/mo on its own. Included in every plan from ${fromPlan("reviews")}`,
-  "review-generation": `${usd(planById("reviews").price)}/mo on the Reviews plan, included in every plan`,
-  "google-business-profile": `${usd(sa("gbp").price)}/mo on its own. Included from ${fromPlan("starter")}`,
-  "social-media-posting": `Comes with Google Business Profile management, from ${fromPlan("starter")}`,
-  "contractor-websites": `${usd(sa("website").price)}/mo on its own with hosting and edits. Included from ${fromPlan("starter")}`,
-  "crm-automation": `${usd(sa("crm").price)}/mo on its own. Included from ${fromPlan("growth")}`,
-  "email-sms-campaigns": `Included from ${fromPlan("growth")}, or ${usd(sa("crm").price)}/mo on its own with the CRM. Carrier and message fees depend on volume`,
-  "local-seo": `${usd(sa("seo").price)}/mo on its own. Included in ${fromPlan("complete")}`,
-  "ai-search-optimization": `Comes with local SEO, ${usd(sa("seo").price)}/mo on its own. Included in ${fromPlan("complete")}`,
+  "ai-answering-service": `Included in ${pkg("growth")} and up, with 150 minutes a month, then $0.40 a minute. ${CUSTOM}`,
+  "missed-call-text-back": `Included in every package, from ${pkg("reviews")}`,
+  "review-generation": `Included in every package, from ${pkg("reviews")}`,
+  "google-business-profile": `Included from ${pkg("starter")}`,
+  "social-media-posting": `Included from ${pkg("starter")}, with Google Business Profile management`,
+  "contractor-websites": `Included from ${pkg("starter")}, with hosting and edits`,
+  "crm-automation": `Included from ${pkg("growth")}`,
+  "email-sms-campaigns": `Included from ${pkg("growth")}. Carrier and message fees depend on volume`,
+  "local-seo": `Included from ${pkg("complete")}`,
+  "ai-search-optimization": `Included from ${pkg("complete")}, with local SEO`,
 };
-/** Services that run on the CRM: priced on the call, from the Growth package. */
-export const ON_CRM_PRICE = `Runs on the CRM, included from ${fromPlan("growth")}. We confirm what's included, and any usage or processing fees, in writing before you start`;
-
-/** Calculator options. Each maps to the first plan that includes it; the result is the highest of those. */
-export interface PriceOption {
-  id: string;
-  label: string;
-  desc: string;
-  plan: Plan["id"];
-}
-
-export const PRICE_OPTIONS: PriceOption[] = [
-  { id: "textback", label: "Missed-call text-back", desc: "Every missed call gets a text in seconds", plan: "reviews" },
-  { id: "gbp", label: "Google Business Profile + social posts", desc: "Weekly posts so you look open and busy", plan: "starter" },
-  { id: "website", label: "Website", desc: "Built for Google and AI search, hosting and edits included", plan: "starter" },
-  { id: "followup", label: "CRM and follow-ups", desc: "Estimate reminders and AI follow-ups", plan: "growth" },
-  { id: "seasonal", label: "Seasonal campaigns", desc: "Tune-ups, referrals and repeat jobs from past customers", plan: "growth" },
-  { id: "ai", label: "AI answering, 24/7", desc: "Every call answered and booked. 150 minutes included", plan: "growth" },
-  { id: "seo", label: "New service-and-town pages", desc: "4 pages a month for local search", plan: "complete" },
-  { id: "aeo", label: "AI search (ChatGPT, Gemini)", desc: "Get recommended in AI answers", plan: "complete" },
-  { id: "ads", label: "Google Ads and LSA management", desc: "Plus strategy and a monthly founders' call", plan: "partner" },
-];
-
-/** The smallest plan that includes every selected option (reviews are always included). */
-export function planFor(selected: Iterable<string>): Plan {
-  let idx = 0;
-  for (const id of selected) {
-    const o = PRICE_OPTIONS.find((x) => x.id === id);
-    if (o) idx = Math.max(idx, PLANS.findIndex((p) => p.id === o.plan));
-  }
-  return PLANS[idx];
-}
-
-/** Monthly cost of AI answering minutes on a plan (plan price + extra minutes). */
-export function monthlyWithMinutes(p: Plan, minutes: number): { total: number; extraMinutes: number; extra: number } {
-  const extraMinutes = p.aiMinutes > 0 ? Math.max(0, minutes - p.aiMinutes) : 0;
-  const extra = Math.round(extraMinutes * AI_MINUTE_RATE * 100) / 100;
-  return { total: p.price + extra, extraMinutes, extra };
-}
+/** Services that run on the CRM: included from the Growth package. */
+export const ON_CRM_PRICE = `Runs on the CRM, included from ${pkg("growth")}. We confirm what's included, and any usage or processing fees, in writing before you start`;
 
 export const PRICING_TERMS = [
   ["Move up or down any time", "Slow season? Drop a package. Busy season? Step back up. No contracts and no penalties."],
@@ -215,19 +159,19 @@ export const PRICING_TERMS = [
 export const PRICING_FAQS = [
   {
     q: "How much does TableTurnerr cost?",
-    a: `Five packages, month to month: ${PLANS.map((p) => `${p.name} ${usd(p.price)}`).join(", ")} a month. Each includes everything in the one before it. Need just one service or a different mix? We price that on a call. Single services start at ${usd(Math.min(...STANDALONE.map((x) => x.price)))} a month, such as AI answering for ${usd(sa("ai").price)} a month.`,
+    a: `Five packages, month to month: ${PLANS.map((p) => `${p.name} ${usd(p.price)}`).join(", ")} a month. Each includes everything in the one before it. Need something different for your business? Call us or book a call for custom pricing.`,
   },
   {
     q: "How much does the AI answering service cost?",
-    a: `${usd(sa("ai").price)} a month on its own, with 150 minutes included and $0.40 for each extra minute. It's also included in the Growth (${usd(planById("growth").price)}) and Complete (${usd(planById("complete").price)}) packages with 150 minutes, and in Partner (${usd(planById("partner").price)}) with 400 minutes. Call our demo line, ${DEMO_PHONE_DISPLAY}, to hear it.`,
+    a: `It's included in the Growth (${usd(planById("growth").price)}) and Complete (${usd(planById("complete").price)}) packages with 150 minutes a month, and in Partner (${usd(planById("partner").price)}) with 400 minutes. Extra minutes are $0.40. Need AI answering on its own? Call us for custom pricing. Hear it on our demo line, ${DEMO_PHONE_DISPLAY}.`,
   },
   {
-    q: "Can I buy just one thing?",
-    a: `Yes. AI answering, missed-call text-back, review automation, Google Business Profile management, a website, CRM and follow-ups, and local SEO are each sold on their own. Ask on a call for the price. The packages cost less than buying the same pieces separately.`,
+    q: "Can I pick and choose services?",
+    a: `No, to keep pricing simple every package is fixed. If none of them fits, call us or book a call and we'll give you a custom price for your business.`,
   },
   {
     q: "Can I get an exact price for my business?",
-    a: "Yes. Book a 15-minute call or call us. We'll look at what you need and build a custom package, up or down, so you don't pay for parts you won't use.",
+    a: "Yes. Book a 15-minute call or call us. We'll look at what your business needs and give you a custom price.",
   },
   {
     q: "Is there a contract?",

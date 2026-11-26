@@ -15,7 +15,7 @@ import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 import ProductBento from "@/app/components/site/ProductBento";
-import { CustomPricingBar, PricingNote, PricingTiers } from "@/app/components/growth/PricingTiers";
+import { CustomPricingBar, PlanCards, PricingNote } from "@/app/components/growth/PricingTiers";
 import { HomeDoneForYou } from "@/app/components/growth/HomeSections";
 import AiAnsweringDemo from "@/app/components/growth/AiAnsweringDemo";
 import { growthSite } from "@/app/lib/growth";
@@ -314,13 +314,13 @@ function Pricing() {
       <div className="container-tt">
         <div className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Pricing</span>
-          <h2 className="display-2 mt-5 text-ink">Simple plans. Pick what you need.</h2>
+          <h2 className="display-2 mt-5 text-ink">Five simple packages.</h2>
           <p className="lead mt-4">
-            Google reviews are always included. Tick what you need and see your package, from $97/mo. No contracts.
+            Each one includes everything in the one before it, from $97/mo. No contracts.
           </p>
         </div>
         <Reveal className="mt-12">
-          <PricingTiers />
+          <PlanCards />
         </Reveal>
         <PricingNote />
         <CustomPricingBar />
@@ -341,7 +341,7 @@ const FAQS = [
   { q: "How fast will I see new reviews?", a: "Usually as soon as the past-customer campaign goes out. For example, Presidential Roofing in Utah went from 27 to 43 Google reviews in 20 days, and new jobs keep the reviews coming after that." },
   { q: "Which platforms do you collect reviews on?", a: "Google, Facebook, Yelp and Angi, the places home-services customers actually check before they call. Most tools only do Google." },
   { q: "Does it work with my software?", a: "Yes. We connect natively to Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks, plus thousands more through Zapier." },
-  { q: "How much does it cost?", a: "Five packages, each with everything in the one before it: Reviews $97, Starter $297, Growth $597 (adds 24/7 AI answering, 150 min), Complete $797 and Partner $1,797 a month. Need something different, like just AI answering ($197/mo) or a custom mix? We price it on a call. No contracts, and 2 months free if you pay yearly. Book a call or call us for an exact price." },
+  { q: "How much does it cost?", a: "Five packages, each with everything in the one before it: Reviews $97, Starter $297, Growth $597 (adds 24/7 AI answering, 150 min), Complete $797 and Partner $1,797 a month. Need something different? Call us for custom pricing. No contracts, and 2 months free if you pay yearly. Book a call or call us for an exact price." },
   { q: "Do I need a contract?", a: "No. Move up or down whenever you need: drop a plan in the slow season and step back up when it gets busy. No penalties." },
   { q: "Can my techs get credit for their reviews?", a: "Yes. Technician leaderboards attribute each review to the person who did the job, which is a great way to motivate your crew." },
 ];

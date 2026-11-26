@@ -1,4 +1,4 @@
-import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
+import { CallNowBand } from "@/app/components/growth/ContactCtas";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { pageTitle } from "@/app/lib/metadata";
@@ -7,9 +7,9 @@ import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateFAQSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
-import { PLANS, PRICING_FAQS, PRICING_TERMS, STANDALONE, DEMO_PHONE_DISPLAY } from "@/app/lib/pricing";
+import { PLANS, PRICING_FAQS, PRICING_TERMS, DEMO_PHONE_DISPLAY } from "@/app/lib/pricing";
 
-// Prices as structured data, so search and AI tools can read each plan and standalone price.
+// Prices as structured data, so search and AI tools can read each package price.
 const OFFERS = {
   "@context": "https://schema.org",
   "@type": "OfferCatalog",
@@ -18,19 +18,17 @@ const OFFERS = {
   itemListElement: [
     ...PLANS.map((p) => ({ "@type": "Offer", name: `${p.name} package`, description: p.adds.join("; "), price: p.price, priceCurrency: "USD",
       priceSpecification: { "@type": "UnitPriceSpecification", price: p.price, priceCurrency: "USD", unitCode: "MON", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } })),
-    ...STANDALONE.map((s) => ({ "@type": "Offer", name: s.name, description: s.note, price: s.price, priceCurrency: "USD", url: `https://www.tableturnerr.com${s.href}`,
-      priceSpecification: { "@type": "UnitPriceSpecification", price: s.price, priceCurrency: "USD", unitCode: "MON", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } })),
   ],
 };
 import AiAnsweringDemo from "@/app/components/growth/AiAnsweringDemo";
 import { VideoSection } from "@/app/components/growth/Growth";
-import { CustomPricingBar, PlanCards, PricingNote, PricingTiers } from "@/app/components/growth/PricingTiers";
+import { CustomPricingBar, PlanCards, PricingNote } from "@/app/components/growth/PricingTiers";
 import { AUDIT_PATH, growthSite } from "@/app/lib/growth";
 
 export const metadata: Metadata = {
-  title: pageTitle("Pricing: Packages from $97/mo, Custom Quotes"),
+  title: pageTitle("Pricing: 5 Simple Packages from $97/mo"),
   description:
-    "Five simple packages for home-service businesses, from $97/mo for reviews to $1,797/mo with ads and strategy. AI answering included from $597/mo. Custom pricing on a call. No contracts.",
+    "Five simple packages for home-service businesses, from $97/mo for reviews to $1,797/mo with ads and strategy. AI answering included from $597/mo. Need something different? Call us for custom pricing. No contracts.",
   alternates: { canonical: "https://www.tableturnerr.com/pricing" },
 };
 
@@ -55,42 +53,30 @@ export default function PricingPage() {
         <div className="container-tt relative pb-10 md:pb-14">
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow">Pricing</span>
-            <h1 className="display mt-6 text-ink">Simple packages. Pick what you need.</h1>
+            <h1 className="display mt-6 text-ink">Five simple packages.</h1>
             <p className="lead mt-6">
-              Google reviews are always included. Tick what else you need and the price lands on a package. Five packages from $97
-              to $1,797 a month, each with everything in the one before it. Need something different? Call us for custom pricing.
+              Each package includes everything in the one before it, from $97 to $1,797 a month. No contracts. Need something
+              different? Call us for custom pricing.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <a href={growthSite.bookingUrl} className="btn btn-primary">Book a call for your exact price <ArrowRight className="h-4 w-4" /></a>
+              <a href={growthSite.bookingUrl} className="btn btn-primary">Book a call <ArrowRight className="h-4 w-4" /></a>
               <a href={`tel:${growthSite.phoneE164}`} className="btn btn-ghost">Call {growthSite.phoneDisplay}</a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Calculator: pick what you need, land on a package (as before) */}
-      <section className="section pt-0" id="calculator">
+      {/* The packages */}
+      <section className="section pt-0" id="plans">
         <div className="container-tt">
-          <PricingTiers />
+          <PlanCards />
           <PricingNote />
           <CustomPricingBar />
         </div>
       </section>
 
-      {/* All packages */}
-      <section className="section bg-surface" id="plans">
-        <div className="container-tt">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow">The packages</span>
-            <h2 className="display-2 mt-5 text-ink">Every package, side by side</h2>
-            <p className="lead mt-4">Each one includes everything in the one before it. Move up or down any time.</p>
-          </div>
-          <div className="mt-12"><PlanCards /></div>
-        </div>
-      </section>
-
       {/* AI answering */}
-      <section className="section" id="ai-answering">
+      <section className="section bg-surface" id="ai-answering">
         <div className="container-tt">
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow">AI answering service</span>
@@ -100,8 +86,6 @@ export default function PricingPage() {
           <div className="mt-12"><AiAnsweringDemo /></div>
         </div>
       </section>
-
-      <BookCallBand title="Want an exact price? Book a 15-minute call" />
 
       {/* Terms */}
       <section className="section">
