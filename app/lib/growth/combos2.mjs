@@ -17,7 +17,7 @@ export const combos2 = [
     description: `A 24/7 AI answering service for HVAC companies: takes no-cool and no-heat calls, books tune-ups, and forwards true emergencies to your on-call tech.`,
     h1: 'AI answering for HVAC companies, built for no-cool and no-heat calls',
     lede: `HVAC phones ring hardest when it's hottest and coldest, which is exactly when every tech is busy. The assistant answers each call in your name, sorts emergencies from tune-ups, and gets the job on your board.`,
-    why: `<p>An AI answering service helps an HVAC company by picking up the calls that would go to voicemail during heat waves, cold snaps and nights, and by telling a "no heat, grandma's at home" call apart from a "can I book a tune-up" call. It costs {{PRICE:ai}}.</p><p>HVAC demand follows the weather. The first 95-degree week or the first freeze brings a wave of calls while your techs are in attics and on roofs, and a homeowner with no cooling calls the next company on the map if nobody answers. The assistant takes several calls at once, asks the system questions your CSR would, and books or forwards each one.</p><p>In the shoulder seasons it handles the quieter calls: maintenance plans, tune-up booking, "do you work on heat pumps?" and "do you come to my town?". To hear how it sounds, call our demo line at {{DEMO}} and ask it anything.</p>`,
+    why: `<p>An AI answering service helps an HVAC company by picking up the calls that would go to voicemail during heat waves, cold snaps and nights, and by telling a "no heat, grandma's at home" call apart from a "can I book a tune-up" call. It costs {{PRICE:ai}}.</p><p>HVAC demand follows the weather. The first 95-degree week or the first freeze brings a wave of calls while your techs are in attics and on roofs, and a homeowner with no cooling calls the next company on the map if nobody answers. The assistant answers, asks the system questions your CSR would, and books or forwards each one.</p><p>In the shoulder seasons it handles the quieter calls: maintenance plans, tune-up booking, "do you work on heat pumps?" and "do you come to my town?". To hear how it sounds, call our demo line at {{DEMO}} and ask it anything.</p>`,
     tactics: [
       ['Emergency rules you write', `No heat in a freeze, no cooling with someone vulnerable at home, a gas smell: you decide what counts, and those calls go straight to the on-call tech. A caller reporting a gas smell is told to leave and call the gas company.`],
       ['The questions a dispatcher asks', `Is the system running at all? Is the outdoor unit on? Furnace or heat pump? Address and best number. Your tech walks in knowing the basics.`],
@@ -28,7 +28,7 @@ export const combos2 = [
       ['How much does an AI answering service for HVAC cost?', `Ours costs {{PRICE:ai}}, set up and tuned for you. In November 2026, Jobber listed its AI Receptionist add-on at $99 a month and Rosie listed $49 a month for 250 minutes; with those, you write and tune the script yourself.`],
       ['Can it tell a real HVAC emergency from a routine call?', `It follows the rules you give it. We write them with you: what counts as urgent in summer and in winter, who is on call, and what happens if they don't pick up. Anything unclear is flagged for a fast callback.`],
       ['Will it quote prices for a new system?', `No. If you have a set diagnostic or tune-up fee, it can say that. Replacement pricing needs a visit, so it books the estimate instead.`],
-      ['What if ten people call at once during a heat wave?', `It can take several calls at the same time, so callers don't hit a busy signal or voicemail.`],
+      ['What if ten people call at once during a heat wave?', `Tell us your busiest-day call volume during setup and we size it for that. Pair it with missed-call text-back, so anyone who can't get through hears from you in seconds.`],
     ],
   },
   {
@@ -184,13 +184,13 @@ export const combos2 = [
     lede: `After hail or a windstorm, your phone rings all day while your crews are on roofs and you're out on estimates. The assistant answers every call, asks about the damage and books inspections in order.`,
     why: `<p>For a roofing company, an AI answering service catches the surge of calls after a storm and the steady flow of leak and inspection calls in between, takes the address and damage details, and books inspections without you stepping off a roof. It costs {{PRICE:ai}}.</p><p>Roofing calls come in waves. A storm can bring a week's worth of calls in a day, and homeowners call several roofers at once. Between storms, most calls are replacement quotes and small leaks, where a quick answer still decides who gets the inspection.</p><p>Hear it for yourself: call our demo line at {{DEMO}} and ask it anything.</p>`,
     tactics: [
-      ['Storm-day overflow', `It takes several calls at once, so a hail day doesn't fill your voicemail. Each caller gets the next open inspection slot, or a callback time you set.`],
+      ['Storm-day overflow', `It answers while your crew is up on roofs, so a hail day doesn't fill your voicemail. Each caller gets the next open inspection slot, or a callback time you set.`],
       ['Damage questions up front', `Where is the leak, is water coming in now, how old is the roof, shingle or metal, is there an insurance claim open. Your estimator arrives knowing the job.`],
       ['Active leaks routed', `Water coming through the ceiling is forwarded to your on-call person, or booked for a tarp visit, by your rules.`],
       ['Careful with insurance', `It can say you work with insurance claims if you do. It doesn't give coverage advice or promise what insurance will pay.`],
     ],
     faq: [
-      ['Do roofers need an answering service for storm season?', `If you miss calls when storms hit, yes. That's when homeowners call several roofers at once. The assistant answers them all and books inspections in order.`],
+      ['Do roofers need an answering service for storm season?', `If you miss calls when storms hit, yes. That's when homeowners call several roofers at once. The assistant answers and books inspections in order, and missed-call text-back catches any overflow.`],
       ['Can it book roof inspections?', `Yes, into the inspection slots you set, with the address and damage details in the summary.`],
       ['What does it say about insurance claims?', `Only what you approve, such as "yes, we work with insurance claims." It won't promise coverage or comment on a claim.`],
       ['How many minutes does a roofer need?', `It costs {{PRICE:ai}}. After a big storm you may use more minutes than usual, so we look at last season's call log with you before storm season.`],
