@@ -39,7 +39,8 @@ export const SERVICE_GROUPS: NavGroup[] = [
   {
     title: "Never miss a job",
     items: [
-      { label: "Missed-call text-back & AI receptionist", href: "/services/missed-call-text-back", desc: "Every missed call gets a text in seconds" },
+      { label: "AI answering service", href: "/services/ai-answering-service", desc: "Every call answered 24/7. Try the demo line" },
+      { label: "Missed-call text-back", href: "/services/missed-call-text-back", desc: "Every missed call gets a text in seconds" },
       { label: "CRM & follow-up", href: "/services/crm-automation", desc: "Estimates and leads followed up automatically" },
       { label: "One inbox & website chat", href: "/services/unified-inbox", desc: "Calls, texts, chat and social messages in one place" },
       { label: "Call tracking", href: "/services/call-tracking", desc: "See which marketing makes the phone ring" },
