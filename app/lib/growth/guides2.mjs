@@ -169,7 +169,7 @@ export const guides2 = [
     faq: [
       ['Do reviews affect Local Services Ads?', 'Yes. Reviews and rating are among the strongest factors in how often LSA shows you.'],
       ['Can I run LSA and Search Ads together?', 'Yes. Many contractors do, and they show in different places on the page.'],
-      ['Does TableTurnerr manage ads?', 'Our focus is the free side of Google: your profile, reviews, website and calls. A stronger profile and more reviews also improve LSA results.'],
+      ['Does TableTurnerr manage ads?', 'Yes, on our Partner package: Google Ads and Local Services Ads management, with ad spend billed separately. Every other package works on the free side of Google: your profile, reviews, website and calls, which also improve LSA results.'],
     ],
   },
 

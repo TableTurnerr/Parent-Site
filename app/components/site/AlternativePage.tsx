@@ -6,6 +6,7 @@ import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateFAQSchema, generateBreadcrumbSchema, generateServiceSchema } from "@/app/lib/schema";
 import { DoneForYouBand } from "@/app/components/growth/Growth";
 import { ALL_ALTERNATIVES, type Alternative, type Cell } from "@/app/lib/alternatives";
+import { OTHER_OPTIONS } from "@/app/lib/alternatives-others";
 
 function CompareCell({ v }: { v: Cell }) {
   if (v === true) return <Check className="mx-auto h-5 w-5 text-success" />;
@@ -144,6 +145,47 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Other options: people searching "<competitor> alternatives" want a list, not only one pick. */}
+      <section className="section" id="other-alternatives">
+        <div className="container-tt">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="eyebrow">More options</span>
+            <h2 className="display-2 mt-5 text-ink">Other {alt.competitor} alternatives</h2>
+            <p className="lead mt-4">
+              We&apos;re not the right fit for everyone. These are the other tools home-service owners compare, with what each is best for.
+              Prices are as published on each vendor&apos;s own site when we checked; confirm before you buy.
+            </p>
+          </div>
+          <div className="mx-auto mt-10 max-w-5xl overflow-x-auto rounded-2xl border border-line bg-white">
+            <table className="w-full min-w-[640px] text-left text-sm">
+              <thead className="bg-surface text-ink">
+                <tr>
+                  <th scope="col" className="p-4 font-semibold">Tool</th>
+                  <th scope="col" className="p-4 font-semibold">Best for</th>
+                  <th scope="col" className="p-4 font-semibold">What it does</th>
+                  <th scope="col" className="p-4 font-semibold">Pricing</th>
+                </tr>
+              </thead>
+              <tbody>
+                {OTHER_OPTIONS.filter((o) => o.name.toLowerCase() !== alt.competitor.toLowerCase()).map((o) => (
+                  <tr key={o.name} className="border-t border-line align-top">
+                    <th scope="row" className="p-4 font-semibold text-ink">
+                      <a href={o.url} rel="noopener nofollow" target="_blank" className="hover:text-primary">{o.name}</a>
+                    </th>
+                    <td className="p-4 text-ink-soft">{o.bestFor}</td>
+                    <td className="p-4 text-ink-soft">{o.note}</td>
+                    <td className="p-4 text-ink-soft">{o.pricing}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-ink-soft">
+            Want the full side-by-side? Read <Link href="/guides/best-review-management-software-for-contractors" className="font-semibold text-primary">the best review management software for contractors</Link>.
+          </p>
         </div>
       </section>
 

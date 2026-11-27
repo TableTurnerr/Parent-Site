@@ -48,7 +48,7 @@ const PROGRAM: { t: string; d: string; href?: string; note?: string }[] = [
   { t: "CRM and automations", d: "Every lead, call, text and message in one place, with follow-ups and estimate reminders that run on their own.", href: "/services/crm-automation" },
   { t: "Missed-call text-back and AI receptionist", d: "The homeowner who calls while you're on a job gets an answer, not voicemail.", href: "/services/missed-call-text-back" },
   { t: "Seasonal campaigns", d: "Tune-up reminders, holiday offers and win-back texts to past customers, so slow months stay busy.", note: "From the $597 Growth package" },
-  { t: "Social content", d: "Regular posts on Google, Facebook, Instagram and TikTok, so you always look open for business.", note: "From the $297 Starter package" },
+  { t: "Social content", d: "Regular posts on Google, Facebook and Instagram, so you always look open for business.", note: "From the $297 Starter package" },
 ];
 
 /** One thin row: what we run for you, scrolled sideways. Trades, guides and tools live in the header menus. */

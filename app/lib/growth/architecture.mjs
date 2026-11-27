@@ -2,7 +2,7 @@
 // Every guide belongs to at least one topic. Each topic has a pillar (a service page) that the guides link up to,
 // and the pillar links back down to its guides. Trade pages link to the guides most useful to that trade.
 
-export const SITE_UPDATED = '2026-11-25';
+export const SITE_UPDATED = '2026-11-27';
 
 export const topics = {
   maps: { name: 'Google Maps & Business Profile', pillar: '/services/google-business-profile',
@@ -76,6 +76,52 @@ export const guideTopics = {
   'answering-service-cost': ['calls'],
   'google-business-profile-management-cost': ['maps', 'reviews', 'seo'],
   'contractor-website-cost': ['seo', 'maps'],
+  // Added 2026-11-27 (content expansion).
+  'best-review-management-software-for-contractors': ['reviews'],
+  'review-software-by-trade': ['reviews', 'trades'],
+  'how-to-respond-to-negative-google-reviews': ['reviews'],
+  'how-to-remove-fake-google-reviews': ['reviews'],
+  'ftc-fake-review-rule-contractors': ['reviews'],
+  'google-business-profile-suspended-service-area': ['maps'],
+  'rank-google-maps-without-storefront': ['maps', 'seo'],
+  'google-ask-maps-ai-mode-local-business': ['seo', 'maps'],
+  'servicetitan-vs-housecall-pro-vs-jobber': ['crm'],
+  'speed-to-lead-home-services': ['calls', 'crm'],
+  'hvac-csr-phone-script': ['calls', 'trades'],
+  'flat-rate-vs-hourly-pricing': ['booking', 'trades'],
+  'hvac-slow-season-marketing': ['repeat', 'trades'],
+  'how-to-track-lead-sources': ['seo', 'crm'],
+  'how-much-should-contractors-spend-on-marketing': ['seo'],
+  'home-service-marketing-agency-cost': ['seo'],
+  'angi-vs-thumbtack-vs-homeadvisor': ['seo'],
+  'exclusive-vs-shared-leads': ['seo'],
+  'facebook-and-nextdoor-ads-for-contractors': ['seo', 'repeat'],
+  'google-local-services-ads-cost-per-lead': ['seo', 'maps'],
+  'garage-door-answering-service-cost': ['calls', 'trades'],
+  'pest-control-answering-service-cost': ['calls', 'trades'],
+  'landscaping-answering-service-cost': ['calls', 'trades'],
+  'cleaning-business-answering-service-cost': ['calls', 'trades'],
+  'hvac-answering-service-cost': ['calls', 'trades'],
+  'plumbing-answering-service-cost': ['calls', 'trades'],
+  'electrician-answering-service-cost': ['calls', 'trades'],
+  'roofing-answering-service-cost': ['calls', 'trades'],
+  'handyman-answering-service-cost': ['calls', 'trades'],
+  'pest-control-website-cost': ['seo', 'trades'],
+  'garage-door-website-cost': ['seo', 'trades'],
+  'painting-contractor-website-cost': ['seo', 'trades'],
+  'cleaning-business-website-cost': ['seo', 'trades'],
+  'tree-service-website-cost': ['seo', 'trades'],
+  'remodeling-contractor-website-cost': ['seo', 'trades'],
+  'how-much-does-a-website-cost': ['seo'],
+  'ai-website-builder-vs-freelancer-vs-agency': ['seo'],
+  'website-maintenance-cost': ['seo'],
+  'why-your-website-isnt-getting-leads': ['seo', 'crm'],
+  'handyman-website-cost': ['seo', 'trades'],
+  'plumber-website-cost': ['seo', 'trades'],
+  'hvac-website-cost': ['seo', 'trades'],
+  'electrician-website-cost': ['seo', 'trades'],
+  'roofing-website-cost': ['seo', 'trades'],
+  'landscaping-website-cost': ['seo', 'trades'],
 };
 
 // service slug -> topic its guides come from
@@ -88,15 +134,20 @@ export const serviceTopics = {
 
 // trade slug -> guide slugs to feature on that trade page (most relevant first)
 export const tradeGuides = {
-  handyman: ['handyman-marketing-ideas', 'how-to-keep-track-of-customers', 'how-to-rank-higher-on-google-maps', 'missed-call-text-back-cost'],
+  handyman: ['handyman-marketing-ideas', 'how-to-keep-track-of-customers', 'how-to-rank-higher-on-google-maps', 'missed-call-text-back-cost', 'handyman-website-cost', 'handyman-answering-service-cost'],
   'fence-companies': ['fence-company-marketing-guide', 'how-to-rank-higher-on-google-maps', 'how-many-google-reviews-to-rank'],
-  hvac: ['how-to-get-more-hvac-customers', 'how-to-sell-maintenance-plans', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost'],
-  plumbing: ['how-to-get-more-plumbing-customers', 'best-crm-for-plumbers', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost'],
-  'garage-door-repair': ['local-services-ads-vs-google-ads', 'google-business-profile-suspended', 'how-to-rank-higher-on-google-maps', 'best-ai-receptionist-for-contractors'],
-  roofing: ['how-to-get-more-roofing-customers', 'ask-past-customers-for-google-reviews', 'how-to-follow-up-on-an-estimate', 'contractor-website-cost'],
-  'pest-control': ['local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank', 'workiz-google-reviews', 'answering-service-cost'],
-  electricians: ['electrician-review-management', 'local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank', 'ai-receptionist-cost'],
+  hvac: ['how-to-get-more-hvac-customers', 'hvac-slow-season-marketing', 'hvac-csr-phone-script', 'how-to-sell-maintenance-plans', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost', 'hvac-website-cost', 'hvac-answering-service-cost'],
+  plumbing: ['how-to-get-more-plumbing-customers', 'flat-rate-vs-hourly-pricing', 'best-crm-for-plumbers', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost', 'plumber-website-cost', 'plumbing-answering-service-cost'],
+  'garage-door-repair': ['local-services-ads-vs-google-ads', 'google-business-profile-suspended', 'how-to-rank-higher-on-google-maps', 'best-ai-receptionist-for-contractors', 'garage-door-website-cost', 'garage-door-answering-service-cost'],
+  roofing: ['how-to-get-more-roofing-customers', 'ask-past-customers-for-google-reviews', 'how-to-follow-up-on-an-estimate', 'contractor-website-cost', 'roofing-website-cost', 'roofing-answering-service-cost'],
+  'pest-control': ['local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank', 'workiz-google-reviews', 'answering-service-cost', 'pest-control-website-cost', 'pest-control-answering-service-cost'],
+  electricians: ['electrician-review-management', 'local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank', 'ai-receptionist-cost', 'electrician-website-cost', 'electrician-answering-service-cost'],
   'deck-builders': ['fence-company-marketing-guide', 'contractor-seo-cost', 'how-to-rank-higher-on-google-maps'],
+  landscaping: ['how-to-rank-higher-on-google-maps', 'landscaping-website-cost', 'landscaping-answering-service-cost', 'ask-past-customers-for-google-reviews'],
+  painting: ['how-to-rank-higher-on-google-maps', 'painting-contractor-website-cost', 'ask-past-customers-for-google-reviews'],
+  'cleaning-services': ['how-to-rank-higher-on-google-maps', 'cleaning-business-website-cost', 'cleaning-business-answering-service-cost', 'ask-past-customers-for-google-reviews'],
+  'tree-service': ['how-to-rank-higher-on-google-maps', 'tree-service-website-cost', 'ask-past-customers-for-google-reviews'],
+  remodeling: ['how-to-rank-higher-on-google-maps', 'remodeling-contractor-website-cost', 'ask-past-customers-for-google-reviews'],
 };
 export const defaultTradeGuides = ['how-to-rank-higher-on-google-maps', 'ask-past-customers-for-google-reviews', 'best-crm-for-home-service-business'];
 

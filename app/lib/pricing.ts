@@ -86,7 +86,7 @@ export const PLANS: Plan[] = [
       "Google Ads and Local Services Ads management (ad spend billed separately)",
       "A marketing strategy for your business, reviewed every month",
       "Bigger average jobs: upsells, bundles, good/better/best quotes",
-      "Maintenance plans, memberships and referral programs",
+      "Designing and selling maintenance plans, memberships and referral programs with you",
       "8 pages a month and 400 AI answering minutes",
       "A monthly strategy call with the founders",
     ],
@@ -123,6 +123,11 @@ export const PRICE_TEXT: Record<string, string> = {
   // Growth package total at a given number of AI minutes, e.g. {{PRICE:aiAt300}} -> "$657".
   ...Object.fromEntries([100, 200, 300, 600, 1000].map((m) => [`aiAt${m}`, usd(Math.round(planById("growth").price + Math.max(0, m - planById("growth").aiMinutes) * AI_MINUTE_RATE))])),
   plans: `five packages from ${usd(PLANS[0].price)} to ${usd(PLANS[PLANS.length - 1].price)} a month, month to month`,
+  // Short package names for mid-sentence use: {{PRICE:pkgGrowth}} -> "our $597/mo Growth package"; {{PRICE:from}} -> "$97 a month".
+  ...Object.fromEntries(PLANS.map((p) => [`pkg${p.id[0].toUpperCase()}${p.id.slice(1)}`, pkg(p.id)])),
+  // {{PRICE:planStarter}} -> "$297/mo (Starter package)", for tables and "Ours: ..." lines.
+  ...Object.fromEntries(PLANS.map((p) => [`plan${p.id[0].toUpperCase()}${p.id.slice(1)}`, `${usd(p.price)}/mo (${p.name} package)`])),
+  from: `${usd(PLANS[0].price)} a month`,
 };
 
 const DEMO_LINK = `<a href="tel:${DEMO_PHONE_E164}">${DEMO_PHONE_DISPLAY}</a>`;
@@ -191,6 +196,6 @@ export const PRICING_FAQS = [
   },
   {
     q: "Does it work with my job software?",
-    a: "Yes. We connect to Jobber, Housecall Pro and GorillaDesk, so review requests and follow-ups go out when a job is marked done.",
+    a: "Yes. Jobber has an official integration, Housecall Pro connects on its plan that allows integrations, and any other software connects through Zapier or Make, so review requests and follow-ups go out when a job is marked done. No software? We import your customer list.",
   },
 ];

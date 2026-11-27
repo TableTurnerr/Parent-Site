@@ -327,7 +327,7 @@ export const combos3 = [
     faq: [
       ['How do I get customers to review my lawn care business?', 'Ask once, at a moment that makes sense: after their first few cuts, by text, with a direct link. Then send an end-of-season reminder to anyone who hasn\'t.'],
       ['Should I ask for a review after every mow?', 'No. Once per customer, plus an end-of-season reminder, is plenty. Asking every week gets ignored and annoys people.'],
-      ['Do you work with Jobber?', 'Yes. We connect to Jobber, Housecall Pro, ServiceTitan and Workiz. With other software, like LMN or Service Autopilot, we work from a customer export.'],
+      ['Do you work with Jobber?', 'Yes, Jobber has an official integration. Housecall Pro connects on its plan that allows integrations, and other software, like LMN or Service Autopilot, connects through Zapier or Make or from a customer export.'],
       ['What does it cost?', 'It\'s {{PRICE:reviews}}.'],
     ],
   },
