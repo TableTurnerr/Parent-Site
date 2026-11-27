@@ -65,6 +65,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry("/results", 0.7),
     entry("/restaurants", 0.5),
     ...results.map((r) => entry(r.path, 0.7)),
+    entry("/results/cooling-comfort", 0.7),
     entry("/results/seasons-taiwanese-eatery", 0.6),
     // Blog
     entry("/blog", 0.7, "weekly"),

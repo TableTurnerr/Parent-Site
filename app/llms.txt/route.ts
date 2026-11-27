@@ -54,6 +54,7 @@ export function GET() {
     "## Results",
     `- [Podcast: ${PODCAST.title}](${podcastWatchUrl}): ${PODCAST.durationLabel} interview with our client Adrian Alvarez of Presidential Roofing.`,
     ...results.map((r) => line(r.path, `${r.client}: ${r.reviewsBefore} to ${r.reviewsAfter} Google reviews in ${r.days} days`)),
+    line("/results/cooling-comfort", "Cooling Comfort Inc. (HVAC, Inglewood, CA): Google Business Profile verified 3 days after one free call, after months stuck"),
     line("/results/seasons-taiwanese-eatery", "Seasons Taiwanese Eatery (Honolulu restaurant, 2025): 500+ customers brought in, with video"),
     "",
     "## Review software by industry",
