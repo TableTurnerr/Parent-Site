@@ -43,7 +43,7 @@ const RULES = [
 ];
 
 const faq: Pair[] = [
-  ["Is TableTurnerr software or an agency?", "Both, but you don't have to run anything. We're a small marketing company that does the work for you on our own software: Google profile, reviews, website, local SEO and call capture. If you'd rather run the software yourself, there are self-serve plans on the pricing page."],
+  ["Is TableTurnerr software or an agency?", "Both, but you don't have to run anything. We're a small marketing company that does the work for you on our own software: Google profile, reviews, website, local SEO and call capture. Every package is done for you, month to month."],
   ["Who will I actually talk to?", "One of the owners. We don't hand you to a sales rep or an offshore account manager."],
   ["Which businesses do you work with?", `US home-service businesses: ${trades.slice(0, 8).map((t) => t.name.toLowerCase()).join(", ")} and more. We have clients in ${clientStatesText}.`],
   ["Do you require a contract?", "No. Month to month."],

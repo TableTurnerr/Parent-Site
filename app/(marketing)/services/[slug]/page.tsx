@@ -62,7 +62,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           ["How it works", <ol key="s" className="list-decimal pl-5">{s.steps.map(([h, d]) => <li key={h}><strong>{plain(h)}:</strong> {plain(d)}</li>)}</ol>],
           ["Who it's for", "US home-service businesses: roofers, HVAC, plumbers, electricians, handymen, fence companies, landscapers and more."],
           ["Works with", `${FSM}.`],
-          ["Price", <span key="p">{SERVICE_PRICE[s.slug] ?? ON_CRM_PRICE}. See the <Link href="/pricing" className="font-semibold text-primary">pricing calculator</Link>.</span>],
+          ["Price", <span key="p">{SERVICE_PRICE[s.slug] ?? ON_CRM_PRICE}. See all <Link href="/pricing" className="font-semibold text-primary">five packages</Link>.</span>],
           ["Terms", "Done for you, month to month."],
         ]}
       />

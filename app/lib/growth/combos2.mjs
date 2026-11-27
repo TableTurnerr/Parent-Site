@@ -4,8 +4,8 @@
 //
 // Pricing: never type a TableTurnerr price. {{PRICE:ai}} and {{PRICE:textback}} are filled in from app/lib/pricing.ts,
 // and {{DEMO}} becomes the demo line. Competitor prices come from the ICP research notes (read November 2026) and must
-// carry that month. Integrations: the CRM connects to Jobber, Housecall Pro and GorillaDesk (pricing.ts); combos.mjs
-// and the FSM line in index.ts also name ServiceTitan and Workiz.
+// carry that month. Integrations (owner-confirmed): Jobber official; Housecall Pro on its plan that allows integrations;
+// anything else (GorillaDesk, ServiceTitan, Workiz...) through Zapier or Make. See FSM in index.ts.
 export const combos2Services = ['ai-answering-service', 'missed-call-text-back'];
 export const combos2Trades = ['hvac', 'plumbing', 'electricians', 'handyman', 'roofing', 'garage-door-repair', 'pest-control', 'landscaping'];
 
@@ -273,7 +273,7 @@ export const combos2 = [
     faq: [
       ['Do pest control companies need an answering service?', `If calls go to voicemail while techs are on routes, it helps. Most callers want help soon and will try another company.`],
       ['Can it sign people up for recurring pest control plans?', `It can explain your plans and book the first visit. Plan agreements and payment stay with your office or your field software.`],
-      ['Does it work with GorillaDesk?', `Calls, transcripts and summaries go into the CRM we run for you, which we connect to GorillaDesk, Jobber and Housecall Pro. We'll show you how bookings reach your schedule on the call.`],
+      ['Does it work with GorillaDesk?', `Calls, transcripts and summaries go into the CRM we run for you, which connects to GorillaDesk through Zapier or Make. We'll show you how bookings reach your schedule on the call.`],
       ['What about after-hours stinging insect or wildlife calls?', `You decide. It can forward urgent ones to your on-call tech, or take the details and book the first morning slot. If someone is having an allergic reaction, it tells them to call 911.`],
     ],
   },
@@ -288,11 +288,11 @@ export const combos2 = [
       ['Ask for a photo', `"Sorry we missed you! What are you seeing, and where? A photo helps us identify it." Photos of bugs and droppings save a lot of back-and-forth.`],
       ['New leads and current customers', `Recurring customers asking for a re-service get the same quick reply, and the thread goes to the office.`],
       ['Seasonal wording', `Spring ants and wasps, fall rodents: we update the text for your season.`],
-      ['Runs next to your software', `Text-back runs in our CRM, which we connect to GorillaDesk, Jobber or Housecall Pro. Threads live in the CRM inbox and the app.`],
+      ['Runs next to your software', `Text-back runs in our CRM, which connects to Jobber, Housecall Pro, or GorillaDesk through Zapier or Make. Threads live in the CRM inbox and the app.`],
     ],
     faq: [
       ['Do pest control customers really reply to texts?', `Many prefer it, especially to send a photo of what they found. Callers on landlines won't get the text, which is the main gap.`],
-      ['Does missed-call text-back work with GorillaDesk?', `Yes, alongside it. Text-back runs in our CRM, which we connect to GorillaDesk, Jobber and Housecall Pro, so you keep scheduling in your field software.`],
+      ['Does missed-call text-back work with GorillaDesk?', `Yes, alongside it. Text-back runs in our CRM, which connects to GorillaDesk through Zapier or Make, so you keep scheduling in your field software.`],
       ['How much does missed-call text-back cost?', `It costs {{PRICE:textback}}.`],
     ],
   },

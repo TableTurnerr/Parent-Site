@@ -68,7 +68,7 @@ export default function Page() {
         rows={[
           ["What it is", "Marketing, a CRM and automations for home-service companies, set up and run for you."],
           ["Built on", "HighLevel for the CRM, plus our own review software. No training needed."],
-          ["Works with", `${FSM}, QuickBooks, or no software at all.`],
+          ["Works with", `${FSM}, or no software at all.`],
           ["Price", <span key="p">From $97 a month for reviews to $1,797 for Partner, no contracts. Custom pricing on a call. See <Link href="/pricing" className="font-semibold text-primary">pricing</Link>.</span>],
           ["Not included", "Dispatch, routes, job costing, payroll, bookkeeping and paid ads."],
           ["First step", <span key="f">A <Link href="/free-google-maps-audit" className="font-semibold text-primary">free Google Maps audit</Link>, then one call about what to fix first.</span>],

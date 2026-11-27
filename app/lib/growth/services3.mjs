@@ -2,7 +2,7 @@
 // Rules for this file: never type a TableTurnerr price. Use {{PRICE:<key>}} tokens (app/lib/pricing.ts fills them in),
 // and {{DEMO}} where the demo line number belongs. Competitor prices only with the month they were checked; the ones
 // below were read on each vendor's own pricing page in November 2026 (see guides5 and the ICP research notes).
-// Integrations: the CRM connects to Jobber, Housecall Pro and GorillaDesk (pricing.ts). Don't promise that a booking
+// Integrations (owner-confirmed): Jobber official; Housecall Pro on its plan that allows integrations; anything else via Zapier or Make. Don't promise that a booking
 // lands directly in a job-software schedule; that depends on the client's setup.
 export const services3 = [
   {
@@ -77,7 +77,7 @@ export const services3 = [
       ['Does it work with my existing number?', `Yes. We use call forwarding, so your number stays the same everywhere. You choose whether it answers every call or only the ones you miss.`],
       [`What if I'm already on the phone, or several people call at once?`, `It picks up. If you're on another call or can't get to the phone, the assistant answers, and it can take several calls at the same time, so nobody hits a busy signal or voicemail.`],
       ['What happens in an emergency?', `You decide what counts as an emergency, and those calls are forwarded to your on-call person. We agree on a backup if they don't pick up, such as a text with the details. Anyone in danger is told to call 911 or the gas company.`],
-      ['Does it work with Jobber or Housecall Pro?', `Calls, transcripts and summaries go into the CRM we run for you, which we connect to Jobber, Housecall Pro and GorillaDesk. How a booking reaches your job schedule depends on your setup, and we'll show you on the call.`],
+      ['Does it work with Jobber or Housecall Pro?', `Calls, transcripts and summaries go into the CRM we run for you, which connects to Jobber (official integration), to Housecall Pro on its plan that allows integrations, and to other software through Zapier or Make. How a booking reaches your job schedule depends on your setup, and we'll show you on the call.`],
       ['Can I hear it before I sign up?', `Yes. Call our demo line at {{DEMO}} and ask it anything.`],
       ['Can I use it only after hours?', `Yes. Many owners have it answer only at night, on weekends and when they miss a call during the day. You can change that whenever you want.`],
     ],

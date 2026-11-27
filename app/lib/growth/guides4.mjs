@@ -56,7 +56,7 @@ export const guides4 = [
 <h2>How many reviews do you need?</h2>
 <p>Enough to match the three businesses at the top of Google Maps in your town. Our free <a href="/tools/google-review-calculator">Google review calculator</a> works out your number and how long it will take. There's more in <a href="/guides/how-many-google-reviews-to-rank">how many reviews you need to rank</a>.</p>
 <h2>Doing it yourself or having it done</h2>
-<p>Everything above is free to do yourself. The hard part is keeping it up for a year. If you'd rather not, our <a href="/services/review-generation">review generation service</a> texts past customers, asks after every job and replies to every review, from $97 a month with no contract.</p>`,
+<p>Everything above is free to do yourself. The hard part is keeping it up for a year. If you'd rather not, our <a href="/services/review-generation">review generation service</a> texts past customers, asks after every job and replies to every review, from {{PRICE:from}} with no contract.</p>`,
     faq: [
       ["How can I get Google reviews fast?", "Text your direct Google review link to every customer from the last year or two, then send one reminder a few days later. Past customers are the quickest source because you already have their numbers and most were never asked."],
       ["How do I get more Google reviews for free?", "Copy your review link from Google Business Profile and text or email it yourself to every customer. It costs nothing but time. Software only saves you from having to remember."],
@@ -132,7 +132,7 @@ export const guides4 = [
 <li><strong>Stopping after the list is done.</strong> Homeowners look at recent reviews. Keep asking after every job. See <a href="/guides/how-to-get-more-google-reviews">how to get more Google reviews</a>.</li>
 </ol>
 <h2>Or we do it for you</h2>
-<p>We import your customers, write the messages with a photo of you or your crew, send them in batches, reply to every review and keep it going after each job. It's the core of our <a href="/services/review-generation">review generation service</a>, from $97 a month.</p>`,
+<p>We import your customers, write the messages with a photo of you or your crew, send them in batches, reply to every review and keep it going after each job. It's the core of our <a href="/services/review-generation">review generation service</a>, from {{PRICE:from}}.</p>`,
     faq: [
       ["How do you politely ask a past customer for a review?", "Use their name, remind them of the job, say why it helps and give one direct link. For example: Hi Mark, it's Luis from Summit Roofing. We replaced the shingles on your garage in August. Would you mind leaving an honest Google review? It takes a minute: [link]."],
       ["How far back should I go?", "Start with the last 12 months and work back to about two years. Older customers are less likely to remember the details."],
@@ -235,7 +235,7 @@ export const guides4 = [
 <h2>A card alone isn't enough</h2>
 <p>Cards end up in kitchen drawers. Pair the card with a text the same day, so the link is also on their phone. Then go back to the people you never asked: <a href="/guides/ask-past-customers-for-google-reviews">how to ask past customers for reviews</a>.</p>
 <h2>Get custom cards free</h2>
-<p>Every new TableTurnerr client gets custom NFC review cards with their logo, designed and shipped free. Plans start at $97 a month, with no contract. <a href="/pricing">See the cards and prices</a>.</p>`,
+<p>Every new TableTurnerr client gets custom NFC review cards with their logo, designed and shipped free. Packages start at {{PRICE:from}}, with no contract. <a href="/pricing">See the cards and prices</a>.</p>`,
     faq: [
       ["Is a Google review QR code free?", "Yes. Google gives you a review link and QR code in your Business Profile at no cost. You only pay for printing."],
       ["Do NFC review cards work on iPhones?", "Yes on newer iPhones, and on most newer Android phones with NFC switched on. Print a QR code on the card as a backup."],
