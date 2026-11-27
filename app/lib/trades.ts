@@ -29,7 +29,7 @@ export const TRADES: Record<string, Trade> = {
       "Map-pack rank tracking for your service areas",
     ],
     faqs: [
-      { q: "Does it work with ServiceTitan or Housecall Pro?", a: "Yes. We connect to ServiceTitan, Housecall Pro, Jobber, Workiz and QuickBooks, plus thousands more through Zapier, so requests fire automatically when a job is completed." },
+      { q: "Does it work with ServiceTitan or Housecall Pro?", a: "Yes. Jobber has an official integration, Housecall Pro connects on its plan that allows integrations, and ServiceTitan, Workiz, QuickBooks and thousands more connect through Zapier or Make, so requests fire automatically when a job is completed." },
       { q: "Can I send requests for maintenance plans too?", a: "Absolutely. Every tune-up and membership visit is a chance for a fresh review. We handle recurring customers with a built-in cooldown so nobody gets asked twice." },
       { q: "How fast will I see results?", a: "Most HVAC shops see their first new reviews within 24 hours of launching review reactivation to their past customers, then a steady stream from new jobs." },
     ],
@@ -86,8 +86,8 @@ export const TRADES: Record<string, Trade> = {
     ],
     faqs: [
       { q: "Will customers get spammed?", a: "No. We send one polite, personalized request with a couple of gentle reminders, and a 30-day cooldown means repeat customers are never over-asked." },
-      { q: "Does it connect to my dispatch software?", a: "Yes. Native integrations with Housecall Pro, ServiceTitan, Jobber, Workiz and QuickBooks, plus Zapier for everything else." },
-      { q: "How long to set up?", a: "About 15 minutes. Connect your CRM, link your Google profile, and launch. We include a 1-on-1 setup call on every plan." },
+      { q: "Does it connect to my dispatch software?", a: "Yes. Jobber has an official integration, Housecall Pro connects on its plan that allows integrations, and anything else (ServiceTitan, Workiz, QuickBooks and more) connects through Zapier or Make." },
+      { q: "How long to set up?", a: "We do it for you during onboarding: we connect your software or import your customer list, link your Google profile and launch. Every package includes a setup call." },
     ],
   },
   electrical: {

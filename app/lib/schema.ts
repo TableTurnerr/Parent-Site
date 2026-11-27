@@ -1,4 +1,5 @@
 import { SITE_CONFIG, SOCIAL_LINKS } from "./constants";
+import { PLANS } from "./pricing";
 
 const ORG_ID = `${SITE_CONFIG.url}/#organization`;
 
@@ -22,13 +23,12 @@ export const FOUNDERS = [
   },
 ];
 
-/** The four fixed monthly prices (see app/lib/pricing.ts), as an offer catalog AI answers can quote exactly. */
-const PRICE_OFFERS: [string, number, string][] = [
-  ["Reviews", 97, "Google review requests after every job, replies to every review, connected to your CRM, FSM or invoicing software."],
-  ["Starter", 297, "Reviews plus an SEO and AEO optimized website, or Google Business Profile management with social posting."],
-  ["Growth", 397, "Reviews, an SEO and AEO optimized website, and Google Business Profile management with social posting."],
-  ["Complete", 497, "Everything: website, Google profile, reviews, local SEO, AI search (AEO), missed-call text-back, AI answering, CRM follow-ups and seasonal campaigns."],
-];
+/** The five fixed monthly packages, from app/lib/pricing.ts, as an offer catalog AI answers can quote exactly. */
+const PRICE_OFFERS: [string, number, string][] = PLANS.map((p, i) => [
+  `${p.name} package`,
+  p.price,
+  (i > 0 ? `Everything in ${PLANS[i - 1].name}, plus: ` : "") + p.adds.join("; "),
+]);
 
 export function generateOrganizationSchema() {
   return {
@@ -40,7 +40,7 @@ export function generateOrganizationSchema() {
     logo: `${SITE_CONFIG.url}/logo.png`,
     image: `${SITE_CONFIG.url}/logo.png`,
     description:
-      "TableTurnerr is a done-for-you online marketing agency for US home-service businesses (HVAC, plumbing, roofing, electrical, landscaping, tree service and more) and local restaurants. We build SEO and AEO optimized websites, manage Google Business Profiles, generate Google reviews, and run CRM follow-ups, missed-call text-back and AI answering on our own software. Plans from $97/mo, month to month, starting with a free Google Maps audit.",
+      "TableTurnerr is a done-for-you online marketing agency for US home-service businesses (HVAC, plumbing, roofing, electrical, landscaping, tree service and more) and local restaurants. We build SEO and AEO optimized websites, manage Google Business Profiles, generate Google reviews, and run CRM follow-ups, missed-call text-back and AI answering on our own software. Five fixed packages from $97 to $1,797 a month, month to month, with custom pricing on a call. Every engagement starts with a free Google Maps audit.",
     email: SITE_CONFIG.email,
     telephone: SITE_CONFIG.phone,
     priceRange: "$97-$1,797/mo",
@@ -81,7 +81,7 @@ export function generateOrganizationSchema() {
     ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Done-for-you marketing plans",
+      name: "Done-for-you marketing packages",
       itemListElement: PRICE_OFFERS.map(([name, price, description]) => ({
         "@type": "Offer",
         name,

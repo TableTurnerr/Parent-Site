@@ -559,7 +559,7 @@ export const guides6 = [
     eyebrow: "Paid leads", readMinutes: 3, article: { date: DATE },
     ctaTitle: "Want leads nobody else is sold?",
     content: `
-<div class="callout"><p><strong>Short version:</strong> compare them on cost per job won, in your trade and town, over at least 20 leads each. Any of them can work if you answer first. None of them build anything you keep. We don't run ads or sell leads, so we have no stake in which you pick.</p></div>
+<div class="callout"><p><strong>Short version:</strong> compare them on cost per job won, in your trade and town, over at least 20 leads each. Any of them can work if you answer first. None of them build anything you keep. We don't sell leads. We do manage Google Ads and Local Services Ads on our Partner package, so weigh our view with that in mind.</p></div>
 <h2>How each one charges</h2>
 <table>
 <tr><th></th><th>Google Local Services Ads</th><th>Thumbtack</th><th>Angi Leads</th></tr>

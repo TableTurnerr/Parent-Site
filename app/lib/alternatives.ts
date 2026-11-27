@@ -241,7 +241,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       },
       {
         q: "Does TableTurnerr work with my field-service CRM?",
-        a: "Yes, we connect directly to Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks, so completed jobs automatically trigger review requests.",
+        a: "Yes. Jobber has an official integration, Housecall Pro connects on its plan that allows integrations, and ServiceTitan, Workiz, QuickBooks and others connect through Zapier or Make, so completed jobs automatically trigger review requests.",
       },
       {
         q: "Is there a contract?",

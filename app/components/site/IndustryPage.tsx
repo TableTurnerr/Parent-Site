@@ -1,3 +1,8 @@
+/**
+ * Industry page (/industries/<slug>). Same layout as IndustryPage, plus an optional trade guide (industry.shortAnswer +
+ * industry.sections) with a table of contents and related links, rendered between "Why it matters" and the features.
+ * Industries without sections render exactly as before. FAQ accordion and FAQPage JSON-LD both use industry.faqs.
+ */
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check, Star } from "lucide-react";
@@ -6,8 +11,8 @@ import CrossLinks from "@/app/components/site/CrossLinks";
 import JsonLd from "@/app/components/site/JsonLd";
 import { getFeature, type ProductFeature } from "@/app/lib/features";
 import { INDUSTRIES, type Industry } from "@/app/lib/industries";
-import { DoneForYouBand } from "@/app/components/growth/Growth";
-import { tradeForIndustry } from "@/app/lib/growth";
+import { DoneForYouBand, Html } from "@/app/components/growth/Growth";
+import { getCombo, slugify, tradeForIndustry } from "@/app/lib/growth";
 import {
   generateBreadcrumbSchema,
   generateFAQSchema,
@@ -42,8 +47,69 @@ function IndustryActivityCard({ industry }: { industry: Industry }) {
   );
 }
 
+
+const READING = [
+  { href: "/guides/review-software-by-trade", label: "Review software by trade", sub: "Which tools fit HVAC, plumbing, roofing and more" },
+  { href: "/guides/best-review-management-software-for-contractors", label: "Best review management software for contractors", sub: "A side-by-side look at the options" },
+];
+
+/** "plumbing company" -> "plumbing companies", "handyman business" -> "handyman businesses". */
+const pluralNoun = (noun: string) => (noun.endsWith("y") ? `${noun.slice(0, -1)}ies` : noun.endsWith("s") ? `${noun}es` : `${noun}s`);
+
+function IndustryGuide({ industry, comboPath, tradeLabel }: { industry: Industry; comboPath?: string; tradeLabel?: string }) {
+  const sections = industry.sections ?? [];
+  const toc = sections.map((s) => ({ id: slugify(s.h), h: s.h }));
+  const links = [
+    ...(comboPath ? [{ href: comboPath, label: `Done-for-you review generation for ${tradeLabel}`, sub: "We run the requests, follow-ups and replies" }] : []),
+    ...READING,
+    { href: "/integrations", label: "Integrations", sub: "Jobber, Housecall Pro, ServiceTitan, Workiz and more" },
+  ];
+  return (
+    <section className="section" aria-labelledby="trade-guide">
+      <div className="container-tt max-w-3xl">
+        <span className="eyebrow">{industry.name} review guide</span>
+        <h2 id="trade-guide" className="display-2 mt-5 text-ink">How review management works for {pluralNoun(industry.noun)}</h2>
+        {industry.shortAnswer && (
+          <div className="growth-prose mt-8">
+            <div className="callout"><p><strong>Short version:</strong> <span dangerouslySetInnerHTML={{ __html: industry.shortAnswer }} /></p></div>
+          </div>
+        )}
+        {toc.length >= 4 && (
+          <nav aria-label="On this page" className="card mt-8 p-6">
+            <p className="font-bold text-ink">On this page</p>
+            <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-sm">
+              {toc.map((t) => <li key={t.id}><a href={`#${t.id}`} className="text-primary hover:underline">{t.h}</a></li>)}
+            </ol>
+          </nav>
+        )}
+        <div className="mt-10">
+          {sections.map((s, i) => (
+            <div key={s.h} className={i ? "mt-12" : undefined}>
+              <h2 id={slugify(s.h)} className="scroll-mt-28 text-2xl font-bold leading-snug text-ink md:text-[1.7rem]">{s.h}</h2>
+              <Html html={s.html} className="mt-4" />
+            </div>
+          ))}
+        </div>
+        <div className="mt-12">
+          <p className="font-bold text-ink">Related reading</p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {links.map((l) => (
+              <Link key={l.href} href={l.href} className="card card-hover group flex flex-col p-5">
+                <span className="font-semibold text-ink">{l.label}</span>
+                <span className="mt-1 text-sm text-ink-soft">{l.sub}</span>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function IndustryPage({ industry }: { industry: Industry }) {
   const doneTrade = tradeForIndustry(industry.slug);
+  const reviewCombo = doneTrade ? getCombo(doneTrade.slug, "review-generation") : undefined;
   const base = "https://www.tableturnerr.com";
   const features = industry.featureSlugs
     .map(getFeature)
@@ -116,6 +182,8 @@ export default function IndustryPage({ industry }: { industry: Industry }) {
           </div>
         </div>
       </section>
+
+      {industry.sections?.length ? <IndustryGuide industry={industry} comboPath={reviewCombo?.path} tradeLabel={doneTrade?.plural ?? doneTrade?.name.toLowerCase()} /> : null}
 
       <section className="section">
         <div className="container-tt">

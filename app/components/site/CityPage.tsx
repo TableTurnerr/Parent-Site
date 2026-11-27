@@ -64,7 +64,7 @@ export default function CityPage({ city }: { city: ReviewCity }) {
                 <a href="tel:+13323331008" className="btn btn-ghost">Call (332) 333-1008</a>
               </div>
               <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-soft">
-                {["Done for you or self-serve", "No contracts", "Texas clients in Richardson and Dallas"].map((t) => (
+                {["Done for you", "No contracts", "Texas clients in Richardson and Dallas"].map((t) => (
                   <li key={t} className="inline-flex items-center gap-2">
                     <Check className="h-4 w-4 text-success" /> {t}
                   </li>
@@ -133,7 +133,7 @@ export default function CityPage({ city }: { city: ReviewCity }) {
         <div className="container-tt">
           <div className="max-w-2xl">
             <span className="eyebrow border-white/15 bg-white/5 text-white">How it works</span>
-            <h2 className="display-2 mt-5 text-white">Live in 15 minutes, working on autopilot</h2>
+            <h2 className="display-2 mt-5 text-white">Set up for you, then working on autopilot</h2>
           </div>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {STEPS.map((s) => (

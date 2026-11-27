@@ -17,7 +17,7 @@ export async function generateMetadata({
   if (!c) return {};
   return {
     title: `Home-Service Marketing in ${c.name}, ${c.stateCode}`,
-    description: `More Google reviews and map-pack visibility for ${c.name} home-service businesses, done for you or self-serve. Get a free Google Maps audit.`,
+    description: `More Google reviews and map-pack visibility for ${c.name} home-service businesses, done for you. Get a free Google Maps audit.`,
     alternates: { canonical: `https://www.tableturnerr.com/locations/${c.slug}` },
   };
 }

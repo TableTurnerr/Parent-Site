@@ -56,7 +56,7 @@ export default function IntegrationPage({ integration }: { integration: Integrat
                 <Link href="/contact" className="btn btn-ghost">Book a demo</Link>
               </div>
               <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-soft">
-                {["Connects in ~1 minute", "No code required", "No contracts"].map((t) => (
+                {["Set up for you", "No code required", "No contracts"].map((t) => (
                   <li key={t} className="inline-flex items-center gap-2">
                     <Check className="h-4 w-4 text-success" /> {t}
                   </li>

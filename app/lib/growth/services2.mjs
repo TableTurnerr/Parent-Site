@@ -38,7 +38,7 @@ export const services2 = [
       ['Will people book over my existing jobs?', 'No, as long as those jobs are on the connected calendar. We set buffers and a minimum notice so you don\'t wake up to a 7 a.m. surprise.'],
       ['Can I charge a deposit at booking?', 'Yes, through a connected payment account such as Stripe. Some states limit deposits on home-improvement contracts, so check yours first.'],
       ['Can I limit how far I travel?', 'We ask for the address or zip code and follow up if it\'s outside your area. The calendar doesn\'t plan routes.'],
-      ['What does it cost?', 'It runs on the CRM, included from our $597 Growth package. We confirm the setup, and any text or card-processing fees, in writing before you start.'],
+      ['What does it cost?', 'It runs on the CRM, included from {{PRICE:pkgGrowth}}. We confirm the setup, and any text or card-processing fees, in writing before you start.'],
     ],
   },
   {
@@ -110,7 +110,7 @@ export const services2 = [
       ['How many plans should I offer?', 'Start with one. Two or three levels help later, once you know what people ask for.'],
       ['Can members cancel online?', 'We build a simple way to cancel. Some states require it, and people sign up more easily when leaving is easy.'],
       ['Can I move my existing members over?', 'Yes. We import the list. Each member re-enters their payment details on the new page, because card numbers can\'t be copied across.'],
-      ['What does it cost?', 'It runs on the CRM, included from our $597 Growth package. We confirm the setup and any processing fees in writing first.'],
+      ['What does it cost?', 'The sign-up page, billing and reminders run on the CRM, included from our Growth package. The Partner package adds designing and selling the plan with you: the offer, a script for your techs and a campaign to past customers. We confirm setup and any processing fees in writing first.'],
     ],
   },
   {
@@ -212,14 +212,14 @@ export const services2 = [
       ['Will a tracking number hurt my Google ranking?', 'Not if it\'s set up properly: tracking number as the main number, your real number added as a second one, and the same business details everywhere else.'],
       ['Do I keep my number?', 'Yes. Tracking numbers forward to the phone you use now.'],
       ['Can I listen to calls?', 'Yes, if you turn on recording and follow your state\'s consent rules.'],
-      ['What does it cost?', 'It runs on the CRM, included from our $597 Growth package. Extra numbers and call minutes are usage-based and we confirm them first.'],
+      ['What does it cost?', 'It runs on the CRM, included from {{PRICE:pkgGrowth}}. Extra numbers and call minutes are usage-based and we confirm them first.'],
     ],
   },
   {
     slug: 'social-media-posting', short: 'Social media posting',
     path: '/services/social-media-posting',
     title: 'Social Media Posting for Contractors | TableTurnerr',
-    description: 'Job photos, reviews and tips posted to your Google profile, Facebook and Instagram every week, planned and published for you. From $297 a month.',
+    description: 'Job photos, reviews and tips posted to your Google profile, Facebook and Instagram every week, planned and published for you. Included in {{PRICE:pkgStarter}}.',
     eyebrow: 'Social media',
     h1: 'Your work, posted every week without you',
     lede: 'A page last updated in 2023 makes a homeowner wonder if you\'re still in business. Send us job photos and we turn them into posts on your Google profile, Facebook and Instagram, with the same message everywhere.',
@@ -246,7 +246,7 @@ export const services2 = [
       ['Which platforms do you post to?', 'Your Google Business Profile, Facebook and Instagram. Ask us about others.'],
       ['What if I don\'t have photos?', 'We start with reviews, tips and your team, and give your crew a one-minute photo habit.'],
       ['Do you answer comments and messages?', 'We let you know, and from the Growth package up, messages come into one inbox. You or your office reply.'],
-      ['What does it cost?', 'It comes with Google Business Profile management, from $297 a month with reviews included.'],
+      ['What does it cost?', 'It comes with Google Business Profile management in {{PRICE:pkgStarter}}, with reviews included.'],
     ],
   },
   {
@@ -280,7 +280,7 @@ export const services2 = [
       ['Is this a recruiting agency?', 'No. We build the page and the follow-up. You interview and decide.'],
       ['Can I use it with Indeed or Facebook?', 'Yes. Point those posts at your page, so every applicant lands in one board.'],
       ['How long does it take?', 'It depends on how quickly we get the details and photos. We give you a date on the first call.'],
-      ['What does it cost?', 'It runs on the website and CRM, included from our $597 Growth package. We confirm what\'s included before you start.'],
+      ['What does it cost?', 'It runs on the website and CRM, included from {{PRICE:pkgGrowth}}. We confirm what\'s included before you start.'],
     ],
   },
 ].map((s) => ({ ...s, crumbs: [['/', 'Home'], ['/services', 'Services'], [s.path, s.short]] }));
