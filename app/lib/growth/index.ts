@@ -13,6 +13,15 @@ import { guides4 } from "./guides4.mjs";
 import { guides5 } from "./guides5.mjs";
 import { guides6 } from "./guides6.mjs";
 import { guides7 } from "./guides7.mjs";
+import { guides11 } from "./guides11.mjs";
+import { guides8 } from "./guides8.mjs";
+import { guides10 } from "./guides10.mjs";
+import { guides9 } from "./guides9.mjs";
+import { guides16 } from "./guides16.mjs";
+import { guides14 } from "./guides14.mjs";
+import { guides15 } from "./guides15.mjs";
+import { guides12 } from "./guides12.mjs";
+import { guides13 } from "./guides13.mjs";
 import { services as servicesRaw } from "./services.mjs";
 import { services2 } from "./services2.mjs";
 import { services3 } from "./services3.mjs";
@@ -88,7 +97,7 @@ export const serviceTopics = serviceTopicsRaw as Record<string, string>;
 
 export const trades: Trade[] = withPrices(toGuides([...trades1, ...trades2])) as Trade[];
 export const services: Service[] = withPrices(toGuides([...servicesRaw, ...services2, ...services3])) as Service[];
-export const guides: Guide[] = (withPrices(toGuides([...guides7, ...guides6, ...guides4, ...guides5, ...guides1, ...guides2, ...guides3])) as Omit<Guide, "topics">[]).map((g: Omit<Guide, "topics">) => ({
+export const guides: Guide[] = (withPrices(toGuides([...guides12, ...guides13, ...guides15, ...guides14, ...guides16, ...guides9, ...guides10, ...guides8, ...guides11, ...guides7, ...guides6, ...guides4, ...guides5, ...guides1, ...guides2, ...guides3])) as Omit<Guide, "topics">[]).map((g: Omit<Guide, "topics">) => ({
   ...g,
   topics: (guideTopics as Record<string, string[]>)[g.slug] ?? ["trades"],
 })) as Guide[];
@@ -136,7 +145,8 @@ export function withToc(html: string): { html: string; toc: Pair[] } {
 
 export const plain = (s: string) => s.replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").replace(/&#x27;|&#39;/g, "'").replace(/\s+/g, " ").trim();
 
-export const FSM = "Jobber, Housecall Pro, ServiceTitan and Workiz";
+/** How we connect to job software (owner-confirmed): Jobber official; Housecall Pro on its plan that allows integrations; anything else via Zapier or Make. */
+export const FSM = "Jobber (official integration), Housecall Pro, and any other software through Zapier or Make";
 export const AUDIT_PATH = "/free-google-maps-audit";
 
 /** Software industry slug (/industries/<slug>) to its done-for-you trade page (/marketing/<slug>), where one exists. */
