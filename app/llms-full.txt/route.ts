@@ -48,6 +48,7 @@ export function GET() {
     "",
     "## Client results",
     ...results.map((r) => `- ${r.client} (${r.trade}, ${r.location}): ${r.reviewsBefore} to ${r.reviewsAfter} Google reviews in ${r.days} days. ${base}${r.path}`),
+    `- Cooling Comfort Inc. (HVAC, Inglewood, CA): Google Business Profile stuck unverified for months; verified 3 days after one free consultation call. ${base}/results/cooling-comfort`,
     `- Seasons Taiwanese Eatery (restaurant, Honolulu, 2025): 500+ customers brought in; 1,500+ locals reached directly. ${base}/results/seasons-taiwanese-eatery`,
     "",
     "## Videos (what is said)",

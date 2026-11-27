@@ -105,6 +105,7 @@ export const services = [
 <p>We don\'t stuff keywords into your business name, create fake addresses or buy reviews. Those tricks can get a profile suspended, and getting it back can take weeks. Everything we do follows Google\'s guidelines.</p>`,
     faq: [
       ['My profile got suspended. Can you help?', 'Often, yes. We\'ll review why it happened and help you submit a reinstatement request with the right documents.'],
+      ["My profile won't verify. Can you help?", "Yes, and the first call is free. We go through your profile and Google's verification steps with you. Cooling Comfort, an HVAC company in Inglewood, CA, had been stuck for months and was verified 3 days after that call."],
       ['I\'m a service-area business with no storefront. Does that matter?', 'No. Most home-service businesses hide their address and list service areas instead. We set that up correctly.'],
       ['How fast will my map ranking improve?', 'Category and service fixes can show results within a few weeks. Review growth builds over time.'],
       ['Do I keep ownership of my profile?', 'Always. You stay the owner, we\'re added as a manager.'],
