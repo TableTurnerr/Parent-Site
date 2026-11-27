@@ -25,6 +25,14 @@ export const topics = {
 
 // guide slug -> topics (first one is the primary topic)
 export const guideTopics = {
+  'how-to-verify-google-business-profile': ['maps'],
+  'google-business-profile-video-verification': ['maps'],
+  'google-business-profile-verification-problems': ['maps'],
+  'how-to-claim-google-business-profile': ['maps'],
+  'google-business-profile-optimization': ['maps', 'seo'],
+  'google-business-profile-categories': ['maps'],
+  'google-business-profile-photos-and-posts': ['maps'],
+  'google-business-profile-mistakes': ['maps'],
   'how-to-rank-higher-on-google-maps': ['maps', 'seo'],
   'how-many-google-reviews-to-rank': ['reviews', 'maps'],
   'google-business-profile-suspended': ['maps'],
@@ -136,7 +144,7 @@ export const serviceTopics = {
 export const tradeGuides = {
   handyman: ['handyman-marketing-ideas', 'how-to-keep-track-of-customers', 'how-to-rank-higher-on-google-maps', 'missed-call-text-back-cost', 'handyman-website-cost', 'handyman-answering-service-cost'],
   'fence-companies': ['fence-company-marketing-guide', 'how-to-rank-higher-on-google-maps', 'how-many-google-reviews-to-rank'],
-  hvac: ['how-to-get-more-hvac-customers', 'hvac-slow-season-marketing', 'hvac-csr-phone-script', 'how-to-sell-maintenance-plans', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost', 'hvac-website-cost', 'hvac-answering-service-cost'],
+  hvac: ['how-to-get-more-hvac-customers', 'how-to-verify-google-business-profile', 'hvac-slow-season-marketing', 'hvac-csr-phone-script', 'how-to-sell-maintenance-plans', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost', 'hvac-website-cost', 'hvac-answering-service-cost'],
   plumbing: ['how-to-get-more-plumbing-customers', 'flat-rate-vs-hourly-pricing', 'best-crm-for-plumbers', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost', 'plumber-website-cost', 'plumbing-answering-service-cost'],
   'garage-door-repair': ['local-services-ads-vs-google-ads', 'google-business-profile-suspended', 'how-to-rank-higher-on-google-maps', 'best-ai-receptionist-for-contractors', 'garage-door-website-cost', 'garage-door-answering-service-cost'],
   roofing: ['how-to-get-more-roofing-customers', 'ask-past-customers-for-google-reviews', 'how-to-follow-up-on-an-estimate', 'contractor-website-cost', 'roofing-website-cost', 'roofing-answering-service-cost'],
@@ -149,7 +157,7 @@ export const tradeGuides = {
   'tree-service': ['how-to-rank-higher-on-google-maps', 'tree-service-website-cost', 'ask-past-customers-for-google-reviews'],
   remodeling: ['how-to-rank-higher-on-google-maps', 'remodeling-contractor-website-cost', 'ask-past-customers-for-google-reviews'],
 };
-export const defaultTradeGuides = ['how-to-rank-higher-on-google-maps', 'ask-past-customers-for-google-reviews', 'best-crm-for-home-service-business'];
+export const defaultTradeGuides = ['how-to-rank-higher-on-google-maps', 'google-business-profile-optimization', 'ask-past-customers-for-google-reviews', 'best-crm-for-home-service-business'];
 
 // Old pages that compete with a new page for the same search. 301 them so signals consolidate on one URL.
 // Internal links in the kept old pages are rewritten to the new URL too, so nothing links through a redirect.

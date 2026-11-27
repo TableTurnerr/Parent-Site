@@ -40,6 +40,13 @@ export default function Page() {
                 <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read the case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
               </Link>
             ))}
+            <Link href="/results/cooling-comfort" className="card card-hover group flex flex-col p-7">
+              <span className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">HVAC · Inglewood, California</span>
+              <span className="mt-3 text-xl font-bold text-ink">Cooling Comfort Inc.</span>
+              <span className="mt-4 font-display text-4xl font-bold text-ink">3 days</span>
+              <span className="mt-1 text-sm text-ink-soft">to a verified Google profile, after months stuck</span>
+              <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read the case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+            </Link>
             <Link href="/results/seasons-taiwanese-eatery" className="card card-hover group flex flex-col p-7">
               <span className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Restaurant · Honolulu, Hawaii</span>
               <span className="mt-3 text-xl font-bold text-ink">Seasons Taiwanese Eatery</span>

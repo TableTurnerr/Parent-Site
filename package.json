@@ -1,6 +1,6 @@
 {
   "name": "tableturnerr.com",
-  "version": "4.5.26",
+  "version": "4.5.27",
   "private": true,
   "scripts": {
     "dev": "next dev",

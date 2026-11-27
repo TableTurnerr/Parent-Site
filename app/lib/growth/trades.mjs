@@ -15,6 +15,7 @@ const svc = {
   handyIdeas: ['/blog/handyman-marketing-ideas', 'Handyman marketing ideas that work', 'A practical list, ranked by cost and payoff.'],
   fenceGuide: ['/blog/fence-company-marketing-guide', 'Fence company marketing guide', 'Seasonality, pricing pages and the map pack.'],
   presidential: ['/results/presidential-roofing', 'Case study: Presidential Roofing', '27 to 43 Google reviews in 20 days for a Utah roofer.'],
+  coolingComfort: ['/results/cooling-comfort', 'Case study: Cooling Comfort', 'An Inglewood HVAC company verified on Google 3 days after one free call.'],
   jobber: ['/blog/jobber-google-reviews', 'Getting Google reviews from Jobber', 'Native features, gaps, and what to add.'],
 };
 
@@ -145,7 +146,7 @@ export const trades = [
       ['We already use ServiceTitan\'s review feature. Do we need you?', 'Maybe not for the requests themselves. Many owners still need the profile, pages, call capture and someone watching the numbers. We\'ll tell you which parts you actually need.'],
       ['Do you work with commercial HVAC?', 'Yes, though the plan changes. Commercial buyers search differently and care about response time and service agreements.'],
     ],
-    related: [svc.calls, svc.reviews, svc.maps],
+    related: [svc.coolingComfort, svc.calls, svc.maps],
   },
 
   // ------------------------------------------------------------------ ROOFING
