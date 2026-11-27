@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import AlternativePage from "@/app/components/site/AlternativePage";
 import { getAlternative, ALTERNATIVE_SLUGS } from "@/app/lib/alternatives";
+import { ALT_META } from "@/app/lib/alternatives-others";
 
 export function generateStaticParams() {
   return ALTERNATIVE_SLUGS.map((slug) => ({ slug }));
@@ -18,8 +19,9 @@ export async function generateMetadata({
   return {
     // metaTitle already includes "| TableTurnerr"; absolute stops the root
     // template from appending the brand a second time.
-    title: { absolute: alt.metaTitle },
-    description: alt.metaDescription,
+    // List-style titles ("13 GatherUp Alternatives...") match what searchers want; the site template adds the brand.
+    title: ALT_META[alt.slug]?.metaTitle ?? { absolute: alt.metaTitle },
+    description: ALT_META[alt.slug]?.metaDescription ?? alt.metaDescription,
     alternates: { canonical: `https://www.tableturnerr.com/alternatives/${alt.slug}` },
   };
 }
