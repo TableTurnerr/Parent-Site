@@ -254,6 +254,40 @@ export function NextSteps({ items }: { items: Link3[] }) {
   );
 }
 
+/** Owner-confirmed case studies by trade slug (OWNER-FACTS.md). Only real results; add a trade only with a real client. */
+const TRADE_PROOF: Record<string, { href: string; who: string; where: string; result: string; detail: string }> = {
+  hvac: {
+    href: "/results/cooling-comfort", who: "Cooling Comfort Inc.", where: "HVAC company · Inglewood, CA",
+    result: "Google profile verified 3 days after one free call",
+    detail: "Their Google Business Profile had been stuck unverified for months. We went through the name, address, category and verification steps on one free consultation call. Three days later it was verified.",
+  },
+  roofing: {
+    href: "/results/presidential-roofing", who: "Presidential Roofing", where: "Roofing contractor · Syracuse, UT",
+    result: "27 to 43 Google reviews in 20 days",
+    detail: "Review requests to past customers and after every finished job, all sent to their Google review page.",
+  },
+};
+
+/** A real client result for this trade, if we have one. Renders nothing for trades without a case study. */
+export function TradeProof({ trade, tradeName }: { trade: string; tradeName?: string }) {
+  const p = TRADE_PROOF[trade];
+  if (!p) return null;
+  return (
+    <section className="section pt-0" data-analytics-section="trade_proof">
+      <div className="container-tt">
+        <Link href={p.href} className="card card-hover group grid gap-4 p-7 md:grid-cols-[1fr_auto] md:items-center md:p-8">
+          <span>
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">Real result{tradeName ? ` from a ${tradeName} client` : ""} · {p.where}</span>
+            <span className="mt-2 block text-xl font-bold text-ink">{p.who}: {p.result}</span>
+            <span className="mt-2 block text-sm leading-relaxed text-ink-soft">{p.detail}</span>
+          </span>
+          <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary">Read the case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 /** Named clients (see app/lib/growth/clients.ts), with an optional line tying them to the page's city. */
 export function ClientProof({ clients, title, intro }: { clients: Client[]; title: string; intro?: string }) {
   return (
