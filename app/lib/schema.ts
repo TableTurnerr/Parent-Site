@@ -44,6 +44,7 @@ export function generateOrganizationSchema() {
     email: SITE_CONFIG.email,
     telephone: SITE_CONFIG.phone,
     priceRange: "$97-$1,797/mo",
+    foundingDate: "2025-03",
     areaServed: { "@type": "Country", name: "United States" },
     slogan: "We get home-service businesses more calls from Google.",
     founder: FOUNDERS.map((p) => ({ "@id": p["@id"] })),
