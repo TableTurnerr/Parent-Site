@@ -23,8 +23,6 @@ export interface Industry {
 
 const coreReviewFeatures = [
   "review-reactivation",
-  "multi-platform-reviews",
-  "map-pack-rank-tracking",
   "ai-review-requests-and-replies",
   "review-widgets-and-social-posts",
   "crm-contact-import-and-lead-management",
@@ -43,8 +41,8 @@ function makeIndustry(input: Omit<Industry, "seoTitle" | "metaDescription" | "ou
     metaDescription: `Review management software for ${softLower(input.name)} businesses: ask for a Google review after every job, follow up and get found by more local customers.`,
     outcomes: [
       "Review requests after completed jobs",
-      "Google, Facebook, Yelp and Angi review coverage",
-      "Local visibility tracked alongside review activity",
+      "Every request goes to your Google review page",
+      "AI-drafted replies to every Google review",
       "Relevant FieldTask operations tools when your team needs them",
     ],
     faqs: [
@@ -54,7 +52,7 @@ function makeIndustry(input: Omit<Industry, "seoTitle" | "metaDescription" | "ou
       },
       {
         q: `Which review sites can ${input.name} businesses use?`,
-        a: "TableTurnerr supports review workflows for Google, Facebook, Yelp and Angi, so you can direct customers to the places future homeowners commonly check.",
+        a: "We focus on Google reviews: they show on your Google Business Profile and Maps listing, where most people decide who to call. TableTurnerr doesn't run review requests for Facebook, Yelp or Angi.",
       },
       {
         q: `Can I see the features that fit my ${input.name} workflow?`,
@@ -417,7 +415,7 @@ ${table([ROW.jobber, ROW.hcp, ROW.servicetitan, ROW.workiz, other("Service Fusio
   },
 
   hvac: {
-    seoTitle: "HVAC Review Software & Review Automation",
+    seoTitle: "HVAC Review Management Software & Automation",
     metaDescription: "HVAC review software that automates a Google review request after every tune-up, repair and install. Works with Jobber, Housecall Pro, ServiceTitan and Workiz.",
     shortAnswer: "HVAC review software sends a review request after every tune-up, repair and install, follows up once and helps you reply. TableTurnerr connects to Jobber (official integration), to Housecall Pro on its plan that allows integrations, and to ServiceTitan, Workiz and others through Zapier or Make, and runs the whole thing for you.",
     sections: [
@@ -475,8 +473,8 @@ ${table([ROW.servicetitan, ROW.hcp, ROW.jobber, ROW.workiz, other("FieldEdge, Su
   },
 
   electrical: {
-    seoTitle: "Electrician Review Software & Review Management",
-    metaDescription: "Electrician review software: a Google review request after every job, a follow-up and reply help. Works with Jobber, Housecall Pro, ServiceTitan and Workiz.",
+    seoTitle: "Electrician Review Management Software & Platform",
+    metaDescription: "Electrician review management platform for local electrical businesses: a Google review request after every job, follow-ups and replies, run for you.",
     shortAnswer: "Electrician review software sends every customer a review request after the job, follows up once and helps you reply. TableTurnerr connects to Jobber (official integration), to Housecall Pro on its plan that allows integrations, and to ServiceTitan, Workiz and others through Zapier or Make, and runs it for you.",
     sections: [
       {

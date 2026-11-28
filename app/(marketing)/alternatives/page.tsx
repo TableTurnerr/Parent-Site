@@ -6,7 +6,7 @@ import { ALL_ALTERNATIVES } from "@/app/lib/alternatives";
 export const metadata: Metadata = {
   title: "Compare Review Automation Tools",
   description:
-    "See how TableTurnerr compares to Birdeye, NiceJob, Podium, GatherUp and PulseM: multi-platform review automation for home-service industries, with no contracts.",
+    "See how TableTurnerr compares to Birdeye, NiceJob, Podium, GatherUp and PulseM: done-for-you Google review automation for home-service industries, with no contracts.",
   alternates: { canonical: "https://www.tableturnerr.com/alternatives" },
 };
 

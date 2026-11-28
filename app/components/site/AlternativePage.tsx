@@ -6,7 +6,16 @@ import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateFAQSchema, generateBreadcrumbSchema, generateServiceSchema } from "@/app/lib/schema";
 import { DoneForYouBand } from "@/app/components/growth/Growth";
 import { ALL_ALTERNATIVES, type Alternative, type Cell } from "@/app/lib/alternatives";
-import { AGENCY_OPTIONS, OTHER_OPTIONS } from "@/app/lib/alternatives-others";
+import { AGENCY_OPTIONS, OTHER_OPTIONS, type OtherOption } from "@/app/lib/alternatives-others";
+import { PRICE_TEXT } from "@/app/lib/pricing";
+
+// "Short answer" picks for review-software pages. A pick naming the page's own competitor drops that name.
+const REVIEW_PICKS: [string, string[]][] = [
+  ["Already pay for Jobber, Housecall Pro or ServiceTitan? Try the review requests built into it first", ["Jobber Reviews", "Housecall Pro", "ServiceTitan Reputation"]],
+  ["Want a low-cost tool you'll run yourself", ["NiceJob", "GatherUp", "Grade.us"]],
+  ["Multi-location company with a marketing team to run a big platform", ["Birdeye", "Podium", "Reputation"]],
+  ["Want reviews, replies and missed-call text-back done for you, month to month", ["TableTurnerr"]],
+];
 
 function CompareCell({ v }: { v: Cell }) {
   if (v === true) return <Check className="mx-auto h-5 w-5 text-success" />;
@@ -21,6 +30,21 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
   // Marketing-company pages (Scorpion, Hibu, Thryv) compare agencies, not review tools.
   const agency = alt.kind === "marketing-agency";
   const others = (agency ? AGENCY_OPTIONS : OTHER_OPTIONS).filter((o) => o.name.toLowerCase() !== alt.competitor.toLowerCase());
+  // TableTurnerr is listed as one option among the others, first, with its price from app/lib/pricing.ts.
+  const us: OtherOption = {
+    name: "TableTurnerr",
+    url: "/pricing",
+    bestFor: agency
+      ? "Owners who want their Google profile, reviews, website and follow-up run for them, month to month"
+      : "Owners who want Google review requests, replies and missed-call text-back done for them",
+    note: alt.ourAngle,
+    pricing: `${PRICE_TEXT.plans[0].toUpperCase()}${PRICE_TEXT.plans.slice(1)}, no contract`,
+  };
+  const list = [us, ...others];
+  const count = list.length;
+  const picks = agency
+    ? []
+    : REVIEW_PICKS.map(([label, names]) => [label, names.filter((n) => n.toLowerCase() !== alt.competitor.toLowerCase())] as const).filter(([, n]) => n.length);
   return (
     <>
       <JsonLd
@@ -53,8 +77,22 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
 
           <div className="max-w-3xl">
             <span className="eyebrow">{alt.category} · {alt.competitor} alternative</span>
-            <h1 className="display mt-6 text-ink">{alt.tagline}</h1>
+            <h1 className="display mt-6 text-ink">{count} {alt.competitor} alternatives for {agency ? "contractors" : "home-service businesses"} (2026)</h1>
             <p className="lead mt-6">{alt.intro}</p>
+            {picks.length ? (
+              <div className="mt-7 rounded-2xl border border-line bg-white/80 p-5 text-sm text-ink-soft md:p-6">
+                <p className="font-semibold text-ink">Short answer: which {alt.competitor} alternative fits you?</p>
+                <ul className="mt-3 space-y-2">
+                  {picks.map(([label, names]) => (
+                    <li key={label} className="flex gap-2">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                      <span>{label}: <strong className="text-ink">{names.join(", ")}</strong>.</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-3"><a href="#compare-alternatives" className="font-semibold text-primary">See all {count} compared, with prices</a></p>
+              </div>
+            ) : null}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/free-google-maps-audit" className="btn btn-primary">
                 Get your free audit <ArrowRight className="h-4 w-4" />
@@ -72,8 +110,76 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
         </div>
       </section>
 
+      {/* Other options: people searching "<competitor> alternatives" want a list, not only one pick. */}
+      <section className="section bg-surface" id="compare-alternatives">
+        <div className="container-tt">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="eyebrow">Compared · prices checked Nov 2026</span>
+            <h2 className="display-2 mt-5 text-ink">{count} {alt.competitor} alternatives, side by side</h2>
+            <p className="lead mt-4">
+              No single option fits every shop. These are the {agency ? "companies and options" : "tools"} home-service owners compare instead of {alt.competitor}, with who each is best for. We&apos;re one of them, and we say so.
+              Prices are as published on each vendor&apos;s own site when we checked; confirm before you buy.
+            </p>
+          </div>
+          {/* Phones: one card per tool, so the pricing never sits off-screen. Tablets and up: the table. */}
+          <ul className="mx-auto mt-10 grid max-w-5xl gap-4 md:hidden">
+            {list.map((o) => (
+              <li key={o.name} className="rounded-2xl border border-line bg-white p-5">
+                <a href={o.url} {...(o.url.startsWith("/") ? {} : { rel: "noopener nofollow", target: "_blank" })} className="text-lg font-bold text-ink hover:text-primary">{o.name}</a>
+                <dl className="mt-3 grid gap-3 text-sm">
+                  <div>
+                    <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">Best for</dt>
+                    <dd className="mt-1 text-ink-soft">{o.bestFor}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">What it does</dt>
+                    <dd className="mt-1 text-ink-soft">{o.note}</dd>
+                  </div>
+                  <div className="rounded-xl bg-surface px-3 py-2.5">
+                    <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">Pricing</dt>
+                    <dd className="mt-1 font-medium text-ink">{o.pricing}</dd>
+                  </div>
+                </dl>
+              </li>
+            ))}
+          </ul>
+          <div className="mx-auto mt-10 hidden max-w-5xl overflow-x-auto rounded-2xl border border-line bg-white md:block">
+            <table className="w-full min-w-[640px] text-left text-sm">
+              <thead className="bg-surface text-ink">
+                <tr>
+                  <th scope="col" className="p-4 font-semibold">{agency ? "Option" : "Tool"}</th>
+                  <th scope="col" className="p-4 font-semibold">Best for</th>
+                  <th scope="col" className="p-4 font-semibold">What it does</th>
+                  <th scope="col" className="p-4 font-semibold">Pricing</th>
+                </tr>
+              </thead>
+              <tbody>
+                {list.map((o) => (
+                  <tr key={o.name} className="border-t border-line align-top">
+                    <th scope="row" className="p-4 font-semibold text-ink">
+                      <a href={o.url} {...(o.url.startsWith("/") ? {} : { rel: "noopener nofollow", target: "_blank" })} className="hover:text-primary">{o.name}</a>
+                    </th>
+                    <td className="p-4 text-ink-soft">{o.bestFor}</td>
+                    <td className="p-4 text-ink-soft">{o.note}</td>
+                    <td className="p-4 text-ink-soft">{o.pricing}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-ink-soft">
+            {agency ? (
+              <>Want the full side-by-side? Read <Link href="/guides/home-service-marketing-companies-compared" className="font-semibold text-primary">home service marketing companies: prices and contracts</Link>, and <Link href="/guides/how-to-leave-your-marketing-agency" className="font-semibold text-primary">how to leave your agency and keep your stuff</Link>.</>
+            ) : (
+              <>Want the full side-by-side? Read <Link href="/guides/best-review-management-software-for-contractors" className="font-semibold text-primary">the best review management software for contractors</Link>.</>
+            )}
+          </p>
+        </div>
+      </section>
+
       {/* The honest take */}
-      <section className="section bg-surface">
+      <section className="section">
+        <h2 className="container-tt display-2 mb-8 text-ink">{alt.tagline}</h2>
         <div className="container-tt grid gap-6 lg:grid-cols-2">
           <div className="rounded-2xl border border-line bg-white p-7 md:p-8">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
@@ -91,7 +197,7 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
       </section>
 
       {/* Comparison */}
-      <section className="section">
+      <section className="section bg-surface">
         <div className="container-tt">
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow">Side by side</span>
@@ -132,7 +238,7 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
       </section>
 
       {/* Why switch */}
-      <section className="section bg-surface">
+      <section className="section">
         <div className="container-tt">
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow">Why switch</span>
@@ -148,73 +254,6 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Other options: people searching "<competitor> alternatives" want a list, not only one pick. */}
-      <section className="section" id="other-alternatives">
-        <div className="container-tt">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow">More options</span>
-            <h2 className="display-2 mt-5 text-ink">Other {alt.competitor} alternatives</h2>
-            <p className="lead mt-4">
-              We&apos;re not the right fit for everyone. These are the other {agency ? "companies and options" : "tools"} home-service owners compare, with what each is best for.
-              Prices are as published on each vendor&apos;s own site when we checked; confirm before you buy.
-            </p>
-          </div>
-          {/* Phones: one card per tool, so the pricing never sits off-screen. Tablets and up: the table. */}
-          <ul className="mx-auto mt-10 grid max-w-5xl gap-4 md:hidden">
-            {others.map((o) => (
-              <li key={o.name} className="rounded-2xl border border-line bg-white p-5">
-                <a href={o.url} rel="noopener nofollow" target="_blank" className="text-lg font-bold text-ink hover:text-primary">{o.name}</a>
-                <dl className="mt-3 grid gap-3 text-sm">
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">Best for</dt>
-                    <dd className="mt-1 text-ink-soft">{o.bestFor}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">What it does</dt>
-                    <dd className="mt-1 text-ink-soft">{o.note}</dd>
-                  </div>
-                  <div className="rounded-xl bg-surface px-3 py-2.5">
-                    <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">Pricing</dt>
-                    <dd className="mt-1 font-medium text-ink">{o.pricing}</dd>
-                  </div>
-                </dl>
-              </li>
-            ))}
-          </ul>
-          <div className="mx-auto mt-10 hidden max-w-5xl overflow-x-auto rounded-2xl border border-line bg-white md:block">
-            <table className="w-full min-w-[640px] text-left text-sm">
-              <thead className="bg-surface text-ink">
-                <tr>
-                  <th scope="col" className="p-4 font-semibold">{agency ? "Option" : "Tool"}</th>
-                  <th scope="col" className="p-4 font-semibold">Best for</th>
-                  <th scope="col" className="p-4 font-semibold">What it does</th>
-                  <th scope="col" className="p-4 font-semibold">Pricing</th>
-                </tr>
-              </thead>
-              <tbody>
-                {others.map((o) => (
-                  <tr key={o.name} className="border-t border-line align-top">
-                    <th scope="row" className="p-4 font-semibold text-ink">
-                      <a href={o.url} rel="noopener nofollow" target="_blank" className="hover:text-primary">{o.name}</a>
-                    </th>
-                    <td className="p-4 text-ink-soft">{o.bestFor}</td>
-                    <td className="p-4 text-ink-soft">{o.note}</td>
-                    <td className="p-4 text-ink-soft">{o.pricing}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-ink-soft">
-            {agency ? (
-              <>Want the full side-by-side? Read <Link href="/guides/home-service-marketing-companies-compared" className="font-semibold text-primary">home service marketing companies: prices and contracts</Link>, and <Link href="/guides/how-to-leave-your-marketing-agency" className="font-semibold text-primary">how to leave your agency and keep your stuff</Link>.</>
-            ) : (
-              <>Want the full side-by-side? Read <Link href="/guides/best-review-management-software-for-contractors" className="font-semibold text-primary">the best review management software for contractors</Link>.</>
-            )}
-          </p>
         </div>
       </section>
 

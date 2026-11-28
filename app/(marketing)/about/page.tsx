@@ -85,6 +85,7 @@ export default function AboutPage() {
         heading="TableTurnerr at a glance"
         rows={[
           ["What we are", "A small, owner-run online marketing agency for US home-service businesses, with our own software behind the work."],
+          ["Started", "Founded in March 2025. Working with home-service businesses since June 2026."],
           ["What we do", <span key="s">{services.map((s, i) => <span key={s.slug}>{i > 0 && ", "}<Link href={s.path} className="font-semibold text-primary">{s.short}</Link></span>)}, plus visibility in AI assistants like ChatGPT.</span>],
           ["Who we work with", <span key="t">{trades.length} home-service trades including HVAC, plumbing, roofing, electrical, handyman and fencing. <Link href="/marketing" className="font-semibold text-primary">See all trades</Link>.</span>],
           ["Clients", `${growthSite.businessesServed} businesses served since we started.`],
