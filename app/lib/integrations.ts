@@ -33,7 +33,7 @@ export const INTEGRATIONS: Record<string, Integration> = {
     category: "Field-service CRM",
     tagline: "Automatic reviews from every Housecall Pro job",
     blurb:
-      "On Housecall Pro's plan that allows integrations, TableTurnerr requests a review the moment a job is marked complete, across Google, Facebook, Yelp and Angi. Your techs keep working; the reviews take care of themselves.",
+      "On Housecall Pro's plan that allows integrations, TableTurnerr requests a Google review the moment a job is marked complete. Your techs keep working; the reviews take care of themselves.",
     syncs: [
       "Customers and contact details",
       "Completed jobs, in real time",
@@ -68,7 +68,7 @@ export const INTEGRATIONS: Record<string, Integration> = {
     category: "Field-service CRM",
     tagline: "Review automation for your Workiz jobs",
     blurb:
-      "Connect Workiz through Zapier or Make and every finished job becomes a chance for a fresh review. TableTurnerr handles the ask, the follow-ups, and the multi-platform routing automatically.",
+      "Connect Workiz through Zapier or Make and every finished job becomes a chance for a fresh review. TableTurnerr handles the ask, the follow-ups and the replies for you.",
     syncs: [
       "Customers and contact details",
       "Completed jobs, in real time",

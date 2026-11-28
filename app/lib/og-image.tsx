@@ -8,7 +8,7 @@ export const OG_ALT = "TableTurnerr: marketing for home-service businesses";
 export function renderOgImage({
   eyebrow,
   title,
-  subtitle = "Across Google, Facebook, Yelp & Angi.",
+  subtitle = "More calls from Google, done for you.",
   tag = "HVAC · Roofing · Plumbing · Electrical",
 }: {
   eyebrow: string;

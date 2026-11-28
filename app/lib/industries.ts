@@ -23,8 +23,6 @@ export interface Industry {
 
 const coreReviewFeatures = [
   "review-reactivation",
-  "multi-platform-reviews",
-  "map-pack-rank-tracking",
   "ai-review-requests-and-replies",
   "review-widgets-and-social-posts",
   "crm-contact-import-and-lead-management",
@@ -43,8 +41,8 @@ function makeIndustry(input: Omit<Industry, "seoTitle" | "metaDescription" | "ou
     metaDescription: `Review management software for ${softLower(input.name)} businesses: ask for a Google review after every job, follow up and get found by more local customers.`,
     outcomes: [
       "Review requests after completed jobs",
-      "Google, Facebook, Yelp and Angi review coverage",
-      "Local visibility tracked alongside review activity",
+      "Every request goes to your Google review page",
+      "AI-drafted replies to every Google review",
       "Relevant FieldTask operations tools when your team needs them",
     ],
     faqs: [
@@ -54,7 +52,7 @@ function makeIndustry(input: Omit<Industry, "seoTitle" | "metaDescription" | "ou
       },
       {
         q: `Which review sites can ${input.name} businesses use?`,
-        a: "TableTurnerr supports review workflows for Google, Facebook, Yelp and Angi, so you can direct customers to the places future homeowners commonly check.",
+        a: "We focus on Google reviews: they show on your Google Business Profile and Maps listing, where most people decide who to call. TableTurnerr doesn't run review requests for Facebook, Yelp or Angi.",
       },
       {
         q: `Can I see the features that fit my ${input.name} workflow?`,

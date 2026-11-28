@@ -215,7 +215,7 @@ export const oldMeta = {
   '/alternatives/birdeye-alternative': ['Birdeye Alternatives for Contractors (2026) | TableTurnerr', null],
   '/alternatives/pulsem-alternative': ['PulseM Alternatives for Contractors (2026) | TableTurnerr', null],
   '/alternatives': ['Podium, Birdeye & NiceJob Alternatives | TableTurnerr', null],
-  '/features': ['Review Automation & Field Service Features | TableTurnerr', 'Review requests, map-pack tracking, review widgets, dispatch, work orders and invoicing for home-service businesses, in one place.'],
+  '/features': ['Review Automation & Field Service Features | TableTurnerr', 'Google review requests and replies, review widgets, dispatch, work orders and invoicing for home-service businesses, in one place.'],
   '/features/crm-contact-import-and-lead-management': ['CRM Setup & Lead Management for Contractors | TableTurnerr', null],
   '/features/dispatch-scheduling-and-routes': ['Dispatch, Scheduling & Route Planning | TableTurnerr', null],
   '/features/work-orders-and-job-photos': ['Mobile Work Orders & Job Photos | TableTurnerr', null],
