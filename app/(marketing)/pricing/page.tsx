@@ -2,7 +2,9 @@ import { CallNowBand } from "@/app/components/growth/ContactCtas";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { pageTitle } from "@/app/lib/metadata";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BadgeCheck, Nfc, Star } from "lucide-react";
+import { ClientLogoStrip } from "@/app/components/growth/Proof";
+import NfcCard from "@/app/components/growth/NfcCard";
 import Accordion from "@/app/components/site/Accordion";
 import JsonLd from "@/app/components/site/JsonLd";
 import CrossLinks from "@/app/components/site/CrossLinks";
@@ -23,7 +25,7 @@ const OFFERS = {
 import AiAnsweringDemo from "@/app/components/growth/AiAnsweringDemo";
 import { VideoSection } from "@/app/components/growth/Growth";
 import { CustomPricingBar, PlanCards, PricingNote } from "@/app/components/growth/PricingTiers";
-import { AUDIT_PATH, growthSite } from "@/app/lib/growth";
+import { AUDIT_PATH, getResult, growthSite } from "@/app/lib/growth";
 
 export const metadata: Metadata = {
   title: pageTitle("Pricing: 5 Simple Packages from $97/mo"),
@@ -34,6 +36,7 @@ export const metadata: Metadata = {
 
 export default function PricingPage() {
   const base = "https://www.tableturnerr.com";
+  const pr = getResult("presidential-roofing");
   return (
     <>
       <JsonLd
@@ -70,8 +73,55 @@ export default function PricingPage() {
       <section className="section pt-0" id="plans">
         <div className="container-tt">
           <PlanCards />
+          <div className="card mt-4 grid items-center gap-8 p-6 sm:p-8 md:grid-cols-12">
+            <div className="md:col-span-7">
+              <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-primary">
+                <Nfc className="h-4 w-4" aria-hidden /> In the Reviews package and up
+              </p>
+              <h3 className="mt-2 text-2xl font-bold text-ink">Custom NFC review cards, free</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+                Cards with your logo, designed and shipped free to new clients. Your crew hands one over after the job; the
+                customer taps it with their phone, or scans the QR code, and lands on your Google review page. This one is
+                Premium Holiday Lights&apos; card. Press it to flip.
+              </p>
+            </div>
+            <div className="mx-auto w-full max-w-[17rem] md:col-span-5 md:max-w-xs"><NfcCard card="holiday-lights" /></div>
+          </div>
           <PricingNote />
           <CustomPricingBar />
+        </div>
+      </section>
+
+      {/* Proof: real clients and two real results */}
+      <ClientLogoStrip />
+      <section className="section" id="results">
+        <div className="container-tt">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="eyebrow">Real results</span>
+            <h2 className="display-2 mt-5 text-ink">Real numbers from real businesses</h2>
+          </div>
+          <div className="mx-auto mt-12 grid max-w-4xl gap-5 md:grid-cols-2">
+            {pr && (
+              <Link href={pr.path} className="card card-hover group flex flex-col p-7">
+                <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-primary">
+                  <Star className="h-4 w-4 fill-current text-star" aria-hidden /> {pr.trade} · {pr.location}
+                </span>
+                <span className="mt-3 text-xl font-bold text-ink">{pr.client}</span>
+                <span className="mt-4 font-display text-4xl font-bold text-ink">{pr.reviewsBefore} → {pr.reviewsAfter}</span>
+                <span className="mt-1 flex-1 text-sm text-ink-soft">Google reviews in {pr.days} days (+{pr.pct}%)</span>
+                <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read the case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+              </Link>
+            )}
+            <Link href="/results/cooling-comfort" className="card card-hover group flex flex-col p-7">
+              <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-primary">
+                <BadgeCheck className="h-4 w-4 text-success" aria-hidden /> HVAC · Inglewood, California
+              </span>
+              <span className="mt-3 text-xl font-bold text-ink">Cooling Comfort Inc.</span>
+              <span className="mt-4 font-display text-4xl font-bold text-ink">3 days</span>
+              <span className="mt-1 flex-1 text-sm text-ink-soft">to a verified Google profile after one free call, after months stuck</span>
+              <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read the case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+            </Link>
+          </div>
         </div>
       </section>
 

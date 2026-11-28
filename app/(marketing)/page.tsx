@@ -18,6 +18,7 @@ import ProductBento from "@/app/components/site/ProductBento";
 import { CustomPricingBar, PlanCards, PricingNote } from "@/app/components/growth/PricingTiers";
 import { HomeDoneForYou } from "@/app/components/growth/HomeSections";
 import AiAnsweringDemo from "@/app/components/growth/AiAnsweringDemo";
+import HowItWorksFlow, { type FlowStep } from "@/app/components/growth/HowItWorksFlow";
 import { growthSite } from "@/app/lib/growth";
 
 export const metadata: Metadata = {
@@ -158,10 +159,10 @@ function Features() {
 }
 
 /* ── How it works ───────────────────────────────────────── */
-const STEPS = [
-  { n: "01", t: "Free Google Maps audit", b: "We map where you rank across your service area, compare you with your top competitors and show you what's missing." },
-  { n: "02", t: "A plan built for your business", b: "You might not need a new website, or SEO, or reviews. We only quote what will move the needle, and set it all up for you." },
-  { n: "03", t: "We run it every month", b: "Content, reviews, campaigns and follow-ups keep running. You get a plain-English report on rankings, reviews and calls." },
+const STEPS: [FlowStep, FlowStep, FlowStep] = [
+  { t: "Free Google Maps audit", b: "We map where you rank across your service area, compare you with your top competitors and show you what's missing." },
+  { t: "We fix and set up", b: "You might not need a new website, or SEO, or reviews. We only quote what will move the needle, and set it all up for you." },
+  { t: "We run it every month", b: "Content, reviews, campaigns and follow-ups keep running. You get a plain-English report on rankings, reviews and calls." },
 ];
 function How() {
   return (
@@ -171,18 +172,12 @@ function How() {
           <span className="eyebrow border-white/15 bg-white/5 text-white">How working with us works</span>
           <h2 className="display-2 mt-5 text-white">Audit first. Then we do the work, every month.</h2>
         </div>
-        <Reveal className="mt-12 grid gap-5 md:grid-cols-3">
-          {STEPS.map((s) => (
-            <div key={s.n} className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
-              <p className="font-display text-sm font-bold text-white/70">{s.n}</p>
-              <h3 className="mt-4 text-xl font-bold text-white">{s.t}</h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-white/65">{s.b}</p>
-            </div>
-          ))}
+        <Reveal className="mt-12">
+          <HowItWorksFlow steps={STEPS} tone="dark" />
         </Reveal>
         <div id="integrations" className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-white/55">
           <span className="inline-flex items-center gap-2 font-medium text-white/80"><Plug className="h-4 w-4 text-primary" /> Connects with</span>
-          {["Jobber", "Housecall Pro", "ServiceTitan", "Workiz", "QuickBooks", "Zapier"].map((i) => (
+          {["Jobber (official integration)", "Housecall Pro (on its integrations plan)", "ServiceTitan, Workiz, QuickBooks and more through Zapier or Make", "No software? We import your customer list"].map((i) => (
             <span key={i}>{i}</span>
           ))}
         </div>

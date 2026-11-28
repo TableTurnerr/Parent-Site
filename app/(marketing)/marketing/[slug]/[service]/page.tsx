@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { softLower } from "@/app/lib/text";
 import { pageTitle } from "@/app/lib/metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import JsonLd from "@/app/components/site/JsonLd";
+import ReviewGrowthChart from "@/app/components/growth/ReviewGrowthChart";
 import {
   AuditBand, CardGrid, FaqSection, Glance, GrowthHero, GuideCards, Html, NextSteps, SectionHead, faqSchemaItems,
 } from "@/app/components/growth/Growth";
@@ -44,7 +46,7 @@ export default async function Page({ params }: Params) {
   const sameTrade = combosForTrade(t.slug).filter((x) => x.service !== s.slug);
   const sameService = combosForService(s.slug).filter((x) => x.trade !== t.slug);
   const next: Link3[] = [
-    [t.path, `The full ${t.name.toLowerCase()} marketing plan`, `Everything we do for ${t.plural}, in order.`],
+    [t.path, `The full ${softLower(t.name)} marketing plan`, `Everything we do for ${t.plural}, in order.`],
     [s.path, `${s.short}: how it works`, "What's included for every trade, and how we run it."],
     ...sameTrade.slice(0, 1).map((x): Link3 => [x.path, x.title, plain(x.description).slice(0, 110) + "…"]),
   ];
@@ -86,17 +88,24 @@ export default async function Page({ params }: Params) {
         <div className="container-tt max-w-3xl">
           <SectionHead title={`Why it matters for ${t.plural}`} />
           <Html html={c.why} className="mt-6" />
+          {t.slug === "roofing" && s.slug === "review-generation" && (
+            <div className="card mt-10 p-6 sm:p-8">
+              <p className="text-lg font-bold text-ink">Presidential Roofing: 27 to 43 Google reviews in 20 days</p>
+              <ReviewGrowthChart id="roofing-rg-chart" className="mx-auto mt-6 max-w-md" />
+              <Link href="/results/presidential-roofing" className="mt-4 inline-block text-sm font-semibold text-primary hover:underline">Read the case study</Link>
+            </div>
+          )}
         </div>
       </section>
 
       <section className="section bg-surface">
         <div className="container-tt">
-          <SectionHead title={`What we do for ${t.plural}`} intro={`${s.short}, set up and run for you, written around how people search for ${t.name.toLowerCase()} work.`} />
+          <SectionHead title={`What we do for ${t.plural}`} intro={`${s.short}, set up and run for you, written around how people search for ${softLower(t.name)} work.`} />
           <CardGrid items={c.tactics} numbered cols={2} />
         </div>
       </section>
 
-      <AuditBand title={`See how your ${t.name.toLowerCase()} business shows up on Google Maps`} />
+      <AuditBand title={`See how your ${softLower(t.name)} business shows up on Google Maps`} />
       <FaqSection faq={c.faq} />
 
       <section className="section">

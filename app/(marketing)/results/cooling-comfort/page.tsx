@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import JsonLd from "@/app/components/site/JsonLd";
+import NfcCard from "@/app/components/growth/NfcCard";
 import { CallNowBand } from "@/app/components/growth/ContactCtas";
 import { AuditBand, Crumbs, NextSteps } from "@/app/components/growth/Growth";
 import { generateArticleSchema, generateBreadcrumbSchema } from "@/app/lib/schema";
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
 };
 
 const STATS = [
-  ["Months", "stuck unverified"],
+  ["Stuck", "for months, unverified"],
   ["1", "free consultation call"],
   ["3 days", "until verified"],
 ];
@@ -52,6 +53,8 @@ export default function Page() {
         <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
         <div className="container-tt relative pb-14 md:pb-20">
           <Crumbs items={[["/", "Home"], ["/results", "Results"], [path, "Cooling Comfort"]]} />
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-8">
           <div className="max-w-3xl">
             <span className="eyebrow">Case study · HVAC</span>
             <h1 className="display mt-6 text-ink">{h1}</h1>
@@ -67,6 +70,14 @@ export default function Page() {
                 <p className="mt-1 text-xs text-ink-soft sm:text-sm">{l}</p>
               </div>
             ))}
+          </div>
+          </div>
+          <figure className="mx-auto w-full max-w-xs lg:col-span-4 lg:max-w-none">
+            <NfcCard card="cooling-comfort" />
+            <figcaption className="mt-5 text-center text-sm text-ink-soft">
+              Cooling Comfort&apos;s tap-to-review card. A tap with a phone, or a scan of the QR code, opens their Google review page. Press it to flip.
+            </figcaption>
+          </figure>
           </div>
         </div>
       </section>
