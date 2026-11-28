@@ -93,8 +93,7 @@ export default function TermsOfServicePage() {
                   home-service businesses. The Service connects to your field
                   service management or CRM platform and, after a job is
                   completed, sends review requests to your customers by SMS and/or
-                  email, routes them to public review platforms (such as Google,
-                  Facebook, Yelp, and Angi), and reports the results in a
+                  email, links them to your Google review page, and reports the results in a
                   dashboard. We are a software provider; we do not write, edit,
                   filter, suppress, or gate the reviews your customers choose to
                   leave. Specific features, usage limits, and pricing for your
@@ -334,8 +333,8 @@ export default function TermsOfServicePage() {
                 <p>
                   The Service integrates with third-party platforms, including but
                   not limited to field service / CRM systems (such as Jobber,
-                  Housecall Pro, ServiceTitan, Workiz, and QuickBooks), review
-                  platforms (such as Google, Facebook, Yelp, and Angi), and SMS /
+                  Housecall Pro, ServiceTitan, Workiz, and QuickBooks), Google
+                  (Google reviews and Google Business Profile), and SMS /
                   email delivery providers and carriers. Your use of those
                   platforms is subject to their own terms and policies.
                   TableTurnerr is not responsible for the actions, availability,
