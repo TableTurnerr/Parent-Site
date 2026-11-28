@@ -30,7 +30,7 @@ export const combos = [
   // ------------------------------------------------------------------ HVAC
   {
     trade: 'hvac', service: 'google-business-profile',
-    title: 'Google Business Profile for HVAC Companies',
+    title: 'Google Business Profile Management for HVAC',
     description: 'Google Business Profile management for HVAC companies: categories, services, seasonal posts and photos so you show up for AC repair and furnace searches.',
     h1: 'Google Business Profile management for HVAC companies',
     lede: `When an AC dies in July, homeowners don't browse. They search, look at the three businesses on the map and call one. Your Google Business Profile decides whether that's you.`,
@@ -53,7 +53,7 @@ export const combos = [
   },
   {
     trade: 'hvac', service: 'review-generation',
-    title: 'Google Reviews for HVAC Companies',
+    title: 'HVAC Review Management and Google Reviews',
     description: 'Get more Google reviews for your HVAC company: a request after every service call and install, connected to Jobber, Housecall Pro or ServiceTitan. Done for you.',
     h1: 'More Google reviews for HVAC companies, after every call',
     lede: `Your techs finish a dozen jobs a day and the customers are happy. Almost none of them leave a review, because nobody asks at the right moment. We fix the asking.`,
@@ -101,7 +101,7 @@ export const combos = [
   // ------------------------------------------------------------------ PLUMBING
   {
     trade: 'plumbing', service: 'google-business-profile',
-    title: 'Google Business Profile for Plumbers',
+    title: 'Google Business Profile Management for Plumbers',
     description: 'Google Business Profile management for plumbers: the right categories, every service, emergency hours and photos so you show up for "plumber near me".',
     h1: 'Google Business Profile management for plumbers',
     lede: `A burst pipe doesn't wait for a comparison spreadsheet. Homeowners search "plumber near me", tap one of the three businesses on the map and call. Your profile is what gets you into that three.`,
@@ -124,7 +124,7 @@ export const combos = [
   },
   {
     trade: 'plumbing', service: 'review-generation',
-    title: 'Google Review Generation for Plumbers',
+    title: 'Plumber Review Management and Google Reviews',
     description: 'More Google reviews for plumbing companies: a request after every job, a past-customer campaign and replies to every review. Done for you.',
     h1: 'More Google reviews for plumbers, without chasing customers',
     lede: `Plumbing customers are relieved when you leave, which is the perfect moment to ask for a review. Your crew is already driving to the next job. We make sure the ask still happens.`,
@@ -171,7 +171,7 @@ export const combos = [
   // ------------------------------------------------------------------ ROOFING
   {
     trade: 'roofing', service: 'google-business-profile',
-    title: 'Google Business Profile for Roofers',
+    title: 'Google Business Profile Management for Roofers',
     description: 'Google Business Profile management for roofers: categories, services, project photos and posts so you show up for roof repair and replacement searches.',
     h1: 'Google Business Profile management for roofing contractors',
     lede: `Roof replacement is a big, rare purchase. Homeowners compare roofers carefully, and the comparison usually starts on the Google map: photos, reviews, and whether you look like a real, established company.`,
@@ -193,7 +193,7 @@ export const combos = [
   },
   {
     trade: 'roofing', service: 'review-generation',
-    title: 'Google Reviews for Roofing Contractors',
+    title: 'Roofing Review Management and Google Reviews',
     description: 'More Google reviews for roofers: requests after every roof, a past-customer campaign and replies. Presidential Roofing went from 27 to 43 reviews in 20 days.',
     h1: 'More Google reviews for roofing contractors',
     lede: `Roofs last decades, so a roofer can't count on repeat customers to leave reviews. Every new review has to come from a customer who just finished a job, which means the ask has to happen every time.`,
@@ -239,7 +239,7 @@ export const combos = [
   // ------------------------------------------------------------------ ELECTRICIANS
   {
     trade: 'electricians', service: 'google-business-profile',
-    title: 'Google Business Profile for Electricians',
+    title: 'Google Business Profile Management for Electricians',
     description: 'Google Business Profile management for electricians: categories, services like panel upgrades and EV chargers, photos and posts so you show up on Maps.',
     h1: 'Google Business Profile management for electricians',
     lede: `Homeowners searching for an electrician want two things: someone licensed, and someone who can come soon. Your Google profile has to show both before they scroll past.`,
@@ -261,7 +261,7 @@ export const combos = [
   },
   {
     trade: 'electricians', service: 'review-generation',
-    title: 'Google Reviews for Electricians',
+    title: 'Electrician Review Management and Google Reviews',
     description: 'More Google reviews for electricians: a request after every job, a past-customer campaign and replies to every review. Done for you, month to month.',
     h1: 'More Google reviews for electricians',
     lede: `Electrical work is invisible when it's done right, so customers forget to mention it. A short, personal request right after the job turns that quiet satisfaction into a review.`,
@@ -308,7 +308,7 @@ export const combos = [
   // ------------------------------------------------------------------ HANDYMAN
   {
     trade: 'handyman', service: 'google-business-profile',
-    title: 'Google Business Profile for Handymen',
+    title: 'Google Business Profile Management for Handymen',
     description: 'Google Business Profile management for handyman businesses: categories, a full service list, photos and posts so you show up for small-job searches.',
     h1: 'Google Business Profile management for handyman businesses',
     lede: `Handyman searches are endless and specific: "mount TV", "fix drywall", "install ceiling fan". A profile that only says "handyman" misses most of them.`,
@@ -330,7 +330,7 @@ export const combos = [
   },
   {
     trade: 'handyman', service: 'review-generation',
-    title: 'Google Reviews for Handyman Businesses',
+    title: 'Handyman Review Management and Google Reviews',
     description: 'More Google reviews for handyman businesses: a quick request after every job, a past-customer campaign and replies to every review. Done for you.',
     h1: 'More Google reviews for handyman businesses',
     lede: `Handymen finish lots of small jobs for happy customers, which should mean lots of reviews. It doesn't, because nobody asks. A request after every job changes that fast.`,

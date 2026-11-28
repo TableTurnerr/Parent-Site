@@ -170,7 +170,7 @@ export const combos3 = [
   // ------------------------------------------------------------------ GARAGE DOOR
   {
     trade: 'garage-door-repair', service: 'google-business-profile',
-    title: 'Google Business Profile for Garage Door Companies',
+    title: 'Google Business Profile Management for Garage Doors',
     description: 'Google Business Profile management for garage door companies: real photos, honest hours, every repair listed and a clean profile that survives spam sweeps.',
     h1: 'Google Business Profile management for garage door companies',
     lede: 'Garage door repair is one of the most spam-filled categories on Google Maps, and homeowners know it. Your profile has to look unmistakably like a real local company, and stay clean enough that Google never mistakes you for the fakes.',
@@ -190,7 +190,7 @@ export const combos3 = [
   },
   {
     trade: 'garage-door-repair', service: 'review-generation',
-    title: 'Google Reviews for Garage Door Companies',
+    title: 'Garage Door Review Management and Google Reviews',
     description: 'More Google reviews for garage door companies: a text request after every repair and install, naming the tech, plus replies. Done for you, month to month.',
     h1: 'More Google reviews for garage door companies, after every visit',
     lede: 'Homeowners in this category are suspicious, and they should be: the map is full of listings that aren\'t real local companies. Recent reviews that name your techs and the actual repair help convince them you are.',
@@ -231,7 +231,7 @@ export const combos3 = [
   // ------------------------------------------------------------------ PEST CONTROL
   {
     trade: 'pest-control', service: 'google-business-profile',
-    title: 'Google Business Profile for Pest Control',
+    title: 'Google Business Profile Management for Pest Control',
     description: 'Google Business Profile management for pest control companies: every pest listed as a service, local photos, seasonal posts and a service area that fits.',
     h1: 'Google Business Profile management for pest control companies',
     lede: 'National pest brands can outspend you on ads. The Google map is different: a local company with a complete, active profile can show up right beside them for "exterminator near me".',
@@ -251,7 +251,7 @@ export const combos3 = [
   },
   {
     trade: 'pest-control', service: 'review-generation',
-    title: 'Google Reviews for Pest Control Companies',
+    title: 'Pest Control Review Management and Google Reviews',
     description: 'More Google reviews for pest control companies: requests timed to when the pests are gone, discreet replies and plan customers asked once. Done for you.',
     h1: 'More Google reviews for pest control companies, asked at the right time',
     lede: 'Ask for a review the minute the tech leaves and the customer may still be seeing bugs. Ask once the problem is gone and they can tell other homeowners it worked.',
@@ -293,7 +293,7 @@ export const combos3 = [
   // ------------------------------------------------------------------ LANDSCAPING
   {
     trade: 'landscaping', service: 'google-business-profile',
-    title: 'Google Business Profile for Landscapers',
+    title: 'Google Business Profile Management for Landscapers',
     description: 'Google Business Profile management for landscapers and lawn care: the right category, project photos, seasonal posts and a service area around your routes.',
     h1: 'Google Business Profile management for landscapers and lawn care companies',
     lede: 'Landscaping is a visual trade, and most landscaping profiles hide it: a logo, a few blurry photos and one category. Your profile should show your best work and match what people search for each season.',
@@ -313,7 +313,7 @@ export const combos3 = [
   },
   {
     trade: 'landscaping', service: 'review-generation',
-    title: 'Google Reviews for Landscaping Companies',
+    title: 'Landscaping Review Management and Google Reviews',
     description: 'More Google reviews for landscapers and lawn care companies: requests after the first visits, after every project and at season\'s end. Done for you.',
     h1: 'More Google reviews for landscapers and lawn care companies',
     lede: 'Your crews are at the same properties every week, and those customers are happy. Most still never leave a review, because nobody asks at a moment that makes sense.',
