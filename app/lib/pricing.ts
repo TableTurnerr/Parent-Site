@@ -183,6 +183,10 @@ export const PRICING_FAQS = [
     a: "No. Move up or down whenever you need. Slow season? Drop a package. Busy season? Step back up. No contracts and no penalties.",
   },
   {
+    q: "What happens to my website if I cancel?",
+    a: "If you cancel, you can buy your website from us for a one-time fee (ask us for the amount). Our CRM, the backend and the automations stay with us.",
+  },
+  {
     q: "Is there a discount for paying yearly?",
     a: "Yes. Pay 12 months up front and get 2 months free.",
   },

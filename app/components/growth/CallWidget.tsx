@@ -26,7 +26,7 @@ export default function CallWidget() {
     const t = window.setTimeout(() => {
       // Don't stack this on a visitor who just got the offer popup.
       try { if (sessionStorage.getItem("tt-offer-shown") === "1") return; } catch {}
-      if (window.innerWidth < 1024 || document.querySelector("dialog[open]")) return;
+      if (window.innerWidth < 1024 || document.querySelector("dialog[open]") || document.querySelector('[role="dialog"][aria-label="Privacy choices"]')) return;
       setOpen(true);
       try { sessionStorage.setItem(SEEN_KEY, "1"); } catch {}
       capture(ANALYTICS_EVENTS.promotionViewed, { promotion: "call_widget", trigger: "auto" });
@@ -45,7 +45,7 @@ export default function CallWidget() {
     capture(ANALYTICS_EVENTS.primaryCtaClicked, { cta: `call_widget_${channel}`, page: pathname });
 
   return (
-    <div className="fixed bottom-5 right-5 z-40 hidden flex-col items-end gap-3 lg:flex" data-analytics-section="call_widget">
+    <div className="fixed bottom-5 right-5 z-40 hidden flex-col items-end gap-3 lg:flex" data-analytics-section="call_widget" data-call-widget-open={open ? "true" : "false"}>
       {open && (
         <div role="dialog" aria-labelledby="call-widget-title" className="w-[22rem] overflow-hidden rounded-2xl border border-line bg-bg text-ink shadow-2xl">
           <div className="flex items-center gap-3 bg-night px-4 py-3.5 text-white">

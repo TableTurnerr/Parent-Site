@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import EmailLink from "@/app/components/site/EmailLink";
 import { pageTitle } from "@/app/lib/metadata";
 import Script from "next/script";
-import { Mail, MessageSquare, CalendarClock } from "lucide-react";
+import { Mail, MessageSquare, CalendarClock, Phone } from "lucide-react";
+import { PHONE_DISPLAY, PHONE_E164 } from "@/app/lib/site-nav";
 import JsonLd from "@/app/components/site/JsonLd";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
 
@@ -60,7 +61,16 @@ export default function ContactPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-9 text-sm text-ink-soft">
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+              <a href={`tel:${PHONE_E164}`} className="btn btn-primary" data-analytics-cta="contact_call">
+                <Phone className="h-4 w-4" /> Call {PHONE_DISPLAY}
+              </a>
+              <a href={`sms:${PHONE_E164}`} className="btn btn-ghost" data-analytics-cta="contact_text">
+                <MessageSquare className="h-4 w-4" /> Text us
+              </a>
+            </div>
+            <p className="mt-3 text-sm text-ink-soft">You&apos;ll talk to an owner, not a call center.</p>
+            <p className="mt-6 text-sm text-ink-soft">
               Prefer email? Reach us at{" "}
               <EmailLink className="font-semibold text-primary" />
             </p>

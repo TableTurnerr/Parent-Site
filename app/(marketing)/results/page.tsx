@@ -2,7 +2,8 @@ import { ClientWall } from "@/app/components/growth/Proof";
 import { CallNowBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BadgeCheck } from "lucide-react";
+import ReviewGrowthChart from "@/app/components/growth/ReviewGrowthChart";
 import JsonLd from "@/app/components/site/JsonLd";
 import { AuditBand, GrowthHero, NextSteps, SectionHead } from "@/app/components/growth/Growth";
 import { generateBreadcrumbSchema } from "@/app/lib/schema";
@@ -37,21 +38,27 @@ export default function Page() {
                 <span className="mt-3 text-xl font-bold text-ink">{r.client}</span>
                 <span className="mt-4 font-display text-4xl font-bold text-ink">{r.reviewsBefore} → {r.reviewsAfter}</span>
                 <span className="mt-1 text-sm text-ink-soft">Google reviews in {r.days} days (+{r.pct}%)</span>
+                {r.slug === "presidential-roofing" && <ReviewGrowthChart id="results-card-chart" compact className="mt-5 max-w-xs" />}
                 <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read the case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
               </Link>
             ))}
             <Link href="/results/cooling-comfort" className="card card-hover group flex flex-col p-7">
               <span className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">HVAC · Inglewood, California</span>
-              <span className="mt-3 text-xl font-bold text-ink">Cooling Comfort Inc.</span>
+              <span className="mt-3 flex flex-wrap items-center gap-2 text-xl font-bold text-ink">
+                Cooling Comfort Inc.
+                <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2.5 py-0.5 text-xs font-semibold text-success">
+                  <BadgeCheck className="h-3.5 w-3.5" aria-hidden /> Verified
+                </span>
+              </span>
               <span className="mt-4 font-display text-4xl font-bold text-ink">3 days</span>
-              <span className="mt-1 text-sm text-ink-soft">to a verified Google profile, after months stuck</span>
+              <span className="mt-1 flex-1 text-sm text-ink-soft">to a verified Google profile, after months stuck</span>
               <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read the case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
             </Link>
             <Link href="/results/seasons-taiwanese-eatery" className="card card-hover group flex flex-col p-7">
               <span className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Restaurant · Honolulu, Hawaii</span>
               <span className="mt-3 text-xl font-bold text-ink">Seasons Taiwanese Eatery</span>
               <span className="mt-4 font-display text-4xl font-bold text-ink">500+</span>
-              <span className="mt-1 text-sm text-ink-soft">customers brought in (2025), with video</span>
+              <span className="mt-1 flex-1 text-sm text-ink-soft">customers brought in (2025), with video</span>
               <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read the case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
             </Link>
           </div>

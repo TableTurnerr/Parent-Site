@@ -3,10 +3,14 @@ import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
 import { pageTitle } from "@/app/lib/metadata";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import JsonLd from "@/app/components/site/JsonLd";
 import {
-  AuditBand, CardGrid, FaqSection, Glance, GrowthHero, GuideCards, NextSteps, SectionHead, VideoSection, faqSchemaItems,
+  ArrowRight, BarChart3, Bot, CalendarCheck, Globe, Inbox, ListChecks, Mail, MapPin, MessageSquareText, Receipt,
+  Search, Share2, ShieldCheck, Sparkles, Star, TrendingUp, UserPlus, Workflow, type LucideIcon,
+} from "lucide-react";
+import JsonLd from "@/app/components/site/JsonLd";
+import HowItWorksFlow, { type FlowStep } from "@/app/components/growth/HowItWorksFlow";
+import {
+  AuditBand, FaqSection, Glance, GrowthHero, GuideCards, NextSteps, SectionHead, VideoSection, faqSchemaItems,
 } from "@/app/components/growth/Growth";
 import { generateBreadcrumbSchema, generateFAQSchema } from "@/app/lib/schema";
 import { AUDIT_PATH, FSM, clientStatesText, getGuide, services, type Guide, type Pair } from "@/app/lib/growth";
@@ -22,10 +26,10 @@ export const metadata: Metadata = {
   openGraph: { title: "Done-for-you marketing services for home-service businesses", description, url: `${base}/services` },
 };
 
-const STEPS: Pair[] = [
-  ["Free Google Maps audit", "We show you where you rank across your service area, how you compare to the top competitors near you and what to fix first."],
-  ["We set it up", "Google profile fixed, review requests connected to your job software, call capture switched on. Usually within the first week or two."],
-  ["We run it and report", "Ongoing posts, photos, review replies, pages and follow-up, with a plain-English monthly report on reviews, rankings and calls."],
+const STEPS: [FlowStep, FlowStep, FlowStep] = [
+  { t: "Free Google Maps audit", b: "We show you where you rank across your service area, how you compare to the top competitors near you and what to fix first." },
+  { t: "We fix and set up", b: "Google profile fixed, review requests connected to your job software, call capture switched on. Usually within the first week or two." },
+  { t: "We run it every month", b: "Ongoing posts, photos, review replies, pages and follow-up, with a plain-English monthly report on reviews, rankings and calls." },
 ];
 
 const faq: Pair[] = [
@@ -35,6 +39,34 @@ const faq: Pair[] = [
   ["Do you require a contract?", "No. Month to month."],
   ["How much does it cost?", "Five packages, each with everything in the one before it: Reviews $97, Starter $297, Growth $597, Complete $797 and Partner $1,797 a month, no contracts. Need something different? Call us for custom pricing. Some add-ons, such as payments or hiring pages, depend on your setup, so we confirm what's included in writing before you start."],
 ];
+
+// One icon per service card (lucide). Unknown slugs fall back to a generic check-list icon.
+const SERVICE_ICONS: Record<string, LucideIcon> = {
+  "local-seo": Search,
+  "ai-search-optimization": Sparkles,
+  "google-business-profile": MapPin,
+  "review-generation": Star,
+  "contractor-websites": Globe,
+  "missed-call-text-back": MessageSquareText,
+  "crm-automation": Workflow,
+  "online-booking": CalendarCheck,
+  "estimates-invoices-payments": Receipt,
+  "maintenance-plans": ShieldCheck,
+  "email-sms-campaigns": Mail,
+  "unified-inbox": Inbox,
+  "call-tracking": BarChart3,
+  "social-media-posting": Share2,
+  "hiring-pages": UserPlus,
+  "ai-answering-service": Bot,
+};
+
+function CardIcon({ icon: Icon }: { icon: LucideIcon }) {
+  return (
+    <span className="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary transition-colors group-hover:bg-primary group-hover:text-primary-ink" aria-hidden>
+      <Icon className="h-5 w-5" />
+    </span>
+  );
+}
 
 const PILLAR_GUIDES = ["how-to-rank-higher-on-google-maps", "best-review-software-for-contractors", "contractor-seo-cost"];
 
@@ -82,17 +114,20 @@ export default function Page() {
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {services.map((s) => (
               <Link key={s.slug} href={s.path} className="card card-hover group flex h-full flex-col p-6">
+                <CardIcon icon={SERVICE_ICONS[s.slug] ?? ListChecks} />
                 <span className="text-lg font-bold text-ink">{s.short}</span>
                 <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">{s.description}</span>
                 <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
               </Link>
             ))}
             <Link href="/services/everything-we-set-up" className="card card-hover group flex h-full flex-col border-primary/40 p-6">
+              <CardIcon icon={ListChecks} />
               <span className="text-lg font-bold text-ink">The full list</span>
               <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">Everything we can set up for your business, with an example and the catch for each.</span>
               <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">See everything <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
             </Link>
             <Link href="/seo" className="card card-hover group flex h-full flex-col p-6">
+              <CardIcon icon={TrendingUp} />
               <span className="text-lg font-bold text-ink">SEO & AEO</span>
               <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">Get found on Google and recommended by ChatGPT and other AI assistants, as one program.</span>
               <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
@@ -106,7 +141,7 @@ export default function Page() {
       <section className="section">
         <div className="container-tt">
           <SectionHead eyebrow="How it works" title="From audit to a phone that rings" />
-          <CardGrid items={STEPS} numbered />
+          <HowItWorksFlow steps={STEPS} className="mt-10" />
           <p className="mt-8 text-sm text-ink-soft">
             Proof, not promises: <Link href="/results/presidential-roofing" className="font-semibold text-primary">Presidential Roofing went from 27 to 43 Google reviews in 20 days</Link>.
           </p>

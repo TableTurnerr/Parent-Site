@@ -43,15 +43,18 @@ export function AuditButtons({ light = false }: { light?: boolean }) {
   );
 }
 
-export function GrowthHero({ crumbs, eyebrow, h1, lede, trust = true, children }: {
+export function GrowthHero({ crumbs, eyebrow, h1, lede, trust = true, children, aside }: {
   crumbs: Pair[]; eyebrow: string; h1: string; lede: string; trust?: boolean; children?: ReactNode;
+  /** Optional visual beside the text on large screens (below it on phones). */
+  aside?: ReactNode;
 }) {
   return (
     <section className="hero-wash relative overflow-hidden pt-36 md:pt-44">
       <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
       <div className="container-tt relative pb-14 md:pb-20">
         <Crumbs items={crumbs} />
-        <div className="max-w-3xl">
+        <div className={aside ? "grid items-center gap-14 lg:grid-cols-12 lg:gap-10" : ""}>
+        <div className={aside ? "max-w-3xl lg:col-span-7" : "max-w-3xl"}>
           <span className="eyebrow">{eyebrow}</span>
           <InlineHtml as="h1" html={h1} className="display mt-6 text-ink" />
           <InlineHtml as="p" html={lede} className="lead mt-6" />
@@ -63,6 +66,8 @@ export function GrowthHero({ crumbs, eyebrow, h1, lede, trust = true, children }
               ))}
             </ul>
           )}
+        </div>
+        {aside && <div className="min-w-0 pb-4 lg:col-span-5">{aside}</div>}
         </div>
       </div>
     </section>

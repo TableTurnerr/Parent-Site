@@ -1,10 +1,11 @@
 import { ClientLogoStrip } from "@/app/components/growth/Proof";
+import { softLower } from "@/app/lib/text";
 import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
 import { pageTitle } from "@/app/lib/metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Nfc } from "lucide-react";
 import { toolsForPage } from "@/app/lib/growth/tools";
 import JsonLd from "@/app/components/site/JsonLd";
 import {
@@ -12,6 +13,10 @@ import {
 } from "@/app/components/growth/Growth";
 import { ON_CRM_PRICE, SERVICE_PRICE } from "@/app/lib/pricing";
 import AiAnsweringDemo from "@/app/components/growth/AiAnsweringDemo";
+import MissedCallTextBack from "@/app/components/growth/MissedCallTextBack";
+import NfcCard from "@/app/components/growth/NfcCard";
+import ReviewGrowthChart from "@/app/components/growth/ReviewGrowthChart";
+import MapPackClimb from "@/app/components/site/MapPackClimb";
 import { generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 import { FSM, combosForService, getService, guidesInTopic, plain, serviceTopics, services, topics, withToc } from "@/app/lib/growth";
 
@@ -54,7 +59,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           ]),
         ]}
       />
-      <GrowthHero crumbs={[["/", "Home"], ["/services", "Services"], [s.path, s.short]]} eyebrow={s.eyebrow} h1={s.h1} lede={s.lede} />
+      <GrowthHero crumbs={[["/", "Home"], ["/services", "Services"], [s.path, s.short]]} eyebrow={s.eyebrow} h1={s.h1} lede={s.lede}
+        aside={s.slug === "google-business-profile" ? <MapPackClimb query="contractor near me" /> : undefined}
+      />
       <Glance
         rows={[
           ["What it is", s.description],
@@ -66,6 +73,38 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           ["Terms", "Done for you, month to month."],
         ]}
       />
+      {s.slug === "review-generation" && (
+        <section className="section" id="proof">
+          <div className="container-tt">
+            <SectionHead eyebrow="Real result" title="What steady review requests did for a Utah roofer" />
+            <div className="mt-10 grid gap-6 lg:grid-cols-2">
+              <div className="card flex flex-col p-6 sm:p-8">
+                <h3 className="text-lg font-bold text-ink">Presidential Roofing: 27 to 43 Google reviews in 20 days</h3>
+                <ReviewGrowthChart id="rg-service-chart" className="mt-6" />
+                <Link href="/results/presidential-roofing" className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
+                  Read the case study <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+              <div className="card flex flex-col p-6 sm:p-8">
+                <h3 className="flex items-center gap-2 text-lg font-bold text-ink"><Nfc className="h-5 w-5 text-primary" aria-hidden /> Tap-to-review cards for your crew</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+                  Custom NFC review cards with your logo, free with every package. The customer taps the card with their phone,
+                  or scans the QR code, and lands on your Google review page. This is Presidential Roofing&apos;s card; press it to flip.
+                </p>
+                <div className="mx-auto mt-8 w-full max-w-sm px-2"><NfcCard card="presidential" /></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+      {s.slug === "missed-call-text-back" && (
+        <section className="section" id="what-they-see">
+          <div className="container-tt">
+            <SectionHead eyebrow="What your customer sees" title="From missed call to booked job, by text" intro="The homeowner who would have called the next company gets a text from you instead." />
+            <div className="mt-10"><MissedCallTextBack /></div>
+          </div>
+        </section>
+      )}
       {(s.slug === "ai-answering-service" || s.slug === "missed-call-text-back") && (
         <section className="section bg-surface" id="demo">
           <div className="container-tt">
@@ -98,7 +137,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       {topicGuides.length > 0 && (
         <section className="section">
           <div className="container-tt">
-            <SectionHead title={`Guides on ${topics[topic].name.toLowerCase()}`} intro={topics[topic].intro} />
+            <SectionHead title={`Guides on ${softLower(topics[topic].name)}`} intro={topics[topic].intro} />
             <GuideCards list={topicGuides} />
           </div>
         </section>

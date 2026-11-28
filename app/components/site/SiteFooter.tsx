@@ -74,7 +74,7 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center">
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center lg:pr-56">
           <p>© 2026 TableTurnerr LLC. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <Link href="/privacy" className="hover:text-ink">Privacy</Link>

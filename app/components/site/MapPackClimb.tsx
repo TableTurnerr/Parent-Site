@@ -144,8 +144,8 @@ export default function MapPackClimb({ query = "plumbers near me" }: { query?: s
           <Phone className="h-4 w-4" />
         </span>
         <div className="leading-tight">
-          <p className="text-sm font-bold text-ink">+31% more calls</p>
-          <p className="text-[11px] text-muted">from the map pack</p>
+          <p className="text-sm font-bold text-ink">New call booked</p>
+          <p className="text-[11px] text-muted">from the map pack (example)</p>
         </div>
       </div>
     </div>
