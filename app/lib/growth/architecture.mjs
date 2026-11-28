@@ -2,7 +2,7 @@
 // Every guide belongs to at least one topic. Each topic has a pillar (a service page) that the guides link up to,
 // and the pillar links back down to its guides. Trade pages link to the guides most useful to that trade.
 
-export const SITE_UPDATED = '2026-11-27';
+export const SITE_UPDATED = '2026-11-28';
 
 export const topics = {
   maps: { name: 'Google Maps & Business Profile', pillar: '/services/google-business-profile',
@@ -101,6 +101,10 @@ export const guideTopics = {
   'how-to-track-lead-sources': ['seo', 'crm'],
   'how-much-should-contractors-spend-on-marketing': ['seo'],
   'home-service-marketing-agency-cost': ['seo'],
+  'best-aeo-services-for-contractors': ['seo'],
+  'home-service-marketing-companies-compared': ['seo'],
+  'how-to-leave-your-marketing-agency': ['seo'],
+  'do-it-yourself-local-marketing-for-contractors': ['seo', 'maps'],
   'angi-vs-thumbtack-vs-homeadvisor': ['seo'],
   'exclusive-vs-shared-leads': ['seo'],
   'facebook-and-nextdoor-ads-for-contractors': ['seo', 'repeat'],

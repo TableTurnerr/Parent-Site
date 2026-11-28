@@ -5,6 +5,13 @@
 // avoid publishing specific competitor dollar figures, which are time-sensitive
 // and partly vendor-reported (see docs/new-site/research/niche-analysis-2026-06).
 // Claims about TableTurnerr are factual statements about our own product.
+// Marketing-agency entries (kind: "marketing-agency": Scorpion, Hibu, Thryv, added 2026-11-27) are different: owners
+// searching "<agency> alternative" want contract and price facts, so they quote a competitor price or term ONLY where
+// it was read on the vendor's own page, and complaint themes only from dated public review pages. Every such fact is
+// listed in `sources` with the date checked. TableTurnerr prices come from PRICE_TEXT (app/lib/pricing.ts), never typed.
+// Never state what happens to a client's website/domain when they leave TableTurnerr (not confirmed by the owner).
+
+import { PRICE_TEXT } from "./pricing";
 
 export type Cell = boolean | "partial" | string;
 
@@ -26,6 +33,14 @@ export interface Alternative {
   compare: { f: string; us: Cell; them: Cell }[];
   reasons: { t: string; b: string }[];
   faqs: { q: string; a: string }[];
+  // Optional, for the marketing-agency entries. Undefined means "review-software" (the original five pages).
+  // AlternativePage can use `kind` to pick AGENCY_OPTIONS instead of OTHER_OPTIONS (app/lib/alternatives-others.ts)
+  // and to swap the review-specific copy; `sources` and `related` are meant to render as linked lists.
+  kind?: "review-software" | "marketing-agency";
+  // Third-party facts used on the page, each with the date it was checked.
+  sources?: { label: string; url: string; checked: string }[];
+  // Internal links for the page (how to switch, pricing, proof).
+  related?: { href: string; label: string }[];
 }
 
 export const ALTERNATIVES: Record<string, Alternative> = {
@@ -35,19 +50,19 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     category: "Enterprise reputation platform",
     metaTitle: "Birdeye Alternatives for Home Services (2026) | TableTurnerr",
     metaDescription:
-      "A Birdeye alternative built for home-service shops, not enterprise chains. Flat, month-to-month review automation for HVAC, roofing, plumbing and electrical.",
+      "A Birdeye alternative built for home-service shops, not enterprise chains. Five fixed packages, month to month, for HVAC, roofing, plumbing and electrical.",
     tagline: "The Birdeye alternative built for home-service shops",
     intro:
       "Birdeye is a broad, enterprise reputation platform aimed at large multi-location brands. If you run an HVAC, roofing, plumbing or electrical business, TableTurnerr gives you the review automation you actually need, without enterprise pricing, per-location math, or an annual contract.",
     fairTake:
       "Birdeye is a capable, wide-ranging platform with a large customer base, and it makes sense for big multi-location organizations with a marketing team to run it. It's priced and packaged for that buyer: per location, typically on an annual contract with an implementation process.",
     ourAngle:
-      "TableTurnerr does one job exceptionally well for the trades: turn every completed job into reviews across Google, Facebook, Yelp and Angi, with technician leaderboards and map-pack tracking. One flat price, month-to-month, live the same day.",
+      "TableTurnerr does one job exceptionally well for the trades: turn every completed job into reviews across Google, Facebook, Yelp and Angi, with technician leaderboards and map-pack tracking. Five fixed packages, month to month, live the same day.",
     termsNote:
-      "Birdeye is generally sold per location on annual contracts with an implementation fee. TableTurnerr is one flat monthly price, month-to-month, with no setup fee and no contract.",
+      "Birdeye is generally sold per location on annual contracts with an implementation fee. TableTurnerr is five fixed packages, month to month, with no setup fee and no contract.",
     compare: [
       { f: "Built specifically for home-service trades", us: true, them: false },
-      { f: "Flat price (not per location)", us: true, them: false },
+      { f: "Fixed package prices (not per location)", us: true, them: false },
       { f: "Month-to-month, no annual contract", us: true, them: false },
       { f: "Live the same day, no implementation project", us: true, them: false },
       { f: "Reviews across Google, Facebook, Yelp & Angi", us: true, them: true },
@@ -58,7 +73,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     reasons: [
       {
         t: "Priced for a shop, not a chain",
-        b: "No per-location pricing and no annual commitment. You pay one flat monthly price and can cancel anytime.",
+        b: "No per-location pricing and no annual commitment. You pick one of five fixed packages, pay month to month, and can cancel anytime.",
       },
       {
         t: "Set up in minutes, not weeks",
@@ -72,7 +87,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     faqs: [
       {
         q: "Is TableTurnerr a good Birdeye alternative for a small home-service business?",
-        a: "Yes. Birdeye is built for enterprise and multi-location brands and priced per location. TableTurnerr is built for independent HVAC, roofing, plumbing and electrical shops, with one flat month-to-month price and no implementation project.",
+        a: "Yes. Birdeye is built for enterprise and multi-location brands and priced per location. TableTurnerr is built for independent HVAC, roofing, plumbing and electrical shops, with five fixed packages, month to month, and no implementation project.",
       },
       {
         q: "Does TableTurnerr cover the same review sites as Birdeye?",
@@ -155,7 +170,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     ourAngle:
       "If what you really want is more 5-star reviews from every finished job, TableTurnerr is built for exactly that, for the trades. Job-completion-triggered requests, technician leaderboards, map-pack tracking, and coverage across Google, Facebook, Yelp and Angi, without paying for a full messaging platform you won't use.",
     termsNote:
-      "TableTurnerr is one flat monthly price, month-to-month, with no contract, and review automation is the whole product, not a paid add-on.",
+      "TableTurnerr is five fixed packages, month to month, with no contract, and review automation is in every package, not a paid add-on.",
     compare: [
       { f: "Built specifically for home-service trades", us: true, them: false },
       { f: "Review automation is the core product", us: true, them: "partial" },
@@ -201,14 +216,14 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     category: "Reputation software",
     metaTitle: "GatherUp Alternatives for Home Services (2026)",
     metaDescription:
-      "A GatherUp alternative built for the trades: home-service review automation with technician leaderboards, map-pack tracking, and flat monthly pricing.",
+      "A GatherUp alternative built for the trades: home-service review automation with technician leaderboards, map-pack tracking, and five fixed monthly packages.",
     tagline: "A GatherUp alternative built around the trades",
     intro:
       "GatherUp is a general-purpose reputation tool that works for all kinds of small and multi-location businesses. TableTurnerr is built around one buyer, the home-service shop, so the features, timing, and reporting all fit how the trades actually win work.",
     fairTake:
       "GatherUp is a feature-rich, month-to-month reputation platform that sets a high table-stakes bar across many industries. For a generalist agency or a mixed portfolio of businesses, it's a strong option.",
     ourAngle:
-      "TableTurnerr trades breadth for fit. You get technician leaderboards, big-ticket job timing, map-pack rank tracking, and a no-gating policy, built specifically for HVAC, roofing, plumbing and electrical, with one flat price.",
+      "TableTurnerr trades breadth for fit. You get technician leaderboards, big-ticket job timing, map-pack rank tracking, and a no-gating policy, built specifically for HVAC, roofing, plumbing and electrical, in five fixed packages.",
     termsNote:
       "Both are month-to-month with no contract. TableTurnerr's edge is vertical fit: everything is tuned for home-service trades rather than spread across every industry.",
     compare: [
@@ -217,7 +232,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       { f: "Map-pack rank tracking", us: true, them: "partial" },
       { f: "Reviews across Google, Facebook, Yelp & Angi", us: true, them: true },
       { f: "Connects to Jobber, Housecall Pro & ServiceTitan", us: true, them: "partial" },
-      { f: "Flat price, no per-location math", us: true, them: false },
+      { f: "Fixed package prices, no per-location math", us: true, them: false },
       { f: "Month-to-month, no contract", us: true, them: true },
     ],
     reasons: [
@@ -226,8 +241,8 @@ export const ALTERNATIVES: Record<string, Alternative> = {
         b: "Instead of a generic tool for every industry, you get one tuned for the trades, timing, leaderboards, and reporting that match how shops grow.",
       },
       {
-        t: "Flat, simple pricing",
-        b: "One price, month-to-month, with no per-location tiers to track as you grow.",
+        t: "Simple, fixed pricing",
+        b: "Five fixed packages, month to month, with no per-location tiers to track as you grow.",
       },
       {
         t: "Built-in motivation",
@@ -256,18 +271,18 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     category: "Technician-centric reviews",
     metaTitle: "PulseM Alternatives for Home Services (2026) | TableTurnerr",
     metaDescription:
-      "A PulseM alternative with flat pricing, not per technician: home-service review automation with leaderboards, map-pack tracking, and multi-platform reach.",
+      "A PulseM alternative priced by package, not per technician: home-service review automation with leaderboards, map-pack tracking, and multi-platform reach.",
     tagline: "A PulseM alternative that doesn't charge per technician",
     intro:
-      "PulseM popularized technician-based review requests. TableTurnerr gives you the same per-technician motivation, with leaderboards and personalized requests, but on a flat price that doesn't grow every time you hire, plus broader platform coverage.",
+      "PulseM popularized technician-based review requests. TableTurnerr gives you the same per-technician motivation, with leaderboards and personalized requests, but in fixed packages whose price doesn't grow every time you hire, plus broader platform coverage.",
     fairTake:
       "PulseM is well-known for technician-centric review requests with tech bios, and shops that live inside ServiceTitan often hear about it first.",
     ourAngle:
-      "TableTurnerr keeps the technician angle, leaderboards and per-tech attribution, but prices it flat instead of per technician, so growing your crew doesn't grow your bill. You also get coverage across Google, Facebook, Yelp and Angi and map-pack rank tracking.",
+      "TableTurnerr keeps the technician angle, leaderboards and per-tech attribution, but prices it by package instead of per technician, so growing your crew doesn't grow your bill. You also get coverage across Google, Facebook, Yelp and Angi and map-pack rank tracking.",
     termsNote:
-      "PulseM is generally priced per technician/user, so the cost climbs as you add techs. TableTurnerr is one flat monthly price, month-to-month, no matter how big your crew gets.",
+      "PulseM is generally priced per technician/user, so the cost climbs as you add techs. TableTurnerr is five fixed packages, month to month, and the price doesn't change with the size of your crew.",
     compare: [
-      { f: "Flat price (not per technician)", us: true, them: false },
+      { f: "Package price (not per technician)", us: true, them: false },
       { f: "Technician leaderboards & attribution", us: true, them: true },
       { f: "Reviews across Google, Facebook, Yelp & Angi", us: true, them: "partial" },
       { f: "Map-pack rank tracking", us: true, them: false },
@@ -278,7 +293,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     reasons: [
       {
         t: "Growth doesn't raise your bill",
-        b: "Per-technician pricing punishes hiring, a bigger crew means a bigger bill every month. TableTurnerr is one flat price no matter how many techs you run.",
+        b: "Per-technician pricing punishes hiring, a bigger crew means a bigger bill every month. TableTurnerr's package price stays the same no matter how many techs you run.",
       },
       {
         t: "Keep the technician motivation",
@@ -292,7 +307,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     faqs: [
       {
         q: "How is TableTurnerr different from PulseM?",
-        a: "Both use technicians to drive reviews, but PulseM is generally priced per technician, so your cost grows as you hire. TableTurnerr is one flat month-to-month price with the same leaderboards and per-tech attribution, plus broader platform coverage.",
+        a: "Both use technicians to drive reviews, but PulseM is generally priced per technician, so your cost grows as you hire. TableTurnerr is five fixed packages, month to month, with the same leaderboards and per-tech attribution, plus broader platform coverage.",
       },
       {
         q: "Do I still get technician leaderboards?",
@@ -302,6 +317,238 @@ export const ALTERNATIVES: Record<string, Alternative> = {
         q: "Is TableTurnerr tied to one CRM?",
         a: "No. We connect to Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks, so you're not locked to a single platform.",
       },
+    ],
+  },
+
+  // ---- Marketing-agency competitors (added 2026-11-27). See the header note: vendor-page facts and dated reviews only.
+  "scorpion-alternative": {
+    slug: "scorpion-alternative",
+    kind: "marketing-agency",
+    competitor: "Scorpion",
+    category: "Full-service marketing agency",
+    metaTitle: "Scorpion Alternatives for Contractors (2026) | TableTurnerr",
+    metaDescription:
+      "Scorpion alternatives for HVAC, plumbing and roofing owners: published prices, contract terms, where Scorpion fits best and how to switch. Checked Nov 2026.",
+    tagline: "Scorpion alternatives for owner-run home-service companies",
+    intro:
+      `Scorpion is a large marketing and technology company, and its FAQ says SEO and its marketing technology usually come with a 12-month contract. If you run a smaller HVAC, plumbing, roofing or electrical shop and want published prices and no annual commitment, TableTurnerr offers ${PRICE_TEXT.plans}.`,
+    fairTake:
+      "Scorpion has worked with home-service companies for years, alongside legal, healthcare and franchise brands, and it has a big in-house team for websites, SEO, ads and reporting. For an established, multi-truck or multi-location company with a real marketing budget and someone to manage the relationship, that depth can be worth a 12-month term. Its Trustpilot reviews (3.9 out of 5 from 36 reviews, checked November 2026) include owners who credit it with strong growth and responsive account managers.",
+    ourAngle:
+      `TableTurnerr is built for the owner-operator. You see the price before you call: ${PRICE_TEXT.plans}. The work is done for you: review requests after every job, your website and Google Business Profile, AI answering, follow-ups, and AI search optimization in Complete (${PRICE_TEXT.aeo}). Google Ads and LSA management is in Partner, ${PRICE_TEXT.ads}.`,
+    termsNote:
+      "Scorpion doesn't publish prices, and its FAQ says it usually requires a 12-month contract for its marketing technology and services like SEO, and that you own your website after the length of your contract (checked November 2026). TableTurnerr is five fixed packages, month to month, no contract. Whoever you hire, us included, ask who owns the domain, website and ad accounts, and get the answer in writing.",
+    compare: [
+      { f: "Prices published on the website", us: true, them: false },
+      { f: "Month to month, no annual contract", us: true, them: "12 mo. typical" },
+      { f: "Focused only on home-service trades", us: true, them: "partial" },
+      { f: "Website, Google profile and reviews in one plan", us: true, them: true },
+      { f: "Google Ads & LSA management", us: "Partner pkg", them: true },
+      { f: "AI search (ChatGPT, AI Mode) optimization", us: "Complete pkg", them: "Ask" },
+      { f: "Large in-house team for multi-location brands", us: false, them: true },
+    ],
+    reasons: [
+      {
+        t: "Know the price before the sales call",
+        b: `We offer ${PRICE_TEXT.plans}. No custom quote to decode, and anything outside the packages is a straight "call us for custom pricing".`,
+      },
+      {
+        t: "No 12-month lock-in",
+        b: "You stay because the work is paying off, not because a contract says so. If a month doesn't earn its keep, you can stop.",
+      },
+      {
+        t: "Fast, checkable wins first",
+        b: "Presidential Roofing went from 27 to 43 Google reviews in 20 days. Cooling Comfort's Google profile was verified 3 days after one free call, after months stuck. SEO still takes months, and we say so.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Does Scorpion require a contract?",
+        a: "Scorpion's FAQ says it usually requires a 12-month contract for its marketing technology and services like SEO (checked November 2026). Read your own agreement for the exact term and renewal rules.",
+      },
+      {
+        q: "Do I own my website with Scorpion?",
+        a: "Scorpion's FAQ says you own your website after the length of your contract with Scorpion is complete. Before you give notice, confirm in writing who the domain is registered to and what files you will receive.",
+      },
+      {
+        q: "When is Scorpion the better choice?",
+        a: "When you run a larger or multi-location company, want one big agency for website, SEO, ads and reporting, and are comfortable with a 12-month term. Smaller owner-run shops that want published prices usually fit a month-to-month option better.",
+      },
+      {
+        q: "How do I switch from Scorpion without losing my Google profile or phone numbers?",
+        a: "Before cancelling, make sure you are the primary owner of your Google Business Profile, you have admin access to your Google Ads and LSA accounts, and you know who controls your domain and tracking numbers. Our guide on how to leave your marketing agency walks through each step and includes an email to send.",
+      },
+      {
+        q: "What does TableTurnerr cost compared to Scorpion?",
+        a: `Scorpion quotes each client and doesn't publish prices. TableTurnerr offers ${PRICE_TEXT.plans}, with no contract.`,
+      },
+    ],
+    sources: [
+      { label: "Scorpion FAQs (contract length, website ownership)", url: "https://www.scorpion.co/faqs/", checked: "November 2026" },
+      { label: "Scorpion reviews on Trustpilot (3.9 from 36 reviews)", url: "https://www.trustpilot.com/review/scorpion.co", checked: "November 2026" },
+    ],
+    related: [
+      { href: "/guides/how-to-leave-your-marketing-agency", label: "How to leave your marketing agency and take your stuff" },
+      { href: "/guides/home-service-marketing-companies-compared", label: "Home service marketing companies: prices and contracts" },
+      { href: "/guides/home-service-marketing-agency-cost", label: "What a home service marketing agency should cost" },
+      { href: "/pricing", label: "TableTurnerr pricing" },
+      { href: "/results", label: "Client results" },
+      { href: "/free-google-maps-audit", label: "Free Google Maps audit" },
+    ],
+  },
+
+  "hibu-alternative": {
+    slug: "hibu-alternative",
+    kind: "marketing-agency",
+    competitor: "Hibu",
+    category: "Local marketing provider",
+    metaTitle: "Hibu Alternatives for Contractors (2026) | TableTurnerr",
+    metaDescription:
+      "Hibu alternatives for home-service owners: who publishes prices, contract questions to ask, where Hibu fits best and how to switch safely. Checked Nov 2026.",
+    tagline: "Hibu alternatives for contractors who want to see the price first",
+    intro:
+      `Hibu sells websites, SEO, paid search and social to small local businesses, priced per customer. If you run a home-service company and want a published price and a plan built around the trades, TableTurnerr offers ${PRICE_TEXT.plans}.`,
+    fairTake:
+      "Hibu serves a very wide range of local businesses and pairs owners with a rep who builds the website and runs listings, search and social. Plenty of owners are happy with it: Hibu holds 4.6 out of 5 on Trustpilot from more than 1,100 reviews (checked November 2026), with praise for responsive reps and easy website edits. If you want one local-marketing provider for a non-trade business, or you value a long-standing rep relationship, it can be a good fit.",
+    ourAngle:
+      `TableTurnerr works only with home-service businesses, so the plan is built around how trades win jobs: a review request after every finished job, missed-call text-back, your Google Business Profile and website, AI answering for calls you can't pick up, and follow-ups on open estimates. Prices are on the website: ${PRICE_TEXT.plans}.`,
+    termsNote:
+      "Hibu's pricing page asks you to request custom pricing rather than listing prices (checked November 2026), so ask for the term length, renewal rule, price-increase rule and cancellation method in writing before you sign. TableTurnerr is five fixed packages, month to month, no contract. Whoever you hire, us included, ask who owns the domain, website and ad accounts, and get the answer in writing.",
+    compare: [
+      { f: "Prices published on the website", us: true, them: false },
+      { f: "Month to month, no contract", us: true, them: "Ask" },
+      { f: "Focused only on home-service trades", us: true, them: "partial" },
+      { f: "Website, listings and Google profile handled for you", us: true, them: true },
+      { f: "Review request sent after every finished job", us: true, them: "Ask" },
+      { f: "AI answering for missed and after-hours calls", us: "Growth pkg", them: "Ask" },
+      { f: "Official Jobber integration", us: true, them: "Ask" },
+    ],
+    reasons: [
+      {
+        t: "A price you can read today",
+        b: `We offer ${PRICE_TEXT.plans}. No quote to wait on: you can compare packages before you ever talk to us.`,
+      },
+      {
+        t: "Built for jobs, not just listings",
+        b: "Review requests go out when the job is done, missed calls get a text back, and estimates get follow-ups. Jobber has an official integration; other job software connects through Zapier or Make.",
+      },
+      {
+        t: "Proof you can check",
+        b: "Presidential Roofing went from 27 to 43 Google reviews in 20 days. Cooling Comfort's Google profile was verified 3 days after one free call, after months stuck.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does Hibu cost?",
+        a: "Hibu doesn't list prices on its site; its pricing page asks you to request custom pricing (checked November 2026). Get the monthly price, term and renewal rules in writing before signing.",
+      },
+      {
+        q: "What do Hibu's unhappy reviewers complain about?",
+        a: "Most of Hibu's Trustpilot reviews are positive. The 1-star reviews from November 2026 mention billing that started before an agreed start date, a 10% price increase, account managers changing, and worry about losing the website after leaving.",
+      },
+      {
+        q: "When is Hibu the better choice?",
+        a: "When your business isn't a home-service trade, or you want a long-term local rep to run your website, listings and ads and you're comfortable with a custom-priced agreement.",
+      },
+      {
+        q: "How do I leave Hibu and keep my Google profile and domain?",
+        a: "Before you cancel, check who the domain is registered to, make sure you are the primary owner of your Google Business Profile, get admin access to any ad accounts, and save a copy of your site content. Our guide on how to leave your marketing agency covers each step and includes an email to send.",
+      },
+      {
+        q: "Is TableTurnerr month to month?",
+        a: `Yes. TableTurnerr is ${PRICE_TEXT.plans}, with no contract and 2 months free if you pay yearly.`,
+      },
+    ],
+    sources: [
+      { label: "Hibu One pricing page (custom pricing, no published price)", url: "https://www.hibu.com/digital-marketing/pricing", checked: "November 2026" },
+      { label: "Hibu reviews on Trustpilot (4.6 from 1,136 reviews; 1-star themes from Nov 2026)", url: "https://www.trustpilot.com/review/corporate.hibu.com", checked: "November 2026" },
+      { label: "Hibu complaints on BBB (more than 120 complaints in the last 3 years)", url: "https://www.bbb.org/us/ia/cedar-rapids/profile/digital-marketing/hibu-inc-0664-32057924/complaints", checked: "November 2026" },
+    ],
+    related: [
+      { href: "/guides/how-to-leave-your-marketing-agency", label: "How to leave your marketing agency and take your stuff" },
+      { href: "/guides/home-service-marketing-companies-compared", label: "Home service marketing companies: prices and contracts" },
+      { href: "/guides/home-service-marketing-agency-cost", label: "What a home service marketing agency should cost" },
+      { href: "/pricing", label: "TableTurnerr pricing" },
+      { href: "/results", label: "Client results" },
+      { href: "/free-google-maps-audit", label: "Free Google Maps audit" },
+    ],
+  },
+
+  "thryv-alternative": {
+    slug: "thryv-alternative",
+    kind: "marketing-agency",
+    competitor: "Thryv",
+    category: "Small-business software + marketing",
+    metaTitle: "Thryv Alternatives for Contractors (2026) | TableTurnerr",
+    metaDescription:
+      "Thryv alternatives for home-service owners: Thryv's published plans and renewal terms, where it fits best, done-for-you options and how to switch. Nov 2026.",
+    tagline: "Thryv alternatives for contractors who want it done for them",
+    intro:
+      `Thryv is small-business software for listings, reviews, websites and social, with done-for-you marketing sold as add-ons. If you'd rather have a team run it for your home-service company, TableTurnerr offers ${PRICE_TEXT.plans}.`,
+    fairTake:
+      "Thryv publishes its software prices, which many competitors don't: Starter at $99 a month and Signature at $399 a month, with Signature adding an SEO and AEO website, social management and Google Business Profile help (checked November 2026). Listings go out to 60+ directories. If you're comfortable running software yourself and want one app for many kinds of local business, Thryv is a reasonable choice.",
+    ourAngle:
+      `TableTurnerr is done for you and built only for home-service trades: review requests after every job, missed-call text-back, your website and Google Business Profile, AI answering, follow-ups on open estimates, and AI search optimization in Complete (${PRICE_TEXT.aeo}). It's ${PRICE_TEXT.plans}, with no contract.`,
+    termsNote:
+      "Thryv's terms (effective December 1, 2026) say your subscription period is set when you order and renews automatically unless you cancel at least 30 days before it ends, in writing through its contact page; disputes go to binding arbitration. Its done-for-you Boosts aren't priced on the site (checked November 2026). TableTurnerr is five fixed packages, month to month, no contract. Whoever you hire, us included, ask who owns the domain, website and ad accounts, and get the answer in writing.",
+    compare: [
+      { f: "Prices published on the website", us: true, them: true },
+      { f: "Month to month, no contract", us: true, them: "Term set at order" },
+      { f: "Renews automatically unless you cancel 30 days ahead", us: false, them: true },
+      { f: "Done for you, not software you run", us: true, them: "Add-on" },
+      { f: "Focused only on home-service trades", us: true, them: "partial" },
+      { f: "Listings sent to 60+ directories", us: "Ask", them: true },
+      { f: "Official Jobber integration", us: true, them: "Ask" },
+    ],
+    reasons: [
+      {
+        t: "We do the work",
+        b: "No app to learn on a Sunday night. We set up and run your reviews, Google profile, website and follow-ups, and you get a monthly report in plain words.",
+      },
+      {
+        t: "No renewal window to watch",
+        b: "TableTurnerr is month to month with no contract, so there's no term to track and no 30-day notice date to miss.",
+      },
+      {
+        t: "Built around the trades",
+        b: "Jobber has an official integration, Housecall Pro connects on its plan that allows integrations, and other job software connects through Zapier or Make, so finished jobs trigger review requests automatically.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does Thryv cost?",
+        a: "Thryv's pricing page lists Starter at $99 a month and Signature at $399 a month, with a Custom plan and done-for-you Boosts priced by quote (checked November 2026).",
+      },
+      {
+        q: "How do I cancel Thryv?",
+        a: "Thryv's terms say to give written notice through its contact page at least 30 days before your current subscription period ends, including your business name, phone and address. Keep a copy of the request and the confirmation.",
+      },
+      {
+        q: "What do Thryv's unhappy reviewers complain about?",
+        a: "Thryv holds 2.6 out of 5 on Trustpilot from 458 reviews (checked November 2026). Recent 1-star reviews describe trouble cancelling, charges after a cancellation request, and add-ons with their own six-month terms. Some reviewers praise friendly onboarding staff.",
+      },
+      {
+        q: "When is Thryv the better choice?",
+        a: "When you want software you run yourself, at a published price, covering listings, reviews, a website and social for any kind of local business. If you'd rather hand the work to a team that only serves home-service trades, a done-for-you option fits better.",
+      },
+      {
+        q: "How do I switch from Thryv without losing anything?",
+        a: "Check your renewal date first, then make sure you are the primary owner of your Google Business Profile, export your contacts, and confirm who controls your domain. Thryv's terms say its SMS number ends with the subscription, so plan for a new texting number. Our guide on how to leave your marketing agency walks through every step.",
+      },
+    ],
+    sources: [
+      { label: "Thryv pricing (Starter $99/mo, Signature $399/mo)", url: "https://www.thryv.com/pricing/", checked: "November 2026" },
+      { label: "Thryv terms, effective Dec 1, 2026 (renewal, cancellation, arbitration, SMS number)", url: "https://www.thryv.com/thryv-ba-terms/", checked: "November 2026" },
+      { label: "Thryv reviews on Trustpilot (2.6 from 458 reviews)", url: "https://www.trustpilot.com/review/thryv.com", checked: "November 2026" },
+      { label: "Thryv complaints on BBB (more than 350 complaints in the last 3 years)", url: "https://www.bbb.org/us/tx/dallas/profile/marketing-software/thryv-0875-90044496/complaints", checked: "November 2026" },
+    ],
+    related: [
+      { href: "/guides/how-to-leave-your-marketing-agency", label: "How to leave your marketing agency and take your stuff" },
+      { href: "/guides/best-aeo-services-for-contractors", label: "Best AEO services for contractors, compared" },
+      { href: "/guides/home-service-marketing-companies-compared", label: "Home service marketing companies: prices and contracts" },
+      { href: "/services/ai-search-optimization", label: "AI search optimization" },
+      { href: "/pricing", label: "TableTurnerr pricing" },
+      { href: "/results", label: "Client results" },
     ],
   },
 };
