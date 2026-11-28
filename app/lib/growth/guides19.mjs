@@ -6,7 +6,8 @@
 // Scorpion's FAQ blocks automated readers (403); its terms here come from Scorpion's own FAQ text as indexed in
 // search on 2026-11-27 and are worded as "Scorpion's FAQ says". Hibu's site also blocked us, so no Hibu price or term
 // is stated beyond Hibu's own written reply on its BBB profile.
-// Never state what happens to a client's website/domain when they leave TableTurnerr (unconfirmed by the owner).
+// Owner-confirmed 2026-11-28: a client who cancels can buy their website for a one-time fee (amount not published,
+// say "ask us"); the CRM, backend and automations stay with TableTurnerr. Never state the fee amount.
 // TableTurnerr prices are never typed here: {{PRICE:<key>}} tokens are filled from app/lib/pricing.ts.
 const DATE = "2026-11-27";
 const A = (href, text) => `<a href="${href}" rel="noopener">${text}</a>`;
@@ -157,7 +158,7 @@ export const guides19 = [
 <tr><td>WebFX</td><td>SEO from $2,900/mo (${WEBFX_PRICE()}); AI SEO from $3,000/mo (${WEBFX_AI()})</td><td>6 months</td><td>Not stated on the pricing page</td><td>Larger companies that want detailed reporting</td></tr>
 </tbody>
 </table>
-<p>Website ownership matters as much as price. Blue Corona says "You'll own all your deliverables, including your website." Footbridge says it will help you take your site with you. Scorpion's FAQ says you own the site after the contract term, but not the platform it runs on. For us: ask us, and get it in writing.</p>
+<p>Website ownership matters as much as price. Blue Corona says "You'll own all your deliverables, including your website." Footbridge says it will help you take your site with you. Scorpion's FAQ says you own the site after the contract term, but not the platform it runs on. For us: if you cancel, you can buy your website from us for a one-time fee. Our CRM, backend and automations stay with us.</p>
 <h2>What public reviews complain about</h2>
 <p>From each company's BBB and Trustpilot pages, ${CHK}. Big companies have more customers, so they get more complaints. Read the themes, not just the counts.</p>
 <table>
@@ -284,7 +285,7 @@ export const guides19 = [
 <li>There's a named person you can reach and a monthly report you can understand.</li>
 <li>No "#1 on Google" or "#1 in ChatGPT" guarantees.</li>
 </ul>
-<p>Hold us to the same list. We're month to month with no contract, and our prices are on <a href="/pricing">the pricing page</a> ({{PRICE:plans}}). Ask us what you keep if you leave, and get it in writing before you sign. Comparing companies? See <a href="/guides/home-service-marketing-companies-compared">home service marketing companies compared</a> and <a href="/alternatives">alternatives</a>. A messy Google profile handover is common: Cooling Comfort's profile was stuck for months and <a href="/results/cooling-comfort">got verified 3 days after one free call</a>. For a free look at where you stand, get a <a href="/free-google-maps-audit">free Google Maps audit</a>, or call ${PHONE}.</p>`,
+<p>Hold us to the same list. We're month to month with no contract, and our prices are on <a href="/pricing">the pricing page</a> ({{PRICE:plans}}). Here's our answer up front: if you cancel, you can buy your website from us for a one-time fee (ask us for the amount). Our CRM, backend and automations stay with us. Comparing companies? See <a href="/guides/home-service-marketing-companies-compared">home service marketing companies compared</a> and <a href="/alternatives">alternatives</a>. A messy Google profile handover is common: Cooling Comfort's profile was stuck for months and <a href="/results/cooling-comfort">got verified 3 days after one free call</a>. For a free look at where you stand, get a <a href="/free-google-maps-audit">free Google Maps audit</a>, or call ${PHONE}.</p>`,
     faq: [
       ["Can a marketing agency keep my website when I cancel?", "It depends on your contract. Some agencies hand over the site, others keep the platform it runs on and give you only files and content. Read the ownership clause and get the handover terms in writing before you give notice."],
       ["How do I get my Google Business Profile back from an agency?", "Ask them to add your Google account as an owner, then transfer primary ownership after Google's 7-day wait. If they don't respond, request access through Google, which gives the current owner 3 days to reply."],

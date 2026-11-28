@@ -48,6 +48,7 @@ const faq: Pair[] = [
   ["Who will I actually talk to?", "One of the owners. We don't hand you to a sales rep or an offshore account manager."],
   ["Which businesses do you work with?", `US home-service businesses: ${trades.slice(0, 8).map((t) => softLower(t.name)).join(", ")} and more. We have clients in ${clientStatesText}.`],
   ["Do you require a contract?", "No. Month to month."],
+  ["What do I keep if I leave?", "If you cancel, you can buy your website from us for a one-time fee (ask us for the amount). Our CRM, the backend and the automations stay with us."],
   ["How do I start?", "Request a free Google Maps audit. We build the report, walk you through it on a short call and tell you honestly whether we can help."],
 ];
 
