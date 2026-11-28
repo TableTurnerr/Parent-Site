@@ -7,6 +7,7 @@ import JsonLd from "@/app/components/site/JsonLd";
 import ReviewGrowthChart from "@/app/components/growth/ReviewGrowthChart";
 import {
   AuditBand, CardGrid, FaqSection, Glance, GrowthHero, GuideCards, Html, NextSteps, SectionHead, faqSchemaItems,
+  TradeProof,
 } from "@/app/components/growth/Growth";
 import { generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/app/lib/schema";
 import {
@@ -105,6 +106,7 @@ export default async function Page({ params }: Params) {
         </div>
       </section>
 
+      <div className="pt-16 md:pt-20"><TradeProof trade={t.slug} tradeName={softLower(t.name)} /></div>
       <AuditBand title={`See how your ${softLower(t.name)} business shows up on Google Maps`} />
       <FaqSection faq={c.faq} />
 

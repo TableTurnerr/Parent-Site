@@ -797,6 +797,7 @@ export const guides6 = [
 </ul>
 <h2>Week 3: Google</h2>
 <ul>
+<li>Check your Google Business Profile is verified first. An unverified profile can sit out of the map results. Cooling Comfort, an HVAC company in Inglewood, CA, had been stuck unverified for months; <a href="/results/cooling-comfort">it was verified 3 days after one free call with us</a>.</li>
 <li>Primary category: the one that matches most of your work, such as HVAC contractor or Air conditioning contractor. Change it with the season only if your work really changes.</li>
 <li>List services one by one: AC repair, furnace repair, heat pump installation, duct cleaning if you do it.</li>
 <li>Add ten photos of real installs.</li>
