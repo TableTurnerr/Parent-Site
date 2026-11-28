@@ -24,9 +24,9 @@ export const TRADES: Record<string, Trade> = {
     ],
     outcomes: [
       "Review requests fire automatically when a job closes in your CRM",
-      "Reviews land on Google, Facebook, Yelp and Angi",
-      "Technician leaderboards so your install crews compete",
-      "Map-pack rank tracking for your service areas",
+      "Custom NFC review cards your crew can hand to customers",
+      "AI replies to every review, written for you",
+      "Missed-call text-back so no caller is left hanging",
     ],
     faqs: [
       { q: "Does it work with ServiceTitan or Housecall Pro?", a: "Yes. Jobber has an official integration, Housecall Pro connects on its plan that allows integrations, and ServiceTitan, Workiz, QuickBooks and thousands more connect through Zapier or Make, so requests fire automatically when a job is completed." },
@@ -52,12 +52,11 @@ export const TRADES: Record<string, Trade> = {
     ],
     outcomes: [
       "Automatic review requests the day a roof is completed",
-      "Reviews across Google, Facebook, Yelp and Angi",
+      "Custom NFC review cards your crew can hand to customers",
       "Crew-level attribution so foremen get the credit",
-      "Map-pack rank tracking across every neighborhood you serve",
+      "Missed-call text-back so no caller is left hanging",
     ],
     faqs: [
-      { q: "Can I attribute reviews to a specific crew or foreman?", a: "Yes. Technician leaderboards let you see which crews are earning the most 5-star reviews, which is a great way to motivate the team." },
       { q: "What about insurance and storm-restoration jobs?", a: "Those customers are some of your happiest. We time the request for after the job is signed off, so you capture that goodwill as public proof." },
       { q: "Do I need a contract?", a: "No. Every plan is month to month, so you can scale up, scale down or stop." },
     ],
@@ -80,9 +79,9 @@ export const TRADES: Record<string, Trade> = {
     ],
     outcomes: [
       "Review requests sent automatically after every service call",
-      "Reviews on Google, Facebook, Yelp and Angi",
-      "Technician leaderboards across your plumbers",
-      "Map-pack rank tracking for every area you cover",
+      "Custom NFC review cards your crew can hand to customers",
+      "AI replies to every review, written for you",
+      "Missed-call text-back so no caller is left hanging",
     ],
     faqs: [
       { q: "Will customers get spammed?", a: "No. We send one polite, personalized request with a couple of gentle reminders, and a 30-day cooldown means repeat customers are never over-asked." },
@@ -108,9 +107,9 @@ export const TRADES: Record<string, Trade> = {
     ],
     outcomes: [
       "Automatic review requests when each job closes",
-      "Reviews across Google, Facebook, Yelp and Angi",
-      "Technician leaderboards for your electricians",
-      "Map-pack rank tracking for your service areas",
+      "Custom NFC review cards your crew can hand to customers",
+      "AI replies to every review, written for you",
+      "Missed-call text-back so no caller is left hanging",
     ],
     faqs: [
       { q: "Can I showcase reviews on my website?", a: "Yes. Drop-in review widgets display your best reviews on your site, and we can auto-post every 5-star to Facebook and Instagram." },

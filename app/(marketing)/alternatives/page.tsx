@@ -24,7 +24,7 @@ export default function AlternativesIndex() {
             <p className="lead mt-6 max-w-2xl">
               Most review tools are built for enterprise chains or general small
               businesses. TableTurnerr is built for home-service industries, with
-              multi-platform reviews, technician leaderboards, map-pack tracking,
+              review requests run for you, AI replies, missed-call text-back,
               and no contracts. Here&apos;s how we stack up.
             </p>
           </div>

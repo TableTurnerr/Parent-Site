@@ -3,7 +3,7 @@ import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
-  MessageSquareText, Repeat2, Trophy, BarChart3, Bot, Globe2,
+  MessageSquareText, Repeat2, BarChart3, Bot, Globe2,
   Wrench, Home, Droplets, Zap, Check, ArrowRight, Plug,
   BadgeCheck, EyeOff,
 } from "lucide-react";
@@ -149,7 +149,6 @@ function Problem() {
 const FEATURES = [
   { icon: Repeat2, t: "Review Reactivation", b: "Launch with a polite blast to your entire past-customer list. Most shops get a wave of fresh reviews in the first week." },
   { icon: Globe2, t: "Every platform, not just Google", b: "Route happy customers to Google, Facebook, Yelp and Angi, the places home-services buyers actually check." },
-  { icon: Trophy, t: "Technician leaderboards", b: "Attribute reviews to the tech who did the job. Turn reviews into a friendly competition your crew actually enjoys." },
   { icon: BarChart3, t: "Map-pack rank tracking", b: "See your local-pack rank move week over week, not just a review count. Tie reviews to the jobs they win." },
   { icon: Bot, t: "AI requests & replies", b: "Personalized, name-on-the-photo requests by text and email, plus AI that replies to every review for you." },
   { icon: MessageSquareText, t: "Widgets & auto social posts", b: "Show your best reviews on your site and turn every 5-star into a branded Facebook and Instagram post automatically." },
@@ -338,7 +337,7 @@ const FAQS = [
   { q: "Does it work with my software?", a: "Yes. Jobber has an official integration, Housecall Pro connects on its plan that allows integrations, and any other software (ServiceTitan, Workiz, QuickBooks and more) connects through Zapier or Make. No software? We import your customer list." },
   { q: "How much does it cost?", a: "Five packages, each with everything in the one before it: Reviews $97, Starter $297, Growth $597 (adds 24/7 AI answering, 150 min), Complete $797 and Partner $1,797 a month. Need something different? Call us for custom pricing. No contracts, and 2 months free if you pay yearly. Book a call or call us for an exact price." },
   { q: "Do I need a contract?", a: "No. Move up or down whenever you need: drop a plan in the slow season and step back up when it gets busy. No penalties." },
-  { q: "Can my techs get credit for their reviews?", a: "Yes. Technician leaderboards attribute each review to the person who did the job, which is a great way to motivate your crew." },
+  { q: "Can my techs ask for reviews in person?", a: "Yes. Every package includes custom NFC review cards: a tech taps the card on the customer's phone and your Google review page opens, so the ask can happen before they leave the job." },
 ];
 function FAQ() {
   return (

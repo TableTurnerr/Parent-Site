@@ -57,17 +57,16 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     fairTake:
       "Birdeye is a capable, wide-ranging platform with a large customer base, and it makes sense for big multi-location organizations with a marketing team to run it. It's priced and packaged for that buyer: per location, typically on an annual contract with an implementation process.",
     ourAngle:
-      "TableTurnerr does one job exceptionally well for the trades: turn every completed job into reviews across Google, Facebook, Yelp and Angi, with technician leaderboards and map-pack tracking. Five fixed packages, month to month, live the same day.",
+      "TableTurnerr does one job exceptionally well for the trades: turn every completed job into a Google review request, reply to every review with AI, text back missed calls, and hand you NFC review cards and a monthly report. We run it for you. Five fixed packages, month to month.",
     termsNote:
-      "Birdeye is generally sold per location on annual contracts with an implementation fee. TableTurnerr is five fixed packages, month to month, with no setup fee and no contract.",
+      "Birdeye is generally sold per location on annual contracts with an implementation fee. TableTurnerr is five fixed packages, month to month, with no contract.",
     compare: [
       { f: "Built specifically for home-service trades", us: true, them: false },
       { f: "Fixed package prices (not per location)", us: true, them: false },
       { f: "Month-to-month, no annual contract", us: true, them: false },
-      { f: "Live the same day, no implementation project", us: true, them: false },
-      { f: "Reviews across Google, Facebook, Yelp & Angi", us: true, them: true },
-      { f: "Technician leaderboards", us: true, them: "partial" },
-      { f: "Map-pack rank tracking", us: true, them: true },
+      { f: "Done for you: we set it up and run it", us: true, them: "partial" },
+      { f: "AI replies to every Google review", us: true, them: true },
+      { f: "Missed-call text-back included", us: true, them: "partial" },
       { f: "Never gates or filters reviews", us: true, them: true },
     ],
     reasons: [
@@ -76,12 +75,12 @@ export const ALTERNATIVES: Record<string, Alternative> = {
         b: "No per-location pricing and no annual commitment. You pick one of five fixed packages, pay month to month, and can cancel anytime.",
       },
       {
-        t: "Set up in minutes, not weeks",
-        b: "Connect your CRM, import your customers, and start asking for reviews on your next completed job, no onboarding project required.",
+        t: "Set up for you, not by you",
+        b: "We connect your job software (or import your customer list) and start asking for reviews after your next completed jobs. No onboarding project on your side.",
       },
       {
         t: "Made for the trades",
-        b: "Technician leaderboards, big-ticket job timing, and map-pack tracking are built in, not bolted on.",
+        b: "Requests timed to the end of each job, AI replies, missed-call text-back and NFC review cards your crew can hand to customers, in one package.",
       },
     ],
     faqs: [
@@ -90,8 +89,8 @@ export const ALTERNATIVES: Record<string, Alternative> = {
         a: "Yes. Birdeye is built for enterprise and multi-location brands and priced per location. TableTurnerr is built for independent HVAC, roofing, plumbing and electrical shops, with five fixed packages, month to month, and no implementation project.",
       },
       {
-        q: "Does TableTurnerr cover the same review sites as Birdeye?",
-        a: "For the platforms that matter to home services, Google, Facebook, Yelp and Angi, yes. We focus on the sites your customers actually use to choose a contractor, rather than monitoring hundreds of directories you'll never need.",
+        q: "Does TableTurnerr cover as many review sites as Birdeye?",
+        a: "No. We focus on Google, where most homeowners pick a contractor, rather than monitoring hundreds of directories. If you need dozens of review sites tracked across many locations, Birdeye covers more ground.",
       },
       {
         q: "Do I have to sign a contract?",
@@ -106,23 +105,23 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     category: "Review software",
     metaTitle: "NiceJob Alternatives for Home Services (2026) | TableTurnerr",
     metaDescription:
-      "A NiceJob alternative for the trades: multi-platform review automation with technician leaderboards, map-pack tracking, and a strict no-gating policy.",
+      "A NiceJob alternative for the trades: Google review requests run for you, AI replies, missed-call text-back, NFC review cards and a strict no-gating policy.",
     tagline: "A NiceJob alternative made for the trades",
     intro:
-      "NiceJob is a solid review tool for service businesses. TableTurnerr is built specifically for home-service trades, with technician leaderboards, map-pack rank tracking, broader platform coverage, and a firm no-gating policy that keeps you on the right side of Google and the FTC.",
+      "NiceJob is a solid review tool for service businesses. TableTurnerr is built for home-service trades and done for you: we run the review requests, reply to every review with AI, text back missed calls, and keep a firm no-gating policy that stays on the right side of Google and the FTC.",
     fairTake:
       "NiceJob is a well-known, affordable review tool with month-to-month terms and the integrations most shops need. It's a reasonable starting point for a lot of small businesses.",
     ourAngle:
-      "TableTurnerr goes deeper for the trades: per-technician leaderboards to motivate the crew, map-pack rank tracking so you can see the local-search payoff, coverage across Google, Facebook, Yelp and Angi, and a strict policy of never routing unhappy customers away from public reviews.",
+      "TableTurnerr is the done-for-you version: we set up and run the requests, AI replies to every review, missed calls get an instant text back, your crew gets NFC review cards, and you get a monthly report. And we never route unhappy customers away from public reviews.",
     termsNote:
       "Both tools are month-to-month with no long-term contract. The difference is focus: TableTurnerr is built around home-service trades and a no-gating, compliance-first approach.",
     compare: [
       { f: "Built specifically for home-service trades", us: true, them: "partial" },
-      { f: "Reviews across Google, Facebook, Yelp & Angi", us: true, them: "partial" },
-      { f: "Technician leaderboards", us: true, them: false },
-      { f: "Map-pack rank tracking", us: true, them: false },
+      { f: "Done for you: we set it up and run it", us: true, them: false },
+      { f: "AI replies to every Google review", us: true, them: "partial" },
+      { f: "Missed-call text-back included", us: true, them: false },
       { f: "Never routes unhappy customers to a private form", us: true, them: "partial" },
-      { f: "Connects to Jobber, Housecall Pro & ServiceTitan", us: true, them: true },
+      { f: "Connects to Jobber, Housecall Pro & ServiceTitan (others via Zapier or Make)", us: true, them: true },
       { f: "Month-to-month, no contract", us: true, them: true },
     ],
     reasons: [
@@ -131,18 +130,18 @@ export const ALTERNATIVES: Record<string, Alternative> = {
         b: "Some review tools include a 'feedback funnel' that sends unhappy customers to a private form before the public review step. The FTC now restricts that practice. TableTurnerr never does it, every customer gets the same public ask.",
       },
       {
-        t: "Built for the crew",
-        b: "Technician leaderboards turn reviews into friendly competition, so your techs actually make the ask on every job.",
+        t: "Nothing for you to run",
+        b: "A self-serve tool still needs someone to set it up and watch it. We do that part, and reply to every review for you.",
       },
       {
-        t: "See the local-search payoff",
-        b: "Map-pack rank tracking shows your Google ranking climbing as the reviews come in, not just a count of reviews.",
+        t: "More than review requests",
+        b: "Missed-call text-back and NFC review cards come in the same package, so fewer calls and fewer happy customers slip through.",
       },
     ],
     faqs: [
       {
         q: "How is TableTurnerr different from NiceJob?",
-        a: "Both automate review requests, but TableTurnerr is built specifically for home-service trades. You get per-technician leaderboards, map-pack rank tracking, coverage across Google, Facebook, Yelp and Angi, and a strict no-gating policy.",
+        a: "Both automate review requests, but TableTurnerr is built specifically for home-service trades. NiceJob is self-serve software; we run the whole thing for you, reply to every review with AI, add missed-call text-back and NFC review cards, and keep a strict no-gating policy.",
       },
       {
         q: "What does 'no review gating' mean?",
@@ -150,7 +149,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       },
       {
         q: "Can I switch from NiceJob easily?",
-        a: "Yes. Connect your CRM, we import your customers, and review requests start on your next completed job. It's month-to-month.",
+        a: "Yes. We connect your job software or import your customer list, and review requests start after your next completed jobs. It's month to month.",
       },
     ],
   },
@@ -161,22 +160,21 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     category: "SMB messaging & reviews",
     metaTitle: "Podium Alternatives for Home Services (2026) | TableTurnerr",
     metaDescription:
-      "A focused Podium alternative for home services: review automation that turns completed jobs into 5-star reviews across Google, Facebook, Yelp and Angi.",
+      "A focused Podium alternative for home services: Google review requests after every job, AI replies and missed-call text-back, run for you, month to month.",
     tagline: "The Podium alternative focused on reviews that win jobs",
     intro:
       "Podium is a broad messaging platform for small businesses, with reviews as one feature among many. TableTurnerr is purpose-built for home-service review automation, so every completed job becomes reviews on the sites that actually win you the next customer.",
     fairTake:
       "Podium is a capable omnichannel messaging suite, and if your main need is a shared inbox and payments across many channels, it covers a lot of ground for a general small business.",
     ourAngle:
-      "If what you really want is more 5-star reviews from every finished job, TableTurnerr is built for exactly that, for the trades. Job-completion-triggered requests, technician leaderboards, map-pack tracking, and coverage across Google, Facebook, Yelp and Angi, without paying for a full messaging platform you won't use.",
+      "If what you really want is more 5-star reviews from every finished job, TableTurnerr is built for exactly that, for the trades. Requests triggered by completed jobs, AI replies to every review, missed-call text-back and NFC review cards, run for you, without paying for a full messaging platform you won't use.",
     termsNote:
       "TableTurnerr is five fixed packages, month to month, with no contract, and review automation is in every package, not a paid add-on.",
     compare: [
       { f: "Built specifically for home-service trades", us: true, them: false },
       { f: "Review automation is the core product", us: true, them: "partial" },
-      { f: "Reviews across Google, Facebook, Yelp & Angi", us: true, them: true },
-      { f: "Technician leaderboards", us: true, them: false },
-      { f: "Map-pack rank tracking", us: true, them: false },
+      { f: "Done for you: we set it up and run it", us: true, them: false },
+      { f: "AI replies to every Google review", us: true, them: "partial" },
       { f: "Triggered automatically by completed jobs", us: true, them: "partial" },
       { f: "Month-to-month, no contract", us: true, them: false },
     ],
@@ -191,7 +189,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       },
       {
         t: "Built for the trades",
-        b: "Technician leaderboards and map-pack tracking are designed around how home-service shops actually grow.",
+        b: "Request timing, text wording and NFC review cards are set up around how home-service jobs end, not around a retail checkout.",
       },
     ],
     faqs: [
@@ -205,7 +203,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       },
       {
         q: "How quickly can I get started?",
-        a: "About a minute to connect your CRM. We import your customers and start sending review requests on your next completed job, month-to-month.",
+        a: "We do the setup: connect your job software or import your customer list, then requests go out after your next completed jobs. Month to month.",
       },
     ],
   },
@@ -216,43 +214,42 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     category: "Reputation software",
     metaTitle: "GatherUp Alternatives for Home Services (2026)",
     metaDescription:
-      "A GatherUp alternative built for the trades: home-service review automation with technician leaderboards, map-pack tracking, and five fixed monthly packages.",
+      "A GatherUp alternative built for the trades: Google review requests run for you, AI replies, missed-call text-back and five fixed monthly packages.",
     tagline: "A GatherUp alternative built around the trades",
     intro:
       "GatherUp is a general-purpose reputation tool that works for all kinds of small and multi-location businesses. TableTurnerr is built around one buyer, the home-service shop, so the features, timing, and reporting all fit how the trades actually win work.",
     fairTake:
       "GatherUp is a feature-rich, month-to-month reputation platform that sets a high table-stakes bar across many industries. For a generalist agency or a mixed portfolio of businesses, it's a strong option.",
     ourAngle:
-      "TableTurnerr trades breadth for fit. You get technician leaderboards, big-ticket job timing, map-pack rank tracking, and a no-gating policy, built specifically for HVAC, roofing, plumbing and electrical, in five fixed packages.",
+      "TableTurnerr trades breadth for fit. You get review requests timed to the end of each job, AI replies, missed-call text-back, NFC review cards and a no-gating policy, set up and run for you, in five fixed packages.",
     termsNote:
       "Both are month-to-month with no contract. TableTurnerr's edge is vertical fit: everything is tuned for home-service trades rather than spread across every industry.",
     compare: [
       { f: "Built specifically for home-service trades", us: true, them: false },
-      { f: "Technician leaderboards", us: true, them: false },
-      { f: "Map-pack rank tracking", us: true, them: "partial" },
-      { f: "Reviews across Google, Facebook, Yelp & Angi", us: true, them: true },
-      { f: "Connects to Jobber, Housecall Pro & ServiceTitan", us: true, them: "partial" },
+      { f: "Done for you: we set it up and run it", us: true, them: false },
+      { f: "Missed-call text-back included", us: true, them: false },
+      { f: "Connects to Jobber, Housecall Pro & ServiceTitan (others via Zapier or Make)", us: true, them: "partial" },
       { f: "Fixed package prices, no per-location math", us: true, them: false },
       { f: "Month-to-month, no contract", us: true, them: true },
     ],
     reasons: [
       {
         t: "Vertical focus beats breadth",
-        b: "Instead of a generic tool for every industry, you get one tuned for the trades, timing, leaderboards, and reporting that match how shops grow.",
+        b: "Instead of a generic tool for every industry, you get one tuned for the trades: request timing, text wording and a monthly report that match how shops work.",
       },
       {
         t: "Simple, fixed pricing",
         b: "Five fixed packages, month to month, with no per-location tiers to track as you grow.",
       },
       {
-        t: "Built-in motivation",
-        b: "Technician leaderboards make review-getting a team sport, so the ask happens on every job.",
+        t: "Your crew can ask in person too",
+        b: "NFC review cards let a tech tap a customer's phone to open your review page, so the ask can happen on the spot.",
       },
     ],
     faqs: [
       {
         q: "Why choose TableTurnerr over GatherUp?",
-        a: "GatherUp is a strong generalist reputation tool. TableTurnerr is built specifically for home-service trades, with technician leaderboards, map-pack tracking, and job-completion timing tuned for HVAC, roofing, plumbing and electrical.",
+        a: "GatherUp is a strong generalist reputation tool. TableTurnerr is built for home-service trades and run for you, with requests timed to completed jobs, AI replies, missed-call text-back and NFC review cards.",
       },
       {
         q: "Does TableTurnerr work with my field-service CRM?",
@@ -271,21 +268,21 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     category: "Technician-centric reviews",
     metaTitle: "PulseM Alternatives for Home Services (2026) | TableTurnerr",
     metaDescription:
-      "A PulseM alternative priced by package, not per technician: home-service review automation with leaderboards, map-pack tracking, and multi-platform reach.",
+      "A PulseM alternative priced by package, not per technician: Google review requests run for you, AI replies, missed-call text-back and NFC review cards.",
     tagline: "A PulseM alternative that doesn't charge per technician",
     intro:
-      "PulseM popularized technician-based review requests. TableTurnerr gives you the same per-technician motivation, with leaderboards and personalized requests, but in fixed packages whose price doesn't grow every time you hire, plus broader platform coverage.",
+      "PulseM popularized technician-based review requests. TableTurnerr takes a different approach: requests go out after every completed job, run for you, in fixed packages whose price doesn't grow every time you hire.",
     fairTake:
       "PulseM is well-known for technician-centric review requests with tech bios, and shops that live inside ServiceTitan often hear about it first.",
     ourAngle:
-      "TableTurnerr keeps the technician angle, leaderboards and per-tech attribution, but prices it by package instead of per technician, so growing your crew doesn't grow your bill. You also get coverage across Google, Facebook, Yelp and Angi and map-pack rank tracking.",
+      "TableTurnerr doesn't do technician bios or per-tech leaderboards. If that's what motivates your crew, PulseM is the better fit. What we do is run the requests for you, reply to every review with AI, text back missed calls and give your crew NFC review cards, priced by package so a bigger crew doesn't mean a bigger bill.",
     termsNote:
       "PulseM is generally priced per technician/user, so the cost climbs as you add techs. TableTurnerr is five fixed packages, month to month, and the price doesn't change with the size of your crew.",
     compare: [
       { f: "Package price (not per technician)", us: true, them: false },
-      { f: "Technician leaderboards & attribution", us: true, them: true },
-      { f: "Reviews across Google, Facebook, Yelp & Angi", us: true, them: "partial" },
-      { f: "Map-pack rank tracking", us: true, them: false },
+      { f: "Technician bios and leaderboards", us: false, them: true },
+      { f: "Done for you: we set it up and run it", us: true, them: "partial" },
+      { f: "Missed-call text-back included", us: true, them: false },
       { f: "Works beyond a single CRM", us: true, them: "partial" },
       { f: "Built specifically for home-service trades", us: true, them: true },
       { f: "Month-to-month, no contract", us: true, them: true },
@@ -296,26 +293,26 @@ export const ALTERNATIVES: Record<string, Alternative> = {
         b: "Per-technician pricing punishes hiring, a bigger crew means a bigger bill every month. TableTurnerr's package price stays the same no matter how many techs you run.",
       },
       {
-        t: "Keep the technician motivation",
-        b: "You still get per-tech attribution and leaderboards, so the crew competes to earn 5-star reviews on every job.",
+        t: "Your crew can still ask in person",
+        b: "NFC review cards let a tech tap a customer's phone to open your review page before leaving the job.",
       },
       {
-        t: "Broader reach",
-        b: "Reviews across Google, Facebook, Yelp and Angi, plus map-pack rank tracking, not just a single platform.",
+        t: "More than review requests",
+        b: "AI replies to every review and missed-call text-back come in the same package.",
       },
     ],
     faqs: [
       {
         q: "How is TableTurnerr different from PulseM?",
-        a: "Both use technicians to drive reviews, but PulseM is generally priced per technician, so your cost grows as you hire. TableTurnerr is five fixed packages, month to month, with the same leaderboards and per-tech attribution, plus broader platform coverage.",
+        a: "Both use technicians to drive reviews, but PulseM is generally priced per technician, so your cost grows as you hire. TableTurnerr is five fixed packages, month to month, run for you. We don't offer technician bios or leaderboards; PulseM does.",
       },
       {
-        q: "Do I still get technician leaderboards?",
-        a: "Yes. Per-technician attribution and leaderboards are built in, so you can see which techs earn the most 5-star reviews and turn it into friendly competition.",
+        q: "Does TableTurnerr have technician leaderboards?",
+        a: "No. We don't offer technician bios or leaderboards. If those matter most to your crew, PulseM is built around them.",
       },
       {
         q: "Is TableTurnerr tied to one CRM?",
-        a: "No. We connect to Jobber, Housecall Pro, ServiceTitan, Workiz and QuickBooks, so you're not locked to a single platform.",
+        a: "No. Jobber has an official integration, Housecall Pro connects on its plan that allows integrations, and ServiceTitan, Workiz, QuickBooks and others connect through Zapier or Make. No software? We import your customer list.",
       },
     ],
   },
@@ -337,7 +334,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     ourAngle:
       `TableTurnerr is built for the owner-operator. You see the price before you call: ${PRICE_TEXT.plans}. The work is done for you: review requests after every job, your website and Google Business Profile, AI answering, follow-ups, and AI search optimization in Complete (${PRICE_TEXT.aeo}). Google Ads and LSA management is in Partner, ${PRICE_TEXT.ads}.`,
     termsNote:
-      "Scorpion doesn't publish prices, and its FAQ says it usually requires a 12-month contract for its marketing technology and services like SEO, and that you own your website after the length of your contract (checked November 2026). TableTurnerr is five fixed packages, month to month, no contract. Whoever you hire, us included, ask who owns the domain, website and ad accounts, and get the answer in writing.",
+      "Scorpion doesn't publish prices, and its FAQ says it usually requires a 12-month contract for its marketing technology and services like SEO, and that you own your website after the length of your contract (checked November 2026). TableTurnerr is five fixed packages, month to month, no contract. If you cancel, you can buy your website from us for a one-time fee; our CRM, backend and automations stay with us. Whoever you hire, ask who owns the domain, website and ad accounts, and get the answer in writing.",
     compare: [
       { f: "Prices published on the website", us: true, them: false },
       { f: "Month to month, no annual contract", us: true, them: "12 mo. typical" },
@@ -413,7 +410,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     ourAngle:
       `TableTurnerr works only with home-service businesses, so the plan is built around how trades win jobs: a review request after every finished job, missed-call text-back, your Google Business Profile and website, AI answering for calls you can't pick up, and follow-ups on open estimates. Prices are on the website: ${PRICE_TEXT.plans}.`,
     termsNote:
-      "Hibu's pricing page asks you to request custom pricing rather than listing prices (checked November 2026), so ask for the term length, renewal rule, price-increase rule and cancellation method in writing before you sign. TableTurnerr is five fixed packages, month to month, no contract. Whoever you hire, us included, ask who owns the domain, website and ad accounts, and get the answer in writing.",
+      "Hibu's pricing page asks you to request custom pricing rather than listing prices (checked November 2026), so ask for the term length, renewal rule, price-increase rule and cancellation method in writing before you sign. TableTurnerr is five fixed packages, month to month, no contract. If you cancel, you can buy your website from us for a one-time fee; our CRM, backend and automations stay with us. Whoever you hire, ask who owns the domain, website and ad accounts, and get the answer in writing.",
     compare: [
       { f: "Prices published on the website", us: true, them: false },
       { f: "Month to month, no contract", us: true, them: "Ask" },
@@ -490,7 +487,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
     ourAngle:
       `TableTurnerr is done for you and built only for home-service trades: review requests after every job, missed-call text-back, your website and Google Business Profile, AI answering, follow-ups on open estimates, and AI search optimization in Complete (${PRICE_TEXT.aeo}). It's ${PRICE_TEXT.plans}, with no contract.`,
     termsNote:
-      "Thryv's terms (effective December 1, 2026) say your subscription period is set when you order and renews automatically unless you cancel at least 30 days before it ends, in writing through its contact page; disputes go to binding arbitration. Its done-for-you Boosts aren't priced on the site (checked November 2026). TableTurnerr is five fixed packages, month to month, no contract. Whoever you hire, us included, ask who owns the domain, website and ad accounts, and get the answer in writing.",
+      "Thryv's terms (effective December 1, 2026) say your subscription period is set when you order and renews automatically unless you cancel at least 30 days before it ends, in writing through its contact page; disputes go to binding arbitration. Its done-for-you Boosts aren't priced on the site (checked November 2026). TableTurnerr is five fixed packages, month to month, no contract. If you cancel, you can buy your website from us for a one-time fee; our CRM, backend and automations stay with us. Whoever you hire, ask who owns the domain, website and ad accounts, and get the answer in writing.",
     compare: [
       { f: "Prices published on the website", us: true, them: true },
       { f: "Month to month, no contract", us: true, them: "Term set at order" },

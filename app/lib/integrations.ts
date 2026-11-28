@@ -19,7 +19,6 @@ export const INTEGRATIONS: Record<string, Integration> = {
     syncs: [
       "Customers and contact details (phone + email)",
       "Completed jobs and visits, in real time",
-      "Assigned technician, for leaderboards",
       "Job type, so requests stay relevant",
     ],
     faqs: [
@@ -38,7 +37,6 @@ export const INTEGRATIONS: Record<string, Integration> = {
     syncs: [
       "Customers and contact details",
       "Completed jobs, in real time",
-      "Technician on the job, for leaderboards",
       "Recurring and membership visits",
     ],
     faqs: [
@@ -57,12 +55,10 @@ export const INTEGRATIONS: Record<string, Integration> = {
     syncs: [
       "Customers and contact details",
       "Completed jobs across business units",
-      "Technician attribution, for leaderboards",
       "Job type and tags",
     ],
     faqs: [
       { q: "Does TableTurnerr support ServiceTitan?", a: "Yes. We connect ServiceTitan through Zapier or Make, so completed jobs trigger automatic, personalized review requests, with the technician passed along for attribution." },
-      { q: "Can we attribute reviews to specific techs?", a: "Yes. Technician leaderboards show which techs earn the most 5-star reviews, which is a great way to motivate the team." },
       { q: "Is it hard to set up?", a: "No. We build the Zapier or Make connection and import your customers for you during onboarding." },
     ],
   },

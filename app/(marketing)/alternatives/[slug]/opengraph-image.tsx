@@ -11,6 +11,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   return renderOgImage({
     eyebrow: `${a?.competitor ?? "Compare"} alternative`,
     title: a?.tagline ?? "Review automation built for home services",
-    subtitle: "Multi-platform reviews, technician leaderboards, no contracts.",
+    subtitle: "Reviews run for you, AI replies, no contracts.",
   });
 }
