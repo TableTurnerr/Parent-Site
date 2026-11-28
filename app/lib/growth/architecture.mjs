@@ -134,6 +134,8 @@ export const guideTopics = {
   'electrician-website-cost': ['seo', 'trades'],
   'roofing-website-cost': ['seo', 'trades'],
   'landscaping-website-cost': ['seo', 'trades'],
+  // Added 2026-11-27 (daily growth task).
+  'why-isnt-my-phone-ringing': ['calls', 'maps'],
 };
 
 // service slug -> topic its guides come from
@@ -148,12 +150,12 @@ export const serviceTopics = {
 export const tradeGuides = {
   handyman: ['handyman-marketing-ideas', 'how-to-keep-track-of-customers', 'how-to-rank-higher-on-google-maps', 'missed-call-text-back-cost', 'handyman-website-cost', 'handyman-answering-service-cost'],
   'fence-companies': ['fence-company-marketing-guide', 'how-to-rank-higher-on-google-maps', 'how-many-google-reviews-to-rank'],
-  hvac: ['how-to-get-more-hvac-customers', 'how-to-verify-google-business-profile', 'hvac-slow-season-marketing', 'hvac-csr-phone-script', 'how-to-sell-maintenance-plans', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost', 'hvac-website-cost', 'hvac-answering-service-cost'],
-  plumbing: ['how-to-get-more-plumbing-customers', 'flat-rate-vs-hourly-pricing', 'best-crm-for-plumbers', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost', 'plumber-website-cost', 'plumbing-answering-service-cost'],
+  hvac: ['how-to-get-more-hvac-customers', 'why-isnt-my-phone-ringing', 'how-to-verify-google-business-profile', 'hvac-slow-season-marketing', 'hvac-csr-phone-script', 'how-to-sell-maintenance-plans', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost', 'hvac-website-cost', 'hvac-answering-service-cost'],
+  plumbing: ['how-to-get-more-plumbing-customers', 'why-isnt-my-phone-ringing', 'flat-rate-vs-hourly-pricing', 'best-crm-for-plumbers', 'ask-past-customers-for-google-reviews', 'ai-receptionist-cost', 'plumber-website-cost', 'plumbing-answering-service-cost'],
   'garage-door-repair': ['local-services-ads-vs-google-ads', 'google-business-profile-suspended', 'how-to-rank-higher-on-google-maps', 'best-ai-receptionist-for-contractors', 'garage-door-website-cost', 'garage-door-answering-service-cost'],
-  roofing: ['how-to-get-more-roofing-customers', 'ask-past-customers-for-google-reviews', 'how-to-follow-up-on-an-estimate', 'contractor-website-cost', 'roofing-website-cost', 'roofing-answering-service-cost'],
+  roofing: ['how-to-get-more-roofing-customers', 'why-isnt-my-phone-ringing', 'ask-past-customers-for-google-reviews', 'how-to-follow-up-on-an-estimate', 'contractor-website-cost', 'roofing-website-cost', 'roofing-answering-service-cost'],
   'pest-control': ['local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank', 'workiz-google-reviews', 'answering-service-cost', 'pest-control-website-cost', 'pest-control-answering-service-cost'],
-  electricians: ['electrician-review-management', 'local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank', 'ai-receptionist-cost', 'electrician-website-cost', 'electrician-answering-service-cost'],
+  electricians: ['electrician-review-management', 'why-isnt-my-phone-ringing', 'local-services-ads-vs-google-ads', 'how-many-google-reviews-to-rank', 'ai-receptionist-cost', 'electrician-website-cost', 'electrician-answering-service-cost'],
   'deck-builders': ['fence-company-marketing-guide', 'contractor-seo-cost', 'how-to-rank-higher-on-google-maps'],
   landscaping: ['how-to-rank-higher-on-google-maps', 'landscaping-website-cost', 'landscaping-answering-service-cost', 'ask-past-customers-for-google-reviews'],
   painting: ['how-to-rank-higher-on-google-maps', 'painting-contractor-website-cost', 'ask-past-customers-for-google-reviews'],
