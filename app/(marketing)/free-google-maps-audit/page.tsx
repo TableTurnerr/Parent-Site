@@ -69,7 +69,7 @@ export default function Page() {
             <div>
               <span className="eyebrow">Free, no obligation</span>
               <h1 className="display mt-6 text-ink">See exactly why competitors get the call</h1>
-              <p className="lead mt-6">Run an instant scan of where you rank on Google Maps across your service area, then we<p className="lead mt-6">We&apos;ll build a custom report on your Google presence and walk you through it on a short call, owner to owner. You keep the report whether you work with us or not.</p>apos;ll walk you through the full report on a short call, owner to owner. You keep the report whether you work with us or not.</p>
+              <p className="lead mt-6">Run an instant scan of where you rank on Google Maps across your service area, then we&apos;ll walk you through the full report on a short call, owner to owner. You keep the report whether you work with us or not.</p>
               <h2 className="mt-8 text-xl font-bold text-ink">What&apos;s in the report</h2>
               <ul className="mt-4 space-y-3">
                 {checks.map((c) => (

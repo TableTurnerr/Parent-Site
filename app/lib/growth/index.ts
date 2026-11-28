@@ -20,6 +20,7 @@ import { guides9 } from "./guides9.mjs";
 import { guides16 } from "./guides16.mjs";
 import { guides17 } from "./guides17.mjs";
 import { guides18 } from "./guides18.mjs";
+import { guides19 } from "./guides19.mjs";
 import { guides14 } from "./guides14.mjs";
 import { guides15 } from "./guides15.mjs";
 import { guides12 } from "./guides12.mjs";
@@ -99,7 +100,7 @@ export const serviceTopics = serviceTopicsRaw as Record<string, string>;
 
 export const trades: Trade[] = withPrices(toGuides([...trades1, ...trades2])) as Trade[];
 export const services: Service[] = withPrices(toGuides([...servicesRaw, ...services2, ...services3])) as Service[];
-export const guides: Guide[] = (withPrices(toGuides([...guides17, ...guides18, ...guides12, ...guides13, ...guides15, ...guides14, ...guides16, ...guides9, ...guides10, ...guides8, ...guides11, ...guides7, ...guides6, ...guides4, ...guides5, ...guides1, ...guides2, ...guides3])) as Omit<Guide, "topics">[]).map((g: Omit<Guide, "topics">) => ({
+export const guides: Guide[] = (withPrices(toGuides([...guides19, ...guides17, ...guides18, ...guides12, ...guides13, ...guides15, ...guides14, ...guides16, ...guides9, ...guides10, ...guides8, ...guides11, ...guides7, ...guides6, ...guides4, ...guides5, ...guides1, ...guides2, ...guides3])) as Omit<Guide, "topics">[]).map((g: Omit<Guide, "topics">) => ({
   ...g,
   topics: (guideTopics as Record<string, string[]>)[g.slug] ?? ["trades"],
 })) as Guide[];

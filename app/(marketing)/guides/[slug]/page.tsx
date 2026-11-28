@@ -1,4 +1,5 @@
 import { BookCallBand } from "@/app/components/growth/ContactCtas";
+import { softLower } from "@/app/lib/text";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -76,7 +77,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             )}
             <Html html={html} />
             <p className="mt-10 text-sm text-muted">
-              Part of our guides on <Link href={`/guides#${slugify(primary.name)}`} className="font-semibold text-primary">{primary.name.toLowerCase()}</Link>. Want it done for you? See <Link href={primary.pillar} className="font-semibold text-primary">{pillarLabel}</Link>.
+              Part of our guides on <Link href={`/guides#${slugify(primary.name)}`} className="font-semibold text-primary">{softLower(primary.name)}</Link>. Want it done for you? See <Link href={primary.pillar} className="font-semibold text-primary">{pillarLabel}</Link>.
             </p>
           </div>
         </section>

@@ -53,7 +53,7 @@ export default function IntegrationPage({ integration }: { integration: Integrat
                 <Link href="/free-google-maps-audit" className="btn btn-primary">
                   Get your free audit <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href="/contact" className="btn btn-ghost">Book a demo</Link>
+                <Link href="/contact" className="btn btn-ghost">Book a 15-minute call</Link>
               </div>
               <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-soft">
                 {["Set up for you", "No code required", "No contracts"].map((t) => (

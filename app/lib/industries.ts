@@ -1,4 +1,5 @@
 import type { ProductFeature } from "./features";
+import { softLower } from "@/app/lib/text";
 import { PRICE_TEXT } from "./pricing";
 
 export interface Industry {
@@ -39,7 +40,7 @@ function makeIndustry(input: Omit<Industry, "seoTitle" | "metaDescription" | "ou
   return {
     ...input,
     seoTitle: `${input.name} Review Management Software`,
-    metaDescription: `Review management software for ${input.name.toLowerCase()} businesses: ask for a Google review after every job, follow up and get found by more local customers.`,
+    metaDescription: `Review management software for ${softLower(input.name)} businesses: ask for a Google review after every job, follow up and get found by more local customers.`,
     outcomes: [
       "Review requests after completed jobs",
       "Google, Facebook, Yelp and Angi review coverage",

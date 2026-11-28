@@ -114,7 +114,7 @@ export const guides12 = [
       ["Why do agencies charge so much more than freelancers?", "Agencies usually include planning, copywriting, custom design and project management. Clutch reports US agencies commonly charge $100 to $149 an hour. Whether it's worth it depends on what the site has to do."],
       ["What are the hidden costs of a website?", "Domain renewals, email at your domain, paid apps and plugins, edits after launch and renewal prices that are higher than the intro rate. A basic SSL certificate should be free."],
       ["Should I pay monthly or one time for a website?", "One time is cheaper if you'll maintain it yourself and don't need it to bring new customers. Monthly makes sense when someone else keeps it updated and adds pages that help you rank."],
-      ["Do I own my website if I pay monthly?", "Ask before you sign. At minimum you should own your domain. Ask us what happens to the site and domain if you leave, and we'll put it in writing before we build."],
+      ["Do I own my website if I pay monthly?", "It depends on the company, so ask before you sign. At minimum you should own your domain. With us: if you cancel, you can buy your website for a one-time fee. Our CRM, backend and automations stay with us."],
     ],
   },
 

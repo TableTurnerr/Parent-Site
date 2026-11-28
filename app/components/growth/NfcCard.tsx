@@ -2,17 +2,21 @@
 // The custom NFC Google review cards we gift to Complete clients, shown as a real card: it floats, catches the light,
 // flips to the "tap or scan" side and moves on to the next client's card. Click or press to flip by hand.
 // Real cards from real clients. The owner's metal card back (personal phone and email) is deliberately left out.
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 /* eslint-disable @next/next/no-img-element */
 
-const CARDS = [
-  { name: "Presidential Roofing", front: "/images/nfc/presidential-front.webp", back: "/images/nfc/presidential-back.webp" },
-  { name: "Cooling Comfort HVAC", front: "/images/nfc/cooling-comfort-front.webp", back: "/images/nfc/cooling-comfort-back.webp" },
-  { name: "Nalu Window Cleaning", front: "/images/nfc/nalu-front.webp", back: "/images/nfc/nalu-back.webp" },
-  { name: "Premium Holiday Lights", front: "/images/nfc/holiday-lights-front.webp", back: "/images/nfc/holiday-lights-back.webp" },
-];
+const ALL_CARDS = [
+  { id: "presidential", name: "Presidential Roofing", front: "/images/nfc/presidential-front.webp", back: "/images/nfc/presidential-back.webp" },
+  { id: "cooling-comfort", name: "Cooling Comfort HVAC", front: "/images/nfc/cooling-comfort-front.webp", back: "/images/nfc/cooling-comfort-back.webp" },
+  { id: "nalu", name: "Nalu Window Cleaning", front: "/images/nfc/nalu-front.webp", back: "/images/nfc/nalu-back.webp" },
+  { id: "holiday-lights", name: "Premium Holiday Lights", front: "/images/nfc/holiday-lights-front.webp", back: "/images/nfc/holiday-lights-back.webp" },
+] as const;
 
-export default function NfcCard({ dim = false }: { dim?: boolean }) {
+export type NfcCardId = (typeof ALL_CARDS)[number]["id"];
+
+/** `card` pins one client's card (it just flips front and back), so each page can show a different card image. */
+export default function NfcCard({ dim = false, card }: { dim?: boolean; card?: NfcCardId }) {
+  const CARDS = useMemo(() => (card ? ALL_CARDS.filter((c) => c.id === card) : ALL_CARDS), [card]);
   const [i, setI] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -26,12 +30,12 @@ export default function NfcCard({ dim = false }: { dim?: boolean }) {
       } else setFlipped(true);
     }, flipped ? 2200 : 2600);
     return () => window.clearTimeout(t);
-  }, [flipped, paused, i]);
+  }, [flipped, paused, i, CARDS.length]);
 
   // Fetch the next card while this one shows its back, so the swap never flashes.
   useEffect(() => {
-    if (flipped) new window.Image().src = CARDS[(i + 1) % CARDS.length].front;
-  }, [flipped, i]);
+    if (flipped && CARDS.length > 1) new window.Image().src = CARDS[(i + 1) % CARDS.length].front;
+  }, [flipped, i, CARDS]);
 
   const c = CARDS[i];
   const face = "absolute inset-0 overflow-hidden rounded-[0.9rem] shadow-[0_18px_40px_-18px_rgba(0,0,0,0.65)] [backface-visibility:hidden]";

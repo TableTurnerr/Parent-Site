@@ -3,7 +3,7 @@ import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
-  MessageSquareText, Repeat2, Trophy, BarChart3, Bot, Globe2,
+  MessageSquareText, Repeat2, BarChart3, Bot, Globe2,
   Wrench, Home, Droplets, Zap, Check, ArrowRight, Plug,
   BadgeCheck, EyeOff,
 } from "lucide-react";
@@ -18,6 +18,7 @@ import ProductBento from "@/app/components/site/ProductBento";
 import { CustomPricingBar, PlanCards, PricingNote } from "@/app/components/growth/PricingTiers";
 import { HomeDoneForYou } from "@/app/components/growth/HomeSections";
 import AiAnsweringDemo from "@/app/components/growth/AiAnsweringDemo";
+import HowItWorksFlow, { type FlowStep } from "@/app/components/growth/HowItWorksFlow";
 import { growthSite } from "@/app/lib/growth";
 
 export const metadata: Metadata = {
@@ -148,7 +149,6 @@ function Problem() {
 const FEATURES = [
   { icon: Repeat2, t: "Review Reactivation", b: "Launch with a polite blast to your entire past-customer list. Most shops get a wave of fresh reviews in the first week." },
   { icon: Globe2, t: "Every platform, not just Google", b: "Route happy customers to Google, Facebook, Yelp and Angi, the places home-services buyers actually check." },
-  { icon: Trophy, t: "Technician leaderboards", b: "Attribute reviews to the tech who did the job. Turn reviews into a friendly competition your crew actually enjoys." },
   { icon: BarChart3, t: "Map-pack rank tracking", b: "See your local-pack rank move week over week, not just a review count. Tie reviews to the jobs they win." },
   { icon: Bot, t: "AI requests & replies", b: "Personalized, name-on-the-photo requests by text and email, plus AI that replies to every review for you." },
   { icon: MessageSquareText, t: "Widgets & auto social posts", b: "Show your best reviews on your site and turn every 5-star into a branded Facebook and Instagram post automatically." },
@@ -158,10 +158,10 @@ function Features() {
 }
 
 /* ── How it works ───────────────────────────────────────── */
-const STEPS = [
-  { n: "01", t: "Free Google Maps audit", b: "We map where you rank across your service area, compare you with your top competitors and show you what's missing." },
-  { n: "02", t: "A plan built for your business", b: "You might not need a new website, or SEO, or reviews. We only quote what will move the needle, and set it all up for you." },
-  { n: "03", t: "We run it every month", b: "Content, reviews, campaigns and follow-ups keep running. You get a plain-English report on rankings, reviews and calls." },
+const STEPS: [FlowStep, FlowStep, FlowStep] = [
+  { t: "Free Google Maps audit", b: "We map where you rank across your service area, compare you with your top competitors and show you what's missing." },
+  { t: "We fix and set up", b: "You might not need a new website, or SEO, or reviews. We only quote what will move the needle, and set it all up for you." },
+  { t: "We run it every month", b: "Content, reviews, campaigns and follow-ups keep running. You get a plain-English report on rankings, reviews and calls." },
 ];
 function How() {
   return (
@@ -171,18 +171,12 @@ function How() {
           <span className="eyebrow border-white/15 bg-white/5 text-white">How working with us works</span>
           <h2 className="display-2 mt-5 text-white">Audit first. Then we do the work, every month.</h2>
         </div>
-        <Reveal className="mt-12 grid gap-5 md:grid-cols-3">
-          {STEPS.map((s) => (
-            <div key={s.n} className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
-              <p className="font-display text-sm font-bold text-white/70">{s.n}</p>
-              <h3 className="mt-4 text-xl font-bold text-white">{s.t}</h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-white/65">{s.b}</p>
-            </div>
-          ))}
+        <Reveal className="mt-12">
+          <HowItWorksFlow steps={STEPS} tone="dark" />
         </Reveal>
         <div id="integrations" className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-white/55">
           <span className="inline-flex items-center gap-2 font-medium text-white/80"><Plug className="h-4 w-4 text-primary" /> Connects with</span>
-          {["Jobber", "Housecall Pro", "ServiceTitan", "Workiz", "QuickBooks", "Zapier"].map((i) => (
+          {["Jobber (official integration)", "Housecall Pro (on its integrations plan)", "ServiceTitan, Workiz, QuickBooks and more through Zapier or Make", "No software? We import your customer list"].map((i) => (
             <span key={i}>{i}</span>
           ))}
         </div>
@@ -343,7 +337,7 @@ const FAQS = [
   { q: "Does it work with my software?", a: "Yes. Jobber has an official integration, Housecall Pro connects on its plan that allows integrations, and any other software (ServiceTitan, Workiz, QuickBooks and more) connects through Zapier or Make. No software? We import your customer list." },
   { q: "How much does it cost?", a: "Five packages, each with everything in the one before it: Reviews $97, Starter $297, Growth $597 (adds 24/7 AI answering, 150 min), Complete $797 and Partner $1,797 a month. Need something different? Call us for custom pricing. No contracts, and 2 months free if you pay yearly. Book a call or call us for an exact price." },
   { q: "Do I need a contract?", a: "No. Move up or down whenever you need: drop a plan in the slow season and step back up when it gets busy. No penalties." },
-  { q: "Can my techs get credit for their reviews?", a: "Yes. Technician leaderboards attribute each review to the person who did the job, which is a great way to motivate your crew." },
+  { q: "Can my techs ask for reviews in person?", a: "Yes. Every package includes custom NFC review cards: a tech taps the card on the customer's phone and your Google review page opens, so the ask can happen before they leave the job." },
 ];
 function FAQ() {
   return (

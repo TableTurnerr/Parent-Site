@@ -6,7 +6,7 @@ import CrossLinks from "@/app/components/site/CrossLinks";
 import { generateFAQSchema, generateBreadcrumbSchema, generateServiceSchema } from "@/app/lib/schema";
 import { DoneForYouBand } from "@/app/components/growth/Growth";
 import { ALL_ALTERNATIVES, type Alternative, type Cell } from "@/app/lib/alternatives";
-import { OTHER_OPTIONS } from "@/app/lib/alternatives-others";
+import { AGENCY_OPTIONS, OTHER_OPTIONS } from "@/app/lib/alternatives-others";
 
 function CompareCell({ v }: { v: Cell }) {
   if (v === true) return <Check className="mx-auto h-5 w-5 text-success" />;
@@ -18,12 +18,15 @@ function CompareCell({ v }: { v: Cell }) {
 
 export default function AlternativePage({ alt }: { alt: Alternative }) {
   const base = "https://www.tableturnerr.com";
+  // Marketing-company pages (Scorpion, Hibu, Thryv) compare agencies, not review tools.
+  const agency = alt.kind === "marketing-agency";
+  const others = (agency ? AGENCY_OPTIONS : OTHER_OPTIONS).filter((o) => o.name.toLowerCase() !== alt.competitor.toLowerCase());
   return (
     <>
       <JsonLd
         data={[
           generateServiceSchema({
-            name: "Review automation for home services",
+            name: agency ? "Done-for-you marketing for home-service businesses" : "Review automation for home services",
             description: alt.intro,
             url: `${base}/alternatives/${alt.slug}`,
           }),
@@ -56,10 +59,10 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
               <Link href="/free-google-maps-audit" className="btn btn-primary">
                 Get your free audit <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/contact" className="btn btn-ghost">Book a demo</Link>
+              <Link href="/contact" className="btn btn-ghost">Book a 15-minute call</Link>
             </div>
             <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-soft">
-              {["Live the same day", "No contracts", "Done-for-you option"].map((t) => (
+              {(agency ? ["Month to month", "No contracts", "Done for you"] : ["Live the same day", "No contracts", "Done-for-you option"]).map((t) => (
                 <li key={t} className="inline-flex items-center gap-2">
                   <Check className="h-4 w-4 text-success" /> {t}
                 </li>
@@ -96,15 +99,15 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
               TableTurnerr vs {alt.competitor}
             </h2>
             <p className="lead mt-4">
-              How the two stack up for a home-service shop that wants more reviews.
+              {agency ? "How the two stack up for a home-service shop that wants more calls and customers." : "How the two stack up for a home-service shop that wants more reviews."}
             </p>
           </div>
 
           <div className="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border border-line bg-white">
             <div className="grid grid-cols-[1fr_auto_auto] items-center gap-x-3 border-b border-line bg-surface/60 px-4 py-4 text-sm font-semibold text-ink sm:gap-x-8 sm:px-7">
               <span>Feature</span>
-              <span className="w-20 text-center text-primary sm:w-28">TableTurnerr</span>
-              <span className="w-20 text-center text-muted sm:w-28">{alt.competitor}</span>
+              <span className="w-20 break-words text-center text-xs text-primary sm:w-28 sm:text-sm">TableTurnerr</span>
+              <span className="w-20 break-words text-center text-xs text-muted sm:w-28 sm:text-sm">{alt.competitor}</span>
             </div>
             {alt.compare.map((row, i) => (
               <div
@@ -155,22 +158,44 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
             <span className="eyebrow">More options</span>
             <h2 className="display-2 mt-5 text-ink">Other {alt.competitor} alternatives</h2>
             <p className="lead mt-4">
-              We&apos;re not the right fit for everyone. These are the other tools home-service owners compare, with what each is best for.
+              We&apos;re not the right fit for everyone. These are the other {agency ? "companies and options" : "tools"} home-service owners compare, with what each is best for.
               Prices are as published on each vendor&apos;s own site when we checked; confirm before you buy.
             </p>
           </div>
-          <div className="mx-auto mt-10 max-w-5xl overflow-x-auto rounded-2xl border border-line bg-white">
+          {/* Phones: one card per tool, so the pricing never sits off-screen. Tablets and up: the table. */}
+          <ul className="mx-auto mt-10 grid max-w-5xl gap-4 md:hidden">
+            {others.map((o) => (
+              <li key={o.name} className="rounded-2xl border border-line bg-white p-5">
+                <a href={o.url} rel="noopener nofollow" target="_blank" className="text-lg font-bold text-ink hover:text-primary">{o.name}</a>
+                <dl className="mt-3 grid gap-3 text-sm">
+                  <div>
+                    <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">Best for</dt>
+                    <dd className="mt-1 text-ink-soft">{o.bestFor}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">What it does</dt>
+                    <dd className="mt-1 text-ink-soft">{o.note}</dd>
+                  </div>
+                  <div className="rounded-xl bg-surface px-3 py-2.5">
+                    <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">Pricing</dt>
+                    <dd className="mt-1 font-medium text-ink">{o.pricing}</dd>
+                  </div>
+                </dl>
+              </li>
+            ))}
+          </ul>
+          <div className="mx-auto mt-10 hidden max-w-5xl overflow-x-auto rounded-2xl border border-line bg-white md:block">
             <table className="w-full min-w-[640px] text-left text-sm">
               <thead className="bg-surface text-ink">
                 <tr>
-                  <th scope="col" className="p-4 font-semibold">Tool</th>
+                  <th scope="col" className="p-4 font-semibold">{agency ? "Option" : "Tool"}</th>
                   <th scope="col" className="p-4 font-semibold">Best for</th>
                   <th scope="col" className="p-4 font-semibold">What it does</th>
                   <th scope="col" className="p-4 font-semibold">Pricing</th>
                 </tr>
               </thead>
               <tbody>
-                {OTHER_OPTIONS.filter((o) => o.name.toLowerCase() !== alt.competitor.toLowerCase()).map((o) => (
+                {others.map((o) => (
                   <tr key={o.name} className="border-t border-line align-top">
                     <th scope="row" className="p-4 font-semibold text-ink">
                       <a href={o.url} rel="noopener nofollow" target="_blank" className="hover:text-primary">{o.name}</a>
@@ -184,10 +209,41 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
             </table>
           </div>
           <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-ink-soft">
-            Want the full side-by-side? Read <Link href="/guides/best-review-management-software-for-contractors" className="font-semibold text-primary">the best review management software for contractors</Link>.
+            {agency ? (
+              <>Want the full side-by-side? Read <Link href="/guides/home-service-marketing-companies-compared" className="font-semibold text-primary">home service marketing companies: prices and contracts</Link>, and <Link href="/guides/how-to-leave-your-marketing-agency" className="font-semibold text-primary">how to leave your agency and keep your stuff</Link>.</>
+            ) : (
+              <>Want the full side-by-side? Read <Link href="/guides/best-review-management-software-for-contractors" className="font-semibold text-primary">the best review management software for contractors</Link>.</>
+            )}
           </p>
         </div>
       </section>
+
+      {(alt.sources?.length || alt.related?.length) ? (
+        <section className="section pt-0">
+          <div className="container-tt mx-auto max-w-3xl text-sm text-ink-soft">
+            {alt.related?.length ? (
+              <>
+                <h2 className="text-base font-bold text-ink">Related reading</h2>
+                <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+                  {alt.related.map((r) => (
+                    <li key={r.href}><Link href={r.href} className="font-semibold text-primary hover:underline">{r.label}</Link></li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+            {alt.sources?.length ? (
+              <>
+                <h2 className="mt-8 text-base font-bold text-ink">Sources</h2>
+                <ul className="mt-3 space-y-1.5">
+                  {alt.sources.map((src) => (
+                    <li key={src.url}><a href={src.url} rel="noopener nofollow" target="_blank" className="underline decoration-line underline-offset-2 hover:text-primary">{src.label}</a>, checked {src.checked}</li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+          </div>
+        </section>
+      ) : null}
 
       {/* FAQ */}
       <section className="section">
@@ -209,7 +265,7 @@ export default function AlternativePage({ alt }: { alt: Alternative }) {
 
       {/* Cross-links */}
       <CrossLinks
-        title="Compare other tools"
+        title={agency ? "Compare other options" : "Compare other tools"}
         links={[
           ...ALL_ALTERNATIVES.filter((a) => a.slug !== alt.slug).map((a) => ({
             href: `/alternatives/${a.slug}`,

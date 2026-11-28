@@ -4,6 +4,7 @@
  * Industries without sections render exactly as before. FAQ accordion and FAQPage JSON-LD both use industry.faqs.
  */
 import Image from "next/image";
+import { softLower } from "@/app/lib/text";
 import Link from "next/link";
 import { ArrowRight, Check, Star } from "lucide-react";
 import Accordion from "@/app/components/site/Accordion";
@@ -30,7 +31,7 @@ function IndustryActivityCard({ industry }: { industry: Industry }) {
     <div className="overflow-hidden rounded-[1.5rem] border border-line bg-white p-5 shadow-[0_30px_70px_-35px_rgba(10,19,38,0.45)] sm:p-7">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm font-bold text-ink">Completed {industry.name.toLowerCase()} job</p>
+          <p className="text-sm font-bold text-ink">Completed {softLower(industry.name)} job</p>
           <p className="mt-1 text-xs text-muted">Customer follow-up ready</p>
         </div>
         <span className="rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold text-primary">Automated</span>
@@ -176,18 +177,18 @@ export default function IndustryPage({ industry }: { industry: Industry }) {
 
       <section className="section bg-surface">
         <div className="container-tt">
-          <div className="mx-auto max-w-2xl text-center"><span className="eyebrow">Why it matters</span><h2 className="display-2 mt-5 text-ink">A better review habit for every {industry.name.toLowerCase()} job</h2></div>
+          <div className="mx-auto max-w-2xl text-center"><span className="eyebrow">Why it matters</span><h2 className="display-2 mt-5 text-ink">A better review habit for every {softLower(industry.name)} job</h2></div>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {industry.pains.map((pain) => <div key={pain.t} className="card p-7"><h3 className="text-lg font-bold text-ink">{pain.t}</h3><p className="mt-2.5 text-sm leading-relaxed text-ink-soft">{pain.b}</p></div>)}
           </div>
         </div>
       </section>
 
-      {industry.sections?.length ? <IndustryGuide industry={industry} comboPath={reviewCombo?.path} tradeLabel={doneTrade?.plural ?? doneTrade?.name.toLowerCase()} /> : null}
+      {industry.sections?.length ? <IndustryGuide industry={industry} comboPath={reviewCombo?.path} tradeLabel={doneTrade?.plural ?? (doneTrade ? softLower(doneTrade.name) : undefined)} /> : null}
 
       <section className="section">
         <div className="container-tt">
-          <div className="max-w-2xl"><span className="eyebrow">Relevant features</span><h2 className="display-2 mt-5 text-ink">Tools selected for how {industry.name.toLowerCase()} teams work</h2><p className="lead mt-4">Every capability below has its own page, so you can see exactly how it fits your workflow.</p></div>
+          <div className="max-w-2xl"><span className="eyebrow">Relevant features</span><h2 className="display-2 mt-5 text-ink">Tools selected for how {softLower(industry.name)} teams work</h2><p className="lead mt-4">Every capability below has its own page, so you can see exactly how it fits your workflow.</p></div>
           <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature) => { const Icon = feature.icon; return (
               <Link key={feature.slug} href={`/features/${feature.slug}`} className="card card-hover group flex h-full flex-col p-6">
@@ -212,7 +213,7 @@ export default function IndustryPage({ industry }: { industry: Industry }) {
       </section>
 
       <section className="section bg-surface">
-        <div className="container-tt grid gap-12 lg:grid-cols-12"><div className="lg:col-span-4"><span className="eyebrow">FAQ</span><h2 className="display-2 mt-5 text-ink">{industry.name} questions</h2><p className="lead mt-4">Want to talk through your setup? <Link href="/contact" className="font-semibold text-primary">Book a demo</Link>.</p></div><div className="lg:col-span-8"><Accordion items={industry.faqs} /></div></div>
+        <div className="container-tt grid gap-12 lg:grid-cols-12"><div className="lg:col-span-4"><span className="eyebrow">FAQ</span><h2 className="display-2 mt-5 text-ink">{industry.name} questions</h2><p className="lead mt-4">Want to talk through your setup? <Link href="/contact" className="font-semibold text-primary">Book a 15-minute call</Link>.</p></div><div className="lg:col-span-8"><Accordion items={industry.faqs} /></div></div>
       </section>
 
       <CrossLinks
@@ -227,9 +228,9 @@ export default function IndustryPage({ industry }: { industry: Industry }) {
 
       <DoneForYouBand
         tradePath={doneTrade?.path ?? "/marketing"}
-        label={doneTrade ? `Done-for-you ${doneTrade.name.toLowerCase()} marketing plan` : "Marketing plans by trade"}
+        label={doneTrade ? `Done-for-you ${softLower(doneTrade.name)} marketing plan` : "Marketing plans by trade"}
       />
-      <section className="section"><div className="container-tt"><div className="relative overflow-hidden rounded-[1.75rem] bg-night px-7 py-14 text-center md:px-16 md:py-20"><div aria-hidden className="hero-grid pointer-events-none absolute inset-0 opacity-60" /><div className="relative mx-auto max-w-2xl"><div className="stars mb-5 text-2xl" aria-hidden>★★★★★</div><h2 className="display-2 text-white">Give every completed {industry.name.toLowerCase()} job a chance to build trust</h2><p className="lead mt-4 text-white/70">We connect your workflow, run your review automation and keep the proof moving. Start with a free audit.</p><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/free-google-maps-audit" className="btn btn-light">Get your free audit <ArrowRight className="h-4 w-4" /></Link><a href="https://portalapi.tableturnerr.com/widget/bookings/tableturnerr" className="btn btn-outline-light">Book a 15-minute call</a></div></div></div></div></section>
+      <section className="section"><div className="container-tt"><div className="relative overflow-hidden rounded-[1.75rem] bg-night px-7 py-14 text-center md:px-16 md:py-20"><div aria-hidden className="hero-grid pointer-events-none absolute inset-0 opacity-60" /><div className="relative mx-auto max-w-2xl"><div className="stars mb-5 text-2xl" aria-hidden>★★★★★</div><h2 className="display-2 text-white">Give every completed {softLower(industry.name)} job a chance to build trust</h2><p className="lead mt-4 text-white/70">We connect your workflow, run your review automation and keep the proof moving. Start with a free audit.</p><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/free-google-maps-audit" className="btn btn-light">Get your free audit <ArrowRight className="h-4 w-4" /></Link><a href="https://portalapi.tableturnerr.com/widget/bookings/tableturnerr" className="btn btn-outline-light">Book a 15-minute call</a></div></div></div></div></section>
     </>
   );
 }
