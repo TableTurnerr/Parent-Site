@@ -3,7 +3,7 @@ import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
-  MessageSquareText, Repeat2, BarChart3, Bot, Globe2,
+  MessageSquareText, Repeat2, Bot,
   Wrench, Home, Droplets, Zap, Check, ArrowRight, Plug,
   BadgeCheck, EyeOff,
 } from "lucide-react";
@@ -148,8 +148,6 @@ function Problem() {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const FEATURES = [
   { icon: Repeat2, t: "Review Reactivation", b: "Launch with a polite blast to your entire past-customer list. Most shops get a wave of fresh reviews in the first week." },
-  { icon: Globe2, t: "Every platform, not just Google", b: "Route happy customers to Google, Facebook, Yelp and Angi, the places home-services buyers actually check." },
-  { icon: BarChart3, t: "Map-pack rank tracking", b: "See your local-pack rank move week over week, not just a review count. Tie reviews to the jobs they win." },
   { icon: Bot, t: "AI requests & replies", b: "Personalized, name-on-the-photo requests by text and email, plus AI that replies to every review for you." },
   { icon: MessageSquareText, t: "Widgets & auto social posts", b: "Show your best reviews on your site and turn every 5-star into a branded Facebook and Instagram post automatically." },
 ];
@@ -333,7 +331,7 @@ const FAQS = [
   { q: "Is TableTurnerr software or a marketing agency?", a: "A marketing agency first. We're a done-for-you team for home-service businesses, and we built our own software to do the work: websites and SEO, Google Business Profile, reviews, CRM and automations, seasonal campaigns and missed-call text-back. The software is included, so there's nothing extra to buy." },
   { q: "What does the free Google Maps audit include?", a: "A ranking heatmap across your service area, your top 5 competitors' ratings and review counts next to yours, whether AI assistants like ChatGPT recommend you, a homepage check, and what to fix first. We walk you through it on a short call and you keep the report." },
   { q: "How fast will I see new reviews?", a: "Usually as soon as the past-customer campaign goes out. For example, Presidential Roofing in Utah went from 27 to 43 Google reviews in 20 days, and new jobs keep the reviews coming after that." },
-  { q: "Which platforms do you collect reviews on?", a: "Google, Facebook, Yelp and Angi, the places home-services customers actually check before they call. Most tools only do Google." },
+  { q: "Which platforms do you collect reviews on?", a: "Google. It's where most people look before they call a local company, and it's what moves you up the map pack, so every request we send goes to your Google review page. We don't run review requests for Facebook, Yelp or Angi." },
   { q: "Does it work with my software?", a: "Yes. Jobber has an official integration, Housecall Pro connects on its plan that allows integrations, and any other software (ServiceTitan, Workiz, QuickBooks and more) connects through Zapier or Make. No software? We import your customer list." },
   { q: "How much does it cost?", a: "Five packages, each with everything in the one before it: Reviews $97, Starter $297, Growth $597 (adds 24/7 AI answering, 150 min), Complete $797 and Partner $1,797 a month. Need something different? Call us for custom pricing. No contracts, and 2 months free if you pay yearly. Book a call or call us for an exact price." },
   { q: "Do I need a contract?", a: "No. Move up or down whenever you need: drop a plan in the slow season and step back up when it gets busy. No penalties." },
@@ -396,9 +394,6 @@ const TRUST: { name: string; logo: string; href?: string }[] = [
   { name: "QuickBooks", logo: "quickbooks", href: "/integrations/quickbooks" },
   { name: "Zapier", logo: "zapier" },
   { name: "Google", logo: "google" },
-  { name: "Facebook", logo: "facebook" },
-  { name: "Yelp", logo: "yelp" },
-  { name: "Angi", logo: "angi" },
 ];
 function TrustChip({ t, hidden = false }: { t: (typeof TRUST)[number]; hidden?: boolean }) {
   const inner = (
@@ -482,7 +477,7 @@ export default function HomePage() {
           generateServiceSchema({
             name: "Review Automation for Home Services",
             description:
-              "Turn every finished job into 5-star reviews across Google, Facebook, Yelp and Angi. Built for HVAC, roofing, plumbing and electrical pros.",
+              "Ask every customer for a Google review after every finished job, with follow-ups, replies and NFC review cards. Built for HVAC, roofing, plumbing and electrical pros.",
             url: "https://www.tableturnerr.com/features",
           }),
           generateFAQSchema(FAQS.map((f) => ({ question: f.q, answer: f.a }))),

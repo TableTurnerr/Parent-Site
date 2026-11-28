@@ -3,9 +3,7 @@ import {
   CalendarClock,
   CircleHelp,
   ClipboardList,
-  Globe2,
   LayoutPanelTop,
-  MapPin,
   ReceiptText,
   Repeat2,
   Users,
@@ -60,42 +58,6 @@ export const FEATURES: Record<string, ProductFeature> = {
       "Keep your local presence current",
     ],
     icon: CircleHelp,
-  },
-  "multi-platform-reviews": {
-    slug: "multi-platform-reviews",
-    title: "Reviews across every platform",
-    seoTitle: "Multi-Platform Review Management for Home Services",
-    metaDescription:
-      "Manage review requests across Google, Facebook, Yelp and Angi from one home-service review automation workflow.",
-    description:
-      "Route customers to the places homeowners actually check before they call.",
-    detail:
-      "One completed job can power your whole reputation—not just a single review profile. Keep every important local platform in the mix.",
-    benefits: [
-      "Google, Facebook, Yelp and Angi",
-      "One simple review flow",
-      "Automatic platform routing",
-      "Consistent local presence",
-    ],
-    icon: Globe2,
-  },
-  "map-pack-rank-tracking": {
-    slug: "map-pack-rank-tracking",
-    title: "Map-pack rank tracking",
-    seoTitle: "Map Pack Rank Tracking for Home-Service Businesses",
-    metaDescription:
-      "Track how your home-service business appears in local map results and follow weekly visibility movement alongside review activity.",
-    description:
-      "See local visibility move week over week, not just review totals.",
-    detail:
-      "Connect your review activity to what matters on the ground: where your company appears when nearby homeowners are ready to book.",
-    benefits: [
-      "Track local position",
-      "See weekly movement",
-      "Monitor visibility",
-      "Connect reviews to calls",
-    ],
-    icon: MapPin,
   },
   "ai-review-requests-and-replies": {
     slug: "ai-review-requests-and-replies",

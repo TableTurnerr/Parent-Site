@@ -22,7 +22,7 @@ export const CAPABILITIES: CapabilityGroup[] = [
       ["Review replies", "Replies written for you, good and bad", "A calm answer to a late-arrival complaint", "You can approve them first", "/tools/review-response-templates"],
       ["Review cards and QR codes", "A tap or scan opens your Google review page", "On the invoice, the truck or a card", "Ask everyone the same way", "/guides/google-review-qr-code-and-nfc-cards"],
       ["Reviews on your website", "New reviews shown on your pages and shared", "Newest five on your home page", "", "/features/review-widgets-and-social-posts"],
-      ["Review monitoring", "New reviews from many sites in one place", "Google, Facebook, Yelp, Angi and more", "Replying from one place isn't possible on every site", "/features/multi-platform-reviews"],
+      ["Review monitoring", "Every new Google review seen and answered", "A reply drafted the day a review lands", "We cover Google reviews only, not Facebook, Yelp or Angi", "/features/ai-review-requests-and-replies"],
     ],
   },
   {

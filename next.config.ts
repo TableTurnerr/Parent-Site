@@ -46,7 +46,13 @@ const nextConfig: NextConfig = {
       // with /marketing/<trade>. Industry slugs that differ from trade slugs are mapped first; industries with no
       // trade plan fall back to their software page.
       { source: "/trades", destination: "/marketing", permanent: true },
-      { source: "/trades/electrical", destination: "/marketing/electricians", permanent: true },
+      // Search Console (Oct-Nov 2026): /trades/hvac, /trades/plumbing etc. still collect "hvac review software",
+      // "plumber review management" searches. Those match the review-software pages, not the agency trade plans,
+      // so send them there (each links on to its /marketing trade plan).
+      { source: "/trades/:slug(hvac|plumbing|roofing|electrical)", destination: "/industries/:slug", permanent: true },
+      // Removed feature pages (we don't offer map-pack rank tracking or Facebook/Yelp/Angi review requests).
+      { source: "/features/map-pack-rank-tracking", destination: "/free-google-maps-audit", permanent: true },
+      { source: "/features/multi-platform-reviews", destination: "/services/review-generation", permanent: true },
       { source: "/trades/lawn-care", destination: "/marketing/landscaping", permanent: true },
       { source: "/trades/cleaning", destination: "/marketing/cleaning-services", permanent: true },
       {

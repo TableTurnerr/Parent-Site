@@ -113,7 +113,7 @@ export const TRADES: Record<string, Trade> = {
     ],
     faqs: [
       { q: "Can I showcase reviews on my website?", a: "Yes. Drop-in review widgets display your best reviews on your site, and we can auto-post every 5-star to Facebook and Instagram." },
-      { q: "Which platforms do you collect on?", a: "Google, Facebook, Yelp and Angi, the places homeowners actually check before hiring an electrician." },
+      { q: "Which platforms do you collect on?", a: "Google, where most homeowners check before hiring an electrician and the reviews that help your Maps ranking. We don't run requests for Facebook, Yelp or Angi." },
     ],
   },
 };
