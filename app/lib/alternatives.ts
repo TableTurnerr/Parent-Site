@@ -121,7 +121,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       { f: "AI replies to every Google review", us: true, them: "partial" },
       { f: "Missed-call text-back included", us: true, them: false },
       { f: "Never routes unhappy customers to a private form", us: true, them: "partial" },
-      { f: "Connects to Jobber, Housecall Pro & ServiceTitan (others via Zapier or Make)", us: true, them: true },
+      { f: "Works with Jobber, Housecall Pro & ServiceTitan", us: "Yes (ServiceTitan via Zapier or Make)", them: true },
       { f: "Month-to-month, no contract", us: true, them: true },
     ],
     reasons: [
@@ -228,7 +228,7 @@ export const ALTERNATIVES: Record<string, Alternative> = {
       { f: "Built specifically for home-service trades", us: true, them: false },
       { f: "Done for you: we set it up and run it", us: true, them: false },
       { f: "Missed-call text-back included", us: true, them: false },
-      { f: "Connects to Jobber, Housecall Pro & ServiceTitan (others via Zapier or Make)", us: true, them: "partial" },
+      { f: "Works with Jobber, Housecall Pro & ServiceTitan", us: "Yes (ServiceTitan via Zapier or Make)", them: "partial" },
       { f: "Fixed package prices, no per-location math", us: true, them: false },
       { f: "Month-to-month, no contract", us: true, them: true },
     ],
