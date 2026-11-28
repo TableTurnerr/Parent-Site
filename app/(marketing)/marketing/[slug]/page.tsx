@@ -1,4 +1,5 @@
 import { ClientLogoStrip } from "@/app/components/growth/Proof";
+import { softLower } from "@/app/lib/text";
 import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
 import { pageTitle } from "@/app/lib/metadata";
@@ -106,7 +107,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         <div className="container-tt max-w-3xl"><Html html={deep.html} /></div>
       </section>
 
-      <BookCallBand title={`Want to talk through the plan for your ${t.name.toLowerCase()} business? Book 15 minutes`} />
+      <BookCallBand title={`Want to talk through the plan for your ${softLower(t.name)} business? Book 15 minutes`} />
       <AuditBand title={t.ctaTitle} />
       <FaqSection faq={t.faq} />
       <CallNowBand />

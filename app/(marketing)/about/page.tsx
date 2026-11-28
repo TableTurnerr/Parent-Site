@@ -1,4 +1,5 @@
 import { ClientWall } from "@/app/components/growth/Proof";
+import { softLower } from "@/app/lib/text";
 import { CallNowBand } from "@/app/components/growth/ContactCtas";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -45,7 +46,7 @@ const RULES = [
 const faq: Pair[] = [
   ["Is TableTurnerr software or an agency?", "Both, but you don't have to run anything. We're a small marketing company that does the work for you on our own software: Google profile, reviews, website, local SEO and call capture. Every package is done for you, month to month."],
   ["Who will I actually talk to?", "One of the owners. We don't hand you to a sales rep or an offshore account manager."],
-  ["Which businesses do you work with?", `US home-service businesses: ${trades.slice(0, 8).map((t) => t.name.toLowerCase()).join(", ")} and more. We have clients in ${clientStatesText}.`],
+  ["Which businesses do you work with?", `US home-service businesses: ${trades.slice(0, 8).map((t) => softLower(t.name)).join(", ")} and more. We have clients in ${clientStatesText}.`],
   ["Do you require a contract?", "No. Month to month."],
   ["How do I start?", "Request a free Google Maps audit. We build the report, walk you through it on a short call and tell you honestly whether we can help."],
 ];

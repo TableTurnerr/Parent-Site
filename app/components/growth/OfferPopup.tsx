@@ -39,7 +39,13 @@ function allowed(): boolean {
 
 /** Not now: another dialog is open, they're typing, or the tab is in the background. */
 const busy = () =>
-  document.hidden || !!document.querySelector("dialog[open]") || !!document.activeElement?.closest("input, textarea, select, iframe");
+  document.hidden ||
+  !!document.querySelector("dialog[open]") ||
+  !!document.querySelector('[data-call-widget-open="true"]') ||
+  !!document.activeElement?.closest("input, textarea, select, iframe");
+
+/** After someone dismisses the cookie banner, give them this long before another overlay appears. */
+const AFTER_CONSENT_MS = 12000;
 
 export default function OfferPopup() {
   const pathname = usePathname() ?? "/";
@@ -52,9 +58,14 @@ export default function OfferPopup() {
   useEffect(() => {
     if (hidden || !allowed()) return;
     const start = Date.now();
+    // Consent already given on an earlier visit counts as "long ago".
+    let consentAt = readConsent() ? start - AFTER_CONSENT_MS : 0;
     const t = window.setInterval(() => {
       const waited = Date.now() - start;
+      if (!consentAt && readConsent()) consentAt = Date.now();
+      const sinceConsent = consentAt ? Date.now() - consentAt : 0;
       if (waited < DELAY_MS || busy() || (!readConsent() && waited < MAX_WAIT_MS)) return;
+      if (consentAt && sinceConsent < AFTER_CONSENT_MS) return;
       window.clearInterval(t);
       if (!allowed()) return;
       store(() => sessionStorage, SHOWN_KEY, "1");

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { softLower } from "@/app/lib/text";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import JsonLd from "@/app/components/site/JsonLd";
@@ -35,7 +36,7 @@ export default function Page() {
               <Link key={t.slug} href={t.path} className="card card-hover group flex h-full flex-col p-6">
                 <span className="text-lg font-bold text-ink">{t.name}</span>
                 <span className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">{t.description}</span>
-                <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">See the {t.name.toLowerCase()} plan <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+                <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">See the {softLower(t.name)} plan <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
               </Link>
             ))}
           </div>
