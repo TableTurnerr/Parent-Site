@@ -1,4 +1,5 @@
 import { ClientLogoStrip } from "@/app/components/growth/Proof";
+import { TradeProof } from "@/app/components/growth/Growth";
 import { softLower } from "@/app/lib/text";
 import { BookCallBand, CallNowBand } from "@/app/components/growth/ContactCtas";
 import type { Metadata } from "next";
@@ -59,11 +60,13 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           ["Searches we target", `${t.searches.slice(0, 4).map((q) => `"${q}"`).join(", ")} and similar searches in your towns.`],
           ["Works with", `${FSM}, or no software at all.`],
           ["Terms", "Done for you, month to month. You talk to an owner."],
+          t.slug === "hvac" ? ["Proof", <Link key="c" href="/results/cooling-comfort" className="font-semibold text-primary">Cooling Comfort (Inglewood, CA): Google profile verified 3 days after one free call, after months stuck</Link>] : null,
           t.slug === "roofing" ? ["Proof", <Link key="r" href="/results/presidential-roofing" className="font-semibold text-primary">Presidential Roofing went from 27 to 43 Google reviews in 20 days</Link>] : null,
           ["First step", <span key="a">A <Link href={AUDIT_PATH} className="font-semibold text-primary">free Google Maps audit</Link> comparing you with the top competitors near you.</span>],
         ]}
       />
       <ClientLogoStrip />
+      <TradeProof trade={t.slug} tradeName={softLower(t.name)} />
 
       <section className="section">
         <div className="container-tt">

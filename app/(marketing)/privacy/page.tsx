@@ -205,8 +205,8 @@ export default function PrivacyPolicyPage() {
                     </strong>{" "}
                     To operate the Service, we exchange data with the platforms
                     you authorize, such as your CRM or field service software
-                    (e.g., Jobber, Housecall Pro, ServiceTitan), review platforms
-                    (e.g., Google, Facebook, Yelp, Angi), and SMS/email delivery
+                    (e.g., Jobber, Housecall Pro, ServiceTitan), Google (for
+                    Google reviews and your Google Business Profile), and SMS/email delivery
                     providers.
                   </li>
                   <li>

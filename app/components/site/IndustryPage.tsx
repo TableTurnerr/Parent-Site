@@ -12,7 +12,7 @@ import CrossLinks from "@/app/components/site/CrossLinks";
 import JsonLd from "@/app/components/site/JsonLd";
 import { getFeature, type ProductFeature } from "@/app/lib/features";
 import { INDUSTRIES, type Industry } from "@/app/lib/industries";
-import { DoneForYouBand, Html } from "@/app/components/growth/Growth";
+import { DoneForYouBand, Html, TradeProof } from "@/app/components/growth/Growth";
 import { getCombo, slugify, tradeForIndustry } from "@/app/lib/growth";
 import {
   generateBreadcrumbSchema,
@@ -183,6 +183,8 @@ export default function IndustryPage({ industry }: { industry: Industry }) {
           </div>
         </div>
       </section>
+
+      {doneTrade ? <div className="pt-16 md:pt-20"><TradeProof trade={doneTrade.slug} tradeName={softLower(doneTrade.name)} /></div> : null}
 
       {industry.sections?.length ? <IndustryGuide industry={industry} comboPath={reviewCombo?.path} tradeLabel={doneTrade?.plural ?? (doneTrade ? softLower(doneTrade.name) : undefined)} /> : null}
 
